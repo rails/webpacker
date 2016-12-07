@@ -1,6 +1,6 @@
 INSTALL_PATH = File.dirname(__FILE__)
 
-directory "#{INSTALL_PATH}/javascript", 'app/javascript'
+directory "#{INSTALL_PATH}/packs", 'app/packs'
 
 directory "#{INSTALL_PATH}/bin", 'bin'
 chmod 'bin', 0755 & ~File.umask, verbose: false
