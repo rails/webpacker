@@ -14,5 +14,12 @@ When Webpacker has been installed...
 
 FIXME: Write the rest...
 
+## Work left to do
+
+- Add Babel as a default loader
+- Consider chunking setup
+- Consider switching to Webpack 2.0
+- I'm sure a ton of other shit
+
 ## License
 Webpacker is released under the [MIT License](http://www.opensource.org/licenses/MIT).
