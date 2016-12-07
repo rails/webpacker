@@ -7,7 +7,7 @@ chmod 'bin', 0755 & ~File.umask, verbose: false
 
 directory "#{INSTALL_PATH}/config", 'config/webpack'
 
-run './bin/yarn add webpack lodash'
+run './bin/yarn add webpack lodash babel-loader babel-core babel-preset-es2015'
 
 environment \
   "# Make javascript_pack_tag lookup digest hash to enable long-term caching\n" +
