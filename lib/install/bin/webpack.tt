@@ -7,7 +7,7 @@ APP_PATH    = File.expand_path('../', __dir__)
 VENDOR_PATH = File.expand_path('../vendor', __dir__)
 
 SET_NODE_PATH  = "NODE_PATH=#{VENDOR_PATH}/node_modules"
-WEBPACK_BIN    = "./node_modules/webpack/bin/webpack.js"
+WEBPACK_BIN    = "../node_modules/webpack/bin/webpack.js"
 WEBPACK_CONFIG = "#{APP_PATH}/config/webpack/#{WEBPACK_ENV}.js"
 
 Dir.chdir(VENDOR_PATH) do
