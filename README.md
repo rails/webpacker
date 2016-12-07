@@ -19,6 +19,7 @@ FIXME: Write the rest...
 - Add Babel as a default loader
 - Consider chunking setup
 - Consider switching to Webpack 2.0
+- Consider on-demand compiling with digests when digesting=true
 - I'm sure a ton of other shit
 
 ## License
