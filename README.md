@@ -16,6 +16,7 @@ FIXME: Write the rest...
 
 ## Work left to do
 
+- Make asset pipeline digests readable from webpack, so you can reference images etc
 - Consider chunking setup
 - Consider switching to Webpack 2.0
 - Consider on-demand compiling with digests when digesting=true
