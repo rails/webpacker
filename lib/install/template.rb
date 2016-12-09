@@ -7,6 +7,12 @@ chmod 'bin', 0755 & ~File.umask, verbose: false
 
 directory "#{INSTALL_PATH}/config", 'config/webpack'
 
+append_to_file '.gitignore', <<-EOS
+
+# Ignore files compiled by webpacker.
+public/packs/*
+EOS
+
 run './bin/yarn add --dev webpack lodash babel-loader babel-core babel-preset-es2015'
 
 environment \
