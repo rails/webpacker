@@ -13,7 +13,7 @@ append_to_file '.gitignore', <<-EOS
 public/packs/*
 EOS
 
-run './bin/yarn add --dev webpack lodash babel-loader babel-core babel-preset-es2015'
+run './bin/yarn add --dev webpack webpack-merge babel-loader babel-core babel-preset-es2015'
 
 environment \
   "# Make javascript_pack_tag lookup digest hash to enable long-term caching\n" +
