@@ -19,4 +19,21 @@ namespace :webpacker do
   task :install do
     exec "./bin/rails app:template LOCATION=#{WEBPACKER_APP_TEMPLATE_PATH}"
   end
+
+  desc "add everything needed for react"
+  task :react do
+    config_path = Rails.root.join('config/webpack/shared.js')
+
+    config = File.read(config_path)
+
+    if config.include?("presets: ['es2015']")
+      puts "Replacing loader presets to include react in #{config_path}"
+      new_config = config.gsub(/presets: \['es2015'\]/, "presets: ['react', 'es2015']")
+      File.write config_path, new_config
+    else
+      puts "Couldn't automatically update loader presets in #{config_path}. Please set presets: ['react', 'es2015']."
+    end
+
+    exec './bin/yarn add babel-preset-react react react-dom'
+  end
 end
