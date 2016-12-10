@@ -1,0 +1,69 @@
+PATH
+  remote: .
+  specs:
+    webpacker (0.1)
+      activesupport (>= 3.0.0, < 5.1)
+      multi_json (~> 1.2)
+      railties (~> 5)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    actionpack (5.0.0.1)
+      actionview (= 5.0.0.1)
+      activesupport (= 5.0.0.1)
+      rack (~> 2.0)
+      rack-test (~> 0.6.3)
+      rails-dom-testing (~> 2.0)
+      rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    actionview (5.0.0.1)
+      activesupport (= 5.0.0.1)
+      builder (~> 3.1)
+      erubis (~> 2.7.0)
+      rails-dom-testing (~> 2.0)
+      rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    activesupport (5.0.0.1)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      i18n (~> 0.7)
+      minitest (~> 5.1)
+      tzinfo (~> 1.1)
+    builder (3.2.2)
+    concurrent-ruby (1.0.2)
+    erubis (2.7.0)
+    i18n (0.7.0)
+    loofah (2.0.3)
+      nokogiri (>= 1.5.9)
+    method_source (0.8.2)
+    mini_portile2 (2.1.0)
+    minitest (5.10.1)
+    multi_json (1.12.1)
+    nokogiri (1.6.8.1)
+      mini_portile2 (~> 2.1.0)
+    rack (2.0.1)
+    rack-test (0.6.3)
+      rack (>= 1.0)
+    rails-dom-testing (2.0.1)
+      activesupport (>= 4.2.0, < 6.0)
+      nokogiri (~> 1.6.0)
+    rails-html-sanitizer (1.0.3)
+      loofah (~> 2.0)
+    railties (5.0.0.1)
+      actionpack (= 5.0.0.1)
+      activesupport (= 5.0.0.1)
+      method_source
+      rake (>= 0.8.7)
+      thor (>= 0.18.1, < 2.0)
+    rake (12.0.0)
+    thor (0.19.4)
+    thread_safe (0.3.5)
+    tzinfo (1.2.2)
+      thread_safe (~> 0.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  webpacker!
+
+BUNDLED WITH
+   1.12.1
