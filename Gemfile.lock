@@ -63,6 +63,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bundler (~> 1.12)
   webpacker!
 
 BUNDLED WITH
