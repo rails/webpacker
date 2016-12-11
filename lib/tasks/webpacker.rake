@@ -23,16 +23,23 @@ namespace :webpacker do
   desc "add everything needed for react"
   task :react do
     config_path = Rails.root.join('config/webpack/shared.js')
-
     config = File.read(config_path)
 
     if config.include?("presets: ['es2015']")
       puts "Replacing loader presets to include react in #{config_path}"
-      new_config = config.gsub(/presets: \['es2015'\]/, "presets: ['react', 'es2015']")
-      File.write config_path, new_config
+      config.gsub!(/presets: \['es2015'\]/, "presets: ['react', 'es2015']")
     else
       puts "Couldn't automatically update loader presets in #{config_path}. Please set presets: ['react', 'es2015']."
     end
+
+    if config.include?("test: /\\.js$/")
+      puts "Replacing loader test to include react in #{config_path}"
+      config.gsub!("test: /\\.js$/", "test: /\\.jsx?$/")
+    else
+      puts "Couldn't automatically update loader test in #{config_path}. Please set test: /\.jsx?$/."
+    end
+
+    File.write config_path, config
 
     exec './bin/yarn add --dev babel-preset-react && ./bin/yarn add react react-dom'
   end
