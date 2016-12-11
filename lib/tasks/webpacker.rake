@@ -34,6 +34,6 @@ namespace :webpacker do
       puts "Couldn't automatically update loader presets in #{config_path}. Please set presets: ['react', 'es2015']."
     end
 
-    exec './bin/yarn add babel-preset-react react react-dom'
+    exec './bin/yarn add --dev babel-preset-react && ./bin/yarn add react react-dom'
   end
 end
