@@ -61,7 +61,7 @@ pipeline does it.
 
 ## Ready for React
 
-To use Webpacker with React, just run `rails webpacker:install:react`, and all the relevant dependencies
+To use Webpacker with React, just create a new app with `rails new myapp --webpack=react` (or run `rails webpacker:install:react` on a Rails 5.1 app already setup with webpack), and all the relevant dependencies
 will be added via yarn and changes to the configuration files made. Now you can create JSX files and
 have them properly compiled automatically.
 
