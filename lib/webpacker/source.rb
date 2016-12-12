@@ -1,3 +1,7 @@
+# Translates a logical reference for a pack source into the final path needed in the HTML.
+# This translation takes into account whether digesting is configured to happen, which it
+# is by default in the production environment (as set via
+# `Rails.configuration.x.webpacker[:digesting] = true`).
 class Webpacker::Source
   def initialize(name)
     @name = name
