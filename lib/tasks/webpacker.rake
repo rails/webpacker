@@ -42,6 +42,10 @@ namespace :webpacker do
 
       File.write config_path, config
 
+      puts "Copying react example to app/javascript/packs/hello_react.js"
+      FileUtils.copy File.expand_path('../install/react/hello_react.js', File.dirname(__FILE__)),
+        Rails.root.join('app/javascript/packs/hello_react.js')
+
       exec './bin/yarn add --dev babel-preset-react && ./bin/yarn add react react-dom'
     end
   end
