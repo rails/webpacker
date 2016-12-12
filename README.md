@@ -29,7 +29,7 @@ all live together with the shared points in config/webpack/*.js. By default, you
 make any changes for a basic setup out the box. But this is where you do go if you need something
 more advanced.
 
-The configuration for what Webpack is supposed to compile by default rests on the convetion that
+The configuration for what Webpack is supposed to compile by default rests on the convention that
 every file in app/javascript/packs/* should be turned into their own output files (or entry points, 
 as Webpack calls it).
 
