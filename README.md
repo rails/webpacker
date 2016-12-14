@@ -30,7 +30,7 @@ make any changes for a basic setup out the box. But this is where you do go if y
 more advanced.
 
 The configuration for what Webpack is supposed to compile by default rests on the convention that
-every file in app/javascript/packs/* should be turned into their own output files (or entry points, 
+every file in app/javascript/packs/* should be turned into their own output files (or entry points,
 as Webpack calls it).
 
 Let's say you're building a calendar. Your structure could look like this:
@@ -65,6 +65,10 @@ To use Webpacker with React, just create a new app with `rails new myapp --webpa
 will be added via yarn and changes to the configuration files made. Now you can create JSX files and
 have them properly compiled automatically.
 
+## Ready for Vue
+
+To use Webpacker with React, just create a new app with `rails new myapp --webpack=vue` (or run `rails webpacker:install:vue` on a Rails 5.1 app already setup with webpack), and all the relevant dependencies
+will be added via yarn and changes to the configuration files made. 
 
 ## Work left to do
 
