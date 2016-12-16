@@ -33,11 +33,11 @@ namespace :webpacker do
         puts "Couldn't automatically update loader presets in #{config_path}. Please set presets: ['react', 'es2015']."
       end
 
-      if config.include?("test: /\\.js$/")
+      if config.include?("test: /\\.js(.erb)?$/")
         puts "Replacing loader test to include react in #{config_path}"
-        config.gsub!("test: /\\.js$/", "test: /\\.jsx?$/")
+        config.gsub!("test: /\\.js(.erb)?$/", "test: /\\.jsx?(.erb)?$/")
       else
-        puts "Couldn't automatically update loader test in #{config_path}. Please set test: /\.jsx?$/."
+        puts "Couldn't automatically update loader test in #{config_path}. Please set test: /\.jsx?(.erb)?$/."
       end
 
       File.write config_path, config
