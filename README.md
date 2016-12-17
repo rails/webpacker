@@ -12,6 +12,7 @@ during setup of a new application with `--webpack` or you can add the gem and ru
 
 
 ## Binstubs
+
 Webpacker ships with two binstubs: ./bin/webpack and ./bin/webpack-watcher. They're both thin wrappers
 around the standard webpack.js executable, just to ensure that the right configuration
 file is loaded and the node_modules from vendor are used.
@@ -30,18 +31,22 @@ make any changes for a basic setup out the box. But this is where you do go if y
 more advanced.
 
 The configuration for what Webpack is supposed to compile by default rests on the convention that
-every file in app/javascript/packs/* should be turned into their own output files (or entry points, 
+every file in app/javascript/packs/* should be turned into their own output files (or entry points,
 as Webpack calls it).
 
 Let's say you're building a calendar. Your structure could look like this:
 
-```
-app/views/layout/application.html.erb
+```erb
+<%# app/views/layout/application.html.erb %>
 <%= javascript_pack_tag 'calendar' %>
+```
 
-app/javascript/packs/calendar.js
+```js
+// app/javascript/packs/calendar.js
 require('calendar')
+```
 
+```
 app/javascript/calendar/index.js // gets loaded by require('calendar')
 app/javascript/calendar/components/grid.jsx
 app/javascript/calendar/models/month.js
