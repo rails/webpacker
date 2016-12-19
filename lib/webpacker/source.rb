@@ -20,7 +20,7 @@ class Webpacker::Source
 
     def digesting?
       Rails.configuration.x.webpacker[:digesting]
-    end  
+    end
 
     def digested_filename
       Webpacker::Digests.lookup(name)
