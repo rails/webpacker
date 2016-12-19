@@ -14,6 +14,7 @@ or you can add the gem and run `bin/rails webpacker:install` in an existing appl
 
 
 ## Binstubs
+
 Webpacker ships with two binstubs: ./bin/webpack and ./bin/webpack-watcher. They're both thin wrappers
 around the standard webpack.js executable, just to ensure that the right configuration
 file is loaded and the node_modules from vendor are used.
@@ -37,13 +38,17 @@ as Webpack calls it).
 
 Let's say you're building a calendar. Your structure could look like this:
 
-```
-app/views/layout/application.html.erb
+```erb
+<%# app/views/layout/application.html.erb %>
 <%= javascript_pack_tag 'calendar' %>
+```
 
-app/javascript/packs/calendar.js
+```js
+// app/javascript/packs/calendar.js
 require('calendar')
+```
 
+```
 app/javascript/calendar/index.js // gets loaded by require('calendar')
 app/javascript/calendar/components/grid.jsx
 app/javascript/calendar/models/month.js
