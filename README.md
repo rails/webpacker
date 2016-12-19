@@ -6,9 +6,11 @@ as the purpose is only to use Webpack for app-like JavaScript, not images, css, 
 even JavaScript Sprinkles (that all continues to live in app/assets).
 
 It's designed to work with Rails 5.1+ and makes use of the Yarn dependency management
-that's been made default from that version forward. You can either make use of Webpacker
-during setup of a new application with `--webpack` or you can add the gem and run
-`bin/rails webpacker:install` in an existing application.
+that's been made default from that version forward.
+It's also currently compatible with Rails 5.0 stable but there's absolutely no warranty
+it will still be in the future.
+You can either make use of Webpacker during setup of a new application with `--webpack`
+or you can add the gem and run `bin/rails webpacker:install` in an existing application.
 
 
 ## Binstubs
@@ -30,7 +32,7 @@ make any changes for a basic setup out the box. But this is where you do go if y
 more advanced.
 
 The configuration for what Webpack is supposed to compile by default rests on the convention that
-every file in app/javascript/packs/* should be turned into their own output files (or entry points, 
+every file in app/javascript/packs/* should be turned into their own output files (or entry points,
 as Webpack calls it).
 
 Let's say you're building a calendar. Your structure could look like this:
