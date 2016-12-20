@@ -26,11 +26,11 @@ namespace :webpacker do
       config_path = Rails.root.join('config/webpack/shared.js')
       config = File.read(config_path)
 
-      if config.include?("presets: ['latest']")
+      if config =~ /presets:\s*\[\s*\[\s*'latest'/
         puts "Replacing loader presets to include react in #{config_path}"
-        config.gsub!(/presets: \['latest'\]/, "presets: ['react', 'latest']")
+        config.gsub!(/presets:(\s*\[)(\s*)\[(\s)*'latest'/, "presets:\\1\\2'react',\\2[\\3'latest'")
       else
-        puts "Couldn't automatically update loader presets in #{config_path}. Please set presets: ['react', 'latest']."
+        puts "Couldn't automatically update loader presets in #{config_path}. Please set presets: [ 'react', [ 'latest', { 'es2015': { 'modules': false } } ] ]."
       end
 
       if config.include?("test: /\\.js(.erb)?$/")
