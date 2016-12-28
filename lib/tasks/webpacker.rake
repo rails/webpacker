@@ -48,5 +48,34 @@ namespace :webpacker do
 
       exec './bin/yarn add --dev babel-preset-react && ./bin/yarn add react react-dom'
     end
+
+    desc "install everything needed for vue"
+    task :vue do
+      config_path = Rails.root.join('config/webpack/shared.js')
+      config = File.read(config_path)
+
+      if config.include?("presets: ['es2015']")
+        puts "Replacing loader presets to include react in #{config_path}"
+        config.gsub!(/presets: \['es2015'\]/, "presets: ['react', 'es2015']")
+      else
+        puts "Couldn't automatically update loader presets in #{config_path}. Please set presets: ['react', 'es2015']."
+      end
+
+      if config.include?("test: /\\.js$/")
+        puts "Replacing loader test to include jsx in #{config_path}"
+        config.gsub!("test: /\\.js$/", "test: /\\.jsx?$/")
+      else
+        puts "Couldn't automatically update loader test in #{config_path}. Please set test: /\.jsx?$/."
+      end
+
+      File.write config_path, config
+
+      puts "Copying react example to app/javascript/packs/hello_vue.js"
+      FileUtils.copy File.expand_path('../install/vue/hello_vue.js', File.dirname(__FILE__)),
+        Rails.root.join('app/javascript/packs/hello_vue.js')
+
+      exec './bin/yarn add --dev babel-preset-react  && ./bin/yarn add vue vue-loader vuex vue-resource vue-router vue-validator'
+
+    end
   end
 end

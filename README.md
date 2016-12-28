@@ -68,10 +68,12 @@ pipeline does it.
 
 ## Ready for React
 
-To use Webpacker with React, just create a new app with `rails new myapp --webpack=react` (or run `rails webpacker:install:react` on a Rails 5.1 app already setup with webpack), and all the relevant dependencies
-will be added via yarn and changes to the configuration files made. Now you can create JSX files and
+To use Webpacker with React, just create a new app with `rails new myapp --webpack=react` (or run `rails webpacker:install:react` on a Rails 5.1 app already setup with webpack), and all the relevant dependencies will be added via yarn and changes to the configuration files made. Now you can create JSX files and
 have them properly compiled automatically.
 
+## Ready for Vue
+
+To use Webpacker with Vue, just create a new app with `rails new myapp --webpack=vue` (or run `rails webpacker:install:vue` on a Rails 5.1 app already setup with webpack), and all the relevant dependencies will be added via yarn and changes to the configuration files made.
 
 ## Work left to do
 
