@@ -47,7 +47,7 @@ class Webpacker::Middleware
 
     def compiling?
       status == "compiling"
-    rescue Errno::ENOENT
+    rescue
       false
     end
 
