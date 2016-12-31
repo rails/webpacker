@@ -15,7 +15,7 @@ class Webpacker::Middleware
 
   def initialize(app)
     @app = app
-    @file = Rails.root.join('tmp', 'webpack-stats.json')
+    @file = Rails.root.join("tmp", "webpack-stats.json")
   end
 
   def call(env)
@@ -27,7 +27,7 @@ class Webpacker::Middleware
 
     while compiling? && !timed_out
       sleep 0.1
-      raise TimedOutError, 'Timed out waiting for webpack status' if (now - timeout) > start
+      raise TimedOutError, "Timed out waiting for webpack status" if (now - timeout) > start
     end
 
     errors!
@@ -42,19 +42,19 @@ class Webpacker::Middleware
     end
 
     def status
-      JSON.parse(File.read(@file))['status']
+      JSON.parse(File.read(@file))["status"]
     end
 
     def compiling?
-      status == 'compiling'
+      status == "compiling"
     rescue Errno::ENOENT
       false
     end
 
     def errors!
-      return if status != 'error'
+      return if status != "error"
       json = JSON.parse(File.read(@file))
 
-      raise WebpackError, json['message']
+      raise WebpackError, json["message"]
     end
 end
