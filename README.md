@@ -15,12 +15,12 @@ or you can add the gem and run `bin/rails webpacker:install` in an existing appl
 
 ## Binstubs
 
-Webpacker ships with two binstubs: ./bin/webpack and ./bin/webpack-watcher. They're both thin wrappers
+Webpacker ships with two binstubs: `./bin/webpack` and `./bin/webpack-watcher`. They're both thin wrappers
 around the standard webpack.js executable, just to ensure that the right configuration
 file is loaded and the node_modules from vendor are used.
 
 In development, you'll need to run `./bin/webpack-watcher` in a separate terminal from
-`./bin/rails server` to have your app/javascript/packs/*.js files compiled as you make changes.
+`./bin/rails server` to have your `app/javascript/packs/*.js` files compiled as you make changes.
 If you'd rather not have to run the two processes separately by hand, you can use
 [Foreman](http://ddollar.github.io/foreman/).
 
@@ -28,12 +28,12 @@ If you'd rather not have to run the two processes separately by hand, you can us
 ## Configuration
 
 Webpacker gives you a default set of configuration files for development and production. They
-all live together with the shared points in config/webpack/*.js. By default, you shouldn't have to
+all live together with the shared points in `config/webpack/*.js`. By default, you shouldn't have to
 make any changes for a basic setup out the box. But this is where you do go if you need something
 more advanced.
 
 The configuration for what Webpack is supposed to compile by default rests on the convention that
-every file in app/javascript/packs/* should be turned into their own output files (or entry points,
+every file in `app/javascript/packs/*` should be turned into their own output files (or entry points,
 as Webpack calls it).
 
 Let's say you're building a calendar. Your structure could look like this:
@@ -55,7 +55,7 @@ app/javascript/calendar/models/month.js
 ```
 
 But it could also look a million other ways. The only convention that Webpacker enforces is the
-one where entry points are automatically configured by the files in app/javascript/packs.
+one where entry points are automatically configured by the files in `app/javascript/packs`.
 
 
 ## Deployment
