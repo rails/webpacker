@@ -2,6 +2,7 @@ require 'rails/railtie'
 
 require 'webpacker/helper'
 require 'webpacker/digests'
+require 'webpacker/middleware'
 
 class Webpacker::Engine < ::Rails::Engine
   initializer :webpacker do
