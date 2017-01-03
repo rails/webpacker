@@ -11,6 +11,7 @@ append_to_file '.gitignore', <<-EOS
 
 # Ignore files compiled by webpacker.
 public/packs/*
+/vendor/node_modules/*
 EOS
 
 run './bin/yarn add --dev webpack@beta webpack-merge path-complete-extname babel-loader babel-core babel-preset-latest coffee-loader coffee-script rails-erb-loader'
