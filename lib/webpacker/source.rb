@@ -8,7 +8,9 @@ class Webpacker::Source
   end
 
   def path
-    if digesting?
+    if config[:dev_server_host].present?
+      "#{config[:dev_server_host]}/#{filename}"
+    elsif config[:digesting]
       "/packs/#{digested_filename}"
     else
       "/packs/#{filename}"
@@ -18,8 +20,8 @@ class Webpacker::Source
   private
     attr_accessor :name
 
-    def digesting?
-      Rails.configuration.x.webpacker[:digesting]
+    def config
+      Rails.configuration.x.webpacker
     end
 
     def digested_filename
