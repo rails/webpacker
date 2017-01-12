@@ -15,14 +15,21 @@ or you can add the gem and run `bin/rails webpacker:install` in an existing appl
 
 ## Binstubs
 
-Webpacker ships with two binstubs: `./bin/webpack` and `./bin/webpack-watcher`. They're both thin wrappers
-around the standard webpack.js executable, just to ensure that the right configuration
+Webpacker ships with three binstubs: `./bin/webpack`, `./bin/webpack-watcher` and `./bin/webpack-dev-server`.
+They're thin wrappers around the standard webpack.js executable, just to ensure that the right configuration
 file is loaded and the node_modules from vendor are used.
 
 In development, you'll need to run `./bin/webpack-watcher` in a separate terminal from
 `./bin/rails server` to have your `app/javascript/packs/*.js` files compiled as you make changes.
 If you'd rather not have to run the two processes separately by hand, you can use
 [Foreman](http://ddollar.github.io/foreman/).
+
+Alternatively, you can run `./bin/webpack-dev-server`. This will launch a
+[Webpack Dev Server](https://webpack.github.io/docs/webpack-dev-server.html) listening on http://localhost:8080/
+serving your pack files. It will recompile your files as you make changes. You also need to set
+`config.x.webpacker[:dev_server_host]` in your `config/environment/development.rb` to tell Webpacker to load
+your packs from the Webpack Dev Server. This setup allows you to leverage advanced Webpack features, such
+as [Hot Module Replacement](https://webpack.github.io/docs/hot-module-replacement-with-webpack.html).
 
 
 ## Configuration

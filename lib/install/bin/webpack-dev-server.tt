@@ -1,0 +1,23 @@
+<%= shebang %>
+
+RAILS_ENV   = ENV['RAILS_ENV'] || 'development'
+WEBPACK_ENV = ENV['WEBPACK_ENV'] || RAILS_ENV
+
+APP_PATH    = File.expand_path('../', __dir__)
+VENDOR_PATH = File.expand_path('../vendor', __dir__)
+
+SET_NODE_PATH  = "NODE_PATH=#{VENDOR_PATH}/node_modules"
+WEBPACKER_BIN    = "./node_modules/.bin/webpack-dev-server"
+WEBPACK_CONFIG = "#{APP_PATH}/config/webpack/#{WEBPACK_ENV}.js"
+
+# Warn the user if the configuration is not set
+RAILS_ENV_CONFIG = File.join("config", "environments", "#{RAILS_ENV}.rb")
+
+# Look into the environment file for a non-commented variable declaration
+unless File.foreach(File.join(APP_PATH, RAILS_ENV_CONFIG)).detect { |line| line.match(/^\s*[^#]*config\.x\.webpacker\[\:dev_server_host\].*=/) }
+  puts "Warning: if you want to use webpack-dev-server, you need to tell Webpacker to serve asset packs from it. Please set config.x.webpacker[:dev_server_host] in #{RAILS_ENV_CONFIG}.\n\n"
+end
+
+Dir.chdir(VENDOR_PATH) do
+  exec "#{SET_NODE_PATH} #{WEBPACKER_BIN} --config #{WEBPACK_CONFIG} --content-base public/packs #{ARGV.join(" ")}"
+end
