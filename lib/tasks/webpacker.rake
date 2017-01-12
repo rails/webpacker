@@ -4,7 +4,7 @@ PACK_DIGESTS_PATH = PACKS_PATH.join('digests.json')
 WEBPACKER_APP_TEMPLATE_PATH = File.expand_path('../install/template.rb', File.dirname(__FILE__))
 
 namespace :webpacker do
-  desc "compile javascript packs using webpack for production with digests"
+  desc "Compile javascript packs using webpack for production with digests"
   task :compile do
     webpack_digests_json = JSON.parse(`WEBPACK_ENV=production ./bin/webpack --json`)['assetsByChunkName'].to_json
 
@@ -15,13 +15,13 @@ namespace :webpacker do
     puts webpack_digests_json
   end
 
-  desc "install webpacker in this application"
+  desc "Install webpacker in this application"
   task :install do
     exec "./bin/rails app:template LOCATION=#{WEBPACKER_APP_TEMPLATE_PATH}"
   end
 
   namespace :install do
-    desc "install everything needed for react"
+    desc "Install everything needed for react"
     task :react do
       config_path = Rails.root.join('config/webpack/shared.js')
       config = File.read(config_path)
