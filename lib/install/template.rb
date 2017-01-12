@@ -14,7 +14,7 @@ public/packs/*
 /vendor/node_modules/*
 EOS
 
-run './bin/yarn add --dev webpack@beta webpack-merge path-complete-extname babel-loader babel-core babel-preset-latest coffee-loader coffee-script rails-erb-loader'
+run './bin/yarn add --dev webpack@beta webpack-merge webpack-bundle-tracker path-complete-extname babel-loader babel-core babel-preset-latest coffee-loader coffee-script rails-erb-loader'
 
 environment \
   "# Make javascript_pack_tag lookup digest hash to enable long-term caching\n" +
