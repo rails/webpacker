@@ -10,9 +10,10 @@ class Webpacker::Engine < ::Rails::Engine
     end
 
     if Rails.configuration.x.webpacker[:digesting]
+      Rails.application.config.x.webpacker[:digests_path] ||= \
+        Rails.root.join('public/packs/digests.json')
       Webpacker::Digests.load \
-        Rails.application.config.x.webpacker[:digests_path] ||
-          Rails.root.join('public/packs/digests.json')
+        Rails.application.config.x.webpacker[:digests_path]
     end
   end
 end
