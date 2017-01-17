@@ -50,3 +50,8 @@ namespace :webpacker do
     end
   end
 end
+
+# Compile packs after we've compiled all other assets during precompilation
+Rake::Task['assets:precompile'].enhance do
+  Rake::Task['webpacker:compile'].invoke
+end
