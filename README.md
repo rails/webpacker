@@ -7,11 +7,20 @@ even JavaScript Sprinkles (that all continues to live in app/assets).
 
 It's designed to work with Rails 5.1+ and makes use of the [Yarn](https://yarnpkg.com/) dependency management
 that's been made default from that version forward.
-It's also currently compatible with Rails 5.0 stable but there's absolutely no warranty
-it will still be in the future.
+
+## Installation
+
+Webpacker is currently compatible with Rails 5.0 stable, but there's no guarantee it will still be
+in the future.
+
 You can either make use of Webpacker during setup of a new application with `--webpack`
 or you can add the gem and run `bin/rails webpacker:install` in an existing application.
 
+As the rubygems version isn't promised to be kept up to date until the release of Rails 5.1, you may want to include the gem directly from GitHub:
+
+```ruby
+gem 'webpacker', github: 'rails/webpacker'
+```
 
 ## Binstubs
 
