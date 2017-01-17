@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name     = 'webpacker'
-  s.version  = '0.1'
+  s.version  = '0.2'
   s.authors  = 'David Heinemeier Hansson'
   s.email    = 'david@basecamp.com'
   s.summary  = 'Use Webpack to manage app-like JavaScript modules in Rails'
