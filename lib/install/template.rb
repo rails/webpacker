@@ -10,7 +10,7 @@ directory "#{INSTALL_PATH}/config", 'config/webpack'
 append_to_file '.gitignore', <<-EOS
 
 # Ignore files compiled by webpacker.
-public/packs/*
+/public/packs/*
 /vendor/node_modules/*
 EOS
 
