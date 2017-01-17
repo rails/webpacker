@@ -12,6 +12,11 @@ it will still be in the future.
 You can either make use of Webpacker during setup of a new application with `--webpack`
 or you can add the gem and run `bin/rails webpacker:install` in an existing application.
 
+As the version published on rubygems isn't maintained yet, please include the gem directly from GitHub:
+
+```ruby
+gem 'webpacker', git: 'https://github.com/rails/webpacker.git', branch: 'master'
+```
 
 ## Binstubs
 
