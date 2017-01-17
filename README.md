@@ -19,7 +19,7 @@ or you can add the gem and run `bin/rails webpacker:install` in an existing appl
 As the rubygems version isn't promised to be kept up to date until the release of Rails 5.1, you may want to include the gem directly from GitHub:
 
 ```ruby
-gem 'webpacker', git: 'https://github.com/rails/webpacker.git', branch: 'master'
+gem 'webpacker', github: 'rails/webpacker'
 ```
 
 ## Binstubs
