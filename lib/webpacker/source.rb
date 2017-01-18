@@ -11,9 +11,9 @@ class Webpacker::Source
     if config[:dev_server_host].present?
       "#{config[:dev_server_host]}/#{filename}"
     elsif config[:digesting]
-      "/#{dist}/#{digested_filename}"
+      File.join(dist_path, digested_filename)
     else
-      "/packs/#{filename}"
+      File.join(dist_path, filename)
     end
   end
 
@@ -28,8 +28,8 @@ class Webpacker::Source
       Webpacker::Digests.lookup(name)
     end
 
-    def dist
-      config[:dist] || 'packs'
+    def dist_path
+      config[:packs_dist_path]
     end
 
     def filename
