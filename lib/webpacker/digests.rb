@@ -33,8 +33,7 @@ class Webpacker::Digests
       begin
         @digests = JSON.parse(File.read(@path))
       rescue Errno::ENOENT
-        Rails.logger.error \
-          "Missing digests file at #{@path}! You must first compile the packs via rails webpacker:compile"
+        raise "Missing digests file at #{@path}! You must first compile the packs via rails webpacker:compile"
       end
     end
 end
