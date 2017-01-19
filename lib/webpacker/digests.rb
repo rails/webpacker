@@ -5,7 +5,6 @@
 class Webpacker::Digests
   class DigestError < StandardError; end
 
-
   class_attribute :instance
 
   class << self
