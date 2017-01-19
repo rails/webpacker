@@ -3,6 +3,9 @@
 # "calendar-1016838bab065ae1e314.js". These digested filenames are what enables you to long-term
 # cache things in production.
 class Webpacker::Digests
+  class DigestError < StandardError; end
+
+
   class_attribute :instance
 
   class << self
@@ -12,9 +15,9 @@ class Webpacker::Digests
 
     def lookup(name)
       if instance
-        instance.lookup(name)
+        instance.lookup(name).presence || raise(DigestError.new("Can't find #{name} in #{instance.inspect}"))
       else
-        raise "Webpacker::Digests.load(path) must be called first"
+        raise DigestError.new("Webpacker::Digests.load(path) must be called first")
       end
     end
   end
