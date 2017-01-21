@@ -81,6 +81,19 @@ will invoke the production configuration, which includes digesting. The `javascr
 method will automatically insert the correct digest when run in production mode. Just like the asset
 pipeline does it.
 
+## Linking to sprockets assets
+
+It's possible to link to assets that have been precompiled by sprockets. Add the `.erb` extension 
+to your javascript file, then you can use Sprockets' asset helpers:
+
+``` 
+// app/javascript/my_pack/example.js.erb
+
+<% helpers = ActionController::Base.helpers %>
+var railsImagePath = "<%= helpers.image_path('rails.png') %>";
+```
+
+This is enabled by the `rails-erb-loader` loader rule in `config/webpack/shared.js`. 
 
 ## Ready for React
 
@@ -91,7 +104,8 @@ have them properly compiled automatically.
 
 ## Work left to do
 
-- Make asset pipeline digests readable from webpack, so you can reference images etc
+- Improve process for linking to assets compiled by sprockets - shouldn't need to specify
+` <% helpers = ActionController::Base.helpers %>` at the beginning of each file
 - Consider chunking setup
 - Consider on-demand compiling with digests when digesting=true
 - I'm sure a ton of other shit
