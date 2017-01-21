@@ -93,9 +93,7 @@ to your javascript file, then you can use Sprockets' asset helpers:
 var railsImagePath = "<%= helpers.image_path('rails.png') %>";
 ```
 
-This is enabled by the `rails-erb-loader` loader rule in `config/webpack/shared.js`. If you need
-to extend this functionality to work for file extensions besides `.js`, you'll need to edit this
-rule.
+This is enabled by the `rails-erb-loader` loader rule in `config/webpack/shared.js`. 
 
 ## Ready for React
 
