@@ -28,6 +28,10 @@ Webpacker ships with three binstubs: `./bin/webpack`, `./bin/webpack-watcher` an
 They're thin wrappers around the standard webpack.js executable, just to ensure that the right configuration
 file is loaded and the node_modules from vendor are used.
 
+
+A binstub is also created to install your npm dependencies declared in vendor,
+and can be called via `./bin/yarn`.
+
 In development, you'll need to run `./bin/webpack-watcher` in a separate terminal from
 `./bin/rails server` to have your `app/javascript/packs/*.js` files compiled as you make changes.
 If you'd rather not have to run the two processes separately by hand, you can use
