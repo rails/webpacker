@@ -5,10 +5,10 @@ namespace :webpacker do
   desc "Compile javascript packs using webpack for production with digests"
   task :compile => :environment do
     dist_path = Rails.application.config.x.webpacker[:packs_dist_path]
-    result    = `WEBPACK_DIST_PATH=#{dist_path} WEBPACK_ENV=production ./bin/webpack --json`
-    
+    result    = `WEBPACK_DIST_PATH=#{dist_path} NODE_ENV=production ./bin/webpack --json`
+
     exit! $?.exitstatus unless $?.success?
-    
+
     webpack_digests = JSON.parse(result)['assetsByChunkName'].each_with_object({}) do |(chunk, file), h|
       h[chunk] = file.is_a?(Array) ? file.find {|f| REGEX_MAP !~ f } : file
     end.to_json
