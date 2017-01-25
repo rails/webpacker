@@ -1,6 +1,7 @@
 <%= shebang %>
 
 RAILS_ENV   = ENV['RAILS_ENV'] || 'development'
+NODE_ENV    = ENV['NODE_ENV'] || RAILS_ENV
 WEBPACK_ENV = ENV['WEBPACK_ENV'] || RAILS_ENV
 
 APP_PATH    = File.expand_path('../', __dir__)
