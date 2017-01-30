@@ -11,7 +11,7 @@ append_to_file '.gitignore', <<-EOS
 /public/packs
 EOS
 
-run './bin/yarn add --dev webpack@beta webpack-merge webpack-dev-server@beta path-complete-extname babel-loader babel-core babel-preset-latest coffee-loader coffee-script rails-erb-loader'
+run './bin/yarn add --dev webpack@beta webpack-merge webpack-dev-server@beta path-complete-extname babel-loader babel-core babel-preset-latest coffee-loader coffee-script rails-erb-loader glob'
 
 environment \
   "# Make javascript_pack_tag lookup digest hash to enable long-term caching\n" +
