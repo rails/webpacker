@@ -83,17 +83,17 @@ pipeline does it.
 
 ## Linking to sprockets assets
 
-It's possible to link to assets that have been precompiled by sprockets. Add the `.erb` extension 
+It's possible to link to assets that have been precompiled by sprockets. Add the `.erb` extension
 to your javascript file, then you can use Sprockets' asset helpers:
 
-``` 
+```
 // app/javascript/my_pack/example.js.erb
 
 <% helpers = ActionController::Base.helpers %>
 var railsImagePath = "<%= helpers.image_path('rails.png') %>";
 ```
 
-This is enabled by the `rails-erb-loader` loader rule in `config/webpack/shared.js`. 
+This is enabled by the `rails-erb-loader` loader rule in `config/webpack/shared.js`.
 
 ## Ready for React
 
@@ -101,6 +101,9 @@ To use Webpacker with React, just create a new app with `rails new myapp --webpa
 will be added via yarn and changes to the configuration files made. Now you can create JSX files and
 have them properly compiled automatically.
 
+## Ready for Angular with TypeScript
+
+To use Webpacker with Angular, just create a new app with `rails new myapp --webpack=angular` (or run `rails webpacker:install:angular` on a Rails 5.1 app already setup with webpack). TypeScript support and the Angular core libraires will be added via yarn and changes to the configuration files made. An example component written in TypeScript is also added to your project in `app/javascript` so that you can experiment Angular right away.
 
 ## Work left to do
 
