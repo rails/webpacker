@@ -32,7 +32,7 @@ class Webpacker::Digests
 
   private
     def load
-      if File.exists?(@path)
+      if File.exist?(@path)
         JSON.parse(File.read(@path))
       else
         Rails.logger.info "Didn't find any digests file at #{@path}. You must first compile the packs via rails webpacker:compile"
