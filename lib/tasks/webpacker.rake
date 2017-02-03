@@ -1,7 +1,7 @@
 PACKS_PATH        = Rails.root.join('public/packs')
 PACK_DIGESTS_PATH = PACKS_PATH.join('digests.json')
 
-WEBPACKER_APP_TEMPLATE_PATH = File.expand_path('../install/template.rb', File.dirname(__FILE__))
+WEBPACKER_APP_TEMPLATE_PATH = File.expand_path('../install/template.rb', __dir__)
 
 namespace :webpacker do
   desc "Compile javascript packs using webpack for production with digests"
@@ -43,7 +43,7 @@ namespace :webpacker do
       File.write config_path, config
 
       puts "Copying react example to app/javascript/packs/hello_react.js"
-      FileUtils.copy File.expand_path('../install/react/hello_react.js', File.dirname(__FILE__)),
+      FileUtils.copy File.expand_path('../install/react/hello_react.js', __dir__),
         Rails.root.join('app/javascript/packs/hello_react.js')
 
       exec './bin/yarn add --dev babel-preset-react && ./bin/yarn add react react-dom'
@@ -71,15 +71,15 @@ namespace :webpacker do
       File.write config_path, config
 
       puts "Copying Angular example to app/javascript/packs/hello_angular.js"
-      FileUtils.copy File.expand_path('../install/angular/hello_angular.js', File.dirname(__FILE__)),
+      FileUtils.copy File.expand_path('../install/angular/hello_angular.js', __dir__),
         Rails.root.join('app/javascript/packs/hello_angular.js')
 
       puts "Copying Angular Hello app to app/javascript/hello_angular"
-      FileUtils.copy_entry File.expand_path('../install/angular/hello_angular', File.dirname(__FILE__)),
+      FileUtils.copy_entry File.expand_path('../install/angular/hello_angular', __dir__),
         Rails.root.join('app/javascript/hello_angular')
 
       puts "Copying tsconfig.json to the Rails root directory"
-      FileUtils.copy File.expand_path('../install/angular/tsconfig.json', File.dirname(__FILE__)),
+      FileUtils.copy File.expand_path('../install/angular/tsconfig.json', __dir__),
         Rails.root.join('tsconfig.json')
 
       exec './bin/yarn add --dev typescript ts-loader && ./bin/yarn add "core-js zone.js rxjs @angular/core @angular/common @angular/compiler @angular/platform-browser @angular/platform-browser-dynamic"'

@@ -1,11 +1,9 @@
-INSTALL_PATH = File.dirname(__FILE__)
+directory "#{__dir__}/javascript", 'app/javascript'
 
-directory "#{INSTALL_PATH}/javascript", 'app/javascript'
-
-directory "#{INSTALL_PATH}/bin", 'bin'
+directory "#{__dir__}/bin", 'bin'
 chmod 'bin', 0755 & ~File.umask, verbose: false
 
-directory "#{INSTALL_PATH}/config", 'config/webpack'
+directory "#{__dir__}/config", 'config/webpack'
 
 append_to_file '.gitignore', <<-EOS
 /public/packs
