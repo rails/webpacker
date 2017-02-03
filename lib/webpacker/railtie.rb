@@ -13,9 +13,10 @@ class Webpacker::Engine < ::Rails::Engine
 
     if app.config.x.webpacker[:digesting]
       app.config.x.webpacker[:digests_path] ||= \
-        Rails.root.join('public', \
-                        app.config.x.webpacker[:packs_dist_path], \
+        Rails.root.join('public',
+                        app.config.x.webpacker[:packs_dist_path],
                         'digests.json')
+
       Webpacker::Digests.load \
         app.config.x.webpacker[:digests_path]
     end
