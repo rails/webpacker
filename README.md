@@ -1,11 +1,11 @@
 # Webpacker
 
-Webpacker makes it easy to use the JavaScript preprocessor and bundler [Webpack](http://webpack.github.io)
+Webpacker makes it easy to use the JavaScript preprocessor and bundler [Webpack](https://webpack.github.io)
 to manage application-like JavaScript in Rails. It coexists with the asset pipeline,
 as the purpose is only to use Webpack for app-like JavaScript, not images, css, or
 even JavaScript Sprinkles (that all continues to live in app/assets).
 
-It's designed to work with Rails 5.1+ and makes use of the [Yarn](https://yarnpkg.com/) dependency management
+It's designed to work with Rails 5.1+ and makes use of the [Yarn](https://yarnpkg.com) dependency management
 that's been made default from that version forward.
 
 ## Installation
@@ -35,7 +35,7 @@ and can be called via `./bin/yarn`.
 In development, you'll need to run `./bin/webpack-watcher` in a separate terminal from
 `./bin/rails server` to have your `app/javascript/packs/*.js` files compiled as you make changes.
 If you'd rather not have to run the two processes separately by hand, you can use
-[Foreman](http://ddollar.github.io/foreman/).
+[Foreman](https://ddollar.github.io/foreman).
 
 Alternatively, you can run `./bin/webpack-dev-server`. This will launch a
 [Webpack Dev Server](https://webpack.github.io/docs/webpack-dev-server.html) listening on http://localhost:8080/
@@ -118,4 +118,4 @@ To use Webpacker with Angular, just create a new app with `rails new myapp --web
 - I'm sure a ton of other shit
 
 ## License
-Webpacker is released under the [MIT License](http://www.opensource.org/licenses/MIT).
+Webpacker is released under the [MIT License](https://opensource.org/licenses/MIT).
