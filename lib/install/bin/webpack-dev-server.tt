@@ -19,5 +19,5 @@ unless File.foreach(File.join(APP_PATH, RAILS_ENV_CONFIG)).detect { |line| line.
 end
 
 Dir.chdir(VENDOR_PATH) do
-  exec "#{SET_NODE_PATH} #{WEBPACKER_BIN} --config #{WEBPACK_CONFIG} --content-base public/packs #{ARGV.join(" ")}"
+  exec "#{SET_NODE_PATH} #{WEBPACKER_BIN} --config #{WEBPACK_CONFIG} --content-base #{APP_PATH}/public/packs #{ARGV.join(" ")}"
 end
