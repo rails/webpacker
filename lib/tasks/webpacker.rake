@@ -6,7 +6,11 @@ WEBPACKER_APP_TEMPLATE_PATH = File.expand_path('../install/template.rb', __dir__
 namespace :webpacker do
   desc "Compile javascript packs using webpack for production with digests"
   task :compile do
-    webpack_digests_json = JSON.parse(`WEBPACK_ENV=production ./bin/webpack --json`)['assetsByChunkName'].to_json
+    result = `WEBPACK_ENV=production ./bin/webpack --json`
+
+    exit! $?.exitstatus unless $?.success?
+
+    webpack_digests_json = JSON.parse(result)['assetsByChunkName'].to_json
 
     FileUtils.mkdir_p(PACKS_PATH)
     File.open(PACK_DIGESTS_PATH, 'w+') { |file| file.write webpack_digests_json }

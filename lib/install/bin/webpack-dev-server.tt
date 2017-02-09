@@ -20,6 +20,7 @@ unless File.foreach(File.join(APP_PATH, RAILS_ENV_CONFIG)).detect { |line| line.
   puts "Warning: if you want to use webpack-dev-server, you need to tell Webpacker to serve asset packs from it. Please set config.x.webpacker[:dev_server_host] in #{RAILS_ENV_CONFIG}.\n\n"
 end
 
+
 Dir.chdir(<%= yarn_root %>) do
-  exec "#{SET_NODE_PATH} #{WEBPACKER_BIN} --config #{WEBPACK_CONFIG} --content-base public/packs #{ARGV.join(" ")}"
+  exec "#{SET_NODE_PATH} #{WEBPACKER_BIN} --config #{WEBPACK_CONFIG} --content-base #{APP_PATH}/public/packs #{ARGV.join(" ")}"
 end
