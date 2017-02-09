@@ -4,8 +4,11 @@ namespace :webpacker do
   desc "Compile javascript packs using webpack for production with digests"
   task :compile => :environment do
     dist_path = Rails.application.config.x.webpacker[:packs_dist_path]
-    webpack_digests = JSON.parse(`WEBPACK_DIST_PATH=#{dist_path} WEBPACK_ENV=production ./bin/webpack --json`)['assetsByChunkName']
-
+    result    = `WEBPACK_DIST_PATH=#{dist_path} WEBPACK_ENV=production ./bin/webpack --json`
+    
+    exit! $?.exitstatus unless $?.success?
+    
+    webpack_digests = JSON.parse(result)['assetsByChunkName'] 
     js_webpack_digests_json = webpack_digests.each_with_object({}) do |(chunk, file), h|
       h[chunk] = file.is_a?(Array) ? file.first : file
     end.to_json
@@ -94,6 +97,8 @@ namespace :webpacker do
 end
 
 # Compile packs after we've compiled all other assets during precompilation
-Rake::Task['assets:precompile'].enhance do
-  Rake::Task['webpacker:compile'].invoke
+if Rake::Task.task_defined?('assets:precompile')
+  Rake::Task['assets:precompile'].enhance do
+    Rake::Task['webpacker:compile'].invoke
+  end
 end
