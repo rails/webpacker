@@ -25,6 +25,11 @@ namespace :webpacker do
   end
 
   namespace :install do
+    desc "Install webpacker with package.json in the Rails root rather than vendor"
+    task :root do
+      exec "./bin/rails app:template LOCATION=#{WEBPACKER_APP_TEMPLATE_PATH} WEBPACKER_TARGET=root"
+    end
+
     desc "Install everything needed for react"
     task :react do
       config_path = Rails.root.join('config/webpack/shared.js')

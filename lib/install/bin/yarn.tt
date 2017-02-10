@@ -1,6 +1,8 @@
 <%= shebang %>
-VENDOR_PATH = File.expand_path('../vendor', __dir__)
-Dir.chdir(VENDOR_PATH) do
+<% yarn_root = ENV['WEBPACKER_TARGET'] == 'root' ? '../' : '../vendor' %>
+
+YARN_ROOT = File.expand_path('<%= yarn_root %>', __dir__)
+Dir.chdir(YARN_ROOT) do
   begin
     exec "yarnpkg #{ARGV.join(" ")}"
   rescue Errno::ENOENT

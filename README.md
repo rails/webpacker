@@ -22,6 +22,13 @@ As the rubygems version isn't promised to be kept up to date until the release o
 gem 'webpacker', github: 'rails/webpacker'
 ```
 
+
+## Installing outside of vendor
+
+By default, `webpacker:install` uses `vendor` as the root path for yarn. This can cause problems for tooling, node modules and Javascript developers, all of whom expect Javascript source code to be in a subdirectory of the yarn root path.
+
+To install to the application root, run `bin/rails webpacker:install:root`. Everything else should work normally.
+
 ## Binstubs
 
 Webpacker ships with three binstubs: `./bin/webpack`, `./bin/webpack-watcher` and `./bin/webpack-dev-server`.

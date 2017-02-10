@@ -1,11 +1,14 @@
 // Note: You must restart bin/webpack-watcher for changes to take effect
 
+<% app_root = ENV['WEBPACKER_TARGET'] == 'root' ? '.' : '..' %>
+<% node_modules_path = ENV['WEBPACKER_TARGET'] == 'root' ? 'node_modules' : '../vendor/node_modules' %>
+
 var path = require('path')
 var glob = require('glob')
 var extname = require('path-complete-extname')
 
 module.exports = {
-  entry: glob.sync(path.join('..', 'app', 'javascript', 'packs', '*.js*')).reduce(
+  entry: glob.sync(path.resolve('<%= app_root %>', 'app', 'javascript', 'packs', '*.js*')).reduce(
     function(map, entry) {
       var basename = path.basename(entry, extname(entry))
       map[basename] = entry
@@ -13,7 +16,7 @@ module.exports = {
     }, {}
   ),
 
-  output: { filename: '[name].js', path: path.resolve('..', 'public', 'packs') },
+  output: { filename: '[name].js', path: path.resolve('<%= app_root %>', 'public', 'packs') },
 
   module: {
     rules: [
@@ -34,7 +37,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'rails-erb-loader',
         options: {
-          runner: 'DISABLE_SPRING=1 ../bin/rails runner'
+          runner: 'DISABLE_SPRING=1 <%= app_root %>/bin/rails runner'
         }
       },
     ]
@@ -45,12 +48,12 @@ module.exports = {
   resolve: {
     extensions: [ '.js', '.coffee' ],
     modules: [
-      path.resolve('../app/javascript'),
-      path.resolve('../vendor/node_modules')
+      path.resolve('<%= app_root %>/app/javascript'),
+      path.resolve('<%= node_modules_path %>')
     ]
   },
 
   resolveLoader: {
-    modules: [ path.resolve('../vendor/node_modules') ]
+    modules: [ path.resolve('<%= node_modules_path %>') ]
   }
 }
