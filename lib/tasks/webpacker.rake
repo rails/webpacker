@@ -1,22 +1,27 @@
-PACKS_PATH        = Rails.root.join('public/packs')
-PACK_DIGESTS_PATH = PACKS_PATH.join('digests.json')
-
 WEBPACKER_APP_TEMPLATE_PATH = File.expand_path('../install/template.rb', __dir__)
+REGEX_MAP = /\A.*\.map\z/
 
 namespace :webpacker do
   desc "Compile javascript packs using webpack for production with digests"
-  task :compile do
-    result = `WEBPACK_ENV=production ./bin/webpack --json`
-
+  task :compile => :environment do
+    dist_path = Rails.application.config.x.webpacker[:packs_dist_path]
+    result    = `WEBPACK_DIST_PATH=#{dist_path} WEBPACK_ENV=production ./bin/webpack --json`
+    
     exit! $?.exitstatus unless $?.success?
+    
+    webpack_digests = JSON.parse(result)['assetsByChunkName'].each_with_object({}) do |(chunk, file), h|
+      h[chunk] = file.is_a?(Array) ? file.find {|f| REGEX_MAP !~ f } : file
+    end.to_json
 
-    webpack_digests_json = JSON.parse(result)['assetsByChunkName'].to_json
+    digests_path = Rails.application.config.x.webpacker[:digests_path]
+    packs_path = Rails.root.join('public', dist_path) || File.dirname(digests_path)
+    packs_digests_path = digests_path || Rails.root.join(packs_path, 'digests.json')
 
-    FileUtils.mkdir_p(PACKS_PATH)
-    File.open(PACK_DIGESTS_PATH, 'w+') { |file| file.write webpack_digests_json }
+    FileUtils.mkdir_p(packs_path)
+    File.open(packs_digests_path, 'w+') { |file| file.write webpack_digests }
 
-    puts "Compiled digests for all packs in #{PACK_DIGESTS_PATH}: "
-    puts webpack_digests_json
+    puts "Compiled digests for all packs in #{packs_digests_path}: "
+    puts webpack_digests
   end
 
   desc "Install webpacker in this application"
