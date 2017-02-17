@@ -40,7 +40,7 @@ If you'd rather not have to run the two processes separately by hand, you can us
 Alternatively, you can run `./bin/webpack-dev-server`. This will launch a
 [Webpack Dev Server](https://webpack.github.io/docs/webpack-dev-server.html) listening on http://localhost:8080/
 serving your pack files. It will recompile your files as you make changes. You also need to set
-`config.x.webpacker[:dev_server_host]` in your `config/environment/development.rb` to tell Webpacker to load
+`config.x.webpacker[:dev_server_host]` in your `config/environments/development.rb` to tell Webpacker to load
 your packs from the Webpack Dev Server. This setup allows you to leverage advanced Webpack features, such
 as [Hot Module Replacement](https://webpack.github.io/docs/hot-module-replacement-with-webpack.html).
 
