@@ -4,9 +4,8 @@ RAILS_ENV   = ENV['RAILS_ENV'] || 'development'
 NODE_ENV    = ENV['NODE_ENV'] || RAILS_ENV
 
 APP_PATH    = File.expand_path('../', __dir__)
-VENDOR_PATH = File.expand_path('../vendor', __dir__)
 
-SET_NODE_PATH  = "NODE_PATH=#{VENDOR_PATH}/node_modules"
+SET_NODE_PATH  = "NODE_PATH=#{APP_PATH}/node_modules"
 WEBPACKER_BIN    = "./node_modules/.bin/webpack-dev-server"
 WEBPACK_CONFIG = "#{APP_PATH}/config/webpack/#{NODE_ENV}.js"
 
@@ -18,6 +17,6 @@ unless File.foreach(File.join(APP_PATH, RAILS_ENV_CONFIG)).detect { |line| line.
   puts "Warning: if you want to use webpack-dev-server, you need to tell Webpacker to serve asset packs from it. Please set config.x.webpacker[:dev_server_host] in #{RAILS_ENV_CONFIG}.\n\n"
 end
 
-Dir.chdir(VENDOR_PATH) do
+Dir.chdir(APP_PATH) do
   exec "#{SET_NODE_PATH} #{WEBPACKER_BIN} --config #{WEBPACK_CONFIG} --content-base #{APP_PATH}/public/packs #{ARGV.join(" ")}"
 end
