@@ -4,8 +4,8 @@ REGEX_MAP = /\A.*\.map\z/
 namespace :webpacker do
   desc "Compile javascript packs using webpack for production with digests"
   task :compile => :environment do
-    dist_path = Rails.application.config.x.webpacker[:packs_dist_path]
-    result    = `WEBPACK_DIST_PATH=#{dist_path} NODE_ENV=production ./bin/webpack --json`
+    dist_dir = Rails.application.config.x.webpacker[:packs_dist_dir]
+    result   = `WEBPACK_DIST_DIR=#{dist_dir} NODE_ENV_ENV=production ./bin/webpack --json`
 
     exit! $?.exitstatus unless $?.success?
 
@@ -14,7 +14,7 @@ namespace :webpacker do
     end.to_json
 
     digests_path = Rails.application.config.x.webpacker[:digests_path]
-    packs_path = Rails.root.join('public', dist_path) || File.dirname(digests_path)
+    packs_path = Rails.root.join('public', dist_dir) || File.dirname(digests_path)
     packs_digests_path = digests_path || Rails.root.join(packs_path, 'digests.json')
 
     FileUtils.mkdir_p(packs_path)
