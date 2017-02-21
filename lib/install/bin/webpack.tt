@@ -4,12 +4,11 @@ RAILS_ENV   = ENV['RAILS_ENV'] || 'development'
 NODE_ENV    = ENV['NODE_ENV'] || RAILS_ENV
 
 APP_PATH    = File.expand_path('../', __dir__)
-VENDOR_PATH = File.expand_path('../vendor', __dir__)
 
-SET_NODE_PATH  = "NODE_PATH=#{VENDOR_PATH}/node_modules"
+SET_NODE_PATH  = "NODE_PATH=#{APP_PATH}/node_modules"
 WEBPACK_BIN    = "./node_modules/webpack/bin/webpack.js"
 WEBPACK_CONFIG = "#{APP_PATH}/config/webpack/#{NODE_ENV}.js"
 
-Dir.chdir(VENDOR_PATH) do
+Dir.chdir(APP_PATH) do
   exec "#{SET_NODE_PATH} #{WEBPACK_BIN} --config #{WEBPACK_CONFIG} #{ARGV.join(" ")}"
 end

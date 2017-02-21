@@ -7,12 +7,12 @@
     "module": "es6",
     "moduleResolution": "node",
     "sourceMap": true,
-    "target": "es5",
-    "baseUrl": "./vendor/node_modules"
+    "target": "es5"
   },
   "exclude": [
     "**/*.spec.ts",
-    "vendor/node_modules"
+    "node_modules",
+    "public"
   ],
   "compileOnSave": false
 }

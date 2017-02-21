@@ -7,6 +7,7 @@ directory "#{__dir__}/config", 'config/webpack'
 
 append_to_file '.gitignore', <<-EOS
 /public/packs
+/node_modules
 EOS
 
 run './bin/yarn add --dev webpack webpack-merge webpack-dev-server path-complete-extname babel-loader babel-core babel-preset-latest coffee-loader coffee-script rails-erb-loader glob'

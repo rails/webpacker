@@ -26,10 +26,10 @@ gem 'webpacker', github: 'rails/webpacker'
 
 Webpacker ships with three binstubs: `./bin/webpack`, `./bin/webpack-watcher` and `./bin/webpack-dev-server`.
 They're thin wrappers around the standard webpack.js executable, just to ensure that the right configuration
-file is loaded and the node_modules from vendor are used.
+file is loaded.
 
 
-A binstub is also created to install your npm dependencies declared in vendor,
+A binstub is also created to install your npm dependencies,
 and can be called via `./bin/yarn`.
 
 In development, you'll need to run `./bin/webpack-watcher` in a separate terminal from
