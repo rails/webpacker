@@ -1,6 +1,6 @@
 <%= shebang %>
-YARN_ROOT = File.expand_path('../', __dir__)
-Dir.chdir(YARN_ROOT) do
+VENDOR_PATH = File.expand_path('..', __dir__)
+Dir.chdir(VENDOR_PATH) do
   begin
     exec "yarnpkg #{ARGV.join(" ")}"
   rescue Errno::ENOENT
