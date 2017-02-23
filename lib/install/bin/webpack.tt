@@ -1,7 +1,10 @@
 <%= shebang %>
 
-RAILS_ENV = ENV['RAILS_ENV'] || 'development'
-NODE_ENV  = ENV['NODE_ENV'] || RAILS_ENV
+ENV['RAILS_ENV'] ||= 'development'
+RAILS_ENV   = ENV['RAILS_ENV']
+
+ENV['NODE_ENV'] ||= RAILS_ENV
+NODE_ENV    = ENV['NODE_ENV']
 
 APP_PATH = File.expand_path('../', __dir__)
 

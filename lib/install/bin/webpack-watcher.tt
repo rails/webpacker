@@ -1,5 +1,8 @@
 <%= shebang %>
 
+ENV['RAILS_ENV'] ||= 'development'
+ENV['NODE_ENV'] ||= ENV['RAILS_ENV']
+
 BIN_PATH = File.expand_path('.', __dir__)
 
 Dir.chdir(BIN_PATH) do
