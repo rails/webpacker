@@ -51,6 +51,10 @@ namespace :webpacker do
 
       File.write config_path, config
 
+      puts "Copying .babelrc to project directory"
+      FileUtils.copy File.expand_path('../install/react/.babelrc', __dir__),
+        Rails.root
+
       puts "Copying react example to app/javascript/packs/hello_react.js"
       FileUtils.copy File.expand_path('../install/react/hello_react.js', __dir__),
         Rails.root.join('app/javascript/packs/hello_react.js')
