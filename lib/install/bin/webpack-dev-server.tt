@@ -1,12 +1,12 @@
 <%= shebang %>
 
-RAILS_ENV   = ENV['RAILS_ENV'] || 'development'
-NODE_ENV    = ENV['NODE_ENV'] || RAILS_ENV
+RAILS_ENV = ENV['RAILS_ENV'] || 'development'
+NODE_ENV  = ENV['NODE_ENV'] || RAILS_ENV
 
-APP_PATH    = File.expand_path('../', __dir__)
+APP_PATH = File.expand_path('../', __dir__)
 
 SET_NODE_PATH  = "NODE_PATH=#{APP_PATH}/node_modules"
-WEBPACKER_BIN    = "./node_modules/.bin/webpack-dev-server"
+WEBPACKER_BIN  = "./node_modules/.bin/webpack-dev-server"
 WEBPACK_CONFIG = "#{APP_PATH}/config/webpack/#{NODE_ENV}.js"
 
 # Warn the user if the configuration is not set
