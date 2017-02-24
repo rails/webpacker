@@ -111,7 +111,7 @@ To use Webpacker with Angular, just create a new app with `rails new myapp --web
 
 ## Ready for Vue
 
-To use Webpacker with Vue, just create a new app with `rails new myapp --webpack=vue` (or run `rails webpacker:install:vue` on a Rails 5.1 app already setup with webpack). Vue and its supported libraries will be added via yarn and changes to the configuration files made. An example component with a JSON controller is also added to your project in `app/javascript` so that you can experiment Vue right away.
+To use Webpacker with Vue, just create a new app with `rails new myapp --webpack=vue` (or run `rails webpacker:install:vue` on a Rails 5.1 app already setup with webpack). Vue and its supported libraries will be added via yarn and changes to the configuration files made. An example component is also added to your project in `app/javascript` so that you can experiment Vue right away.
 
 
 ## Wishlist
