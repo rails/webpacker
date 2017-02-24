@@ -109,6 +109,11 @@ have them properly compiled automatically.
 
 To use Webpacker with Angular, just create a new app with `rails new myapp --webpack=angular` (or run `rails webpacker:install:angular` on a Rails 5.1 app already setup with webpack). TypeScript support and the Angular core libraries will be added via yarn and changes to the configuration files made. An example component written in TypeScript is also added to your project in `app/javascript` so that you can experiment Angular right away.
 
+## Ready for Vue
+
+To use Webpacker with Vue, just create a new app with `rails new myapp --webpack=vue` (or run `rails webpacker:install:vue` on a Rails 5.1 app already setup with webpack). Vue and its supported libraries will be added via yarn and changes to the configuration files made. An example component is also added to your project in `app/javascript` so that you can experiment Vue right away.
+
+
 ## Wishlist
 
 - Improve process for linking to assets compiled by sprockets - shouldn't need to specify
