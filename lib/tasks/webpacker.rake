@@ -100,8 +100,6 @@ namespace :webpacker do
 
     desc "Install everything needed for Vue"
     task :vue do
-
-      INSERT_ROUTE_PATH = File.expand_path('../install/vue/insert_route.rb', File.dirname(__FILE__))
       config_path = Rails.root.join('config/webpack/shared.js')
       config = File.read(config_path)
 
@@ -130,25 +128,25 @@ namespace :webpacker do
       FileUtils.copy File.expand_path('../install/vue/hello_vue.js', File.dirname(__FILE__)),
         Rails.root.join('app/javascript/packs/hello_vue.js')
 
-      FileUtils.copy File.expand_path('../install/vue/vue_todo.js', File.dirname(__FILE__)),
-        Rails.root.join('app/javascript/packs/vue_todo.js')
-
       FileUtils.copy File.expand_path('../install/vue/app.vue', File.dirname(__FILE__)),
         Rails.root.join('app/javascript/packs/app.vue')
 
-      #Copy the components directory
-      FileUtils.cp_r File.expand_path('../install/vue/components', File.dirname(__FILE__)),
-        Rails.root.join('app/javascript/packs/components')
+      # FileUtils.copy File.expand_path('../install/vue/vue_todo.js', File.dirname(__FILE__)),
+      #   Rails.root.join('app/javascript/packs/vue_todo.js')
 
-      #Copy the assets directory
-      FileUtils.cp_r File.expand_path('../install/vue/assets', File.dirname(__FILE__)),
-        Rails.root.join('app/javascript/packs/assets')
+      #Copy the components directory
+      # FileUtils.cp_r File.expand_path('../install/vue/components', File.dirname(__FILE__)),
+      #   Rails.root.join('app/javascript/packs/components')
+      #
+      # #Copy the assets directory
+      # FileUtils.cp_r File.expand_path('../install/vue/assets', File.dirname(__FILE__)),
+      #   Rails.root.join('app/javascript/packs/assets')
 
       # Copy the todos controller
-      FileUtils.copy File.expand_path('../install/vue/controllers/todos_controller.rb', File.dirname(__FILE__)),
-        Rails.root.join('app/controllers/todos_controller.rb')
+      # FileUtils.copy File.expand_path('../install/vue/controllers/todos_controller.rb', File.dirname(__FILE__)),
+      #   Rails.root.join('app/controllers/todos_controller.rb')
 
-      exec "./bin/rails app:template LOCATION=#{INSERT_ROUTE_PATH} && ./bin/rails generate model Todo text:string && ./bin/rails db:migrate && ./bin/yarn add vue vue-loader vue-template-compiler sass-loader node-sass css-loader url-loader axios"
+      exec "./bin/yarn add vue@2.1.10 vue-loader vue-template-compiler sass-loader node-sass css-loader url-loader axios"
     end
 
   end
