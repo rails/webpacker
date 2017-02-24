@@ -1,0 +1,27 @@
+{
+  "name": "webpacker",
+  "version": "1.0.0",
+  "description": "Webpacker makes it easy to use the JavaScript preprocessor and bundler [Webpack](https://webpack.github.io) to manage application-like JavaScript in Rails. It coexists with the asset pipeline, as the purpose is only to use Webpack for app-like JavaScript, not images, css, or even JavaScript Sprinkles (that all continues to live in app/assets).",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^3.16.1",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rails/webpacker.git"
+  },
+  "author": "David Heinemeier Hansson <david@basecamp.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rails/webpacker/issues"
+  },
+  "homepage": "https://github.com/rails/webpacker#readme"
+}
