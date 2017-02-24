@@ -124,27 +124,12 @@ namespace :webpacker do
 
       File.write config_path, config
 
-      puts "Copying the entire vuejs example to app/javascript/packs/vue"
+      puts "Copying the Vue example to app/javascript/packs/vue"
       FileUtils.copy File.expand_path('../install/vue/hello_vue.js', File.dirname(__FILE__)),
         Rails.root.join('app/javascript/packs/hello_vue.js')
 
       FileUtils.copy File.expand_path('../install/vue/app.vue', File.dirname(__FILE__)),
         Rails.root.join('app/javascript/packs/app.vue')
-
-      # FileUtils.copy File.expand_path('../install/vue/vue_todo.js', File.dirname(__FILE__)),
-      #   Rails.root.join('app/javascript/packs/vue_todo.js')
-
-      #Copy the components directory
-      # FileUtils.cp_r File.expand_path('../install/vue/components', File.dirname(__FILE__)),
-      #   Rails.root.join('app/javascript/packs/components')
-      #
-      # #Copy the assets directory
-      # FileUtils.cp_r File.expand_path('../install/vue/assets', File.dirname(__FILE__)),
-      #   Rails.root.join('app/javascript/packs/assets')
-
-      # Copy the todos controller
-      # FileUtils.copy File.expand_path('../install/vue/controllers/todos_controller.rb', File.dirname(__FILE__)),
-      #   Rails.root.join('app/controllers/todos_controller.rb')
 
       exec "./bin/yarn add vue@2.1.10 vue-loader vue-template-compiler sass-loader node-sass css-loader url-loader axios"
     end
