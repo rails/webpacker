@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 1.9.3'
 
-  s.add_dependency 'activesupport', '>= 5.0'
+  s.add_dependency 'activesupport', '>= 4.0'
   s.add_dependency 'multi_json',    '~> 1.2'
-  s.add_dependency 'railties',      '>= 5.0'
+  s.add_dependency 'railties',      '>= 4.0'
 
   s.add_development_dependency 'bundler', '~> 1.12'
 
