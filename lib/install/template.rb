@@ -6,7 +6,7 @@ chmod 'bin', 0755 & ~File.umask, verbose: false
 directory "#{__dir__}/config", 'config/webpack'
 
 append_to_file '.gitignore', <<-EOS
-/public/packs
+/public/dist
 /node_modules
 EOS
 

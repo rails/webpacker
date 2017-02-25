@@ -9,7 +9,7 @@ class Webpacker::Engine < ::Rails::Engine
       ActionController::Base.helper Webpacker::Helper
     end
 
-    app.config.x.webpacker[:packs_dist_dir] ||= 'packs'
+    app.config.x.webpacker[:packs_dist_dir] ||= 'dist'
     app.config.x.webpacker[:packs_dist_path] ||= \
       "/#{app.config.x.webpacker[:packs_dist_dir]}"
 
