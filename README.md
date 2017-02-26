@@ -85,6 +85,11 @@ will invoke the production configuration, which includes digesting. The `javascr
 method will automatically insert the correct digest when run in production mode. Just like the asset
 pipeline does it.
 
+### Troubleshooting
+
+- Make sure that `NPM_CONFIG_PRODUCTION` is set to `false` in your production environment before `yarn` is run. `webpack` will not be installed otherwise.
+- On Heroku, make sure the above is set as an ENV var (`heroku config:add NPM_CONFIG_PRODUCTION=false`.) An app using webpacker requires both the nodejs and ruby webpacks. `heroku buildpacks:set heroku/nodejs --index 1` then `heroku buildpacks:set heroku/ruby --index 2` will do it.
+
 ## Linking to sprockets assets
 
 It's possible to link to assets that have been precompiled by sprockets. Add the `.erb` extension
