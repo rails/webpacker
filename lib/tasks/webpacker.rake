@@ -7,7 +7,10 @@ namespace :webpacker do
     dist_dir = Rails.application.config.x.webpacker[:packs_dist_dir]
     result   = `WEBPACK_DIST_DIR=#{dist_dir} NODE_ENV=production ./bin/webpack --json`
 
-    exit! $?.exitstatus unless $?.success?
+    unless $?.success?
+      puts JSON.parse(result)['errors']
+      exit! $?.exitstatus
+    end
 
     webpack_digests = JSON.parse(result)['assetsByChunkName'].each_with_object({}) do |(chunk, file), h|
       h[chunk] = file.is_a?(Array) ? file.find {|f| REGEX_MAP !~ f } : file
