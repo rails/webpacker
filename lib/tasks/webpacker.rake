@@ -134,7 +134,7 @@ namespace :webpacker do
       FileUtils.copy File.expand_path('../install/vue/app.vue', File.dirname(__FILE__)),
         Rails.root.join('app/javascript/packs/app.vue')
 
-      exec "./bin/yarn add vue@2.1.10 vue-loader vue-template-compiler sass-loader node-sass css-loader url-loader axios"
+      exec "./bin/yarn add vue vue-loader vue-template-compiler sass-loader node-sass css-loader url-loader axios"
     end
 
   end
