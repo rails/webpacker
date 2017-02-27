@@ -3,8 +3,8 @@
 # is by default in the production environment (as set via
 # `Rails.configuration.x.webpacker[:digesting] = true`).
 class Webpacker::Source
-  def initialize(name)
-    @name = name
+  def initialize(name, pack: true)
+    @name = pack ? "packs/#{name}" : name
   end
 
   def path
