@@ -5,7 +5,6 @@ module.exports = {
     'import/no-unresolved': 'off',
     'import/no-extraneous-dependencies': 'off',
     'import/extensions': 'off',
-    'no-console': 'off',
     semi: ['error', 'never'],
   },
   'env': {
