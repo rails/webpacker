@@ -31,7 +31,7 @@ namespace :webpacker do
   task :install do
     if Rails::VERSION::MAJOR >= 5
       exec "./bin/rails app:template LOCATION=#{WEBPACKER_APP_TEMPLATE_PATH}"
-    else 
+    else
       exec "./bin/rake rails:template LOCATION=#{WEBPACKER_APP_TEMPLATE_PATH}"
     end
   end
@@ -66,7 +66,7 @@ namespace :webpacker do
       FileUtils.copy File.expand_path('../install/react/hello_react.jsx', __dir__),
         Rails.root.join('app/javascript/packs/hello_react.jsx')
 
-      exec './bin/yarn add --dev babel-preset-react && ./bin/yarn add react react-dom'
+      exec './bin/yarn add react react-dom babel-preset-react'
     end
 
     desc "Install everything needed for Angular"
@@ -102,7 +102,7 @@ namespace :webpacker do
       FileUtils.copy File.expand_path('../install/angular/tsconfig.json', __dir__),
         Rails.root.join('tsconfig.json')
 
-      exec './bin/yarn add --dev typescript ts-loader && ./bin/yarn add "core-js zone.js rxjs @angular/core @angular/common @angular/compiler @angular/platform-browser @angular/platform-browser-dynamic"'
+      exec './bin/yarn add typescript ts-loader core-js zone.js rxjs @angular/core @angular/common @angular/compiler @angular/platform-browser @angular/platform-browser-dynamic"'
     end
 
     desc "Install everything needed for Vue"
