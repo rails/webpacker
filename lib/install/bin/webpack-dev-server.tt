@@ -1,4 +1,5 @@
 <%= shebang %>
+require 'shellwords'
 
 ENV['RAILS_ENV'] ||= 'development'
 RAILS_ENV   = ENV['RAILS_ENV']
@@ -7,10 +8,11 @@ ENV['NODE_ENV'] ||= RAILS_ENV
 NODE_ENV    = ENV['NODE_ENV']
 
 APP_PATH = File.expand_path('../', __dir__)
+ESCAPED_APP_PATH = APP_PATH.shellescape
 
-SET_NODE_PATH  = "NODE_PATH=#{APP_PATH}/node_modules"
+SET_NODE_PATH  = "NODE_PATH=#{ESCAPED_APP_PATH}/node_modules"
 WEBPACKER_BIN  = "./node_modules/.bin/webpack-dev-server"
-WEBPACK_CONFIG = "#{APP_PATH}/config/webpack/#{NODE_ENV}.js"
+WEBPACK_CONFIG = "#{ESCAPED_APP_PATH}/config/webpack/#{NODE_ENV}.js"
 
 # Warn the user if the configuration is not set
 RAILS_ENV_CONFIG = File.join("config", "environments", "#{RAILS_ENV}.rb")
@@ -21,5 +23,5 @@ unless File.foreach(File.join(APP_PATH, RAILS_ENV_CONFIG)).detect { |line| line.
 end
 
 Dir.chdir(APP_PATH) do
-  exec "#{SET_NODE_PATH} #{WEBPACKER_BIN} --config #{WEBPACK_CONFIG} --content-base #{APP_PATH}/public/packs #{ARGV.join(" ")}"
+  exec "#{SET_NODE_PATH} #{WEBPACKER_BIN} --config #{WEBPACK_CONFIG} --content-base #{ESCAPED_APP_PATH}/public/packs #{ARGV.join(" ")}"
 end
