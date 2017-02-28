@@ -102,7 +102,7 @@ namespace :webpacker do
       FileUtils.copy File.expand_path('../install/angular/tsconfig.json', __dir__),
         Rails.root.join('tsconfig.json')
 
-      exec './bin/yarn add typescript ts-loader core-js zone.js rxjs @angular/core @angular/common @angular/compiler @angular/platform-browser @angular/platform-browser-dynamic"'
+      exec './bin/yarn add typescript ts-loader core-js zone.js rxjs @angular/core @angular/common @angular/compiler @angular/platform-browser @angular/platform-browser-dynamic'
     end
 
     desc "Install everything needed for Vue"
