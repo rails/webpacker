@@ -34,10 +34,10 @@ namespace :webpacker do
       File.write config_path, config
 
       puts "Copying the Vue example to app/javascript/packs/vue"
-      FileUtils.copy File.expand_path('../../install/vue/hello_vue.js', File.dirname(__FILE__)),
+      FileUtils.copy File.expand_path('../../install/examples/vue/hello_vue.js', File.dirname(__FILE__)),
         Rails.root.join('app/javascript/packs/hello_vue.js')
 
-      FileUtils.copy File.expand_path('../../install/vue/app.vue', File.dirname(__FILE__)),
+      FileUtils.copy File.expand_path('../../install/examples/vue/app.vue', File.dirname(__FILE__)),
         Rails.root.join('app/javascript/packs/app.vue')
 
       exec "./bin/yarn add vue vue-loader vue-template-compiler sass-loader node-sass css-loader url-loader axios"

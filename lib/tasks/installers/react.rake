@@ -29,11 +29,11 @@ namespace :webpacker do
       File.write config_path, config
 
       puts "Copying .babelrc to project directory"
-      FileUtils.copy File.expand_path('../../install/react/.babelrc', __dir__),
+      FileUtils.copy File.expand_path('../../install/examples/react/.babelrc', __dir__),
         Rails.root
 
       puts "Copying react example to app/javascript/packs/hello_react.jsx"
-      FileUtils.copy File.expand_path('../../install/react/hello_react.jsx', __dir__),
+      FileUtils.copy File.expand_path('../../install/examples/react/hello_react.jsx', __dir__),
         Rails.root.join('app/javascript/packs/hello_react.jsx')
 
       exec './bin/yarn add react react-dom babel-preset-react'
