@@ -2,7 +2,6 @@ sudo: required
 language: ruby
 rvm:
   - 2.2.6
-  - 2.3.1
 
 services:
   - docker
@@ -16,7 +15,7 @@ cache:
 install:
   - nvm install node
   - node -v
-  - npm i -g yarn@0.20.3
+  - npm i -g yarn
   - yarn
 
 script:
