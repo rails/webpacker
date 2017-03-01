@@ -10,7 +10,7 @@ that's been made default from that version forward.
 
 ## Installation
 
-Webpacker is currently compatible with Rails 5.0 stable, but there's no guarantee it will still be
+Webpacker is currently compatible with Rails 4.2+, but there's no guarantee it will still be
 in the future.
 
 You can either make use of Webpacker during setup of a new application with `--webpack`
