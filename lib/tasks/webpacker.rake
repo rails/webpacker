@@ -1,4 +1,4 @@
-commands = {
+tasks = {
   'webpacker:install' => 'Installs and setup webpack with yarn',
   'webpacker:compile' => 'Compiles webpack bundles based on environment',
   'webpacker:install:react' => 'Installs and setup example react component',
@@ -8,6 +8,6 @@ commands = {
 
 desc 'Lists available tasks under webpacker'
 task :webpacker do
-  puts 'Available webpacker commands are:'
-  commands.each { |command, message| puts command.ljust(30) + message }
+  puts 'Available webpacker tasks are:'
+  tasks.each { |task, message| puts task.ljust(30) + message }
 end
