@@ -13,10 +13,10 @@ namespace :webpacker do
       end
 
       # Module resolution https://webpack.js.org/concepts/module-resolution/
-      if config.include?("'vue$':'vue/dist/vue.common.js'")
-        puts "Couldn't automatically update module resolution in #{config_path}. Please set resolve { alias:{ 'vue$':'vue/dist/vue.common.js' } }."
+      if config.include?("'vue$':'vue/dist/vue.esm.js'")
+        puts "Couldn't automatically update module resolution in #{config_path}. Please set resolve { alias:{ 'vue$':'vue/dist/vue.esm.js' } }."
       else
-        config.gsub!(/resolve:(\s*\{)(\s*)extensions/,"resolve:\\1\\2alias: { 'vue$':'vue/dist/vue.common.js' },\\2extensions")
+        config.gsub!(/resolve:(\s*\{)(\s*)extensions/,"resolve:\\1\\2alias: { 'vue$':'vue/dist/vue.esm.js' },\\2extensions")
       end
 
       if config.include?("loader: 'url-loader?mimetype=image/png'")
