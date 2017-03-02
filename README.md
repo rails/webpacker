@@ -1,4 +1,5 @@
 # Webpacker
+![travis-ci status](https://api.travis-ci.org/rails/webpacker.svg?branch=master)
 
 Webpacker makes it easy to use the JavaScript preprocessor and bundler [Webpack](https://webpack.github.io)
 to manage application-like JavaScript in Rails. It coexists with the asset pipeline,
