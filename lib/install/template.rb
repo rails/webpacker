@@ -11,7 +11,16 @@ append_to_file '.gitignore', <<-EOS
 EOS
 
 run './bin/yarn add webpack webpack-merge path-complete-extname babel-loader babel-core babel-preset-env coffee-loader coffee-script compression-webpack-plugin rails-erb-loader glob'
+unless $?.success?
+  puts 'Failed to install webpack!'
+  exit $?.exitstatus
+end
+
 run './bin/yarn add --dev webpack-dev-server'
+unless $?.success?
+  puts 'Failed to install webpack-dev-server!'
+  exit $?.exitstatus
+end
 
 environment \
   "# Make javascript_pack_tag lookup digest hash to enable long-term caching\n" +
