@@ -1,16 +1,12 @@
+require "webpacker/package_json"
+
 namespace :webpacker do
   namespace :install do
     desc "Install everything needed for react"
-    task :react do
-      config_path = Rails.root.join('config/webpack/shared.js')
-
-      config = begin
-        File.read(config_path)
-      rescue Errno::ENOENT
-        puts 'Webpack config not found. Make sure webpacker:install is' \
-        ' run successfully before installing react'
-        exit!
-      end
+    task react: ["webpacker:install:verify"] do
+      webpacker_config = Webpacker::PackageJson.webpacker
+      config_path = Rails.root.join(webpacker_config[:configPath], "shared.js")
+      config = File.read(config_path)
 
       if config =~ /presets:\s*\[\s*\[\s*'env'/
         puts "Replacing loader presets to include react in #{config_path}"
@@ -21,7 +17,7 @@ namespace :webpacker do
 
       if config.include?("test: /\\.js(\\.erb)?$/")
         puts "Replacing loader test to include react in #{config_path}"
-        config.gsub!("test: /\\.js(\\.erb)?$/", "test: /\\.jsx?(\\.erb)?$/")
+        config.gsub!("test: /\\.js(\\.erb)?$/", "test: /\\.(js|jsx)?(\\.erb)?$/")
       else
         puts "Couldn't automatically update loader test in #{config_path}. Please set test: /\\.jsx?(\\.erb)?$/."
       end
@@ -29,14 +25,14 @@ namespace :webpacker do
       File.write config_path, config
 
       puts "Copying .babelrc to project directory"
-      FileUtils.copy File.expand_path('../../install/examples/react/.babelrc', __dir__),
+      FileUtils.copy File.expand_path("../../install/examples/react/.babelrc", __dir__),
         Rails.root
 
       puts "Copying react example to app/javascript/packs/hello_react.jsx"
-      FileUtils.copy File.expand_path('../../install/examples/react/hello_react.jsx', __dir__),
-        Rails.root.join('app/javascript/packs/hello_react.jsx')
+      FileUtils.copy File.expand_path("../../install/examples/react/hello_react.jsx", __dir__),
+        Rails.root.join("app/javascript/packs/hello_react.jsx")
 
-      exec './bin/yarn add react react-dom babel-preset-react'
+      exec "./bin/yarn add react react-dom babel-preset-react"
     end
   end
 end

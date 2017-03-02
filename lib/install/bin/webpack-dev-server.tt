@@ -1,27 +1,40 @@
 <%= shebang %>
+$stdout.sync = true
+
 require 'shellwords'
+require 'json'
 
 ENV['RAILS_ENV'] ||= 'development'
-RAILS_ENV   = ENV['RAILS_ENV']
+RAILS_ENV = ENV['RAILS_ENV']
 
 ENV['NODE_ENV'] ||= RAILS_ENV
-NODE_ENV    = ENV['NODE_ENV']
+NODE_ENV = ENV['NODE_ENV']
 
 APP_PATH = File.expand_path('../', __dir__)
 ESCAPED_APP_PATH = APP_PATH.shellescape
 
-SET_NODE_PATH  = "NODE_PATH=#{ESCAPED_APP_PATH}/node_modules"
-WEBPACKER_BIN  = "./node_modules/.bin/webpack-dev-server"
-WEBPACK_CONFIG = "#{ESCAPED_APP_PATH}/config/webpack/#{NODE_ENV}.js"
+begin
+  package_json = File.read(File.join(APP_PATH, 'package.json'))
+  config = JSON.parse(package_json)
 
-# Warn the user if the configuration is not set
-RAILS_ENV_CONFIG = File.join("config", "environments", "#{RAILS_ENV}.rb")
+  NODE_MODULES_PATH = "#{File.join(ESCAPED_APP_PATH, config['webpacker']['nodeModulesPath'])}"
+  WEBPACK_CONFIG_PATH = "#{File.join(ESCAPED_APP_PATH, config['webpacker']['configPath'])}"
+  PACKS_PATH = "#{File.join(ESCAPED_APP_PATH, config['webpacker']['distPath'])}"
+  WEBPACK_BIN  = "#{NODE_MODULES_PATH}/.bin/webpack-dev-server"
+  WEBPACK_CONFIG = "#{WEBPACK_CONFIG_PATH}/development.hot.js"
 
-# Look into the environment file for a non-commented variable declaration
-unless File.foreach(File.join(APP_PATH, RAILS_ENV_CONFIG)).detect { |line| line.match(/^\s*[^#]*config\.x\.webpacker\[\:dev_server_host\].*=/) }
-  puts "Warning: if you want to use webpack-dev-server, you need to tell Webpacker to serve asset packs from it. Please set config.x.webpacker[:dev_server_host] in #{RAILS_ENV_CONFIG}.\n\n"
+  if config['devServer'] && !config['devServer']['enabled']
+    puts "Error: If you want to use webpack-dev-server, you will need to enable " \
+        "webpack-dev-server from your package.json { devServer: { enabled: true } }"
+    exit!
+  end
+rescue Errno::ENOENT, NoMethodError
+  puts 'Package.json or [webpacker, devServer] config key not found.'
+  puts 'Please run bundle exec rails webpacker:install to install webpacker'
+  exit!
 end
 
 Dir.chdir(APP_PATH) do
-  exec "#{SET_NODE_PATH} #{WEBPACKER_BIN} --config #{WEBPACK_CONFIG} --content-base #{ESCAPED_APP_PATH}/public/packs #{ARGV.join(" ")}"
+  exec "NODE_PATH=#{NODE_MODULES_PATH} #{WEBPACK_BIN} " \
+  "--config #{WEBPACK_CONFIG} --content-base #{PACKS_PATH} #{ARGV.join(" ")}"
 end

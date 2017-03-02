@@ -1,0 +1,34 @@
+{
+  "name": "webpacker-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Integrates Webpack to manage application-like JavaScript in Rails",
+  "main": "app/javascript/packs/index.js",
+
+  "scripts": {
+    "lint": "./node_modules/eslint/bin/eslint.js lib/ --fix",
+    "compile": "./bin/webpack",
+    "build": "NODE_ENV=production ./bin/webpack",
+    "server": "./bin/webpack-dev-server",
+    "watch": "./bin/webpack-watcher"
+  },
+
+  "_comment": "Customise as required, but do not remove otherwise your app will break",
+  "webpacker": {
+    "srcPath": "app/javascript",
+    "configPath": "config/webpack",
+    "nodeModulesPath": "node_modules",
+    "_comment": "If you rename distDir, please update distPath too",
+    "distDir": "packs",
+    "distPath": "public/packs",
+    "digestFileName": "digests.json"
+  },
+
+  "_comment": "Configure webpack-dev-server",
+  "devServer": {
+    "enabled": false,
+    "host": "localhost",
+    "port": "8080",
+    "compress": true
+  }
+}

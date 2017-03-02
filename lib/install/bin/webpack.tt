@@ -1,5 +1,8 @@
 <%= shebang %>
+$stdout.sync = true
+
 require 'shellwords'
+require 'json'
 
 ENV['RAILS_ENV'] ||= 'development'
 RAILS_ENV   = ENV['RAILS_ENV']
@@ -10,10 +13,22 @@ NODE_ENV    = ENV['NODE_ENV']
 APP_PATH = File.expand_path('../', __dir__)
 ESCAPED_APP_PATH = APP_PATH.shellescape
 
-SET_NODE_PATH  = "NODE_PATH=#{ESCAPED_APP_PATH}/node_modules"
-WEBPACK_BIN    = "./node_modules/webpack/bin/webpack.js"
-WEBPACK_CONFIG = "#{ESCAPED_APP_PATH}/config/webpack/#{NODE_ENV}.js"
+begin
+  package_json = File.read(File.join(APP_PATH, 'package.json'))
+  config = JSON.parse(package_json)
+
+  NODE_MODULES_PATH = "#{File.join(ESCAPED_APP_PATH, config['webpacker']['nodeModulesPath'])}"
+  WEBPACK_CONFIG_PATH = "#{File.join(ESCAPED_APP_PATH, config['webpacker']['configPath'])}"
+rescue Errno::ENOENT, NoMethodError
+  puts 'Package.json or [webpacker, devServer] config key not found.'
+  puts 'Please run bundle exec rails webpacker:install to install webpacker'
+  exit!
+end
+
+WEBPACK_BIN  = "#{NODE_MODULES_PATH}/.bin/webpack"
+WEBPACK_CONFIG = "#{WEBPACK_CONFIG_PATH}/#{NODE_ENV}.js"
 
 Dir.chdir(APP_PATH) do
-  exec "#{SET_NODE_PATH} #{WEBPACK_BIN} --config #{WEBPACK_CONFIG} #{ARGV.join(" ")}"
+  exec "NODE_PATH=#{NODE_MODULES_PATH} #{WEBPACK_BIN} --config #{WEBPACK_CONFIG}" \
+  " #{ARGV.join(" ")}"
 end
