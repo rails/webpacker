@@ -27,7 +27,12 @@ class Webpacker::Digests
   end
 
   def lookup(name)
-    @digests[name.to_s]
+    lookedup = @digests[name.to_s]
+    if lookedup.respond_to?(:select)
+      lookedup.select { |fn| fn.end_with?('.js') }.first
+    else
+      lookedup
+    end
   end
 
   private
