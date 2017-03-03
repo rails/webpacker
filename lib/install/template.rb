@@ -12,13 +12,13 @@ EOS
 
 run './bin/yarn add webpack webpack-merge path-complete-extname babel-loader babel-core babel-preset-env coffee-loader coffee-script compression-webpack-plugin rails-erb-loader glob'
 unless $?.success?
-  puts 'Failed to install webpack!'
+  puts set_color 'Failed to install webpack!', :red
   exit $?.exitstatus
 end
 
 run './bin/yarn add --dev webpack-dev-server'
 unless $?.success?
-  puts 'Failed to install webpack-dev-server!'
+  puts set_color 'Failed to install webpack-dev-server!', :red
   exit $?.exitstatus
 end
 
