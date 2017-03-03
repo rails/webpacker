@@ -6,5 +6,6 @@ Dir.chdir(VENDOR_PATH) do
   rescue Errno::ENOENT
     puts "Yarn executable was not detected in the system."
     puts "Download Yarn at https://yarnpkg.com/en/docs/install"
+    exit false
   end
 end
