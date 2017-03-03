@@ -1,3 +1,10 @@
+# Ensure yarn exists before proceeding with any yarn calls
+run './bin/yarn --version'
+unless $?.success?
+  puts set_color "rails webpacker:install failed!", :red
+  exit $?.exitstatus
+end
+
 directory "#{__dir__}/javascript", 'app/javascript'
 
 directory "#{__dir__}/bin", 'bin'
