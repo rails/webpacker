@@ -2,10 +2,6 @@ sudo: required
 language: ruby
 rvm:
   - 2.2.6
-
-services:
-  - docker
-
 cache:
   bundler: true
   directories:
@@ -17,6 +13,5 @@ install:
   - node -v
   - npm i -g yarn
   - yarn
-
 script:
   - yarn lint
