@@ -1,10 +1,11 @@
 REGEX_MAP = /\A.*\.map\z/
+NODE_ENV = ENV['RAILS_ENV'] || 'production'
 
 namespace :webpacker do
   desc "Compile javascript packs using webpack for production with digests"
   task :compile => :environment do
     dist_dir = Rails.application.config.x.webpacker[:packs_dist_dir]
-    result   = `WEBPACK_DIST_DIR=#{dist_dir} NODE_ENV=production ./bin/webpack --json`
+    result   = `WEBPACK_DIST_DIR=#{dist_dir} NODE_ENV=#{NODE_ENV} ./bin/webpack --json`
 
     unless $?.success?
       puts JSON.parse(result)['errors']
