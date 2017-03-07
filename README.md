@@ -159,6 +159,7 @@ have them properly compiled automatically.
 
 ```js
 // React component example
+// app/javascripts/packs/hello_react.jsx
 import React from 'react'
 import ReactDOM from 'react-dom'
 import clockIcon from '../counter/images/clock.png'
@@ -170,6 +171,12 @@ const Hello = props => (
     <p>Hello {props.name}!</p>
   </div>
 )
+```
+
+and then within your view, include the `stylesheet_pack_tag` with the name of your pack,
+
+```erb
+<%= stylesheet_pack_tag 'hello_react' %>
 ```
 
 ## Ready for React
