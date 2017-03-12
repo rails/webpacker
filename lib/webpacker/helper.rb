@@ -1,5 +1,5 @@
 require "webpacker/source"
-require "webpacker/package_json"
+require "webpacker/configuration"
 
 module Webpacker::Helper
   # Creates a script tag that references the named pack file, as compiled by Webpack per the entries list
@@ -16,9 +16,7 @@ module Webpacker::Helper
   #   <%= javascript_pack_tag 'calendar', 'data-turbolinks-track': 'reload' %> # =>
   #   <script src="/packs/calendar-1016838bab065ae1e314.js" data-turbolinks-track="reload"></script>
   def javascript_pack_tag(name, **options)
-    filename = File.basename(name, ".js")
-    filename += ".js"
-    javascript_include_tag(Webpacker::Source.new(filename).path, **options)
+    javascript_include_tag(Webpacker::Source.new("#{File.basename(name, '.js')}.js").path, **options)
   end
 
   # Creates a link tag that references the named pack file, as compiled by Webpack per the entries list
@@ -35,15 +33,11 @@ module Webpacker::Helper
   #   <%= stylesheet_pack_tag 'calendar', 'data-turbolinks-track': 'reload' %> # =>
   #   <link rel="stylesheet" media="screen" href="/packs/calendar-1016838bab065ae1e122.css" data-turbolinks-track="reload" />
   def stylesheet_pack_tag(name, **options)
-    webpacker_config = Webpacker::PackageJson.webpacker
+    webpacker_config = Webpacker::Configuration.webpacker
     unless webpacker_config[:assets]
-      raise StandardError,
-                        "Stylesheet support is not enabled. Install using " \
-                        "webpacker:install:assets"
+      raise StandardError, "Stylesheet support isn't enabled. Install using - webpacker:install:assets"
     end
 
-    filename = File.basename(name, ".css")
-    filename += ".css"
-    stylesheet_link_tag(Webpacker::Source.new(filename).path, **options)
+    stylesheet_link_tag(Webpacker::Source.new("#{File.basename(name, '.css')}.css").path, **options)
   end
 end

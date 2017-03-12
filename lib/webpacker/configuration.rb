@@ -1,7 +1,7 @@
 # Loads the package.json file from app root to read the webpacker configuration
 
-class Webpacker::PackageJson
-  class PackageJsonError < StandardError; end
+class Webpacker::Configuration
+  class NotFoundError < StandardError; end
   class_attribute :instance
   attr_accessor :config
 
@@ -23,8 +23,7 @@ class Webpacker::PackageJson
       begin
         config[:webpacker]
       rescue NoMethodError
-        raise PackageJsonError, "Error: Webpacker core config not found in package.json." \
-                           " Make sure webpacker:install is run successfully"
+        raise NotFoundError, "Error: Webpacker core config not found in package.json. Make sure webpacker:install is run successfully"
       end
     end
 
@@ -32,8 +31,7 @@ class Webpacker::PackageJson
       begin
         config[:devServer]
       rescue NoMethodError
-        raise PackageJsonError, "Error: webpack-dev-server config not found in package.json." \
-                           " Make sure webpacker:install is run successfully"
+        raise NotFoundError, "Error: webpack-dev-server config not found in package.json. Make sure webpacker:install is run successfully"
       end
     end
   end
@@ -47,8 +45,7 @@ class Webpacker::PackageJson
 
     def load
       if File.exist?(@path)
-        package_json = JSON.parse(File.read(@path))
-        HashWithIndifferentAccess.new(package_json)
+        HashWithIndifferentAccess.new(JSON.parse(File.read(@path)))
       else
         Rails.logger.info "Didn't find any package.json file at #{@path}. " \
         "You must first install webpacker via rails webpacker:install"

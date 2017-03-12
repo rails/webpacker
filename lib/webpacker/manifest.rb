@@ -26,8 +26,8 @@ class Webpacker::Manifest
     end
 
     def digests_path
-      webpacker_config = Webpacker::PackageJson.webpacker
-      Rails.root.join(webpacker_config[:distPath], webpacker_config[:digestFileName])
+      webpacker_config = Webpacker::Configuration.webpacker
+      Rails.root.join(webpacker_config[:distPath], webpacker_config[:manifestFileName])
     end
   end
 
@@ -36,7 +36,6 @@ class Webpacker::Manifest
   end
 
   private
-
     def initialize(path)
       @path    = path
       @digests = load

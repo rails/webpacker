@@ -11,14 +11,11 @@ ENV['NODE_ENV'] ||= RAILS_ENV
 NODE_ENV    = ENV['NODE_ENV']
 
 APP_PATH = File.expand_path('../', __dir__)
-ESCAPED_APP_PATH = APP_PATH.shellescape
 
 begin
-  package_json = File.read(File.join(APP_PATH, 'package.json'))
-  config = JSON.parse(package_json)
-
-  NODE_MODULES_PATH = "#{File.join(ESCAPED_APP_PATH, config['webpacker']['nodeModulesPath'])}"
-  WEBPACK_CONFIG_PATH = "#{File.join(ESCAPED_APP_PATH, config['webpacker']['configPath'])}"
+  config = JSON.parse(File.read(File.join(APP_PATH, 'package.json')))
+  NODE_MODULES_PATH = File.join(APP_PATH.shellescape, config['webpacker']['nodeModulesPath'])
+  WEBPACK_CONFIG_PATH = File.join(APP_PATH.shellescape, config['webpacker']['configPath'])
 rescue Errno::ENOENT, NoMethodError
   puts 'Package.json or [webpacker, devServer] config key not found.'
   puts 'Please run bundle exec rails webpacker:install to install webpacker'

@@ -20,20 +20,4 @@ Gem::Specification.new do |s|
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- test/*`.split("\n")
-  s.post_install_message = %{
-    Webpacker installed! You now need to setup webpacker using
-    following command - bundle exec rails webpacker:install
-
-    After installation, you can link example javascript app pack available in
-    application/javascript using this helper in your view,
-
-    <%= javascript_pack_tag 'application' %>
-
-    Don't forget to update the name of your app and description in package.json
-
-    To check, list of commands available, run - bundle exec rails webpacker
-
-    Important Notice: Your package.json file contains configuration for webpacker.
-    Modify as needed, but do not remove otherwise your app will break.
-  }
 end

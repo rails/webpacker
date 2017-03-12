@@ -10,15 +10,15 @@ class Webpacker::Engine < ::Rails::Engine
 
     # Load config from package.json or initialise with defaults
     # when running rails webpacker:install
-    Webpacker::PackageJson.load
-    webpacker_config = Webpacker::PackageJson.webpacker
+    Webpacker::Configuration.load
+    webpacker_config = Webpacker::Configuration.webpacker
 
     if !(webpacker_config && webpacker_config[:distPath])
-      webpacker_config = { distPath: "public/packs", digestFileName: "digests.json" }
+      webpacker_config = { distPath: "public/packs", manifestFileName: "manifest.json" }
     end
 
     Webpacker::Manifest.load(
-      Rails.root.join(webpacker_config[:distPath], webpacker_config[:digestFileName])
+      Rails.root.join(webpacker_config[:distPath], webpacker_config[:manifestFileName])
     )
   end
 end

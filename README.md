@@ -94,7 +94,7 @@ By default, webpacker provides simple conventions for where the webpack configs,
       "nodeModulesPath": "node_modules",
       "distDir": "packs",
       "distPath": "public/packs",
-      "digestFileName": "digests.json"
+      "manifestFileName": "manifest.json"
     },
     "_comment": "Configure webpack-dev-server",
     "devServer": {

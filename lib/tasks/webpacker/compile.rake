@@ -1,11 +1,11 @@
-require "webpacker/package_json"
+require "webpacker/configuration"
 REGEX_MAP = /\A.*\.map\z/
 
 namespace :webpacker do
   desc "Compile javascript packs using webpack for production with digests"
   task compile: ["webpacker:install:verify", :environment] do
-    webpacker_config = Webpacker::PackageJson.webpacker
-    result = `WEBPACK_DIST_DIR=#{webpacker_config[:distDir]} NODE_ENV=production ./bin/webpack`
+    webpacker_config = Webpacker::Configuration.webpacker
+    result = `NODE_ENV=production ./bin/webpack`
 
     unless $?.success?
       puts JSON.parse(result)["errors"]
@@ -13,7 +13,7 @@ namespace :webpacker do
     end
 
     packs_path = Rails.root.join("public", webpacker_config[:distDir])
-    packs_digests_path = Rails.root.join(webpacker_config[:distPath], webpacker_config[:digestFileName])
+    packs_digests_path = Rails.root.join(webpacker_config[:distPath], webpacker_config[:manifestFileName])
     webpack_digests = JSON.parse(File.read(packs_digests_path))
 
     puts "Compiled digests for all packs in #{packs_digests_path}: "

@@ -21,12 +21,12 @@
     "_comment": "If you rename distDir, please update distPath too",
     "distDir": "packs",
     "distPath": "public/packs",
-    "digestFileName": "digests.json"
+    "manifestFileName": "manifest.json"
   },
 
   "_comment": "Configure webpack-dev-server",
   "devServer": {
-    "enabled": false,
+    "enabled": true,
     "host": "localhost",
     "port": "8080",
     "compress": true

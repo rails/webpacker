@@ -1,8 +1,8 @@
 require "webpacker/manifest"
-require "webpacker/package_json"
+require "webpacker/configuration"
 
 # Translates a logical reference for a pack source into the final
-# path needed in the HTML using generated digests.json manifest.
+# path needed in the HTML using generated manifest.json manifest.
 class Webpacker::Source
   class SourceError < StandardError; end
 
@@ -19,11 +19,10 @@ class Webpacker::Source
   end
 
   private
-
     attr_accessor :filename
 
     def dev_server
-      Webpacker::PackageJson.dev_server
+      Webpacker::Configuration.dev_server
     end
 
     def dev_server_enabled?

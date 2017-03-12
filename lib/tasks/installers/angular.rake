@@ -1,10 +1,10 @@
-require "webpacker/package_json"
+require "webpacker/configuration"
 
 namespace :webpacker do
   namespace :install do
     desc "Install everything needed for Angular"
     task angular: ["webpacker:install:verify"] do
-      webpacker_config = Webpacker::PackageJson.webpacker
+      webpacker_config = Webpacker::Configuration.webpacker
       config_path = Rails.root.join(webpacker_config[:configPath], "shared.js")
       config = File.read(config_path)
 
