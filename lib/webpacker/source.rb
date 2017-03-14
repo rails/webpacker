@@ -1,31 +1,26 @@
 require "webpacker/manifest"
-require "webpacker/configuration"
+require "webpacker/dev_server"
 
 # Translates a logical reference for a pack source into the final
-# path needed in the HTML using generated manifest.json manifest.
+# path needed in the HTML using generated manifest.json file.
 class Webpacker::Source
-  class SourceError < StandardError; end
-
-  def initialize(filename)
-    @filename = filename
+  def initialize(name, options = {})
+    @name    = name
+    @options = options
   end
 
   def path
-    if Rails.env.development? && dev_server_enabled?
-      "http://#{dev_server[:host]}:#{dev_server[:port]}/#{filename}"
+    if Webpacker::DevServer.running?
+      Webpacker::DevServer.resolve(compute_source_with_extname)
     else
-      Webpacker::Manifest.lookup(filename)
+      Webpacker::Manifest.lookup(compute_source_with_extname)
     end
   end
 
   private
-    attr_accessor :filename
+    attr_accessor :name, :options
 
-    def dev_server
-      Webpacker::Configuration.dev_server
-    end
-
-    def dev_server_enabled?
-      ENV["DEV_SERVER_ENABLED"] || dev_server[:enabled]
+    def compute_source_with_extname
+      "#{name}#{ActionController::Base.helpers.compute_asset_extname(name, options)}"
     end
 end

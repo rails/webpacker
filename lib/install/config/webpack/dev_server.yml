@@ -1,0 +1,4 @@
+dev_server:
+  enabled: true
+  host: localhost
+  port: 8080

@@ -4,25 +4,24 @@ namespace :webpacker do
   namespace :install do
     desc "Install everything needed for react"
     task react: ["webpacker:install:verify"] do
-      webpacker_config = Webpacker::Configuration.webpacker
-      config_path = Rails.root.join(webpacker_config[:configPath], "shared.js")
-      config = File.read(config_path)
+      shared_config_path = Webpacker::Configuration.shared_config_path
+      config             = File.read(shared_config_path)
 
       if config =~ /presets:\s*\[\s*\[\s*'env'/
-        puts "Replacing loader presets to include react in #{config_path}"
+        puts "Replacing loader presets to include react in #{shared_config_path}"
         config.gsub!(/presets:(\s*\[)(\s*)\[(\s)*'env'/, "presets:\\1\\2'react',\\2[\\3'env'")
       else
-        puts "Couldn't automatically update loader presets in #{config_path}. Please set presets: [ 'react', [ 'env', { 'modules': false } ] ]."
+        puts "Couldn't automatically update loader presets in #{shared_config_path}. Please set presets: [ 'react', [ 'env', { 'modules': false } ] ]."
       end
 
       if config.include?("test: /\\.js(\\.erb)?$/")
-        puts "Replacing loader test to include react in #{config_path}"
+        puts "Replacing loader test to include react in #{shared_config_path}"
         config.gsub!("test: /\\.js(\\.erb)?$/", "test: /\\.(js|jsx)?(\\.erb)?$/")
       else
-        puts "Couldn't automatically update loader test in #{config_path}. Please set test: /\\.jsx?(\\.erb)?$/."
+        puts "Couldn't automatically update loader test in #{shared_config_path}. Please set test: /\\.jsx?(\\.erb)?$/."
       end
 
-      File.write config_path, config
+      File.write shared_config_path, config
 
       puts "Copying .babelrc to project directory"
       FileUtils.copy File.expand_path("../../install/examples/react/.babelrc", __dir__),

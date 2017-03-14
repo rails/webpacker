@@ -1,55 +1,38 @@
-# Loads the package.json file from app root to read the webpacker configuration
+# Loads webpacker configuration from config/webpack/paths.yml
+require "webpacker/file_loader"
 
-class Webpacker::Configuration
-  class NotFoundError < StandardError; end
-  class_attribute :instance
-  attr_accessor :config
-
+class Webpacker::Configuration < Webpacker::FileLoader
   class << self
-    def load(path = Rails.root.join("package.json"))
-      self.instance = new(path)
+    def file_path
+      Rails.root.join("config", "webpack", "paths.yml")
     end
 
-    def config
+    def manifest_path
+      Rails.root.join(packs_path, "manifest.json")
+    end
+
+    def packs_path
+      Rails.root.join(paths.fetch(:dist_path, "public/packs"))
+    end
+
+    def paths
       load if Rails.env.development?
-      instance.config
+      raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Configuration.load must be called first") unless instance
+      instance.data.fetch(:paths, {})
     end
 
-    def scripts
-      config[:scripts]
+    def shared_config_path
+      Rails.root.join(webpack_config_path, "shared.js")
     end
 
-    def webpacker
-      begin
-        config[:webpacker]
-      rescue NoMethodError
-        raise NotFoundError, "Error: Webpacker core config not found in package.json. Make sure webpacker:install is run successfully"
-      end
-    end
-
-    def dev_server
-      begin
-        config[:devServer]
-      rescue NoMethodError
-        raise NotFoundError, "Error: webpack-dev-server config not found in package.json. Make sure webpacker:install is run successfully"
-      end
+    def webpack_config_path
+      Rails.root.join(paths.fetch(:config_path, "config/webpack"))
     end
   end
 
   private
-
-    def initialize(path)
-      @path = path
-      @config = load
-    end
-
     def load
-      if File.exist?(@path)
-        HashWithIndifferentAccess.new(JSON.parse(File.read(@path)))
-      else
-        Rails.logger.info "Didn't find any package.json file at #{@path}. " \
-        "You must first install webpacker via rails webpacker:install"
-        {}
-      end
+      return super unless File.exist?(@path)
+      HashWithIndifferentAccess.new(YAML.load(File.read(@path)))
     end
 end

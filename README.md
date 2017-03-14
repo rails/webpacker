@@ -61,11 +61,6 @@ as Webpack calls it).
 
 Let's say you're building a calendar. Your structure could look like this:
 
-```erb
-<%# app/views/layout/application.html.erb %>
-<%= javascript_pack_tag 'calendar' %>
-```
-
 ```js
 // app/javascript/packs/calendar.js
 require('calendar')
@@ -74,49 +69,98 @@ require('calendar')
 ```
 app/javascript/calendar/index.js // gets loaded by require('calendar')
 app/javascript/calendar/components/grid.jsx
+app/javascript/calendar/styles/grid.sass
 app/javascript/calendar/models/month.js
 ```
 
-But it could also look a million other ways. The only convention that Webpacker enforces is the
-one where entry points are automatically configured by the files in `app/javascript/packs`.
+```erb
+<%# app/views/layout/application.html.erb %>
+<%= javascript_pack_tag 'calendar' %>
+<%= stylesheet_pack_tag 'calendar' %>
+```
+
+But it could also look a million other ways.
 
 ## Advanced Configuration
 
-By default, webpacker provides simple conventions for where the webpack configs, javascript app files and compiled webpack bundles will go in your rails app, but all these are configurable from package.json that comes with webpacker. You can also configure webpack-dev-server host and port in your development environment
+By default, webpacker offers simple conventions for where the webpack configs, javascript app files and compiled webpack bundles will go in your rails app,
+but all these options are configurable from `config/webpack/paths.yml` file.
 
-```json
-{
-  "config": {
-    "_comment": "Configure webpacker internals (do not remove)",
-    "webpacker": {
-      "srcPath": "app/javascript",
-      "configPath": "config/webpack",
-      "nodeModulesPath": "node_modules",
-      "distDir": "packs",
-      "distPath": "public/packs",
-      "manifestFileName": "manifest.json"
-    },
-    "_comment": "Configure webpack-dev-server",
-    "devServer": {
-      "enabled": true,
-      "host": "localhost",
-      "port": "8080",
-      "compress": true
-    }
-  }
-}
+```yml
+# config/webpack/paths.yml
+paths:
+  src_path: app/javascript
+  config_path: config/webpack
+  node_modules_path: node_modules
+  dist_dir: packs
+  dist_path: public/packs
 ```
 
-**For ex:** if you rename `packs` directory inside `app/javascript` from `packs` to `bundles`, make sure you also update your `distDir` and `distPath`.
+**Note:** If you rename `packs` directory inside `app/javascript` from `packs` to `bundles`, make sure you also update your `dist_dir` and `dist_path`.
 
-```json
-"webpacker": {
-  "distDir": "bundles",
-  "distPath": "public/bundles",
-}
+```yml
+paths:
+  dist_dir: bundles
+  dist_path: public/bundles
 ```
 
-**Note:** Do not delete this config otherwise your app will break, unless you really know what you're doing.
+Similary, you can also control and configure `webpack-dev-server` settings from
+`config/webpack/dev_server.yml` file
+
+```yml
+# config/webpack/dev_server.yml
+dev_server:
+  enabled: true
+  host: localhost
+  port: 8080
+```
+
+By default, `webpack-dev-server` uses `dist_path` option specified in `paths.yml` as `contentBase`.
+
+**Note:** Don't forget to disable `webpack-dev-server` incase you are using
+`./bin/webpack-watcher` to serve assets in development mode otherwise
+you will get 404 for assets because the helper tag will use webpack-dev-server url
+to serve assets instead of public directory.
+
+## Linking to static assets
+
+Static assets like images, fonts and stylesheets support is enabled out-of-box so, you can link them into your javascript app code and have them compiled automatically.
+
+```js
+// React component example
+// app/javascripts/packs/hello_react.jsx
+import React from 'react'
+import ReactDOM from 'react-dom'
+import helloIcon from '../hello_react/images/icon.png'
+import './hello-react.sass'
+
+const Hello = props => (
+  <div className="hello-react">
+    <img src={helloIcon} alt="hello-icon" />
+    <p>Hello {props.name}!</p>
+  </div>
+)
+```
+
+under the hood webpack uses [extract-text-webpack-plugin](https://github.com/webpack-contrib/extract-text-webpack-plugin) plugin to extract all the referenced styles and compile it into a separate `[pack_name].css` bundle so that within your view you can use the `stylesheet_pack_tag` helper,
+
+```erb
+<%= stylesheet_pack_tag 'hello_react' %>
+```
+
+## Getting asset path
+
+Webpacker provides `asset_pack_path` helper to get the path of any given asset that's been compiled by webpack.
+
+**For ex,** if you want to create a `<link rel="prefetch">` or `<img />`
+for an asset used in your pack code you can reference them like this in your view,
+
+```erb
+<%= asset_pack_path 'hello_react.css' %>
+<% # => "/packs/hello_react.css" %>
+<img src="<%= asset_pack_path 'calendar.png' %>" />
+<% # => <img src="/packs/calendar.png" /> %>
+```
 
 ## Deployment
 
@@ -134,9 +178,6 @@ Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which 
   <link rel="stylesheet" media="screen" href="/packs/calendar-dc02976b5f94b507e3b6.css">
 ```
 
-**Note:** *`stylesheet_pack_tag` helper is not available out-of-the-box.
-Check [statics assets](#ready-for-static-assets) support section for more details.*
-
 ## Linking to sprockets assets
 
 It's possible to link to assets that have been precompiled by sprockets. Add the `.erb` extension
@@ -150,34 +191,6 @@ var railsImagePath = "<%= helpers.image_path('rails.png') %>";
 ```
 
 This is enabled by the `rails-erb-loader` loader rule in `config/webpack/shared.js`.
-
-## Ready for Static Assets
-
-Static assets support isn't enabled out-of-the-box. To enable static assets support in your javascript app you will need to run `rails webpacker:install:assets` after you have installed webpacker. Once installed, you can
-link static files like images and styles directly into your javascript app code and
-have them properly compiled automatically.
-
-```js
-// React component example
-// app/javascripts/packs/hello_react.jsx
-import React from 'react'
-import ReactDOM from 'react-dom'
-import clockIcon from '../counter/images/clock.png'
-import './hello-react.sass'
-
-const Hello = props => (
-  <div className="hello-react">
-    <img src={clockIcon} alt="clock" />
-    <p>Hello {props.name}!</p>
-  </div>
-)
-```
-
-and then within your view, include the `stylesheet_pack_tag` with the name of your pack,
-
-```erb
-<%= stylesheet_pack_tag 'hello_react' %>
-```
 
 ## Ready for React
 

@@ -8,17 +8,15 @@ class Webpacker::Engine < ::Rails::Engine
       ActionController::Base.helper Webpacker::Helper
     end
 
-    # Load config from package.json or initialise with defaults
-    # when running rails webpacker:install
+    # Loads webpacker config data from config/webpack/paths.yml
     Webpacker::Configuration.load
-    webpacker_config = Webpacker::Configuration.webpacker
 
-    if !(webpacker_config && webpacker_config[:distPath])
-      webpacker_config = { distPath: "public/packs", manifestFileName: "manifest.json" }
+    # Loads webpack-dev-server config data from config/webpack/dev_server.yml
+    if Rails.env.development?
+      Webpacker::DevServer.load
     end
 
-    Webpacker::Manifest.load(
-      Rails.root.join(webpacker_config[:distPath], webpacker_config[:manifestFileName])
-    )
+    # Loads manifest data from public/packs/manifest.json
+    Webpacker::Manifest.load
   end
 end

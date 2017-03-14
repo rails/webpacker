@@ -4,7 +4,6 @@ REGEX_MAP = /\A.*\.map\z/
 namespace :webpacker do
   desc "Compile javascript packs using webpack for production with digests"
   task compile: ["webpacker:install:verify", :environment] do
-    webpacker_config = Webpacker::Configuration.webpacker
     result = `NODE_ENV=production ./bin/webpack`
 
     unless $?.success?
@@ -12,12 +11,8 @@ namespace :webpacker do
       exit! $?.exitstatus
     end
 
-    packs_path = Rails.root.join("public", webpacker_config[:distDir])
-    packs_digests_path = Rails.root.join(webpacker_config[:distPath], webpacker_config[:manifestFileName])
-    webpack_digests = JSON.parse(File.read(packs_digests_path))
-
-    puts "Compiled digests for all packs in #{packs_digests_path}: "
-    puts webpack_digests
+    puts "Compiled digests for all packs in #{Webpacker::Configuration.packs_path}: "
+    puts JSON.parse(File.read(Webpacker::Configuration.manifest_path))
   end
 end
 
