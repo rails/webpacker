@@ -26,12 +26,12 @@ begin
       "Disable to serve assets directly from packs directory"
   end
 rescue Errno::ENOENT, NoMethodError
-  puts "config/webpack/paths.yml or config/webpack/dev_server.yml file not found."
+  puts "Configuration not found in config/webpack/paths.yml or config/webpack/dev_server.yml."
   puts "Please run bundle exec rails webpacker:install to install webpacker"
   exit!
 end
 
-WEBPACK_BIN  = "#{NODE_MODULES_PATH}/.bin/webpack"
+WEBPACK_BIN    = "#{NODE_MODULES_PATH}/.bin/webpack"
 WEBPACK_CONFIG = "#{WEBPACK_CONFIG_PATH}/#{NODE_ENV}.js"
 
 Dir.chdir(APP_PATH) do
