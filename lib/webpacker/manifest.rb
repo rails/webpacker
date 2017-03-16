@@ -17,13 +17,20 @@ class Webpacker::Manifest < Webpacker::FileLoader
     def lookup(name)
       load if Rails.env.development?
       raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Manifest.load must be called first") unless instance
-      instance.data[name.to_s] || raise(Webpacker::FileLoader::NotFoundError.new("Can't find #{name} in #{@data}. Try reloading in case webpack is still compiling!"))
+      instance.data[name.to_s] || raise(Webpacker::FileLoader::NotFoundError.new("Can't find #{name} in #{file_path}. Is webpack still compiling?"))
     end
   end
 
   private
     def load
-      return super unless File.exist?(@path)
-      JSON.parse(File.read(@path))
+      begin
+        retries ||= 0
+        JSON.parse(File.read(@path))
+      rescue Errno::ENOENT
+        return super unless Rails.env.development?
+        Rails.logger.info "Packs manifest not found #{Webpacker::Configuration.manifest_path}, waiting for #{retries + 1}sec before retrying"
+        sleep(retries += 1)
+        retries < 10 ? retry : super
+      end
     end
 end
