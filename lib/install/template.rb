@@ -12,7 +12,7 @@ append_to_file ".gitignore", <<-EOS
 EOS
 
 run "./bin/yarn add webpack webpack-merge js-yaml path-complete-extname " \
-"webpack-manifest-plugin babel-loader coffee-loader coffee-script " \
+"webpack-manifest-plugin write-file-webpack-plugin babel-loader coffee-loader coffee-script " \
 "babel-core babel-preset-env compression-webpack-plugin rails-erb-loader glob " \
 "extract-text-webpack-plugin node-sass file-loader sass-loader css-loader style-loader"
 

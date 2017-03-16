@@ -1,3 +1,4 @@
+# Restart webpack-dev-server if you make changes here
 dev_server:
   enabled: true
   host: localhost

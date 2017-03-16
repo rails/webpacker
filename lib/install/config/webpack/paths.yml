@@ -1,3 +1,4 @@
+# Restart webpack-watcher or webpack-dev-server if you make changes here
 paths:
   src_path: app/javascript
   config_path: config/webpack
