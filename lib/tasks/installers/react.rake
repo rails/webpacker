@@ -21,6 +21,13 @@ namespace :webpacker do
         puts "Couldn't automatically update loader test in #{shared_config_path}. Please set test: /\\.jsx?(\\.erb)?$/."
       end
 
+      if config =~ /["'].jsx["']/
+        puts "The configuration file already has a reference to .jsx extension, skipping the addition of this extension to the list..."
+      else
+        puts "Adding '.jsx' in loader extensions in #{shared_config_path}..."
+        config.gsub!(/extensions = (.*')(\s*\])/, "extensions = \\1, '.jsx'\\2")
+      end
+
       File.write shared_config_path, config
 
       puts "Copying .babelrc to project directory"

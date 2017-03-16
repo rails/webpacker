@@ -18,7 +18,7 @@ namespace :webpacker do
         puts "The configuration file already has a reference to .ts extension, skipping the addition of this extension to the list..."
       else
         puts "Adding '.ts' in loader extensions in #{shared_config_path}..."
-        config.gsub!(/extensions:(.*')(\s*\])/, "extensions:\\1, '.ts'\\2")
+        config.gsub!(/extensions = (.*')(\s*\])/, "extensions = \\1, '.ts'\\2")
       end
 
       File.write shared_config_path, config
