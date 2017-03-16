@@ -1,3 +1,6 @@
+# Ensure yarn exists before proceeding with any yarn calls
+
+
 directory "#{__dir__}/javascript", 'app/javascript'
 
 directory "#{__dir__}/bin", 'bin'
@@ -11,7 +14,16 @@ append_to_file '.gitignore', <<-EOS
 EOS
 
 run './bin/yarn add webpack webpack-merge path-complete-extname babel-loader babel-core babel-preset-env coffee-loader coffee-script compression-webpack-plugin rails-erb-loader glob'
+unless $?.success?
+  puts set_color 'Failed to install webpack!', :red
+  exit $?.exitstatus
+end
+
 run './bin/yarn add --dev webpack-dev-server'
+unless $?.success?
+  puts set_color 'Failed to install webpack-dev-server!', :red
+  exit $?.exitstatus
+end
 
 environment \
   "# Make javascript_pack_tag lookup digest hash to enable long-term caching\n" +
