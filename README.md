@@ -206,6 +206,26 @@ To use Webpacker with Angular, just create a new app with `rails new myapp --web
 
 To use Webpacker with Vue, just create a new app with `rails new myapp --webpack=vue` (or run `rails webpacker:install:vue` on a Rails app already setup with webpacker). Vue and its supported libraries will be added via yarn and changes to the configuration files made. An example component is also added to your project in `app/javascript` so that you can experiment Vue right away.
 
+## Troubleshooting
+
+*  If you get an error `ENOENT: no such file or directory - node-sass` on Heroku
+or elsewhere during `assets:precompile` or `bundle exec rails webpacker:compile`
+then you would need to rebuild node-sass. It's a bit weird error,
+basically, it can't find the `node-sass` binary.
+An easy solution is to create a postinstall hook - `npm rebuild node-sass` in
+`package.json` and that will ensure `node-sass` is rebuild whenever
+you install any new modules.
+
+* `Can't find hello_react.js in manifest.json`. Webpacker uses a `manifest.json`
+file to keep track of packs in all environments,
+however since this file is generated after packs are compiled by webpack and so,
+if you load your rails server whilst webpack is compiling you will get this error.
+Therefore, make sure webpack binstub
+(i.e `.bin/webpack-watcher` or `.bin/webpack-dev-sever`) is running and has
+completed the compilation successfully. **Note:** The lookup currently waits
+for manifest.json to be generated for a few seconds but will eventually fail
+and raise this error.
+
 
 ## Wishlist
 

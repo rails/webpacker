@@ -23,7 +23,7 @@ begin
 
   if NODE_ENV == "development" && dev_server_config["dev_server"]["enabled"]
     puts "Warning: webpack-dev-server is currently enabled in #{DEV_SERVER_CONFIG_PATH}. " \
-      "Disable to serve assets directly from packs directory"
+      "Disable to serve assets directly from public/packs directory"
   end
 rescue Errno::ENOENT, NoMethodError
   puts "Configuration not found in config/webpack/paths.yml or config/webpack/dev_server.yml."

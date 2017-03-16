@@ -7,7 +7,7 @@ namespace :webpacker do
       begin
         File.read(Webpacker::Configuration.file_path)
       rescue Errno::ENOENT
-        puts "config/webpack/paths.yml configuration file is missing. \n"\
+        puts "Configuration config/webpack/paths.yml file not found. \n"\
              "Make sure webpacker:install is run successfully before " \
              "running dependent tasks"
         exit!
