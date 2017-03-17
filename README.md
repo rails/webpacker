@@ -222,9 +222,7 @@ however since this file is generated after packs are compiled by webpack and so,
 if you load your rails server whilst webpack is compiling you will get this error.
 Therefore, make sure webpack binstub
 (i.e `.bin/webpack-watcher` or `.bin/webpack-dev-sever`) is running and has
-completed the compilation successfully. **Note:** The lookup currently waits
-for manifest.json to be generated for a few seconds but will eventually fail
-and raise this error.
+completed the compilation successfully.
 
 
 ## Wishlist

@@ -23,14 +23,7 @@ class Webpacker::Manifest < Webpacker::FileLoader
 
   private
     def load
-      begin
-        retries ||= 0
-        JSON.parse(File.read(@path))
-      rescue Errno::ENOENT
-        return super unless Rails.env.development?
-        Rails.logger.info "Packs manifest not found #{Webpacker::Configuration.manifest_path}, waiting for #{retries + 1}sec before retrying"
-        sleep(retries += 1)
-        retries < 10 ? retry : super
-      end
+      return super unless File.exist?(@path)
+      JSON.parse(File.read(@path))
     end
 end
