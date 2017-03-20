@@ -22,11 +22,7 @@ class Webpacker::Configuration < Webpacker::FileLoader
     end
 
     def shared_config_path
-      Rails.root.join(webpack_config_path, "shared.js")
-    end
-
-    def webpack_config_path
-      Rails.root.join(paths.fetch(:config, "config/webpack"))
+      Rails.root.join(paths.fetch(:config, "config/webpack"), "shared.js")
     end
   end
 
