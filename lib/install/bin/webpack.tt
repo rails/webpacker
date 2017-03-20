@@ -15,13 +15,13 @@ CONFIG_PATH            = File.join(APP_PATH, "config/webpack/paths.yml")
 DEV_SERVER_CONFIG_PATH = File.join(APP_PATH, "config/webpack/dev_server.yml")
 
 begin
-  config            = YAML.load(File.read(CONFIG_PATH))
-  dev_server_config = YAML.load(File.read(DEV_SERVER_CONFIG_PATH))
+  paths            = YAML.load(File.read(CONFIG_PATH))
+  dev_server = YAML.load(File.read(DEV_SERVER_CONFIG_PATH))
 
-  NODE_MODULES_PATH   = File.join(APP_PATH.shellescape, config["paths"]["node_modules_path"])
-  WEBPACK_CONFIG_PATH = File.join(APP_PATH.shellescape, config["paths"]["config_path"])
+  NODE_MODULES_PATH   = File.join(APP_PATH.shellescape, paths["node_modules"])
+  WEBPACK_CONFIG_PATH = File.join(APP_PATH.shellescape, paths["config"])
 
-  if NODE_ENV == "development" && dev_server_config["dev_server"]["enabled"]
+  if NODE_ENV == "development" && dev_server["enabled"]
     puts "Warning: webpack-dev-server is currently enabled in #{DEV_SERVER_CONFIG_PATH}. " \
       "Disable to serve assets directly from public/packs directory"
   end

@@ -1,7 +1,6 @@
 # Restart webpack-watcher or webpack-dev-server if you make changes here
-paths:
-  src_path: app/javascript
-  config_path: config/webpack
-  node_modules_path: node_modules
-  dist_dir: packs
-  dist_path: public/packs
+config: config/webpack
+entry: packs
+output: public
+node_modules: node_modules
+source: app/javascript

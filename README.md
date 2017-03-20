@@ -42,9 +42,7 @@ If you'd rather not have to run the two processes separately by hand, you can us
 
 Alternatively, you can run `./bin/webpack-dev-server`. This will launch a
 [Webpack Dev Server](https://webpack.github.io/docs/webpack-dev-server.html) listening on http://localhost:8080/
-serving your pack files. It will recompile your files as you make changes. You also need to set
-`config.x.webpacker[:dev_server_host]` in your `config/environments/development.rb` to tell Webpacker to load
-your packs from the Webpack Dev Server. This setup allows you to leverage advanced Webpack features, such
+serving your pack files. This setup allows you to leverage advanced Webpack features, such
 as [Hot Module Replacement](https://webpack.github.io/docs/hot-module-replacement-with-webpack.html).
 
 
@@ -88,34 +86,28 @@ but all these options are configurable from `config/webpack/paths.yml` file.
 
 ```yml
 # config/webpack/paths.yml
-paths:
-  src_path: app/javascript
-  config_path: config/webpack
-  node_modules_path: node_modules
-  dist_dir: packs
-  dist_path: public/packs
+source: app/javascript
+entry: packs
+output: public
+config: config/webpack
+node_modules: node_modules
 ```
 
-**Note:** If you rename `packs` directory inside `app/javascript` from `packs` to `bundles`, make sure you also update your `dist_dir` and `dist_path`.
-
-```yml
-paths:
-  dist_dir: bundles
-  dist_path: public/bundles
-```
+*Note:* Behind the scenes, webpacker will use same `entry` directory name inside `output`
+directory to emit bundles. For ex, `public/packs`
 
 Similary, you can also control and configure `webpack-dev-server` settings from
 `config/webpack/dev_server.yml` file
 
 ```yml
 # config/webpack/dev_server.yml
-dev_server:
-  enabled: true
-  host: localhost
-  port: 8080
+enabled: true
+host: localhost
+port: 8080
 ```
 
-By default, `webpack-dev-server` uses `dist_path` option specified in `paths.yml` as `contentBase`.
+By default, `webpack-dev-server` uses `output` option specified in
+`paths.yml` as `contentBase`.
 
 **Note:** Don't forget to disable `webpack-dev-server` incase you are using
 `./bin/webpack-watcher` to serve assets in development mode otherwise

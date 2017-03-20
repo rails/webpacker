@@ -8,17 +8,17 @@ class Webpacker::Configuration < Webpacker::FileLoader
     end
 
     def manifest_path
-      Rails.root.join(packs_path, "manifest.json")
+      Rails.root.join(entry_path, "manifest.json")
     end
 
-    def packs_path
-      Rails.root.join(paths.fetch(:dist_path, "public/packs"))
+    def entry_path
+      Rails.root.join(paths.fetch(:output, "public"), paths.fetch(:entry, "packs"))
     end
 
     def paths
       load if Rails.env.development?
       raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Configuration.load must be called first") unless instance
-      instance.data.fetch(:paths, {})
+      instance.data
     end
 
     def shared_config_path
@@ -26,7 +26,7 @@ class Webpacker::Configuration < Webpacker::FileLoader
     end
 
     def webpack_config_path
-      Rails.root.join(paths.fetch(:config_path, "config/webpack"))
+      Rails.root.join(paths.fetch(:config, "config/webpack"))
     end
   end
 
