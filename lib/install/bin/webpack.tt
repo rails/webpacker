@@ -12,7 +12,7 @@ NODE_ENV    = ENV["NODE_ENV"]
 
 APP_PATH               = File.expand_path("../", __dir__)
 CONFIG_PATH            = File.join(APP_PATH, "config/webpack/paths.yml")
-DEV_SERVER_CONFIG_PATH = File.join(APP_PATH, "config/webpack/dev_server.yml")
+DEV_SERVER_CONFIG_PATH = File.join(APP_PATH, "config/webpack/development.server.yml")
 
 begin
   paths            = YAML.load(File.read(CONFIG_PATH))
@@ -26,7 +26,7 @@ begin
       "Disable to serve assets directly from public/packs directory"
   end
 rescue Errno::ENOENT, NoMethodError
-  puts "Configuration not found in config/webpack/paths.yml or config/webpack/dev_server.yml."
+  puts "Configuration not found in config/webpack/paths.yml or config/webpack/development.server.yml."
   puts "Please run bundle exec rails webpacker:install to install webpacker"
   exit!
 end

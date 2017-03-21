@@ -97,10 +97,10 @@ node_modules: node_modules
 directory to emit bundles. For ex, `public/packs`
 
 Similary, you can also control and configure `webpack-dev-server` settings from
-`config/webpack/dev_server.yml` file
+`config/webpack/development.server.yml` file
 
 ```yml
-# config/webpack/dev_server.yml
+# config/webpack/development.server.yml
 enabled: true
 host: localhost
 port: 8080
