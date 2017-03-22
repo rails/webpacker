@@ -34,7 +34,7 @@ namespace :webpacker do
       FileUtils.copy File.expand_path("../../install/examples/react/.babelrc", __dir__),
         Rails.root
 
-      puts "Copying react example hello_react.jsx to #{Webpacker::Configuration.entry_path}"
+      puts "Copying react example to #{Webpacker::Configuration.entry_path}"
       FileUtils.copy File.expand_path("../../install/examples/react/hello_react.jsx", __dir__),
         Rails.root.join(Webpacker::Configuration.entry_path, "hello_react.jsx")
 
