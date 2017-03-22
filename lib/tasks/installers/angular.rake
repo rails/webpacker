@@ -23,11 +23,11 @@ namespace :webpacker do
 
       File.write shared_config_path, config
 
-      puts "Copying Angular example to app/javascript/packs/hello_angular.js"
+      puts "Copying Angular example to #{Webpacker::Configuration.entry_path}"
       FileUtils.copy File.expand_path("../../install/examples/angular/hello_angular.js", __dir__),
         Rails.root.join(Webpacker::Configuration.entry_path, "hello_angular.js")
 
-      puts "Copying Angular Hello app to app/javascript/hello_angular"
+      puts "Copying Angular Hello app to #{Webpacker::Configuration.source_path}"
       FileUtils.copy_entry File.expand_path("../../install/examples/angular/hello_angular", __dir__),
         Rails.root.join(Webpacker::Configuration.source_path, "hello_angular")
 

@@ -22,7 +22,7 @@ namespace :webpacker do
 
       File.write shared_config_path, config
 
-      puts "Copying the Vue example to app/javascript/packs/vue"
+      puts "Copying the Vue example to #{Webpacker::Configuration.entry_path}"
       FileUtils.copy File.expand_path("../../install/examples/vue/hello_vue.js", File.dirname(__FILE__)),
         Rails.root.join(Webpacker::Configuration.entry_path, "hello_vue.js")
 

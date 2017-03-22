@@ -30,11 +30,11 @@ namespace :webpacker do
 
       File.write shared_config_path, config
 
-      puts "Copying .babelrc to project directory"
+      puts "Copying .babelrc to #{Rails.root}"
       FileUtils.copy File.expand_path("../../install/examples/react/.babelrc", __dir__),
         Rails.root
 
-      puts "Copying react example to app/javascript/packs/hello_react.jsx"
+      puts "Copying react example hello_react.jsx to #{Webpacker::Configuration.entry_path}"
       FileUtils.copy File.expand_path("../../install/examples/react/hello_react.jsx", __dir__),
         Rails.root.join(Webpacker::Configuration.entry_path, "hello_react.jsx")
 
