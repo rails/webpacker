@@ -3,7 +3,7 @@ require "webpacker/configuration"
 namespace :webpacker do
   namespace :install do
     desc "Install everything needed for react"
-    task react: ["webpacker:install:verify"] do
+    task react: ["webpacker:verify_install"] do
       shared_config_path = Webpacker::Configuration.shared_config_path
       config             = File.read(shared_config_path)
 

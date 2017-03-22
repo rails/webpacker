@@ -3,7 +3,7 @@ require "webpacker/configuration"
 namespace :webpacker do
   namespace :install do
     desc "Install everything needed for Vue"
-    task vue: ["webpacker:install:verify"] do
+    task vue: ["webpacker:verify_install"] do
       shared_config_path = Webpacker::Configuration.shared_config_path
       config             = File.read(shared_config_path)
 
