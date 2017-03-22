@@ -4,6 +4,7 @@ REGEX_MAP = /\A.*\.map\z/
 namespace :webpacker do
   desc "Compile javascript packs using webpack for production with digests"
   task compile: ["webpacker:verify_install", :environment] do
+    puts "Compiling webpacker assets 🎉"
     result = `NODE_ENV=production ./bin/webpack`
 
     unless $?.success?
