@@ -3,15 +3,19 @@ require "webpacker/file_loader"
 
 class Webpacker::Configuration < Webpacker::FileLoader
   class << self
+    def entry_path
+      Rails.root.join(source_path, paths.fetch(:entry, "packs"))
+    end
+
     def file_path
       Rails.root.join("config", "webpack", "paths.yml")
     end
 
     def manifest_path
-      Rails.root.join(entry_path, "manifest.json")
+      Rails.root.join(output_path, "manifest.json")
     end
 
-    def entry_path
+    def output_path
       Rails.root.join(paths.fetch(:output, "public"), paths.fetch(:entry, "packs"))
     end
 
@@ -23,6 +27,10 @@ class Webpacker::Configuration < Webpacker::FileLoader
 
     def shared_config_path
       Rails.root.join(paths.fetch(:config, "config/webpack"), "shared.js")
+    end
+
+    def source_path
+      Rails.root.join(paths.fetch(:source, "app/javascript"))
     end
   end
 
