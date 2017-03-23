@@ -1,35 +1,29 @@
+require "webpacker/configuration"
 REGEX_MAP = /\A.*\.map\z/
 
 namespace :webpacker do
   desc "Compile javascript packs using webpack for production with digests"
-  task :compile => :environment do
-    dist_dir = Rails.application.config.x.webpacker[:packs_dist_dir]
-    result   = `WEBPACK_DIST_DIR=#{dist_dir} NODE_ENV=production ./bin/webpack --json`
+  task compile: ["webpacker:verify_install", :environment] do
+    puts "Compiling webpacker assets 🎉"
+    result = `NODE_ENV=production ./bin/webpack`
 
     unless $?.success?
-      puts JSON.parse(result)['errors']
+      puts JSON.parse(result)["errors"]
       exit! $?.exitstatus
     end
 
-    webpack_digests = JSON.parse(result)['assetsByChunkName'].each_with_object({}) do |(chunk, file), h|
-      h[chunk] = file.is_a?(Array) ? file.find {|f| REGEX_MAP !~ f } : file
-    end.to_json
-
-    digests_path = Rails.application.config.x.webpacker[:digests_path]
-    packs_path = Rails.root.join('public', dist_dir) || File.dirname(digests_path)
-    packs_digests_path = digests_path || Rails.root.join(packs_path, 'digests.json')
-
-    FileUtils.mkdir_p(packs_path)
-    File.open(packs_digests_path, 'w+') { |file| file.write webpack_digests }
-
-    puts "Compiled digests for all packs in #{packs_digests_path}: "
-    puts webpack_digests
+    puts "Compiled digests for all packs in #{Webpacker::Configuration.output_path}: "
+    puts JSON.parse(File.read(Webpacker::Configuration.manifest_path))
   end
 end
 
 # Compile packs after we've compiled all other assets during precompilation
-if Rake::Task.task_defined?('assets:precompile')
-  Rake::Task['assets:precompile'].enhance do
-    Rake::Task['webpacker:compile'].invoke
+if Rake::Task.task_defined?("assets:precompile")
+  Rake::Task["assets:precompile"].enhance do
+    unless Rake::Task.task_defined?("yarn:install")
+      # For Rails < 5.1
+      Rake::Task["webpacker:yarn_install"].invoke
+    end
+    Rake::Task["webpacker:compile"].invoke
   end
 end

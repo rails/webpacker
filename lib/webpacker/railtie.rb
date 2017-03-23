@@ -1,7 +1,6 @@
-require 'rails/railtie'
+require "rails/railtie"
 
-require 'webpacker/helper'
-require 'webpacker/digests'
+require "webpacker/helper"
 
 class Webpacker::Engine < ::Rails::Engine
   initializer :webpacker do |app|
@@ -9,18 +8,9 @@ class Webpacker::Engine < ::Rails::Engine
       ActionController::Base.helper Webpacker::Helper
     end
 
-    app.config.x.webpacker[:packs_dist_dir] ||= 'packs'
-    app.config.x.webpacker[:packs_dist_path] ||= \
-      "/#{app.config.x.webpacker[:packs_dist_dir]}"
-
-    if app.config.x.webpacker[:digesting]
-      app.config.x.webpacker[:digests_path] ||= \
-        Rails.root.join('public',
-                        app.config.x.webpacker[:packs_dist_dir],
-                        'digests.json')
-
-      Webpacker::Digests.load \
-        app.config.x.webpacker[:digests_path]
-    end
+    # Loads webpacker config data from config/webpack/paths.yml
+    Webpacker::Configuration.load
+    # Loads manifest data from public/packs/manifest.json
+    Webpacker::Manifest.load
   end
 end

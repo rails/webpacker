@@ -13,6 +13,7 @@ cache:
   yarn: true
 
 install:
+  - gem install rubocop
   - nvm install node
   - node -v
   - npm i -g yarn
@@ -20,3 +21,4 @@ install:
 
 script:
   - yarn lint
+  - rubocop

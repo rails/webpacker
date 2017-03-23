@@ -1,4 +1,4 @@
-WEBPACKER_APP_TEMPLATE_PATH = File.expand_path('../../install/template.rb', __dir__)
+WEBPACKER_APP_TEMPLATE_PATH = File.expand_path("../../install/template.rb", __dir__)
 
 namespace :webpacker do
   desc "Install webpacker in this application"
