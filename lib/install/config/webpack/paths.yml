@@ -11,6 +11,7 @@ extensions:
   - .ts
   - .vue
   - .sass
+  - .scss
   - .css
   - .png
   - .svg
