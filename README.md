@@ -214,7 +214,7 @@ Webpacker uses a `manifest.json` file to keep track of packs in all environments
 however since this file is generated after packs are compiled by webpack. So,
 if you load a view in browser whilst webpack is compiling you will get this error.
 Therefore, make sure webpack
-(i.e `.bin/webpack-watcher` or `.bin/webpack-dev-sever`) is running and has
+(i.e `./bin/webpack-watcher` or `./bin/webpack-dev-server`) is running and has
 completed the compilation successfully before loading a view.
 
 ## Wishlist
