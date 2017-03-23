@@ -3,6 +3,10 @@ require "webpacker/file_loader"
 
 class Webpacker::Configuration < Webpacker::FileLoader
   class << self
+    def config_path
+      Rails.root.join(paths.fetch(:config, "config/webpack"))
+    end
+
     def entry_path
       Rails.root.join(source_path, paths.fetch(:entry, "packs"))
     end
@@ -23,10 +27,6 @@ class Webpacker::Configuration < Webpacker::FileLoader
       load if Rails.env.development?
       raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Configuration.load must be called first") unless instance
       instance.data
-    end
-
-    def shared_config_path
-      Rails.root.join(paths.fetch(:config, "config/webpack"), "shared.js")
     end
 
     def source_path

@@ -4,3 +4,15 @@ entry: packs
 output: public
 node_modules: node_modules
 source: app/javascript
+extensions:
+  - .coffee
+  - .js
+  - .jsx
+  - .ts
+  - .vue
+  - .sass
+  - .css
+  - .png
+  - .svg
+  - .gif
+  - .jpeg
