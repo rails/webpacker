@@ -1,7 +1,9 @@
-sudo: required
+sudo: false
 language: ruby
 rvm:
   - 2.2.6
+  - 2.3.3
+  - 2.4.1
 cache:
   bundler: true
   directories:
