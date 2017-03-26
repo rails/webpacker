@@ -14,7 +14,7 @@ APP_PATH    = File.expand_path("../", __dir__)
 CONFIG_PATH = File.join(APP_PATH, "config/webpack/paths.yml")
 
 begin
-  paths = YAML.load(File.read(CONFIG_PATH))
+  paths = YAML.load(File.read(CONFIG_PATH))[NODE_ENV]
 
   NODE_MODULES_PATH   = File.join(APP_PATH.shellescape, paths["node_modules"])
   WEBPACK_CONFIG_PATH = File.join(APP_PATH.shellescape, paths["config"])

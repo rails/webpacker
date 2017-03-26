@@ -16,7 +16,7 @@ class Webpacker::Configuration < Webpacker::FileLoader
     end
 
     def manifest_path
-      Rails.root.join(output_path, "manifest.json")
+      Rails.root.join(output_path, paths.fetch(:manifest, "manifest.json"))
     end
 
     def output_path
@@ -37,6 +37,6 @@ class Webpacker::Configuration < Webpacker::FileLoader
   private
     def load
       return super unless File.exist?(@path)
-      HashWithIndifferentAccess.new(YAML.load(File.read(@path)))
+      HashWithIndifferentAccess.new(YAML.load(File.read(@path))[Rails.env])
     end
 end
