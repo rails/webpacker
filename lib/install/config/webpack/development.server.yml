@@ -9,6 +9,8 @@ development:
 
 test:
   <<: *default
+  enabled: false
 
 production:
   <<: *default
+  enabled: false
