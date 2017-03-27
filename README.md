@@ -1,5 +1,7 @@
 # Webpacker
 ![travis-ci status](https://api.travis-ci.org/rails/webpacker.svg?branch=master)
+[![node](https://img.shields.io/badge/node-%3E%3D%206.4.0-brightgreen.svg)](https://nodejs.org/en/)
+[![Gem](https://img.shields.io/gem/v/webpacker.svg)](https://github.com/rails/webpacker)
 
 Webpacker makes it easy to use the JavaScript preprocessor and bundler [Webpack](https://webpack.github.io)
 to manage application-like JavaScript in Rails. It coexists with the asset pipeline,
@@ -8,6 +10,13 @@ even JavaScript Sprinkles (that all continues to live in app/assets).
 
 It's designed to work with Rails 5.1+ and makes use of the [Yarn](https://yarnpkg.com) dependency management
 that's been made default from that version forward.
+
+## Prerequisites
+
+* Ruby 2.2+
+* Rails 4.2+
+* Node 6.4.0+
+* Yarn
 
 ## Installation
 
