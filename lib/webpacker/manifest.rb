@@ -15,7 +15,7 @@ class Webpacker::Manifest < Webpacker::FileLoader
     end
 
     def lookup(name)
-      load if Rails.env.development?
+      load if ENV["NODE_ENV"] == "development"
       raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Manifest.load must be called first") unless instance
       instance.data[name.to_s] || raise(Webpacker::FileLoader::NotFoundError.new("Can't find #{name} in #{file_path}. Is webpack still compiling?"))
     end

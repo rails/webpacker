@@ -24,7 +24,7 @@ class Webpacker::Configuration < Webpacker::FileLoader
     end
 
     def paths
-      load if Rails.env.development?
+      load if ENV["NODE_ENV"] == "development"
       raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Configuration.load must be called first") unless instance
       instance.data
     end
@@ -37,6 +37,6 @@ class Webpacker::Configuration < Webpacker::FileLoader
   private
     def load
       return super unless File.exist?(@path)
-      HashWithIndifferentAccess.new(YAML.load(File.read(@path))[Rails.env])
+      HashWithIndifferentAccess.new(YAML.load(File.read(@path))[ENV["NODE_ENV"]])
     end
 end
