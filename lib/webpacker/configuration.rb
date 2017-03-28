@@ -1,5 +1,6 @@
 # Loads webpacker configuration from config/webpack/paths.yml
 require "webpacker/file_loader"
+require "webpacker/env"
 
 class Webpacker::Configuration < Webpacker::FileLoader
   class << self
@@ -24,7 +25,7 @@ class Webpacker::Configuration < Webpacker::FileLoader
     end
 
     def paths
-      load if ENV["NODE_ENV"] == "development"
+      load if Webpacker::Env.development?
       raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Configuration.load must be called first") unless instance
       instance.data
     end
@@ -37,6 +38,6 @@ class Webpacker::Configuration < Webpacker::FileLoader
   private
     def load
       return super unless File.exist?(@path)
-      HashWithIndifferentAccess.new(YAML.load(File.read(@path))[ENV["NODE_ENV"]])
+      HashWithIndifferentAccess.new(YAML.load(File.read(@path))[Webpacker::Env.current])
     end
 end
