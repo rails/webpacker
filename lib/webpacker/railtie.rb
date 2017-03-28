@@ -9,7 +9,7 @@ class Webpacker::Engine < ::Rails::Engine
       ActionController::Base.helper Webpacker::Helper
     end
 
-    # Setup NODE_ENV environment based on config/webpack/paths.yml
+    # Determine NODE_ENV environment based on config/webpack/paths.yml
     Webpacker::Env.load
     # Loads webpacker config data from config/webpack/paths.yml
     Webpacker::Configuration.load
