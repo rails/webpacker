@@ -1,11 +1,9 @@
-sudo: required
+sudo: false
 language: ruby
 rvm:
   - 2.2.6
-
-services:
-  - docker
-
+  - 2.3.3
+  - 2.4.1
 cache:
   bundler: true
   directories:
@@ -18,7 +16,6 @@ install:
   - node -v
   - npm i -g yarn
   - yarn
-
 script:
   - yarn lint
   - rubocop

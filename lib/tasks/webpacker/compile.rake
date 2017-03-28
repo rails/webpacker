@@ -6,7 +6,7 @@ namespace :webpacker do
   desc "Compile javascript packs using webpack for production with digests"
   task compile: ["webpacker:verify_install", :environment] do
     puts "Compiling webpacker assets 🎉"
-    result = `NODE_ENV=#{Webpacker::Env.current} ./bin/webpack`
+    result = `NODE_ENV=#{Webpacker::Env.current} ./bin/webpack --json`
 
     unless $?.success?
       puts JSON.parse(result)["errors"]
