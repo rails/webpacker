@@ -81,7 +81,7 @@ app/javascript/calendar/models/month.js
 ```
 
 ```erb
-<%# app/views/layout/application.html.erb %>
+<%# app/views/layouts/application.html.erb %>
 <%= javascript_pack_tag 'calendar' %>
 <%= stylesheet_pack_tag 'calendar' %>
 ```
