@@ -2,7 +2,7 @@ WEBPACKER_APP_TEMPLATE_PATH = File.expand_path("../../install/template.rb", __di
 
 namespace :webpacker do
   desc "Install webpacker in this application"
-  task :install do
+  task install: [:check_node, :check_yarn] do
     if Rails::VERSION::MAJOR >= 5
       exec "./bin/rails app:template LOCATION=#{WEBPACKER_APP_TEMPLATE_PATH}"
     else
