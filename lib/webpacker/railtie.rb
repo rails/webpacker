@@ -1,7 +1,6 @@
 require "rails/railtie"
 
 require "webpacker/helper"
-require "webpacker/env"
 
 class Webpacker::Engine < ::Rails::Engine
   initializer :webpacker do |app|
@@ -9,11 +8,7 @@ class Webpacker::Engine < ::Rails::Engine
       ActionController::Base.helper Webpacker::Helper
     end
 
-    # Determine NODE_ENV environment based on config/webpack/paths.yml
-    Webpacker::Env.load
-    # Loads webpacker config data from config/webpack/paths.yml
-    Webpacker::Configuration.load
-    # Loads manifest data from public/packs/manifest.json
-    Webpacker::Manifest.load
+    Webpacker.bootstrap
+    Spring.after_fork {  Webpacker.bootstrap } if defined?(Spring)
   end
 end
