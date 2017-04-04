@@ -133,7 +133,7 @@ Static assets like images, fonts and stylesheets support is enabled out-of-box s
 import React from 'react'
 import ReactDOM from 'react-dom'
 import helloIcon from '../hello_react/images/icon.png'
-import './hello-react.sass'
+import '../hello_react/styles/hello-react.sass'
 
 const Hello = props => (
   <div className="hello-react">
