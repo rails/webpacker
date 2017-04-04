@@ -1,6 +1,6 @@
 # Webpacker
 ![travis-ci status](https://api.travis-ci.org/rails/webpacker.svg?branch=master)
-[![node](https://img.shields.io/badge/node-%3E%3D%206.4.0-brightgreen.svg)](https://nodejs.org/en/)
+[![node.js](https://img.shields.io/badge/node-%3E%3D%206.4.0-brightgreen.svg)](https://nodejs.org/en/)
 [![Gem](https://img.shields.io/gem/v/webpacker.svg)](https://github.com/rails/webpacker)
 
 Webpacker makes it easy to use the JavaScript preprocessor and bundler [Webpack](https://webpack.github.io)
@@ -15,7 +15,7 @@ that's been made default from that version forward.
 
 * Ruby 2.2+
 * Rails 4.2+
-* Node 6.4.0+
+* Node.js 6.4.0+
 * Yarn
 
 ## Installation
