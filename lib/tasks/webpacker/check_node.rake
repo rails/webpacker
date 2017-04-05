@@ -3,8 +3,11 @@ namespace :webpacker do
   task :check_node do
     begin
       node_version = `node -v`
-      if node_version.tr("v", "").to_f < 6.4
-        puts "Webpacker requires Node.js >= 6.4 and you are using #{node_version}"
+      required_node_version = "6.4"
+
+      raise Errno::ENOENT if node_version.blank?
+      if Gem::Version.new(node_version.strip.tr("v", "")) < Gem::Version.new(required_node_version)
+        puts "Webpacker requires Node.js >= v#{required_node_version} and you are using #{node_version}"
         puts "Please upgrade Node.js https://nodejs.org/en/download/"
         puts "Exiting!" && exit!
       end
