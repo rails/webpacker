@@ -20,6 +20,10 @@ class Webpacker::Manifest < Webpacker::FileLoader
       raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Manifest.load must be called first") unless instance
       instance.data[name.to_s] || raise(Webpacker::FileLoader::NotFoundError.new("Can't find #{name} in #{file_path}. Is webpack still compiling?"))
     end
+
+    def lookup_path(name)
+      Rails.root.join(File.join(Webpacker::Configuration.output_path, lookup(name)))
+    end
   end
 
   private
