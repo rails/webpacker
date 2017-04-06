@@ -82,6 +82,23 @@ app/javascript/calendar/models/month.js
 <%= stylesheet_pack_tag 'calendar' %>
 ```
 
+You can also namespace your packs using directories, similar to a Rails app.
+**For ex,** if you have `admin` and `app` sections in your app you can
+structure it like so,
+
+```
+app/javascript/packs/admin/dashboard.js
+app/javascript/packs/app/calendar.js
+```
+
+and reference it in your views like so,
+
+```erb
+<%# app/views/layouts/application.html.erb %>
+<%= javascript_pack_tag 'admin/dashboard' %>
+<%= stylesheet_pack_tag 'app/calendar' %>
+```
+
 But it could also look a million other ways.
 
 ## Advanced Configuration
