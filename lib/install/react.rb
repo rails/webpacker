@@ -1,15 +1,26 @@
 require "webpacker/configuration"
 
-puts "Copying react loader to #{Webpacker::Configuration.config_path}/loaders"
-copy_file "#{__dir__}/config/loaders/installers/react.js", "config/webpack/loaders/react.js"
+babelrc = Rails.root.join(".babelrc")
+if File.exist?(babelrc)
+  react_babelrc = JSON.parse(File.read(babelrc))
+  react_babelrc["presets"] ||= []
+  unless react_babelrc["presets"].include?("react")
+    react_babelrc["presets"].push("react")
+    puts "Copying react preset to your .babelrc file"
 
-puts "Copying .babelrc to app root directory"
-copy_file "#{__dir__}/examples/react/.babelrc", ".babelrc"
+    File.open(babelrc, "w") do |f|
+      f.puts JSON.pretty_generate(react_babelrc)
+    end
+  end
+else
+  puts "Copying .babelrc to app root directory"
+  copy_file "#{__dir__}/examples/react/.babelrc", ".babelrc"
+end
 
 puts "Copying react example entry file to #{Webpacker::Configuration.entry_path}"
 copy_file "#{__dir__}/examples/react/hello_react.jsx", "#{Webpacker::Configuration.entry_path}/hello_react.jsx"
 
 puts "Installing all react dependencies"
-run "./bin/yarn add react react-dom babel-preset-react"
+run "./bin/yarn add react react-dom babel-preset-react prop-types"
 
 puts "Webpacker now supports react.js 🎉"

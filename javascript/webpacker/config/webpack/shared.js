@@ -2,16 +2,20 @@
 /* eslint global-require: 0 */
 /* eslint import/no-dynamic-require: 0 */
 
-const webpack = require('webpack')
 const { basename, dirname, join, relative, resolve } = require('path')
-const { sync } = require('glob')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const ManifestPlugin = require('webpack-manifest-plugin')
 const extname = require('path-complete-extname')
-const { env, paths, publicPath, loadersDir } = require('./configuration.js')
+const ManifestPlugin = require('webpack-manifest-plugin')
+const { removeEmpty } = require('webpack-config-utils')
+const { sync } = require('glob')
+const webpack = require('webpack')
+const { appConfigPath, env, paths, publicPath, outputPath } = require('../index')
 
 const extensionGlob = `**/*{${paths.extensions.join(',')}}*`
 const packPaths = sync(join(paths.source, paths.entry, extensionGlob))
+
+// Merge app loaders with base loaders
+const appLoaders = sync(join(appConfigPath, 'loaders', '*.js'))
+const baseLoaders = sync(join(__dirname, '..', 'loaders', '*.js'))
 
 module.exports = {
   entry: packPaths.reduce(
@@ -25,29 +29,36 @@ module.exports = {
 
   output: {
     filename: '[name].js',
-    path: resolve(paths.output, paths.entry),
+    path: outputPath,
     publicPath
   },
 
   module: {
-    rules: sync(join(loadersDir, '*.js')).map(loader => require(loader))
+    // Concat app defined loaders to base loaders
+    rules: baseLoaders.concat(appLoaders).map(loader => require(loader))
   },
 
   plugins: [
-    new webpack.EnvironmentPlugin(JSON.parse(JSON.stringify(env))),
-    new ExtractTextPlugin(env.NODE_ENV === 'production' ? '[name]-[hash].css' : '[name].css'),
+    new webpack.EnvironmentPlugin(removeEmpty(env)),
     new ManifestPlugin({ fileName: paths.manifest, publicPath, writeToFileEmit: true })
   ],
 
   resolve: {
     extensions: paths.extensions,
-    modules: [
-      resolve(paths.source),
-      resolve(paths.node_modules)
-    ]
+    modules: [resolve(paths.source), 'node_modules']
   },
 
   resolveLoader: {
-    modules: [paths.node_modules]
+    modules: ['node_modules']
+  },
+
+  node: {
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty',
+    global: true,
+    process: true,
+    Buffer: true,
+    setImmediate: true
   }
 }

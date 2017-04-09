@@ -5,17 +5,8 @@ REGEX_MAP = /\A.*\.map\z/
 namespace :webpacker do
   desc "Compile javascript packs using webpack for production with digests"
   task compile: ["webpacker:verify_install", :environment] do
-    puts "Compiling webpacker assets 🎉"
     asset_host = Rails.application.config.action_controller.asset_host
-    result = `ASSET_HOST=#{asset_host} NODE_ENV=#{Webpacker::Env.current} ./bin/webpack --json`
-
-    unless $?.success?
-      puts JSON.parse(result)["errors"]
-      exit! $?.exitstatus
-    end
-
-    puts "Compiled digests for all packs in #{Webpacker::Configuration.packs_path}: "
-    puts JSON.parse(File.read(Webpacker::Configuration.manifest_path))
+    exec "ASSET_HOST=#{asset_host} NODE_ENV=#{Webpacker::Env.current} ./bin/webpack"
   end
 end
 

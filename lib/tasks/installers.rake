@@ -1,5 +1,6 @@
 INSTALLERS = {
   "Angular": :angular,
+  "Coffee": :coffee,
   "React": :react,
   "Vue": :vue
 }.freeze

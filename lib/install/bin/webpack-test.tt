@@ -10,7 +10,7 @@ WEBPACKER_BIN       = "#{NODE_MODULES_PATH}/.bin/webpacker"
 
 Dir.chdir(APP_PATH) do
   begin
-    exec "#{WEBPACKER_BIN} start --stdin"
+    exec "#{WEBPACKER_BIN} test"
   rescue Errno::ENOENT
     puts "Webpacker executable is not installed"
     puts "Run yarn add webpacker-scripts or install using bundle exec rails webpacker:install"

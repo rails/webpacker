@@ -1,8 +1,5 @@
 require "webpacker/configuration"
 
-puts "Copying angular loader to #{Webpacker::Configuration.config_path}/loaders"
-copy_file "#{__dir__}/config/loaders/installers/angular.js", "config/webpack/loaders/angular.js"
-
 puts "Copying angular example entry file to #{Webpacker::Configuration.entry_path}"
 copy_file "#{__dir__}/examples/angular/hello_angular.js", "#{Webpacker::Configuration.entry_path}/hello_angular.js"
 

@@ -18,6 +18,6 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "bundler", "~> 1.12"
 
-  s.files         = `git ls-files`.split("\n")
+  s.files         = `git ls-files`.split("\n").reject { |f| f.match(%r{^(javascript|node_modules)/}) }
   s.test_files    = `git ls-files -- test/*`.split("\n")
 end
