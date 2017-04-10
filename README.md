@@ -121,7 +121,7 @@ port: 8080
 By default, `webpack-dev-server` uses `output` option specified in
 `paths.yml` as `contentBase`.
 
-**Note:** Don't forget to disable `webpack-dev-server` incase you are using
+**Note:** Don't forget to disable `webpack-dev-server` in case you are using
 `./bin/webpack-watcher` to serve assets in development mode otherwise
 you will get 404 for assets because the helper tag will use webpack-dev-server url
 to serve assets instead of public directory.
