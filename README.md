@@ -5,8 +5,11 @@
 
 Webpacker makes it easy to use the JavaScript preprocessor and bundler [Webpack](https://webpack.github.io)
 to manage application-like JavaScript in Rails. It coexists with the asset pipeline,
-as the purpose is only to use Webpack for app-like JavaScript, not images, css, or
-even JavaScript Sprinkles (that all continues to live in app/assets).
+as the primary purpose for Webpack is app-like JavaScript, not images, css, or
+even JavaScript Sprinkles (that all continues to live in app/assets). It is, however,
+possible to use Webpacker for CSS and images assets as well, in which case you may not
+even need the asset pipeline. This is mostly relevant when exclusively using component-based
+JavaScript frameworks.
 
 It's designed to work with Rails 5.1+ and makes use of the [Yarn](https://yarnpkg.com) dependency management
 that's been made default from that version forward.
