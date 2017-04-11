@@ -4,8 +4,8 @@ require "webpacker/version"
 Gem::Specification.new do |s|
   s.name     = "webpacker"
   s.version  = Webpacker::VERSION
-  s.authors  = "David Heinemeier Hansson"
-  s.email    = "david@basecamp.com"
+  s.authors  = [ "David Heinemeier Hansson", "Gaurav Tiwari" ]
+  s.email    = [ "david@basecamp.com", "gaurav@gauravtiwari.co.uk" ]
   s.summary  = "Use Webpack to manage app-like JavaScript modules in Rails"
   s.homepage = "https://github.com/rails/webpacker"
   s.license  = "MIT"
