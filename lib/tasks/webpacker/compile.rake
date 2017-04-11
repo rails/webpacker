@@ -13,7 +13,7 @@ namespace :webpacker do
       exit! $?.exitstatus
     end
 
-    puts "Compiled digests for all packs in #{Webpacker::Configuration.output_path}: "
+    puts "Compiled digests for all packs in #{Webpacker::Configuration.packs_path}: "
     puts JSON.parse(File.read(Webpacker::Configuration.manifest_path))
   end
 end
