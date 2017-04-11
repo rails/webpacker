@@ -3,7 +3,7 @@
 [![node.js](https://img.shields.io/badge/node-%3E%3D%206.4.0-brightgreen.svg)](https://nodejs.org/en/)
 [![Gem](https://img.shields.io/gem/v/webpacker.svg)](https://github.com/rails/webpacker)
 
-Webpacker makes it easy to use the JavaScript preprocessor and bundler [Webpack 2.x.x+](https://webpack.github.io)
+Webpacker makes it easy to use the JavaScript preprocessor and bundler [Webpack 2.x.x+](https://webpack.js.org/)
 to manage application-like JavaScript in Rails. It coexists with the asset pipeline,
 as the primary purpose for Webpack is app-like JavaScript, not images, css, or
 even JavaScript Sprinkles (that all continues to live in app/assets). It is, however,
