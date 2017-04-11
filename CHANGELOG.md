@@ -40,7 +40,7 @@ bundle exec rails webpacker:install:[react, angular, vue]
 
 ### Added (breaking changes)
 - Static assets support - [#153](https://github.com/rails/webpacker/pull/153)
-- Advanced webpack configuration - [#153](https://github.com/rails/webpacker/pull/153). Please upgrade your app by running `./bin/rails webpacker:install` after running bundle update
+- Advanced webpack configuration - [#153](https://github.com/rails/webpacker/pull/153)
 
 ### Removed
 
