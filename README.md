@@ -47,16 +47,9 @@ file is loaded.
 A binstub is also created to install your npm dependencies,
 and can be called via `./bin/yarn`.
 
-In development, you'll need to run `./bin/webpack-watcher` in a separate terminal from
-`./bin/rails server` to have your `app/javascript/packs/*.js` files compiled as you make changes.
-If you'd rather not have to run the two processes separately by hand, you can use
-[Foreman](https://ddollar.github.io/foreman).
+In development, you'll need to run either `./bin/webpack-dev-server` or `./bin/webpack-watcher` in a separate terminal from `./bin/rails server` to have your `app/javascript/packs/*.js` files compiled as you make changes. If you'd rather not have to run the two processes separately by hand, you can use [Foreman](https://ddollar.github.io/foreman). `./bin/webpack-dev-server` launches the [Webpack Dev Server](https://webpack.github.io/docs/webpack-dev-server.html), which serves your pack files on http://localhost:8080/, and provides advanced Webpack features, such as [Hot Module Replacement](https://webpack.github.io/docs/hot-module-replacement-with-webpack.html).
 
-Alternatively, you can run `./bin/webpack-dev-server`. This will launch a
-[Webpack Dev Server](https://webpack.github.io/docs/webpack-dev-server.html) listening on http://localhost:8080/
-serving your pack files. This setup allows you to leverage advanced Webpack features, such
-as [Hot Module Replacement](https://webpack.github.io/docs/hot-module-replacement-with-webpack.html).
-
+If you would rather forego the advanced features and serve your javascript packs directly from the rails server, you may use `./bin/webpack-watcher` instead, but make sure to disable the Dev Server in `config/webpack/development.server.yml`, otherwise script tags will keep pointing to `localhost:8080` and won't load properly.
 
 ## Configuration
 
