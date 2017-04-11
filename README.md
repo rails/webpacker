@@ -84,6 +84,27 @@ app/javascript/calendar/models/month.js
 
 But it could also look a million other ways.
 
+**Note:** You can also namespace your packs using directories, similar to a Rails app.
+
+```
+app/javascript/packs/admin/orders.js
+app/javascript/packs/shop/orders.js
+```
+
+and reference them in your views like this:
+
+```erb
+<%# app/views/admin/orders/index.html.erb %>
+<%= javascript_pack_tag 'admin/orders' %>
+```
+
+and
+
+```erb
+<%# app/views/shop/orders/index.html.erb %>
+<%= javascript_pack_tag 'shop/orders' %>
+```
+
 ## Advanced Configuration
 
 By default, webpacker offers simple conventions for where the webpack configs, javascript app files and compiled webpack bundles will go in your rails app,
