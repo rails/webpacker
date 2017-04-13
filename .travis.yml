@@ -19,3 +19,4 @@ install:
 script:
   - yarn lint
   - rubocop
+  - rake test
