@@ -12,7 +12,6 @@ cache:
 
 install:
   - gem install rubocop
-  - gem install rake
   - nvm install node
   - node -v
   - npm i -g yarn
@@ -20,4 +19,5 @@ install:
 script:
   - yarn lint
   - rubocop
-  - rake test
+  - bundle exec rake test
+bundler_args: --jobs 3 --retry 3
