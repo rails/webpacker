@@ -1,4 +1,4 @@
-require 'webpacker_test'
+require "webpacker_test"
 
 class EnvTest < Minitest::Test
   def test_current_env
