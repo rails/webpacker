@@ -13,6 +13,7 @@ cache:
 install:
   - gem install rubocop
   - nvm install node
+  - bundle install
   - node -v
   - npm i -g yarn
   - yarn
