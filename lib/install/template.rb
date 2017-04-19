@@ -13,9 +13,9 @@ copy_file "#{__dir__}/config/.postcssrc.yml", ".postcssrc.yml"
 
 if File.exists?(".gitignore")
   append_to_file ".gitignore", <<-EOS
-  /public/packs
-  /node_modules
-  EOS
+/public/packs
+/node_modules
+EOS
 end
 
 puts "Installing all JavaScript dependencies"
