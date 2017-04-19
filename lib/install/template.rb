@@ -11,10 +11,12 @@ directory "#{__dir__}/config/webpack", "config/webpack"
 directory "#{__dir__}/config/loaders/core", "config/webpack/loaders"
 copy_file "#{__dir__}/config/.postcssrc.yml", ".postcssrc.yml"
 
-append_to_file ".gitignore", <<-EOS
-/public/packs
-/node_modules
-EOS
+if File.exists?(".gitignore")
+  append_to_file ".gitignore", <<-EOS
+  /public/packs
+  /node_modules
+  EOS
+end
 
 puts "Installing all JavaScript dependencies"
 run "./bin/yarn add webpack webpack-merge js-yaml path-complete-extname " \
