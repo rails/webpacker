@@ -11,11 +11,12 @@ cache:
   yarn: true
 
 install:
-  - gem install rubocop
+  - bundle install
   - nvm install node
   - node -v
   - npm i -g yarn
   - yarn
 script:
   - yarn lint
-  - rubocop
+  - bundle exec rubocop
+  - bundle exec rake test
