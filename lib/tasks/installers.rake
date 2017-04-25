@@ -11,9 +11,9 @@ namespace :webpacker do
       task task_name => ["webpacker:verify_install"] do
         template = File.expand_path("../install/#{task_name}.rb", __dir__)
         if Rails::VERSION::MAJOR >= 5
-          exec "./bin/rails app:template LOCATION=#{template}"
+          exec "#{RbConfig.ruby} ./bin/rails app:template LOCATION=#{template}"
         else
-          exec "./bin/rake rails:template LOCATION=#{template}"
+          exec "#{RbConfig.ruby} ./bin/rake rails:template LOCATION=#{template}"
         end
       end
     end
