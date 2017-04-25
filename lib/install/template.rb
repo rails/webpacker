@@ -6,7 +6,7 @@ puts "Copying binstubs"
 template "#{__dir__}/bin/webpack-dev-server", "bin/webpack-dev-server"
 template "#{__dir__}/bin/webpack-watcher", "bin/webpack-watcher"
 template "#{__dir__}/bin/webpack", "bin/webpack"
-if !File.exists?("bin/yarn")
+if !File.exist?("bin/yarn")
   puts "Copying yarn"
   template "#{__dir__}/bin/yarn", "bin/yarn"
 end
