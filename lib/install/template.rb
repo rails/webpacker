@@ -3,12 +3,12 @@ puts "Creating javascript app source directory"
 directory "#{__dir__}/javascript", "app/javascript"
 
 puts "Copying binstubs"
-template "#{__dir__}/bin/webpack-dev-server","bin/webpack-dev-server"
-template "#{__dir__}/bin/webpack-watcher","bin/webpack-watcher"
-template "#{__dir__}/bin/webpack","bin/webpack"
+template "#{__dir__}/bin/webpack-dev-server", "bin/webpack-dev-server"
+template "#{__dir__}/bin/webpack-watcher", "bin/webpack-watcher"
+template "#{__dir__}/bin/webpack", "bin/webpack"
 if !File.exists?("bin/yarn")
   puts "Copying yarn"
-  template "#{__dir__}/bin/yarn","bin/yarn"
+  template "#{__dir__}/bin/yarn", "bin/yarn"
 end
 chmod "bin", 0755 & ~File.umask, verbose: false
 
