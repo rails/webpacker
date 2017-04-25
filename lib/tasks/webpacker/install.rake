@@ -4,9 +4,9 @@ namespace :webpacker do
   desc "Install webpacker in this application"
   task install: [:check_node, :check_yarn] do
     if Rails::VERSION::MAJOR >= 5
-      exec "./bin/rails app:template LOCATION=#{WEBPACKER_APP_TEMPLATE_PATH}"
+      exec "#{RbConfig.ruby} ./bin/rails app:template LOCATION=#{WEBPACKER_APP_TEMPLATE_PATH}"
     else
-      exec "./bin/rake rails:template LOCATION=#{WEBPACKER_APP_TEMPLATE_PATH}"
+      exec "#{RbConfig.ruby} ./bin/rake rails:template LOCATION=#{WEBPACKER_APP_TEMPLATE_PATH}"
     end
   end
 end
