@@ -65,6 +65,8 @@ bundle exec rails webpacker:install:[react, angular, vue]
 ### Added (breaking changes)
 - Static assets support - [#153](https://github.com/rails/webpacker/pull/153)
 - Advanced webpack configuration - [#153](https://github.com/rails/webpacker/pull/153)
+- Reload Webpacker configuration and manifest in test and development environment.
+- Add `exist?` helper method to check if configuration and manifest data exist.
 
 ### Removed
 
