@@ -13,6 +13,6 @@ class Webpacker::Engine < ::Rails::Engine
     end
 
     Webpacker.bootstrap
-    Spring.after_fork {  Webpacker.bootstrap } if defined?(Spring)
+    Spring.after_fork { Webpacker.bootstrap } if defined?(Spring)
   end
 end
