@@ -7,6 +7,10 @@ class Webpacker::FileLoader
   attr_accessor :data
 
   class << self
+    def exist?
+      instance.data.present? rescue false
+    end
+
     def load(path = file_path)
       self.instance = new(path)
     end

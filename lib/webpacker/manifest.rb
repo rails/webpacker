@@ -9,10 +9,6 @@ require "webpacker/file_loader"
 
 class Webpacker::Manifest < Webpacker::FileLoader
   class << self
-    def exist?
-      instance.data.present? rescue false
-    end
-
     def file_path
       Webpacker::Configuration.manifest_path
     end
