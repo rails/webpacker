@@ -1,6 +1,9 @@
 # Install webpacker
+puts "Copying webpack configuration files"
+directory "#{__dir__}/config/webpack", "config/webpack"
+
 puts "Creating javascript app source directory"
-directory "#{__dir__}/javascript", "app/javascript"
+directory "#{__dir__}/javascript", "#{Webpacker::Configuration.source}"
 
 puts "Copying binstubs"
 template "#{__dir__}/bin/webpack-dev-server", "bin/webpack-dev-server"
@@ -12,26 +15,18 @@ if !File.exist?("bin/yarn")
 end
 chmod "bin", 0755 & ~File.umask, verbose: false
 
-puts "Copying webpack core config and loaders"
-directory "#{__dir__}/config/webpack", "config/webpack"
-directory "#{__dir__}/config/loaders/core", "config/webpack/loaders"
+puts "Copying babel and postcss config"
+copy_file "#{__dir__}/examples/javascript/.babelrc", ".babelrc"
 copy_file "#{__dir__}/config/.postcssrc.yml", ".postcssrc.yml"
 
 if File.exists?(".gitignore")
+  puts "Updating .gitignore"
   append_to_file ".gitignore", <<-EOS
 /public/packs
 /node_modules
 EOS
 end
 
-puts "Installing all JavaScript dependencies"
-run "./bin/yarn add webpack webpack-merge js-yaml path-complete-extname " \
-"webpack-manifest-plugin babel-loader coffee-loader coffee-script " \
-"babel-core babel-preset-env compression-webpack-plugin rails-erb-loader glob " \
-"extract-text-webpack-plugin node-sass file-loader sass-loader css-loader style-loader " \
-"postcss-loader autoprefixer postcss-smart-import precss"
-
-puts "Installing dev server for live reloading"
-run "./bin/yarn add --dev webpack-dev-server"
-
+puts "Installing webpacker-scripts"
+run "./bin/yarn add webpacker-scripts"
 puts "Webpacker successfully installed 🎉 🍰"

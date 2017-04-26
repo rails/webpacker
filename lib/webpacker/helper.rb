@@ -1,4 +1,5 @@
 require "webpacker/manifest"
+require "webpacker/dev_server"
 
 module Webpacker::Helper
   # Computes the full path for a given webpacker asset.
@@ -10,7 +11,10 @@ module Webpacker::Helper
   #   <%= asset_pack_path 'calendar.js' %> # => "/packs/calendar.js"
   # In production mode:
   #   <%= asset_pack_path 'calendar.css' %> # => "/packs/calendar-1016838bab065ae1e122.css"
+  # In development hot mode(only css):
+  # => <%= asset_pack_path 'calendar.css' %> => nil or empty tag
   def asset_pack_path(name, **options)
+    return nil if File.extname(name) == ".css" && Webpacker::DevServer.hot?
     asset_path(Webpacker::Manifest.lookup(name), **options)
   end
   # Creates a script tag that references the named pack file, as compiled by Webpack per the entries list
@@ -43,7 +47,11 @@ module Webpacker::Helper
   #   # In production mode:
   #   <%= stylesheet_pack_tag 'calendar', 'data-turbolinks-track': 'reload' %> # =>
   #   <link rel="stylesheet" media="screen" href="/packs/calendar-1016838bab065ae1e122.css" data-turbolinks-track="reload" />
+  #
+  #   In development hot mode:
+  #   <%= asset_pack_path 'calendar' %> => nil or empty tag
   def stylesheet_pack_tag(name, **options)
+    return nil if Webpacker::DevServer.hot?
     stylesheet_link_tag(Webpacker::Manifest.lookup("#{name}#{compute_asset_extname(name, type: :stylesheet)}"), **options)
   end
 end

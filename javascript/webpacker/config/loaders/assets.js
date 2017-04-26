@@ -1,4 +1,4 @@
-const { env, publicPath } = require('../configuration.js')
+const { ifProduction, publicPath } = require('../index')
 
 module.exports = {
   test: /\.(jpg|jpeg|png|gif|svg|eot|ttf|woff|woff2)$/i,
@@ -6,7 +6,7 @@ module.exports = {
     loader: 'file-loader',
     options: {
       publicPath,
-      name: env.NODE_ENV === 'production' ? '[name]-[hash].[ext]' : '[name].[ext]'
+      name: ifProduction() ? '[name]-[hash].[ext]' : '[name].[ext]'
     }
   }]
 }

@@ -1,16 +1,23 @@
 # Restart webpack-dev-server if you make changes here
 default: &default
-  enabled: true
+  # Optional HMR support - https://webpack.js.org/concepts/hot-module-replacement/
+  # Set true if you need HMR support
+  hot: true
   host: localhost
+  protocol: http
   port: 8080
+  # Usually dev server logs a lot of noise
+  quiet: true
 
 development:
   <<: *default
 
 test:
   <<: *default
-  enabled: false
 
 production:
   <<: *default
-  enabled: false
+  # Useful for cloud9
+  host: 0.0.0.0
+  port: 80
+  protocol: https

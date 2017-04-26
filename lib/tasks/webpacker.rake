@@ -7,7 +7,8 @@ tasks = {
   "webpacker:yarn_install"    => "Support for older Rails versions. Install all JavaScript dependencies as specified via Yarn",
   "webpacker:install:react"   => "Installs and setup example react component",
   "webpacker:install:vue"     => "Installs and setup example vue component",
-  "webpacker:install:angular" => "Installs and setup example angular2 component"
+  "webpacker:install:angular" => "Installs and setup example angular2 component",
+  "webpacker:install:coffee" => "Installs CoffeeScript dependencies"
 }.freeze
 
 desc "Lists all available tasks in webpacker"

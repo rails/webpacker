@@ -1,0 +1,13 @@
+# Restart webpack-dev-server if you make changes here
+
+# Add optional css_modules support
+# Read doc here: https://github.com/css-modules/css-modules
+css_modules: false
+
+# Add optional postcss support
+# http://postcss.org/
+postcss: true
+
+# Add optional sass support
+# https://github.com/webpack-contrib/sass-loader
+sass: true

@@ -3,55 +3,93 @@
 [![node.js](https://img.shields.io/badge/node-%3E%3D%206.4.0-brightgreen.svg)](https://nodejs.org/en/)
 [![Gem](https://img.shields.io/gem/v/webpacker.svg)](https://github.com/rails/webpacker)
 
-Webpacker makes it easy to use the JavaScript preprocessor and bundler [Webpack 2.x.x+](https://webpack.js.org/)
-to manage application-like JavaScript in Rails. It coexists with the asset pipeline,
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Webpacker](#webpacker)
+  - [How to use](#how-to-use)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+    - [Binstubs](#binstubs)
+    - [Configuration](#configuration)
+    - [Advanced Configuration](#advanced-configuration)
+    - [Linking to static assets](#linking-to-static-assets)
+    - [Getting asset path](#getting-asset-path)
+    - [Deployment](#deployment)
+    - [Linking to sprockets assets](#linking-to-sprockets-assets)
+    - [Ready for React](#ready-for-react)
+    - [Ready for Angular with TypeScript](#ready-for-angular-with-typescript)
+    - [Ready for Vue](#ready-for-vue)
+  - [Troubleshooting](#troubleshooting)
+  - [Wishlist](#wishlist)
+  - [License](#license)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+Webpacker makes it easy to use the JavaScript preprocessor and bundler [Webpack 2.x.x+](https://webpack.js.org/) to manage application-like JavaScript within Rails application. It coexists with the asset pipeline,
 as the primary purpose for Webpack is app-like JavaScript, not images, css, or
 even JavaScript Sprinkles (that all continues to live in app/assets). It is, however,
 possible to use Webpacker for CSS and images assets as well, in which case you may not
 even need the asset pipeline. This is mostly relevant when exclusively using component-based
 JavaScript frameworks.
 
-It's designed to work with Rails 5.1+ and makes use of the [Yarn](https://yarnpkg.com) dependency management
-that's been made default from that version forward.
+It's designed to work with Rails 5.1+ and makes use of the [Yarn](https://yarnpkg.com) dependency management that's been made default from that version forward.
 
-## Prerequisites
+## How to use
+
+### Prerequisites
 
 * Ruby 2.2+
 * Rails 4.2+
 * Node.js 6.4.0+
-* Yarn
+* Yarn 0.20.1+
 
-## Installation
+### Installation
 
 Webpacker is currently compatible with Rails 4.2+, but there's no guarantee it will still be
 in the future.
 
-You can either make use of Webpacker during setup of a new application with `--webpack`
-or you can add the gem and run `./bin/rails webpacker:install` in an existing application.
+#### Rails 5.1+
 
-As the rubygems version isn't promised to be kept up to date until the release of Rails 5.1, you may want to include the gem directly from GitHub:
+The new Rails 5.1 version ships with `--webpack` option by default to generate a webpack powered Rails application when you run `rails new` command.
+
+```bash
+gem install rails --pre
+rails new webpacker-rails-app --webpack
+```
+
+#### Rails 4.2+
+
+As the rubygems version isn't promised to be kept up to date until the release of Rails 5.1, you may want to include the gem directly from GitHub.
+
+Add the webpacker gem into your Gemfile and run `bundle install`
 
 ```ruby
 gem 'webpacker', github: 'rails/webpacker'
 ```
 
+Once bundled, run the webpacker installer to install the config files and javascipt dependencies into your application.
+
+```bash
+bundle exec rails webpacker:install
+```
+
 You can also see a list of available commands by running `./bin/rails webpacker`
 
-## Binstubs
+### Binstubs
 
-Webpacker ships with three binstubs: `./bin/webpack`, `./bin/webpack-watcher` and `./bin/webpack-dev-server`.
-They're thin wrappers around the standard webpack.js executable, just to ensure that the right configuration
-file is loaded.
-
+Webpacker ships with two binstubs: `./bin/webpack` and `./bin/webpack-dev-server` for building
+production bundle and running development server respectively. Both of these binstubs
+delegates the job to companion [webpacker-scripts](https://www.npmjs.com/package/webpacker-scripts) node package that gets installed when
+you run `bundle exec rails webpacker:install`
 
 A binstub is also created to install your npm dependencies,
 and can be called via `./bin/yarn`.
 
-In development, you'll need to run either `./bin/webpack-dev-server` or `./bin/webpack-watcher` in a separate terminal from `./bin/rails server` to have your `app/javascript/packs/*.js` files compiled as you make changes. If you'd rather not have to run the two processes separately by hand, you can use [Foreman](https://ddollar.github.io/foreman). `./bin/webpack-dev-server` launches the [Webpack Dev Server](https://webpack.js.org/configuration/dev-server/), which serves your pack files on http://localhost:8080/, and provides advanced Webpack features, such as [Hot Module Replacement](https://webpack.js.org/guides/hmr-react/).
+In development, you'll need to run `./bin/webpack-dev-server` in a separate terminal from `./bin/rails server` to have your `app/javascript/packs/*.js` files compiled as you make changes. If you'd rather not have to run the two processes separately by hand, you can use [Foreman](https://ddollar.github.io/foreman). `./bin/webpack-dev-server` launches the [Webpack Dev Server](https://webpack.js.org/configuration/dev-server/), which serves your pack files on http://localhost:8080/, and provides advanced Webpack features, such as [Hot Module Replacement](https://webpack.js.org/guides/hmr-react/).
 
-If you would rather forego the advanced features and serve your javascript packs directly from the rails server, you may use `./bin/webpack-watcher` instead, but make sure to disable the Dev Server in `config/webpack/development.server.yml`, otherwise script tags will keep pointing to `localhost:8080` and won't load properly.
-
-## Configuration
+### Configuration
 
 Webpacker gives you a default set of configuration files for development and production. They
 all live together with the shared points in `config/webpack/*.js`. By default, you shouldn't have to
@@ -105,7 +143,7 @@ and
 <%= javascript_pack_tag 'shop/orders' %>
 ```
 
-## Advanced Configuration
+### Advanced Configuration
 
 By default, webpacker offers simple conventions for where the webpack configs, javascript app files and compiled webpack bundles will go in your rails app,
 but all these options are configurable from `config/webpack/paths.yml` file.
@@ -140,7 +178,7 @@ By default, `webpack-dev-server` uses `output` option specified in
 you will get 404 for assets because the helper tag will use webpack-dev-server url
 to serve assets instead of public directory.
 
-## Linking to static assets
+### Linking to static assets
 
 Static assets like images, fonts and stylesheets support is enabled out-of-box so, you can link them into your javascript app code and have them compiled automatically.
 
@@ -166,7 +204,7 @@ under the hood webpack uses [extract-text-webpack-plugin](https://github.com/web
 <%= stylesheet_pack_tag 'hello_react' %>
 ```
 
-## Getting asset path
+### Getting asset path
 
 Webpacker provides `asset_pack_path` helper to get the path of any given asset that's been compiled by webpack.
 
@@ -180,7 +218,7 @@ for an asset used in your pack code you can reference them like this in your vie
 <% # => <img src="/packs/calendar.png" /> %>
 ```
 
-## Deployment
+### Deployment
 
 Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which gets run whenever you run `assets:precompile`. The `javascript_pack_tag` and `stylesheet_pack_tag` helper method will automatically insert the correct HTML tag for compiled pack. Just like the asset pipeline does it. By default the output will look like this in different environments,
 
@@ -196,7 +234,7 @@ Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which 
   <link rel="stylesheet" media="screen" href="/packs/calendar-dc02976b5f94b507e3b6.css">
 ```
 
-## Linking to sprockets assets
+### Linking to sprockets assets
 
 It's possible to link to assets that have been precompiled by sprockets. Add the `.erb` extension
 to your javascript file, then you can use Sprockets' asset helpers:
@@ -210,17 +248,17 @@ var railsImagePath = "<%= helpers.image_path('rails.png') %>";
 
 This is enabled by the `rails-erb-loader` loader rule in `config/webpack/shared.js`.
 
-## Ready for React
+### Ready for React
 
 To use Webpacker with React, just create a new app with `rails new myapp --webpack=react` (or run `rails webpacker:install:react` on a Rails app already setup with webpacker), and all the relevant dependencies
 will be added via yarn and changes to the configuration files made. Now you can create JSX files and
 have them properly compiled automatically.
 
-## Ready for Angular with TypeScript
+### Ready for Angular with TypeScript
 
 To use Webpacker with Angular, just create a new app with `rails new myapp --webpack=angular` (or run `rails webpacker:install:angular` on a Rails app already setup with webpacker). TypeScript support and the Angular core libraries will be added via yarn and changes to the configuration files made. An example component written in TypeScript is also added to your project in `app/javascript` so that you can experiment Angular right away.
 
-## Ready for Vue
+### Ready for Vue
 
 To use Webpacker with Vue, just create a new app with `rails new myapp --webpack=vue` (or run `rails webpacker:install:vue` on a Rails app already setup with webpacker). Vue and its supported libraries will be added via yarn and changes to the configuration files made. An example component is also added to your project in `app/javascript` so that you can experiment Vue right away.
 
