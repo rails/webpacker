@@ -25,7 +25,7 @@ class Webpacker::Configuration < Webpacker::FileLoader
     end
 
     def paths
-      load if Webpacker.env.development?
+      load if reloadable?
       raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Configuration.load must be called first") unless instance
       instance.data
     end

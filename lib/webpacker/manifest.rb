@@ -9,18 +9,25 @@ require "webpacker/file_loader"
 
 class Webpacker::Manifest < Webpacker::FileLoader
   class << self
+    def exist?
+      instance.data.present? rescue false
+    end
+
     def file_path
       Webpacker::Configuration.manifest_path
     end
 
     def lookup(name)
-      load if Webpacker.env.development?
+      load if reloadable?
 
       if Webpacker.env.test?
         find(name) || compile_and_find!(name)
       else
         find!(name)
       end
+
+      raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Manifest.load must be called first") unless instance
+      instance.data[name.to_s] || raise(Webpacker::FileLoader::NotFoundError.new("Can't find #{name} in #{file_path}. Is webpack still compiling?"))
     end
 
     def lookup_path(name)

@@ -10,6 +10,10 @@ class Webpacker::FileLoader
     def load(path = file_path)
       self.instance = new(path)
     end
+
+    def reloadable?
+      ["development", "test"].include?(Rails.env)
+    end
   end
 
   private
