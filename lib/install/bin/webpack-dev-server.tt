@@ -29,5 +29,5 @@ end
 
 Dir.chdir(APP_PATH) do
   exec "NODE_PATH=#{NODE_MODULES_PATH} #{WEBPACK_BIN} --progress --color " \
-    "--config #{DEV_SERVER_CONFIG}"
+    "--config #{DEV_SERVER_CONFIG} #{ARGV.join(" ")}"
 end
