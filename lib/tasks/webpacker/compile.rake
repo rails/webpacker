@@ -24,9 +24,10 @@ namespace :webpacker do
   end
 end
 
-# Compile packs prior to system tests running
+# Compile packs prior to system and controller tests running
 if Rake::Task.task_defined?("test:system")
   Rake::Task["test:system"].enhance(["webpacker:compile_before_test"])
+  Rake::Task["test:controllers"].enhance(["webpacker:compile_before_test"])
 end
 
 # Compile packs after we've compiled all other assets during precompilation
