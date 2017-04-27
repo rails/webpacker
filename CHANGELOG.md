@@ -1,4 +1,4 @@
-## [Unreleased]
+## [1.2] - 2017-04-27
 Some of the changes made requires you to run below commands to install new changes.
 
 ```bash
@@ -37,7 +37,7 @@ app/javascript/packs/hello.vue
 ```
 - Add tree-shaking support - [#250](https://github.com/rails/webpacker/pull/250)
 - Add initial test case by @kimquy [#259](https://github.com/rails/webpacker/pull/259)
-
+- Compile assets before test:controllers and test:system
 
 ### Removed
 - Webpack watcher - [#295](https://github.com/rails/webpacker/pull/295)
