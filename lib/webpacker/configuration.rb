@@ -34,8 +34,12 @@ class Webpacker::Configuration < Webpacker::FileLoader
       Rails.root.join(paths.fetch(:output, "public"))
     end
 
+    def source
+      paths.fetch(:source, "app/javascript")
+    end
+
     def source_path
-      Rails.root.join(paths.fetch(:source, "app/javascript"))
+      Rails.root.join(source)
     end
   end
 

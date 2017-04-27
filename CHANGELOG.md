@@ -14,6 +14,16 @@ bundle exec rails webpacker:install
   ```
 - Check node version and yarn before installing webpacker - [#217](https://github.com/rails/webpacker/issues/217)
 
+- Include webpacker helper to views - [#172](https://github.com/rails/webpacker/issues/172)
+
+- Webpacker installer on windows - [#245](https://github.com/rails/webpacker/issues/245)
+
+- Yarn duplication - [#278](https://github.com/rails/webpacker/issues/278)
+
+- Add back Spring for `rails-erb-loader` - [#216](https://github.com/rails/webpacker/issues/216)
+
+- Move babel presets and plugins to .babelrc - [#202](https://github.com/rails/webpacker/issues/202)
+
 ### Added
 - A changelog - [#211](https://github.com/rails/webpacker/issues/211)
 - Minimize CSS assets - [#218](https://github.com/rails/webpacker/issues/218)
@@ -26,6 +36,8 @@ app/javascript/packs/hello_vue.js
 app/javascript/packs/hello.vue
 ```
 - Add tree-shaking support - [#250](https://github.com/rails/webpacker/pull/250)
+- Add initial test case by @kimquy [#259](https://github.com/rails/webpacker/pull/259)
+
 
 ## [1.1] - 2017-03-24
 
