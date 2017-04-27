@@ -243,6 +243,10 @@ Therefore, make sure webpack
 (i.e `./bin/webpack-watcher` or `./bin/webpack-dev-server`) is running and has
 completed the compilation successfully before loading a view.
 
+* If your react component is not being loaded then you probably forgot to add
+the ```<%= javascript_pack_tag 'application' %>``` tag to your application layout. 
+This will load the ```app/javascript/packs/application.js``` file.
+
 ## Wishlist
 
 - Improve process for linking to assets compiled by sprockets - shouldn't need to specify
