@@ -45,7 +45,7 @@ They're thin wrappers around the standard webpack.js executable, just to ensure 
 A binstub is also created to install your npm dependencies,
 and can be called via `./bin/yarn`.
 
-In development, you'll need to run either `./bin/webpack-dev-server` in a separate terminal from `./bin/rails server` to have your `app/javascript/packs/*.js` files compiled as you make changes. If you'd rather not have to run the two processes separately by hand, you can use [Foreman](https://ddollar.github.io/foreman). `./bin/webpack-dev-server` launches the [Webpack Dev Server](https://webpack.js.org/configuration/dev-server/), which serves your pack files on http://localhost:8080/, and provides advanced Webpack features, such as [Hot Module Replacement](https://webpack.js.org/guides/hmr-react/).
+In development, you'll need to run `./bin/webpack-dev-server` in a separate terminal from `./bin/rails server` to have your `app/javascript/packs/*.js` files compiled as you make changes. If you'd rather not have to run the two processes separately by hand, you can use [Foreman](https://ddollar.github.io/foreman). `./bin/webpack-dev-server` launches the [Webpack Dev Server](https://webpack.js.org/configuration/dev-server/), which serves your pack files on http://localhost:8080/, and provides advanced Webpack features, such as [Hot Module Replacement](https://webpack.js.org/guides/hmr-react/).
 
 ## Configuration
 
