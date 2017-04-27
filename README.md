@@ -39,17 +39,13 @@ You can also see a list of available commands by running `./bin/rails webpacker`
 
 ## Binstubs
 
-Webpacker ships with three binstubs: `./bin/webpack`, `./bin/webpack-watcher` and `./bin/webpack-dev-server`.
-They're thin wrappers around the standard webpack.js executable, just to ensure that the right configuration
-file is loaded.
-
+Webpacker ships with two binstubs: `./bin/webpack` and `./bin/webpack-dev-server`.
+They're thin wrappers around the standard webpack.js executable, just to ensure that the right configuration file is loaded depending on your environment.
 
 A binstub is also created to install your npm dependencies,
 and can be called via `./bin/yarn`.
 
-In development, you'll need to run either `./bin/webpack-dev-server` or `./bin/webpack-watcher` in a separate terminal from `./bin/rails server` to have your `app/javascript/packs/*.js` files compiled as you make changes. If you'd rather not have to run the two processes separately by hand, you can use [Foreman](https://ddollar.github.io/foreman). `./bin/webpack-dev-server` launches the [Webpack Dev Server](https://webpack.js.org/configuration/dev-server/), which serves your pack files on http://localhost:8080/, and provides advanced Webpack features, such as [Hot Module Replacement](https://webpack.js.org/guides/hmr-react/).
-
-If you would rather forego the advanced features and serve your javascript packs directly from the rails server, you may use `./bin/webpack-watcher` instead, but make sure to disable the Dev Server in `config/webpack/development.server.yml`, otherwise script tags will keep pointing to `localhost:8080` and won't load properly.
+In development, you'll need to run `./bin/webpack-dev-server` in a separate terminal from `./bin/rails server` to have your `app/javascript/packs/*.js` files compiled as you make changes. If you'd rather not have to run the two processes separately by hand, you can use [Foreman](https://ddollar.github.io/foreman). `./bin/webpack-dev-server` launches the [Webpack Dev Server](https://webpack.js.org/configuration/dev-server/), which serves your pack files on http://localhost:8080/, and provides advanced Webpack features, such as [Hot Module Replacement](https://webpack.js.org/guides/hmr-react/).
 
 ## Configuration
 
@@ -134,11 +130,6 @@ port: 8080
 
 By default, `webpack-dev-server` uses `output` option specified in
 `paths.yml` as `contentBase`.
-
-**Note:** Don't forget to disable `webpack-dev-server` in case you are using
-`./bin/webpack-watcher` to serve assets in development mode otherwise
-you will get 404 for assets because the helper tag will use webpack-dev-server url
-to serve assets instead of public directory.
 
 ## Linking to static assets
 
@@ -240,7 +231,7 @@ Webpacker uses a `manifest.json` file to keep track of packs in all environments
 however since this file is generated after packs are compiled by webpack. So,
 if you load a view in browser whilst webpack is compiling you will get this error.
 Therefore, make sure webpack
-(i.e `./bin/webpack-watcher` or `./bin/webpack-dev-server`) is running and has
+(i.e `./bin/webpack-dev-server`) is running and has
 completed the compilation successfully before loading a view.
 
 ## Wishlist
