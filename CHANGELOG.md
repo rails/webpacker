@@ -39,6 +39,9 @@ app/javascript/packs/hello.vue
 - Add initial test case by @kimquy [#259](https://github.com/rails/webpacker/pull/259)
 
 
+### Removed
+- Webpack watcher - [#295](https://github.com/rails/webpacker/pull/295)
+
 ## [1.1] - 2017-03-24
 
 This release requires you to run below commands to install new features.
