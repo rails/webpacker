@@ -19,7 +19,7 @@ begin
   NODE_MODULES_PATH   = File.join(APP_PATH.shellescape, paths["node_modules"])
   WEBPACK_CONFIG_PATH = File.join(APP_PATH.shellescape, paths["config"])
 rescue Errno::ENOENT, NoMethodError
-  puts "Configuration not found in config/webpack/paths.yml or config/webpack/development.server.yml."
+  puts "Configuration not found in config/webpack/paths.yml"
   puts "Please run bundle exec rails webpacker:install to install webpacker"
   exit!
 end

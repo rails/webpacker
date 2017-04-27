@@ -42,7 +42,6 @@ You can also see a list of available commands by running `./bin/rails webpacker`
 Webpacker ships with two binstubs: `./bin/webpack` and `./bin/webpack-dev-server`.
 They're thin wrappers around the standard webpack.js executable, just to ensure that the right configuration file is loaded depending on your environment.
 
-
 A binstub is also created to install your npm dependencies,
 and can be called via `./bin/yarn`.
 
