@@ -17,6 +17,16 @@ namespace :webpacker do
     puts "Compiled digests for all packs in #{Webpacker::Configuration.packs_path}: "
     puts JSON.parse(File.read(Webpacker::Configuration.manifest_path))
   end
+
+  desc "Compile javascript packs using webpack for test with digests"
+  task compile_before_test: ["webpacker:compile"] do
+    Webpacker::Manifest.load(Webpacker::Manifest.file_path)
+  end
+end
+
+# Compile packs prior to system tests running
+if Rake::Task.task_defined?("test:system")
+  Rake::Task["test:system"].enhance(["webpacker:compile_before_test"])
 end
 
 # Compile packs after we've compiled all other assets during precompilation
