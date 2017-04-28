@@ -4,8 +4,10 @@ directory "#{__dir__}/config/webpack", "config/webpack"
 directory "#{__dir__}/config/loaders/core", "config/webpack/loaders"
 copy_file "#{__dir__}/config/.postcssrc.yml", ".postcssrc.yml"
 
-puts "Copying .babelrc to app root directory"
-copy_file "#{__dir__}/config/.babelrc", ".babelrc"
+unless File.exist?(".babelrc")
+  puts "Copying .babelrc to app root directory"
+  copy_file "#{__dir__}/config/.babelrc", ".babelrc"
+end
 
 puts "Creating javascript app source directory"
 directory "#{__dir__}/javascript", "#{Webpacker::Configuration.source}"
@@ -21,6 +23,11 @@ if File.exists?(".gitignore")
 /node_modules
 EOS
 end
+
+environment \
+  "# Cache webpacker manifest and configuration in production\n" +
+  "  config.webpacker.cache = true\n",
+  env: ["production"]
 
 puts "Installing all JavaScript dependencies"
 run "yarn add webpack webpack-merge js-yaml path-complete-extname " \

@@ -1,9 +1,15 @@
 require "rails/railtie"
 
 require "webpacker/helper"
+require "webpacker/env"
 
 class Webpacker::Engine < ::Rails::Engine
+  config.webpacker = ActiveSupport::OrderedOptions.new
+  config.webpacker.cache = false
+
   initializer :webpacker do |app|
+    Webpacker.cache = app.config.webpacker.cache
+
     ActiveSupport.on_load :action_controller do
       ActionController::Base.helper Webpacker::Helper
     end

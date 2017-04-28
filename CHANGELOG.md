@@ -1,8 +1,19 @@
+## [Unreleased]
+
 ### Fixed
+- Reload Webpacker configuration and manifest when `cache` config is set to false.
+
+```rb
+# config/environments/production.rb
+config.webpacker.cache = true
+
+# config/environments/staging.rb
+config.webpacker.cache = false
+```
+
 - Update `.babelrc` to fix compilation issues - [#306](https://github.com/rails/webpacker/issues/306)
 
-### Added
-- [Elm](http://elm-lang.org) support. You can now add Elm support via the following methods:
+- Add [Elm](http://elm-lang.org) support. You can now add Elm support via the following
   - New app: `rails new <app> --webpack=elm`
   - Within an existing app: `rails webpacker:install:elm`
 
@@ -65,8 +76,6 @@ bundle exec rails webpacker:install:[react, angular, vue]
 ### Added (breaking changes)
 - Static assets support - [#153](https://github.com/rails/webpacker/pull/153)
 - Advanced webpack configuration - [#153](https://github.com/rails/webpacker/pull/153)
-- Reload Webpacker configuration and manifest in test and development environment.
-- Add `exist?` helper method to check if configuration and manifest data exist.
 
 ### Removed
 
