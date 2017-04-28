@@ -10,7 +10,6 @@ config.webpacker.cache = true
 # config/environments/staging.rb
 config.webpacker.cache = false
 ```
-
 - Update `.babelrc` to fix compilation issues - [#306](https://github.com/rails/webpacker/issues/306)
 
 - Add [Elm](http://elm-lang.org) support. You can now add Elm support via the following
