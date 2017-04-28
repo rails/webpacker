@@ -7,7 +7,7 @@ require "webpacker"
 
 module TestApp
   class Application < ::Rails::Application
-    config.root = File.dirname(__FILE__)
+    config.root = File.join(File.dirname(__FILE__), "test_app")
   end
 end
 
