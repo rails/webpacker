@@ -55,7 +55,7 @@ make any changes for a basic setup out the box. But this is where you do go if y
 more advanced.
 
 The configuration for what Webpack is supposed to compile by default rests on the convention that
-every file in `app/javascript/packs/*` should be turned into their own output files (or entry points,
+every file in `app/javascript/packs/*` (except files starting with `_`) should be turned into their own output files (or entry points,
 as Webpack calls it).
 
 Let's say you're building a calendar. Your structure could look like this:
