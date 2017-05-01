@@ -7,10 +7,6 @@ class Webpacker::FileLoader
   attr_accessor :data
 
   class << self
-    def reloadable?
-      !Webpacker.caching
-    end
-
     def exist?
       instance.data.try(&:present?)
     end
