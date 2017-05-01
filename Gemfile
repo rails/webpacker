@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 gemspec
 
-gem "rails"
+gem "rails", '~> 5.1.x'
 gem "rake", ">= 11.1"
 gem "rubocop", ">= 0.47", require: false
 
