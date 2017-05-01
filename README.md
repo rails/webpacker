@@ -219,6 +219,20 @@ To use Webpacker with [Elm](http://elm-lang.org), create a new app with `rails n
 The Elm library and core packages will be added via Yarn and Elm itself. An example `Main.elm` app
 is also added to your project in `app/javascript` so that you can experiment with Elm right away.
 
+## Caching
+
+Webpacker caches the configuration and manifest file in production much like
+`assets:precompile`, however in the development and test environments where
+your code is most likely to change on each run, both of these files are reloaded
+to ensure that latest change has been picked up. This behavior is very similar to
+how Rails code reloading works. If you want to toggle this behavior in certain
+environments you can do in your `environments/*.rb`
+
+```rb
+# config/environments/development.rb
+config.webpacker.caching = true
+```
+
 ## Troubleshooting
 
 *  If you get this error `ENOENT: no such file or directory - node-sass` on Heroku
