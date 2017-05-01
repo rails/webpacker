@@ -5,10 +5,10 @@ require "webpacker/env"
 
 class Webpacker::Engine < ::Rails::Engine
   config.webpacker = ActiveSupport::OrderedOptions.new
-  config.webpacker.cache = false
+  config.webpacker.caching = false
 
   initializer :webpacker do |app|
-    Webpacker.cache = app.config.webpacker.cache
+    Webpacker.caching = app.config.webpacker.caching
 
     ActiveSupport.on_load :action_controller do
       ActionController::Base.helper Webpacker::Helper

@@ -26,7 +26,7 @@ end
 
 environment \
   "# Cache webpacker manifest and configuration in production\n" +
-  "  config.webpacker.cache = true\n",
+  "  config.webpacker.caching = true\n",
   env: ["production"]
 
 puts "Installing all JavaScript dependencies"

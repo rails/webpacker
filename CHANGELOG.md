@@ -1,14 +1,14 @@
 ## [Unreleased]
 
 ### Fixed
-- Reload Webpacker configuration and manifest when `cache` config is set to false.
+- Reload Webpacker configuration and manifest when `caching` config is set to false.
 
 ```rb
 # config/environments/production.rb
-config.webpacker.cache = true
+config.webpacker.caching = true
 
 # config/environments/staging.rb
-config.webpacker.cache = false
+config.webpacker.caching = false
 ```
 - Update `.babelrc` to fix compilation issues - [#306](https://github.com/rails/webpacker/issues/306)
 

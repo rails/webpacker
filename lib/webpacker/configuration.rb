@@ -25,7 +25,7 @@ class Webpacker::Configuration < Webpacker::FileLoader
     end
 
     def paths
-      load unless Webpacker.cache
+      load unless Webpacker.caching
       raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Configuration.load must be called first") unless instance
       instance.data
     end
