@@ -1,3 +1,4 @@
 /.bundle
 /pkg
 node_modules
+test/test_app/log/*
