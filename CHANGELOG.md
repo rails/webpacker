@@ -1,6 +1,6 @@
 ## [Unreleased]
 
-### Fixed
+### Added
 - Reload Webpacker configuration and manifest when `caching` config is set to false.
 
 ```rb
