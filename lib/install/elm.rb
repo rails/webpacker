@@ -19,4 +19,8 @@ run "./bin/yarn add elm"
 run "./bin/yarn add --dev elm-hot-loader elm-webpack-loader"
 run "yarn run elm package install -- --yes"
 
+puts "Updating elm source location"
+source_path = File.join Webpacker::Configuration.source, Webpacker::Configuration.paths.fetch(:entry, "packs")
+gsub_file "elm-package.json", /\"\.\"\n/, %("#{source_path}"\n)
+
 puts "Webpacker now supports elm 🎉"
