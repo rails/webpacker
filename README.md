@@ -247,5 +247,13 @@ completed the compilation successfully before loading a view.
 ` <% helpers = ActionController::Base.helpers %>` at the beginning of each file
 - Consider chunking setup
 
+## Versioning
+
+Read [Semantic Versioning](http://semver.org) for details. Briefly, it means:
+
+- Major (X.y.z) - Incremented for any backwards incompatible public API changes.
+- Minor (x.Y.z) - Incremented for new, backwards compatible, public API enhancements/fixes.
+- Patch (x.y.Z) - Incremented for small, backwards compatible, bug fixes.
+
 ## License
 Webpacker is released under the [MIT License](https://opensource.org/licenses/MIT).
