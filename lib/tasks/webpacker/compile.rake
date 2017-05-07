@@ -1,6 +1,5 @@
 require "webpacker/env"
 require "webpacker/configuration"
-REGEX_MAP = /\A.*\.map\z/
 
 namespace :webpacker do
   desc "Compile javascript packs using webpack for production with digests"
@@ -23,12 +22,6 @@ namespace :webpacker do
   task compile_before_test: ["webpacker:compile"] do
     Webpacker::Manifest.load(Webpacker::Manifest.file_path)
   end
-end
-
-# Compile packs prior to system and controller tests running
-if Rake::Task.task_defined?("test:system")
-  Rake::Task["test:system"].enhance(["webpacker:compile_before_test"])
-  Rake::Task["test:controllers"].enhance(["webpacker:compile_before_test"])
 end
 
 # Compile packs after we've compiled all other assets during precompilation
