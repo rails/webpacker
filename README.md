@@ -215,6 +215,13 @@ To use Webpacker with Angular, just create a new app with `rails new myapp --web
 
 To use Webpacker with Vue, just create a new app with `rails new myapp --webpack=vue` (or run `rails webpacker:install:vue` on a Rails app already setup with webpacker). Vue and its supported libraries will be added via yarn and changes to the configuration files made. An example component is also added to your project in `app/javascript` so that you can experiment Vue right away.
 
+## Ready for Elm
+
+To use Webpacker with [Elm](http://elm-lang.org), create a new app with `rails new myapp
+--webpack=elm` (or run `rails webpacker:install:elm` on a Rails app already setup with webpacker).
+The Elm library and core packages will be added via Yarn and Elm itself. An example `Main.elm` app
+is also added to your project in `app/javascript` so that you can experiment with Elm right away.
+
 ## Troubleshooting
 
 *  If you get this error `ENOENT: no such file or directory - node-sass` on Heroku
