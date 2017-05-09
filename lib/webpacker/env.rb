@@ -12,6 +12,10 @@ class Webpacker::Env < Webpacker::FileLoader
       current == "development"
     end
 
+    def test?
+      current == "test"
+    end
+
     def file_path
       Rails.root.join("config", "webpack", "paths.yml")
     end
