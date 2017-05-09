@@ -9,7 +9,6 @@ default: &default
   source: app/javascript
   extensions:
     - .coffee
-    - .elm
     - .js
     - .jsx
     - .ts
