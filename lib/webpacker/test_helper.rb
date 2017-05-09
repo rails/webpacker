@@ -19,7 +19,7 @@ module Webpacker::TestHelper
   private
 
     def checksum
-      files = Dir["#{Webpacker::Configuration.source}/**/*"].reject { |f| File.directory?(f) }
+      files = Dir["#{Webpacker::Configuration.source}/**/*", "package.json", "yarn.lock"].reject { |f| File.directory?(f) }
       files.map { |f| File.mtime(f).utc.to_i }.max.to_s
     end
 end
