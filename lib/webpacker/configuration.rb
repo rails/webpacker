@@ -1,6 +1,6 @@
 # Loads webpacker configuration from config/webpack/paths.yml
+
 require "webpacker/file_loader"
-require "webpacker/env"
 
 class Webpacker::Configuration < Webpacker::FileLoader
   class << self

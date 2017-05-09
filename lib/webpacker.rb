@@ -1,8 +1,3 @@
-require "webpacker/env"
-require "webpacker/configuration"
-require "webpacker/manifest"
-require "webpacker/compiler"
-
 module Webpacker
   extend self
 
@@ -18,4 +13,8 @@ module Webpacker
   end
 end
 
+require "webpacker/env"
+require "webpacker/configuration"
+require "webpacker/manifest"
+require "webpacker/compiler"
 require "webpacker/railtie" if defined?(Rails)
