@@ -8,7 +8,7 @@ namespace :webpacker do
     puts "Compiling webpacker assets 🎉"
     asset_host = Rails.application.config.action_controller.asset_host
     asset_env = asset_host ? "ASSET_HOST=#{asset_host}" : ""
-    result = `#{asset_env} NODE_ENV=#{Webpacker::Env.current} ./bin/webpack --json`
+    result = `#{asset_env} NODE_ENV=#{Webpacker.env} ./bin/webpack --json`
 
     unless $?.success?
       puts JSON.parse(result)["errors"]

@@ -11,6 +11,10 @@ module Webpacker
     Webpacker::Compiler.compile
     Webpacker::Manifest.load
   end
+
+  def env
+    Webpacker::Env.current.inquiry
+  end
 end
 
 require "webpacker/env"
