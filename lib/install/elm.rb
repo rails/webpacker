@@ -12,8 +12,8 @@ copy_file "#{__dir__}/examples/elm/hello_elm.js",
           "#{Webpacker::Configuration.entry_path}/hello_elm.js"
 
 puts "Installing all elm dependencies"
-exec "#{RbConfig.ruby} ./bin/yarn add elm"
-exec "#{RbConfig.ruby} ./bin/yarn add --dev elm-hot-loader elm-webpack-loader"
+run "#{RbConfig.ruby} ./bin/yarn add elm"
+run "#{RbConfig.ruby} ./bin/yarn add --dev elm-hot-loader elm-webpack-loader"
 run "yarn run elm package install -- --yes"
 
 puts "Updating Webpack paths to include Elm file extension"
