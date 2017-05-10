@@ -27,7 +27,9 @@ rescue Errno::ENOENT, NoMethodError
   exit!
 end
 
+newenv = { "NODE_PATH" => NODE_MODULES_PATH }
+cmdline = [WEBPACK_BIN, "--progress", "--color", "--config", DEV_SERVER_CONFIG] + ARGV
+
 Dir.chdir(APP_PATH) do
-  exec "NODE_PATH=#{NODE_MODULES_PATH} #{WEBPACK_BIN} --progress --color " \
-    "--config #{DEV_SERVER_CONFIG} #{ARGV.join(" ")}"
+  exec newenv, *cmdline
 end
