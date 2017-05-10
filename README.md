@@ -222,6 +222,25 @@ To use Webpacker with [Elm](http://elm-lang.org), create a new app with `rails n
 The Elm library and core packages will be added via Yarn and Elm itself. An example `Main.elm` app
 is also added to your project in `app/javascript` so that you can experiment with Elm right away.
 
+## Testing
+
+Webpacker provides a `Webpacker::TestHelper`, which includes a setup to
+pre-compile webpacker assets when running tests.
+
+```rb
+# Test the example react component message
+require "webpacker/test_helper"
+require "application_system_test_case"
+
+class HomesTest < ApplicationSystemTestCase
+  include Webpacker::TestHelper
+  test "can see the hello message" do
+    visit root_url
+    assert_selector "h5", text: "Hello! David"
+  end
+end
+```
+
 ## Troubleshooting
 
 *  If you get this error `ENOENT: no such file or directory - node-sass` on Heroku
