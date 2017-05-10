@@ -1,5 +1,11 @@
 {
   "presets": [
-    ["env", { "modules": false } ]
+    ["env", {
+      "modules": false,
+      "targets": {
+        "node": "current"
+      },
+      "useBuiltIns": true
+    }]
   ]
 }
