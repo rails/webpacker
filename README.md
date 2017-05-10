@@ -224,9 +224,11 @@ is also added to your project in `app/javascript` so that you can experiment wit
 Webpacker caches the configuration and manifest file in production,
 however in the development and test environments where
 your code is most likely to change on each run, both of these files are reloaded
-to ensure that latest change and packs has been picked up. This behavior is very similar to
+to ensure that latest change and packs has been picked up.
+
+This behavior is very similar to
 how Rails code reloading works. If you want to toggle this behavior in certain
-environments you can do in your `environments/*.rb`
+environments you can do it in your `environments/*.rb`
 
 ```rb
 # config/environments/development.rb
