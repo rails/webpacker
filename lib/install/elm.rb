@@ -15,8 +15,8 @@ puts "Updating .gitignore to include elm-stuff folder"
 insert_into_file ".gitignore", "/elm-stuff\n", before: "/node_modules\n"
 
 puts "Installing all elm dependencies"
-run "./bin/yarn add elm"
-run "./bin/yarn add --dev elm-hot-loader elm-webpack-loader"
+exec "#{RbConfig.ruby} ./bin/yarn add elm"
+exec "#{RbConfig.ruby} ./bin/yarn add --dev elm-hot-loader elm-webpack-loader"
 run "yarn run elm package install -- --yes"
 
 puts "Updating elm source location"

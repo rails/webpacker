@@ -13,6 +13,6 @@ puts "Copying tsconfig.json to the Rails root directory for typescript"
 copy_file "#{__dir__}/examples/angular/tsconfig.json", "tsconfig.json"
 
 puts "Installing all angular dependencies"
-run "./bin/yarn add typescript ts-loader core-js zone.js rxjs @angular/core @angular/common @angular/compiler @angular/platform-browser @angular/platform-browser-dynamic"
+exec "#{RbConfig.ruby} ./bin/yarn add typescript ts-loader core-js zone.js rxjs @angular/core @angular/common @angular/compiler @angular/platform-browser @angular/platform-browser-dynamic"
 
 puts "Webpacker now supports angular and typescript 🎉"
