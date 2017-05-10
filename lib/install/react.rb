@@ -26,6 +26,6 @@ puts "Copying react example entry file to #{Webpacker::Configuration.entry_path}
 copy_file "#{__dir__}/examples/react/hello_react.jsx", "#{Webpacker::Configuration.entry_path}/hello_react.jsx"
 
 puts "Installing all react dependencies"
-run "./bin/yarn add react react-dom babel-preset-react prop-types"
+exec "#{RbConfig.ruby} ./bin/yarn add react react-dom babel-preset-react prop-types"
 
 puts "Webpacker now supports react.js 🎉"
