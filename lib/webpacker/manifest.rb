@@ -14,12 +14,12 @@ class Webpacker::Manifest < Webpacker::FileLoader
     end
 
     def lookup(name)
+      load if Webpacker.env.development?
+
       if Webpacker.env.test?
-        compile_and_retry_on_error do
-          lookup_or_raise(name)
-        end
+        find(name) || compile_and_find!(name)
       else
-        lookup_or_raise(name)
+        find!(name)
       end
     end
 
@@ -28,22 +28,18 @@ class Webpacker::Manifest < Webpacker::FileLoader
     end
 
     private
-      def lookup_or_raise(name)
-        load if Webpacker.env.development?
+      def find(name)
+        instance.data[name.to_s] if instance
+      end
+
+      def find!(name)
         raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Manifest.load must be called first") unless instance
         instance.data[name.to_s] || raise(Webpacker::FileLoader::NotFoundError.new("Can't find #{name} in #{file_path}. Is webpack still compiling?"))
       end
 
-      def compile_and_retry_on_error
-        retried = false
-        begin
-          yield
-        rescue
-          raise if retried
-          retried = true
-          Webpacker.compile
-          retry
-        end
+      def compile_and_find!(name)
+        Webpacker.compile
+        find!(name)
       end
   end
 
