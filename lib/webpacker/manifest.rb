@@ -6,8 +6,6 @@
 # "/packs/calendar-1016838bab065ae1e314.css" for long-term caching
 
 require "webpacker/file_loader"
-require "webpacker/env"
-require "webpacker/configuration"
 
 class Webpacker::Manifest < Webpacker::FileLoader
   class << self
@@ -16,14 +14,33 @@ class Webpacker::Manifest < Webpacker::FileLoader
     end
 
     def lookup(name)
-      load if Webpacker::Env.development?
-      raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Manifest.load must be called first") unless instance
-      instance.data[name.to_s] || raise(Webpacker::FileLoader::NotFoundError.new("Can't find #{name} in #{file_path}. Is webpack still compiling?"))
+      load if Webpacker.env.development?
+
+      if Webpacker.env.test?
+        find(name) || compile_and_find!(name)
+      else
+        find!(name)
+      end
     end
 
     def lookup_path(name)
       Rails.root.join(File.join(Webpacker::Configuration.output_path, lookup(name)))
     end
+
+    private
+      def find(name)
+        instance.data[name.to_s] if instance
+      end
+
+      def find!(name)
+        raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Manifest.load must be called first") unless instance
+        instance.data[name.to_s] || raise(Webpacker::FileLoader::NotFoundError.new("Can't find #{name} in #{file_path}. Is webpack still compiling?"))
+      end
+
+      def compile_and_find!(name)
+        Webpacker.compile
+        find!(name)
+      end
   end
 
   private
