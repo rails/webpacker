@@ -1,0 +1,51 @@
+# Note: You must restart bin/webpack-dev-server for changes to take effect
+
+default: &default
+  caching: false
+
+  devServer:
+    enabled: true
+    host: localhost
+    port: 8080
+    https: false
+
+  paths:
+    config: config/webpack
+    entry: packs
+    output: public
+    manifest: manifest.json
+    node_modules: node_modules
+    source: app/javascript
+    extensions:
+      - .coffee
+      - .erb
+      - .js
+      - .jsx
+      - .ts
+      - .vue
+      - .sass
+      - .scss
+      - .css
+      - .png
+      - .svg
+      - .gif
+      - .jpeg
+      - .jpg
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+  caching: false
+
+  paths:
+    manifest: manifest-test.json
+
+production:
+  <<: *default
+  caching: true
+
+  devServer:
+    enabled: false
+    https: true

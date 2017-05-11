@@ -3,12 +3,9 @@
 ### Added
 - Reload Webpacker configuration and manifest when `caching` config is set to false.
 
-```rb
-# config/environments/production.rb
-config.webpacker.caching = true
-
-# config/environments/staging.rb
-config.webpacker.caching = false
+```yml
+# config/webpack/configuration.yml
+caching: true
 ```
 - Update `.babelrc` to fix compilation issues - [#306](https://github.com/rails/webpacker/issues/306)
 

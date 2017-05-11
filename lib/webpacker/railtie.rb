@@ -4,12 +4,7 @@ require "webpacker/helper"
 require "webpacker/env"
 
 class Webpacker::Engine < ::Rails::Engine
-  config.webpacker = ActiveSupport::OrderedOptions.new
-  config.webpacker.caching = false
-
   initializer :webpacker do |app|
-    Webpacker.caching = app.config.webpacker.caching
-
     ActiveSupport.on_load :action_controller do
       ActionController::Base.helper Webpacker::Helper
     end

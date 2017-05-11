@@ -13,7 +13,7 @@ class Webpacker::Configuration < Webpacker::FileLoader
     end
 
     def file_path
-      Rails.root.join("config", "webpack", "paths.yml")
+      Rails.root.join("config", "webpack", "configuration.yml")
     end
 
     def manifest_path
@@ -24,10 +24,14 @@ class Webpacker::Configuration < Webpacker::FileLoader
       Rails.root.join(output_path, paths.fetch(:entry, "packs"))
     end
 
-    def paths
-      load unless Webpacker.caching
+    def data
       raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Configuration.load must be called first") unless instance
       instance.data
+    end
+
+    def paths
+      load unless Webpacker.caching
+      data.fetch(:paths, {}.freeze)
     end
 
     def output_path

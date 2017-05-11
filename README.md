@@ -101,10 +101,10 @@ and
 ## Advanced Configuration
 
 By default, webpacker offers simple conventions for where the webpack configs, javascript app files and compiled webpack bundles will go in your rails app,
-but all these options are configurable from `config/webpack/paths.yml` file.
+but all these options are configurable from `config/webpack/configuration.yml` file.
 
 ```yml
-# config/webpack/paths.yml
+# config/webpack/configuration.yml
 source: app/javascript
 entry: packs
 output: public
@@ -115,18 +115,18 @@ node_modules: node_modules
 *Note:* Behind the scenes, webpacker will use same `entry` directory name inside `output`
 directory to emit bundles. For ex, `public/packs`
 
-Similary, you can also control and configure `webpack-dev-server` settings from
-`config/webpack/development.server.yml` file
+Similary, you can also control and configure `webpack-dev-server` configuration from
+`config/webpack/configuration.yml` file
 
 ```yml
-# config/webpack/development.server.yml
+# config/webpack/configuration.yml
 enabled: true
 host: localhost
 port: 8080
 ```
 
 By default, `webpack-dev-server` uses `output` option specified in
-`paths.yml` as `contentBase`.
+`configuration.yml` as `contentBase`.
 
 ## Linking to static assets
 
@@ -228,11 +228,10 @@ to ensure that latest change and packs has been picked up.
 
 This behavior is very similar to
 how Rails code reloading works. If you want to toggle this behavior in certain
-environments you can do it in your `environments/*.rb`
+environments you can do it in your `config/webpack/configuration.yml`
 
 ```rb
-# config/environments/development.rb
-config.webpacker.caching = true
+caching: true
 ```
 
 ## Troubleshooting
