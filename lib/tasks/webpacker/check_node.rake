@@ -2,7 +2,7 @@ namespace :webpacker do
   desc "Verifies if Node.js is installed"
   task :check_node do
     begin
-      node_version = `node -v`
+      node_version = Kernel.`("node -v")
       required_node_version = "6.4"
 
       raise Errno::ENOENT if node_version.blank?
