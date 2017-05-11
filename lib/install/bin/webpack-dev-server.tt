@@ -4,6 +4,15 @@ $stdout.sync = true
 require "shellwords"
 require "yaml"
 
+def descendant_processes(base=nil)
+  return [] if base.nil?
+  descendants = Hash.new{|ht,k| ht[k]=[k]}
+  Hash[*`ps -eo pid,ppid`.scan(/\d+/).map{|x|x.to_i}].each{|pid,ppid|
+    descendants[ppid] << descendants[pid]
+  }
+  descendants[base].flatten - [base]
+end
+
 ENV["RAILS_ENV"] ||= "development"
 RAILS_ENV = ENV["RAILS_ENV"]
 
@@ -30,6 +39,26 @@ end
 newenv = { "NODE_PATH" => NODE_MODULES_PATH }
 cmdline = [WEBPACK_BIN, "--progress", "--color", "--config", DEV_SERVER_CONFIG] + ARGV
 
-Dir.chdir(APP_PATH) do
-  exec newenv, *cmdline
+# Trap term and int signals to ensure child processes are removed
+Signal.trap("TERM") do
+  exit 1 if $webpacker_dev_server_pid.nil?
+  # Kill the subprocesses
+  descendant_processes($webpacker_dev_server_pid).each do |d|
+    Process.kill(9, d)
+  end
 end
+
+Signal.trap("INT") do
+  exit 1 if $webpacker_dev_server_pid.nil?
+  # Kill the subprocesses
+  descendant_processes($webpacker_dev_server_pid).each do |d|
+    Process.kill(9, d)
+  end
+end
+
+Dir.chdir(APP_PATH) do
+  $webpacker_dev_server_pid = spawn newenv, *cmdline
+end
+
+wait $webpacker_dev_server_pid
+$webpacker_dev_server_pid = nil
