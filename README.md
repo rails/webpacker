@@ -19,7 +19,7 @@ that's been made default from that version forward.
 * Ruby 2.2+
 * Rails 4.2+
 * Node.js 6.4.0+
-* Yarn
+* Yarn 0.20.1+
 
 ## Installation
 
