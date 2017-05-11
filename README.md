@@ -50,7 +50,7 @@ In development, you'll need to run `./bin/webpack-dev-server` in a separate term
 ## Configuration
 
 Webpacker gives you a default set of configuration files for development and production. They
-all live together with the shared points in `config/webpack/*.js`. By default, you shouldn't have to
+all live together with the shared points in `config/webpack/*.yml`. By default, you shouldn't have to
 make any changes for a basic setup out the box. But this is where you do go if you need something
 more advanced.
 
