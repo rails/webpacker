@@ -22,7 +22,7 @@ begin
   WEBPACK_BIN       = "#{NODE_MODULES_PATH}/.bin/webpack-dev-server"
   DEV_SERVER_CONFIG = "#{WEBPACK_CONFIG_PATH}/development.js"
 rescue Errno::ENOENT, NoMethodError
-  puts "Configuration not found in config/webpacker/paths.yml."
+  puts "Configuration not found in config/webpacker/configuration.yml."
   puts "Please run bundle exec rails webpacker:install to install webpacker"
   exit!
 end

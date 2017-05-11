@@ -12,7 +12,7 @@ class ConfigurationTest < Minitest::Test
   end
 
   def test_file_path
-    file_path = File.join(File.dirname(__FILE__), "test_app/config", "webpack", "paths.yml").to_s
+    file_path = File.join(File.dirname(__FILE__), "test_app/config", "webpack", "configuration.yml").to_s
     assert_equal Webpacker::Configuration.file_path.to_s, file_path
   end
 

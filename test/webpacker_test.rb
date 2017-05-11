@@ -7,7 +7,7 @@ require "webpacker"
 
 class WebpackerTest < Minitest::Test
   def test_caching
-    assert_equal Webpacker.caching, false
+    assert_equal Webpacker.caching, true
   end
 end
 

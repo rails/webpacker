@@ -1,4 +1,4 @@
-# Loads webpacker configuration from config/webpack/paths.yml
+# Loads webpacker configuration from config/webpack/configuration.yml
 
 require "webpacker/file_loader"
 
