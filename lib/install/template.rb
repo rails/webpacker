@@ -11,13 +11,7 @@ puts "Creating javascript app source directory"
 directory "#{__dir__}/javascript", "#{Webpacker::Configuration.source}"
 
 puts "Copying binstubs"
-template "#{__dir__}/bin/webpack-dev-server", "bin/webpack-dev-server"
-template "#{__dir__}/bin/webpack", "bin/webpack"
-
-if !File.exist?("bin/yarn")
-  puts "Copying yarn"
-  template "#{__dir__}/bin/yarn", "bin/yarn"
-end
+directory "#{__dir__}/bin", "bin"
 
 chmod "bin", 0755 & ~File.umask, verbose: false
 
@@ -29,13 +23,13 @@ EOS
 end
 
 puts "Installing all JavaScript dependencies"
-run "#{RbConfig.ruby} ./bin/yarn add webpack webpack-merge js-yaml path-complete-extname " \
+run "yarn add webpack webpack-merge js-yaml path-complete-extname " \
 "webpack-manifest-plugin babel-loader@7.x coffee-loader coffee-script " \
 "babel-core babel-preset-env compression-webpack-plugin rails-erb-loader glob " \
 "extract-text-webpack-plugin node-sass file-loader sass-loader css-loader style-loader " \
 "postcss-loader autoprefixer postcss-smart-import precss"
 
 puts "Installing dev server for live reloading"
-run "#{RbConfig.ruby} ./bin/yarn add --dev webpack-dev-server"
+run "yarn add --dev webpack-dev-server"
 
 puts "Webpacker successfully installed 🎉 🍰"

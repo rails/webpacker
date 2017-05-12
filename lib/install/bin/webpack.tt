@@ -5,10 +5,10 @@ require "shellwords"
 require "yaml"
 
 ENV["RAILS_ENV"] ||= "development"
-RAILS_ENV   = ENV["RAILS_ENV"]
+RAILS_ENV = ENV["RAILS_ENV"]
 
 ENV["NODE_ENV"] ||= RAILS_ENV
-NODE_ENV    = ENV["NODE_ENV"]
+NODE_ENV = ENV["NODE_ENV"]
 
 APP_PATH               = File.expand_path("../", __dir__)
 CONFIG_PATH            = File.join(APP_PATH, "config/webpack/paths.yml")
@@ -24,12 +24,12 @@ rescue Errno::ENOENT, NoMethodError
   exit!
 end
 
-WEBPACK_BIN    = "#{NODE_MODULES_PATH}/.bin/webpack"
+WEBPACK_BIN    = "yarn run webpack"
 WEBPACK_CONFIG = "#{WEBPACK_CONFIG_PATH}/#{NODE_ENV}.js"
 
 newenv = { "NODE_PATH" => NODE_MODULES_PATH }
-cmdline = [WEBPACK_BIN, "--config", WEBPACK_CONFIG] + ARGV
+cmdline = [WEBPACK_BIN, "--", "--config", WEBPACK_CONFIG] + ARGV
 
 Dir.chdir(APP_PATH) do
-  exec newenv, *cmdline
+  exec newenv, cmdline.join(' ')
 end
