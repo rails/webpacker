@@ -35,7 +35,7 @@ As the rubygems version isn't promised to be kept up to date until the release o
 gem 'webpacker', github: 'rails/webpacker'
 ```
 
-You can also see a list of available commands by running `./bin/rails webpacker`
+You can also see a list of available commands by running `rake webpacker`
 
 ## Binstubs
 
