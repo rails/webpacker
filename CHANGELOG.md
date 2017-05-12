@@ -5,7 +5,7 @@
 ## [1.2] - 2017-04-27
 Some of the changes made requires you to run below commands to install new changes.
 
-```bash
+```
 bundle update webpacker
 bundle exec rails webpacker:install
 ```
@@ -14,7 +14,7 @@ bundle exec rails webpacker:install
 - Support Spring - [#205](https://github.com/rails/webpacker/issues/205)
 
   ```ruby
-    Spring.after_fork {  Webpacker.bootstrap } if defined?(Spring)
+  Spring.after_fork { Webpacker.bootstrap } if defined?(Spring)
   ```
 - Check node version and yarn before installing webpacker - [#217](https://github.com/rails/webpacker/issues/217)
 
@@ -33,12 +33,13 @@ bundle exec rails webpacker:install
 - Minimize CSS assets - [#218](https://github.com/rails/webpacker/issues/218)
 - Pack namespacing support - [#201](https://github.com/rails/webpacker/pull/201)
 
-```
-app/javascript/packs/admin/hello_vue.js
-app/javascript/packs/admin/hello.vue
-app/javascript/packs/hello_vue.js
-app/javascript/packs/hello.vue
-```
+  For example:
+  ```
+  app/javascript/packs/admin/hello_vue.js
+  app/javascript/packs/admin/hello.vue
+  app/javascript/packs/hello_vue.js
+  app/javascript/packs/hello.vue
+  ```
 - Add tree-shaking support - [#250](https://github.com/rails/webpacker/pull/250)
 - Add initial test case by @kimquy [#259](https://github.com/rails/webpacker/pull/259)
 - Compile assets before test:controllers and test:system
@@ -50,7 +51,7 @@ app/javascript/packs/hello.vue
 
 This release requires you to run below commands to install new features.
 
-```bash
+```
 bundle update webpacker
 bundle exec rails webpacker:install
 # if installed react, vue or angular
