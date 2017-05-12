@@ -19,7 +19,7 @@ that's been made default from that version forward.
 * Ruby 2.2+
 * Rails 4.2+
 * Node.js 6.4.0+
-* Yarn
+* Yarn 0.20.1+
 
 ## Installation
 
@@ -41,9 +41,6 @@ You can also see a list of available commands by running `./bin/rails webpacker`
 
 Webpacker ships with two binstubs: `./bin/webpack` and `./bin/webpack-dev-server`.
 They're thin wrappers around the standard webpack.js executable, just to ensure that the right configuration file is loaded depending on your environment.
-
-A binstub is also created to install your npm dependencies,
-and can be called via `./bin/yarn`.
 
 In development, you'll need to run `./bin/webpack-dev-server` in a separate terminal from `./bin/rails server` to have your `app/javascript/packs/*.js` files compiled as you make changes. If you'd rather not have to run the two processes separately by hand, you can use [Foreman](https://ddollar.github.io/foreman). `./bin/webpack-dev-server` launches the [Webpack Dev Server](https://webpack.js.org/configuration/dev-server/), which serves your pack files on http://localhost:8080/, and provides advanced Webpack features, such as [Hot Module Replacement](https://webpack.js.org/guides/hmr-react/).
 
