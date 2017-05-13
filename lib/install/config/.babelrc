@@ -3,9 +3,9 @@
     ["env", {
       "modules": false,
       "targets": {
-        "node": "current"
-      },
-      "useBuiltIns": true
+        "browsers": "> 1%",
+        "uglify": true
+      }
     }]
   ]
 }
