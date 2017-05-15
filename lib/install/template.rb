@@ -28,11 +28,6 @@ if File.exists?(".gitignore")
 EOS
 end
 
-environment \
-  "# Cache webpacker manifest and configuration in production\n" +
-  "  config.webpacker.caching = true\n",
-  env: ["production"]
-
 puts "Installing all JavaScript dependencies"
 run "yarn add webpack webpack-merge js-yaml path-complete-extname " \
 "webpack-manifest-plugin babel-loader@7.x coffee-loader coffee-script " \

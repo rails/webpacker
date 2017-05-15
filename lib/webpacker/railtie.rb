@@ -1,7 +1,6 @@
 require "rails/railtie"
 
 require "webpacker/helper"
-require "webpacker/env"
 
 class Webpacker::Engine < ::Rails::Engine
   initializer :webpacker do |app|
