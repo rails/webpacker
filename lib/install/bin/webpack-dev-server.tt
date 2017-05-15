@@ -19,7 +19,6 @@ begin
   NODE_MODULES_PATH   = File.join(APP_PATH.shellescape, paths["node_modules"])
   WEBPACK_CONFIG_PATH = File.join(APP_PATH.shellescape, paths["config"])
 
-  WEBPACK_BIN       = "#{NODE_MODULES_PATH}/.bin/webpack-dev-server"
   DEV_SERVER_CONFIG = "#{WEBPACK_CONFIG_PATH}/development.js"
 rescue Errno::ENOENT, NoMethodError
   puts "Configuration not found in config/webpacker/configuration.yml."
