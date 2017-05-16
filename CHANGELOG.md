@@ -1,11 +1,11 @@
 ## [Unreleased]
 
 ### Added
-- Reload Webpacker configuration and manifest when `caching` config is set to false.
+- Reload Webpacker manifest when `cache_manifest` config is set to false.
 
 ```yml
 # config/webpack/configuration.yml
-caching: true
+cache_manifest: true
 ```
 - Update `.babelrc` to fix compilation issues - [#306](https://github.com/rails/webpacker/issues/306)
 

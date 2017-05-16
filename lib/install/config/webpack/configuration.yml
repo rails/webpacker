@@ -1,7 +1,7 @@
 # Note: You must restart bin/webpack-dev-server for changes to take effect
 
 default: &default
-  caching: false
+  cache_manifest: false
 
   devServer:
     enabled: true
@@ -37,7 +37,7 @@ development:
 
 test:
   <<: *default
-  caching: false
+  cache_manifest: false
 
   paths:
     manifest: manifest-test.json
@@ -47,7 +47,7 @@ test:
 
 production:
   <<: *default
-  caching: true
+  cache_manifest: true
 
   devServer:
     enabled: false

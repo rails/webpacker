@@ -15,10 +15,6 @@ module Webpacker
   def env
     Webpacker::Env.current.inquiry
   end
-
-  def caching
-    Webpacker::Configuration.data.fetch(:caching, env.production?)
-  end
 end
 
 require "webpacker/env"

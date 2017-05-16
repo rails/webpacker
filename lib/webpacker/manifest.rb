@@ -14,7 +14,7 @@ class Webpacker::Manifest < Webpacker::FileLoader
     end
 
     def lookup(name)
-      load unless Webpacker.caching
+      load unless Webpacker::Configuration.cache_manifest?
 
       if Webpacker.env.test?
         find(name) || compile_and_find!(name)

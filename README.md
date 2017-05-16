@@ -219,19 +219,17 @@ To use Webpacker with [Elm](http://elm-lang.org), create a new app with `rails n
 The Elm library and core packages will be added via Yarn and Elm itself. An example `Main.elm` app
 is also added to your project in `app/javascript` so that you can experiment with Elm right away.
 
-## Caching
+## Caching Manifest
 
-Webpacker caches the configuration and manifest file in production,
+Webpacker caches manifest file in production,
 however in the development and test environments where
-your code is most likely to change on each run, both of these files are reloaded
+your code is most likely to change on each run, manifest is reloaded
 to ensure that latest change and packs has been picked up.
-
-This behavior is very similar to
-how Rails code reloading works. If you want to toggle this behavior in certain
+If you want to toggle this behavior in certain
 environments you can do it in your `config/webpack/configuration.yml`
 
 ```rb
-caching: true
+cache_manifest: true
 ```
 
 ## Troubleshooting

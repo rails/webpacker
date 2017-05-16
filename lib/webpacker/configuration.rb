@@ -8,6 +8,10 @@ class Webpacker::Configuration < Webpacker::FileLoader
       Rails.root.join(paths.fetch(:config, "config/webpack"))
     end
 
+    def cache_manifest?
+      data.fetch(:cache_manifest, Webpacker.env.production?)
+    end
+
     def data
       raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Configuration.load must be called first") unless instance
       instance.data
@@ -34,7 +38,6 @@ class Webpacker::Configuration < Webpacker::FileLoader
     end
 
     def paths
-      load unless Webpacker.caching
       data.fetch(:paths, {}.freeze)
     end
 

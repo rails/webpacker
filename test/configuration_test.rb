@@ -1,6 +1,10 @@
 require "webpacker_test"
 
 class ConfigurationTest < Minitest::Test
+  def test_cache_manifest?
+    assert_equal Webpacker::Configuration.cache_manifest?, true
+  end
+
   def test_config_path
     config_path = File.join(File.dirname(__FILE__), "test_app/config", "webpack").to_s
     assert_equal Webpacker::Configuration.config_path.to_s, config_path
