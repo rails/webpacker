@@ -8,6 +8,15 @@ class Webpacker::Configuration < Webpacker::FileLoader
       Rails.root.join(paths.fetch(:config, "config/webpack"))
     end
 
+    def data
+      raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Configuration.load must be called first") unless instance
+      instance.data
+    end
+
+    def dev_server
+      data.fetch(:devServer, {})
+    end
+
     def entry_path
       Rails.root.join(source_path, paths.fetch(:entry, "packs"))
     end
@@ -22,11 +31,6 @@ class Webpacker::Configuration < Webpacker::FileLoader
 
     def packs_path
       Rails.root.join(output_path, paths.fetch(:entry, "packs"))
-    end
-
-    def data
-      raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Configuration.load must be called first") unless instance
-      instance.data
     end
 
     def paths

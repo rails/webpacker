@@ -42,6 +42,9 @@ test:
   paths:
     manifest: manifest-test.json
 
+  devServer:
+    enabled: false
+
 production:
   <<: *default
   caching: true
