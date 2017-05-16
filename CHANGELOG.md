@@ -1,3 +1,5 @@
+## [Unreleased]
+
 ### Fixed
 - Update `.babelrc` to fix compilation issues - [#306](https://github.com/rails/webpacker/issues/306)
 
@@ -5,6 +7,8 @@
 - [Elm](http://elm-lang.org) support. You can now add Elm support via the following methods:
   - New app: `rails new <app> --webpack=elm`
   - Within an existing app: `rails webpacker:install:elm`
+
+- Fix asset host duplication - [#320](https://github.com/rails/webpacker/issues/320)
 
 ## [1.2] - 2017-04-27
 Some of the changes made requires you to run below commands to install new changes.
