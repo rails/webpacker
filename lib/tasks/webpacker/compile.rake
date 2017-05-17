@@ -6,7 +6,7 @@ namespace :webpacker do
   desc "Compile javascript packs using webpack for production with digests"
   task compile: ["webpacker:verify_install", :environment] do
     puts "Compiling webpacker assets 🎉"
-    asset_host = Rails.application.config.action_controller.asset_host
+    asset_host = ActionController::Base.helpers.compute_asset_host
     asset_env = asset_host ? "ASSET_HOST=#{asset_host}" : ""
     result = `#{asset_env} NODE_ENV=#{Webpacker.env} ./bin/webpack --json`
 
