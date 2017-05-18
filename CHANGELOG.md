@@ -1,10 +1,29 @@
 ### Fixed
 - Update `.babelrc` to fix compilation issues - [#306](https://github.com/rails/webpacker/issues/306)
 
+- Duplicated asset hosts - [#320](https://github.com/rails/webpacker/issues/320), [#397](https://github.com/rails/webpacker/pull/397)
+
+- Missing asset host when defined as a `Proc` or on `ActionController::Base.asset_host` directly - [#397](https://github.com/rails/webpacker/pull/397)
+
+- Incorrect asset host when running `webpacker:compile` or `bin/webpack` in development mode - [#397](https://github.com/rails/webpacker/pull/397)
+
 ### Added
 - [Elm](http://elm-lang.org) support. You can now add Elm support via the following methods:
   - New app: `rails new <app> --webpack=elm`
   - Within an existing app: `rails webpacker:install:elm`
+
+- Support for custom `output` paths independent of `entry` in `paths.yml`. `output` is also now relative to `public/`. - [#397](https://github.com/rails/webpacker/pull/397)
+
+    Before (compile to `public/packs`):
+    ```yaml
+    entry: packs              
+    output: public
+    ```
+    After (compile to `public/sweet/js`):
+    ```yaml
+    entry: packs
+    output: sweet/js
+    ```
 
 ## [1.2] - 2017-04-27
 Some of the changes made requires you to run below commands to install new changes.
