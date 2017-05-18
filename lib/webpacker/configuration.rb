@@ -16,7 +16,6 @@ class Webpacker::Configuration < Webpacker::FileLoader
       output_path.join(fetch(:manifest))
     end
 
-
     def source_path
       Rails.root.join(source)
     end
@@ -29,7 +28,6 @@ class Webpacker::Configuration < Webpacker::FileLoader
       Rails.root.join(fetch(:config))
     end
 
-
     def file_path(root: Rails.root)
       root.join("config/webpack/paths.yml")
     end
@@ -38,7 +36,6 @@ class Webpacker::Configuration < Webpacker::FileLoader
       file_path(root: Pathname.new(__dir__).join("../install"))
     end
 
-
     def source
       fetch(:source)
     end
@@ -46,7 +43,6 @@ class Webpacker::Configuration < Webpacker::FileLoader
     def fetch(key)
       paths.fetch(key, default_paths[key])
     end
-
 
     def paths
       load if Webpacker.env.development?
