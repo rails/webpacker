@@ -21,13 +21,8 @@ class ConfigurationTest < Minitest::Test
     assert_equal Webpacker::Configuration.manifest_path.to_s, manifest_path
   end
 
-  def test_packs_path
-    packs_path = File.join(File.dirname(__FILE__), "test_app/public/packs").to_s
-    assert_equal Webpacker::Configuration.packs_path.to_s, packs_path
-  end
-
   def test_output_path
-    output_path = File.join(File.dirname(__FILE__), "test_app/public").to_s
+    output_path = File.join(File.dirname(__FILE__), "test_app/public/packs").to_s
     assert_equal Webpacker::Configuration.output_path.to_s, output_path
   end
 

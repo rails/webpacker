@@ -4,24 +4,44 @@ require "webpacker/file_loader"
 
 class Webpacker::Configuration < Webpacker::FileLoader
   class << self
-    def config_path
-      Rails.root.join(paths.fetch(:config, "config/webpack"))
-    end
-
     def entry_path
-      Rails.root.join(source_path, paths.fetch(:entry, "packs"))
+      source_path.join(fetch(:entry))
     end
 
-    def file_path
-      Rails.root.join("config", "webpack", "paths.yml")
+    def output_path
+      public_path.join(fetch(:output))
     end
 
     def manifest_path
-      Rails.root.join(packs_path, paths.fetch(:manifest, "manifest.json"))
+      output_path.join(fetch(:manifest))
     end
 
-    def packs_path
-      Rails.root.join(output_path, paths.fetch(:entry, "packs"))
+    def source_path
+      Rails.root.join(source)
+    end
+
+    def public_path
+      Rails.root.join("public")
+    end
+
+    def config_path
+      Rails.root.join(fetch(:config))
+    end
+
+    def file_path(root: Rails.root)
+      root.join("config/webpack/paths.yml")
+    end
+
+    def default_file_path
+      file_path(root: Pathname.new(__dir__).join("../install"))
+    end
+
+    def source
+      fetch(:source)
+    end
+
+    def fetch(key)
+      paths.fetch(key, default_paths[key])
     end
 
     def paths
@@ -30,16 +50,8 @@ class Webpacker::Configuration < Webpacker::FileLoader
       instance.data
     end
 
-    def output_path
-      Rails.root.join(paths.fetch(:output, "public"))
-    end
-
-    def source
-      paths.fetch(:source, "app/javascript")
-    end
-
-    def source_path
-      Rails.root.join(source)
+    def default_paths
+      @default_paths ||= HashWithIndifferentAccess.new(YAML.load(default_file_path.read)["default"])
     end
   end
 
