@@ -8,7 +8,7 @@ class EnvTest < Minitest::Test
   end
 
   def test_file_path
-    correct_path = File.join(File.dirname(__FILE__), "test_app/config", "webpack", "paths.yml").to_s
+    correct_path = File.join(File.dirname(__FILE__), "test_app/config", "webpacker.yml").to_s
     assert_equal Webpacker::Env.file_path.to_s, correct_path
   end
 end

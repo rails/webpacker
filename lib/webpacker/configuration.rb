@@ -1,19 +1,19 @@
-# Loads webpacker configuration from config/webpack/paths.yml
+# Loads webpacker configuration from config/webpacker.yml
 
 require "webpacker/file_loader"
 
 class Webpacker::Configuration < Webpacker::FileLoader
   class << self
     def entry_path
-      source_path.join(fetch(:entry))
+      source_path.join(paths[:entry])
     end
 
     def output_path
-      public_path.join(fetch(:output))
+      public_path.join(paths[:output])
     end
 
     def manifest_path
-      output_path.join(fetch(:manifest))
+      output_path.join(paths[:manifest])
     end
 
     def source_path
@@ -25,11 +25,11 @@ class Webpacker::Configuration < Webpacker::FileLoader
     end
 
     def config_path
-      Rails.root.join(fetch(:config))
+      Rails.root.join(paths[:config])
     end
 
     def file_path(root: Rails.root)
-      root.join("config/webpack/paths.yml")
+      root.join("config/webpacker.yml")
     end
 
     def default_file_path
@@ -37,21 +37,25 @@ class Webpacker::Configuration < Webpacker::FileLoader
     end
 
     def source
-      fetch(:source)
+      paths[:source]
     end
 
-    def fetch(key)
-      paths.fetch(key, default_paths[key])
-    end
-
-    def paths
+    def data
       load if Webpacker.env.development?
       raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Configuration.load must be called first") unless instance
       instance.data
     end
 
-    def default_paths
-      @default_paths ||= HashWithIndifferentAccess.new(YAML.load(default_file_path.read)["default"])
+    def paths
+      data.fetch(:paths, default_settings(key: "paths"))
+    end
+
+    def dev_server
+      data.fetch(:devServer, default_settings(key: "devServer"))
+    end
+
+    def default_settings(key: "paths")
+      @default_settings ||= HashWithIndifferentAccess.new(YAML.load(default_file_path.read)["default"][key])
     end
   end
 
