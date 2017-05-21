@@ -51,7 +51,7 @@ class Webpacker::Configuration < Webpacker::FileLoader
     end
 
     def dev_server
-      data.fetch(:devServer, default_settings(key: "devServer"))
+      data.fetch(:dev_server, default_settings(key: "dev_server"))
     end
 
     def default_settings(key: "paths")

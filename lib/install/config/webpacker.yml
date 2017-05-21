@@ -1,7 +1,7 @@
 # Note: You must restart bin/webpack-dev-server for changes to take effect
 
 default: &default
-  devServer:                  # https://webpack.js.org/configuration/dev-server/
+  dev_server:                 # https://webpack.js.org/configuration/dev-server/
     host: localhost           # Dev server host
     port: 8080
     https: false
@@ -13,20 +13,20 @@ default: &default
     manifest: manifest.json    # ~/public/:output/:manifest
     config: config/webpack     # ~/:config
 
-    extensions:
-      - .coffee
-      - .js
-      - .jsx
-      - .ts
-      - .vue
-      - .sass
-      - .scss
-      - .css
-      - .png
-      - .svg
-      - .gif
-      - .jpeg
-      - .jpg
+  extensions:
+    - .coffee
+    - .js
+    - .jsx
+    - .ts
+    - .vue
+    - .sass
+    - .scss
+    - .css
+    - .png
+    - .svg
+    - .gif
+    - .jpeg
+    - .jpg
 
 development:
   <<: *default
@@ -40,7 +40,7 @@ test:
 production:
   <<: *default
 
-  devServer:
-    host: example.com
+  dev_server:
+    host: webpacker.dev
     port:
     https: true

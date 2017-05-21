@@ -17,7 +17,7 @@ NODE_MODULES_PATH = File.join(APP_PATH, "node_modules")
 begin
   yaml_config = YAML.load_file(CONFIG_FILE)[NODE_ENV]
   paths       = yaml_config["paths"]
-  dev_server  = yaml_config["devServer"]
+  dev_server  = yaml_config["dev_server"]
 
   WEBPACK_CONFIG  = File.join(APP_PATH, paths["config"], "development.js")
   DEV_SERVER_HOST = "http#{"s" if dev_server["https"]}://#{dev_server["host"]}:#{dev_server["port"]}"

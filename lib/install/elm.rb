@@ -17,7 +17,7 @@ run "yarn add --dev elm-hot-loader"
 run "yarn run elm package install -- --yes"
 
 puts "Updating Webpack paths to include Elm file extension"
-insert_into_file Webpacker::Configuration.file_path, "      - .elm\n", after: /extensions:\n/
+insert_into_file Webpacker::Configuration.file_path, "    - .elm\n", after: /extensions:\n/
 
 puts "Updating elm source location"
 source_path = File.join Webpacker::Configuration.source, Webpacker::Configuration.paths.fetch(:entry, "packs")
