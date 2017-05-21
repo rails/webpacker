@@ -105,9 +105,9 @@ but all these options are configurable from `config/webpacker.yml` file.
 
 ```yml
 # config/webpacker.yml
-source: app/javascript
-entry: packs
-output: public
+source_path: app/assets/javascript
+source_entry_path: entries
+public_output_path: entries
 ```
 
 Similary, you can also control and configure `webpack-dev-server` settings from
@@ -115,9 +115,9 @@ Similary, you can also control and configure `webpack-dev-server` settings from
 
 ```yml
 # config/webpacker.yml
-host: localhost
-port: 8080
-https: false
+dev_server_host: localhost
+dev_server_port: 8080
+dev_server_https: false
 ```
 
 By default, `webpack-dev-server` uses `output` option specified in
