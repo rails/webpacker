@@ -5,11 +5,11 @@ require "webpacker/file_loader"
 class Webpacker::Configuration < Webpacker::FileLoader
   class << self
     def entry_path
-      source_path.join(fetch(:entry))
+      source_path.join(fetch(:source_entry_path))
     end
 
     def output_path
-      public_path.join(fetch(:output))
+      public_path.join(fetch(:public_output_path))
     end
 
     def manifest_path
@@ -33,21 +33,21 @@ class Webpacker::Configuration < Webpacker::FileLoader
     end
 
     def source
-      fetch(:source)
+      fetch(:source_path)
     end
 
     def fetch(key)
-      paths.fetch(key, default_paths[key])
+      data.fetch(key, defaults[key])
     end
 
-    def paths
+    def data
       load if Webpacker.env.development?
       raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Configuration.load must be called first") unless instance
       instance.data
     end
 
-    def default_paths
-      @default_paths ||= HashWithIndifferentAccess.new(YAML.load(default_file_path.read)["default"]["paths"])
+    def defaults
+      @defaults ||= HashWithIndifferentAccess.new(YAML.load(default_file_path.read)["default"])
     end
   end
 

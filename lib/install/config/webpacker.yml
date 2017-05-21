@@ -1,15 +1,13 @@
 # Note: You must restart bin/webpack-dev-server for changes to take effect
 
 default: &default
-  dev_server:                 # https://webpack.js.org/configuration/dev-server/
-    host: localhost           # Dev server host
-    port: 8080
-    https: false
+  dev_server_host: localhost
+  dev_server_port: 8080
+  dev_server_https: false
 
-  paths:                       # ~ = Rails.root
-    source: app/javascript     # ~/:source
-    entry: packs               # ~/:source/:entry
-    output: packs              # ~/public/:output
+  source_path: app/javascript
+  source_entry_path: packs
+  public_output_path: packs
 
   extensions:
     - .coffee
@@ -32,13 +30,11 @@ development:
 test:
   <<: *default
 
-  paths:
-    output: packs-test
+  public_output_path: packs-test
 
 production:
   <<: *default
 
-  dev_server:
-    host: 0.0.0.0 # Cloud9
-    port: 8080
-    https: true
+  dev_server_host: 0.0.0.0
+  dev_server_port: 8080
+  dev_server_https: true

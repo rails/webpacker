@@ -21,10 +21,9 @@ def args(key)
 end
 
 begin
-  yaml_config = YAML.load_file(CONFIG_FILE)[NODE_ENV]
-  dev_server  = yaml_config["dev_server"]
+  config = YAML.load_file(CONFIG_FILE)[NODE_ENV]
 
-  DEV_SERVER_HOST = "http#{"s" if args('--https') || dev_server["https"]}://#{args('--host') || dev_server["host"]}:#{args('--port') || dev_server["port"]}"
+  DEV_SERVER_HOST = "http#{"s" if args('--https') || config["dev_server_https"]}://#{args('--host') || config["dev_server_host"]}:#{args('--port') || config["dev_server_port"]}"
 
 rescue Errno::ENOENT, NoMethodError
   puts "Configuration not found in #{CONFIG_FILE}."

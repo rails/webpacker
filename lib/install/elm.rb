@@ -20,7 +20,7 @@ puts "Updating Webpack paths to include Elm file extension"
 insert_into_file Webpacker::Configuration.file_path, "    - .elm\n", after: /extensions:\n/
 
 puts "Updating elm source location"
-source_path = File.join Webpacker::Configuration.source, Webpacker::Configuration.paths.fetch(:entry, "packs")
+source_path = File.join Webpacker::Configuration.source, Webpacker::Configuration.fetch(:source_entry_path, "packs")
 gsub_file "elm-package.json", /\"\.\"\n/, %("#{source_path}"\n)
 
 puts "Updating .gitignore to include elm-stuff folder"
