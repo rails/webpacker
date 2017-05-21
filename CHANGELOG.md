@@ -12,18 +12,19 @@
   - New app: `rails new <app> --webpack=elm`
   - Within an existing app: `rails webpacker:install:elm`
 
-- Support for custom `output` paths independent of `entry` in `config/webpacker.yml`. `output` is also now relative to `public/`. - [#397](https://github.com/rails/webpacker/pull/397)
+- Support for custom `public_output_path` paths independent of `source_entry_path` in `config/webpacker.yml`. `output` is also now relative to `public/`. - [#397](https://github.com/rails/webpacker/pull/397)
 
     Before (compile to `public/packs`):
     ```yaml
-    entry: packs
-    output: public
+      source_entry_path: packs
+      public_output_path: packs
     ```
     After (compile to `public/sweet/js`):
     ```yaml
-    entry: packs
-    output: sweet/js
+      source_entry_path: packs
+      public_output_path: sweet/js
     ```
+- Consolidate `paths.yml` and `development.server.yml` into one file - `config/webpacker.yml` - [#403](https://github.com/rails/webpacker/pull/403)
 
 ## [1.2] - 2017-04-27
 Some of the changes made requires you to run below commands to install new changes.
