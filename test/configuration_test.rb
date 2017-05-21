@@ -1,11 +1,6 @@
 require "webpacker_test"
 
 class ConfigurationTest < Minitest::Test
-  def test_config_path
-    config_path = File.join(File.dirname(__FILE__), "test_app/config", "webpack").to_s
-    assert_equal Webpacker::Configuration.config_path.to_s, config_path
-  end
-
   def test_entry_path
     entry_path = File.join(File.dirname(__FILE__), "test_app/app/javascript", "packs").to_s
     assert_equal Webpacker::Configuration.entry_path.to_s, entry_path

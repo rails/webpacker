@@ -24,10 +24,6 @@ class Webpacker::Configuration < Webpacker::FileLoader
       Rails.root.join("public")
     end
 
-    def config_path
-      Rails.root.join(fetch(:config))
-    end
-
     def file_path(root: Rails.root)
       root.join("config/webpacker.yml")
     end
