@@ -1,7 +1,7 @@
 # Note: You must restart bin/webpack-dev-server for changes to take effect
 
 default: &default
-  dev_server_host: localhost
+  dev_server_host: 0.0.0.0
   dev_server_port: 8080
   dev_server_https: false
 
@@ -35,7 +35,3 @@ test:
 
 production:
   <<: *default
-
-  dev_server_host: 0.0.0.0
-  dev_server_port: 8080
-  dev_server_https: true
