@@ -115,9 +115,10 @@ Similary, you can also control and configure `webpack-dev-server` settings from
 
 ```yml
 # config/webpacker.yml
-dev_server_host: localhost
-dev_server_port: 8080
-dev_server_https: false
+dev_server:
+  host: 0.0.0.0
+  port: 8080
+  https: false
 ```
 
 By default, `webpack-dev-server` uses `output` option specified in
