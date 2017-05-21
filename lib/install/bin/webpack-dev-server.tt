@@ -26,7 +26,7 @@ begin
   DEV_SERVER_HOST = "http#{"s" if args('--https') || dev_server["https"]}://#{args('--host') || dev_server["host"]}:#{args('--port') || dev_server["port"]}"
 
 rescue Errno::ENOENT, NoMethodError
-  puts "Configuration not found in #{CONFIG_FILE}."
+  puts "Webpack dev_server configuration not found in #{CONFIG_FILE}."
   puts "Please run bundle exec rails webpacker:install to install webpacker"
   exit!
 end
