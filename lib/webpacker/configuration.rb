@@ -13,7 +13,7 @@ class Webpacker::Configuration < Webpacker::FileLoader
     end
 
     def manifest_path
-      output_path.join(fetch(:manifest))
+      output_path.join("manifest.json")
     end
 
     def source_path

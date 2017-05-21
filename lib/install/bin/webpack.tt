@@ -11,17 +11,11 @@ ENV["NODE_ENV"] ||= RAILS_ENV
 NODE_ENV = ENV["NODE_ENV"]
 
 APP_PATH          = File.expand_path("../", __dir__)
-CONFIG_FILE       = File.join(APP_PATH, "config/webpacker.yml")
 NODE_MODULES_PATH = File.join(APP_PATH, "node_modules")
+WEBPACK_CONFIG    = File.join(APP_PATH, "config/webpack/#{NODE_ENV}.js")
 
-begin
-  yaml_config = YAML.load_file(CONFIG_FILE)[NODE_ENV]
-  paths       = yaml_config["paths"]
-
-  WEBPACK_CONFIG = File.join(APP_PATH, paths["config"], "#{NODE_ENV}.js")
-
-rescue Errno::ENOENT, NoMethodError
-  puts "Configuration not found in #{CONFIG_FILE}."
+unless File.exist?(WEBPACK_CONFIG)
+  puts "Webpack configuration not found."
   puts "Please run bundle exec rails webpacker:install to install webpacker"
   exit!
 end

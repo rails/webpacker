@@ -108,7 +108,6 @@ but all these options are configurable from `config/webpacker.yml` file.
 source: app/javascript
 entry: packs
 output: public
-config: config/webpack
 ```
 
 Similary, you can also control and configure `webpack-dev-server` settings from

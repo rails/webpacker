@@ -13,6 +13,7 @@ NODE_ENV = ENV["NODE_ENV"]
 APP_PATH          = File.expand_path("../", __dir__)
 CONFIG_FILE       = File.join(APP_PATH, "config/webpacker.yml")
 NODE_MODULES_PATH = File.join(APP_PATH, "node_modules")
+WEBPACK_CONFIG    = File.join(APP_PATH, "config/webpack/development.js")
 
 def args(key)
   index = ARGV.index(key)
@@ -21,10 +22,8 @@ end
 
 begin
   yaml_config = YAML.load_file(CONFIG_FILE)[NODE_ENV]
-  paths       = yaml_config["paths"]
   dev_server  = yaml_config["dev_server"]
 
-  WEBPACK_CONFIG  = File.join(APP_PATH, paths["config"], "development.js")
   DEV_SERVER_HOST = "http#{"s" if args('--https') || dev_server["https"]}://#{args('--host') || dev_server["host"]}:#{args('--port') || dev_server["port"]}"
 
 rescue Errno::ENOENT, NoMethodError
