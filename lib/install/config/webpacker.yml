@@ -42,6 +42,6 @@ production:
   <<: *default
 
   dev_server:
-    host: webpacker.dev
-    port:
+    host: 0.0.0.0 # Cloud9
+    port: 8080
     https: true
