@@ -35,6 +35,7 @@ test:
   <<: *default
 
   paths:
+    output: packs-test
     manifest: manifest-test.json
 
 production:
