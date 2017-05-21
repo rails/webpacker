@@ -116,7 +116,6 @@ Similary, you can also control and configure `webpack-dev-server` settings from
 
 ```yml
 # config/webpacker.yml
-enabled: true
 host: localhost
 port: 8080
 https: false

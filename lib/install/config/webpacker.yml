@@ -2,7 +2,6 @@
 
 default: &default
   devServer:                  # https://webpack.js.org/configuration/dev-server/
-    enabled: true             # Enabled by default in development
     host: localhost           # Dev server host
     port: 8080
     https: false
@@ -35,9 +34,6 @@ development:
 test:
   <<: *default
 
-  devServer:
-    enabled: false
-
   paths:
     manifest: manifest-test.json
 
@@ -47,5 +43,4 @@ production:
   devServer:
     host: example.com
     port:
-    enabled: false
     https: true
