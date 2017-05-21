@@ -121,9 +121,6 @@ dev_server:
   https: false
 ```
 
-By default, `webpack-dev-server` uses `output` option specified in
-`webpacker.yml` as `contentBase`.
-
 ## Linking to static assets
 
 Static assets like images, fonts and stylesheets support is enabled out-of-box so, you can link them into your javascript app code and have them compiled automatically.
