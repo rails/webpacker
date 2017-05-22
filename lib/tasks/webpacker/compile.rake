@@ -11,14 +11,15 @@ namespace :webpacker do
     asset_host = ActionController::Base.helpers.compute_asset_host
     env = { "NODE_ENV" => Webpacker.env, "ASSET_HOST" => asset_host }.freeze
 
-    _, stderr_str, status = Open3.capture3(env, "./bin/webpack")
+    stdout_str, stderr_str, status = Open3.capture3(env, "./bin/webpack")
 
     if status.success?
-      puts "[Webpacker] Compiled digests for all packs in #{Webpacker::Configuration.entry_path}:" + new_line
-      puts JSON.parse(File.read(Webpacker::Configuration.manifest_path))
+      $stdout.puts "\e[32m[Webpacker] Compiled digests for all packs in #{Webpacker::Configuration.entry_path}:\e[0m" + new_line
+      $stdout.puts "\e[32m#{JSON.parse(File.read(Webpacker::Configuration.manifest_path))}\e[0m"
     else
-      $stderr.puts "[Webpacker] [FAIL]" + new_line
-      $stderr.puts stderr_str
+      $stdout.puts "[Webpacker] Compilation Failed" + new_line
+      $stdout.puts "\e[31m#{stdout_str}\e[0m" + new_line
+      $stderr.puts "\e[31m#{stderr_str}\e[0m"
       exit!
     end
   end
