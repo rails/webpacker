@@ -5,8 +5,8 @@ require "webpacker/configuration"
 namespace :webpacker do
   desc "Compile javascript packs using webpack for production with digests"
   task compile: ["webpacker:verify_install", :environment] do
-    new_line = "\n\n"
-    puts "[Webpacker] Compiling assets 🎉" + new_line
+    puts "[Webpacker] Compiling assets 🎉"
+    puts
 
     asset_host = ActionController::Base.helpers.compute_asset_host
     env = { "NODE_ENV" => Webpacker.env, "ASSET_HOST" => asset_host }.freeze
@@ -14,11 +14,13 @@ namespace :webpacker do
     stdout_str, stderr_str, status = Open3.capture3(env, "./bin/webpack")
 
     if status.success?
-      $stdout.puts "\e[32m[Webpacker] Compiled digests for all packs in #{Webpacker::Configuration.entry_path}:\e[0m" + new_line
+      $stdout.puts "\e[32m[Webpacker] Compiled digests for all packs in #{Webpacker::Configuration.entry_path}:\e[0m"
+      puts
       $stdout.puts "\e[32m#{JSON.parse(File.read(Webpacker::Configuration.manifest_path))}\e[0m"
     else
-      $stdout.puts "[Webpacker] Compilation Failed" + new_line
-      $stdout.puts "\e[31m#{stdout_str}\e[0m" + new_line
+      $stdout.puts "[Webpacker] Compilation Failed"
+      puts
+      $stdout.puts "\e[31m#{stdout_str}\e[0m"
       $stderr.puts "\e[31m#{stderr_str}\e[0m"
       exit!
     end
