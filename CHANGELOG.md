@@ -10,6 +10,7 @@
 - Incorrect asset host when running `webpacker:compile` or `bin/webpack` in development mode - [#397](https://github.com/rails/webpacker/pull/397)
 
 - Update `webpacker:compile` task to use `stdout` and `stderr` for better logging - [#395](https://github.com/rails/webpacker/issues/395)
+
 - ARGV support for `webpack-dev-server` - [#286](https://github.com/rails/webpacker/issues/286)
 
 ### Added
@@ -29,6 +30,7 @@
       source_entry_path: packs
       public_output_path: sweet/js
     ```
+    
 - `https` option to use `https` mode, particularly on platforms like - https://community.c9.io/t/running-a-rails-app/1615 or locally - [#176](https://github.com/rails/webpacker/issues/176)
 
 
