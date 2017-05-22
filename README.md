@@ -231,6 +231,29 @@ Therefore, make sure webpack
 (i.e `./bin/webpack-dev-server`) is running and has
 completed the compilation successfully before loading a view.
 
+### UglifyJS issue
+* if you run to the problems with Uglify see issue [#381](https://github.com/rails/webpacker/issues/306#issuecomment-299493349)[#291](https://github.com/rails/webpacker/pull/291)
+  1.  `Unexpected token punc «(», expected punc «:» `
+  2.  `Unexpected token: punc ()) `
+* Solution one:
+```
+#./.babelrc
+{
+  "presets": [
+    ["env", {
+      "modules": false,
+      "targets": {
+        "uglify": true
+      }
+   ]
+}
+```
+* Solution two:
+```
+# in package.json:
+"uglify-js": "git://github.com/mishoo/UglifyJS2#harmony"
+```
+
 ## Wishlist
 
 - Improve process for linking to assets compiled by sprockets - shouldn't need to specify
