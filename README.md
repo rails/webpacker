@@ -177,6 +177,11 @@ Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which 
   <link rel="stylesheet" media="screen" href="/packs/calendar-dc02976b5f94b507e3b6.css">
 ```
 
+### Troubleshooting
+
+- Make sure that `NPM_CONFIG_PRODUCTION` is set to `false` in your production environment before `yarn` is run. `webpack` will not be installed otherwise.
+- On Heroku, make sure the above is set as an ENV var (`heroku config:add NPM_CONFIG_PRODUCTION=false`.) An app using webpacker requires both the nodejs and ruby webpacks. `heroku buildpacks:set heroku/nodejs --index 1` then `heroku buildpacks:set heroku/ruby --index 2` will do it.
+
 ## Linking to sprockets assets
 
 It's possible to link to assets that have been precompiled by sprockets. Add the `.erb` extension
