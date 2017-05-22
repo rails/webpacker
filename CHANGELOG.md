@@ -1,3 +1,5 @@
+## [Unreleased]
+
 ### Fixed
 - Update `.babelrc` to fix compilation issues - [#306](https://github.com/rails/webpacker/issues/306)
 
@@ -6,6 +8,9 @@
 - Missing asset host when defined as a `Proc` or on `ActionController::Base.asset_host` directly - [#397](https://github.com/rails/webpacker/pull/397)
 
 - Incorrect asset host when running `webpacker:compile` or `bin/webpack` in development mode - [#397](https://github.com/rails/webpacker/pull/397)
+
+- Update `webpacker:compile` task to use `stdout` and `stderr` for better logging - [#395](https://github.com/rails/webpacker/issues/395)
+- ARGV support for `webpack-dev-server` - [#286](https://github.com/rails/webpacker/issues/286)
 
 ### Added
 - [Elm](http://elm-lang.org) support. You can now add Elm support via the following methods:
@@ -24,7 +29,23 @@
       source_entry_path: packs
       public_output_path: sweet/js
     ```
-- Consolidate `paths.yml` and `development.server.yml` into one file - `config/webpacker.yml` - [#403](https://github.com/rails/webpacker/pull/403)
+- `https` option to use `https` mode, particularly on platforms like - https://community.c9.io/t/running-a-rails-app/1615 or locally - [#176](https://github.com/rails/webpacker/issues/176)
+
+
+#### Breaking Change
+
+- Consolidate and flatten `paths.yml` and `development.server.yml` config into one file - `config/webpacker.yml` - [#403](https://github.com/rails/webpacker/pull/403). This is a breaking change and requires you to re-install webpacker and cleanup old configuration files.
+
+  ```bash
+  bundle update webpacker
+  bundle exec rails webpacker:install
+
+  # Remove old/unused configuration files
+  rm config/paths.yml
+  rm config/development.server.yml
+  rm config/development.server.js
+  ```
+
 
 ## [1.2] - 2017-04-27
 Some of the changes made requires you to run below commands to install new changes.
