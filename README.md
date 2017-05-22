@@ -101,32 +101,25 @@ and
 ## Advanced Configuration
 
 By default, webpacker offers simple conventions for where the webpack configs, javascript app files and compiled webpack bundles will go in your rails app,
-but all these options are configurable from `config/webpack/paths.yml` file.
+but all these options are configurable from `config/webpacker.yml` file.
 
 ```yml
-# config/webpack/paths.yml
-source: app/javascript
-entry: packs
-output: public
-config: config/webpack
-node_modules: node_modules
+# config/webpacker.yml
+source_path: app/assets/javascript
+source_entry_path: entries
+public_output_path: entries
 ```
-
-*Note:* Behind the scenes, webpacker will use same `entry` directory name inside `output`
-directory to emit bundles. For ex, `public/packs`
 
 Similary, you can also control and configure `webpack-dev-server` settings from
-`config/webpack/development.server.yml` file
+`config/webpacker.yml` file
 
 ```yml
-# config/webpack/development.server.yml
-enabled: true
-host: localhost
-port: 8080
+# config/webpacker.yml
+dev_server:
+  host: 0.0.0.0
+  port: 8080
+  https: false
 ```
-
-By default, `webpack-dev-server` uses `output` option specified in
-`paths.yml` as `contentBase`.
 
 ## Linking to static assets
 

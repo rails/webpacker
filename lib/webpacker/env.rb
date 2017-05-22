@@ -1,4 +1,4 @@
-# Singleton registry for determining NODE_ENV from config/webpack/paths.yml
+# Singleton registry for determining NODE_ENV from config/webpacker.yml
 require "webpacker/file_loader"
 
 class Webpacker::Env < Webpacker::FileLoader
@@ -9,7 +9,7 @@ class Webpacker::Env < Webpacker::FileLoader
     end
 
     def file_path
-      Rails.root.join("config", "webpack", "paths.yml")
+      Rails.root.join("config", "webpacker.yml")
     end
   end
 

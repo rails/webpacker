@@ -1,6 +1,6 @@
 require "webpacker/configuration"
 
-puts "Copying vue loader to #{Webpacker::Configuration.config_path}/loaders"
+puts "Copying vue loader to config/webpack/loaders"
 copy_file "#{__dir__}/config/loaders/installers/vue.js", "config/webpack/loaders/vue.js"
 
 puts "Copying the example entry file to #{Webpacker::Configuration.entry_path}"
