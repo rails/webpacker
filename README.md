@@ -4,10 +4,10 @@
 [![node.js](https://img.shields.io/badge/node-%3E%3D%206.4.0-brightgreen.svg)](https://nodejs.org/en/)
 [![Gem](https://img.shields.io/gem/v/webpacker.svg)](https://github.com/rails/webpacker)
 
-Webpacker makes it easy to use the JavaScript preprocessor and bundler
+Webpacker makes it easy to use the JavaScript pre-processor and bundler
 [Webpack 2.x.x+](https://webpack.js.org/)
 to manage application-like JavaScript in Rails. It coexists with the asset pipeline,
-as the primary purpose for Webpack is app-like JavaScript, not images, css, or
+as the primary purpose for Webpack is app-like JavaScript, not images, CSS, or
 even JavaScript Sprinkles (that all continues to live in app/assets).
 
 However, it is possible to use Webpacker for CSS, images and fonts assets as well,
@@ -27,15 +27,15 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
   - [Elm](#elm)
 - [Binstubs](#binstubs)
   - [Webpack dev server](#webpack-dev-server)
-  - [Webpack watcher](#webpack-watcher)
-- [Configuration](#configuration)
   - [Webpack](#webpack)
+- [Configuration](#configuration)
+  - [Webpack](#webpack-1)
   - [Loaders](#loaders)
   - [Paths](#paths)
   - [Babel](#babel)
   - [Post-Processing CSS](#post-processing-css)
   - [CDN](#cdn)
-  - [HTTPS in Development](#https-in-development)
+  - [HTTPS in development](#https-in-development)
   - [Hot module replacement](#hot-module-replacement)
 - [Linking Styles, Images and Fonts](#linking-styles-images-and-fonts)
   - [Within your JS app](#within-your-js-app)
@@ -47,15 +47,19 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
   - [Pass data from view](#pass-data-from-view)
     - [React](#react-1)
     - [Vue](#vue-1)
-  - [Add a new npm module](#add-a-new-npm-module)
+  - [Add common chunks](#add-common-chunks)
   - [Module import() vs require()](#module-import-vs-require)
+  - [Add a new npm module](#add-a-new-npm-module)
   - [Add bootstrap](#add-bootstrap)
-  - [Add Typescript with React](#add-typescript-with-react)
+  - [Use Typescript with React](#use-typescript-with-react)
   - [HTML templates with Typescript](#html-templates-with-typescript)
+  - [CSS modules](#css-modules)
+  - [CSS-Next](#css-next)
   - [Ignoring swap files](#ignoring-swap-files)
   - [Link sprocket assets](#link-sprocket-assets)
     - [Using helpers](#using-helpers)
     - [Using babel module resolver](#using-babel-module-resolver)
+- [Extending](#extending)
 - [Deployment](#deployment)
   - [Heroku](#heroku)
 - [Testing](#testing)
@@ -76,18 +80,17 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 
 ## Features
 
-* [Webpack 2](https://webpack.js.org/) ready
-* ES6 ready with [babel](https://babeljs.io/)
+* [Webpack 2](https://webpack.js.org/)
+* ES6 with [babel](https://babeljs.io/)
 * Automatic code splitting using multiple entry points
-* Stylesheet ready - sass and css
-* Images and fonts ready
-* PostCSS ready
-* Asset compression, source-maps and minification
-* CDN ready
+* Stylesheets - sass and CSS
+* Images and fonts
+* PostCSS - auto-prefixer
+* Asset compression, source-maps, and minification
+* CDN support
 * React, Angular, Elm and Vue support out-of-the-box
 * Rails view helpers
 * Extensible and configurable
-* Test suite ready
 
 
 ## Installation
@@ -100,7 +103,7 @@ using new `--webpack` option:
 ./bin/rails new myapp --webpack
 ```
 
-Or add it to your existing `Gemfile`, run bundle and `./bin/rails webpacker:install` or `bundle exec rake webpacker:install` (with rails version < 5.0):
+Or add it to your `Gemfile`, run bundle and `./bin/rails webpacker:install` or `bundle exec rake webpacker:install` (on rails version < 5.0):
 
 ```ruby
 # Gemfile
@@ -118,14 +121,23 @@ with rails version < 5.0
 
 Webpacker by default ships with basic out-of-the-box integration
 for React, Angular, Vue and Elm. You can see a list of available
-commands/tasks by running `./bin/rails webpacker` or `./bin/rake webpacker`
-in rails version < 5.0
+commands/tasks by running:
+
+```bash
+./bin/rails webpacker
+```
+
+or in rails version < 5.0
+
+```bash
+./bin/rake webpacker
+```
 
 
 ### React
 
 To use Webpacker with [React](https://facebook.github.io/react/), create a
-new Rails app using new `--webpack=react` option:
+new Rails 5.1+ app using `--webpack=react` option:
 
 ```bash
 # Rails 5.1+
@@ -143,7 +155,7 @@ project in `app/javascript/packs` so that you can experiment with React right aw
 ### Angular with TypeScript
 
 To use Webpacker with [Angular](https://angularjs.org/), create a
-new Rails app using new `--webpack=angular` option:
+new Rails 5.1+ app using `--webpack=angular` option:
 
 ```bash
 # Rails 5.1+
@@ -154,7 +166,7 @@ new Rails app using new `--webpack=angular` option:
 setup with webpacker).
 
 The installer will add TypeScript and Angular core libraries using yarn plus
-any changes to the configuration files. An example component written in
+any changes to the configuration files. An example component is written in
 TypeScript will also be added to your project in `app/javascript` so that
 you can experiment with Angular right away.
 
@@ -162,7 +174,7 @@ you can experiment with Angular right away.
 ### Vue
 
 To use Webpacker with [Vue](https://vuejs.org/), create a
-new Rails app using new `--webpack=vue` option:
+new Rails 5.1+ app using `--webpack=vue` option:
 
 ```bash
 # Rails 5.1+
@@ -179,7 +191,7 @@ experiment Vue right away.
 ### Elm
 
 To use Webpacker with [Elm](http://elm-lang.org), create a
-new app using new `--webpack=elm` option:
+new Rails 5.1+ app using `--webpack=elm` option:
 
 ```
 ./bin/rails new myapp --webpack=elm
@@ -195,9 +207,9 @@ so that you can experiment with Elm right away.
 ## Binstubs
 
 Webpacker ships with two binstubs: `./bin/webpack` and `./bin/webpack-dev-server`.
-They're thin wrappers around the standard `webpack.js` and `webpack-dev-server.js`
-executable to ensure that the right configuration file is loaded
-depending on your environment.
+Both are thin wrappers around the standard `webpack.js` and `webpack-dev-server.js`
+executable to ensure that the right configuration file and environment variables
+are loaded depending on your environment.
 
 
 ### Webpack dev server
@@ -207,7 +219,8 @@ from `./bin/rails server` to have your `app/javascript/packs/*.js` files compile
 as you make changes.
 
 `./bin/webpack-dev-server` launches the [Webpack Dev Server](https://webpack.js.org/configuration/dev-server/), which serves your pack files
-on `http://localhost:8080/` by default and supports live code reloading in development environment. You will need to install additional plugins for Webpack if you want features like [Hot Module Replacement](https://webpack.js.org/guides/hmr-react/)
+on `http://localhost:8080/` by default and supports live code reloading in the development environment. You will need to install additional plugins for Webpack if you want
+features like [Hot Module Replacement](https://webpack.js.org/guides/hmr-react/)
 
 If you'd rather not have to run the two processes separately by hand, you can use [Foreman](https://ddollar.github.io/foreman):
 
@@ -225,24 +238,22 @@ webpacker: ./bin/webpack-dev-server
 foreman start
 ```
 
-You can also pass additional cli options supported by [webpack-dev-server](https://webpack.js.org/configuration/dev-server/). Please note that inline
-options will always take precedence over the ones
-already set in the configuration file.
+You can also pass CLI options supported by [webpack-dev-server](https://webpack.js.org/configuration/dev-server/). Please note that inline options will always take
+precedence over the ones already set in the configuration file.
 
 ```bash
 ./bin/webpack-dev-server --host 0.0.0.0 --inline true --hot false
 ```
 
 
-### Webpack watcher
+### Webpack
 
-We recommend using `webpack-dev-server` during development for better experience,
-however if you don't want that for some reason you can always use `webpack` binstub in
-watch mode. This will use `public_output_path` from `config/webpacker.yml`
+We recommend using `webpack-dev-server` during development for a better experience,
+however, if you don't want that for some reason you can always use `webpack` binstub with
+watch option, which uses webpack Command Line Interface (CLI). This will use `public_output_path` from `config/webpacker.yml`
 directory to serve your packs using configured rails server.
 
-You can provide additional cli options to `watcher` available
-in [Webpack](https://webpack.js.org/api/cli/).
+You can pass cli options available with [Webpack](https://webpack.js.org/api/cli/):
 
 ```bash
 ./bin/webpack --watch --progress --colours
@@ -261,23 +272,23 @@ points in `config/webpack/*.js`.
 ![screen shot 2017-05-23 at 19 56 18](https://cloud.githubusercontent.com/assets/771039/26371229/0983add2-3ff2-11e7-9dc3-d9c2c1094032.png)
 
 By default, you shouldn't have to make any changes to `config/webpack/*.js`
-files since it's all standard production ready configuration however
-if you do need to customise this is where you would go.
+files since it's all standard production-ready configuration however
+if you do need to customize or add a new loader this is where you would go.
 
 
 ### Loaders
 
-Webpack enables use of loaders to preprocess files. This allows you to
+Webpack enables the use of loaders to preprocess files. This allows you to
 bundle any static resource way beyond JavaScript. All base loaders
 that ships with webpacker are located inside `config/webpack/loaders`.
 
-If you want to add a new loader, for example to process `json` files via webpack:
+If you want to add a new loader, for example, to process `json` files via webpack:
 
 ```
 yarn add json-loader
 ```
 
-and create a `json.js` file inside `loaders` directory:
+And create a `json.js` file inside `loaders` directory:
 
 ```js
 module.exports = {
@@ -286,7 +297,7 @@ module.exports = {
 }
 ```
 
-Now if you import('data.json') any `.json` files inside your javascript
+Now if you `import()` any `.json` files inside your javascript
 they will be processed using `json-loader`. Voila!
 
 
@@ -302,17 +313,16 @@ or whatever path you set for `source_entry_path` in the `webpacker.yml` configur
 is turned into their own output files (or entry points, as Webpack calls it).
 
 Suppose you want to change the source directory from `app/javascript`
-to `frontend` this is how you would do it:
+to `frontend` and output to `assets/packs` this is how you would do it:
 
 ```yml
 # config/webpacker.yml
 source_path: frontend
 source_entry_path: packs
-public_output_path: assets/packs
+public_output_path: assets/packs => public/assets/packs
 ```
 
-Similary you can also control and configure `webpack-dev-server` settings from
-`config/webpacker.yml` file:
+Similary you can also control and configure `webpack-dev-server` settings from `config/webpacker.yml` file:
 
 ```yml
 # config/webpacker.yml
@@ -326,8 +336,9 @@ development:
 
 ### Babel
 
-Webpacker ships with [babel](https://babeljs.io/) - a JavaScript compiler so,
-you can use next generation JavaScript, today. The Webpacker installer sets up a default standard `.babelrc` file in your app root, which will work great in most cases
+Webpacker ships with [babel](https://babeljs.io/) - a JavaScript compiler so
+you can use next generation JavaScript, today. The Webpacker installer sets up a
+standard `.babelrc` file in your app root, which will work great in most cases
 because of [babel-env-preset](https://github.com/babel/babel-preset-env).
 
 Following ES6/7 features are supported out of the box:
@@ -346,8 +357,8 @@ that includes a custom regenerator runtime and core-js.
 
 Webpacker out-of-the-box provides CSS post-processing using
 [postcss-loader](https://github.com/postcss/postcss-loader)
-and the installer sets up a standard `.postcssrc.yml` file in your app root
-with standard plugins.
+and the installer sets up a standard `.postcssrc.yml`
+file in your app root with standard plugins.
 
 ```yml
 plugins:
@@ -359,16 +370,15 @@ plugins:
 
 ### CDN
 
-Webpacker out-of-the-box provides CDN support using `ASSET_HOST` environment variable
-set within your Rails app. You don't need to do anything extra, it just works. Voila!
+Webpacker out-of-the-box provides CDN support using your Rails app `config.action_controller.asset_host` setting. If you already have [CDN](http://guides.rubyonrails.org/asset_pipeline.html#cdns) added in your rails app
+you don't need to do anything extra for webpacker, it just works.
 
+### HTTPS in development
 
-### HTTPS in Development
-
-You may require the `webpack-dev-server` to serve views over HTTPS.
+You may require the `webpack-dev-server` to serve views over HTTPS in development.
 To do this, set the `https` option for `webpack-dev-server`
-to true in `development.server.js`, then start the dev server as usual
-with `./bin/webpack-dev-server`:
+to `true` in `config/webpacker.yml`, then start the dev server as usual
+with `./bin/webpack-dev-server`.
 
 Please note that the `webpack-dev-server` will use a self-signed certificate,
 so your web browser will display a warning upon accessing the page.
@@ -376,16 +386,20 @@ so your web browser will display a warning upon accessing the page.
 
 ### Hot module replacement
 
-Webpacker out-of-the-box doesn't ships with HMR just yet. You will need to install additional plugins for Webpack if you want to add HMR support.
+Webpacker out-of-the-box doesn't ship with HMR just yet. You will need to
+install additional plugins for Webpack if you want to add HMR support.
 
-You can checkout these links on this subject,
-https://webpack.js.org/configuration/dev-server/#devserver-hot
-https://webpack.js.org/guides/hmr-react/
+You can checkout these links on this subject:
+
+- https://webpack.js.org/configuration/dev-server/#devserver-hot
+- https://webpack.js.org/guides/hmr-react/
 
 
 ## Linking Styles, Images and Fonts
 
-Static assets like images, fonts and stylesheets support is enabled out-of-box and you can link them into your javascript app code and have them compiled automatically.
+Static assets like images, fonts and stylesheets support is enabled out-of-box
+and you can link them into your javascript app code and have them
+compiled automatically.
 
 
 ### Within your JS app
@@ -403,7 +417,6 @@ Static assets like images, fonts and stylesheets support is enabled out-of-box a
 // app/javascripts/packs/hello_react.jsx
 
 import React from 'react'
-import ReactDOM from 'react-dom'
 import helloIcon from '../hello_react/images/icon.png'
 import '../hello_react/styles/hello-react.sass'
 
@@ -419,16 +432,17 @@ const Hello = props => (
 ### Inside views
 
 Under the hood webpack uses
-[extract-text-webpack-plugin](https://github.com/webpack-contrib/extract-text-webpack-plugin) plugin to extract all the referenced styles and compile it into
-a separate `[pack_name].css` bundle so that within your view you can use the
+[extract-text-webpack-plugin](https://github.com/webpack-contrib/extract-text-webpack-plugin) plugin to extract all the referenced styles within your app and compile it into
+a separate `[pack_name].css` bundle so that in your view you can use the
 `stylesheet_pack_tag` helper,
 
 ```erb
 <%= stylesheet_pack_tag 'hello_react' %>
 ```
 
-You can also link js/images/styles used within your js app in views using `asset_pack_path` helper. This helper is useful in cases where you want to
-create a `<link rel="prefetch">` or `<img />` for an asset used in your pack code,
+You can also link js/images/styles used within your js app in views using
+`asset_pack_path` helper. This helper is useful in cases where you just want to
+create a `<link rel="prefetch">` or `<img />` for an asset.
 
 ```erb
 <%= asset_pack_path 'hello_react.css' %>
@@ -441,23 +455,28 @@ create a `<link rel="prefetch">` or `<img />` for an asset used in your pack cod
 
 ### From node modules folder
 
-You can also import styles from `node_modules` using following syntax.
+You can also import styles from `node_modules` using the following syntax.
 Please note that your styles will always be extracted into `[pack_name].css`:
 
 ```sass
 // app/javascript/app-styles.sass
-//  ~ to tell webpack that this is not a relative import:
+// ~ to tell webpack that this is not a relative import:
 
 @import '~@material/animation/mdc-animation.scss'
 @import '~boostrap/dist/bootstrap.css'
 ```
 
 ```js
+// Your main app pack
 // app/javascript/packs/app.js
+
 import '../app-styles'
 ```
 
 ```erb
+<%# In your views %>
+
+<%= javascript_pack_tag 'app' %>
 <%= stylesheet_pack_tag 'app' %>
 ```
 
@@ -471,6 +490,7 @@ Let's say you're building a calendar app. Your JS app structure could look like 
 
 ```js
 // app/javascript/packs/calendar.js
+
 import 'calendar'
 ```
 
@@ -483,6 +503,7 @@ app/javascript/calendar/models/month.js
 
 ```erb
 <%# app/views/layouts/application.html.erb %>
+
 <%= javascript_pack_tag 'calendar' %>
 <%= stylesheet_pack_tag 'calendar' %>
 ```
@@ -503,6 +524,7 @@ and reference them in your views like this:
 
 ```erb
 <%# app/views/admin/orders/index.html.erb %>
+
 <%= javascript_pack_tag 'admin/orders' %>
 ```
 
@@ -510,6 +532,7 @@ and
 
 ```erb
 <%# app/views/shop/orders/index.html.erb %>
+
 <%= javascript_pack_tag 'shop/orders' %>
 ```
 
@@ -523,7 +546,7 @@ You may consider using [react-rails](https://github.com/reactjs/react-rails) or
 [webpacker-react](https://github.com/renchap/webpacker-react) for more advanced react integration. However here is how you can do it yourself:
 
 ```erb
-# views/layouts/application.html.erb
+<%# views/layouts/application.html.erb %>
 
 <%= content_tag :div,
   id: "hello-react",
@@ -573,6 +596,8 @@ document.addEventListener('DOMContentLoaded', () => {
 ```
 
 ```js
+// Render component with data
+
 document.addEventListener('DOMContentLoaded', () => {
   const node = document.getElementById('hello-vue')
   const data = JSON.parse(node.getAttribute('data'))
@@ -591,12 +616,58 @@ document.addEventListener('DOMContentLoaded', () => {
 You can follow same steps for Angular too.
 
 
-### Add a new npm module
+### Add common chunks
 
-To add any new JS module you can use `yarn`:
+The CommonsChunkPlugin is an opt-in feature that creates a separate file (known as a chunk), consisting of common modules shared between multiple entry points. By separating common modules from bundles, the resulting chunked file can be loaded once initially, and stored in the cache for later use. This results in page speed optimizations as the browser can quickly serve the shared code from the cache, rather than being forced to load a larger bundle whenever a new page is visited.
 
-```bash
-yarn add bootstrap material-ui
+Create a `app-config.js` file inside `config/webpack` and in that file add:
+
+```js
+  module.exports = {
+    plugins: [
+      // Creates a common vendor.js with all shared modules
+      new webpack.optimize.CommonsChunkPlugin({
+        name: 'vendor',
+        minChunks: (module) => {
+          // this assumes your vendor imports exist in the node_modules directory
+          return module.context && module.context.indexOf('node_modules') !== -1;
+        }
+      }),
+      // Webpack code chunk - manifest.js
+      new webpack.optimize.CommonsChunkPlugin({
+        name: 'manifest',
+        minChunks: Infinity
+      })
+    ]
+  }
+```
+
+You can add this in `shared.js` too but we are doing this to ensure smoother upgrades.
+
+```js
+// config/webpack/shared.js
+// .... rest of the config
+
+const appConfig = require('./app-config.js')
+
+plugins: appConfig.plugins.concat([
+
+  // ...existing plugins
+
+])
+```
+
+Now, add these files to your `layouts/application.html.erb`:
+
+```erb
+<%= # Head %>
+
+<%= javascript_pack_tag 'manifest' %>
+<%= javascript_pack_tag 'vendor' %>
+
+<%= # If importing any styles from node_modules in your JS app %>
+
+<%= stylesheet_pack_tag 'vendor' %>
 ```
 
 
@@ -627,6 +698,15 @@ import { foo } from './foo'
 ```
 
 
+### Add a new npm module
+
+To add any new JS module you can use `yarn`:
+
+```bash
+yarn add bootstrap material-ui
+```
+
+
 ### Add bootstrap
 
 You can use yarn to add bootstrap or any other modules available on npm:
@@ -638,26 +718,29 @@ yarn add bootstrap
 Import Bootstrap and theme(optional) CSS in your app/javascript/packs/app.js file:
 
 ```js
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/css/bootstrap-theme.css';
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap/dist/css/bootstrap-theme.css'
 ```
 
 Or in your app/javascript/app.sass file:
 
 ```sass
-@import '~bootstrap/dist/css/bootstrap.css';
-@import '~bootstrap/dist/css/bootstrap-theme.css';
+// ~ to tell that this is not a relative import
+
+@import '~bootstrap/dist/css/bootstrap.css'
+@import '~bootstrap/dist/css/bootstrap-theme.css'
 ```
 
 
-### Add Typescript with React
+### Use Typescript with React
 
-1. Setup react using webpacker [react installer]((#react)):
+1. Setup react using webpacker [react installer](#react). Then add required depedencies
+for using typescript with React:
 
 ```bash
 yarn add ts-loader typescript @types/react @types/react-dom
 
-# Don't need this with typescript
+# You don't need this with typescript
 yarn remove prop-types
 ```
 
@@ -694,17 +777,18 @@ module.exports = {
 }
 ```
 
-4. And finally, add `.tsx` to the list of extensions in `config/webpacker.yml`
+4. Finally add `.tsx` to the list of extensions in `config/webpacker.yml`
 and rename your generated `hello_react.js` using react installer
 to `hello_react.tsx` and make it valid typescript and now you can use
-typescript with React.
+typescript, JSX with React.
 
 
-### HTML templates with Typescript
+### Use HTML templates with Typescript and Angular
 
-After you have installed angular using [webpacker]((#angular-with-typescript) you would need to do follow these steps to add HTML templates:
+After you have installed angular using [angular installer](#angular-with-typescript)
+you would need to follow these steps to add HTML templates support:
 
-1. Use `yarn' to add html-loader
+1. Use `yarn` to add html-loader
 
 ```bash
 yarn add html-loader
@@ -715,10 +799,14 @@ yarn add html-loader
 ```js
 module.exports = {
   test: /\.html$/,
-  use: [ {
-    loader: 'html-loader?exportAsEs6Default',
+  use: [{
+    loader: 'html-loader',
     options: {
-      minimize: true
+      minimize: true,
+      removeAttributeQuotes: false,
+      caseSensitive: true,
+      customAttrSurround: [ [/#/, /(?:)/], [/\*/, /(?:)/], [/\[?\(?/, /(?:)/] ],
+      customAttrAssign: [ /\)?\]?=/ ]
     }
   }]
 }
@@ -733,98 +821,146 @@ module.exports = {
     - .html
 ```
 
-4. Setup a custom ts definition
+4. Setup a custom `d.ts` definition
 
 ```ts
 // app/javascript/hello_angular/html.d.ts
+
 declare module "*.html" {
-  const content: string;
-  export default content;
+  const content: string
+  export default content
 }
 ```
 
-5. Import Html string into `app.component.ts`
+5. Add a template.html file relative to `app.component.ts`
+
+```html
+<h1>Hello {{name}}</h1>
+```
+
+6. Import template into `app.component.ts`
 
 ```ts
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
 import templateString from './template.html'
 
 @Component({
   selector: 'hello-angular',
   template: templateString
 })
+
 export class AppComponent {
-  name = 'Angular!';
-}
-```
-
-6. Add a template.html file relative to `app.component.ts`
-
-```html
-<h1>Hello {{name}}</h1>
-```
-
-7. Set declaration to true inside `tsconfig.json`
-
-```json
-{
-  "compilerOptions": {
-    "declaration": true
- }
+  name = 'Angular!'
 }
 ```
 
 That's all. Voila!
 
 
+### CSS modules
+
+To enable CSS modules, you would need to update `config/webpack/loaders/sass.js`
+file, particularly `css-loader`:
+
+```js
+// Add css-modules
+
+{
+  loader: 'css-loader',
+  options: {
+    minimize: env.NODE_ENV === 'production',
+    modules: true,
+    localIdentName: '[path][name]__[local]--[hash:base64:5]'
+  }
+}
+```
+
+That's all. Now, you can use CSS modules within your JS app:
+
+```js
+import React from 'react'
+import styles from './styles.css'
+
+const Hello = props => (
+  <div className={styles.wrapper}>
+    <img src={clockIcon} alt="clock" className={styles.img} />
+    <h5 lassName={styles.name}>
+      {props.message} {props.name}!
+    </h5>
+  </div>
+)
+```
+
+
+### CSS-Next
+
+If you want to use [css-next](http://cssnext.io/) inside your app, add postcss
+plugin for `css-next`
+
+```bash
+yarn add postcss-cssnext
+```
+
+and update your `.postcssrc.yml`
+
+```
+plugins:
+  postcss-smart-import: {}
+  cssnext: {}
+```
+
+That's all. Now, you can use latest css features, today.
+
+
 ### Ignoring swap files
 
-If you are using vim or emacs and want to ignore certain
-files you can add `ignore-loader`:
+If you are using vim or emacs and want to ignore certain files you can add `ignore-loader`:
 
 ```
 yard add ignore-loader
 ```
 
-and create a new loader:
+and create a new loader file inside `config/webpack/loaders`:
 
 ```js
 // config/webpack/loaders/ignores.js
 // ignores vue~ swap files
+
 module.exports = {
   test: /.vue~$/,
   loader: 'ignore-loader'
 }
 ```
 
+And now all files with `.vue~` will be ignored by the webpack compiler.
+
+
 ### Link sprocket assets
 
 
 #### Using helpers
 
-It's possible to link to assets that have been precompiled by sprockets.
-Add the `.erb` extension to your javascript file, then you can
-use Sprockets' asset helpers:
+It's possible to link to assets that have been precompiled by sprockets. Add the `.erb` extension to your javascript file, then you can use Sprockets' asset helpers:
 
 ```erb
-// app/javascript/my_pack/example.js.erb
+<%# app/javascript/my_pack/example.js.erb %>
 
 <% helpers = ActionController::Base.helpers %>
-var railsImagePath = "<%= helpers.image_path('rails.png') %>";
+var railsImagePath = "<%= helpers.image_path('rails.png') %>"
 ```
 
-This is enabled by the `rails-erb-loader` loader rule in `config/webpack/shared.js`.
+This is enabled by the `rails-erb-loader` loader rule in `config/loaders/erb.js`.
 
 
 #### Using babel module resolver
 
-You can use [babel-plugin-module-resolver](https://github.com/tleunen/babel-plugin-module-resolver) to reference assets directly from `app/assets/**`
+You can also use [babel-plugin-module-resolver](https://github.com/tleunen/babel-plugin-module-resolver) to reference assets directly from `app/assets/**`
 
 ```bash
 yarn add babel-plugin-module-resolver
 ```
 
-Specify the plugin in your .babelrc with the custom root or alias. Here's an example:
+Specify the plugin in your `.babelrc` with the custom root or alias. Here's an example:
 
 ```json
 {
@@ -842,9 +978,48 @@ Specify the plugin in your .babelrc with the custom root or alias. Here's an exa
 And then within your javascript app code:
 
 ```js
+// Note: we don't have do any ../../ jazz
+
 import FooImage from 'assets/images/foo-image.png'
 import 'assets/stylesheets/bar.sass'
 ```
+
+## Extending
+
+We suggest you don't directly overwrite the provided configuration files
+and extend instead for smoother upgrades. Here is one way to do it:
+
+Create a `app-config.js` file inside `config/webpack`, and in that add:
+
+```js
+module.exports = {
+  production: {
+    plugins: [
+      // ... Add plugins
+    ]
+  },
+
+  development: {
+    output: {
+      // ... Custom output path
+    }
+  }
+}
+```
+
+```js
+// config/webpack/production.js
+
+const { plugins } = require('./app-config.js')
+
+plugins: appConfig.plugins.concat([
+
+  // ...existing plugins
+
+])
+```
+
+But this could be done million other ways.
 
 
 ## Deployment
@@ -852,7 +1027,9 @@ import 'assets/stylesheets/bar.sass'
 Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which gets run whenever you run `assets:precompile`. If you are not using sprockets you
 can manually trigger `bundle exec rails webpacker:compile` during your app deploy.
 
-The `javascript_pack_tag` and `stylesheet_pack_tag` helper method will automatically insert the correct HTML tag for compiled pack. Just like the asset pipeline does it. By default the output will look like this in different environments,
+The `javascript_pack_tag` and `stylesheet_pack_tag` helper method will automatically insert the correct HTML tag for compiled pack. Just like the asset pipeline does it.
+
+By default the output will look like this in different environments:
 
 ```html
   <!-- In development mode with webpack-dev-server -->
@@ -882,26 +1059,32 @@ git push heroku master
 ## Testing
 
 Webpacker lazily compiles assets in test env so you can write your tests without any extra
-setup and everything will work out of the box.
+setup and everything will just work out of the box.
+
+Here is a sample system test case with hello_react example component:
 
 ```js
+// Example react component
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 
 const Hello = props => (
-  <div>Hello {props.name}!</div>
+  <div>Hello David</div>
 )
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <Hello name="React" />,
+    <Hello />,
     document.body.appendChild(document.createElement('div')),
   )
 })
 ```
 
 ```erb
+# views/pages/home.html.erb
+
 <%= javascript_pack_tag "hello_react" %>
 ```
 
@@ -928,7 +1111,7 @@ An easy solution is to create a postinstall hook - `npm rebuild node-sass` in
 you install any new modules.
 
 * If you get this error `Can't find hello_react.js in manifest.json`
-when loading a view in browser it's because Webpack is still compiling packs.
+when loading a view in the browser it's because Webpack is still compiling packs.
 Webpacker uses a `manifest.json` file to keep track of packs in all environments,
 however since this file is generated after packs are compiled by webpack. So,
 if you load a view in browser whilst webpack is compiling you will get this error.
