@@ -51,6 +51,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
   - [Module import() vs require()](#module-import-vs-require)
   - [Add bootstrap](#add-bootstrap)
   - [Add Typescript with React](#add-typescript-with-react)
+  - [HTML templates with Typescript](#html-templates-with-typescript)
   - [Ignoring swap files](#ignoring-swap-files)
   - [Link sprocket assets](#link-sprocket-assets)
     - [Using helpers](#using-helpers)
@@ -697,6 +698,83 @@ module.exports = {
 and rename your generated `hello_react.js` using react installer
 to `hello_react.tsx` and make it valid typescript and now you can use
 typescript with React.
+
+
+### HTML templates with Typescript
+
+After you have installed angular using [webpacker]((#angular-with-typescript) you would need to do follow these steps to add HTML templates:
+
+1. Use `yarn' to add html-loader
+
+```bash
+yarn add html-loader
+```
+
+2. Add html-loader to `config/webpacker/loaders/html.js`
+
+```js
+module.exports = {
+  test: /\.html$/,
+  use: [ {
+    loader: 'html-loader?exportAsEs6Default',
+    options: {
+      minimize: true
+    }
+  }]
+}
+```
+
+3. Add `.html` to extensions list
+
+```yml
+  extensions:
+    - .elm
+    - .coffee
+    - .html
+```
+
+4. Setup a custom ts definition
+
+```ts
+// app/javascript/hello_angular/html.d.ts
+declare module "*.html" {
+  const content: string;
+  export default content;
+}
+```
+
+5. Import Html string into `app.component.ts`
+
+```ts
+import { Component } from '@angular/core';
+import templateString from './template.html'
+
+@Component({
+  selector: 'hello-angular',
+  template: templateString
+})
+export class AppComponent {
+  name = 'Angular!';
+}
+```
+
+6. Add a template.html file relative to `app.component.ts`
+
+```html
+<h1>Hello {{name}}</h1>
+```
+
+7. Set declaration to true inside `tsconfig.json`
+
+```json
+{
+  "compilerOptions": {
+    "declaration": true
+ }
+}
+```
+
+That's all. Voila!
 
 
 ### Ignoring swap files
