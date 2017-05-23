@@ -327,9 +327,8 @@ development:
 ### Babel
 
 Webpacker ships with [babel](https://babeljs.io/) - a JavaScript compiler so,
-you can use next generation JavaScript, today. Webpacker installer by default sets up a
-standard `.babelrc` file in your app root, which will work great in most cases
-because of default [babel-env-preset](https://github.com/babel/babel-preset-env).
+you can use next generation JavaScript, today. The Webpacker installer sets up a default standard `.babelrc` file in your app root, which will work great in most cases
+because of [babel-env-preset](https://github.com/babel/babel-preset-env).
 
 Following ES6/7 features are supported out of the box:
 
@@ -347,7 +346,8 @@ that includes a custom regenerator runtime and core-js.
 
 Webpacker out-of-the-box provides CSS post-processing using
 [postcss-loader](https://github.com/postcss/postcss-loader)
-and the installer by default sets up a `.postcssrc.yml` file with standard plugins.
+and the installer sets up a standard `.postcssrc.yml` file in your app root
+with standard plugins.
 
 ```yml
 plugins:
