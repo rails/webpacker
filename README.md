@@ -24,17 +24,32 @@ that's been made default from that version forward.
 
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
+  - [React](#react)
+  - [Angular with TypeScript](#angular-with-typescript)
+  - [Vue](#vue)
+  - [Elm](#elm)
 - [Binstubs](#binstubs)
+  - [Webpack dev server](#webpack-dev-server)
+  - [Webpack watcher](#webpack-watcher)
 - [Configuration](#configuration)
-- [Advanced Configuration](#advanced-configuration)
-- [Linking to static assets](#linking-to-static-assets)
-- [Getting asset path](#getting-asset-path)
+  - [Webpack](#webpack)
+  - [Loaders](#loaders)
+  - [Paths](#paths)
+  - [Babel](#babel)
+  - [Post-Processing CSS](#post-processing-css)
+  - [CDN](#cdn)
+  - [HTTPS in Development](#https-in-development)
+  - [Hot module replacement](#hot-module-replacement)
+- [App structure](#app-structure)
+- [Styles, Images and Fonts](#styles-images-and-fonts)
+- [Adding a new module](#adding-a-new-module)
+- [JS import vs require](#js-import-vs-require)
+- [Adding Bootstrap](#adding-bootstrap)
+- [Linking sprockets assets](#linking-sprockets-assets)
+  - [Using helpers](#using-helpers)
+  - [Using babel module resolver](#using-babel-module-resolver)
 - [Deployment](#deployment)
-- [Linking to sprockets assets](#linking-to-sprockets-assets)
-- [Ready for React](#ready-for-react)
-- [Ready for Angular with TypeScript](#ready-for-angular-with-typescript)
-- [Ready for Vue](#ready-for-vue)
-- [Ready for Elm](#ready-for-elm)
+  - [Heroku](#heroku)
 - [Troubleshooting](#troubleshooting)
 - [Wishlist](#wishlist)
 - [License](#license)
@@ -68,11 +83,13 @@ gem 'webpacker', '~> 2.0'
 gem 'webpacker', git: 'https://github.com/rails/webpacker.git'
 ```
 
-**Note:* Use `rake` instead of `rails` if you are using webpacker with rails version < 5.0
+**Note:** Use `rake` instead of `rails` if you are using webpacker
+with rails version < 5.0
 
-## Integrations
-
-Webpacker ships with basic out-of-the-box integration for React, Angular, Vue and Elm. You can see a list of available commands/tasks by running `./bin/rails webpacker` or `./bin/rake webpacker` in rails version < 5.0
+Webpacker by default ships with basic out-of-the-box integration
+for React, Angular, Vue and Elm. You can see a list of available
+commands/tasks by running `./bin/rails webpacker` or `./bin/rake webpacker`
+in rails version < 5.0
 
 ### React
 
@@ -132,9 +149,9 @@ The Elm library and core packages will be added via Yarn and Elm itself. An exam
 
 Webpacker ships with two binstubs: `./bin/webpack` and `./bin/webpack-dev-server`.
 They're thin wrappers around the standard `webpack.js` and `webpack-dev-server.js`
-executable, just to ensure that the right configuration file is loaded depending on your environment.
+executable to ensure that the right configuration file is loaded depending on your environment.
 
-### Webpack Dev Server
+### Webpack dev server
 
 In development, you'll need to run `./bin/webpack-dev-server` in a separate terminal
 from `./bin/rails server` to have your `app/javascript/packs/*.js` files compiled
@@ -164,7 +181,7 @@ already set in the configuration file.
 We recommend using `webpack-dev-server` during development for better experience, however if you don't want that for some reason you can always use `webpack` binstub in
 watch mode. This will use `public_output_path` from `config/webpacker.yml`
 directory to serve your packs using configured rails server. As dev server `watcher` also
-accepts cli options support by [Webpack Cli](https://webpack.js.org/api/cli/)
+accepts cli options support by [Webpack Cli](https://webpack.js.org/api/cli/).
 
 ```bash
 ./bin/webpack --watch --progress --colours
@@ -178,7 +195,27 @@ Webpacker gives you a default set of configuration files for test, development a
 production environments. They all live together with the shared
 points in `config/webpack/*.js`.
 
-By default, you shouldn't have to make any changes to `config/webpack/*.js` files since it's all pretty standard production ready configuration however if you do need to change something this is where you would go.
+By default, you shouldn't have to make any changes to `config/webpack/*.js` files since it's all pretty standard production ready configuration however if you do need to change or add something this is where you would go.
+
+### Loaders
+
+Webpack enables use of loaders to preprocess files. This allows you to bundle any static resource way beyond JavaScript. All base loaders are located inside `config/webpack/loaders`.
+
+If you want to add some loader, for example to process `json` files via webpack, just create a `json.js` file inside `loaders` directory and add the loader:
+
+```
+yarn add json-loader
+```
+
+```js
+module.exports = {
+  test: /\.json$/,
+  use: 'json-loader'
+}
+```
+
+Now, if you import any `.json` files inside your javascript they will be processed
+via `json-loader`
 
 ### Paths
 
@@ -190,7 +227,8 @@ or whatever you set the `source_entry_path` in the `webpacker.yml` configuration
 as entry directory to be turned into their own output files (or entry points, as Webpack calls it).
 
 Suppose you want to change the source directory from `app/javascript`
-to `frontend` and entry directory from `packs` to `modules` this is how you would do it,
+to `frontend` and entry directory from `packs` to `modules`
+this is how you would do it:
 
 ```yml
 # config/webpacker.yml
@@ -200,7 +238,7 @@ public_output_path: modules
 ```
 
 Similary you can also control and configure `webpack-dev-server` settings from
-`config/webpacker.yml` file
+`config/webpacker.yml` file:
 
 ```yml
 # config/webpacker.yml
@@ -214,23 +252,19 @@ development:
 ### Babel
 
 Webpacker ships with [babel](https://babeljs.io/) - a JavaScript compiler so, you can use next generation JavaScript, today. Webpacker installer by default sets up a
-standard `.babelrc` file in your app root, which would work great in most cases because of
-default [babel-env-preset](https://github.com/babel/babel-preset-env).
+standard `.babelrc` file in your app root, which will work great in most cases
+because of default [babel-env-preset](https://github.com/babel/babel-preset-env).
 
-```json
-{
-  "presets": [
-    ["env", {
-      "modules": false,
-      "targets": {
-        "browsers": "> 1%",
-        "uglify": true
-      },
-      "useBuiltIns": true
-    }]
-  ]
-}
-```
+Following features are enabled out of the box:
+
+* Async/await.
+* Object Rest/Spread Properties.
+* Exponentiation Operator.
+* Dynamic import()
+* Class Fields and Static Properties.
+
+We have included [babel polyfill](https://babeljs.io/docs/usage/polyfill/)
+that includes a custom regenerator runtime and core-js.
 
 ### Post-Processing CSS
 
@@ -267,17 +301,17 @@ You can checkout these links on this subject,
 https://webpack.js.org/configuration/dev-server/#devserver-hot
 https://webpack.js.org/guides/hmr-react/
 
-## Structure
+## App structure
 
-Let's say you're building a calendar. Your structure could look like this:
+Let's say you're building a calendar app. Your structure could look like this:
 
 ```js
 // app/javascript/packs/calendar.js
-require('calendar')
+import 'calendar'
 ```
 
 ```
-app/javascript/calendar/index.js // gets loaded by require('calendar')
+app/javascript/calendar/index.js // gets loaded by import 'calendar'
 app/javascript/calendar/components/grid.jsx
 app/javascript/calendar/styles/grid.sass
 app/javascript/calendar/models/month.js
@@ -291,7 +325,7 @@ app/javascript/calendar/models/month.js
 
 But it could also look a million other ways.
 
-**Note:** You can also namespace your packs using directories similar to a Rails app.
+**Note:** You can namespace your packs too using directories similar to a Rails app.
 
 ```
 app/javascript/packs/admin/orders.js
@@ -315,6 +349,13 @@ and
 ## Styles, Images and Fonts
 
 Static assets like images, fonts and stylesheets support is enabled out-of-box so, you can link them into your javascript app code and have them compiled automatically.
+
+```sass
+// app/javascript/hello_react/styles/hello-react.sass
+.hello-react
+  padding: 20px
+  font-size: 12px
+```
 
 ```js
 // React component example
@@ -349,19 +390,122 @@ for an asset used in your pack code,
 <% # => <img src="/packs/calendar.png" /> %>
 ```
 
-You can also reference styles from `node_modules` using following syntax. Please note that your styles will always be extracted into `pack_name.css` so in below case it will be
-`app.css` which you can link using - `<%= stylesheet_pack_tag 'app' %>`
+You can also reference styles from `node_modules` using following syntax. Please note that your styles will always be extracted into `[pack_name].css`:
 
 ```scss
 // app/javascript/app-styles.scss
 //  ~ to tell webpack that this is not a relative import:
 @import '~@material/animation/mdc-animation.scss'
-@import '~@boostrap/dist/bootstrap.css'
+@import '~boostrap/dist/bootstrap.css'
 ```
 
 ```js
 // app/javascript/packs/app.js
 import '../app-styles'
+```
+
+```erb
+<%= stylesheet_pack_tag 'app' %>
+```
+
+## Adding a new module
+
+To add any new JS module you can use `yarn`:
+
+```bash
+yarn add bootstrap
+```
+
+## JS import vs require
+
+While you are free to use `require()` and `module.exports`, we encourage you to use `import` and `export` instead since it reads and looks much better.
+
+```js
+import Button from 'react-bootstrap/lib/Button'
+
+// or
+import { Button } from 'react-bootstrap'
+
+class Foo {
+  // code...
+}
+
+export default Foo
+import Foo from './foo'
+```
+
+You can also use named export and import
+
+```js
+export const foo = () => console.log('hello world')
+import { foo } from './foo'
+```
+
+## Adding Bootstrap
+
+```bash
+yarn add bootstrap
+```
+
+Import Bootstrap and theme(optional) CSS in your app/javascript/packs/app.js file:
+
+```js
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap-theme.css';
+```
+
+Or in your app/javascript/app.sass file:
+
+```sass
+import '~bootstrap/dist/css/bootstrap.css';
+import '~bootstrap/dist/css/bootstrap-theme.css';
+```
+
+## Linking sprockets assets
+
+### Using helpers
+
+It's possible to link to assets that have been precompiled by sprockets.
+Add the `.erb` extension to your javascript file, then you can
+use Sprockets' asset helpers:
+
+```
+// app/javascript/my_pack/example.js.erb
+
+<% helpers = ActionController::Base.helpers %>
+var railsImagePath = "<%= helpers.image_path('rails.png') %>";
+```
+
+This is enabled by the `rails-erb-loader` loader rule in `config/webpack/shared.js`.
+
+### Using babel module resolver
+
+You can use [babel-plugin-module-resolver](https://github.com/tleunen/babel-plugin-module-resolver) to reference assets directly from `app/assets/**`
+
+```bash
+yarn add babel-plugin-module-resolver
+```
+
+```json
+Specify the plugin in your .babelrc with the custom root or alias. Here's an example:
+
+{
+  "plugins": [
+    ["module-resolver", {
+      "root": ["./app"],
+      "alias": {
+        "assets": "./assets"
+      }
+    }]
+  ]
+}
+```
+
+And then within your javascript app code:
+
+```js
+import FooImage from 'assets/images/foo-image.png'
+import 'assets/stylesheets/bar.sass'
 ```
 
 ## Deployment
@@ -380,19 +524,15 @@ Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which 
   <link rel="stylesheet" media="screen" href="/packs/calendar-dc02976b5f94b507e3b6.css">
 ```
 
-## Linking to sprockets assets
+### Heroku
 
-It's possible to link to assets that have been precompiled by sprockets. Add the `.erb` extension
-to your javascript file, then you can use Sprockets' asset helpers:
+Heroku installs yarn and node by default if you deploy a rails app with Webpacker.
 
+```bash
+heroku create
+heroku addons:create heroku-postgresql:hobby-dev
+git push heroku master
 ```
-// app/javascript/my_pack/example.js.erb
-
-<% helpers = ActionController::Base.helpers %>
-var railsImagePath = "<%= helpers.image_path('rails.png') %>";
-```
-
-This is enabled by the `rails-erb-loader` loader rule in `config/webpack/shared.js`.
 
 ## Troubleshooting
 
@@ -415,9 +555,9 @@ completed the compilation successfully before loading a view.
 
 ## Wishlist
 
-- Improve process for linking to assets compiled by sprockets - shouldn't need to specify
-` <% helpers = ActionController::Base.helpers %>` at the beginning of each file
-- Consider chunking setup
+- HMR
+- Separate npm package
+- CSS modules
 
 ## License
 Webpacker is released under the [MIT License](https://opensource.org/licenses/MIT).
