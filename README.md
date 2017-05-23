@@ -50,62 +50,121 @@ that's been made default from that version forward.
 
 ## Installation
 
-Webpacker is currently compatible with Rails 4.2+. You can either make use of Webpacker during setup of a new Rails 5.1+ application with `--webpack` option.
+You can either add Webpacker during setup of a new Rails 5.1+ application
+with new `--webpack` option.
 
 ```bash
 # Available Rails 5.1+
-./bin/rails new webpacker-app --webpack
+./bin/rails new myapp --webpack
 ```
 
-Or you can add the gem to your `Gemfile`, run bundle and `./bin/rails webpacker:install` in an existing Rails application.
+Or you can add it to your `Gemfile`, run bundle and `./bin/rails webpacker:install` or `bundle exec rake webpacker:install` in an existing Rails application.
 
 ```ruby
 # Gemfile
-gem 'webpacker', github: '~> 1.2'
+gem 'webpacker', '~> 2.0'
+
+# OR if you prefer to use master
+gem 'webpacker', git: 'https://github.com/rails/webpacker.git'
 ```
+
+**Note:* Use `rake` instead of `rails` if you are using webpacker with rails version < 5.0
 
 ## Integrations
 
-Webpacker also ships with basic out-of-the-box integration for React, Angular, Vue and Elm and you can add them in your Rails app like so,
+Webpacker ships with basic out-of-the-box integration for React, Angular, Vue and Elm. You can see a list of available commands/tasks by running `./bin/rails webpacker` or `./bin/rake webpacker` in rails version < 5.0
+
+### React
+
+To use Webpacker with [React](https://facebook.github.io/react/), create a new Rails app with `--webpack=react` option
 
 ```bash
-# For Rails 5.1+
-./bin/rails new webpacker-example-app --webpack=react
-./bin/rails new webpacker-example-app --webpack=angular
-./bin/rails new webpacker-example-app --webpack=vue
+# Rails 5.1+
+./bin/rails new myapp --webpack=react
 ```
 
-Or by running installer manually once you have
-bundled the `webpacker` gem into your `Gemfile`
+(or run `./bin/rails webpacker:install:react` on a Rails app already setup with webpacker).
+
+React and all the relevant dependencies
+will be added via yarn and changes to the configuration files made.
+Now you can create JSX files and have them properly compiled automatically.
+
+An example React component is also added to your project in `app/javascript/packs` so that you can experiment React right away.
+
+### Angular with TypeScript
+
+To use Webpacker with [Angular](https://angularjs.org/), create a new Rails app with new `--webpack=angular` option
 
 ```bash
-rails webpacker:install:react
-rails webpacker:install:angular
-rails webpacker:install:vue
-rails webpacker:install:elm
+# Rails 5.1+
+./bin/rails new myapp --webpack=angular
 ```
 
-You can see a list of available commands/tasks by running `./bin/rails webpacker`
+(or run `./bin/rails webpacker:install:angular` on a Rails app already setup with webpacker).
+
+TypeScript support and the Angular core libraries will be added via yarn and changes to the configuration files made. An example component written in TypeScript is also added to your project in `app/javascript` so that you can experiment Angular right away.
+
+### Vue
+
+To use Webpacker with [Vue](https://vuejs.org/), create a new Rails app with new `--webpack=vue` option
+
+```bash
+# Rails 5.1+
+./bin/rails new myapp --webpack=vue
+```
+(or run `./bin/rails webpacker:install:vue` on a Rails app already setup with webpacker).
+
+Vue and its supported libraries will be added via yarn and changes to the configuration files made. An example component is also added to your project in `app/javascript` so that you can experiment Vue right away.
+
+### Elm
+
+To use Webpacker with [Elm](http://elm-lang.org), create a new app with new `--webpack=elm` option
+
+```
+./bin/rails new myapp --webpack=elm
+```
+
+(or run `./bin/rails webpacker:install:elm` on a Rails app already setup with webpacker).
+
+The Elm library and core packages will be added via Yarn and Elm itself. An example `Main.elm` app is also added to your project in `app/javascript` so that you can experiment with Elm right away.
 
 ## Binstubs
 
 Webpacker ships with two binstubs: `./bin/webpack` and `./bin/webpack-dev-server`.
-They're thin wrappers around the standard webpack.js executable,
-just to ensure that the right configuration file is loaded depending on your environment.
+They're thin wrappers around the standard `webpack.js` and `webpack-dev-server.js`
+executable, just to ensure that the right configuration file is loaded depending on your environment.
 
-You can also pass cli options supported by [webpack-dev-server](https://webpack.js.org/configuration/dev-server/). Please note that inline
+### Webpack Dev Server
+
+In development, you'll need to run `./bin/webpack-dev-server` in a separate terminal
+from `./bin/rails server` to have your `app/javascript/packs/*.js` files compiled
+as you make changes.
+
+`./bin/webpack-dev-server` launches the [Webpack Dev Server](https://webpack.js.org/configuration/dev-server/), which serves your pack files
+on `http://localhost:8080/` by default and supports live code reloading in development environment. You will need to install additional plugins for Webpack if you want features like HMR [Hot Module Replacement](https://webpack.js.org/guides/hmr-react/)
+
+If you'd rather not have to run the two processes separately by hand, you can use [Foreman](https://ddollar.github.io/foreman) - `gem install foreman` and `foreman start`.
+
+```Procfile
+# Procfile
+web: bundle exec rails s
+webpacker: ./bin/webpack-dev-server
+```
+
+You can also pass additional cli options supported by [webpack-dev-server](https://webpack.js.org/configuration/dev-server/). Please note that inline
 options will always take precedence over the ones
 already set in the configuration file.
 
 ```bash
-./bin/webpack-dev-server --host 0.0.0.0
+./bin/webpack-dev-server --host 0.0.0.0 --inline true --hot false
 ```
 
-In development, you'll need to run `./bin/webpack-dev-server` in a separate terminal from `./bin/rails server` to have your `app/javascript/packs/*.js` files compiled as you make changes.
+### Webpack watcher
 
-If you'd rather not have to run the two processes separately by hand, you can use [Foreman](https://ddollar.github.io/foreman). `./bin/webpack-dev-server` launches the [Webpack Dev Server](https://webpack.js.org/configuration/dev-server/), which serves your pack files on http://localhost:8080/, and provides advanced Webpack features, such as [Hot Module Replacement](https://webpack.js.org/guides/hmr-react/).
-
-We recommend using `webpack-dev-server` during development for better experience, however if you don't want that you can always use `webpack` binstub in watch mode.
+We recommend using `webpack-dev-server` during development for better experience, however if you don't want that for some reason you can always use `webpack` binstub in
+watch mode. This will use `public_output_path` from `config/webpacker.yml`
+directory to serve your packs using configured rails server. As dev server `watcher` also
+accepts cli options support by [Webpack Cli](https://webpack.js.org/api/cli/)
 
 ```bash
 ./bin/webpack --watch --progress --colours
@@ -113,20 +172,102 @@ We recommend using `webpack-dev-server` during development for better experience
 
 ## Configuration
 
-### Webpacker
+### Webpack
 
-Webpacker gives you a default set of configuration files for
-test, development and production environments. They
-all live together with the shared
+Webpacker gives you a default set of configuration files for test, development and
+production environments. They all live together with the shared
 points in `config/webpack/*.js`.
 
 By default, you shouldn't have to make any changes to `config/webpack/*.js` files since it's all pretty standard production ready configuration however if you do need to change something this is where you would go.
 
-The configuration for what Webpack is supposed to
-compile by default rests on the convention that
-every file in `app/javascript/packs/*` or whatever you set the `source_entry_path` in the `webpacker.yml` configuration
-as entry directory to be turned into their own output files (or entry points,
-as Webpack calls it).
+### Paths
+
+By default, webpacker offers simple conventions for where the javascript app files and compiled webpack bundles will go in your rails app,
+but all these options are configurable from `config/webpacker.yml` file.
+
+The configuration for what Webpack is supposed to compile by default rests on the convention that every file in `app/javascript/packs/*`**(default)**
+or whatever you set the `source_entry_path` in the `webpacker.yml` configuration
+as entry directory to be turned into their own output files (or entry points, as Webpack calls it).
+
+Suppose you want to change the source directory from `app/javascript`
+to `frontend` and entry directory from `packs` to `modules` this is how you would do it,
+
+```yml
+# config/webpacker.yml
+source_path: frontend
+source_entry_path: modules
+public_output_path: modules
+```
+
+Similary you can also control and configure `webpack-dev-server` settings from
+`config/webpacker.yml` file
+
+```yml
+# config/webpacker.yml
+development:
+  dev_server:
+    host: 0.0.0.0
+    port: 8080
+    https: false
+```
+
+### Babel
+
+Webpacker ships with [babel](https://babeljs.io/) - a JavaScript compiler so, you can use next generation JavaScript, today. Webpacker installer by default sets up a
+standard `.babelrc` file in your app root, which would work great in most cases because of
+default [babel-env-preset](https://github.com/babel/babel-preset-env).
+
+```json
+{
+  "presets": [
+    ["env", {
+      "modules": false,
+      "targets": {
+        "browsers": "> 1%",
+        "uglify": true
+      },
+      "useBuiltIns": true
+    }]
+  ]
+}
+```
+
+### Post-Processing CSS
+
+Webpacker out-of-the-box provides CSS post-processing using
+[postcss-loader](https://github.com/postcss/postcss-loader)
+and the installer by default sets up a `.postcssrc.yml` file with standard plugins.
+
+```yml
+plugins:
+  postcss-smart-import: {}
+  precss: {}
+  autoprefixer: {}
+```
+
+### CDN
+
+Webpacker out-of-the-box provides CDN support using `ASSET_HOST` environment variable
+set within your Rails app. You don't need to do anything extra, it just works.
+
+### HTTPS in Development
+
+You may require the `webpack-dev-server` to serve views over HTTPS.
+To do this, set the `https` option for `webpack-dev-server`
+to true in `development.server.js`, then start the dev server as usual
+with `./bin/webpack-dev-server`:
+
+Please note that the `webpack-dev-server` will use a self-signed certificate, so your web browser will display a warning upon accessing the page.
+
+### Hot module replacement
+
+Webpacker out-of-the-box doesn't ships with HMR just yet. You will need to install additional plugins for Webpack if you want to add HMR support.
+
+You can checkout these links on this subject,
+https://webpack.js.org/configuration/dev-server/#devserver-hot
+https://webpack.js.org/guides/hmr-react/
+
+## Structure
 
 Let's say you're building a calendar. Your structure could look like this:
 
@@ -171,86 +312,6 @@ and
 <%= javascript_pack_tag 'shop/orders' %>
 ```
 
-### Paths
-
-By default, webpacker offers simple conventions for where the webpack configs, javascript app files and compiled webpack bundles will go in your rails app,
-but all these options are configurable from `config/webpacker.yml` file.
-
-Suppose, you want
-to change the source directory from `app/javascript` to `frontend` and entry directory from `packs` to `modules` this is how you would do it.
-
-```yml
-# config/webpacker.yml
-source_path: frontend
-source_entry_path: modules
-public_output_path: modules
-```
-
-Similary, you can also control and configure `webpack-dev-server` settings from
-`config/webpacker.yml` file
-
-```yml
-# config/webpacker.yml
-dev_server:
-  host: 0.0.0.0
-  port: 8080
-  https: false
-```
-
-### Babel
-
-Webpacker ships with [babel](https://babeljs.io/) - a JavaScript compiler so, you can use next generation JavaScript, today. Webpacker installer by default sets up a
-standard `.babelrc` file in your app root, which would work great in most cases because of
-default [babel-env-preset](https://github.com/babel/babel-preset-env).
-
-```json
-{
-  "presets": [
-    ["env", {
-      "modules": false,
-      "targets": {
-        "node": "current"
-      },
-      "useBuiltIns": true
-    }]
-  ]
-}
-```
-
-### Post-Processing CSS
-
-Webpacker out-of-the-box provides CSS post-processing using
-[postcss-loader](https://github.com/postcss/postcss-loader)
-and the installer by default sets up a `.postcssrc.yml` file with standard plugins.
-
-```yml
-plugins:
-  postcss-smart-import: {}
-  precss: {}
-  autoprefixer: {}
-```
-
-### CDN
-
-Webpacker out-of-the-box provides CDN support using `ASSET_HOST` environment variable
-set within your Rails app. You don't need to do anything extra, it just works.
-
-### HTTPS in Development
-
-You may require the `webpack-dev-server` to serve views over HTTPS.
-To do this, set the `https` option for `webpack-dev-server` to true in `development.server.js`, then start the dev server as usual with `./bin/webpack-dev-server`:
-
-Please note that the `webpack-dev-server` will use a self-signed certificate, so your web browser will display a warning upon accessing the page.
-
-
-### Hot module replacement
-
-Webpacker out-of-the-box doesn't shipt with HMR just yet. You will need to install additional plugins for Webpack if you want HMR.
-
-You can checkout these links on this subject,
-https://webpack.js.org/configuration/dev-server/#devserver-hot
-https://webpack.js.org/guides/hmr-react/
-
 ## Styles, Images and Fonts
 
 Static assets like images, fonts and stylesheets support is enabled out-of-box so, you can link them into your javascript app code and have them compiled automatically.
@@ -288,6 +349,21 @@ for an asset used in your pack code,
 <% # => <img src="/packs/calendar.png" /> %>
 ```
 
+You can also reference styles from `node_modules` using following syntax. Please note that your styles will always be extracted into `pack_name.css` so in below case it will be
+`app.css` which you can link using - `<%= stylesheet_pack_tag 'app' %>`
+
+```scss
+// app/javascript/app-styles.scss
+//  ~ to tell webpack that this is not a relative import:
+@import '~@material/animation/mdc-animation.scss'
+@import '~@boostrap/dist/bootstrap.css'
+```
+
+```js
+// app/javascript/packs/app.js
+import '../app-styles'
+```
+
 ## Deployment
 
 Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which gets run whenever you run `assets:precompile`. The `javascript_pack_tag` and `stylesheet_pack_tag` helper method will automatically insert the correct HTML tag for compiled pack. Just like the asset pipeline does it. By default the output will look like this in different environments,
@@ -317,27 +393,6 @@ var railsImagePath = "<%= helpers.image_path('rails.png') %>";
 ```
 
 This is enabled by the `rails-erb-loader` loader rule in `config/webpack/shared.js`.
-
-## Ready for React
-
-To use Webpacker with React, just create a new app with `./bin/rails new myapp --webpack=react` (or run `rails webpacker:install:react` on a Rails app already setup with webpacker), and all the relevant dependencies
-will be added via yarn and changes to the configuration files made. Now you can create JSX files and
-have them properly compiled automatically.
-
-## Ready for Angular with TypeScript
-
-To use Webpacker with Angular, just create a new app with `./bin/rails new myapp --webpack=angular` (or run `rails webpacker:install:angular` on a Rails app already setup with webpacker). TypeScript support and the Angular core libraries will be added via yarn and changes to the configuration files made. An example component written in TypeScript is also added to your project in `app/javascript` so that you can experiment Angular right away.
-
-## Ready for Vue
-
-To use Webpacker with Vue, just create a new app with `./bin/rails new myapp --webpack=vue` (or run `rails webpacker:install:vue` on a Rails app already setup with webpacker). Vue and its supported libraries will be added via yarn and changes to the configuration files made. An example component is also added to your project in `app/javascript` so that you can experiment Vue right away.
-
-## Ready for Elm
-
-To use Webpacker with [Elm](http://elm-lang.org), create a new app with `./bin/rails new myapp
---webpack=elm` (or run `rails webpacker:install:elm` on a Rails app already setup with webpacker).
-The Elm library and core packages will be added via Yarn and Elm itself. An example `Main.elm` app
-is also added to your project in `app/javascript` so that you can experiment with Elm right away.
 
 ## Troubleshooting
 
