@@ -301,14 +301,13 @@ or whatever path you set for `source_entry_path` in the `webpacker.yml` configur
 is turned into their own output files (or entry points, as Webpack calls it).
 
 Suppose you want to change the source directory from `app/javascript`
-to `frontend` and entry directory from `packs` to `modules`
-this is how you would do it:
+to `frontend` this is how you would do it:
 
 ```yml
 # config/webpacker.yml
 source_path: frontend
-source_entry_path: modules
-public_output_path: modules
+source_entry_path: packs
+public_output_path: assets/packs
 ```
 
 Similary you can also control and configure `webpack-dev-server` settings from
