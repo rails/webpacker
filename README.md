@@ -220,7 +220,7 @@ as you make changes.
 
 `./bin/webpack-dev-server` launches the [Webpack Dev Server](https://webpack.js.org/configuration/dev-server/), which serves your pack files
 on `http://localhost:8080/` by default and supports live code reloading in the development environment. You will need to install additional plugins for Webpack if you want
-features like [Hot Module Replacement](https://webpack.js.org/guides/hmr-react/)
+features like [Hot Module Replacement](https://webpack.js.org/guides/hmr-react/).
 
 If you'd rather not have to run the two processes separately by hand, you can use [Foreman](https://ddollar.github.io/foreman):
 
