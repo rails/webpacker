@@ -83,9 +83,9 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 * [Webpack 2](https://webpack.js.org/)
 * ES6 with [babel](https://babeljs.io/)
 * Automatic code splitting using multiple entry points
-* Stylesheets - sass and CSS
+* Stylesheets - SASS and CSS
 * Images and fonts
-* PostCSS - auto-prefixer
+* PostCSS - Auto-Prefixer
 * Asset compression, source-maps, and minification
 * CDN support
 * React, Angular, Elm and Vue support out-of-the-box
@@ -124,12 +124,14 @@ for React, Angular, Vue and Elm. You can see a list of available
 commands/tasks by running:
 
 ```bash
+# Within rails app
 ./bin/rails webpacker
 ```
 
 or in rails version < 5.0
 
 ```bash
+# Within rails app
 ./bin/rake webpacker
 ```
 
@@ -141,7 +143,7 @@ new Rails 5.1+ app using `--webpack=react` option:
 
 ```bash
 # Rails 5.1+
-./bin/rails new myapp --webpack=react
+rails new myapp --webpack=react
 ```
 
 (or run `./bin/rails webpacker:install:react` in a existing Rails app already
@@ -159,7 +161,7 @@ new Rails 5.1+ app using `--webpack=angular` option:
 
 ```bash
 # Rails 5.1+
-./bin/rails new myapp --webpack=angular
+rails new myapp --webpack=angular
 ```
 
 (or run `./bin/rails webpacker:install:angular` on a Rails app already
@@ -178,7 +180,7 @@ new Rails 5.1+ app using `--webpack=vue` option:
 
 ```bash
 # Rails 5.1+
-./bin/rails new myapp --webpack=vue
+rails new myapp --webpack=vue
 ```
 (or run `./bin/rails webpacker:install:vue` on a Rails app already setup with webpacker).
 
@@ -194,7 +196,7 @@ To use Webpacker with [Elm](http://elm-lang.org), create a
 new Rails 5.1+ app using `--webpack=elm` option:
 
 ```
-./bin/rails new myapp --webpack=elm
+rails new myapp --webpack=elm
 ```
 
 (or run `./bin/rails webpacker:install:elm` on a Rails app already setup with webpacker).
@@ -319,7 +321,7 @@ to `frontend` and output to `assets/packs` this is how you would do it:
 # config/webpacker.yml
 source_path: frontend
 source_entry_path: packs
-public_output_path: assets/packs => public/assets/packs
+public_output_path: assets/packs # outputs to => public/assets/packs
 ```
 
 Similary you can also control and configure `webpack-dev-server` settings from `config/webpacker.yml` file:
@@ -434,7 +436,7 @@ const Hello = props => (
 Under the hood webpack uses
 [extract-text-webpack-plugin](https://github.com/webpack-contrib/extract-text-webpack-plugin) plugin to extract all the referenced styles within your app and compile it into
 a separate `[pack_name].css` bundle so that in your view you can use the
-`stylesheet_pack_tag` helper,
+`stylesheet_pack_tag` helper.
 
 ```erb
 <%= stylesheet_pack_tag 'hello_react' %>
@@ -446,7 +448,7 @@ create a `<link rel="prefetch">` or `<img />` for an asset.
 
 ```erb
 <%= asset_pack_path 'hello_react.css' %>
-<% # => "/packs/hello_react.css" %>
+<%# => "/packs/hello_react.css" %>
 
 <img src="<%= asset_pack_path 'calendar.png' %>" />
 <% # => <img src="/packs/calendar.png" /> %>
@@ -660,12 +662,12 @@ plugins: appConfig.plugins.concat([
 Now, add these files to your `layouts/application.html.erb`:
 
 ```erb
-<%= # Head %>
+<%# Head %>
 
 <%= javascript_pack_tag 'manifest' %>
 <%= javascript_pack_tag 'vendor' %>
 
-<%= # If importing any styles from node_modules in your JS app %>
+<%# If importing any styles from node_modules in your JS app %>
 
 <%= stylesheet_pack_tag 'vendor' %>
 ```
@@ -1083,7 +1085,7 @@ document.addEventListener('DOMContentLoaded', () => {
 ```
 
 ```erb
-# views/pages/home.html.erb
+<%# views/pages/home.html.erb %>
 
 <%= javascript_pack_tag "hello_react" %>
 ```
