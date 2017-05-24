@@ -2,7 +2,6 @@
 $stdout.sync = true
 
 require "shellwords"
-require "yaml"
 
 ENV["RAILS_ENV"] ||= "development"
 RAILS_ENV = ENV["RAILS_ENV"]
