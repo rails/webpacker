@@ -100,7 +100,7 @@ using new `--webpack` option:
 
 ```bash
 # Available Rails 5.1+
-./bin/rails new myapp --webpack
+rails new myapp --webpack
 ```
 
 Or add it to your `Gemfile`, run bundle and `./bin/rails webpacker:install` or `bundle exec rake webpacker:install` (on rails version < 5.0):
