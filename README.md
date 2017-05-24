@@ -196,6 +196,7 @@ To use Webpacker with [Elm](http://elm-lang.org), create a
 new Rails 5.1+ app using `--webpack=elm` option:
 
 ```
+# Rails 5.1+
 rails new myapp --webpack=elm
 ```
 
