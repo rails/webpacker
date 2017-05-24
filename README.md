@@ -27,15 +27,15 @@ Webpacker is currently compatible with Rails 4.2+, but there's no guarantee it w
 in the future.
 
 You can either make use of Webpacker during setup of a new application with `--webpack`
-or you can add the gem and run `./bin/rails webpacker:install` in an existing application.
+or you can add the gem and run `./bin/rake webpacker:install` in an existing application.
 
 As the rubygems version isn't promised to be kept up to date until the release of Rails 5.1, you may want to include the gem directly from GitHub:
 
 ```ruby
-gem 'webpacker', github: 'rails/webpacker'
+gem 'webpacker', git: 'https://github.com/rails/webpacker'
 ```
 
-You can also see a list of available commands by running `./bin/rails webpacker`
+You can also see a list of available commands by running `./bin/rake webpacker`
 
 ## Binstubs
 
