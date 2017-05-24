@@ -52,7 +52,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
   - [Add a new npm module](#add-a-new-npm-module)
   - [Add bootstrap](#add-bootstrap)
   - [Use Typescript with React](#use-typescript-with-react)
-  - [HTML templates with Typescript](#html-templates-with-typescript)
+  - [Use HTML templates with Typescript and Angular](#use-html-templates-with-typescript-and-angular)
   - [CSS modules](#css-modules)
   - [CSS-Next](#css-next)
   - [Ignoring swap files](#ignoring-swap-files)
