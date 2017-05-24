@@ -69,9 +69,9 @@
   bundle exec rails webpacker:install
 
   # Remove old/unused configuration files
-  rm config/paths.yml
-  rm config/development.server.yml
-  rm config/development.server.js
+  rm config/webpack/paths.yml
+  rm config/webpack/development.server.yml
+  rm config/webpack/development.server.js
   ```
 
 
