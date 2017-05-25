@@ -952,7 +952,7 @@ It's possible to link to assets that have been precompiled by sprockets. Add the
 var railsImagePath = "<%= helpers.image_path('rails.png') %>"
 ```
 
-This is enabled by the `rails-erb-loader` loader rule in `config/loaders/erb.js`.
+This is enabled by the `rails-erb-loader` loader rule in `config/webpack/loaders/erb.js`.
 
 
 #### Using babel module resolver
