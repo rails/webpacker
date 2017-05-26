@@ -3,6 +3,7 @@ namespace :webpacker do
   task :check_node do
     begin
       node_version = `node -v`
+      node_version = `nodejs -v` if node_version.blank?
       required_node_version = "6.4"
 
       raise Errno::ENOENT if node_version.blank?

@@ -3,9 +3,9 @@ require "webpacker/configuration"
 namespace :webpacker do
   desc "Remove the webpack compiled output directory"
   task clobber: ["webpacker:verify_install", :environment] do
-    packs_path = Webpacker::Configuration.packs_path
-    FileUtils.rm_r(packs_path) if File.exist?(packs_path)
-    puts "Removed webpack output path directory #{packs_path}"
+    output_path = Webpacker::Configuration.output_path
+    FileUtils.rm_r(output_path) if File.exist?(output_path)
+    puts "Removed webpack output path directory #{output_path}"
   end
 end
 

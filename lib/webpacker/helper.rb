@@ -1,5 +1,3 @@
-require "webpacker/manifest"
-
 module Webpacker::Helper
   # Computes the full path for a given webpacker asset.
   # Return relative path using manifest.json and passes it to asset_url helper
