@@ -237,6 +237,13 @@ web: bundle exec rails s
 webpacker: ./bin/webpack-dev-server
 ```
 
+For Windows (hack for work)
+```yml
+#Procfile
+web: bundle exec rails s
+webpack: ruby bin/webpack-dev-server --windows-hack
+```
+
 ```bash
 foreman start
 ```
