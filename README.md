@@ -887,7 +887,7 @@ import styles from './styles.css'
 const Hello = props => (
   <div className={styles.wrapper}>
     <img src={clockIcon} alt="clock" className={styles.img} />
-    <h5 lassName={styles.name}>
+    <h5 className={styles.name}>
       {props.message} {props.name}!
     </h5>
   </div>
