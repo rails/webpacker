@@ -38,8 +38,6 @@ newenv = {
 }.freeze
 
 if ARGV.index('--windows-hack')
-
-  ENV['NODE_ENV'] = "development"
   ENV['NODE_PATH'] = NODE_MODULES_PATH
   ENV['ASSET_HOST'] = DEV_SERVER_HOST
 
