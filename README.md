@@ -366,8 +366,7 @@ file in your app root with standard plugins.
 ```yml
 plugins:
   postcss-smart-import: {}
-  precss: {}
-  autoprefixer: {}
+  cssnext: {}
 ```
 
 
@@ -897,22 +896,8 @@ const Hello = props => (
 
 ### CSS-Next
 
-If you want to use [css-next](http://cssnext.io/) inside your app, add postcss
-plugin for `css-next`
-
-```bash
-yarn add postcss-cssnext
-```
-
-and update your `.postcssrc.yml`
-
-```
-plugins:
-  postcss-smart-import: {}
-  cssnext: {}
-```
-
-That's all. Now, you can use latest css features, today.
+[css-next](http://cssnext.io/) is supported out-of-box in Webpacker allowing the use of
+latest css features, today.
 
 
 ### Ignoring swap files
