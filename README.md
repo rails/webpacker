@@ -815,7 +815,7 @@ module.exports = {
 }
 ```
 
-3. Add `.html` to extensions list
+3. Add `.html` to `config/webpacker.yml`
 
 ```yml
   extensions:
