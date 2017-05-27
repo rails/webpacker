@@ -366,7 +366,7 @@ file in your app root with standard plugins.
 ```yml
 plugins:
   postcss-smart-import: {}
-  cssnext: {}
+  postcss-cssnext: {}
 ```
 
 
@@ -897,7 +897,7 @@ const Hello = props => (
 ### CSS-Next
 
 [css-next](http://cssnext.io/) is supported out-of-box in Webpacker allowing the use of
-latest css features, today.
+latest CSS features, today.
 
 
 ### Ignoring swap files
