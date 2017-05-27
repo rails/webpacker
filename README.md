@@ -259,7 +259,7 @@ directory to serve your packs using configured rails server.
 You can pass cli options available with [Webpack](https://webpack.js.org/api/cli/):
 
 ```bash
-./bin/webpack --watch --progress --colours
+./bin/webpack --watch --progress --colors
 ```
 
 
