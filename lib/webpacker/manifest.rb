@@ -6,11 +6,16 @@
 # "/packs/calendar-1016838bab065ae1e314.css" for long-term caching
 
 require "webpacker/file_loader"
+require 'open-uri'
 
 class Webpacker::Manifest < Webpacker::FileLoader
   class << self
     def file_path
       Webpacker::Configuration.manifest_path
+    end
+
+    def file_url
+      Webpacker::Configuration.manifest_url
     end
 
     def lookup(name)
@@ -45,7 +50,11 @@ class Webpacker::Manifest < Webpacker::FileLoader
 
   private
     def load
-      return super unless File.exist?(@path)
-      JSON.parse(File.read(@path))
+      if self.class.file_url
+        JSON.parse(open(self.class.file_url).read)
+      else
+        return super unless File.exist?(@path)
+        JSON.parse(File.read(@path))
+      end
     end
 end
