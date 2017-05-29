@@ -23,10 +23,6 @@ class Webpacker::Manifest < Webpacker::FileLoader
       end
     end
 
-    def lookup_path(name)
-      Rails.root.join(File.join(Webpacker::Configuration.public_path, lookup(name)))
-    end
-
     private
       def find(name)
         instance.data[name.to_s] if instance
