@@ -5,7 +5,7 @@ require "webpacker/configuration"
 namespace :webpacker do
   desc "Compile javascript packs using webpack for production with digests"
   task compile: ["webpacker:verify_install", :environment] do
-    puts "[Webpacker] Compiling assets 🎉"
+    $stdout.puts "[Webpacker] Compiling assets 🎉"
 
     asset_host = ActionController::Base.helpers.compute_asset_host
     env = { "NODE_ENV" => Webpacker.env, "ASSET_HOST" => asset_host }.freeze
