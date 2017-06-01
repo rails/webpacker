@@ -1113,6 +1113,10 @@ completed the compilation successfully before loading a view.
 - HMR - [#188](https://github.com/rails/webpacker/issues/188)
 - Support rails engines - [#348](https://github.com/rails/webpacker/issues/348)
 
-
 ## License
 Webpacker is released under the [MIT License](https://opensource.org/licenses/MIT).
+
+## Related Projects
+- [react\_on\_rails Gem](https://github.com/shakacode/react_on_rails): Integration of Rails with React, Redux, React-Router, including Server Rendering utilizing [Webpacker Lite](https://github.com/shakacode/webpacker_lite).
+- [webpacker\_lite Gem](https://github.com/shakacode/webpacker_lite): A slimmed down version of Webpacker that provides only the helpers with customizations for React on Rails. See article [Webpacker Lite: Why Fork Webpacker?](https://blog.shakacode.com/webpacker-lite-why-fork-webpacker-f0a7707fac92).
+- [react-rails Gem](https://github.com/reactjs/react-rails): Integration of Rails with React utilizing Webpacker.
