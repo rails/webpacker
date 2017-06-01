@@ -8,8 +8,8 @@ namespace :webpacker do
 
       raise Errno::ENOENT if yarn_version.blank? || Gem::Version.new(yarn_version) < Gem::Version.new(required_yarn_version)
     rescue Errno::ENOENT
-      puts "Webpacker requires Yarn version >= #{required_yarn_version}. Please download and install the latest version from https://yarnpkg.com/lang/en/docs/install/"
-      puts "Exiting!" && exit!
+      $stderr.puts "Webpacker requires Yarn version >= #{required_yarn_version}. Please download and install the latest version from https://yarnpkg.com/lang/en/docs/install/"
+      $stderr.puts "Exiting!" && exit!
     end
   end
 end
