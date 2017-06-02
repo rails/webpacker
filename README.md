@@ -70,6 +70,29 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
+<!-- Tocer[start]: Auto-generated, don't remove. -->
+
+## Table of Contents
+
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Binstubs](#binstubs)
+  - [Configuration](#configuration)
+  - [Advanced Configuration](#advanced-configuration)
+  - [Linking to static assets](#linking-to-static-assets)
+  - [Getting asset path](#getting-asset-path)
+  - [Deployment](#deployment)
+  - [Linking to sprockets assets](#linking-to-sprockets-assets)
+  - [Ready for React](#ready-for-react)
+  - [Ready for Angular with TypeScript](#ready-for-angular-with-typescript)
+  - [Ready for Vue](#ready-for-vue)
+  - [Ready for Elm](#ready-for-elm)
+  - [Troubleshooting](#troubleshooting)
+  - [Wishlist](#wishlist)
+  - [License](#license)
+
+<!-- Tocer[finish]: Auto-generated, don't remove. -->
+
 ## Prerequisites
 
 * Ruby 2.2+
