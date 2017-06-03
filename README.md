@@ -1116,3 +1116,7 @@ completed the compilation successfully before loading a view.
 
 ## License
 Webpacker is released under the [MIT License](https://opensource.org/licenses/MIT).
+
+## Related Projects
+* [Webpacker Lite](https://github.com/shakacode/webpacker_lite): Light and unopinionated webpacker, without the generators or Webpack replacements. You have to configure Webpack with the [Manifest Plugin](https://www.npmjs.com/package/webpack-manifest-plugin). Webpacker Lite is designed to work with [React on Rails](https://github.com/shakacode/react_on_rails).
+* [React on Rails](https://github.com/shakacode/react_on_rails): Opinionated integration of Rails with React, React-Router, and Redux using Webpack via [Webpacker Lite](https://github.com/shakacode/webpacker_lite).
