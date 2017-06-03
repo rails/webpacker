@@ -74,6 +74,12 @@
   rm config/webpack/development.server.js
   ```
 
+  __Warning__: For now you also have to add a pattern in `.gitignore` by hand.
+  ```diff
+   /public/packs
+  +/public/packs-test
+   /node_modules
+   ```
 
 ## [1.2] - 2017-04-27
 Some of the changes made requires you to run below commands to install new changes.
