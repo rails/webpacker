@@ -22,6 +22,7 @@ chmod "bin", 0755 & ~File.umask, verbose: false
 if File.exists?(".gitignore")
   append_to_file ".gitignore", <<-EOS
 /public/packs
+/public/packs-test
 /node_modules
 EOS
 end
