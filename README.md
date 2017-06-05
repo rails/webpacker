@@ -304,7 +304,7 @@ points in `config/webpack/*.js`.
 ![screen shot 2017-05-23 at 19 56 18](https://cloud.githubusercontent.com/assets/771039/26371229/0983add2-3ff2-11e7-9dc3-d9c2c1094032.png)
 
 By default, you shouldn't have to make any changes to `config/webpack/*.js`
-files since it's all standard production-ready configuration however
+files since it's all standard production-ready configuration. However,
 if you do need to customize or add a new loader this is where you would go.
 
 
