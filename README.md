@@ -305,7 +305,7 @@ points in `config/webpack/*.js`.
 
 By default, you shouldn't have to make any changes to `config/webpack/*.js`
 files since it's all standard production-ready configuration. However,
-if you do need to customize or add a new loader this is where you would go.
+if you do need to customize or add a new loader, this is where you would go.
 
 
 ### Loaders
