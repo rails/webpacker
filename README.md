@@ -280,8 +280,8 @@ precedence over the ones already set in the configuration file.
 
 ### Webpack
 
-We recommend using `webpack-dev-server` during development for a better experience,
-however, if you don't want that for some reason you can always use `webpack` binstub with
+We recommend using `webpack-dev-server` during development for a better experience. 
+However, if you don't want that for some reason you can always use `webpack` binstub with
 watch option, which uses webpack Command Line Interface (CLI). This will use `public_output_path` from `config/webpacker.yml`
 directory to serve your packs using configured rails server.
 
