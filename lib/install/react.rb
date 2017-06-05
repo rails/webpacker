@@ -1,5 +1,7 @@
 require "webpacker/configuration"
+require "webpacker/node_bundler"
 
+node_bundler = Webpacker::NodeBundler.command
 babelrc = Rails.root.join(".babelrc")
 
 if File.exist?(babelrc)
@@ -26,6 +28,6 @@ puts "Copying react example entry file to #{Webpacker::Configuration.entry_path}
 copy_file "#{__dir__}/examples/react/hello_react.jsx", "#{Webpacker::Configuration.entry_path}/hello_react.jsx"
 
 puts "Installing all react dependencies"
-run "yarn add react react-dom babel-preset-react prop-types"
+run "#{node_bundler} react react-dom babel-preset-react prop-types"
 
 puts "Webpacker now supports react.js 🎉"

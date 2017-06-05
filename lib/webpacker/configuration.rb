@@ -20,6 +20,10 @@ class Webpacker::Configuration < Webpacker::FileLoader
       Rails.root.join(source)
     end
 
+    def node_modules_bin_path
+      Rails.root.join("node_modules", ".bin")
+    end
+
     def public_path
       Rails.root.join("public")
     end

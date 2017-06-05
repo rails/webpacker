@@ -1,3 +1,7 @@
+require "webpacker/node_bundler"
+
+node_bundler = Webpacker::NodeBundler.command
+
 # Install webpacker
 copy_file "#{__dir__}/config/webpacker.yml", "config/webpacker.yml"
 
@@ -28,7 +32,7 @@ EOS
 end
 
 puts "Installing all JavaScript dependencies"
-run "yarn add webpack webpack-merge js-yaml path-complete-extname " \
+run "#{node_bundler} webpack webpack-merge js-yaml path-complete-extname " \
 "webpack-manifest-plugin babel-loader@7.x coffee-loader coffee-script " \
 "babel-core babel-preset-env babel-polyfill compression-webpack-plugin rails-erb-loader glob " \
 "extract-text-webpack-plugin node-sass file-loader sass-loader css-loader style-loader " \
@@ -37,6 +41,6 @@ run "yarn add webpack webpack-merge js-yaml path-complete-extname " \
 "babel-plugin-transform-object-rest-spread"
 
 puts "Installing dev server for live reloading"
-run "yarn add --dev webpack-dev-server"
+run "#{node_bundler} --dev webpack-dev-server"
 
 puts "Webpacker successfully installed 🎉 🍰"

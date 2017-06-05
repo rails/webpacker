@@ -36,7 +36,7 @@ newenv = {
   "ASSET_HOST" => DEV_SERVER_HOST.shellescape
 }.freeze
 
-cmdline = ["yarn", "run", "webpack-dev-server", "--", "--progress", "--color", "--config", WEBPACK_CONFIG] + ARGV
+cmdline = ["#{NODE_MODULES_PATH}/.bin/webpack-dev-server", "--progress", "--color", "--config", WEBPACK_CONFIG] + ARGV
 
 Dir.chdir(APP_PATH) do
   exec newenv, *cmdline
