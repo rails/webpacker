@@ -2,7 +2,7 @@ require "webpacker/configuration"
 require "webpacker/node_bundler"
 
 node_bundler = Webpacker::NodeBundler.command
-babelrc = Rails.root.join(".babelrc")
+babelrc      = Rails.root.join(".babelrc")
 
 if File.exist?(babelrc)
   react_babelrc = JSON.parse(File.read(babelrc))

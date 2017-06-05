@@ -2,6 +2,7 @@ require "webpacker/configuration"
 require "webpacker/node_bundler"
 
 node_bundler = Webpacker::NodeBundler.command
+node_bundler_dev = Webpacker::NodeBundler.command_dev
 
 puts "Copying elm loader to config/webpack/loaders"
 copy_file "#{__dir__}/config/loaders/installers/elm.js",
@@ -16,8 +17,8 @@ copy_file "#{__dir__}/examples/elm/hello_elm.js",
 
 puts "Installing all elm dependencies"
 run "#{node_bundler} elm elm-webpack-loader"
-run "#{node_bundler} --dev elm-hot-loader"
-run "#{node_bundler} elm package install -- --yes"
+run "#{node_bundler_dev} elm-hot-loader"
+run "node #{Webpacker::Configuration.node_modules_bin_path}/elm-package install --yes"
 
 puts "Updating Webpack paths to include Elm file extension"
 insert_into_file Webpacker::Configuration.file_path, "    - .elm\n", after: /extensions:\n/

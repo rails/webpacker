@@ -1,6 +1,7 @@
 require "webpacker/node_bundler"
 
 node_bundler = Webpacker::NodeBundler.command
+node_bundler_dev = Webpacker::NodeBundler.command_dev
 
 # Install webpacker
 copy_file "#{__dir__}/config/webpacker.yml", "config/webpacker.yml"
@@ -41,6 +42,6 @@ run "#{node_bundler} webpack webpack-merge js-yaml path-complete-extname " \
 "babel-plugin-transform-object-rest-spread"
 
 puts "Installing dev server for live reloading"
-run "#{node_bundler} --dev webpack-dev-server"
+run "#{node_bundler_dev} webpack-dev-server"
 
 puts "Webpacker successfully installed 🎉 🍰"

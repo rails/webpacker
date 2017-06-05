@@ -20,7 +20,7 @@ unless File.exist?(WEBPACK_CONFIG)
 end
 
 newenv  = { "NODE_PATH" => NODE_MODULES_PATH.shellescape }
-cmdline = ["#{NODE_MODULES_PATH}/.bin/webpack", "--config", WEBPACK_CONFIG] + ARGV
+cmdline = ["node", "#{NODE_MODULES_PATH}/.bin/webpack", "--config", WEBPACK_CONFIG] + ARGV
 
 Dir.chdir(APP_PATH) do
   exec newenv, *cmdline
