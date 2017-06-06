@@ -251,8 +251,8 @@ precedence over the ones already set in the configuration file.
 
 ### Webpack
 
-We recommend using `webpack-dev-server` during development for a better experience,
-however, if you don't want that for some reason you can always use `webpack` binstub with
+We recommend using `webpack-dev-server` during development for a better experience. 
+However, if you don't want that for some reason you can always use `webpack` binstub with
 watch option, which uses webpack Command Line Interface (CLI). This will use `public_output_path` from `config/webpacker.yml`
 directory to serve your packs using configured rails server.
 
@@ -1087,8 +1087,9 @@ class HomesTest < ApplicationSystemTestCase
 end
 ```
 
-
 ## Troubleshooting
+
+##### ENOENT: no such file or directory - node-sass
 
 *  If you get this error `ENOENT: no such file or directory - node-sass` on Heroku
 or elsewhere during `assets:precompile` or `bundle exec rails webpacker:compile`
@@ -1097,6 +1098,8 @@ basically, it can't find the `node-sass` binary.
 An easy solution is to create a postinstall hook - `npm rebuild node-sass` in
 `package.json` and that will ensure `node-sass` is rebuild whenever
 you install any new modules.
+
+##### Can't find hello_react.js in manifest.json
 
 * If you get this error `Can't find hello_react.js in manifest.json`
 when loading a view in the browser it's because Webpack is still compiling packs.
@@ -1107,6 +1110,9 @@ Therefore, make sure webpack
 (i.e `./bin/webpack-dev-server`) is running and has
 completed the compilation successfully before loading a view.
 
+##### Error: listen EADDRINUSE 0.0.0.0:8080
+
+* Do you have any process running on port 8080? Since only one process can occupy each port, you can change the port number of webpack-dev-server at `config/webpacker.yml` under dev_server's port. Alternatively, you can stop the process from occupying port 8080. To do so, simply find the process id (PID) using `lsof -i :8080` and kill the process with its PID using `kill -9 PID`.
 
 ## Wishlist
 
