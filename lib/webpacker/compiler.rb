@@ -14,7 +14,6 @@ module Webpacker::Compiler
     end
 
     def load_rake_task(name)
-      @load_rakefile ||= Rake.load_rakefile(Rails.root.join("Rakefile"))
       Rake::Task[name]
     end
 end
