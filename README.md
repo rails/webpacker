@@ -604,14 +604,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const node = document.getElementById('hello-vue')
   const data = JSON.parse(node.getAttribute('data'))
 
-  const app = new Vue({
+  new Vue({
     data: data,
-    el: '#vue-app',
-    template: '<App/>',
-    components: { App }
-  })
-
-  console.log(app)
+    render: h => h(App)
+  }).$mount('#vue-app')
 })
 ```
 
