@@ -263,13 +263,22 @@ webpacker: ./bin/webpack-dev-server
 foreman start
 ```
 
+By default, `webpack-dev-server` listens on `0.0.0.0` that means listening
+on all IP addresses available on your system: LAN IP address, localhost, 127.0.0.1 etc. However, we use `localhost` as default hostname for serving assets in browser
+and if you want to change that, for example on cloud9 you can do so
+by changing host set in `config/webpacker.yml`.
+
+```bash
+dev_server:
+  host: example.com
+```
+
 You can also pass CLI options supported by [webpack-dev-server](https://webpack.js.org/configuration/dev-server/). Please note that inline options will always take
 precedence over the ones already set in the configuration file.
 
 ```bash
-./bin/webpack-dev-server --host 0.0.0.0 --inline true --hot false
+./bin/webpack-dev-server --host example.com --inline true --hot false
 ```
-
 
 ### Webpack
 
