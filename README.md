@@ -589,7 +589,7 @@ document.addEventListener('DOMContentLoaded', () => {
   data: {
     message: "Hello!",
     name: "David"
-} do %>
+  }.to_json do %>
 <% end %>
 ```
 
@@ -598,7 +598,7 @@ document.addEventListener('DOMContentLoaded', () => {
 ```
 
 ```js
-// Render component with data
+// Render component with props
 
 document.addEventListener('DOMContentLoaded', () => {
   const node = document.getElementById('hello-vue')
@@ -606,7 +606,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   new Vue({
     render: h => h(App, { props })
-  }).$mount('#vue-app');
+  }).$mount('#hello-vue');
 })
 ```
 
