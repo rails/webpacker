@@ -602,16 +602,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener('DOMContentLoaded', () => {
   const node = document.getElementById('hello-vue')
-  const data = JSON.parse(node.getAttribute('data'))
+  const props = JSON.parse(node.getAttribute('data'))
 
-  const app = new Vue({
-    data: data,
-    el: '#vue-app',
-    template: '<App/>',
-    components: { App }
-  })
-
-  console.log(app)
+  new Vue({
+    render: h => h(App, { props })
+  }).$mount('#vue-app');
 })
 ```
 
