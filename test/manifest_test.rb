@@ -21,10 +21,4 @@ class ManifestTest < Minitest::Test
     asset_file = "bootstrap.js"
     assert_equal Webpacker::Manifest.lookup(asset_file), "/packs/bootstrap-300631c4f0e0f9c865bc.js"
   end
-
-  def test_lookup_path
-    file_path = File.join(File.dirname(__FILE__), "test_app/public/packs", "bootstrap-300631c4f0e0f9c865bc.js").to_s
-    asset_file = "bootstrap.js"
-    assert_equal Webpacker::Manifest.lookup_path(asset_file).to_s, file_path
-  end
 end
