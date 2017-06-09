@@ -1,4 +1,5 @@
 <%= shebang %>
+
 $stdout.sync = true
 
 require "shellwords"
@@ -36,8 +37,21 @@ newenv = {
   "ASSET_HOST" => DEV_SERVER_HOST.shellescape
 }.freeze
 
-cmdline = ["yarn", "run", "webpack-dev-server", "--", "--progress", "--color", "--config", WEBPACK_CONFIG] + ARGV
+if ARGV.index('--windows-hack')
+  ENV['NODE_PATH'] = NODE_MODULES_PATH
+  ENV['ASSET_HOST'] = DEV_SERVER_HOST
 
-Dir.chdir(APP_PATH) do
-  exec newenv, *cmdline
+  for i in 0 .. ARGV.length
+    if ARGV[i] == '--windows-hack'
+      ARGV[i] = ""
+    end
+  end
+
+  cmdline = ["./node_modules/.bin/webpack-dev-server", "--progress", "--color", "--config", "config/webpack/development.js"] + ARGV
+  exec *cmdline
+else
+  cmdline = ["yarn", "run", "webpack-dev-server", "--", "--progress", "--color", "--config", WEBPACK_CONFIG] + ARGV
+  Dir.chdir(APP_PATH) do
+    exec newenv, *cmdline
+  end
 end
