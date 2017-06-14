@@ -16,7 +16,7 @@ class Webpacker::Manifest < Webpacker::FileLoader
     def lookup(name)
       load if Webpacker.env.development?
 
-      if Webpacker.env.test?
+      if Webpacker::Configuration.compile?
         find(name) || compile_and_find!(name)
       else
         find!(name)

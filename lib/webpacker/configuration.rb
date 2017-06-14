@@ -36,6 +36,10 @@ class Webpacker::Configuration < Webpacker::FileLoader
       fetch(:source_path)
     end
 
+    def compile?
+      fetch(:compile).nil? ? Webpacker.env.test? : fetch(:compile)
+    end
+
     def fetch(key)
       data.fetch(key, defaults[key])
     end
