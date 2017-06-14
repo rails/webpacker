@@ -13,7 +13,7 @@ NODE_ENV = ENV["NODE_ENV"]
 APP_PATH          = File.expand_path("../", __dir__)
 CONFIG_FILE       = File.join(APP_PATH, "config/webpacker.yml")
 NODE_MODULES_PATH = File.join(APP_PATH, "node_modules")
-WEBPACK_CONFIG    = File.join(APP_PATH, "config/webpack/development.js")
+WEBPACK_CONFIG    = File.join(APP_PATH, "config/webpack/#{NODE_ENV}.js")
 
 def args(key)
   index = ARGV.index(key)
@@ -21,7 +21,7 @@ def args(key)
 end
 
 begin
-  dev_server = YAML.load_file(CONFIG_FILE)["development"]["dev_server"]
+  dev_server = YAML.load_file(CONFIG_FILE)[RAILS_ENV]["dev_server"]
 
   DEV_SERVER_HOST = "http#{"s" if args('--https') || dev_server["https"]}://#{args('--host') || dev_server["host"]}:#{args('--port') || dev_server["port"]}"
 
