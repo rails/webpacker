@@ -300,7 +300,7 @@ module.exports = {
 }
 ```
 
-Now if you `import()` any `.json` files inside your javascript
+Finally add `.json` to the list of extensions in `config/webpacker.yml`. Now if you `import()` any `.json` files inside your javascript
 they will be processed using `json-loader`. Voila!
 
 
