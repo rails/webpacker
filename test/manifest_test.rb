@@ -10,11 +10,12 @@ class ManifestTest < Minitest::Test
     manifest_path = File.join(File.dirname(__FILE__), "test_app/public/packs", "manifest.json").to_s
     asset_file = "calendar.js"
 
-    error = assert_raises Webpacker::FileLoader::NotFoundError do
-      Webpacker::Manifest.lookup(asset_file)
+    Webpacker::Configuration.stub :compile_missing_packs?, false do
+      error = assert_raises Webpacker::FileLoader::NotFoundError do
+        Webpacker::Manifest.lookup(asset_file)
+      end
+      assert_equal error.message, "Can't find #{asset_file} in #{manifest_path}. Is webpack still compiling?"
     end
-
-    assert_equal error.message, "Can't find #{asset_file} in #{manifest_path}. Is webpack still compiling?"
   end
 
   def test_lookup_success

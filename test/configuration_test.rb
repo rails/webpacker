@@ -31,6 +31,6 @@ class ConfigurationTest < Minitest::Test
   end
 
   def test_compile_missing_packs
-    refute Webpacker::Configuration.compile_missing_packs?
+    assert Webpacker::Configuration.compile_missing_packs?
   end
 end
