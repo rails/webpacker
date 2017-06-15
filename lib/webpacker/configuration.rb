@@ -36,8 +36,8 @@ class Webpacker::Configuration < Webpacker::FileLoader
       fetch(:source_path)
     end
 
-    def compile?
-      fetch(:compile).nil? ? Webpacker.env.test? : fetch(:compile)
+    def compile_missing_packs?
+      fetch(:compile_missing_packs)
     end
 
     def fetch(key)

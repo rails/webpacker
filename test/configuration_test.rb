@@ -30,7 +30,7 @@ class ConfigurationTest < Minitest::Test
     assert_equal Webpacker::Configuration.source_path.to_s, source_path
   end
 
-  def test_compile
-    assert_equal Webpacker::Configuration.compile?, false
+  def test_compile_missing_packs
+    refute Webpacker::Configuration.compile_missing_packs?
   end
 end
