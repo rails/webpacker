@@ -251,7 +251,7 @@ precedence over the ones already set in the configuration file.
 
 ### Webpack
 
-We recommend using `webpack-dev-server` during development for a better experience. 
+We recommend using `webpack-dev-server` during development for a better experience.
 However, if you don't want that for some reason you can always use `webpack` binstub with
 watch option, which uses webpack Command Line Interface (CLI). This will use `public_output_path` from `config/webpacker.yml`
 directory to serve your packs using configured rails server.
@@ -420,7 +420,7 @@ compiled automatically.
 
 import React from 'react'
 import helloIcon from '../hello_react/images/icon.png'
-import '../hello_react/styles/hello-react.sass'
+import '../hello_react/styles/hello-react'
 
 const Hello = props => (
   <div className="hello-react">
@@ -464,8 +464,8 @@ Please note that your styles will always be extracted into `[pack_name].css`:
 // app/javascript/app-styles.sass
 // ~ to tell webpack that this is not a relative import:
 
-@import '~@material/animation/mdc-animation.scss'
-@import '~bootstrap/dist/bootstrap.css'
+@import '~@material/animation/mdc-animation'
+@import '~bootstrap/dist/css/bootstrap'
 ```
 
 ```js
@@ -715,8 +715,8 @@ yarn add bootstrap
 Import Bootstrap and theme(optional) CSS in your app/javascript/packs/app.js file:
 
 ```js
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap/dist/css/bootstrap-theme.css'
+import 'bootstrap/dist/css/bootstrap'
+import 'bootstrap/dist/css/bootstrap-theme'
 ```
 
 Or in your app/javascript/app.sass file:
@@ -724,8 +724,8 @@ Or in your app/javascript/app.sass file:
 ```sass
 // ~ to tell that this is not a relative import
 
-@import '~bootstrap/dist/css/bootstrap.css'
-@import '~bootstrap/dist/css/bootstrap-theme.css'
+@import '~bootstrap/dist/css/bootstrap'
+@import '~bootstrap/dist/css/bootstrap-theme'
 ```
 
 
@@ -876,7 +876,7 @@ That's all. Now, you can use CSS modules within your JS app:
 
 ```js
 import React from 'react'
-import styles from './styles.css'
+import styles from './styles'
 
 const Hello = props => (
   <div className={styles.wrapper}>
@@ -964,7 +964,7 @@ And then within your javascript app code:
 // Note: we don't have do any ../../ jazz
 
 import FooImage from 'assets/images/foo-image.png'
-import 'assets/stylesheets/bar.sass'
+import 'assets/stylesheets/bar'
 ```
 
 ## Extending
