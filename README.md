@@ -465,7 +465,7 @@ Please note that your styles will always be extracted into `[pack_name].css`:
 // ~ to tell webpack that this is not a relative import:
 
 @import '~@material/animation/mdc-animation.scss'
-@import '~boostrap/dist/bootstrap.css'
+@import '~bootstrap/dist/bootstrap.css'
 ```
 
 ```js
