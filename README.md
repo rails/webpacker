@@ -420,7 +420,7 @@ compiled automatically.
 
 import React from 'react'
 import helloIcon from '../hello_react/images/icon.png'
-import '../hello_react/styles/hello-react.sass'
+import '../hello_react/styles/hello-react'
 
 const Hello = props => (
   <div className="hello-react">
@@ -964,7 +964,7 @@ And then within your javascript app code:
 // Note: we don't have do any ../../ jazz
 
 import FooImage from 'assets/images/foo-image.png'
-import 'assets/stylesheets/bar.sass'
+import 'assets/stylesheets/bar'
 ```
 
 ## Extending
