@@ -11,6 +11,14 @@ class HelperTest < ActionView::TestCase
     assert_equal @view.asset_pack_path("bootstrap.css"), "/packs/bootstrap-c38deda30895059837cf.css"
   end
 
+  def test_javascript_pack_path
+    assert_equal @view.javascript_pack_path("bootstrap"), "/packs/bootstrap-300631c4f0e0f9c865bc.js"
+  end
+
+  def test_stylesheet_pack_path
+    assert_equal @view.stylesheet_pack_path("bootstrap"), "/packs/bootstrap-c38deda30895059837cf.css"
+  end
+
   def test_javascript_pack_tag
     script = %(<script src="/packs/bootstrap-300631c4f0e0f9c865bc.js"></script>)
     assert_equal @view.javascript_pack_tag("bootstrap.js"), script
