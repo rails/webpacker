@@ -75,7 +75,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 * Ruby 2.2+
 * Rails 4.2+
 * Node.js 6.4.0+
-* Yarn 0.20.1+
+* Yarn 0.20.1+ or NPM 4.2.0+
 
 
 ## Features
@@ -289,6 +289,7 @@ If you want to add a new loader, for example, to process `json` files via webpac
 
 ```
 yarn add json-loader
+npm install --save json-loader
 ```
 
 And create a `json.js` file inside `loaders` directory:
@@ -701,6 +702,7 @@ To add any new JS module you can use `yarn`:
 
 ```bash
 yarn add bootstrap material-ui
+npm install --save material-ui
 ```
 
 
@@ -710,6 +712,7 @@ You can use yarn to add bootstrap or any other modules available on npm:
 
 ```bash
 yarn add bootstrap
+npm install --save bootstrap
 ```
 
 Import Bootstrap and theme(optional) CSS in your app/javascript/packs/app.js file:
@@ -736,6 +739,7 @@ for using typescript with React:
 
 ```bash
 yarn add ts-loader typescript @types/react @types/react-dom
+npm install --save ts-loader typescript @types/react @types/react-dom
 
 # You don't need this with typescript
 yarn remove prop-types
@@ -789,6 +793,7 @@ you would need to follow these steps to add HTML templates support:
 
 ```bash
 yarn add html-loader
+npm install --save html-loader
 ```
 
 2. Add html-loader to `config/webpacker/loaders/html.js`
@@ -941,6 +946,7 @@ You can also use [babel-plugin-module-resolver](https://github.com/tleunen/babel
 
 ```bash
 yarn add babel-plugin-module-resolver
+npm install --save babel-plugin-module-resolver
 ```
 
 Specify the plugin in your `.babelrc` with the custom root or alias. Here's an example:

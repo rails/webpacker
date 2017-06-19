@@ -1,3 +1,15 @@
+## Unreleased
+
+## Added
+
+* Detects node package managers in following order - `yarn, npm` and finally fails with an error message instead of just depending on Yarn - [#452](https://github.com/rails/webpacker/issues/452)
+
+## Removed
+
+* Extra `ywebpacker:yarn_install` task - [#405](https://github.com/rails/webpacker/issues/405)
+* Remove yarn usage inside binstubs
+
+
 ## [2.0] - 2017-05-24
 
 

@@ -17,6 +17,7 @@ module Webpacker
   end
 end
 
+require "webpacker/node_bundler"
 require "webpacker/env"
 require "webpacker/configuration"
 require "webpacker/manifest"

@@ -10,7 +10,7 @@ namespace :webpacker do
     asset_host = ActionController::Base.helpers.compute_asset_host
     env = { "NODE_ENV" => Webpacker.env, "ASSET_HOST" => asset_host }.freeze
 
-    stdout_str, stderr_str, status = Open3.capture3(env, "./bin/webpack")
+    stdout_str, stderr_str, status = Open3.capture3(env, "#{RbConfig.ruby} ./bin/webpack")
 
     if status.success?
       $stdout.puts "\e[32m[Webpacker] Compiled digests for all packs in #{Webpacker::Configuration.entry_path}:\e[0m"
@@ -27,10 +27,6 @@ end
 # Compile packs after we've compiled all other assets during precompilation
 if Rake::Task.task_defined?("assets:precompile")
   Rake::Task["assets:precompile"].enhance do
-    unless Rake::Task.task_defined?("yarn:install")
-      # For Rails < 5.1
-      Rake::Task["webpacker:yarn_install"].invoke
-    end
     Rake::Task["webpacker:compile"].invoke
   end
 end

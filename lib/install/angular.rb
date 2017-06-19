@@ -1,4 +1,7 @@
 require "webpacker/configuration"
+require "webpacker/node_bundler"
+
+node_bundler = Webpacker::NodeBundler.command
 
 puts "Copying angular loader to config/webpack/loaders"
 copy_file "#{__dir__}/config/loaders/installers/angular.js", "config/webpack/loaders/angular.js"
@@ -13,6 +16,6 @@ puts "Copying tsconfig.json to the Rails root directory for typescript"
 copy_file "#{__dir__}/examples/angular/tsconfig.json", "tsconfig.json"
 
 puts "Installing all angular dependencies"
-run "yarn add typescript ts-loader core-js zone.js rxjs @angular/core @angular/common @angular/compiler @angular/platform-browser @angular/platform-browser-dynamic"
+run "#{node_bundler} typescript ts-loader core-js zone.js rxjs @angular/core @angular/common @angular/compiler @angular/platform-browser @angular/platform-browser-dynamic"
 
 puts "Webpacker now supports angular and typescript 🎉"
