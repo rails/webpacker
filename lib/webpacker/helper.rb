@@ -24,8 +24,9 @@ module Webpacker::Helper
   #   # In production mode:
   #   <%= javascript_pack_tag 'calendar', 'data-turbolinks-track': 'reload' %> # =>
   #   <script src="/packs/calendar-1016838bab065ae1e314.js" data-turbolinks-track="reload"></script>
-  def javascript_pack_tag(name, **options)
-    javascript_include_tag(Webpacker::Manifest.lookup("#{name}#{compute_asset_extname(name, type: :javascript)}"), **options)
+  def javascript_pack_tag(*names, **options)
+    sources = names.map { |name|  Webpacker::Manifest.lookup("#{name}#{compute_asset_extname(name, type: :javascript)}") }
+    javascript_include_tag(*sources, **options)
   end
 
   # Creates a link tag that references the named pack file, as compiled by Webpack per the entries list
@@ -41,7 +42,8 @@ module Webpacker::Helper
   #   # In production mode:
   #   <%= stylesheet_pack_tag 'calendar', 'data-turbolinks-track': 'reload' %> # =>
   #   <link rel="stylesheet" media="screen" href="/packs/calendar-1016838bab065ae1e122.css" data-turbolinks-track="reload" />
-  def stylesheet_pack_tag(name, **options)
-    stylesheet_link_tag(Webpacker::Manifest.lookup("#{name}#{compute_asset_extname(name, type: :stylesheet)}"), **options)
+  def stylesheet_pack_tag(*names, **options)
+    sources = names.map { |name|  Webpacker::Manifest.lookup("#{name}#{compute_asset_extname(name, type: :stylesheet)}") }
+    stylesheet_link_tag(*sources, **options)
   end
 end
