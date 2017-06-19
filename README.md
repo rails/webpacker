@@ -1121,6 +1121,10 @@ completed the compilation successfully before loading a view.
 }
 ```
 
+##### webpack or webpack-dev-server not found
+
+Your `webpack` or `webpack-dev-server` binstub is not found because your webpacker is not installed correctly. This could happen when you skip the `webpacker:install` step. Therefore, please run `exec bundle rails webpacker:install` to finish the installation. 
+
 ## Wishlist
 
 - HMR - [#188](https://github.com/rails/webpacker/issues/188)
