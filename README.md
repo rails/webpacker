@@ -1125,11 +1125,10 @@ completed the compilation successfully before loading a view.
 
 * `webpack` or `webpack-dev-server` binstub is not found because webpacker is not installed correctly. This could happen when you skip the `webpacker:install` step. Therefore, please run `bundle exec rails webpacker:install` to finish the installation. 
 
-* If you find such errors occurring on heroku, you might be missing the buildpacks. To add the buildpacks, type these commands in your terminal:
+* If you find such errors occurring on heroku, you might be missing the buildpacks. To set the buildpacks, type these commands in your terminal:
 
 ```
-heroku buildpacks:add --index 1 heroku/nodejs
-heroku buildpacks:add --index 2 heroku/ruby
+heroku buildpacks:set heroku/ruby
 ```
 
 ## Wishlist
