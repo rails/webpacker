@@ -64,6 +64,11 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
   - [Heroku](#heroku)
 - [Testing](#testing)
 - [Troubleshooting](#troubleshooting)
+      - [ENOENT: no such file or directory - node-sass](#enoent-no-such-file-or-directory---node-sass)
+      - [Can't find hello_react.js in manifest.json](#cant-find-hello_reactjs-in-manifestjson)
+      - [Error: listen EADDRINUSE 0.0.0.0:8080](#error-listen-eaddrinuse-00008080)
+      - [throw er; // Unhandled 'error' event](#throw-er--unhandled-error-event)
+      - [webpack or webpack-dev-server not found](#webpack-or-webpack-dev-server-not-found)
 - [Wishlist](#wishlist)
 - [License](#license)
 
@@ -1123,17 +1128,14 @@ completed the compilation successfully before loading a view.
 
 ##### webpack or webpack-dev-server not found
 
-* This could happen if  `webpacker:install` step is skipped. Please run `bundle exec rails webpacker:install` to fix the issue. 
+* This could happen if  `webpacker:install` step is skipped. Please run `bundle exec rails webpacker:install` to fix the issue.
 
-* If you encounter the above error on heroku after upgrading from Rails 4.x to 5.1.x, then the problem might be related to missing `yarn` binstub. Please run following commands to update/add binstubs: 
+* If you encounter the above error on heroku after upgrading from Rails 4.x to 5.1.x, then the problem might be related to missing `yarn` binstub. Please run following commands to update/add binstubs:
 
 ```bash
 bundle config --delete bin
-./bin/rails app:update:bin # or rails app:update:bin 
+./bin/rails app:update:bin # or rails app:update:bin
 ```
-
-
-#####
 
 ## Wishlist
 
