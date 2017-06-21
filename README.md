@@ -1127,9 +1127,9 @@ completed the compilation successfully before loading a view.
 
 * If you encounter the above error on heroku after upgrading from Rails 4.x to 5.1.x, then the problem might be related to missing `yarn` binstub. Please run following commands to update/add binstubs: 
 
-```
+```bash
 bundle config --delete bin
-./bin/rails app:update:bin or rails app:update:bin 
+./bin/rails app:update:bin # or rails app:update:bin 
 ```
 
 
