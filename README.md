@@ -1123,13 +1123,12 @@ completed the compilation successfully before loading a view.
 
 ##### webpack or webpack-dev-server not found
 
-* `webpack` or `webpack-dev-server` binstub is not found because webpacker is not installed correctly. This could happen when you skip the `webpacker:install` step. Therefore, please run `bundle exec rails webpacker:install` to finish the installation. 
+* This could happen if  `webpacker:install` step is skipped. Please run `bundle exec rails webpacker:install` to fix the issue. 
 
-* If you encounter the above error while upgrading from Rails 4.x to 5.1.x, then the problem might be due to the missing `yarn` binstub. Therefore, run the following commands: 
+* If you encounter the above error on heroku after upgrading from Rails 4.x to 5.1.x, then the problem might be related to missing `yarn` binstub. Please run following commands to update/add binstubs: 
 
 ```
 bundle config --delete bin
-# Will create yarn binstub
 rails app:update:bin
 ```
 
