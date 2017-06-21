@@ -1129,7 +1129,7 @@ completed the compilation successfully before loading a view.
 
 ```
 bundle config --delete bin
-rails app:update:bin
+./bin/rails app:update:bin or rails app:update:bin 
 ```
 
 
