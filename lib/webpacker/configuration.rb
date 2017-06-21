@@ -36,6 +36,10 @@ class Webpacker::Configuration < Webpacker::FileLoader
       fetch(:source_path)
     end
 
+    def compile_missing_packs?
+      fetch(:compile_missing_packs)
+    end
+
     def fetch(key)
       data.fetch(key, defaults[key])
     end

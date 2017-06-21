@@ -29,4 +29,8 @@ class ConfigurationTest < Minitest::Test
     source_path = File.join(File.dirname(__FILE__), "test_app/app/javascript").to_s
     assert_equal Webpacker::Configuration.source_path.to_s, source_path
   end
+
+  def test_compile_missing_packs
+    assert Webpacker::Configuration.compile_missing_packs?
+  end
 end
