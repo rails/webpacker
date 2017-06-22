@@ -194,6 +194,20 @@ any changes to the configuration files. An example component will
 also be added to your project in `app/javascript` so that you can
 experiment Vue right away.
 
+#### Using Rails helpers in .vue files
+
+Rails helpers cannot be used in `.vue` files by default. To enable them, change
+the extension to `.vue.erb` and additionally amend the `test` in
+`config/webpack/loaders/vue.js` to also include `.vue.erb` files:
+
+```js
+# config/webpack/loaders/vue.js
+
+module.exports = {
+  test: /\.vue(\.erb)?$/,
+  ...
+}
+```
 
 ### Elm
 
