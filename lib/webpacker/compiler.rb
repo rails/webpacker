@@ -3,9 +3,6 @@ require "rake"
 module Webpacker::Compiler
   extend self
 
-  # Default paths watched for changes
-  DEFAULT_WATCHED_PATHS = ["app/javascript/**/*", "yarn.lock", "package.json", "config/webpack/**/*"].freeze
-
   # Additional paths that test compiler needs to watch
   # Webpacker::Compiler.watched_paths << 'bower_components'
   mattr_accessor(:watched_paths) { [] }
@@ -28,9 +25,13 @@ module Webpacker::Compiler
     File.read(cached_timestamp_path) != current_source_timestamp
   end
 
+  def default_watched_paths
+    ["#{Webpacker::Configuration.source}/**/*", "yarn.lock", "package.json", "config/webpack/**/*"].freeze
+  end
+
   private
     def current_source_timestamp
-      files = Dir[*DEFAULT_WATCHED_PATHS, *watched_paths].reject { |f| File.directory?(f) }
+      files = Dir[*default_watched_paths, *watched_paths].reject { |f| File.directory?(f) }
       files.map { |f| File.mtime(f).utc.to_i }.max.to_s
     end
 
