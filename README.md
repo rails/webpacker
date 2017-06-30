@@ -24,6 +24,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
   - [React](#react)
   - [Angular with TypeScript](#angular-with-typescript)
   - [Vue](#vue)
+    - [Using Rails helpers in .vue files](#using-rails-helpers-in-vue-files)
   - [Elm](#elm)
 - [Binstubs](#binstubs)
   - [Webpack dev server](#webpack-dev-server)
@@ -63,6 +64,8 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 - [Deployment](#deployment)
   - [Heroku](#heroku)
 - [Testing](#testing)
+  - [Lazy compilation](#lazy-compilation)
+    - [Caching](#caching)
 - [Troubleshooting](#troubleshooting)
     - [ENOENT: no such file or directory - node-sass](#enoent-no-such-file-or-directory---node-sass)
     - [Can't find hello_react.js in manifest.json](#cant-find-hello_reactjs-in-manifestjson)
@@ -1060,8 +1063,11 @@ git push heroku master
 
 ## Testing
 
+### Lazy compilation
+
 Webpacker lazily compiles assets in test env so you can write your tests without any extra
 setup and everything will just work out of the box.
+
 
 Here is a sample system test case with hello_react example component:
 
@@ -1099,6 +1105,25 @@ class HomesTest < ApplicationSystemTestCase
     assert_selector "h5", text: "Hello! David"
   end
 end
+```
+
+#### Caching
+
+By default, the lazy compilation is cached until a file is changed under
+tracked paths. You can configure the paths tracked
+by adding new paths to `watched_paths` array, much like rails `autoload_paths`:
+
+```rb
+# config/initializers/webpacker.rb
+# or config/application.rb
+Webpacker::Compiler.watched_paths << 'bower_components'
+```
+
+Compiler stores a timestamp under `tmp/webpacker/` directory to keep track of
+changes and you can configure that by overriding compiler `cache_dir`:
+
+```rb
+Webpacker::Compiler.cache_dir = "tmp/foo"
 ```
 
 ## Troubleshooting

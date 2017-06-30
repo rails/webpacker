@@ -36,8 +36,8 @@ class Webpacker::Configuration < Webpacker::FileLoader
       fetch(:source_path)
     end
 
-    def compile_missing_packs?
-      fetch(:compile_missing_packs)
+    def compile?
+      fetch(:compile)
     end
 
     def fetch(key)
@@ -51,7 +51,7 @@ class Webpacker::Configuration < Webpacker::FileLoader
     end
 
     def defaults
-      @defaults ||= HashWithIndifferentAccess.new(YAML.load(default_file_path.read)["default"])
+      @defaults ||= HashWithIndifferentAccess.new(YAML.load(default_file_path.read)[Webpacker.env])
     end
   end
 
