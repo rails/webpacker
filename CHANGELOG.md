@@ -4,17 +4,22 @@
 - Update `webpack-dev-server.tt` to respect RAILS_ENV and NODE_ENV values [#502](https://github.com/rails/webpacker/issues/502)
 
 ### Breaking changes
-- Add `compile` option to `config/webpacker.yml` for configuring lazy compilation of packs when not found [#503](https://github.com/rails/webpacker/pull/503). To enable expected behavior for defaults and production, update `config/webpacker.yml`:
+- Add `compile` option to `config/webpacker.yml` for configuring lazy compilation of packs when a file under tracked paths is changed [#503](https://github.com/rails/webpacker/pull/503). To enable expected behavior, update `config/webpacker.yml`:
 
   ```yaml
     default: &default
+      compile: false
+
+    test:
       compile: true
 
-    production:
-      compile: false
+    development:
+      compile: true
   ```
 
-- Make test compilation cacheable and configurable so the lazy compilation only triggers if  files are changed under tracked paths. Following paths are watched by default -
+- Make test compilation cacheable and configurable so that the lazy compilation
+only triggers if files are changed under tracked paths.
+Following paths are watched by default -
 
   ```rb
     ["app/javascript/**/*", "yarn.lock", "package.json", "config/webpack/**/*"]
