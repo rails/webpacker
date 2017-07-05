@@ -5,7 +5,7 @@
 # files, # "/packs/calendar-1016838bab065ae1e314.js" and
 # "/packs/calendar-1016838bab065ae1e314.css" for long-term caching
 
-require "webpacker/file_loader"
+require_relative "file_loader"
 
 class Webpacker::Manifest < Webpacker::FileLoader
   class << self

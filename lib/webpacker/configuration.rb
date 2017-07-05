@@ -1,6 +1,6 @@
 # Loads webpacker configuration from config/webpacker.yml
 
-require "webpacker/file_loader"
+require_relative "file_loader"
 
 class Webpacker::Configuration < Webpacker::FileLoader
   class << self

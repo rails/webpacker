@@ -1,5 +1,5 @@
 # Singleton registry for determining NODE_ENV from config/webpacker.yml
-require "webpacker/file_loader"
+require_relative "file_loader"
 
 class Webpacker::Env < Webpacker::FileLoader
   class << self

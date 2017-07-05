@@ -1,4 +1,4 @@
-require "webpacker_test"
+require_relative "webpacker_test"
 
 class HelperTest < ActionView::TestCase
   def setup
