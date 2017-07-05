@@ -17,8 +17,8 @@ module Webpacker
   end
 end
 
-require "webpacker/env"
-require "webpacker/configuration"
-require "webpacker/manifest"
-require "webpacker/compiler"
-require "webpacker/railtie" if defined?(Rails)
+require_relative "webpacker/env"
+require_relative "webpacker/configuration"
+require_relative "webpacker/manifest"
+require_relative "webpacker/compiler"
+require_relative "webpacker/railtie" if defined?(Rails)
