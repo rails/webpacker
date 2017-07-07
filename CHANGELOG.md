@@ -1,9 +1,18 @@
 ## Unreleased
 
 ### Fixed
+
 - Update `webpack-dev-server.tt` to respect RAILS_ENV and NODE_ENV values [#502](https://github.com/rails/webpacker/issues/502)
+- Use `0.0.0.0` as default listen address for `webpack-dev-server`
+- Serve assets using `localhost` from dev server - [#424](https://github.com/rails/webpacker/issues/424)
+
+```yml
+  dev_server:
+    host: localhost
+```
 
 ### Breaking changes
+
 - Add `compile` option to `config/webpacker.yml` for configuring lazy compilation of packs when a file under tracked paths is changed [#503](https://github.com/rails/webpacker/pull/503). To enable expected behavior, update `config/webpacker.yml`:
 
   ```yaml
