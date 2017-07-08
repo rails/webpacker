@@ -1,5 +1,15 @@
 ## Unreleased
 
+### Added
+
+- `resolved_paths` option to allow adding additional paths webpack should lookup when resolving modules
+
+```yml
+  # config/webpacker.yml
+  # Additional paths webpack should lookup modules
+  resolved_paths: [] # empty by default
+```
+
 ### Fixed
 
 - Update `webpack-dev-server.tt` to respect RAILS_ENV and NODE_ENV values [#502](https://github.com/rails/webpacker/issues/502)
