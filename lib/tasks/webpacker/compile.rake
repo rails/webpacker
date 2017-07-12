@@ -1,3 +1,5 @@
+$stdout.sync = true
+
 require "open3"
 require "webpacker/env"
 require "webpacker/configuration"
