@@ -931,7 +931,7 @@ latest CSS features, today.
 If you are using vim or emacs and want to ignore certain files you can add `ignore-loader`:
 
 ```
-yard add ignore-loader
+yarn add ignore-loader
 ```
 
 and create a new loader file inside `config/webpack/loaders`:
