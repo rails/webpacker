@@ -20,7 +20,12 @@ unless File.exist?(WEBPACK_CONFIG)
 end
 
 newenv  = { "NODE_PATH" => NODE_MODULES_PATH.shellescape }
-cmdline = ["yarn", "run", "webpack", "--", "--config", WEBPACK_CONFIG] + ARGV
+if Gem.win_platform?
+  # Workaround for yarn not playing nicely with path separators
+  cmdline = ["#{NODE_MODULES_PATH}/.bin/webpack", "--config", WEBPACK_CONFIG] + ARGV
+else
+  cmdline = ["yarn", "run", "webpack", "--", "--config", WEBPACK_CONFIG] + ARGV
+end
 
 Dir.chdir(APP_PATH) do
   exec newenv, *cmdline
