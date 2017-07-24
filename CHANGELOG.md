@@ -1,6 +1,6 @@
 ## Unreleased
 
-### Added
+### Added
 
 - `resolved_paths` option to allow adding additional paths webpack should lookup when resolving modules
 
