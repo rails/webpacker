@@ -4,7 +4,12 @@ default: &default
   source_path: app/javascript
   source_entry_path: packs
   public_output_path: packs
+
   compile: false
+
+  # Additional paths webpack should lookup modules
+  # ['app/assets', 'engine/foo/app/assets']
+  resolved_paths: []
 
   extensions:
     - .coffee

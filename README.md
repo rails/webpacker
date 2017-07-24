@@ -33,6 +33,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
   - [Webpack](#webpack-1)
   - [Loaders](#loaders)
   - [Paths](#paths)
+    - [Resolved Paths](#resolved-paths)
   - [Babel](#babel)
   - [Post-Processing CSS](#post-processing-css)
   - [CDN](#cdn)
@@ -367,6 +368,30 @@ development:
     port: 8080
     https: false
 ```
+
+#### Resolved Paths
+
+If you are adding webpacker to an existing app that has most of the assets inside
+`app/assets` or inside an engine and you want to share that
+with webpack modules then you can use `resolved_paths`
+option available in `config/webpacker.yml`, which lets you
+add additional paths webpack should lookup when resolving modules:
+
+```yml
+resolved_paths: ['app/assets']
+```
+
+You can then import them inside your modules like so:
+
+```js
+// Note it's relative to parent directory i.e. app/assets
+import 'stylesheets/main'
+import 'images/rails.png'
+```
+
+**Note:** Please be careful when adding paths here otherwise it
+will make the compilation slow, consider adding specific paths instead of
+whole parent directory if you just need to reference one or two modules
 
 
 ### Babel
