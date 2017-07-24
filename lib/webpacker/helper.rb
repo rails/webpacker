@@ -5,9 +5,9 @@ module Webpacker::Helper
   # Examples:
   #
   # In development mode:
-  #   <%= asset_pack_path 'calendar.js' %> # => "/packs/calendar.js"
+  #   <%= asset_pack_path 'calendar.js' %> # => "http://0.0.0.0:8080/packs/calendar.js"
   # In production mode:
-  #   <%= asset_pack_path 'calendar.css' %> # => "/packs/calendar-1016838bab065ae1e122.css"
+  #   <%= asset_pack_path 'calendar.css' %> # => "//example.com/public/packs/calendar-1016838bab065ae1e122.css"
   def asset_pack_path(name, **options)
     asset_path(Webpacker::Manifest.lookup(name), **options)
   end
@@ -19,11 +19,11 @@ module Webpacker::Helper
   #
   #   # In development mode:
   #   <%= javascript_pack_tag 'calendar', 'data-turbolinks-track': 'reload' %> # =>
-  #   <script src="/packs/calendar.js" data-turbolinks-track="reload"></script>
+  #   <script src="http://0.0.0.0:8080/packs/calendar.js" data-turbolinks-track="reload"></script>
   #
   #   # In production mode:
   #   <%= javascript_pack_tag 'calendar', 'data-turbolinks-track': 'reload' %> # =>
-  #   <script src="/packs/calendar-1016838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+  #   <script src="//example.com/public/packs/calendar-1016838bab065ae1e314.js" data-turbolinks-track="reload"></script>
   def javascript_pack_tag(*names, **options)
     sources = names.map { |name|  Webpacker::Manifest.lookup("#{name}#{compute_asset_extname(name, type: :javascript)}") }
     javascript_include_tag(*sources, **options)
@@ -37,11 +37,11 @@ module Webpacker::Helper
   #
   #   # In development mode:
   #   <%= stylesheet_pack_tag 'calendar', 'data-turbolinks-track': 'reload' %> # =>
-  #   <link rel="stylesheet" media="screen" href="/packs/calendar.css" data-turbolinks-track="reload" />
+  #   <link rel="stylesheet" media="screen" href="http://0.0.0.0:8080/packs/calendar.css" data-turbolinks-track="reload" />
   #
   #   # In production mode:
   #   <%= stylesheet_pack_tag 'calendar', 'data-turbolinks-track': 'reload' %> # =>
-  #   <link rel="stylesheet" media="screen" href="/packs/calendar-1016838bab065ae1e122.css" data-turbolinks-track="reload" />
+  #   <link rel="stylesheet" media="screen" href="//example.com/public/packs/calendar-1016838bab065ae1e122.css" data-turbolinks-track="reload" />
   def stylesheet_pack_tag(*names, **options)
     sources = names.map { |name|  Webpacker::Manifest.lookup("#{name}#{compute_asset_extname(name, type: :stylesheet)}") }
     stylesheet_link_tag(*sources, **options)
