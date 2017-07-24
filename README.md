@@ -72,6 +72,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
     - [Error: listen EADDRINUSE 0.0.0.0:8080](#error-listen-eaddrinuse-00008080)
     - [throw er; // Unhandled 'error' event](#throw-er--unhandled-error-event)
     - [webpack or webpack-dev-server not found](#webpack-or-webpack-dev-server-not-found)
+    - [Running Webpack on Windows](#running-webpack-on-windows)
 - [Wishlist](#wishlist)
 - [License](#license)
 
@@ -1183,6 +1184,17 @@ completed the compilation successfully before loading a view.
 ```bash
 bundle config --delete bin
 ./bin/rails app:update:bin # or rails app:update:bin
+```
+
+##### Running Webpack on Windows
+
+If you are running Webpack on Windows, your command shell may not be able to interpret the preferred interpreter
+for the scripts generated in `bin/webpack` and `bin/webpack-dev-server`. Instead you'll want to run the scripts
+manually with Ruby:
+
+```
+C:\path>ruby bin\webpack
+C:\path>ruby bin\webpack-dev-server
 ```
 
 ## Wishlist
