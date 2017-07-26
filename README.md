@@ -1041,7 +1041,7 @@ console.log(process.env.FOO) // Compiles to console.log("hello")
 ```
 
 You may want to store configuration in environment variables via `.env` files,
-similarly to the [dotenv Ruby gem](https://github.com/bkeepers/dotenv).
+similar to the [dotenv Ruby gem](https://github.com/bkeepers/dotenv).
 
 In development, if you use Foreman or [Invoker](http://invoker.codemancers.com)
 to launch the Webpack server, both of these tools have basic support for a
@@ -1077,8 +1077,8 @@ module.exports = {
   ...
 ```
 
-**Warning:** using Foreman/Invoker and npm dotenv at the same can result in
-confusing behavior, in that Foreman/Invoker variables can take precedence over
+**Warning:** using Foreman/Invoker and npm dotenv at the same time can result in
+confusing behavior, in that Foreman/Invoker variables take precedence over
 npm dotenv variables.
 
 ## Extending
