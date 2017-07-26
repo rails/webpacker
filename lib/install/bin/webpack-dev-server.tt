@@ -63,7 +63,7 @@ if Gem.win_platform?
 WEBPACK_CONFIG, "--host", LISTEN_IP_ADDR, "--port", PORT.to_s] + ARGV
 else
   cmdline = ["yarn", "run", "webpack-dev-server", "--", "--progress", "--color", "--config",
-WEBPACK_CONFIG, "--host", LISTEN_IP_ADDR, "--port", PORT.to_s] + ARGV
+WEBPACK_CONFIG, "--host", LISTEN_IP_ADDR, "--public", "#{HOSTNAME}:#{PORT}", "--port", PORT.to_s] + ARGV
 end
 
 Dir.chdir(APP_PATH) do
