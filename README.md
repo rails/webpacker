@@ -367,7 +367,13 @@ development:
     host: 0.0.0.0
     port: 8080
     https: false
+    hot: false
 ```
+
+If you have hot turned to `true`, then the `stylesheet_pack_tag` generates no output, as you will want
+to configure your styles to be inlined in your JavaScript for hot reloading. During production and testing, the
+`stylesheet_pack_tag` will create the appropriate HTML tags.
+
 
 #### Resolved Paths
 
@@ -601,8 +607,12 @@ and
 
 #### React
 
-You may consider using [react-rails](https://github.com/reactjs/react-rails) or
-[webpacker-react](https://github.com/renchap/webpacker-react) for more advanced react integration. However here is how you can do it yourself:
+The most widely used React integration is [shakacode/react_on_rails](https://github.com/shakacode/react_on_rails) which includes support for server rendering, redux and react-router.
+
+Other alternatives include [react-rails](https://github.com/reactjs/react-rails) and 
+[webpacker-react](https://github.com/renchap/webpacker-react) for more advanced react integration. 
+
+If you're not concerned with view helpers to pass props or server rendering, can do it yourself:
 
 ```erb
 <%# views/layouts/application.html.erb %>
@@ -1103,6 +1113,8 @@ git push heroku master
 Webpacker lazily compiles assets in test env so you can write your tests without any extra
 setup and everything will just work out of the box.
 
+Note, [React on Rails] users should set configuration value `compile` to false, as React on Rails
+handle compilation for test and production environments.
 
 Here is a sample system test case with hello_react example component:
 

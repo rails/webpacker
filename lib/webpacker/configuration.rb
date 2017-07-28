@@ -4,12 +4,21 @@ require "webpacker/file_loader"
 
 class Webpacker::Configuration < Webpacker::FileLoader
   class << self
+    def reset
+      @defaults = nil
+      super
+    end
+
     def entry_path
       source_path.join(fetch(:source_entry_path))
     end
 
+    def public_output_path
+      fetch(:public_output_path)
+    end
+
     def output_path
-      public_path.join(fetch(:public_output_path))
+      public_path.join(public_output_path)
     end
 
     def manifest_path
@@ -45,19 +54,30 @@ class Webpacker::Configuration < Webpacker::FileLoader
     end
 
     def data
-      load if Webpacker.env.development?
-      raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Configuration.load must be called first") unless instance
+      load_instance if Webpacker.env.development?
+      raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Configuration.load_data must be called first") unless instance
       instance.data
     end
 
     def defaults
       @defaults ||= HashWithIndifferentAccess.new(YAML.load(default_file_path.read)[Webpacker.env])
     end
+
+    # Uses the webpack dev server host if appropriate
+    def output_path_or_url
+      if Webpacker::DevServer.dev_server?
+        Webpacker::DevServer.base_url
+      else
+        # Ensure we start with a slash so that the asset helpers don't prepend the default asset
+        # pipeline locations.
+        public_output_path.starts_with?("/") ? public_output_path : "/#{public_output_path}"
+      end
+    end
   end
 
   private
-    def load
-      return super unless File.exist?(@path)
+    def load_data
+      return Webpacker::Configuration.defaults unless File.exist?(@path)
       HashWithIndifferentAccess.new(YAML.load(File.read(@path))[Webpacker.env])
     end
 end
