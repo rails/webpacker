@@ -3,7 +3,6 @@ PATH
   specs:
     webpacker (2.0)
       activesupport (>= 4.2)
-      multi_json (~> 1.2)
       railties (>= 4.2)
 
 GEM
@@ -64,7 +63,6 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
     minitest (5.10.1)
-    multi_json (1.12.1)
     nio4r (1.2.1)
     nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
