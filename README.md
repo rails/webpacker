@@ -463,6 +463,12 @@ If you are using hot reloading, you should either set the `dev_server/hot` key t
 ENV value `WEBPACKER_HMR=TRUE`. That way, your stylesheet pack tag will do **nothing** because you
 need your styles inlined in your JavaScript for hot reloading to work properly.
 
+### Live Reloading or Static Reloading
+Live Reloading is having your assets for development provided by the webpack-dev-server. 
+
+You can override the the presence of the `dev_server` setup by setting ENV value: `WEBPACKER_DEV_SERVER=FALSE`.
+
+You might do this if you are switching back and forth between statically compiling files during development and trying to get hot reloading to work.
 
 ## Linking Styles, Images and Fonts
 

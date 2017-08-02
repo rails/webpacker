@@ -7,18 +7,20 @@ require "webpacker/configuration"
 class Webpacker::DevServer < Webpacker::FileLoader
   class << self
     def dev_server?
+      env_val = env_value("WEBPACKER_DEV_SERVER")
+
+      # override dev_server setup WEBPACKER_DEV_SERVER=FALSE
+      return false if env_val == false
+
+      # If not specified, then check if values in the config file for the dev_server key
       !dev_server_values.nil?
     end
 
     # read settings for dev_server
     def hot?
       return false unless dev_server?
-      if ENV["WEBPACKER_HMR"].present?
-        val = ENV["WEBPACKER_HMR"].downcase
-        return true if val == "true"
-        return false if val == "false"
-        raise new ArgumentError("WEBPACKER_HMR value is #{ENV['WEBPACKER_HMR']}. Set to TRUE|FALSE")
-      end
+      env_val = env_value("WEBPACKER_HMR")
+      return env_val unless env_val.nil?
       fetch(:hot)
     end
 
@@ -48,6 +50,17 @@ class Webpacker::DevServer < Webpacker::FileLoader
     end
 
     private
+
+    def env_value(env_key)
+      if ENV[env_key].present?
+        val = ENV[env_key]
+        val_upcase = val.upcase
+        return true if val_upcase == "TRUE"
+        return false if val_upcase == "FALSE"
+        raise new ArgumentError("#{env_key} value is #{val}. Set to TRUE|FALSE")
+      end
+      # returns nil
+    end
 
     def dev_server_values
       data.fetch(:dev_server, nil)
