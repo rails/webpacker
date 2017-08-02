@@ -21,6 +21,10 @@ class Webpacker::Manifest < Webpacker::FileLoader
       if Webpacker::Configuration.compile?
         compile_and_find!(name)
       else
+        # Since load_instance is a no-op for production, this should be fine.
+        # If we're using `webpack -w` to recompile when files changes, we need
+        # to call this before find!
+        load_instance
         find!(name)
       end
     end
@@ -62,24 +66,26 @@ class Webpacker::Manifest < Webpacker::FileLoader
 
     def missing_file_from_manifest_error(bundle_name)
       msg = <<-MSG
-        Webpacker can't find #{bundle_name} in your manifest at #{file_path}. Possible causes:
-          1. You are hot reloading.
-          2. You want to set Configuration.compile to true for your environment.
-          3. Webpack has not re-run to reflect updates.
-          4. You have misconfigured Webpacker's config/webpacker.yml file.
-          5. Your Webpack configuration is not creating a manifest.
+Webpacker can't find #{bundle_name} in your manifest at #{file_path}. Possible causes:
+  1. You are hot reloading.
+  2. You want to set Configuration.compile to true for your environment.
+  3. Webpack has not re-run to reflect updates.
+  4. You have misconfigured Webpacker's config/webpacker.yml file.
+  5. Your Webpack configuration is not creating a manifest.
+Your manifest contains:
+#{instance.data.to_json}
       MSG
       raise(Webpacker::FileLoader::NotFoundError.new(msg))
     end
 
     def missing_manifest_file_error(path_object)
       msg = <<-MSG
-        Webpacker can't find the manifest file: #{path_object}
-        Possible causes:
-          1. You have not invoked webpack.
-          2. You have misconfigured Webpacker's config/webpacker_.yml file.
-          3. Your Webpack configuration is not creating a manifest.
-      MSG
+Webpacker can't find the manifest file: #{path_object}
+Possible causes:
+  1. You have not invoked webpack.
+  2. You have misconfigured Webpacker's config/webpacker_.yml file.
+  3. Your Webpack configuration is not creating a manifest.
+MSG
       raise(Webpacker::FileLoader::NotFoundError.new(msg))
     end
 

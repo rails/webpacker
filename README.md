@@ -459,6 +459,10 @@ You can checkout these links on this subject:
 - https://webpack.js.org/configuration/dev-server/#devserver-hot
 - https://webpack.js.org/guides/hmr-react/
 
+If you are using hot reloading, you should either set the `dev_server/hot` key to TRUE or set the 
+ENV value `WEBPACKER_HMR=TRUE`. That way, your stylesheet pack tag will do **nothing** because you
+need your styles inlined in your JavaScript for hot reloading to work properly.
+
 
 ## Linking Styles, Images and Fonts
 
