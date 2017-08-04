@@ -1,6 +1,7 @@
 $stdout.sync = true
 
 require "open3"
+require "rbconfig"
 require "webpacker/env"
 require "webpacker/configuration"
 
@@ -12,7 +13,7 @@ namespace :webpacker do
     asset_host = ActionController::Base.helpers.compute_asset_host
     env = { "NODE_ENV" => Webpacker.env, "ASSET_HOST" => asset_host }.freeze
 
-    stdout_str, stderr_str, status = Open3.capture3(env, "./bin/webpack")
+    stdout_str, stderr_str, status = Open3.capture3(env, "#{RbConfig.ruby} ./bin/webpack")
 
     if status.success?
       $stdout.puts "\e[32m[Webpacker] Compiled digests for all packs in #{Webpacker::Configuration.entry_path}:\e[0m"
