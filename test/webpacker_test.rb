@@ -5,11 +5,6 @@ require "rails"
 require "rails/test_help"
 require "webpacker"
 
-if ENV["USE_PRY"]
-  require "pry"
-  require "awesome_print"
-end
-
 module TestApp
   class Application < ::Rails::Application
     config.root = File.join(File.dirname(__FILE__), "test_app")
