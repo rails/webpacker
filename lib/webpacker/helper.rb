@@ -54,16 +54,18 @@ module Webpacker::Helper
   #   <link rel="stylesheet" media="screen" href="/public/webpack/development/calendar-1016838bab065ae1e122.css" />
   #
   def stylesheet_pack_tag(*names, **options)
-    return "" if Webpacker::DevServer.hot?
-    stylesheet_link_tag(*asset_source(names, :stylesheet), **options)
+    if Webpacker::DevServer.hot_reloading?
+      ""
+    else
+      stylesheet_link_tag(*asset_source(names, :stylesheet), **options)
+    end
   end
 
   private
     def asset_source(names, type)
-      output_path_or_url = Webpacker::Configuration.output_path_or_url
       names.map do |name|
-        path = Webpacker::Manifest.lookup("#{name}#{compute_asset_extname(name, type: type)}")
-        "#{output_path_or_url}/#{path}"
+        name_ensuring_ext = "#{name}#{compute_asset_extname(name, type: type)}"
+        Webpacker::Manifest.asset_source(name_ensuring_ext)
       end
     end
 end

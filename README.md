@@ -367,10 +367,10 @@ development:
     host: 0.0.0.0
     port: 8080
     https: false
-    hot: false
+    hot_reloading: false
 ```
 
-If you have hot turned to `true`, then the `stylesheet_pack_tag` generates no output, as you will want
+If you have hot_reloading turned to `true`, then the `stylesheet_pack_tag` generates no output, as you will want
 to configure your styles to be inlined in your JavaScript for hot reloading. During production and testing, the
 `stylesheet_pack_tag` will create the appropriate HTML tags.
 
@@ -459,7 +459,7 @@ You can checkout these links on this subject:
 - https://webpack.js.org/configuration/dev-server/#devserver-hot
 - https://webpack.js.org/guides/hmr-react/
 
-If you are using hot reloading, you should either set the `dev_server/hot` key to TRUE or set the 
+If you are using hot reloading, you should either set the `dev_server/hot_reloading` key to TRUE or set the 
 ENV value `WEBPACKER_HMR=TRUE`. That way, your stylesheet pack tag will do **nothing** because you
 need your styles inlined in your JavaScript for hot reloading to work properly.
 
@@ -617,10 +617,7 @@ and
 
 #### React
 
-The most widely used React integration is [shakacode/react_on_rails](https://github.com/shakacode/react_on_rails) which includes support for server rendering, redux and react-router.
-
-Other alternatives include [react-rails](https://github.com/reactjs/react-rails) and 
-[webpacker-react](https://github.com/renchap/webpacker-react) for more advanced react integration. 
+If you need more advanced React-integration, like server rendering, redux, or react-router, see [shakacode/react_on_rails](https://github.com/shakacode/react_on_rails), [react-rails](https://github.com/reactjs/react-rails), and [webpacker-react](https://github.com/renchap/webpacker-react).
 
 If you're not concerned with view helpers to pass props or server rendering, can do it yourself:
 
@@ -1124,7 +1121,7 @@ Webpacker lazily compiles assets in test env so you can write your tests without
 setup and everything will just work out of the box.
 
 Note, [React on Rails] users should set configuration value `compile` to false, as React on Rails
-handle compilation for test and production environments.
+handles compilation for test and production environments.
 
 Here is a sample system test case with hello_react example component:
 

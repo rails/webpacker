@@ -34,7 +34,7 @@ development:
     host: localhost
     port: 8080
     https: false
-    hot: false
+    hot_reloading: false
 
 test:
   <<: *default

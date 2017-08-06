@@ -10,20 +10,21 @@ class ManifestTest < Minitest::Test
     manifest_path = File.join(File.dirname(__FILE__), "test_app/public/packs", "manifest.json").to_s
     asset_file = "calendar.js"
     msg = <<-MSG
-        Webpacker can't find #{asset_file} in your manifest at #{manifest_path}. Possible causes:
-          1. You are hot reloading.
-          2. You want to set Configuration.compile to true for your environment.
-          3. Webpack has not re-run to reflect updates.
-          4. You have misconfigured Webpacker's config/webpacker.yml file.
-          5. Your Webpack configuration is not creating a manifest.
+Webpacker can't find #{asset_file} in your manifest at #{manifest_path}. Possible causes:
+  1. You are hot reloading.
+  2. You want to set Configuration.compile to true for your environment.
+  3. Webpack has not re-run to reflect updates.
+  4. You have misconfigured Webpacker's config/webpacker.yml file.
+  5. Your Webpack configuration is not creating a manifest.
+Your manifest contains:
+#{Webpacker::Manifest.instance.data.to_json}
     MSG
 
     Webpacker::Configuration.stub :compile?, false do
       error = assert_raises Webpacker::FileLoader::NotFoundError do
         Webpacker::Manifest.lookup(asset_file)
       end
-
-      assert_equal(error.message, msg)
+      assert_equal(msg, error.message)
     end
   end
 
@@ -70,14 +71,14 @@ class ManifestTest < Minitest::Test
     end
   end
 
-  def test_lookup_path_no_throw_missing_file
-    value = Webpacker::Manifest.lookup_path_no_throw("non-existent-bundle.js")
+  def test_lookup_no_throw_missing_file
+    value = Webpacker::Manifest.lookup("non-existent-bundle.js", throw_if_missing: false)
     assert_nil(value)
   end
 
-  def test_lookup_path_no_throw_file_exists
-    file_path = File.join(File.dirname(__FILE__), "test_app/public/packs", "bootstrap-300631c4f0e0f9c865bc.js").to_s
+  def test_lookup_no_throw_file_exists
+    file_path = "bootstrap-300631c4f0e0f9c865bc.js"
     asset_file = "bootstrap.js"
-    assert_equal(file_path, Webpacker::Manifest.lookup_path_no_throw(asset_file).to_s)
+    assert_equal(file_path, Webpacker::Manifest.lookup(asset_file, throw_if_missing: false))
   end
 end

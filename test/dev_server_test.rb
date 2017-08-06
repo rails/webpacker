@@ -3,20 +3,28 @@ require "webpacker_test"
 class DevServerTest < Minitest::Test
   require "webpacker_test"
 
+  def reset
+    Webpacker::Configuration.instance_variable_set(:@defaults, nil)
+    Webpacker::Configuration.instance_variable_set(:@instance, nil)
+    # Webpacker::Configuration.load_instance
+    Webpacker::DevServer.instance_variable_set(:@instance, nil)
+    # Webpacker::DevServer.load_instance
+  end
+
   def check_assertion
+    reset
     stub_value = ActiveSupport::StringInquirer.new("development")
     Webpacker.stub(:env, stub_value) do
-      Webpacker::Configuration.reset
-      Webpacker::DevServer.reset
-      result = yield
-      assert_equal(result[0], result[1])
+      Webpacker::DevServer.stub(:data, dev_server: {}) do
+        result = yield
+        assert_equal(result[0], result[1])
+      end
     end
-    Webpacker::Configuration.reset
-    Webpacker::DevServer.reset
+    reset
   end
 
   def test_dev_server?
-    check_assertion { [true, Webpacker::DevServer.dev_server?] }
+    check_assertion { [true, Webpacker::DevServer.enabled?] }
   end
 
   def test_dev_server_host
@@ -28,17 +36,17 @@ class DevServerTest < Minitest::Test
   end
 
   def test_dev_server_hot?
-    check_assertion { [false, Webpacker::DevServer.hot?] }
+    check_assertion { [false, Webpacker::DevServer.hot_reloading?] }
 
     ENV.stub(:[], "TRUE") do
-      check_assertion { [true, Webpacker::DevServer.hot?] }
+      check_assertion { [true, Webpacker::DevServer.hot_reloading?] }
     end
 
     ENV.stub(:[], "FALSE") do
-      check_assertion { [false, Webpacker::DevServer.hot?] }
+      check_assertion { [false, Webpacker::DevServer.hot_reloading?] }
     end
     ENV.stub(:[], "true") do
-      check_assertion { [true, Webpacker::DevServer.hot?] }
+      check_assertion { [true, Webpacker::DevServer.hot_reloading?] }
     end
   end
 

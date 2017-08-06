@@ -6,22 +6,25 @@ require "webpacker/configuration"
 
 class Webpacker::DevServer < Webpacker::FileLoader
   class << self
-    def dev_server?
-      env_val = env_value("WEBPACKER_DEV_SERVER")
-
-      # override dev_server setup WEBPACKER_DEV_SERVER=FALSE
-      return false if env_val == false
-
-      # If not specified, then check if values in the config file for the dev_server key
-      !dev_server_values.nil?
+    def enabled?
+      case ENV["WEBPACKER_DEV_SERVER"]
+      when /true/i then true
+      when /false/i then false
+      else !data[:dev_server].nil?
+      end
     end
 
     # read settings for dev_server
-    def hot?
-      return false unless dev_server?
-      env_val = env_value("WEBPACKER_HMR")
-      return env_val unless env_val.nil?
-      fetch(:hot)
+    def hot_reloading?
+      if enabled?
+        case ENV["WEBPACKER_HMR"]
+        when /true/i then true
+        when /false/i then false
+        else fetch(:hot_reloading)
+        end
+      else
+        false
+      end
     end
 
     def host
@@ -50,38 +53,17 @@ class Webpacker::DevServer < Webpacker::FileLoader
     end
 
     private
-
-    def env_value(env_key)
-      if ENV[env_key].present?
-        val = ENV[env_key]
-        val_upcase = val.upcase
-        return true if val_upcase == "TRUE"
-        return false if val_upcase == "FALSE"
-        raise new ArgumentError("#{env_key} value is #{val}. Set to TRUE|FALSE")
+      def fetch(key)
+        if enabled?
+          data[:dev_server][key] || Webpacker::Configuration.defaults[:dev_server][key]
+        end
       end
-      # returns nil
-    end
 
-    def dev_server_values
-      data.fetch(:dev_server, nil)
-    end
-
-    def fetch(key)
-      return nil unless dev_server?
-      dev_server_values.fetch(key, dev_server_defaults[key])
-    end
-
-    def data
-      load_instance if Webpacker.env.development?
-      unless instance
-        raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::DevServer.load_data must be called first")
+      def data
+        load_instance if Webpacker.env.development?
+        raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::DevServer.load_data must be called first") unless instance
+        instance.data
       end
-      instance.data
-    end
-
-    def dev_server_defaults
-      @defaults ||= Webpacker::Configuration.defaults[:dev_server]
-    end
   end
 
   private

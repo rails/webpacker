@@ -13,19 +13,32 @@ class Webpacker::Manifest < Webpacker::FileLoader
       Webpacker::Configuration.manifest_path
     end
 
-    # Throws an error if the file is not found. If Configuration.compile? then compilation is invoked
-    # the file is missing.
-    # React on Rails users will need to set Configuration.compile? to false as compilation is configured
-    # in the package.json for React on Rails.
-    def lookup(name)
+    # Converts the "name" (aka the pack or bundle name) to to the full path for use in a browser.
+    def asset_source(name)
+      output_path_or_url = Webpacker::Configuration.output_path_or_url
+      mapped_name = lookup(name)
+      "#{output_path_or_url}/#{mapped_name}"
+    end
+
+    # Converts the "name" (aka the pack or bundle name) to the possibly hashed name per a manifest.
+    #
+    # If Configuration.compile? then compilation is invoked the file is missing.
+    #
+    # Options
+    # throw_if_missing: default is true. If false, then nill is returned if the file is missing.
+    def lookup(name, throw_if_missing: true)
+      instance.confirm_manifest_exists
+
       if Webpacker::Configuration.compile?
-        compile_and_find!(name)
+        compile_and_find(name, throw_if_missing: throw_if_missing)
       else
-        # Since load_instance is a no-op for production, this should be fine.
-        # If we're using `webpack -w` to recompile when files changes, we need
-        # to call this before find!
+        # Since load_instance checks a `mtime` on the manifest for a non-production env before loading,
+        # we should always call this before a call to `find!` since one may be using
+        # `webpack -w` and a file may have been added to the manifest since Rails first started.
         load_instance
-        find!(name)
+        raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Manifest.load must be called first") unless instance
+
+        return find(name, throw_if_missing: throw_if_missing)
       end
     end
 
@@ -41,31 +54,9 @@ class Webpacker::Manifest < Webpacker::FileLoader
       path_object.exist?
     end
 
-    # Find the real file name from the manifest key. Don't throw an error if the file is simply
-    # missing from the manifest. Return nil in that case.
-    # If no manifest file exists, then throw an error.
-    # **Used by React on Rails.**
-    def lookup_path_no_throw(name)
-      instance.confirm_manifest_exists
-      load_instance
-      unless instance
-        raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Manifest.load must be called first")
-      end
-      hashed_name = instance.data[name.to_s]
-      return hashed_name if hashed_name.blank?
-      Rails.root.join(File.join(Webpacker::Configuration.output_path, hashed_name))
-    end
-
     private
-    def find!(name)
-      unless instance
-        raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Manifest.load must be called first")
-      end
-      instance.data[name.to_s] || missing_file_from_manifest_error(name)
-    end
-
-    def missing_file_from_manifest_error(bundle_name)
-      msg = <<-MSG
+      def missing_file_from_manifest_error(bundle_name)
+        msg = <<-MSG
 Webpacker can't find #{bundle_name} in your manifest at #{file_path}. Possible causes:
   1. You are hot reloading.
   2. You want to set Configuration.compile to true for your environment.
@@ -74,25 +65,34 @@ Webpacker can't find #{bundle_name} in your manifest at #{file_path}. Possible c
   5. Your Webpack configuration is not creating a manifest.
 Your manifest contains:
 #{instance.data.to_json}
-      MSG
-      raise(Webpacker::FileLoader::NotFoundError.new(msg))
-    end
+        MSG
+        raise(Webpacker::FileLoader::NotFoundError.new(msg))
+      end
 
-    def missing_manifest_file_error(path_object)
-      msg = <<-MSG
+      def missing_manifest_file_error(path_object)
+        msg = <<-MSG
 Webpacker can't find the manifest file: #{path_object}
 Possible causes:
   1. You have not invoked webpack.
   2. You have misconfigured Webpacker's config/webpacker_.yml file.
   3. Your Webpack configuration is not creating a manifest.
 MSG
-      raise(Webpacker::FileLoader::NotFoundError.new(msg))
-    end
+        raise(Webpacker::FileLoader::NotFoundError.new(msg))
+      end
 
-    def compile_and_find!(name)
-      Webpacker.compile
-      find!(name)
-    end
+      def find(name, throw_if_missing: true)
+        value = instance.data[name.to_s]
+        return value if value.present?
+
+        if throw_if_missing
+          missing_file_from_manifest_error(name)
+        end
+      end
+
+      def compile_and_find!(name, throw_if_missing: true)
+        Webpacker.compile
+        find(name, throw_if_missing: throw_if_missing)
+      end
   end
 
   def confirm_manifest_exists
@@ -100,7 +100,6 @@ MSG
   end
 
   private
-
     def load_data
       return super unless File.exist?(@path)
       JSON.parse(File.read(@path))

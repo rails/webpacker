@@ -4,11 +4,6 @@ require "webpacker/file_loader"
 
 class Webpacker::Configuration < Webpacker::FileLoader
   class << self
-    def reset
-      @defaults = nil
-      super
-    end
-
     def entry_path
       source_path.join(fetch(:source_entry_path))
     end
@@ -65,7 +60,7 @@ class Webpacker::Configuration < Webpacker::FileLoader
 
     # Uses the webpack dev server host if appropriate
     def output_path_or_url
-      if Webpacker::DevServer.dev_server?
+      if Webpacker::DevServer.enabled?
         Webpacker::DevServer.base_url
       else
         # Ensure we start with a slash so that the asset helpers don't prepend the default asset
