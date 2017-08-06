@@ -61,6 +61,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
   - [Link sprocket assets](#link-sprocket-assets)
     - [Using helpers](#using-helpers)
     - [Using babel module resolver](#using-babel-module-resolver)
+  - [Environment variables](#environment-variables)
 - [Extending](#extending)
 - [Deployment](#deployment)
   - [Heroku](#heroku)
@@ -1023,6 +1024,62 @@ And then within your javascript app code:
 import FooImage from 'assets/images/foo-image.png'
 import 'assets/stylesheets/bar'
 ```
+
+### Environment variables
+
+Environment variables are supported out of the box in Webpacker. For example if
+you run the Webpack dev server like so:
+```
+FOO=hello BAR=world ./bin/webpack-dev-server
+```
+
+You can then reference these variables in your javascript app code with
+`process.env`:
+
+```js
+console.log(process.env.FOO) // Compiles to console.log("hello")
+```
+
+You may want to store configuration in environment variables via `.env` files,
+similar to the [dotenv Ruby gem](https://github.com/bkeepers/dotenv).
+
+In development, if you use Foreman or [Invoker](http://invoker.codemancers.com)
+to launch the Webpack server, both of these tools have basic support for a
+`.env` file (Invoker also supports `.env.local`), so no further configuration
+is needed.
+
+However, if you run the Webpack server without Foreman/Invoker, or if you
+want more control over what `.env` files to load, you can use the
+[dotenv npm package](https://github.com/motdotla/dotenv). Here is what you could
+do to support a "Ruby-like" dotenv:
+
+```
+yarn add dotenv
+```
+
+```javascript
+// config/webpack/shared.js
+
+...
+const dotenv = require('dotenv');
+
+const dotenvFiles = [
+  `.env.${process.env.NODE_ENV}.local`,
+  '.env.local',
+  `.env.${process.env.NODE_ENV}`,
+  '.env'
+];
+dotenvFiles.forEach((dotenvFile) => {
+  dotenv.config({ path: dotenvFile, silent: true });
+});
+
+module.exports = {
+  ...
+```
+
+**Warning:** using Foreman/Invoker and npm dotenv at the same time can result in
+confusing behavior, in that Foreman/Invoker variables take precedence over
+npm dotenv variables.
 
 ## Extending
 
