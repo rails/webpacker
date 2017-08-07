@@ -1,7 +1,6 @@
 $stdout.sync = true
 
 require "open3"
-require "rbconfig"
 require "webpacker/env"
 require "webpacker/configuration"
 
