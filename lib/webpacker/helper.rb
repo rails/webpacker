@@ -49,10 +49,6 @@ module Webpacker::Helper
   #   <%= stylesheet_pack_tag('main') %> <% # Default is false for enabled_when_hot_loading%>
   #   # No output
   #
-  #   # In development mode with hot-reloading and enabled_when_hot_loading
-  #   # <%= stylesheet_pack_tag('main', enabled_when_hot_loading: true) %>
-  #   <link rel="stylesheet" media="screen" href="/public/webpack/development/calendar-1016838bab065ae1e122.css" />
-  #
   def stylesheet_pack_tag(*names, **options)
     if Webpacker::DevServer.hot_reloading?
       ""
