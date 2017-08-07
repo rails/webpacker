@@ -47,13 +47,6 @@ class Webpacker::Manifest < Webpacker::FileLoader
       Rails.root.join(File.join(Webpacker::Configuration.output_path, lookup(name)))
     end
 
-    # Helper method to determine if the manifest file exists. Maybe Webpack needs to run?
-    # **Used by React on Rails.**
-    def exist?
-      path_object = Webpacker::Configuration.manifest_path
-      path_object.exist?
-    end
-
     private
       def missing_file_from_manifest_error(bundle_name)
         msg = <<-MSG
