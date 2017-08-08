@@ -2,6 +2,8 @@
 require "webpacker/file_loader"
 
 class Webpacker::Env < Webpacker::FileLoader
+  DEFAULT = "production"
+
   class << self
     def current
       raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Env.load must be called first") unless instance
@@ -15,9 +17,10 @@ class Webpacker::Env < Webpacker::FileLoader
 
   private
     def load
-      environments = File.exist?(@path) ? YAML.load(File.read(@path)).keys : [].freeze
-      return ENV["NODE_ENV"] if environments.include?(ENV["NODE_ENV"])
-      return Rails.env if environments.include?(Rails.env)
-      "production"
+      ENV["NODE_ENV"].presence_in(available_environments) || Rails.env.presence_in(available_environments) || DEFAULT
+    end
+
+    def available_environments
+      File.exist?(@path) ? YAML.load(File.read(@path)).keys : [].freeze
     end
 end
