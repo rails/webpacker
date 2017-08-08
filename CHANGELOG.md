@@ -10,6 +10,9 @@
   resolved_paths: [] # empty by default
 ```
 
+- `Webpacker::Compiler.fresh?` and `Webpacker::Compiler.stale?` answer the question of whether compilation is needed.
+  The old `Webpacker::Compiler.compile?` predicate is deprecated.
+
 ### Fixed
 
 - Update `webpack-dev-server.tt` to respect RAILS_ENV and NODE_ENV values [#502](https://github.com/rails/webpacker/issues/502)
@@ -28,14 +31,14 @@
 - Add `compile` option to `config/webpacker.yml` for configuring lazy compilation of packs when a file under tracked paths is changed [#503](https://github.com/rails/webpacker/pull/503). To enable expected behavior, update `config/webpacker.yml`:
 
   ```yaml
-    default: &default
-      compile: false
-
     test:
       compile: true
 
     development:
       compile: true
+
+    production:
+      compile: false
   ```
 
 - Make test compilation cacheable and configurable so that the lazy compilation
