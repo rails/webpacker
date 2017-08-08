@@ -1152,7 +1152,6 @@ git push heroku master
 Webpacker lazily compiles assets in test env so you can write your tests without any extra
 setup and everything will just work out of the box.
 
-
 Here is a sample system test case with hello_react example component:
 
 ```js
@@ -1270,12 +1269,6 @@ manually with Ruby:
 C:\path>ruby bin\webpack
 C:\path>ruby bin\webpack-dev-server
 ```
-
-## Wishlist
-
-- HMR - [#188](https://github.com/rails/webpacker/issues/188)
-- Support rails engines - [#348](https://github.com/rails/webpacker/issues/348)
-
 
 ## License
 Webpacker is released under the [MIT License](https://opensource.org/licenses/MIT).
