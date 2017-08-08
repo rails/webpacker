@@ -6,7 +6,7 @@ class Webpacker::Env < Webpacker::FileLoader
 
   class << self
     def current
-      raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Env.load must be called first") unless instance
+      ensure_loaded_instance(self)
       instance.data.inquiry
     end
 

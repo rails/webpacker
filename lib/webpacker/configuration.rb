@@ -46,7 +46,7 @@ class Webpacker::Configuration < Webpacker::FileLoader
 
     def data
       load if Webpacker.env.development?
-      raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Configuration.load must be called first") unless instance
+      ensure_loaded_instance(self)
       instance.data
     end
 

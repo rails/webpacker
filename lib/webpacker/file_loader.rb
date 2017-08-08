@@ -10,6 +10,11 @@ class Webpacker::FileLoader
     def load(path = file_path)
       self.instance = new(path)
     end
+
+    protected
+      def ensure_loaded_instance(klass)
+        raise Webpacker::FileLoader::FileLoaderError.new("#{klass.name}#load must be called first") unless instance
+      end    
   end
 
   private

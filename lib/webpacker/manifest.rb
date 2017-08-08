@@ -27,8 +27,9 @@ class Webpacker::Manifest < Webpacker::FileLoader
 
     private
       def find!(name)
-        raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Manifest.load must be called first") unless instance
-        instance.data[name.to_s] || raise(Webpacker::FileLoader::NotFoundError.new("Can't find #{name} in #{file_path}. Is webpack still compiling?"))
+        ensure_loaded_instance(self)
+        instance.data[name.to_s] ||
+          raise(Webpacker::FileLoader::NotFoundError.new("Can't find #{name} in #{file_path}. Is webpack still compiling?"))
       end
 
       def compile_and_find!(name)
