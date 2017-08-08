@@ -1,4 +1,6 @@
-require "rake"
+require "open3"
+require "webpacker/env"
+require "webpacker/configuration"
 
 module Webpacker::Compiler
   extend self
@@ -11,15 +13,17 @@ module Webpacker::Compiler
   # Webpacker::Compiler.cache_dir = 'tmp/cache'
   mattr_accessor(:cache_dir) { "tmp/webpacker" }
 
+  # Compiles all packs if any are stale. Returns false if the compilation failed, otherwise truthy.
   def compile
     if stale?
       cache_source_timestamp
-
-      compile_task.invoke
-      compile_task.reenable
+      run_webpack
+    else
+      Rails.logger.debug "[Webpacker] All assets are fresh, no compiling needed"
     end
   end
 
+  # Returns true if all the compiled packs are up to date with the underlying asset files.
   def fresh?
     if File.exist?(cached_timestamp_path) && File.exist?(Webpacker::Configuration.output_path)
       File.read(cached_timestamp_path) != current_source_timestamp
@@ -28,6 +32,7 @@ module Webpacker::Compiler
     end
   end
 
+  # Returns true if the compiled packs are out of date with the underlying asset files.
   def stale?
     !fresh?
   end
@@ -55,16 +60,21 @@ module Webpacker::Compiler
       Rails.root.join(cache_dir, ".compiler-timestamp")
     end
 
-    def compile_task
-      @compile_task ||= load_rake_task("webpacker:compile")
+    def run_webpack
+      sterr, stdout, status = Open3.capture3(webpack_env, "#{RbConfig.ruby} ./bin/webpack")
+
+      if status.success?
+        Rails.logger.info \
+          "[Webpacker] Compiled digests for all packs in #{Webpacker::Configuration.entry_path}: " +
+          JSON.parse(File.read(Webpacker::Configuration.manifest_path)).to_s
+        true
+      else
+        Rails.logger.error "[Webpacker] Compilation Failed:\n#{sterr}\n#{stdout}"
+        false
+      end
     end
 
-    def load_rake_task(name)
-      load_rakefile unless Rake::Task.task_defined?(name)
-      Rake::Task[name]
-    end
-
-    def load_rakefile
-      @load_rakefile ||= Rake.load_rakefile(Rails.root.join("Rakefile"))
+    def webpack_env
+      { "NODE_ENV" => Webpacker.env, "ASSET_HOST" => ActionController::Base.helpers.compute_asset_host }
     end
 end
