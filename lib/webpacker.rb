@@ -13,7 +13,7 @@ module Webpacker
   end
 
   def env
-    Webpacker::Env.current.inquiry
+    Webpacker::Env.current
   end
 end
 

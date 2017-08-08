@@ -4,6 +4,8 @@ class EnvTest < Minitest::Test
   def test_current_env
     assert_equal Webpacker::Env.current, "production"
     assert_equal Webpacker.env, "production"
+
+    assert Webpacker::Env.current.production?
     assert Webpacker.env.production?
   end
 
