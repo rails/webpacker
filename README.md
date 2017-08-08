@@ -27,8 +27,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
     - [Using Rails helpers in .vue files](#using-rails-helpers-in-vue-files)
   - [Elm](#elm)
 - [Binstubs](#binstubs)
-  - [Webpack dev server](#webpack-dev-server)
-  - [Webpack](#webpack)
+- [Developing with Webpacker](#developing-with-webpacker)
 - [Configuration](#configuration)
   - [Webpack](#webpack-1)
   - [Loaders](#loaders)
@@ -114,7 +113,8 @@ using new `--webpack` option:
 rails new myapp --webpack
 ```
 
-Or add it to your `Gemfile`, run bundle and `./bin/rails webpacker:install` or `bundle exec rake webpacker:install` (on rails version < 5.0):
+Or add it to your `Gemfile`, run bundle and `./bin/rails webpacker:install` or
+`bundle exec rake webpacker:install` (on rails version < 5.0):
 
 ```ruby
 # Gemfile
@@ -130,9 +130,8 @@ with rails version < 5.0
 
 ## Integrations
 
-Webpacker by default ships with basic out-of-the-box integration
-for React, Angular, Vue and Elm. You can see a list of available
-commands/tasks by running:
+Webpacker ships with basic out-of-the-box integration for React, Angular, Vue and Elm.
+You can see a list of available commands/tasks by running:
 
 ```bash
 # Within rails app
@@ -240,15 +239,20 @@ executable to ensure that the right configuration file and environment variables
 are loaded depending on your environment.
 
 
-### Webpack dev server
+## Developing with Webpacker
 
-In development, you'll need to run `./bin/webpack-dev-server` in a separate terminal
-from `./bin/rails server` to have your `app/javascript/packs/*.js` files compiled
-as you make changes.
+In development, Webpacker compiles on demand rather than upfront by default. This
+happens when you refer to any of the pack assets using the Webpacker helper methods.
+That means you don't have to run any separate process. Compilation errors are logged
+to the standard Rails log.
 
-`./bin/webpack-dev-server` launches the [Webpack Dev Server](https://webpack.js.org/configuration/dev-server/), which serves your pack files
-on `http://localhost:8080/` by default and supports live code reloading in the development environment. You will need to install additional plugins for Webpack if you want
-features like [Hot Module Replacement](https://webpack.js.org/guides/hot-module-replacement/).
+If you want to use live code reloading, you'll need to run `./bin/webpack-dev-server`
+in a separate terminal from `./bin/rails server`. This process will watch for changes
+in the `app/javascript/packs/*.js` files and automatically reload the browser to match.
+
+Note: The dev server serves pack files from `http://localhost:8080/` by default, which
+is a different origin than your application server. Therefore it's not compatible with
+things like Service Workers, that requires you to serve from the same origin.
 
 If you'd rather not have to run the two processes separately by hand, you can use [Foreman](https://ddollar.github.io/foreman):
 
@@ -267,7 +271,8 @@ foreman start
 ```
 
 By default, `webpack-dev-server` listens on `0.0.0.0` that means listening
-on all IP addresses available on your system: LAN IP address, localhost, 127.0.0.1 etc. However, we use `localhost` as default hostname for serving assets in browser
+on all IP addresses available on your system: LAN IP address, localhost, 127.0.0.1 etc. 
+However, we use `localhost` as default hostname for serving assets in browser
 and if you want to change that, for example on cloud9 you can do so
 by changing host set in `config/webpacker.yml`.
 
@@ -281,19 +286,6 @@ precedence over the ones already set in the configuration file.
 
 ```bash
 ./bin/webpack-dev-server --host example.com --inline true --hot false
-```
-
-### Webpack
-
-We recommend using `webpack-dev-server` during development for a better experience.
-However, if you don't want that for some reason you can always use `webpack` binstub with
-watch option, which uses webpack Command Line Interface (CLI). This will use `public_output_path` from `config/webpacker.yml`
-directory to serve your packs using configured rails server.
-
-You can pass cli options available with [Webpack](https://webpack.js.org/api/cli/):
-
-```bash
-./bin/webpack --watch --progress --colors
 ```
 
 
@@ -435,10 +427,9 @@ you don't need to do anything extra for webpacker, it just works.
 
 ### HTTPS in development
 
-You may require the `webpack-dev-server` to serve views over HTTPS in development.
-To do this, set the `https` option for `webpack-dev-server`
-to `true` in `config/webpacker.yml`, then start the dev server as usual
-with `./bin/webpack-dev-server`.
+If you're using the `webpack-dev-server` in development, you can serve views over HTTPS
+by setting the `https` option for `webpack-dev-server` to `true` in `config/webpacker.yml`,
+then start the dev server as usual with `./bin/webpack-dev-server`.
 
 Please note that the `webpack-dev-server` will use a self-signed certificate,
 so your web browser will display a warning upon accessing the page.
@@ -603,7 +594,8 @@ and
 #### React
 
 You may consider using [react-rails](https://github.com/reactjs/react-rails) or
-[webpacker-react](https://github.com/renchap/webpacker-react) for more advanced react integration. However here is how you can do it yourself:
+[webpacker-react](https://github.com/renchap/webpacker-react) for more advanced react integration.
+However here is how you can do it yourself:
 
 ```erb
 <%# views/layouts/application.html.erb %>
