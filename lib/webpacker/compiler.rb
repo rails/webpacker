@@ -12,22 +12,33 @@ module Webpacker::Compiler
   mattr_accessor(:cache_dir) { "tmp/webpacker" }
 
   def compile
-    return unless compile?
-    cache_source_timestamp
-    compile_task.invoke
-    compile_task.reenable
+    if stale?
+      cache_source_timestamp
+
+      compile_task.invoke
+      compile_task.reenable
+    end
   end
 
-  def compile?
-    return true unless File.exist?(cached_timestamp_path)
-    return true unless File.exist?(Webpacker::Configuration.output_path)
-
-    File.read(cached_timestamp_path) != current_source_timestamp
+  def fresh?
+    if File.exist?(cached_timestamp_path) && File.exist?(Webpacker::Configuration.output_path)
+      File.read(cached_timestamp_path) != current_source_timestamp
+    else
+      false
+    end
   end
+
+  def stale?
+    !fresh?
+  end
+
+  # FIXME: Deprecate properly
+  alias_method :compile?, :fresh?
 
   def default_watched_paths
     ["#{Webpacker::Configuration.source}/**/*", "yarn.lock", "package.json", "config/webpack/**/*"].freeze
   end
+
 
   private
     def current_source_timestamp
