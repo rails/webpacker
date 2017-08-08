@@ -15,4 +15,10 @@ class Webpacker::Engine < ::Rails::Engine
     Webpacker.bootstrap
     Spring.after_fork { Webpacker.bootstrap } if defined?(Spring)
   end
+
+  initializer "webpacker.logger" do
+    config.after_initialize do |app|
+      Webpacker.logger = ::Rails.logger
+    end
+  end
 end
