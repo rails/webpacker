@@ -6,9 +6,7 @@ class DevServerTest < Minitest::Test
   def reset
     Webpacker::Configuration.instance_variable_set(:@defaults, nil)
     Webpacker::Configuration.instance_variable_set(:@instance, nil)
-    # Webpacker::Configuration.load_instance
     Webpacker::DevServer.instance_variable_set(:@instance, nil)
-    # Webpacker::DevServer.load_instance
   end
 
   def check_assertion

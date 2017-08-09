@@ -1120,9 +1120,6 @@ git push heroku master
 Webpacker lazily compiles assets in test env so you can write your tests without any extra
 setup and everything will just work out of the box.
 
-Note, [React on Rails] users should set configuration value `compile` to false, as React on Rails
-handles compilation for test and production environments.
-
 Here is a sample system test case with hello_react example component:
 
 ```js
