@@ -24,7 +24,7 @@ module Webpacker::Compiler
   # Returns true if all the compiled packs are up to date with the underlying asset files.
   def fresh?
     if cached_timestamp_path.exist? && output_path.exist?
-      cached_timestamp_path.read != current_source_timestamp
+      cached_timestamp_path.read == current_source_timestamp
     else
       false
     end
