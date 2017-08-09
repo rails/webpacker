@@ -14,7 +14,7 @@ class Webpacker::FileLoader
     protected
       def ensure_loaded_instance(klass)
         raise Webpacker::FileLoader::FileLoaderError.new("#{klass.name}#load must be called first") unless instance
-      end    
+      end
   end
 
   private

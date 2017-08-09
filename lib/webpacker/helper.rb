@@ -41,7 +41,7 @@ module Webpacker::Helper
   #   # In production mode:
   #   <%= stylesheet_pack_tag 'calendar', 'data-turbolinks-track': 'reload' %> # =>
   #   <link rel="stylesheet" media="screen" href="/packs/calendar-1016838bab065ae1e122.css" data-turbolinks-track="reload" />
-  def stylesheet_pack_tag(*names, **options)    
+  def stylesheet_pack_tag(*names, **options)
     stylesheet_link_tag(*sources_from_pack_manifest(names, type: :stylesheet), **options)
   end
 

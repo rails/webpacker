@@ -39,7 +39,6 @@ module Webpacker::Compiler
     ["#{Webpacker::Configuration.source}/**/*", "yarn.lock", "package.json", "config/webpack/**/*"].freeze
   end
 
-
   private
     def current_source_timestamp
       files = Dir[*default_watched_paths, *watched_paths].reject { |f| File.directory?(f) }
