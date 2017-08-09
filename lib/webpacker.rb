@@ -17,6 +17,7 @@ module Webpacker
   end
 end
 
+require "webpacker/logger"
 require "webpacker/env"
 require "webpacker/configuration"
 require "webpacker/manifest"

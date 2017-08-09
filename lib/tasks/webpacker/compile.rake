@@ -3,13 +3,13 @@ $stdout.sync = true
 namespace :webpacker do
   desc "Compile javascript packs using webpack for production with digests"
   task compile: ["webpacker:verify_install", :environment] do
-    Rails.logger = Logger.new(STDOUT)
-
-    if Webpacker::Compiler.compile
-      # Successful compilation!
-    else
-      # Failed compilation
-      exit!
+    Webpacker.ensure_log_goes_to_stdout do
+      if Webpacker::Compiler.compile
+        # Successful compilation!
+      else
+        # Failed compilation
+        exit!
+      end
     end
   end
 end

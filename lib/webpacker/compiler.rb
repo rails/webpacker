@@ -6,6 +6,7 @@ module Webpacker::Compiler
   extend self
 
   delegate :cache_path, :output_path, :source, to: Webpacker::Configuration
+  delegate :logger, to: Webpacker
 
   # Additional paths that test compiler needs to watch
   # Webpacker::Compiler.watched_paths << 'bower_components'
@@ -16,7 +17,7 @@ module Webpacker::Compiler
       cache_source_timestamp
       run_webpack
     else
-      Rails.logger.debug "[Webpacker] All assets are fresh, no compiling needed"
+      logger.debug "[Webpacker] All assets are fresh, no compiling needed"
     end
   end
 
@@ -60,12 +61,10 @@ module Webpacker::Compiler
       sterr, stdout, status = Open3.capture3(webpack_env, "#{RbConfig.ruby} ./bin/webpack")
 
       if status.success?
-        Rails.logger.info \
-          "[Webpacker] Compiled digests for all packs in #{Webpacker::Configuration.entry_path}: " +
-          JSON.parse(File.read(Webpacker::Configuration.manifest_path)).to_s
+        logger.info "[Webpacker] Compiled all packs in #{Webpacker::Configuration.entry_path}"
         true
       else
-        Rails.logger.error "[Webpacker] Compilation Failed:\n#{sterr}\n#{stdout}"
+        logger.error "[Webpacker] Compilation Failed:\n#{sterr}\n#{stdout}"
         false
       end
     end
