@@ -2,15 +2,15 @@ module Webpacker
   extend self
 
   def bootstrap
-    Webpacker::Env.load_instance
-    Webpacker::Configuration.load_instance
-    Webpacker::DevServer.load_instance
-    Webpacker::Manifest.load_instance
+    Webpacker::Env.load
+    Webpacker::Configuration.load
+    Webpacker::DevServer.load
+    Webpacker::Manifest.load
   end
 
   def compile
     Webpacker::Compiler.compile
-    Webpacker::Manifest.load_instance
+    Webpacker::Manifest.load
   end
 
   def env

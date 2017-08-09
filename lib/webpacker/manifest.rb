@@ -32,10 +32,10 @@ class Webpacker::Manifest < Webpacker::FileLoader
       if Webpacker::Configuration.compile?
         compile_and_find(name, throw_if_missing: throw_if_missing)
       else
-        # Since load_instance checks a `mtime` on the manifest for a non-production env before loading,
+        # Since load checks a `mtime` on the manifest for a non-production env before loading,
         # we should always call this before a call to `find!` since one may be using
         # `webpack -w` and a file may have been added to the manifest since Rails first started.
-        load_instance
+        load
         raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Manifest.load must be called first") unless instance
 
         return find(name, throw_if_missing: throw_if_missing)
@@ -93,7 +93,7 @@ MSG
   end
 
   private
-    def load_data
+    def load
       return super unless File.exist?(@path)
       JSON.parse(File.read(@path))
     end

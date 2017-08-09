@@ -60,14 +60,14 @@ class Webpacker::DevServer < Webpacker::FileLoader
       end
 
       def data
-        load_instance if Webpacker.env.development?
-        raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::DevServer.load_data must be called first") unless instance
+        load if Webpacker.env.development?
+        raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::DevServer.load must be called first") unless instance
         instance.data
       end
   end
 
   private
-    def load_data
+    def load
       Webpacker::Configuration.instance.data
     end
 end

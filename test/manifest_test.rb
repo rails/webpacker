@@ -45,12 +45,12 @@ Your manifest contains:
       temp_path = "#{file_path}.backup"
       FileUtils.mv(file_path, temp_path)
       # Point of this test is to ensure no crash
-      Webpacker::Manifest.load_instance
+      Webpacker::Manifest.load
       assert_equal({}, Webpacker::Manifest.instance.data)
     ensure
       FileUtils.mv(temp_path, file_path)
       Webpacker::Manifest.instance = nil
-      Webpacker::Manifest.load_instance
+      Webpacker::Manifest.load
     end
   end
 

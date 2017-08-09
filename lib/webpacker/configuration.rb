@@ -49,8 +49,8 @@ class Webpacker::Configuration < Webpacker::FileLoader
     end
 
     def data
-      load_instance if Webpacker.env.development?
-      raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Configuration.load_data must be called first") unless instance
+      load if Webpacker.env.development?
+      raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Configuration.load must be called first") unless instance
       instance.data
     end
 
@@ -71,7 +71,7 @@ class Webpacker::Configuration < Webpacker::FileLoader
   end
 
   private
-    def load_data
+    def load
       return Webpacker::Configuration.defaults unless File.exist?(@path)
       HashWithIndifferentAccess.new(YAML.load(File.read(@path))[Webpacker.env])
     end

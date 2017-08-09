@@ -7,7 +7,7 @@ class Webpacker::FileLoader
   attr_accessor :data, :mtime, :path
 
   class << self
-    def load_instance(path = file_path)
+    def load(path = file_path)
       if instance.nil? || !production_env? || !file_cached?(path)
         self.instance = new(path)
       end
@@ -32,10 +32,10 @@ class Webpacker::FileLoader
     def initialize(path)
       @path = path
       @mtime = File.exist?(path) ? File.mtime(path) : nil
-      @data = load_data
+      @data = load
     end
 
-    def load_data
+    def load
       {}.freeze
     end
 end

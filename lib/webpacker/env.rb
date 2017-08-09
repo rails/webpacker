@@ -14,7 +14,7 @@ class Webpacker::Env < Webpacker::FileLoader
   end
 
   private
-    def load_data
+    def load
       environments = File.exist?(@path) ? YAML.load(File.read(@path)).keys : [].freeze
       return ENV["NODE_ENV"] if environments.include?(ENV["NODE_ENV"])
       return Rails.env if environments.include?(Rails.env)
