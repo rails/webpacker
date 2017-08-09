@@ -1,5 +1,11 @@
+require "active_support/core_ext/module/attribute_accessors"
+require "active_support/logger"
+require "active_support/tagged_logging"
+
 module Webpacker
   extend self
+
+  mattr_accessor(:logger) { ActiveSupport::TaggedLogging.new(ActiveSupport::Logger.new(STDOUT)) }
 
   def bootstrap
     Webpacker::Env.load

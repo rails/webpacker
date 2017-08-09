@@ -1,4 +1,4 @@
-require "webpacker_test"
+require "test_helper"
 
 class ConfigurationTest < Minitest::Test
   def test_entry_path

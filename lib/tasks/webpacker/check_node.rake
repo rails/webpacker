@@ -8,13 +8,13 @@ namespace :webpacker do
 
       raise Errno::ENOENT if node_version.blank?
       if Gem::Version.new(node_version.strip.tr("v", "")) < Gem::Version.new(required_node_version)
-        $stderr.puts "Webpacker requires Node.js >= v#{required_node_version} and you are using #{node_version}"
-        $stderr.puts "Please upgrade Node.js https://nodejs.org/en/download/"
-        $stderr.puts "Exiting!" && exit!
+        Webpacker.logger.error "Webpacker requires Node.js >= v#{required_node_version} and you are using #{node_version}"
+        Webpacker.logger.error "Please upgrade Node.js https://nodejs.org/en/download/"
+        Webpacker.logger.error "Exiting!" && exit!
       end
     rescue Errno::ENOENT
-      $stderr.puts "Node.js not installed. Please download and install Node.js https://nodejs.org/en/download/"
-      $stderr.puts "Exiting!" && exit!
+      Webpacker.logger.error "Node.js not installed. Please download and install Node.js https://nodejs.org/en/download/"
+      Webpacker.logger.error "Exiting!" && exit!
     end
   end
 end

@@ -1,15 +1,12 @@
-# frozen_string_literal: true
+require "test_helper"
 
-require "minitest/autorun"
-require "rails"
-require "rails/test_help"
-require "webpacker"
+class WebpackerTest < Minitest::Test
+  def test_default_logger
+    assert Webpacker.logger.respond_to?(:info)
+  end
 
-module TestApp
-  class Application < ::Rails::Application
-    config.root = File.join(File.dirname(__FILE__), "test_app")
-    config.eager_load = true
+  def test_set_logger
+    Webpacker.logger = :another_logger
+    assert_equal Webpacker.logger, :another_logger
   end
 end
-
-TestApp::Application.initialize!

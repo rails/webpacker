@@ -7,7 +7,7 @@ require "webpacker/configuration"
 namespace :webpacker do
   desc "Compile javascript packs using webpack for production with digests"
   task compile: ["webpacker:verify_install", :environment] do
-    $stdout.puts "[Webpacker] Compiling assets 🎉"
+    Webpacker.logger.info "[Webpacker] Compiling assets 🎉"
 
     asset_host = ActionController::Base.helpers.compute_asset_host
     env = { "NODE_ENV" => Webpacker.env, "ASSET_HOST" => asset_host }.freeze
@@ -15,12 +15,12 @@ namespace :webpacker do
     stdout_str, stderr_str, status = Open3.capture3(env, "#{RbConfig.ruby} ./bin/webpack")
 
     if status.success?
-      $stdout.puts "\e[32m[Webpacker] Compiled digests for all packs in #{Webpacker::Configuration.entry_path}:\e[0m"
-      $stdout.puts "\e[32m#{JSON.parse(File.read(Webpacker::Configuration.manifest_path))}\e[0m"
+      Webpacker.logger.info "\e[32m[Webpacker] Compiled digests for all packs in #{Webpacker::Configuration.entry_path}:\e[0m"
+      Webpacker.logger.info "\e[32m#{JSON.parse(File.read(Webpacker::Configuration.manifest_path))}\e[0m"
     else
-      $stdout.puts "[Webpacker] Compilation Failed"
-      $stdout.puts "\e[31m#{stdout_str}\e[0m"
-      $stderr.puts "\e[31m#{stderr_str}\e[0m"
+      Webpacker.logger.info "[Webpacker] Compilation Failed"
+      Webpacker.logger.info "\e[31m#{stdout_str}\e[0m"
+      Webpacker.logger.error "\e[31m#{stderr_str}\e[0m"
       exit!
     end
   end
