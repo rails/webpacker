@@ -3,13 +3,11 @@ require "rake"
 module Webpacker::Compiler
   extend self
 
+  delegate :cache_path, :output_path, :source, to: Webpacker::Configuration
+
   # Additional paths that test compiler needs to watch
   # Webpacker::Compiler.watched_paths << 'bower_components'
   mattr_accessor(:watched_paths) { [] }
-
-  # Compiler cache directory
-  # Webpacker::Compiler.cache_dir = 'tmp/cache'
-  mattr_accessor(:cache_dir) { "tmp/webpacker" }
 
   def compile
     if stale?
@@ -21,8 +19,8 @@ module Webpacker::Compiler
   end
 
   def fresh?
-    if File.exist?(cached_timestamp_path) && File.exist?(Webpacker::Configuration.output_path)
-      File.read(cached_timestamp_path) != current_source_timestamp
+    if cached_timestamp_path.exist? && output_path.exist?
+      cached_timestamp_path.read != current_source_timestamp
     else
       false
     end
@@ -36,7 +34,7 @@ module Webpacker::Compiler
   alias_method :compile?, :fresh?
 
   def default_watched_paths
-    ["#{Webpacker::Configuration.source}/**/*", "yarn.lock", "package.json", "config/webpack/**/*"].freeze
+    ["#{source}/**/*", "yarn.lock", "package.json", "config/webpack/**/*"].freeze
   end
 
   private
@@ -46,12 +44,12 @@ module Webpacker::Compiler
     end
 
     def cache_source_timestamp
-      File.write(cached_timestamp_path, current_source_timestamp)
+      cache_path.mkpath
+      cached_timestamp_path.write(current_source_timestamp)
     end
 
     def cached_timestamp_path
-      FileUtils.mkdir_p(cache_dir) unless File.directory?(cache_dir)
-      Rails.root.join(cache_dir, ".compiler-timestamp")
+      cache_path.join(".compiler-timestamp")
     end
 
     def compile_task

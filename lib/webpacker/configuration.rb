@@ -32,6 +32,10 @@ class Webpacker::Configuration < Webpacker::FileLoader
       file_path(root: Pathname.new(__dir__).join("../install"))
     end
 
+    def cache_path
+      Rails.root.join(fetch(:cache_path))
+    end
+
     def source
       fetch(:source_path)
     end
