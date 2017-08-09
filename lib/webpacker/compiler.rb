@@ -17,7 +17,7 @@ module Webpacker::Compiler
       cache_source_timestamp
       run_webpack
     else
-      logger.debug "[Webpacker] No compiling needed as everything is fresh"
+      logger.debug "No compiling needed as everything is fresh"
     end
   end
 
@@ -58,15 +58,15 @@ module Webpacker::Compiler
     end
 
     def run_webpack
-      logger.info "[Webpacker] Compiling…"
+      logger.info "Compiling…"
 
       sterr, stdout, status = Open3.capture3(webpack_env, "#{RbConfig.ruby} ./bin/webpack")
 
       if status.success?
-        logger.info "[Webpacker] Compiled all packs in #{Webpacker::Configuration.entry_path}"
+        logger.info "Compiled all packs in #{Webpacker::Configuration.entry_path}"
         true
       else
-        logger.error "[Webpacker] Compilation Failed:\n#{sterr}\n#{stdout}"
+        logger.error "Compilation Failed:\n#{sterr}\n#{stdout}"
         false
       end
     end

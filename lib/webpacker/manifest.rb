@@ -37,7 +37,7 @@ class Webpacker::Manifest < Webpacker::FileLoader
       end
 
       def compile_and_find!(name)
-        Webpacker.compile
+        Webpacker.logger.tagged("Webpacker") { Webpacker.compile }
         find!(name)
       end
   end
