@@ -1,4 +1,4 @@
-require "webpacker_test"
+require "test_helper"
 
 class ManifestTest < Minitest::Test
   def test_file_path

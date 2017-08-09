@@ -1,4 +1,4 @@
-require "webpacker_test"
+require "test_helper"
 
 class CompilerTest < Minitest::Test
   def test_default_watched_paths
