@@ -1,9 +1,12 @@
-require "rake"
+require "open3"
+require "webpacker/env"
+require "webpacker/configuration"
 
 module Webpacker::Compiler
   extend self
 
   delegate :cache_path, :output_path, :source, to: Webpacker::Configuration
+  delegate :logger, to: Webpacker
 
   # Additional paths that test compiler needs to watch
   # Webpacker::Compiler.watched_paths << 'bower_components'
@@ -12,12 +15,13 @@ module Webpacker::Compiler
   def compile
     if stale?
       cache_source_timestamp
-
-      compile_task.invoke
-      compile_task.reenable
+      run_webpack
+    else
+      logger.debug "[Webpacker] All assets are fresh, no compiling needed"
     end
   end
 
+  # Returns true if all the compiled packs are up to date with the underlying asset files.
   def fresh?
     if cached_timestamp_path.exist? && output_path.exist?
       cached_timestamp_path.read == current_source_timestamp
@@ -26,6 +30,7 @@ module Webpacker::Compiler
     end
   end
 
+  # Returns true if the compiled packs are out of date with the underlying asset files.
   def stale?
     !fresh?
   end
@@ -52,16 +57,19 @@ module Webpacker::Compiler
       cache_path.join(".compiler-timestamp")
     end
 
-    def compile_task
-      @compile_task ||= load_rake_task("webpacker:compile")
+    def run_webpack
+      sterr, stdout, status = Open3.capture3(webpack_env, "#{RbConfig.ruby} ./bin/webpack")
+
+      if status.success?
+        logger.info "[Webpacker] Compiled all packs in #{Webpacker::Configuration.entry_path}"
+        true
+      else
+        logger.error "[Webpacker] Compilation Failed:\n#{sterr}\n#{stdout}"
+        false
+      end
     end
 
-    def load_rake_task(name)
-      load_rakefile unless Rake::Task.task_defined?(name)
-      Rake::Task[name]
-    end
-
-    def load_rakefile
-      @load_rakefile ||= Rake.load_rakefile(Rails.root.join("Rakefile"))
+    def webpack_env
+      { "NODE_ENV" => Webpacker.env, "ASSET_HOST" => ActionController::Base.helpers.compute_asset_host }
     end
 end
