@@ -15,10 +15,6 @@ class CompilerTest < Minitest::Test
     end
   end
 
-  def test_cache_dir
-    assert_equal Webpacker::Compiler.cache_dir, "tmp/webpacker"
-  end
-
   def test_freshness
     assert Webpacker::Compiler.stale?
     assert !Webpacker::Compiler.fresh?

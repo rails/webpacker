@@ -30,6 +30,11 @@ class ConfigurationTest < Minitest::Test
     assert_equal Webpacker::Configuration.source_path.to_s, source_path
   end
 
+  def test_cache_path
+    cache_path = File.join(File.dirname(__FILE__), "test_app/tmp/cache/webpacker").to_s
+    assert_equal Webpacker::Configuration.cache_path.to_s, cache_path
+  end
+
   def test_compile?
     refute Webpacker::Configuration.compile?
   end
