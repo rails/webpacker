@@ -33,18 +33,18 @@ class DevServerTest < Minitest::Test
     check_assertion { [8080, Webpacker::DevServer.port] }
   end
 
-  def test_dev_server_hot?
-    check_assertion { [false, Webpacker::DevServer.hot_reloading?] }
+  def test_dev_server_hmr?
+    check_assertion { [false, Webpacker::DevServer.hmr?] }
 
     ENV.stub(:[], "TRUE") do
-      check_assertion { [true, Webpacker::DevServer.hot_reloading?] }
+      check_assertion { [true, Webpacker::DevServer.hmr?] }
     end
 
     ENV.stub(:[], "FALSE") do
-      check_assertion { [false, Webpacker::DevServer.hot_reloading?] }
+      check_assertion { [false, Webpacker::DevServer.hmr?] }
     end
     ENV.stub(:[], "true") do
-      check_assertion { [true, Webpacker::DevServer.hot_reloading?] }
+      check_assertion { [true, Webpacker::DevServer.hmr?] }
     end
   end
 

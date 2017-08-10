@@ -34,7 +34,7 @@ class HelperTest < ActionView::TestCase
   end
 
   def test_stylesheet_pack_tag_outputs_nothing_for_hot
-    Webpacker::DevServer.stub(:hot_reloading?, true) do
+    Webpacker::DevServer.stub(:hmr?, true) do
       assert_equal "", @view.stylesheet_pack_tag("bootstrap.css")
     end
   end
