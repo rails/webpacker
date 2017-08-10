@@ -27,8 +27,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
     - [Using Rails helpers in .vue files](#using-rails-helpers-in-vue-files)
   - [Elm](#elm)
 - [Binstubs](#binstubs)
-  - [Webpack dev server](#webpack-dev-server)
-  - [Webpack](#webpack)
+- [Developing with Webpacker](#developing-with-webpacker)
 - [Configuration](#configuration)
   - [Webpack](#webpack-1)
   - [Loaders](#loaders)
@@ -61,6 +60,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
   - [Link sprocket assets](#link-sprocket-assets)
     - [Using helpers](#using-helpers)
     - [Using babel module resolver](#using-babel-module-resolver)
+  - [Environment variables](#environment-variables)
 - [Extending](#extending)
 - [Deployment](#deployment)
   - [Heroku](#heroku)
@@ -113,7 +113,8 @@ using new `--webpack` option:
 rails new myapp --webpack
 ```
 
-Or add it to your `Gemfile`, run bundle and `./bin/rails webpacker:install` or `bundle exec rake webpacker:install` (on rails version < 5.0):
+Or add it to your `Gemfile`, run bundle and `./bin/rails webpacker:install` or
+`bundle exec rake webpacker:install` (on rails version < 5.0):
 
 ```ruby
 # Gemfile
@@ -129,9 +130,8 @@ with rails version < 5.0
 
 ## Integrations
 
-Webpacker by default ships with basic out-of-the-box integration
-for React, Angular, Vue and Elm. You can see a list of available
-commands/tasks by running:
+Webpacker ships with basic out-of-the-box integration for React, Angular, Vue and Elm.
+You can see a list of available commands/tasks by running:
 
 ```bash
 # Within rails app
@@ -239,15 +239,20 @@ executable to ensure that the right configuration file and environment variables
 are loaded depending on your environment.
 
 
-### Webpack dev server
+## Developing with Webpacker
 
-In development, you'll need to run `./bin/webpack-dev-server` in a separate terminal
-from `./bin/rails server` to have your `app/javascript/packs/*.js` files compiled
-as you make changes.
+In development, Webpacker compiles on demand rather than upfront by default. This
+happens when you refer to any of the pack assets using the Webpacker helper methods.
+That means you don't have to run any separate process. Compilation errors are logged
+to the standard Rails log.
 
-`./bin/webpack-dev-server` launches the [Webpack Dev Server](https://webpack.js.org/configuration/dev-server/), which serves your pack files
-on `http://localhost:8080/` by default and supports live code reloading in the development environment. You will need to install additional plugins for Webpack if you want
-features like [Hot Module Replacement](https://webpack.js.org/guides/hot-module-replacement/).
+If you want to use live code reloading, you'll need to run `./bin/webpack-dev-server`
+in a separate terminal from `./bin/rails server`. This process will watch for changes
+in the `app/javascript/packs/*.js` files and automatically reload the browser to match.
+
+Note: The dev server serves pack files from `http://localhost:8080/` by default, which
+is a different origin than your application server. Therefore it's not compatible with
+things like Service Workers, that requires you to serve from the same origin.
 
 If you'd rather not have to run the two processes separately by hand, you can use [Foreman](https://ddollar.github.io/foreman):
 
@@ -266,7 +271,8 @@ foreman start
 ```
 
 By default, `webpack-dev-server` listens on `0.0.0.0` that means listening
-on all IP addresses available on your system: LAN IP address, localhost, 127.0.0.1 etc. However, we use `localhost` as default hostname for serving assets in browser
+on all IP addresses available on your system: LAN IP address, localhost, 127.0.0.1 etc. 
+However, we use `localhost` as default hostname for serving assets in browser
 and if you want to change that, for example on cloud9 you can do so
 by changing host set in `config/webpacker.yml`.
 
@@ -280,19 +286,6 @@ precedence over the ones already set in the configuration file.
 
 ```bash
 ./bin/webpack-dev-server --host example.com --inline true --hot false
-```
-
-### Webpack
-
-We recommend using `webpack-dev-server` during development for a better experience.
-However, if you don't want that for some reason you can always use `webpack` binstub with
-watch option, which uses webpack Command Line Interface (CLI). This will use `public_output_path` from `config/webpacker.yml`
-directory to serve your packs using configured rails server.
-
-You can pass cli options available with [Webpack](https://webpack.js.org/api/cli/):
-
-```bash
-./bin/webpack --watch --progress --colors
 ```
 
 
@@ -440,10 +433,9 @@ you don't need to do anything extra for webpacker, it just works.
 
 ### HTTPS in development
 
-You may require the `webpack-dev-server` to serve views over HTTPS in development.
-To do this, set the `https` option for `webpack-dev-server`
-to `true` in `config/webpacker.yml`, then start the dev server as usual
-with `./bin/webpack-dev-server`.
+If you're using the `webpack-dev-server` in development, you can serve views over HTTPS
+by setting the `https` option for `webpack-dev-server` to `true` in `config/webpacker.yml`,
+then start the dev server as usual with `./bin/webpack-dev-server`.
 
 Please note that the `webpack-dev-server` will use a self-signed certificate,
 so your web browser will display a warning upon accessing the page.
@@ -1041,6 +1033,62 @@ import FooImage from 'assets/images/foo-image.png'
 import 'assets/stylesheets/bar'
 ```
 
+### Environment variables
+
+Environment variables are supported out of the box in Webpacker. For example if
+you run the Webpack dev server like so:
+```
+FOO=hello BAR=world ./bin/webpack-dev-server
+```
+
+You can then reference these variables in your javascript app code with
+`process.env`:
+
+```js
+console.log(process.env.FOO) // Compiles to console.log("hello")
+```
+
+You may want to store configuration in environment variables via `.env` files,
+similar to the [dotenv Ruby gem](https://github.com/bkeepers/dotenv).
+
+In development, if you use Foreman or [Invoker](http://invoker.codemancers.com)
+to launch the Webpack server, both of these tools have basic support for a
+`.env` file (Invoker also supports `.env.local`), so no further configuration
+is needed.
+
+However, if you run the Webpack server without Foreman/Invoker, or if you
+want more control over what `.env` files to load, you can use the
+[dotenv npm package](https://github.com/motdotla/dotenv). Here is what you could
+do to support a "Ruby-like" dotenv:
+
+```
+yarn add dotenv
+```
+
+```javascript
+// config/webpack/shared.js
+
+...
+const dotenv = require('dotenv');
+
+const dotenvFiles = [
+  `.env.${process.env.NODE_ENV}.local`,
+  '.env.local',
+  `.env.${process.env.NODE_ENV}`,
+  '.env'
+];
+dotenvFiles.forEach((dotenvFile) => {
+  dotenv.config({ path: dotenvFile, silent: true });
+});
+
+module.exports = {
+  ...
+```
+
+**Warning:** using Foreman/Invoker and npm dotenv at the same time can result in
+confusing behavior, in that Foreman/Invoker variables take precedence over
+npm dotenv variables.
+
 ## Extending
 
 We suggest you don't directly overwrite the provided configuration files
@@ -1089,12 +1137,12 @@ The `javascript_pack_tag` and `stylesheet_pack_tag` helper method will automatic
 By default the output will look like this in different environments:
 
 ```html
-  <!-- In development mode with webpack-dev-server -->
-  <script src="http://localhost:8080/calendar.js"></script>
-  <link rel="stylesheet" media="screen" href="http://localhost:8080/calendar.css">
   <!-- In development mode -->
   <script src="/packs/calendar.js"></script>
   <link rel="stylesheet" media="screen" href="/packs/calendar.css">
+  <!-- In development mode with webpack-dev-server -->
+  <script src="http://localhost:8080/calendar.js"></script>
+  <link rel="stylesheet" media="screen" href="http://localhost:8080/calendar.css">
   <!-- In production mode -->
   <script src="/packs/calendar-0bd141f6d9360cf4a7f5.js"></script>
   <link rel="stylesheet" media="screen" href="/packs/calendar-dc02976b5f94b507e3b6.css">
@@ -1237,12 +1285,6 @@ manually with Ruby:
 C:\path>ruby bin\webpack
 C:\path>ruby bin\webpack-dev-server
 ```
-
-## Wishlist
-
-- HMR - [#188](https://github.com/rails/webpacker/issues/188)
-- Support rails engines - [#348](https://github.com/rails/webpacker/issues/348)
-
 
 ## License
 Webpacker is released under the [MIT License](https://opensource.org/licenses/MIT).

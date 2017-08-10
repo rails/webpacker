@@ -4,8 +4,7 @@ default: &default
   source_path: app/javascript
   source_entry_path: packs
   public_output_path: packs
-
-  compile: false
+  cache_path: tmp/cache/webpacker
 
   # Additional paths webpack should lookup modules
   # ['app/assets', 'engine/foo/app/assets']
@@ -29,7 +28,7 @@ default: &default
 
 development:
   <<: *default
-
+  compile: true
   dev_server:
     host: localhost
     port: 8080
@@ -38,10 +37,11 @@ development:
 
 test:
   <<: *default
-
-  public_output_path: packs-test
-  # Compile webpack assets during lookup when running tests
   compile: true
+  public_output_path: packs-test
 
 production:
   <<: *default
+
+  # Production demands on precompilation of packs prior to booting for performance.
+  compile: false

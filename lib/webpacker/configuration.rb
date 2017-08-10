@@ -36,6 +36,10 @@ class Webpacker::Configuration < Webpacker::FileLoader
       file_path(root: Pathname.new(__dir__).join("../install"))
     end
 
+    def cache_path
+      Rails.root.join(fetch(:cache_path))
+    end
+
     def source
       fetch(:source_path)
     end
@@ -50,7 +54,7 @@ class Webpacker::Configuration < Webpacker::FileLoader
 
     def data
       load if Webpacker.env.development?
-      raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Configuration.load must be called first") unless instance
+      ensure_loaded_instance(self)
       instance.data
     end
 

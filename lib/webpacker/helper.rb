@@ -29,7 +29,7 @@ module Webpacker::Helper
   #   <%= javascript_pack_tag 'calendar', 'data-turbolinks-track': 'reload' %> # =>
   #   <script src="/packs/calendar-1016838bab065ae1e314.js" data-turbolinks-track="reload"></script>
   def javascript_pack_tag(*names, **options)
-    javascript_include_tag(*asset_source(names, :javascript), **options)
+    javascript_include_tag(*sources_from_pack_manifest(names, type: :javascript), **options)
   end
 
   # Creates a link tag that references the named pack file, as compiled by Webpack per the entries list
@@ -53,15 +53,16 @@ module Webpacker::Helper
     if Webpacker::DevServer.hot_reloading?
       ""
     else
-      stylesheet_link_tag(*asset_source(names, :stylesheet), **options)
+      stylesheet_link_tag(*sources_from_pack_manifest(names, type: :stylesheet), **options)
     end
   end
 
   private
-    def asset_source(names, type)
-      names.map do |name|
-        name_ensuring_ext = "#{name}#{compute_asset_extname(name, type: type)}"
-        Webpacker::Manifest.asset_source(name_ensuring_ext)
-      end
+    def sources_from_pack_manifest(names, type:)
+      names.map { |name| Webpacker::Manifest.asset_source(pack_name_with_extension(name, type: type)) }
+    end
+
+    def pack_name_with_extension(name, type:)
+      "#{name}#{compute_asset_extname(name, type: type)}"
     end
 end

@@ -14,10 +14,11 @@ module Webpacker
   end
 
   def env
-    Webpacker::Env.current.inquiry
+    Webpacker::Env.current
   end
 end
 
+require "webpacker/logger"
 require "webpacker/env"
 require "webpacker/configuration"
 require "webpacker/dev_server"
