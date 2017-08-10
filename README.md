@@ -271,7 +271,7 @@ foreman start
 ```
 
 By default, `webpack-dev-server` listens on `0.0.0.0` that means listening
-on all IP addresses available on your system: LAN IP address, localhost, 127.0.0.1 etc. 
+on all IP addresses available on your system: LAN IP address, localhost, 127.0.0.1 etc.
 However, we use `localhost` as default hostname for serving assets in browser
 and if you want to change that, for example on cloud9 you can do so
 by changing host set in `config/webpacker.yml`.
@@ -360,10 +360,10 @@ development:
     host: 0.0.0.0
     port: 8080
     https: false
-    hot_reloading: false
+    hmr: false
 ```
 
-If you have hot_reloading turned to `true`, then the `stylesheet_pack_tag` generates no output, as you will want
+If you have hmr turned to `true`, then the `stylesheet_pack_tag` generates no output, as you will want
 to configure your styles to be inlined in your JavaScript for hot reloading. During production and testing, the
 `stylesheet_pack_tag` will create the appropriate HTML tags.
 
@@ -451,12 +451,12 @@ You can checkout these links on this subject:
 - https://webpack.js.org/configuration/dev-server/#devserver-hot
 - https://webpack.js.org/guides/hmr-react/
 
-If you are using hot reloading, you should either set the `dev_server/hot_reloading` key to TRUE or set the 
+If you are using hot reloading, you should either set the `dev_server/hmr` key to TRUE or set the
 ENV value `WEBPACKER_HMR=TRUE`. That way, your stylesheet pack tag will do **nothing** because you
 need your styles inlined in your JavaScript for hot reloading to work properly.
 
 ### Live Reloading or Static Reloading
-Live Reloading is having your assets for development provided by the webpack-dev-server. 
+Live Reloading is having your assets for development provided by the webpack-dev-server.
 
 You can override the the presence of the `dev_server` setup by setting ENV value: `WEBPACKER_DEV_SERVER=FALSE`.
 
