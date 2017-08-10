@@ -16,6 +16,10 @@ class Webpacker::Configuration < Webpacker::FileLoader
       output_path.join("manifest.json")
     end
 
+    def manifest_url
+      fetch(:manifest_url)
+    end
+
     def source_path
       Rails.root.join(source)
     end

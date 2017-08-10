@@ -1,4 +1,5 @@
 require "webpacker/file_loader"
+require 'open-uri'
 
 # Singleton registry for accessing the packs path using a generated manifest.
 # This allows javascript_pack_tag, stylesheet_pack_tag, asset_pack_path to take a reference to,
@@ -15,6 +16,10 @@ class Webpacker::Manifest < Webpacker::FileLoader
   class << self
     def file_path
       Webpacker::Configuration.manifest_path
+    end
+
+    def file_url
+      Webpacker::Configuration.manifest_url
     end
 
     def lookup(name)
@@ -44,7 +49,11 @@ class Webpacker::Manifest < Webpacker::FileLoader
 
   private
     def load
-      return super unless File.exist?(@path)
-      JSON.parse(File.read(@path))
+      if self.class.file_url
+        JSON.parse(open(self.class.file_url).read)
+      else
+        return super unless File.exist?(@path)
+        JSON.parse(File.read(@path))
+      end
     end
 end
