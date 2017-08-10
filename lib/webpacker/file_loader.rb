@@ -12,7 +12,7 @@ class Webpacker::FileLoader
         self.instance = new(path)
       end
     end
-    
+
     def file_path
       raise FileLoaderError.new("Subclass of Webpacker::FileLoader should override this method")
     end
@@ -25,7 +25,8 @@ class Webpacker::FileLoader
       # Prefer the NODE_ENV to the rails env.
       def production_env?
         (ENV["NODE_ENV"].presence || Rails.env) == "production"
-        
+      end
+
     protected
       def ensure_loaded_instance(klass)
         raise Webpacker::FileLoader::FileLoaderError.new("#{klass.name}#load must be called first") unless instance

@@ -34,7 +34,7 @@ class Webpacker::Manifest < Webpacker::FileLoader
       instance.confirm_manifest_exists
 
       if Webpacker::Configuration.compile?
-        compile_and_find(name, throw_if_missing: throw_if_missing)
+        compile_and_find!(name, throw_if_missing: throw_if_missing)
       else
         # Since load checks a `mtime` on the manifest for a non-production env before loading,
         # we should always call this before a call to `find!` since one may be using
@@ -42,7 +42,7 @@ class Webpacker::Manifest < Webpacker::FileLoader
         load
         raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Manifest.load must be called first") unless instance
 
-        return find(name, throw_if_missing: throw_if_missing)
+        return find!(name, throw_if_missing: throw_if_missing)
       end
     end
 

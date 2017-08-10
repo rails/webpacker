@@ -50,7 +50,7 @@ module Webpacker::Helper
   #   # No output
   #
   def stylesheet_pack_tag(*names, **options)
-    if Webpacker::DevServer.hot_reloading?
+    if Webpacker::DevServer.hmr?
       ""
     else
       stylesheet_link_tag(*sources_from_pack_manifest(names, type: :stylesheet), **options)
