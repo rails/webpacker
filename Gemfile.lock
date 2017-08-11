@@ -48,6 +48,7 @@ GEM
     arel (7.1.4)
     ast (2.3.0)
     builder (3.2.3)
+    byebug (9.0.6)
     concurrent-ruby (1.0.5)
     erubis (2.7.0)
     globalid (0.3.7)
@@ -128,6 +129,7 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 1.12)
+  byebug
   minitest (~> 5.0)
   rails
   rake (>= 11.1)
