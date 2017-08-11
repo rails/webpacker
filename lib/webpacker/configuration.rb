@@ -1,67 +1,65 @@
-# Loads webpacker configuration from config/webpacker.yml
+class Webpacker::Configuration
+  delegate :root_path, :config_path, :env, to: :@webpacker
 
-require "webpacker/file_loader"
+  def initialize(webpacker)
+    @webpacker = webpacker
+  end
 
-class Webpacker::Configuration < Webpacker::FileLoader
-  class << self
-    def entry_path
-      source_path.join(fetch(:source_entry_path))
-    end
+  def refresh
+    @data = load
+  end
 
-    def output_path
-      public_path.join(fetch(:public_output_path))
-    end
+  def source_path
+    root_path.join(source_dir)
+  end
 
-    def manifest_path
-      output_path.join("manifest.json")
-    end
+  def source_entry_path
+    source_path.join(fetch(:source_entry_path))
+  end
 
-    def source_path
-      Rails.root.join(source)
-    end
+  def public_path
+    root_path.join("public")
+  end
 
-    def public_path
-      Rails.root.join("public")
-    end
+  def public_output_path
+    public_path.join(fetch(:public_output_path))
+  end
 
-    def file_path(root: Rails.root)
-      root.join("config/webpacker.yml")
-    end
+  def public_manifest_path
+    public_output_path.join("manifest.json")
+  end
 
-    def default_file_path
-      file_path(root: Pathname.new(__dir__).join("../install"))
-    end
+  def cache_path
+    root_path.join(fetch(:cache_path))
+  end
 
-    def cache_path
-      Rails.root.join(fetch(:cache_path))
-    end
+  def compile?
+    fetch(:compile)
+  end
 
-    def source
-      fetch(:source_path)
-    end
+  def source_dir
+    fetch(:source_path)
+  end
 
-    def compile?
-      fetch(:compile)
-    end
-
+  private
     def fetch(key)
       data.fetch(key, defaults[key])
     end
 
     def data
-      load if Webpacker.env.development?
-      ensure_loaded_instance(self)
-      instance.data
+      if env.development?
+        refresh
+      else
+        @data ||= load
+      end
+    end
+
+    def load
+      YAML.load(config_path.read)[env].deep_symbolize_keys
     end
 
     def defaults
-      @defaults ||= HashWithIndifferentAccess.new(YAML.load(default_file_path.read)[Webpacker.env])
-    end
-  end
-
-  private
-    def load
-      return super unless File.exist?(@path)
-      HashWithIndifferentAccess.new(YAML.load(File.read(@path))[Webpacker.env])
+      @defaults ||= \
+        YAML.load(File.read(File.expand_path("../../install/config/webpacker.yml", __FILE__)))[env].deep_symbolize_keys
     end
 end

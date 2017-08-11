@@ -8,4 +8,5 @@ gem "rubocop", ">= 0.49", require: false
 
 group :test do
   gem "minitest", "~> 5.0"
+  gem "byebug"
 end

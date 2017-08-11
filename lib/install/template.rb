@@ -12,7 +12,7 @@ puts "Copying .babelrc to app root directory"
 copy_file "#{__dir__}/config/.babelrc", ".babelrc"
 
 puts "Creating javascript app source directory"
-directory "#{__dir__}/javascript", "#{Webpacker::Configuration.source}"
+directory "#{__dir__}/javascript", Webpacker.config.source_dir
 
 puts "Copying binstubs"
 directory "#{__dir__}/bin", "bin"

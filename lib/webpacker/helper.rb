@@ -9,7 +9,7 @@ module Webpacker::Helper
   # In production mode:
   #   <%= asset_pack_path 'calendar.css' %> # => "/packs/calendar-1016838bab065ae1e122.css"
   def asset_pack_path(name, **options)
-    asset_path(Webpacker::Manifest.lookup(name), **options)
+    asset_path(Webpacker.manifest.lookup(name), **options)
   end
   # Creates a script tag that references the named pack file, as compiled by Webpack per the entries list
   # in config/webpack/shared.js. By default, this list is auto-generated to match everything in
@@ -47,7 +47,7 @@ module Webpacker::Helper
 
   private
     def sources_from_pack_manifest(names, type:)
-      names.map { |name| Webpacker::Manifest.lookup(pack_name_with_extension(name, type: type)) }
+      names.map { |name| Webpacker.manifest.lookup(pack_name_with_extension(name, type: type)) }
     end
 
     def pack_name_with_extension(name, type:)
