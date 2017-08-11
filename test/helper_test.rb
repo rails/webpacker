@@ -1,4 +1,4 @@
-require "webpacker_test"
+require "webpacker_test_helper"
 
 class HelperTest < ActionView::TestCase
   def setup
@@ -12,24 +12,28 @@ class HelperTest < ActionView::TestCase
   end
 
   def test_javascript_pack_tag
-    script = %(<script src="/packs/bootstrap-300631c4f0e0f9c865bc.js"></script>)
-    assert_equal @view.javascript_pack_tag("bootstrap.js"), script
+    assert_equal \
+      %(<script src="/packs/bootstrap-300631c4f0e0f9c865bc.js"></script>), 
+      @view.javascript_pack_tag("bootstrap.js")
   end
 
   def test_javascript_pack_tag_splat
-    script = %(<script src="/packs/bootstrap-300631c4f0e0f9c865bc.js" defer="defer"></script>\n) +
-      %(<script src="/packs/application-k344a6d59eef8632c9d1.js" defer="defer"></script>)
-    assert_equal @view.javascript_pack_tag("bootstrap.js", "application.js", defer: true), script
+    assert_equal \
+    %(<script src="/packs/bootstrap-300631c4f0e0f9c865bc.js" defer="defer"></script>\n) +
+        %(<script src="/packs/application-k344a6d59eef8632c9d1.js" defer="defer"></script>),
+      @view.javascript_pack_tag("bootstrap.js", "application.js", defer: true)
   end
 
   def test_stylesheet_pack_tag
-    style = %(<link rel="stylesheet" media="screen" href="/packs/bootstrap-c38deda30895059837cf.css" />)
-    assert_equal @view.stylesheet_pack_tag("bootstrap.css"), style
+    assert_equal \
+      %(<link rel="stylesheet" media="screen" href="/packs/bootstrap-c38deda30895059837cf.css" />), 
+      @view.stylesheet_pack_tag("bootstrap.css")
   end
 
   def test_stylesheet_pack_tag_splat
-    style = %(<link rel="stylesheet" media="all" href="/packs/bootstrap-c38deda30895059837cf.css" />\n) +
-      %(<link rel="stylesheet" media="all" href="/packs/application-dd6b1cd38bfa093df600.css" />)
-    assert_equal @view.stylesheet_pack_tag("bootstrap.css", "application.css", media: "all"), style
+    assert_equal \
+      %(<link rel="stylesheet" media="all" href="/packs/bootstrap-c38deda30895059837cf.css" />\n) +
+        %(<link rel="stylesheet" media="all" href="/packs/application-dd6b1cd38bfa093df600.css" />),
+      @view.stylesheet_pack_tag("bootstrap.css", "application.css", media: "all")
   end
 end

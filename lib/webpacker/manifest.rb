@@ -1,5 +1,3 @@
-require "webpacker/file_loader"
-
 # Singleton registry for accessing the packs path using a generated manifest.
 # This allows javascript_pack_tag, stylesheet_pack_tag, asset_pack_path to take a reference to,
 # say, "calendar.js" or "calendar.css" and turn it into "/packs/calendar.js" or
@@ -11,40 +9,52 @@ require "webpacker/file_loader"
 #
 # When the configuration is set to on-demand compilation, with the `compile: true` option in
 # the webpacker.yml file, any lookups will be preceeded by a compilation if one is needed.
-class Webpacker::Manifest < Webpacker::FileLoader
-  class << self
-    def file_path
-      Webpacker::Configuration.manifest_path
-    end
+class Webpacker::Manifest
+  class MissingEntryError < StandardError; end
 
-    def lookup(name)
-      if Webpacker::Configuration.compile?
-        compile_and_find!(name)
-      else
-        find!(name)
-      end
-    end
+  delegate :config, :compiler, :env, to: :@webpacker
 
-    def lookup_path(name)
-      Rails.root.join(File.join(Webpacker::Configuration.public_path, lookup(name)))
-    end
+  def initialize(webpacker)
+    @webpacker = webpacker
+  end
 
-    private
-      def find!(name)
-        ensure_loaded_instance(self)
-        instance.data[name.to_s] ||
-          raise(Webpacker::FileLoader::NotFoundError.new("Can't find #{name} in #{file_path}. Is webpack still compiling?"))
-      end
+  def refresh
+    @data = load
+  end
 
-      def compile_and_find!(name)
-        Webpacker.logger.tagged("Webpacker") { Webpacker.compile }
-        find!(name)
-      end
+  def lookup(name)
+    compile
+    find name
   end
 
   private
+    def compile
+      Webpacker.logger.tagged("Webpacker") { compiler.compile } if config.compile?
+    end
+
+    def find(name)
+      data[name.to_s] || handle_missing_entry(name)
+    end
+
+    def handle_missing_entry(name)
+      raise Webpacker::Manifest::MissingEntryError, 
+        "Can't find #{name} in #{config.public_manifest_path}. Is webpack still compiling?"
+    end
+
+
+    def data
+      if env.development?
+        refresh
+      else
+        @data ||= load
+      end
+    end
+
     def load
-      return super unless File.exist?(@path)
-      JSON.parse(File.read(@path))
+      if config.public_manifest_path.exist?
+        JSON.parse config.public_manifest_path.read
+      else
+        {}
+      end
     end
 end
