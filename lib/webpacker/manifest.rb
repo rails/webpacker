@@ -17,29 +17,88 @@ class Webpacker::Manifest < Webpacker::FileLoader
       Webpacker::Configuration.manifest_path
     end
 
-    def lookup(name)
-      if Webpacker::Configuration.compile?
-        compile_and_find!(name)
+    # Converts the "name" (aka the pack or bundle name) to to the full path for use in a browser.
+    def pack_path(name)
+      relative_pack_path = "#{Webpacker::Configuration.public_output_path}/#{lookup(name)}"
+
+      if Webpacker::DevServer.running?
+        "#{Webpacker::DevServer.base_url}/#{relative_pack_path}"
       else
-        find!(name)
+        relative_pack_path.starts_with?("/") ? relative_pack_path : "/#{relative_pack_path}"
       end
     end
 
+    # Converts the "name" (aka the pack or bundle name) to the possibly hashed name per a manifest.
+    #
+    # If Configuration.compile? then compilation is invoked the file is missing.
+    #
+    # Options
+    # throw_if_missing: default is true. If false, then nill is returned if the file is missing.
+    def lookup(name, throw_if_missing: true)
+      instance.confirm_manifest_exists
+
+      if Webpacker::Configuration.compile?
+        compile_and_find!(name, throw_if_missing: throw_if_missing)
+      else
+        # Since load checks a `mtime` on the manifest for a non-production env before loading,
+        # we should always call this before a call to `find!` since one may be using
+        # `webpack -w` and a file may have been added to the manifest since Rails first started.
+        load
+        raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Manifest.load must be called first") unless instance
+
+        return find!(name, throw_if_missing: throw_if_missing)
+      end
+    end
+
+    # Why does this method exist? Testing? It's not in the README
     def lookup_path(name)
-      Rails.root.join(File.join(Webpacker::Configuration.public_path, lookup(name)))
+      Rails.root.join(File.join(Webpacker::Configuration.output_path, lookup(name)))
     end
 
     private
-      def find!(name)
-        ensure_loaded_instance(self)
-        instance.data[name.to_s] ||
-          raise(Webpacker::FileLoader::NotFoundError.new("Can't find #{name} in #{file_path}. Is webpack still compiling?"))
+      def missing_file_from_manifest_error(bundle_name)
+        msg = <<-MSG
+Webpacker can't find #{bundle_name} in your manifest at #{file_path}. Possible causes:
+  1. You are hot reloading.
+  2. You want to set Configuration.compile to true for your environment.
+  3. Webpack has not re-run to reflect updates.
+  4. You have misconfigured Webpacker's config/webpacker.yml file.
+  5. Your Webpack configuration is not creating a manifest.
+Your manifest contains:
+#{instance.data.to_json}
+        MSG
+        raise(Webpacker::FileLoader::NotFoundError.new(msg))
       end
 
-      def compile_and_find!(name)
-        Webpacker.logger.tagged("Webpacker") { Webpacker.compile }
-        find!(name)
+      def missing_manifest_file_error(path_object)
+        msg = <<-MSG
+Webpacker can't find the manifest file: #{path_object}
+Possible causes:
+  1. You have not invoked webpack.
+  2. You have misconfigured Webpacker's config/webpacker_.yml file.
+  3. Your Webpack configuration is not creating a manifest.
+MSG
+        raise(Webpacker::FileLoader::NotFoundError.new(msg))
       end
+
+      def find!(name, throw_if_missing: true)
+        ensure_loaded_instance(self)
+        value = instance.data[name.to_s]
+        return value if value.present?
+
+        if throw_if_missing
+          missing_file_from_manifest_error(name)
+        end
+      end
+
+      def compile_and_find!(name, throw_if_missing: true)
+        Webpacker.logger.tagged("Webpacker") { Webpacker.compile }
+        find!(name, throw_if_missing: throw_if_missing)
+      end
+  end
+
+  def confirm_manifest_exists
+    raise missing_manifest_file_error(@path) unless File.exist?(@path)
   end
 
   private

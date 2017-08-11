@@ -20,6 +20,7 @@ end
 require "webpacker/logger"
 require "webpacker/env"
 require "webpacker/configuration"
+require "webpacker/dev_server"
 require "webpacker/manifest"
 require "webpacker/compiler"
 require "webpacker/railtie" if defined?(Rails)

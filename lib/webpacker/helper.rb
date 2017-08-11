@@ -9,8 +9,9 @@ module Webpacker::Helper
   # In production mode:
   #   <%= asset_pack_path 'calendar.css' %> # => "/packs/calendar-1016838bab065ae1e122.css"
   def asset_pack_path(name, **options)
-    asset_path(Webpacker::Manifest.lookup(name), **options)
+    asset_path(Webpacker::Manifest.pack_path(name), **options)
   end
+
   # Creates a script tag that references the named pack file, as compiled by Webpack per the entries list
   # in config/webpack/shared.js. By default, this list is auto-generated to match everything in
   # app/javascript/packs/*.js. In production mode, the digested reference is automatically looked up.
@@ -41,13 +42,21 @@ module Webpacker::Helper
   #   # In production mode:
   #   <%= stylesheet_pack_tag 'calendar', 'data-turbolinks-track': 'reload' %> # =>
   #   <link rel="stylesheet" media="screen" href="/packs/calendar-1016838bab065ae1e122.css" data-turbolinks-track="reload" />
+  #   # In development mode with hot-reloading
+  #   <%= stylesheet_pack_tag('main') %> <% # Default is false for enabled_when_hot_loading%>
+  #   # No output
+  #
   def stylesheet_pack_tag(*names, **options)
-    stylesheet_link_tag(*sources_from_pack_manifest(names, type: :stylesheet), **options)
+    if Webpacker::DevServer.hmr?
+      ""
+    else
+      stylesheet_link_tag(*sources_from_pack_manifest(names, type: :stylesheet), **options)
+    end
   end
 
   private
     def sources_from_pack_manifest(names, type:)
-      names.map { |name| Webpacker::Manifest.lookup(pack_name_with_extension(name, type: type)) }
+      names.map { |name| Webpacker::Manifest.pack_path(pack_name_with_extension(name, type: type)) }
     end
 
     def pack_name_with_extension(name, type:)

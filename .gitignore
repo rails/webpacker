@@ -1,4 +1,5 @@
 /.bundle
 /pkg
 /test/test_app/log
+/test/test_app/tmp
 node_modules

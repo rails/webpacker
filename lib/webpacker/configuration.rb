@@ -8,8 +8,12 @@ class Webpacker::Configuration < Webpacker::FileLoader
       source_path.join(fetch(:source_entry_path))
     end
 
+    def public_output_path
+      fetch(:public_output_path)
+    end
+
     def output_path
-      public_path.join(fetch(:public_output_path))
+      public_path.join(public_output_path)
     end
 
     def manifest_path
@@ -61,7 +65,7 @@ class Webpacker::Configuration < Webpacker::FileLoader
 
   private
     def load
-      return super unless File.exist?(@path)
+      return Webpacker::Configuration.defaults unless File.exist?(@path)
       HashWithIndifferentAccess.new(YAML.load(File.read(@path))[Webpacker.env])
     end
 end

@@ -1,6 +1,4 @@
 require "open3"
-require "webpacker/env"
-require "webpacker/configuration"
 
 module Webpacker::Compiler
   extend self
@@ -13,6 +11,8 @@ module Webpacker::Compiler
   mattr_accessor(:watched_paths) { [] }
 
   def compile
+    return if Webpacker::DevServer.running?
+
     if stale?
       cache_source_timestamp
       run_webpack
