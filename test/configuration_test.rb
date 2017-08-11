@@ -1,10 +1,6 @@
 require "webpacker_test_helper"
 
 class ConfigurationTest < Minitest::Test
-  def test_source
-    assert_equal "app/javascript", Webpacker.config.source_dir
-  end
-
   def test_source_path
     source_path = File.expand_path File.join(File.dirname(__FILE__), "test_app/app/javascript").to_s
     assert_equal source_path, Webpacker.config.source_path.to_s

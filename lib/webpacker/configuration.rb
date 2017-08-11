@@ -10,7 +10,7 @@ class Webpacker::Configuration
   end
 
   def source_path
-    root_path.join(source_dir)
+    root_path.join(fetch(:source_path))
   end
 
   def source_entry_path
@@ -35,10 +35,6 @@ class Webpacker::Configuration
 
   def compile?
     fetch(:compile)
-  end
-
-  def source_dir
-    fetch(:source_path)
   end
 
   private
