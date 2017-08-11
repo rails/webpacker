@@ -1,7 +1,4 @@
 require "open3"
-require "webpacker/env"
-require "webpacker/configuration"
-require "webpacker/dev_server"
 
 module Webpacker::Compiler
   extend self
