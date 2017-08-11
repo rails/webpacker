@@ -16,7 +16,7 @@ class CompilerTest < Minitest::Test
   end
 
   def test_freshness
-    assert Webpacker::Compiler.stale?
-    assert !Webpacker::Compiler.fresh?
+    refute Webpacker::Compiler.stale?
+    refute !Webpacker::Compiler.fresh?
   end
 end

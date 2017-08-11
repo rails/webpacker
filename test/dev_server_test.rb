@@ -6,14 +6,13 @@ class DevServerTest < Minitest::Test
   def reset
     Webpacker::Configuration.instance_variable_set(:@defaults, nil)
     Webpacker::Configuration.instance_variable_set(:@instance, nil)
-    Webpacker::DevServer.instance_variable_set(:@instance, nil)
   end
 
   def check_assertion
     reset
     stub_value = ActiveSupport::StringInquirer.new("development")
     Webpacker.stub(:env, stub_value) do
-      Webpacker::DevServer.stub(:data, dev_server: {}) do
+      Webpacker::Configuration.stub(:data, dev_server: {}) do
         result = yield
         assert_equal(result[0], result[1])
       end
@@ -22,7 +21,7 @@ class DevServerTest < Minitest::Test
   end
 
   def test_dev_server?
-    check_assertion { [true, Webpacker::DevServer.enabled?] }
+    check_assertion { [false, Webpacker::DevServer.running?] }
   end
 
   def test_dev_server_host

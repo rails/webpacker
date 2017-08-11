@@ -4,7 +4,6 @@ module Webpacker
   def bootstrap
     Webpacker::Env.load
     Webpacker::Configuration.load
-    Webpacker::DevServer.load
     Webpacker::Manifest.load
   end
 

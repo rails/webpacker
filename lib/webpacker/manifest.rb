@@ -18,10 +18,14 @@ class Webpacker::Manifest < Webpacker::FileLoader
     end
 
     # Converts the "name" (aka the pack or bundle name) to to the full path for use in a browser.
-    def asset_source(name)
-      output_path_or_url = Webpacker::Configuration.output_path_or_url
-      mapped_name = lookup(name)
-      "#{output_path_or_url}/#{mapped_name}"
+    def pack_path(name)
+      relative_pack_path = "#{Webpacker::Configuration.public_output_path}/#{lookup(name)}"
+
+      if Webpacker::DevServer.running?
+        "#{Webpacker::DevServer.base_url}/#{relative_pack_path}"
+      else
+        relative_pack_path.starts_with?("/") ? relative_pack_path : "/#{relative_pack_path}"
+      end
     end
 
     # Converts the "name" (aka the pack or bundle name) to the possibly hashed name per a manifest.

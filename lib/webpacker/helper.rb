@@ -9,10 +9,7 @@ module Webpacker::Helper
   # In production mode:
   #   <%= asset_pack_path 'calendar.css' %> # => "/packs/calendar-1016838bab065ae1e122.css"
   def asset_pack_path(name, **options)
-    path = Webpacker::Configuration.public_output_path
-    file = Webpacker::Manifest.lookup(name)
-    full_path = "#{path}/#{file}"
-    asset_path(full_path, **options)
+    asset_path(Webpacker::Manifest.pack_path(name), **options)
   end
 
   # Creates a script tag that references the named pack file, as compiled by Webpack per the entries list
@@ -59,7 +56,7 @@ module Webpacker::Helper
 
   private
     def sources_from_pack_manifest(names, type:)
-      names.map { |name| Webpacker::Manifest.asset_source(pack_name_with_extension(name, type: type)) }
+      names.map { |name| Webpacker::Manifest.pack_path(pack_name_with_extension(name, type: type)) }
     end
 
     def pack_name_with_extension(name, type:)

@@ -61,17 +61,6 @@ class Webpacker::Configuration < Webpacker::FileLoader
     def defaults
       @defaults ||= HashWithIndifferentAccess.new(YAML.load(default_file_path.read)[Webpacker.env])
     end
-
-    # Uses the webpack dev server host if appropriate
-    def output_path_or_url
-      if Webpacker::DevServer.enabled?
-        Webpacker::DevServer.base_url
-      else
-        # Ensure we start with a slash so that the asset helpers don't prepend the default asset
-        # pipeline locations.
-        public_output_path.starts_with?("/") ? public_output_path : "/#{public_output_path}"
-      end
-    end
   end
 
   private
