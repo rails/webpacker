@@ -10,11 +10,11 @@ class Webpacker::Configuration
   end
 
   def source_path
-    root_path.join(data[:source_path])
+    root_path.join(fetch(:source_path))
   end
 
   def source_entry_path
-    source_path.join(data[:source_entry_path])
+    source_path.join(fetch(:source_entry_path))
   end
 
   def public_path
@@ -22,7 +22,7 @@ class Webpacker::Configuration
   end
 
   def public_output_path
-    public_path.join(data[:public_output_path])
+    public_path.join(fetch(:public_output_path))
   end
 
   def public_manifest_path
@@ -30,14 +30,18 @@ class Webpacker::Configuration
   end
 
   def cache_path
-    root_path.join(data[:cache_path])
+    root_path.join(fetch(:cache_path))
   end
 
   def compile?
-    data[:compile]
+    fetch(:compile)
   end
 
   private
+    def fetch(key)
+      data.fetch(key, defaults[key])
+    end
+
     def data
       if env.development?
         refresh
@@ -48,5 +52,10 @@ class Webpacker::Configuration
 
     def load
       YAML.load(config_path.read)[env].deep_symbolize_keys
+    end
+
+    def defaults
+      @defaults ||= \
+        YAML.load(File.read(File.expand_path("../../install/config/webpacker.yml", __FILE__)))[env].deep_symbolize_keys
     end
 end
