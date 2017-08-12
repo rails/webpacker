@@ -9,9 +9,15 @@ class Webpacker::Configuration
     @data = load
   end
 
+
   def dev_server
     fetch(:dev_server)
   end
+
+  def compile?
+    fetch(:compile)
+  end
+
 
   def source_path
     root_path.join(fetch(:source_path))
@@ -41,9 +47,6 @@ class Webpacker::Configuration
     root_path.join(fetch(:cache_path))
   end
 
-  def compile?
-    fetch(:compile)
-  end
 
   private
     def fetch(key)
