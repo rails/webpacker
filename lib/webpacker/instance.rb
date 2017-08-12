@@ -21,6 +21,10 @@ class Webpacker::Instance
     @compiler ||= Webpacker::Compiler.new self
   end
 
+  def dev_server
+    @dev_server ||= Webpacker::DevServer.new self
+  end
+
   def manifest
     @manifest ||= Webpacker::Manifest.new self
   end

@@ -14,7 +14,7 @@ module Webpacker
   end
 
   delegate :logger, :logger=, :env, to: :instance
-  delegate :config, :compiler, :manifest, :commands, to: :instance
+  delegate :config, :compiler, :manifest, :commands, :dev_server, to: :instance
   delegate :bootstrap, :clobber, :compile, to: :commands
 end
 
@@ -23,5 +23,6 @@ require "webpacker/configuration"
 require "webpacker/manifest"
 require "webpacker/compiler"
 require "webpacker/commands"
+require "webpacker/dev_server"
 
 require "webpacker/railtie" if defined?(Rails)

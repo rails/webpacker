@@ -246,40 +246,13 @@ happens when you refer to any of the pack assets using the Webpacker helper meth
 That means you don't have to run any separate process. Compilation errors are logged
 to the standard Rails log.
 
-If you want to use live code reloading, you'll need to run `./bin/webpack-dev-server`
+If you want to use live code reloading, or you have enough JavaScript that on-demand compilation is too slow, you'll need to run `./bin/webpack-dev-server`
 in a separate terminal from `./bin/rails server`. This process will watch for changes
 in the `app/javascript/packs/*.js` files and automatically reload the browser to match.
 
-Note: The dev server serves pack files from `http://localhost:8080/` by default, which
-is a different origin than your application server. Therefore it's not compatible with
-things like Service Workers, that requires you to serve from the same origin.
-
-If you'd rather not have to run the two processes separately by hand, you can use [Foreman](https://ddollar.github.io/foreman):
-
-```bash
-gem install foreman
-```
-
-```yml
-# Procfile
-web: bundle exec rails s
-webpacker: ./bin/webpack-dev-server
-```
-
-```bash
-foreman start
-```
-
-By default, `webpack-dev-server` listens on `0.0.0.0` that means listening
-on all IP addresses available on your system: LAN IP address, localhost, 127.0.0.1 etc. 
-However, we use `localhost` as default hostname for serving assets in browser
-and if you want to change that, for example on cloud9 you can do so
-by changing host set in `config/webpacker.yml`.
-
-```bash
-dev_server:
-  host: example.com
-```
+Once you start this development server, Webpacker will automatically start proxying all
+webpack asset requests to this server. When you stop the server, it'll revert to 
+on-demand compilation again. 
 
 You can also pass CLI options supported by [webpack-dev-server](https://webpack.js.org/configuration/dev-server/). Please note that inline options will always take
 precedence over the ones already set in the configuration file.

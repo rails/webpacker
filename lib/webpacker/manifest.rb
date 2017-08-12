@@ -12,7 +12,7 @@
 class Webpacker::Manifest
   class MissingEntryError < StandardError; end
 
-  delegate :config, :compiler, :env, to: :@webpacker
+  delegate :config, :compiler, :env, :dev_server, to: :@webpacker
 
   def initialize(webpacker)
     @webpacker = webpacker
@@ -23,13 +23,17 @@ class Webpacker::Manifest
   end
 
   def lookup(name)
-    compile
+    compile if compiling?
     find name
   end
 
   private
+    def compiling?
+      config.compile? && !dev_server.running?
+    end
+
     def compile
-      Webpacker.logger.tagged("Webpacker") { compiler.compile } if config.compile?
+      Webpacker.logger.tagged("Webpacker") { compiler.compile }
     end
 
     def find(name)
