@@ -1,5 +1,5 @@
 class Webpacker::DevServer
-  delegate :dev_server, to: :@webpacker
+  delegate :config, to: :@webpacker
 
   def initialize(webpacker)
     @webpacker = webpacker
@@ -14,23 +14,24 @@ class Webpacker::DevServer
     false
   end
 
-  def hmr?
-    dev_server[:hmr]
-  end
-
   def host
-    dev_server[:host]
+    fetch(:host)
   end
 
   def port
-    dev_server[:port]
+    fetch(:port)
   end
 
   def https?
-    dev_server[:https]
+    fetch(:https)
   end
 
   def protocol
     https? ? "https" : "http"
   end
+
+  private
+    def fetch(key)
+      config.dev_server[key]
+    end
 end

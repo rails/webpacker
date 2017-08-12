@@ -12,7 +12,10 @@ class Webpacker::Compiler
   end
 
   def compile
-    if stale?
+    if Webpacker.dev_server.running?
+      logger.debug "Proxying to webpack dev server"
+      return
+    elsif stale?
       record_compilation_timestamp
       run_webpack
     else
@@ -58,7 +61,6 @@ class Webpacker::Compiler
 
       status.success?
     end
-
 
     def default_watched_paths
       ["#{config.source_path}/**/*", "yarn.lock", "package.json", "config/webpack/**/*"].freeze
