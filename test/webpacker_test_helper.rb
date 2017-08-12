@@ -7,6 +7,8 @@ require "byebug"
 
 require "webpacker"
 
+ENV["NODE_ENV"] ||= "production"
+
 Webpacker.instance = Webpacker::Instance.new \
   root_path: Pathname.new(File.expand_path("../test_app", __FILE__)),
   config_path: Pathname.new(File.expand_path("../../lib/install/config/webpacker.yml", __FILE__))
