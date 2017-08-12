@@ -24,10 +24,6 @@ class Webpacker::DevServer
     "#{host}:#{port}"
   end
 
-  def protocol
-    "http"
-  end
-
   private
     def fetch(key)
       config.dev_server.fetch(key, defaults[key])

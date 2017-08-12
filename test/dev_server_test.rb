@@ -8,8 +8,4 @@ class DevServerTest < Minitest::Test
   def test_port
     assert_equal Webpacker.dev_server.port, 3035
   end
-
-  def protocol
-    assert_equal Webpacker.dev_server.protocol, "http"
-  end
 end
