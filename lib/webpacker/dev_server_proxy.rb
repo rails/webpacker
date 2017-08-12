@@ -9,11 +9,16 @@ class Webpacker::DevServerProxy < Rack::Proxy
   end
 
   def perform_request(env)
-    if env["PATH_INFO"] =~ /#{Webpacker.config.public_output_dir}/ && Webpacker.dev_server.running?
       env["HTTP_HOST"] = "#{Webpacker.dev_server.host}:#{Webpacker.dev_server.port}"
+    if env["PATH_INFO"] =~ /#{public_output_uri_path}/ && Webpacker.dev_server.running?
       super(env)
     else
       @app.call(env)
     end
   end
+
+  private
+    def public_output_uri_path
+      Webpacker.config.public_output_path.relative_path_from(Webpacker.config.public_path)
+    end
 end
