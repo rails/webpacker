@@ -12,10 +12,7 @@ class Webpacker::Compiler
   end
 
   def compile
-    if Webpacker.dev_server.running?
-      logger.debug "Proxying to webpack dev server"
-      return
-    elsif stale?
+    if stale?
       record_compilation_timestamp
       run_webpack
     else
