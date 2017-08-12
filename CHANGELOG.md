@@ -25,13 +25,6 @@
 
 **Note:** requires running `bundle exec rails webpacker:install` and update webpacker.yml
 
-- HTTPS ssl settings to webpack-dev-server config
-  ```yml
-  # Absolute paths to ssl key and certificate
-    ssl_key_path:
-    ssl_cert_path:
-  ```
-
 - Move dev-server config options under defaults so it's transparently available in all environments
 
 

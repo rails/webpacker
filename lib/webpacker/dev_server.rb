@@ -20,12 +20,8 @@ class Webpacker::DevServer
     fetch(:port)
   end
 
-  def https?
-    fetch(:https)
-  end
-
   def protocol
-    https? ? "https" : "http"
+    "http"
   end
 
   private

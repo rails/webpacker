@@ -28,8 +28,7 @@ begin
 
   HOSTNAME        = args('--host') || dev_server["host"]
   PORT            = args('--port') || dev_server["port"]
-  HTTPS           = ARGV.include?('--https') || dev_server["https"]
-  DEV_SERVER_ADDR = "http#{"s" if HTTPS}://#{HOSTNAME}:#{PORT}"
+  DEV_SERVER_ADDR = "http://#{HOSTNAME}:#{PORT}"
 
 rescue Errno::ENOENT, NoMethodError
   $stdout.puts "Webpack dev_server configuration not found in #{CONFIG_FILE}."
