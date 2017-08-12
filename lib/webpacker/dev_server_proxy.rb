@@ -9,8 +9,8 @@ class Webpacker::DevServerProxy < Rack::Proxy
   end
 
   def perform_request(env)
-      env["HTTP_HOST"] = "#{Webpacker.dev_server.host}:#{Webpacker.dev_server.port}"
     if env["PATH_INFO"] =~ /#{public_output_uri_path}/ && Webpacker.dev_server.running?
+      env["HTTP_HOST"] = Webpacker.dev_server.host_with_port
       super(env)
     else
       @app.call(env)

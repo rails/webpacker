@@ -20,6 +20,10 @@ class Webpacker::DevServer
     fetch(:port)
   end
 
+  def host_with_port
+    "#{host}:#{port}"
+  end
+
   def protocol
     "http"
   end
