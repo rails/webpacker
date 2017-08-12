@@ -9,7 +9,6 @@ class Webpacker::DevServer
     socket = Socket.tcp(host, port, connect_timeout: 1)
     socket.close
     true
-
   rescue Errno::ECONNREFUSED, NoMethodError
     false
   end
