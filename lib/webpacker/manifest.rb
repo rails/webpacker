@@ -27,6 +27,7 @@ class Webpacker::Manifest
     find name
   end
 
+  # Useful for looking up packs directly on disk for server rendering
   def lookup_path(name)
     Rails.root.join(File.join(Webpacker.config.public_path, lookup(name)))
   end
