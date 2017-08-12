@@ -23,13 +23,13 @@ class Webpacker::Manifest
   end
 
   def lookup(name)
-    compile unless precompiled?
+    compile if compiling?
     find name
   end
 
   private
-    def precompiled?
-      !config.compile? && !dev_server.running?
+    def compiling?
+      config.compile? && !dev_server.running?
     end
 
     def compile
