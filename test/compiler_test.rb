@@ -2,8 +2,9 @@ require "webpacker_test_helper"
 
 class CompilerTest < Minitest::Test
   def setup
-    compilation_timestamp_path = Webpacker.compiler.send(:compilation_timestamp_path)
-    compilation_timestamp_path.delete if compilation_timestamp_path.exist?
+    Webpacker.compiler.send(:compilation_timestamp_path).tap do |path|
+      path.delete if path.exist?
+    end
   end
 
   def test_freshness
