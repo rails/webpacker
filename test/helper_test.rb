@@ -13,7 +13,7 @@ class HelperTest < ActionView::TestCase
 
   def test_javascript_pack_tag
     assert_equal \
-      %(<script src="/packs/bootstrap-300631c4f0e0f9c865bc.js"></script>), 
+      %(<script src="/packs/bootstrap-300631c4f0e0f9c865bc.js"></script>),
       @view.javascript_pack_tag("bootstrap.js")
   end
 
@@ -26,7 +26,7 @@ class HelperTest < ActionView::TestCase
 
   def test_stylesheet_pack_tag
     assert_equal \
-      %(<link rel="stylesheet" media="screen" href="/packs/bootstrap-c38deda30895059837cf.css" />), 
+      %(<link rel="stylesheet" media="screen" href="/packs/bootstrap-c38deda30895059837cf.css" />),
       @view.stylesheet_pack_tag("bootstrap.css")
   end
 

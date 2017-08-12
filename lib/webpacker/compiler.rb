@@ -59,7 +59,6 @@ class Webpacker::Compiler
       status.success?
     end
 
-
     def default_watched_paths
       ["#{config.source_path}/**/*", "yarn.lock", "package.json", "config/webpack/**/*"].freeze
     end

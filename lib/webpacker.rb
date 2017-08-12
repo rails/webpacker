@@ -4,7 +4,7 @@ require "active_support/tagged_logging"
 
 module Webpacker
   extend self
-  
+
   def instance=(instance)
     @instance = instance
   end

@@ -37,10 +37,9 @@ class Webpacker::Manifest
     end
 
     def handle_missing_entry(name)
-      raise Webpacker::Manifest::MissingEntryError, 
+      raise Webpacker::Manifest::MissingEntryError,
         "Can't find #{name} in #{config.public_manifest_path}. Is webpack still compiling?"
     end
-
 
     def data
       if env.development?
