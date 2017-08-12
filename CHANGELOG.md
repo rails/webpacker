@@ -13,6 +13,31 @@
 - `Webpacker::Compiler.fresh?` and `Webpacker::Compiler.stale?` answer the question of whether compilation is needed.
   The old `Webpacker::Compiler.compile?` predicate is deprecated.
 
+- A dev server config class that exposes config options through singleton.
+
+  ```rb
+  Webpacker.dev_server.running?
+  ```
+
+- A dev server proxy that proxies webpacker requests to dev server so we can always serve from same-origin and the lookup works out of the box - no more paths prefixing
+
+- HTTPS ssl settings for webpack-dev-server
+  ```yml
+  # Absolute paths to ssl key and certificate
+    ssl_key_path:
+    ssl_cert_path:
+  ```
+
+- Move dev-server config options under defaults so it's transparently available in all environments
+
+- The host info has been removed from manifest.json, now looks like this:
+
+  ```json
+  {
+    "hello_react.js": "/packs/hello_react.js"
+  }
+  ```
+
 ### Fixed
 
 - Update `webpack-dev-server.tt` to respect RAILS_ENV and NODE_ENV values [#502](https://github.com/rails/webpacker/issues/502)
