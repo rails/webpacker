@@ -4,7 +4,6 @@ class Webpacker::DevServerProxy < Rack::Proxy
   def rewrite_response(response)
     status, headers, body = response
     headers.delete "transfer-encoding"
-    headers.delete "content-length"
     response
   end
 
