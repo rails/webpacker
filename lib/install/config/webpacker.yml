@@ -43,9 +43,5 @@ test:
 production:
   <<: *default
 
-  # dev_server:
-  #   <<: *dev_server
-  #   host: example.com
-
   # Production demands on precompilation of packs prior to booting for performance.
   compile: false
