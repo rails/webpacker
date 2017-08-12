@@ -27,6 +27,30 @@ class ConfigurationTest < Minitest::Test
   end
 
   def test_compile?
-    assert Webpacker.config.compile?
+    with_node_env("development") do
+      assert reloaded_config.compile?
+    end
+
+    with_node_env("test") do
+      assert reloaded_config.compile?
+    end
+
+    with_node_env("production") do
+      refute reloaded_config.compile?
+    end
   end
+
+  private
+    def with_node_env(env)
+      original = ENV["NODE_ENV"]
+      ENV["NODE_ENV"] = env
+      yield
+    ensure
+      ENV["NODE_ENV"] = original
+    end
+
+    def reloaded_config
+      Webpacker.instance.instance_variable_set(:@config, nil)
+      Webpacker.config
+    end
 end
