@@ -8,7 +8,7 @@ class Webpacker::Instance
   end
 
   def env
-    (ENV["NODE_ENV"].presence_in(available_environments) || 
+    (ENV["NODE_ENV"].presence_in(available_environments) ||
       Rails.env.presence_in(available_environments) ||
         "production".freeze).inquiry
   end
@@ -21,6 +21,10 @@ class Webpacker::Instance
     @compiler ||= Webpacker::Compiler.new self
   end
 
+  def dev_server
+    @dev_server ||= Webpacker::DevServer.new self
+  end
+
   def manifest
     @manifest ||= Webpacker::Manifest.new self
   end
@@ -29,7 +33,6 @@ class Webpacker::Instance
     @commands ||= Webpacker::Commands.new self
   end
 
-
   private
     def available_environments
       if config_path.exist?
@@ -37,5 +40,5 @@ class Webpacker::Instance
       else
         [].freeze
       end
-    end  
+    end
 end

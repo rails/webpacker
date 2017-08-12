@@ -9,6 +9,10 @@ class Webpacker::Configuration
     @data = load
   end
 
+  def dev_server
+    fetch(:dev_server)
+  end
+
   def source_path
     root_path.join(fetch(:source_path))
   end
@@ -22,7 +26,11 @@ class Webpacker::Configuration
   end
 
   def public_output_path
-    public_path.join(fetch(:public_output_path))
+    public_path.join(public_output_dir)
+  end
+
+  def public_output_dir
+    fetch(:public_output_path)
   end
 
   def public_manifest_path
