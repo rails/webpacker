@@ -31,8 +31,12 @@ development:
   compile: true
   dev_server:
     host: localhost
-    port: 8080
+    port: 3035
     https: false
+
+    # Absolute paths to ssl key and certificate
+    ssl_key_path:
+    ssl_cert_path:
 
 test:
   <<: *default
