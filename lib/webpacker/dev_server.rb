@@ -12,6 +12,10 @@ class Webpacker::DevServer
     false
   end
 
+  def hot_module_replacing?
+    fetch(:hmr)
+  end
+
   def host
     fetch(:host)
   end
