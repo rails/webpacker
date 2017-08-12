@@ -27,6 +27,8 @@
 
 - Move dev-server config options under defaults so it's transparently available in all environments
 
+- Add new `HMR` option for hot-module-replacement
+
 
 ### Removed
 
