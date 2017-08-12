@@ -6,14 +6,14 @@ class DevServerTest < Minitest::Test
   end
 
   def test_port
-    assert_equal 3035, Webpacker.dev_server.port
+    assert_equal Webpacker.dev_server.port, 3035
   end
 
   def test_https?
-    assert_equal false, Webpacker.dev_server.https?
+    assert_equal Webpacker.dev_server.https?, false
   end
 
   def protocol
-    assert_equal "http", Webpacker.dev_server.protocol
+    assert_equal Webpacker.dev_server.protocol, "http"
   end
 end

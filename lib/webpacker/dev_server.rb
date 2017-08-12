@@ -32,6 +32,10 @@ class Webpacker::DevServer
 
   private
     def fetch(key)
-      config.dev_server[key]
+      config.dev_server.fetch(key, defaults[key])
+    end
+
+    def defaults
+      config.send(:defaults)[:dev_server]
     end
 end

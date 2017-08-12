@@ -15,6 +15,7 @@ module TestApp
   class Application < ::Rails::Application
     config.root = File.join(File.dirname(__FILE__), "test_app")
     config.eager_load = true
+    ::Rails.env = ENV["RAILS_ENV"] = "test"
   end
 end
 
