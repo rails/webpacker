@@ -51,20 +51,19 @@ end
   ARGV.delete(arg)
 end
 
-newenv = {
+env = {
   "NODE_PATH" => NODE_MODULES_PATH.shellescape,
   "ASSET_HOST" => DEV_SERVER_ADDR.shellescape
-}.freeze
+}
 
-options = ["--progress", "--color", "--config", WEBPACK_CONFIG, "--host", LISTEN_HOST_ADDR, "--public", "#{HOSTNAME}:#{PORT}", "--port", PORT.to_s]
-
-if Gem.win_platform?
-  # Workaround for yarn not playing nicely with path separators
-  cmdline = ["#{NODE_MODULES_PATH}/.bin/webpack-dev-server", *options] + ARGV
-else
-  cmdline = ["yarn", "run", "webpack-dev-server", "--", *options] + ARGV
-end
+cmd = [
+  "#{NODE_MODULES_PATH}/.bin/webpack-dev-server", "--progress", "--color",
+  "--config", WEBPACK_CONFIG,
+  "--host", LISTEN_HOST_ADDR,
+  "--public", "#{HOSTNAME}:#{PORT}",
+  "--port", PORT.to_s
+] + ARGV
 
 Dir.chdir(APP_PATH) do
-  exec newenv, *cmdline
+  exec env, *cmd
 end
