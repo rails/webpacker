@@ -1,6 +1,9 @@
 require "webpacker_test_helper"
+require "reload_config_helper"
 
 class ConfigurationTest < Minitest::Test
+  include ReloadConfigHelper
+
   def test_source_path
     source_path = File.expand_path File.join(File.dirname(__FILE__), "test_app/app/javascript").to_s
     assert_equal source_path, Webpacker.config.source_path.to_s
@@ -39,18 +42,4 @@ class ConfigurationTest < Minitest::Test
       refute reloaded_config.compile?
     end
   end
-
-  private
-    def with_node_env(env)
-      original = ENV["NODE_ENV"]
-      ENV["NODE_ENV"] = env
-      yield
-    ensure
-      ENV["NODE_ENV"] = original
-    end
-
-    def reloaded_config
-      Webpacker.instance.instance_variable_set(:@config, nil)
-      Webpacker.config
-    end
 end
