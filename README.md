@@ -566,9 +566,9 @@ and
 
 #### React
 
-You may consider using [react-rails](https://github.com/reactjs/react-rails) or
-[webpacker-react](https://github.com/renchap/webpacker-react) for more advanced react integration.
-However here is how you can do it yourself:
+If you need more advanced React-integration, like server rendering, redux, or react-router, see [shakacode/react_on_rails](https://github.com/shakacode/react_on_rails), [react-rails](https://github.com/reactjs/react-rails), and [webpacker-react](https://github.com/renchap/webpacker-react).
+
+If you're not concerned with view helpers to pass props or server rendering, can do it yourself:
 
 ```erb
 <%# views/layouts/application.html.erb %>
