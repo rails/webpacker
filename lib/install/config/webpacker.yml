@@ -14,6 +14,7 @@ default: &default
   dev_server: &dev_server
     host: localhost
     port: 3035
+    hmr: false
 
   extensions:
     - .coffee
