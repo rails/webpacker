@@ -163,6 +163,10 @@ The installer will add all relevant dependencies using yarn, any changes
 to the configuration files and an example React component to your
 project in `app/javascript/packs` so that you can experiment with React right away.
 
+If you wish to use a more advanced integration with React that offers view helpers and server rendering, you have several options based on Webpacker:
+
+* [shakacode/react_on_rails](https://github.com/shakacode/react_on_rails): A Webpack-only based solution since 2015 with full support for [Redux](http://redux.js.org/) and [React Router](https://reacttraining.com/react-router/) with server rendering.
+* [reactjs/react-rails](https://github.com/reactjs/react-rails): An originally asset pipeline based solution that now supports Webpack via [Webpacker](https://github.com/reactjs/react-rails#use-with-webpacker).
 
 ### Angular with TypeScript
 
