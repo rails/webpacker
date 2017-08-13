@@ -10,11 +10,6 @@ default: &default
   # ['app/assets', 'engine/foo/app/assets']
   resolved_paths: []
 
-  # webpack-dev-server configuration
-  dev_server: &dev_server
-    host: localhost
-    port: 3035
-
   extensions:
     - .coffee
     - .erb
@@ -34,6 +29,10 @@ default: &default
 development:
   <<: *default
   compile: true
+
+  dev_server:
+    host: localhost
+    port: 3035
 
 test:
   <<: *default
