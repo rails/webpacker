@@ -251,8 +251,8 @@ in a separate terminal from `./bin/rails server`. This process will watch for ch
 in the `app/javascript/packs/*.js` files and automatically reload the browser to match.
 
 Once you start this development server, Webpacker will automatically start proxying all
-webpack asset requests to this server. When you stop the server, it'll revert to 
-on-demand compilation again. 
+webpack asset requests to this server. When you stop the server, it'll revert to
+on-demand compilation again.
 
 You can also pass CLI options supported by [webpack-dev-server](https://webpack.js.org/configuration/dev-server/). Please note that inline options will always take
 precedence over the ones already set in the configuration file.
@@ -1241,6 +1241,57 @@ manually with Ruby:
 ```
 C:\path>ruby bin\webpack
 C:\path>ruby bin\webpack-dev-server
+```
+
+#### Invalid configuration object. Webpack has been initialised using a configuration object that does not match the API schema.
+
+If you receive this error ensure your configuration is correct most likely the path to your packs folder is incorrect if you modified from the original path defined.
+
+Example error from `$ ./bin/webpack-dev-server`
+```bash
+Invalid configuration object. Webpack has been initialised using a configuration object that does not match the API schema.
+configuration.entry should be one of these:
+object { <key>: non-empty string | [non-empty string] } | non-empty string | [non-empty string] | function
+The entry point(s) of the compilation.
+Details:
+ * configuration.entry should NOT have less than 1 properties ({
+     "keyword": "minProperties",
+     "dataPath": ".entry",
+     "schemaPath": "#/oneOf/0/minProperties",
+     "params": {
+       "limit": 1
+     },
+     "message": "should NOT have less than 1 properties",
+     "schema": 1,
+     "parentSchema": {
+       "minProperties": 1,
+       "additionalProperties": {
+         "oneOf": [
+           {
+             "description": "The string is resolved to a module which is loaded upon startup.",
+             "minLength": 1,
+             "type": "string"
+           },
+           {
+             "description": "All modules are loaded upon startup. The last one is exported.",
+             "$ref": "#/definitions/common.nonEmptyArrayOfUniqueStringValues"
+           }
+         ]
+       },
+       "description": "Multiple entry bundles are created. The key is the chunk name. The value can be a string or an array.",
+       "type": "object"
+     },
+     "data": {}
+   }).
+   object { <key>: non-empty string | [non-empty string] }
+   Multiple entry bundles are created. The key is the chunk name. The value can be a string or an array.
+ * configuration.entry should be a string.
+ * configuration.entry should be an array:
+   [non-empty string]
+ * configuration.entry should be an instance of function
+   function returning an entry object or a promise..
+error Command failed with exit code 1.
+exited with code 1
 ```
 
 ## License
