@@ -251,8 +251,8 @@ in a separate terminal from `./bin/rails server`. This process will watch for ch
 in the `app/javascript/packs/*.js` files and automatically reload the browser to match.
 
 Once you start this development server, Webpacker will automatically start proxying all
-webpack asset requests to this server. When you stop the server, it'll revert to 
-on-demand compilation again. 
+webpack asset requests to this server. When you stop the server, it'll revert to
+on-demand compilation again.
 
 You can also pass CLI options supported by [webpack-dev-server](https://webpack.js.org/configuration/dev-server/). Please note that inline options will always take
 precedence over the ones already set in the configuration file.
@@ -1242,6 +1242,11 @@ manually with Ruby:
 C:\path>ruby bin\webpack
 C:\path>ruby bin\webpack-dev-server
 ```
+
+#### Invalid configuration object. Webpack has been initialised using a configuration object that does not match the API schema.
+
+If you receive this error when running `$ ./bin/webpack-dev-server` ensure your configuration is correct; most likely the path to your "packs" folder is incorrect if you modified from the original "source_path" defined in `config/webpacker.yml`.
+
 
 ## License
 Webpacker is released under the [MIT License](https://opensource.org/licenses/MIT).
