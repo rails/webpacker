@@ -47,15 +47,22 @@ class Webpacker::Configuration
     end
 
     def data
-      if env.development?
-        refresh
-      else
+      if env.production?
         @data ||= load
+      else
+        refresh
       end
     end
 
     def load
-      YAML.load(config_path.read)[env].deep_symbolize_keys
+      if config_path.exist? &&
+        (@parsed_mtime.nil? ||
+          ((config_mtime = File.mtime(config.public_manifest_path)) > @parsed_mtime))
+        @parsed_mtime = config_mtime
+        YAML.load(config_path.read)[env].deep_symbolize_keys
+      else
+        {}
+      end
     end
 
     def defaults

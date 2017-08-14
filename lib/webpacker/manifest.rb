@@ -42,19 +42,36 @@ class Webpacker::Manifest
 
     def handle_missing_entry(name)
       raise Webpacker::Manifest::MissingEntryError,
-        "Can't find #{name} in #{config.public_manifest_path}. Is webpack still compiling?"
+        "Can't find #{name} in #{config.public_manifest_path}. Manifest contains: #{@data}"
+    end
+
+    def missing_file_from_manifest_error(bundle_name)
+      msg = <<-MSG
+Webpacker can't find #{bundle_name} in #{config.public_manifest_path}. Possible causes:
+1. You are hot reloading.
+2. You want to set Configuration.compile to true for your environment.
+3. Webpack has not re-run to reflect updates.
+4. You have misconfigured Webpacker's config/webpacker.yml file.
+5. Your Webpack configuration is not creating a manifest.
+Your manifest contains:
+#{@data.to_json}
+    MSG
+      raise(Webpacker::FileLoader::NotFoundError.new(msg))
     end
 
     def data
-      if env.development?
-        refresh
-      else
+      if env.production?
         @data ||= load
+      else
+        refresh
       end
     end
 
     def load
-      if config.public_manifest_path.exist?
+      if config.public_manifest_path.exist? &&
+        (@parsed_mtime.nil? ||
+          ((manifest_mtime = File.mtime(config.public_manifest_path)) > @parsed_mtime))
+        @parsed_mtime = manifest_mtime
         JSON.parse config.public_manifest_path.read
       else
         {}
