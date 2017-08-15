@@ -1,9 +1,6 @@
 require "webpacker_test_helper"
-require "reload_config_helper"
 
-class DevServerTest < Minitest::Test
-  include ReloadConfigHelper
-
+class DevServerTest < Webpacker::Test
   def test_host
     with_node_env("development") do
       reloaded_config

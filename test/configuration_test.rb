@@ -1,9 +1,6 @@
 require "webpacker_test_helper"
-require "reload_config_helper"
 
-class ConfigurationTest < Minitest::Test
-  include ReloadConfigHelper
-
+class ConfigurationTest < Webpacker::Test
   def test_source_path
     source_path = File.expand_path File.join(File.dirname(__FILE__), "test_app/app/javascript").to_s
     assert_equal source_path, Webpacker.config.source_path.to_s
