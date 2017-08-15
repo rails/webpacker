@@ -402,14 +402,14 @@ you don't need to do anything extra for webpacker, it just works.
 ### Hot module replacement
 
 Webpacker out-of-the-box supports HMR with `webpack-dev-server` and
-you can toggle it by setting `dev_server/hmr` inside webpacker.yml.
+you can toggle it by setting `dev_server/hmr` option inside webpacker.yml.
 
-Checkout these guide for more information:
+Checkout this guide for more information:
 
 - https://webpack.js.org/configuration/dev-server/#devserver-hot
 
 To support HMR with React you would need to add `react-hot-loader`. Checkout this guide for
-more detailed information:
+more information:
 
 - https://webpack.js.org/guides/hmr-react/
 
