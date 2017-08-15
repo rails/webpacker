@@ -13,6 +13,7 @@ class Webpacker::Compiler
 
   def compile
     if stale?
+      Webpacker.clobber
       record_compilation_timestamp
       run_webpack
     else
