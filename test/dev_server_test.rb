@@ -1,11 +1,17 @@
 require "webpacker_test_helper"
 
-class DevServerTest < Minitest::Test
+class DevServerTest < Webpacker::Test
   def test_host
-    assert_equal "localhost", Webpacker.dev_server.host
+    with_node_env("development") do
+      reloaded_config
+      assert_equal Webpacker.dev_server.host, "localhost"
+    end
   end
 
   def test_port
-    assert_equal Webpacker.dev_server.port, 3035
+    with_node_env("development") do
+      reloaded_config
+      assert_equal Webpacker.dev_server.port, 3035
+    end
   end
 end

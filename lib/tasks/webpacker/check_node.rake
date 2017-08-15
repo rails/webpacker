@@ -7,6 +7,7 @@ namespace :webpacker do
       required_node_version = "6.4"
 
       raise Errno::ENOENT if node_version.blank?
+
       if Gem::Version.new(node_version.strip.tr("v", "")) < Gem::Version.new(required_node_version)
         $stderr.puts "Webpacker requires Node.js >= v#{required_node_version} and you are using #{node_version}"
         $stderr.puts "Please upgrade Node.js https://nodejs.org/en/download/"
