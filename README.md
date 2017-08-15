@@ -413,6 +413,9 @@ more detailed information:
 
 - https://webpack.js.org/guides/hmr-react/
 
+**Note:** Don't forget to disable `HMR` if you are not running `webpack-dev-server`
+otherwise you will get not found error for stylesheets.
+
 
 ## Linking Styles, Images and Fonts
 
