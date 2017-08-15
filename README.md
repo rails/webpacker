@@ -330,10 +330,11 @@ Similary you can also control and configure `webpack-dev-server` settings from `
 # config/webpacker.yml
 development:
   dev_server:
-    host: 0.0.0.0
+    host: localhost
     port: 8080
-    https: false
 ```
+
+If you have `hmr` turned to true, then the `stylesheet_pack_tag` generates no output, as you will want to configure your styles to be inlined in your JavaScript for hot reloading. During production and testing, the `stylesheet_pack_tag` will create the appropriate HTML tags.
 
 #### Resolved Paths
 
@@ -398,25 +399,22 @@ plugins:
 Webpacker out-of-the-box provides CDN support using your Rails app `config.action_controller.asset_host` setting. If you already have [CDN](http://guides.rubyonrails.org/asset_pipeline.html#cdns) added in your rails app
 you don't need to do anything extra for webpacker, it just works.
 
-### HTTPS in development
-
-If you're using the `webpack-dev-server` in development, you can serve views over HTTPS
-by setting the `https` option for `webpack-dev-server` to `true` in `config/webpacker.yml`,
-then start the dev server as usual with `./bin/webpack-dev-server`.
-
-Please note that the `webpack-dev-server` will use a self-signed certificate,
-so your web browser will display a warning upon accessing the page.
-
-
 ### Hot module replacement
 
-Webpacker out-of-the-box doesn't ship with HMR just yet. You will need to
-install additional plugins for Webpack if you want to add HMR support.
+Webpacker out-of-the-box supports HMR with `webpack-dev-server` and
+you can toggle it by setting `dev_server/hmr` option inside webpacker.yml.
 
-You can checkout these links on this subject:
+Checkout this guide for more information:
 
 - https://webpack.js.org/configuration/dev-server/#devserver-hot
+
+To support HMR with React you would need to add `react-hot-loader`. Checkout this guide for
+more information:
+
 - https://webpack.js.org/guides/hmr-react/
+
+**Note:** Don't forget to disable `HMR` if you are not running `webpack-dev-server`
+otherwise you will get not found error for stylesheets.
 
 
 ## Linking Styles, Images and Fonts

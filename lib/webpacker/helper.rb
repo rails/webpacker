@@ -32,17 +32,26 @@ module Webpacker::Helper
   # in config/webpack/shared.js. By default, this list is auto-generated to match everything in
   # app/javascript/packs/*.js. In production mode, the digested reference is automatically looked up.
   #
+  # Note: If the development server is running and hot module replacement is active, this will return nothing.
+  # In that setup you need to configure your styles to be inlined in your JavaScript for hot reloading.
+  #
   # Examples:
   #
   #   # In development mode:
   #   <%= stylesheet_pack_tag 'calendar', 'data-turbolinks-track': 'reload' %> # =>
   #   <link rel="stylesheet" media="screen" href="/packs/calendar.css" data-turbolinks-track="reload" />
   #
+  #   # In development mode with hot module replacement:
+  #   <%= stylesheet_pack_tag 'calendar', 'data-turbolinks-track': 'reload' %> # =>
+  #   nil
+  #
   #   # In production mode:
   #   <%= stylesheet_pack_tag 'calendar', 'data-turbolinks-track': 'reload' %> # =>
   #   <link rel="stylesheet" media="screen" href="/packs/calendar-1016838bab065ae1e122.css" data-turbolinks-track="reload" />
   def stylesheet_pack_tag(*names, **options)
-    stylesheet_link_tag(*sources_from_pack_manifest(names, type: :stylesheet), **options)
+    unless Webpacker.dev_server.running? && Webpacker.dev_server.hot_module_replacing?
+      stylesheet_link_tag(*sources_from_pack_manifest(names, type: :stylesheet), **options)
+    end
   end
 
   private
