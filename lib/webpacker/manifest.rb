@@ -34,6 +34,7 @@ class Webpacker::Manifest
 
     def compile
       Webpacker.logger.tagged("Webpacker") { compiler.compile }
+      refresh
     end
 
     def find(name)
@@ -46,11 +47,7 @@ class Webpacker::Manifest
     end
 
     def data
-      if env.development?
-        refresh
-      else
-        @data ||= load
-      end
+      @data ||= load
     end
 
     def load
