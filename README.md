@@ -411,7 +411,7 @@ Checkout this guide for more information:
 To support HMR with React you would need to add `react-hot-loader`. Checkout this guide for
 more information:
 
-- https://webpack.js.org/guides/hmr-react/
+- https://gaearon.github.io/react-hot-loader/getstarted/
 
 **Note:** Don't forget to disable `HMR` if you are not running `webpack-dev-server`
 otherwise you will get not found error for stylesheets.
