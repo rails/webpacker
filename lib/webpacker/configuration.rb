@@ -47,10 +47,10 @@ class Webpacker::Configuration
     end
 
     def data
-      if env.development?
-        refresh
-      else
+      if env.production?
         @data ||= load
+      else
+        refresh
       end
     end
 
