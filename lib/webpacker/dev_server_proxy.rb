@@ -10,6 +10,8 @@ class Webpacker::DevServerProxy < Rack::Proxy
   def perform_request(env)
     if env["PATH_INFO"] =~ /#{public_output_uri_path}/ && Webpacker.dev_server.running?
       env["HTTP_HOST"] = Webpacker.dev_server.host_with_port
+      env["HTTPS"] = "off"
+      env["rack.url_scheme"] = "http"
       super(env)
     else
       @app.call(env)
