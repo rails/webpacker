@@ -46,10 +46,10 @@ class Webpacker::Manifest
     end
 
     def data
-      if env.production?
-        @data ||= load
-      else
+      if config.reload_manifest?
         refresh
+      else
+        @data ||= load
       end
     end
 
