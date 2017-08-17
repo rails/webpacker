@@ -5,11 +5,6 @@ class Webpacker::Commands
     @webpacker = webpacker
   end
 
-  def clobber
-    config.public_output_path.rmtree if config.public_output_path.exist?
-    config.cache_path.rmtree if config.cache_path.exist?
-  end
-
   def bootstrap
     config.refresh
     manifest.refresh

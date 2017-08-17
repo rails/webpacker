@@ -15,7 +15,7 @@ module Webpacker
 
   delegate :logger, :logger=, :env, to: :instance
   delegate :config, :compiler, :manifest, :commands, :dev_server, to: :instance
-  delegate :bootstrap, :clobber, :compile, to: :commands
+  delegate :bootstrap, :compile, to: :commands
 end
 
 require "webpacker/instance"
