@@ -42,7 +42,7 @@ class Webpacker::Manifest
 
     def handle_missing_entry(name)
       raise Webpacker::Manifest::MissingEntryError,
-        "Can't find #{name} in #{config.public_manifest_path}. Manifest contains: #{@data}"
+        "Can't find #{name} in #{config.public_manifest_path}. Manifest contains:\n#{JSON.pretty_generate(@data)}"
     end
 
     def missing_file_from_manifest_error(bundle_name)
@@ -62,6 +62,8 @@ Your manifest contains:
     def data
       if config.cache_manifest?
         @data ||= load
+      else
+        refresh
       end
     end
 
