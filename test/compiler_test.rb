@@ -8,7 +8,9 @@ class CompilerTest < Minitest::Test
   end
 
   def test_freshness
-    assert Webpacker.compiler.stale?
-    assert !Webpacker.compiler.fresh?
+    Webpacker.config.stub(:cache_manifest?, true) do
+      assert Webpacker.compiler.stale?
+      assert !Webpacker.compiler.fresh?
+    end
   end
 end
