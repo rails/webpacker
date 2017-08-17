@@ -26,17 +26,17 @@ class ConfigurationTest < Webpacker::Test
     assert_equal Webpacker.config.cache_path.to_s, cache_path
   end
 
-  def test_reload_manifest?
+  def test_cache_manifest?
     with_node_env("development") do
-      assert reloaded_config.reload_manifest?
+      refute reloaded_config.cache_manifest?
     end
 
     with_node_env("test") do
-      assert reloaded_config.reload_manifest?
+      refute reloaded_config.cache_manifest?
     end
 
     with_node_env("production") do
-      refute reloaded_config.reload_manifest?
+      assert reloaded_config.cache_manifest?
     end
   end
 

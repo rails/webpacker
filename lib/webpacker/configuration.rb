@@ -37,8 +37,8 @@ class Webpacker::Configuration
     public_output_path.join("manifest.json")
   end
 
-  def reload_manifest?
-    fetch(:reload_manifest)
+  def cache_manifest?
+    fetch(:cache_manifest)
   end
 
   def cache_path
