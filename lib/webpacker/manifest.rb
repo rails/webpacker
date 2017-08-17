@@ -12,7 +12,7 @@
 class Webpacker::Manifest
   class MissingEntryError < StandardError; end
 
-  delegate :config, :compiler, :env, :dev_server, to: :@webpacker
+  delegate :config, :compiler, :dev_server, to: :@webpacker
 
   def initialize(webpacker)
     @webpacker = webpacker
@@ -46,10 +46,10 @@ class Webpacker::Manifest
     end
 
     def data
-      if env.development?
-        refresh
-      else
+      if config.cache_manifest?
         @data ||= load
+      else
+        refresh
       end
     end
 

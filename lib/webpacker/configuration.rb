@@ -37,6 +37,10 @@ class Webpacker::Configuration
     public_output_path.join("manifest.json")
   end
 
+  def cache_manifest?
+    fetch(:cache_manifest)
+  end
+
   def cache_path
     root_path.join(fetch(:cache_path))
   end
@@ -47,11 +51,7 @@ class Webpacker::Configuration
     end
 
     def data
-      if env.development?
-        refresh
-      else
-        @data ||= load
-      end
+      @data ||= load
     end
 
     def load
