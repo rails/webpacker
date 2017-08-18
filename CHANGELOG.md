@@ -29,7 +29,7 @@
 
 - Add new `HMR` option for hot-module-replacement
 
-- HTTPS ssl settings to webpack-dev-server config
+- Configurable HTTPS ssl key and cert settings
   ```yml
     # Absolute paths to ssl key and certificate
     ssl_key_path:

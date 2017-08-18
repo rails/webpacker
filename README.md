@@ -408,15 +408,12 @@ then start the dev server as usual with `./bin/webpack-dev-server`.
 Please note that the `webpack-dev-server` will use a self-signed certificate,
 so your web browser will display a warning upon accessing the page. To ensure there
 is no conflict between Rails server SSL certificate and `webpack-dev-server` you can
-supply same certificates to `webpack-dev-server` too using following setting.
+supply same key and certificate to `webpack-dev-server`:
 
-```
-- HTTPS ssl settings to webpack-dev-server config
-  ```yml
-    # Absolute paths to ssl key and certificate
-    ssl_key_path:
-    ssl_cert_path:
-  ```
+```yml
+  # Absolute paths to ssl key and certificate
+  ssl_key_path:
+  ssl_cert_path:
 ```
 
 ### Hot module replacement
