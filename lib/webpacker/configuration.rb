@@ -55,7 +55,11 @@ class Webpacker::Configuration
     end
 
     def load
-      YAML.load(config_path.read)[env].deep_symbolize_keys
+      if config_path.exist?
+        YAML.load(config_path.read)[env].deep_symbolize_keys
+      else
+        {}.freeze
+      end
     end
 
     def defaults
