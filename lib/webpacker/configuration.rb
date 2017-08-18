@@ -60,6 +60,6 @@ class Webpacker::Configuration
 
     def defaults
       @defaults ||= \
-        YAML.load(File.read(File.expand_path("../../install/config/webpacker.yml", __FILE__)))[env].deep_symbolize_keys
+        HashWithIndifferentAccess.new(YAML.load(File.read(File.expand_path("../../install/config/webpacker.yml", __FILE__)))[env])
     end
 end
