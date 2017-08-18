@@ -2,6 +2,7 @@ require "rails/railtie"
 
 require "webpacker/helper"
 require "webpacker/dev_server_proxy"
+require "webpacker/cache_control"
 
 class Webpacker::Engine < ::Rails::Engine
   initializer "webpacker.proxy" do |app|
@@ -10,6 +11,12 @@ class Webpacker::Engine < ::Rails::Engine
         Rails::VERSION::MAJOR >= 5 ?
           Webpacker::DevServerProxy : "Webpacker::DevServerProxy"
     end
+  end
+
+  initializer "webpacker.cache_control" do |app|
+    app.middleware.insert_before 0,
+      Rails::VERSION::MAJOR >= 5 ?
+        Webpacker::CacheControl : "Webpacker::CacheControl"
   end
 
   initializer "webpacker.helper" do |app|
