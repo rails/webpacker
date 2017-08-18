@@ -24,6 +24,14 @@ class Webpacker::DevServer
     fetch(:port)
   end
 
+  def https?
+    fetch(:https)
+  end
+
+  def protocol
+    https? ? "https" : "http"
+  end
+
   def host_with_port
     "#{host}:#{port}"
   end

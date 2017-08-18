@@ -399,6 +399,26 @@ plugins:
 Webpacker out-of-the-box provides CDN support using your Rails app `config.action_controller.asset_host` setting. If you already have [CDN](http://guides.rubyonrails.org/asset_pipeline.html#cdns) added in your rails app
 you don't need to do anything extra for webpacker, it just works.
 
+### HTTPS in development
+
+If you're using the `webpack-dev-server` in development, you can serve views over HTTPS
+by setting the `https` option for `webpack-dev-server` to `true` in `config/webpacker.yml`,
+then start the dev server as usual with `./bin/webpack-dev-server`.
+
+Please note that the `webpack-dev-server` will use a self-signed certificate,
+so your web browser will display a warning upon accessing the page. To ensure there
+is no conflict between Rails server SSL certificate and `webpack-dev-server` you can
+supply came certificates to dev-server.
+
+```
+- HTTPS ssl settings to webpack-dev-server config
+  ```yml
+    # Absolute paths to ssl key and certificate
+    ssl_key_path:
+    ssl_cert_path:
+  ```
+```
+
 ### Hot module replacement
 
 Webpacker out-of-the-box supports HMR with `webpack-dev-server` and
@@ -636,7 +656,7 @@ Now, modify your Vue app to expect the properties.
     // A child component needs to explicitly declare
     // the props it expects to receive using the props option
     // See https://vuejs.org/v2/guide/components.html#Props
-    props: ["message","name"], 
+    props: ["message","name"],
     data: function () {
       return {
           test: 'This will display: ',
