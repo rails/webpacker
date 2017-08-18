@@ -9,6 +9,10 @@ class Webpacker::Configuration
     @data = load
   end
 
+  def compiler
+    fetch(:compiler)
+  end
+
   def dev_server
     fetch(:dev_server)
   end

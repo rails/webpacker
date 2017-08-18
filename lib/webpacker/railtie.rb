@@ -2,6 +2,7 @@ require "rails/railtie"
 
 require "webpacker/helper"
 require "webpacker/dev_server_proxy"
+require "webpacker/process"
 
 class Webpacker::Engine < ::Rails::Engine
   initializer "webpacker.proxy" do |app|
@@ -25,6 +26,14 @@ class Webpacker::Engine < ::Rails::Engine
   initializer "webpacker.logger" do
     config.after_initialize do |app|
       Webpacker.logger = ::Rails.logger
+    end
+  end
+
+  initializer "webpacker.subprocess" do
+    if Webpacker.config.compiler && !Webpacker.config.compile?
+      config.after_initialize do |app|
+        Webpacker::Process.new.start
+      end
     end
   end
 
