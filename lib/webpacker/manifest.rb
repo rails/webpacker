@@ -29,7 +29,7 @@ class Webpacker::Manifest
 
   private
     def compiling?
-      config.compile? && !dev_server.running?
+      config.compile? && !config.compiler && !dev_server.running?
     end
 
     def compile

@@ -2,7 +2,7 @@ require "rack/proxy"
 
 class Webpacker::DevServerProxy < Rack::Proxy
   def rewrite_response(response)
-    status, headers, body = response
+    _status, headers, _body = response
     headers.delete "transfer-encoding"
     response
   end
