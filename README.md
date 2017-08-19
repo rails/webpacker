@@ -282,7 +282,7 @@ if you do need to customize or add a new loader, this is where you would go.
 
 Webpack enables the use of loaders to preprocess files. This allows you to
 bundle any static resource way beyond JavaScript. All base loaders
-that ships with webpacker are located inside `config/webpack/loaders`.
+that ship with webpacker are located inside `config/webpack/loaders`.
 
 If you want to add a new loader, for example, to process `json` files via webpack:
 
@@ -315,7 +315,7 @@ or whatever path you set for `source_entry_path` in the `webpacker.yml` configur
 is turned into their own output files (or entry points, as Webpack calls it).
 
 Suppose you want to change the source directory from `app/javascript`
-to `frontend` and output to `assets/packs` this is how you would do it:
+to `frontend` and output to `assets/packs`. This is how you would do it:
 
 ```yml
 # config/webpacker.yml
@@ -324,7 +324,7 @@ source_entry_path: packs
 public_output_path: assets/packs # outputs to => public/assets/packs
 ```
 
-Similary you can also control and configure `webpack-dev-server` settings from `config/webpacker.yml` file:
+Similarly you can also control and configure `webpack-dev-server` settings from `config/webpacker.yml` file:
 
 ```yml
 # config/webpacker.yml
@@ -636,7 +636,7 @@ Now, modify your Vue app to expect the properties.
     // A child component needs to explicitly declare
     // the props it expects to receive using the props option
     // See https://vuejs.org/v2/guide/components.html#Props
-    props: ["message","name"], 
+    props: ["message","name"],
     data: function () {
       return {
           test: 'This will display: ',
