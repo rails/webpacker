@@ -37,14 +37,7 @@ development:
     host: localhost
     port: 3035
     hmr: false
-
-    # Enable HTTPS
     https: false
-
-    # Absolute paths to ssl key and certificate
-    # Use same key and certs as your rails server
-    ssl_key_path:
-    ssl_cert_path:
 
 test:
   <<: *default

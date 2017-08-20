@@ -29,12 +29,7 @@
 
 - Add new `HMR` option for hot-module-replacement
 
-- Configurable HTTPS ssl key and cert settings
-  ```yml
-    # Absolute paths to ssl key and certificate
-    ssl_key_path:
-    ssl_cert_path:
-  ```
+- Add HTTPS
 
 ### Removed
 
