@@ -51,7 +51,7 @@ class Webpacker::Compiler
       sterr, stdout, status = Open3.capture3(webpack_env, "#{RbConfig.ruby} ./bin/webpack")
 
       if status.success?
-        logger.info "Compiled all packs in #{config.source_entry_path}"
+        logger.info "Compiled all packs in #{config.public_output_path}"
       else
         logger.error "Compilation failed:\n#{sterr}\n#{stdout}"
       end
