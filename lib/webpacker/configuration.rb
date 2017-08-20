@@ -56,6 +56,16 @@ class Webpacker::Configuration
 
     def load
       YAML.load(config_path.read)[env].deep_symbolize_keys
+
+    rescue Errno::ENOENT => e
+      raise "Webpacker configuration file not found #{config_path}. " \
+            "Have you installed webpacker? " \
+            "Error: #{e.message}"
+
+    rescue Psych::SyntaxError => e
+      raise "YAML syntax error occurred while parsing #{config_path}. " \
+            "Please note that YAML must be consistently indented using spaces. Tabs are not allowed. " \
+            "Error: #{e.message}"
     end
 
     def defaults
