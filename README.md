@@ -768,7 +768,7 @@ You can use yarn to add bootstrap or any other modules available on npm:
 yarn add bootstrap
 ```
 
-Import Bootstrap and theme(optional) CSS in your app/javascript/packs/app.js file:
+Import Bootstrap and theme (optional) CSS in your app/javascript/packs/app.js file:
 
 ```js
 import 'bootstrap/dist/css/bootstrap'
