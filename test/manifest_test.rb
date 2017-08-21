@@ -9,8 +9,17 @@ class ManifestTest < Minitest::Test
       error = assert_raises Webpacker::Manifest::MissingEntryError do
         Webpacker.manifest.lookup(asset_file)
       end
+      expected = <<-MSG.strip
+Can't find calendar.js in #{manifest_path}. Manifest contains:
+{
+  "bootstrap.css": "/packs/bootstrap-c38deda30895059837cf.css",
+  "application.css": "/packs/application-dd6b1cd38bfa093df600.css",
+  "bootstrap.js": "/packs/bootstrap-300631c4f0e0f9c865bc.js",
+  "application.js": "/packs/application-k344a6d59eef8632c9d1.js"
+}
+      MSG
 
-      assert_equal "Can't find #{asset_file} in #{manifest_path}. Is webpack still compiling?", error.message
+      assert_equal expected, error.message
     end
   end
 
