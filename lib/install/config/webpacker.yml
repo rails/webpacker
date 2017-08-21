@@ -37,6 +37,7 @@ development:
     host: localhost
     port: 3035
     hmr: false
+    https: false
 
 test:
   <<: *default

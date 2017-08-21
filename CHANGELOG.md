@@ -29,6 +29,7 @@
 
 - Add new `HMR` option for hot-module-replacement
 
+- Add HTTPS
 
 ### Removed
 
