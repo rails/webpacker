@@ -31,6 +31,8 @@ Your manifest contains:
   end
 
   def test_lookup_success
-    assert_equal Webpacker.manifest.lookup("bootstrap.js"), "/packs/bootstrap-300631c4f0e0f9c865bc.js"
+    Webpacker.config.stub :compile?, false do
+      assert_equal Webpacker.manifest.lookup("bootstrap.js"), "/packs/bootstrap-300631c4f0e0f9c865bc.js"
+    end
   end
 end
