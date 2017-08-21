@@ -29,7 +29,7 @@ class Webpacker::Engine < ::Rails::Engine
   end
 
   initializer "webpacker.bootstrap" do
-    if defined?(Rails::Server) || defined?(Rails::Console)
+    if (defined?(Rails::Server) || defined?(Rails::Console)) && Webpacker.config.config_path.exist?
       Webpacker.bootstrap
       Spring.after_fork { Webpacker.bootstrap } if defined?(Spring)
     end
