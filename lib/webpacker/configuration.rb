@@ -55,7 +55,8 @@ class Webpacker::Configuration
     end
 
     def load
-      YAML.load(config_path.read)[env].deep_symbolize_keys
+      path = config_path.exist? ? config_path : File.expand_path("../../install/config/webpacker.yml", __FILE__)
+      YAML.load(File.read(path))[env].deep_symbolize_keys
     end
 
     def defaults
