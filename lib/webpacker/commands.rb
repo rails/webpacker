@@ -11,6 +11,7 @@ class Webpacker::Commands
   end
 
   def bootstrap
+    return unless config.config_path.exist?
     config.refresh
     manifest.refresh
   end
