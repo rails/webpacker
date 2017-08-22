@@ -59,7 +59,7 @@ class Webpacker::Configuration
 
     rescue Errno::ENOENT => e
       raise "Webpacker configuration file not found #{config_path}. " \
-            "Have you installed webpacker? " \
+            "Please run rails webpacker:install " \
             "Error: #{e.message}"
 
     rescue Psych::SyntaxError => e
