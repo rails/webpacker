@@ -52,10 +52,7 @@ end
   ARGV.delete(arg)
 end
 
-env = {
-  "NODE_PATH" => NODE_MODULES_PATH.shellescape,
-  "ASSET_HOST" => DEV_SERVER_ADDR.shellescape
-}
+env = { "NODE_PATH" => NODE_MODULES_PATH.shellescape }
 
 cmd = [
   "#{NODE_MODULES_PATH}/.bin/webpack-dev-server", "--progress", "--color",
