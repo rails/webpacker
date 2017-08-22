@@ -1,4 +1,5 @@
 require "open3"
+require "digest/sha1"
 
 class Webpacker::Compiler
   # Additional paths that test compiler needs to watch
@@ -13,16 +14,14 @@ class Webpacker::Compiler
 
   def compile
     if stale?
-      record_compilation_timestamp
+      record_compilation_digest
       run_webpack
-    else
-      logger.debug "No compiling needed as everything is fresh"
     end
   end
 
   # Returns true if all the compiled packs are up to date with the underlying asset files.
   def fresh?
-    source_last_changed_at == source_compiled_from_last_change_at
+    watched_files_digest == last_compilation_digest
   end
 
   # Returns true if the compiled packs are out of date with the underlying asset files.
@@ -31,18 +30,18 @@ class Webpacker::Compiler
   end
 
   private
-    def source_compiled_from_last_change_at
-      compilation_timestamp_path.read if compilation_timestamp_path.exist? && config.public_manifest_path.exist?
+    def last_compilation_digest
+      compilation_digest_path.read if compilation_digest_path.exist? && config.public_manifest_path.exist?
     end
 
-    def source_last_changed_at
+    def watched_files_digest
       files = Dir[*default_watched_paths, *watched_paths].reject { |f| File.directory?(f) }
-      files.map { |f| File.mtime(f).utc.to_i }.max.to_s
+      Digest::SHA1.hexdigest(files.map { |f| "#{File.basename(f)}/#{File.mtime(f).utc.to_i}" }.join("/"))
     end
 
-    def record_compilation_timestamp
+    def record_compilation_digest
       config.cache_path.mkpath
-      compilation_timestamp_path.write(source_last_changed_at)
+      compilation_digest_path.write(watched_files_digest)
     end
 
     def run_webpack
@@ -63,8 +62,8 @@ class Webpacker::Compiler
       ["#{config.source_path}/**/*", "yarn.lock", "package.json", "config/webpack/**/*"].freeze
     end
 
-    def compilation_timestamp_path
-      config.cache_path.join(".compiled-from-last-change-at")
+    def compilation_digest_path
+      config.cache_path.join(".last-compilation-digest")
     end
 
     def webpack_env
