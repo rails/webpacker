@@ -21,6 +21,12 @@
 
 - Rack middleware proxies webpacker requests to dev server so we can always serve from same-origin and the lookup works out of the box - no more paths prefixing
 
+- `env` attribute on `Webpacker::Compiler` allows setting custom environment variables that the compilation is being run with
+
+  ```rb
+  Webpacker::Compiler.env['FRONTEND_API_KEY'] = 'your_secret_key'
+  ```
+
 ### Breaking changes
 
 **Note:** requires running `bundle exec rails webpacker:install` and update webpacker.yml
