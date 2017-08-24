@@ -74,7 +74,7 @@ only triggers if files are changed under tracked paths.
 Following paths are watched by default -
 
   ```rb
-    ["app/javascript/**/*", "yarn.lock", "package.json", "config/webpack/**/*"]
+    ["app/webpacker/**/*", "yarn.lock", "package.json", "config/webpack/**/*"]
   ```
 
   To add more paths:
@@ -201,10 +201,10 @@ bundle exec rails webpacker:install
 
   For example:
   ```
-  app/javascript/packs/admin/hello_vue.js
-  app/javascript/packs/admin/hello.vue
-  app/javascript/packs/hello_vue.js
-  app/javascript/packs/hello.vue
+  app/webpacker/packs/admin/hello_vue.js
+  app/webpacker/packs/admin/hello.vue
+  app/webpacker/packs/hello_vue.js
+  app/webpacker/packs/hello.vue
   ```
 - Add tree-shaking support - [#250](https://github.com/rails/webpacker/pull/250)
 - Add initial test case by @kimquy [#259](https://github.com/rails/webpacker/pull/259)

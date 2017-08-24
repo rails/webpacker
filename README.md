@@ -161,7 +161,7 @@ setup with webpacker).
 
 The installer will add all relevant dependencies using yarn, any changes
 to the configuration files and an example React component to your
-project in `app/javascript/packs` so that you can experiment with React right away.
+project in `app/webpacker/packs` so that you can experiment with React right away.
 
 
 ### Angular with TypeScript
@@ -179,7 +179,7 @@ setup with webpacker).
 
 The installer will add TypeScript and Angular core libraries using yarn plus
 any changes to the configuration files. An example component is written in
-TypeScript will also be added to your project in `app/javascript` so that
+TypeScript will also be added to your project in `app/webpacker` so that
 you can experiment with Angular right away.
 
 
@@ -196,7 +196,7 @@ rails new myapp --webpack=vue
 
 The installer will add Vue and required libraries using yarn plus
 any changes to the configuration files. An example component will
-also be added to your project in `app/javascript` so that you can
+also be added to your project in `app/webpacker` so that you can
 experiment Vue right away.
 
 #### Using Rails helpers in .vue files
@@ -227,7 +227,7 @@ rails new myapp --webpack=elm
 (or run `./bin/rails webpacker:install:elm` on a Rails app already setup with webpacker).
 
 The Elm library and core packages will be added via Yarn and Elm itself.
-An example `Main.elm` app will also be added to your project in `app/javascript`
+An example `Main.elm` app will also be added to your project in `app/webpacker`
 so that you can experiment with Elm right away.
 
 
@@ -248,7 +248,7 @@ to the standard Rails log.
 
 If you want to use live code reloading, or you have enough JavaScript that on-demand compilation is too slow, you'll need to run `./bin/webpack-dev-server`
 in a separate terminal from `./bin/rails server`. This process will watch for changes
-in the `app/javascript/packs/*.js` files and automatically reload the browser to match.
+in the `app/webpacker/packs/*.js` files and automatically reload the browser to match.
 
 Once you start this development server, Webpacker will automatically start proxying all
 webpack asset requests to this server. When you stop the server, it'll revert to
@@ -310,11 +310,11 @@ app files and compiled webpack bundles will go in your rails app,
 but all these options are configurable from `config/webpacker.yml` file.
 
 The configuration for what Webpack is supposed to compile by default rests
-on the convention that every file in `app/javascript/packs/*`**(default)**
+on the convention that every file in `app/webpacker/packs/*`**(default)**
 or whatever path you set for `source_entry_path` in the `webpacker.yml` configuration
 is turned into their own output files (or entry points, as Webpack calls it).
 
-Suppose you want to change the source directory from `app/javascript`
+Suppose you want to change the source directory from `app/webpacker`
 to `frontend` and output to `assets/packs`. This is how you would do it:
 
 ```yml
@@ -439,7 +439,7 @@ compiled automatically.
 ### Within your JS app
 
 ```sass
-// app/javascript/hello_react/styles/hello-react.sass
+// app/webpacker/hello_react/styles/hello-react.sass
 
 .hello-react
   padding: 20px
@@ -448,7 +448,7 @@ compiled automatically.
 
 ```js
 // React component example
-// app/javascripts/packs/hello_react.jsx
+// app/webpackers/packs/hello_react.jsx
 
 import React from 'react'
 import helloIcon from '../hello_react/images/icon.png'
@@ -493,7 +493,7 @@ You can also import styles from `node_modules` using the following syntax.
 Please note that your styles will always be extracted into `[pack_name].css`:
 
 ```sass
-// app/javascript/app-styles.sass
+// app/webpacker/app-styles.sass
 // ~ to tell webpack that this is not a relative import:
 
 @import '~@material/animation/mdc-animation'
@@ -502,7 +502,7 @@ Please note that your styles will always be extracted into `[pack_name].css`:
 
 ```js
 // Your main app pack
-// app/javascript/packs/app.js
+// app/webpacker/packs/app.js
 
 import '../app-styles'
 ```
@@ -523,16 +523,16 @@ import '../app-styles'
 Let's say you're building a calendar app. Your JS app structure could look like this:
 
 ```js
-// app/javascript/packs/calendar.js
+// app/webpacker/packs/calendar.js
 
 import 'calendar'
 ```
 
 ```
-app/javascript/calendar/index.js // gets loaded by import 'calendar'
-app/javascript/calendar/components/grid.jsx
-app/javascript/calendar/styles/grid.sass
-app/javascript/calendar/models/month.js
+app/webpacker/calendar/index.js // gets loaded by import 'calendar'
+app/webpacker/calendar/components/grid.jsx
+app/webpacker/calendar/styles/grid.sass
+app/webpacker/calendar/models/month.js
 ```
 
 ```erb
@@ -550,8 +550,8 @@ But it could also look a million other ways.
 You can also namespace your packs using directories similar to a Rails app.
 
 ```
-app/javascript/packs/admin/orders.js
-app/javascript/packs/shop/orders.js
+app/webpacker/packs/admin/orders.js
+app/webpacker/packs/shop/orders.js
 ```
 
 and reference them in your views like this:
@@ -593,7 +593,7 @@ If you're not concerned with view helpers to pass props or server rendering, can
 ```
 
 ```js
-// app/javascript/packs/hello_react.js
+// app/webpacker/packs/hello_react.js
 
 const Hello = props => (
   <div className='react-app-wrapper'>
@@ -780,14 +780,14 @@ You can use yarn to add bootstrap or any other modules available on npm:
 yarn add bootstrap
 ```
 
-Import Bootstrap and theme (optional) CSS in your app/javascript/packs/app.js file:
+Import Bootstrap and theme (optional) CSS in your app/webpacker/packs/app.js file:
 
 ```js
 import 'bootstrap/dist/css/bootstrap'
 import 'bootstrap/dist/css/bootstrap-theme'
 ```
 
-Or in your app/javascript/app.sass file:
+Or in your app/webpacker/app.sass file:
 
 ```sass
 // ~ to tell that this is not a relative import
@@ -889,7 +889,7 @@ module.exports = {
 4. Setup a custom `d.ts` definition
 
 ```ts
-// app/javascript/hello_angular/html.d.ts
+// app/webpacker/hello_angular/html.d.ts
 
 declare module "*.html" {
   const content: string
@@ -994,7 +994,7 @@ And now all files with `.vue~` will be ignored by the webpack compiler.
 It's possible to link to assets that have been precompiled by sprockets. Add the `.erb` extension to your javascript file, then you can use Sprockets' asset helpers:
 
 ```erb
-<%# app/javascript/my_pack/example.js.erb %>
+<%# app/webpacker/my_pack/example.js.erb %>
 
 <% helpers = ActionController::Base.helpers %>
 var railsImagePath = "<%= helpers.image_path('rails.png') %>"

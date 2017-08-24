@@ -11,8 +11,8 @@ copy_file "#{__dir__}/config/.postcssrc.yml", ".postcssrc.yml"
 puts "Copying .babelrc to app root directory"
 copy_file "#{__dir__}/config/.babelrc", ".babelrc"
 
-puts "Creating javascript app source directory"
-directory "#{__dir__}/javascript", Webpacker.config.source_path
+puts "Creating webpacker app source directory"
+directory "#{__dir__}/webpacker", Webpacker.config.source_path
 
 puts "Copying binstubs"
 directory "#{__dir__}/bin", "bin"
