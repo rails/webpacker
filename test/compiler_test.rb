@@ -7,6 +7,12 @@ class CompilerTest < Minitest::Test
     end
   end
 
+  def test_custom_environment_variables
+    assert Webpacker.compiler.send(:webpack_env)["FOO"] == nil
+    Webpacker.compiler.env["FOO"] = "BAR"
+    assert Webpacker.compiler.send(:webpack_env)["FOO"] == "BAR"
+  end
+
   def test_freshness
     assert Webpacker.compiler.stale?
     assert !Webpacker.compiler.fresh?

@@ -6,7 +6,11 @@ class Webpacker::Compiler
   # Webpacker::Compiler.watched_paths << 'bower_components'
   mattr_accessor(:watched_paths) { [] }
 
-  delegate :config, :logger, :env, to: :@webpacker
+  # Additional environment variables that the compiler is being run with
+  # Webpacker::Compiler.env['FRONTEND_API_KEY'] = 'your_secret_key'
+  mattr_accessor(:env) { {} }
+
+  delegate :config, :logger, to: :@webpacker
 
   def initialize(webpacker)
     @webpacker = webpacker
@@ -67,6 +71,6 @@ class Webpacker::Compiler
     end
 
     def webpack_env
-      { "NODE_ENV" => env, "ASSET_HOST" => ActionController::Base.helpers.compute_asset_host }
+      env.merge("NODE_ENV" => @webpacker.env, "ASSET_HOST" => ActionController::Base.helpers.compute_asset_host)
     end
 end

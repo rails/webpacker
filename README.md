@@ -1091,6 +1091,12 @@ module.exports = {
 confusing behavior, in that Foreman/Invoker variables take precedence over
 npm dotenv variables.
 
+If you'd like to pass custom variables to the compiler, use `Webpack::Compiler.env` attribute.
+
+```rb
+Webpacker::Compiler.env['FRONTEND_API_KEY'] = 'your_secret_key'
+```
+
 ## Extending
 
 We suggest you don't directly overwrite the provided configuration files
