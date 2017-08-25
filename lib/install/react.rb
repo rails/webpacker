@@ -25,6 +25,9 @@ copy_file "#{__dir__}/config/loaders/installers/react.js", "config/webpack/loade
 puts "Copying react example entry file to #{Webpacker.config.source_entry_path}"
 copy_file "#{__dir__}/examples/react/hello_react.jsx", "#{Webpacker.config.source_entry_path}/hello_react.jsx"
 
+puts "Copying react example app folder to #{Webpacker.config.source_path}"
+directory "#{__dir__}/examples/react/hello_react", "#{Webpacker.config.source_path}/hello_react"
+
 puts "Installing all react dependencies"
 run "yarn add react react-dom babel-preset-react prop-types"
 
