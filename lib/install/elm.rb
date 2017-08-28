@@ -1,9 +1,5 @@
 require "webpacker/configuration"
 
-puts "Copying elm loader to config/webpack/loaders"
-copy_file "#{__dir__}/config/loaders/installers/elm.js",
-          "config/webpack/loaders/elm.js"
-
 puts "Copying elm example entry file to #{Webpacker.config.source_entry_path}"
 copy_file "#{__dir__}/examples/elm/Main.elm", "#{Webpacker.config.source_entry_path}/Main.elm"
 
