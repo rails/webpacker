@@ -1,3 +1,6 @@
+/* eslint global-require: 0 */
+/* eslint import/no-dynamic-require: 0 */
+
 const config = require('./config')
 const assetHost = require('./asset_host')
 
@@ -10,9 +13,9 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
 
 function getLoaderMap() {
-  const result = new Map
+  const result = new Map()
   const paths = sync(resolve(__dirname, 'loaders', '*.js'))
-  paths.forEach(path => {
+  paths.forEach((path) => {
     const name = basename(path, extname(path))
     result.set(name, require(path))
   })
@@ -20,7 +23,7 @@ function getLoaderMap() {
 }
 
 function getPluginMap() {
-  const result = new Map
+  const result = new Map()
   result.set('Environment', new webpack.EnvironmentPlugin(JSON.parse(JSON.stringify(process.env))))
   result.set('ExtractText', new ExtractTextPlugin('[name]-[contenthash].css'))
   result.set('Manifest', new ManifestPlugin({ publicPath: assetHost.publicPath, writeToFileEmit: true }))
@@ -32,11 +35,7 @@ function getExtensionsGlob() {
   if (!extensions.length) {
     throw new Error('You must configure at least one extension to compile in webpacker.yml')
   }
-  if (extensions.length === 1) {
-    return `**/${extensions[0]}`
-  } else {
-    return `**/*{${extensions.join(',')}}`
-  }
+  return extensions.length === 1 ? `**/${extensions[0]}` : `**/*{${extensions.join(',')}}`
 }
 
 function getEntryObject() {
@@ -44,7 +43,7 @@ function getEntryObject() {
   const glob = getExtensionsGlob()
   const rootPath = join(config.source_path, config.source_entry_path)
   const paths = sync(join(rootPath, glob))
-  paths.forEach(path => {
+  paths.forEach((path) => {
     const namespace = relative(join(rootPath), dirname(path))
     const name = join(namespace, basename(path, extname(path)))
     result[name] = resolve(path)

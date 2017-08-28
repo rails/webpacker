@@ -1,4 +1,4 @@
-const { join, resolve } = require('path')
+const { resolve } = require('path')
 const { safeLoad } = require('js-yaml')
 const { readFileSync } = require('fs')
 

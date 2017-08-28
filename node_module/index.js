@@ -1,3 +1,6 @@
+/* eslint global-require: 0 */
+/* eslint import/no-dynamic-require: 0 */
+
 const { existsSync } = require('fs')
 
 function createEnvironmentInstance() {
@@ -6,7 +9,7 @@ function createEnvironmentInstance() {
     path = './environment'
   }
   const constructor = require(path)
-  return new constructor
+  return new constructor()
 }
 
 module.exports = createEnvironmentInstance()

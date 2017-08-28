@@ -1,7 +1,7 @@
-const { dev_server } = require('../config')
+const config = require('../config')
 
 const isProduction = process.env.NODE_ENV === 'production'
-const extractCSS = !(dev_server && dev_server.hmr)
+const extractCSS = !(config.dev_server && config.dev_server.hmr)
 
 module.exports = {
   test: /\.vue$/,

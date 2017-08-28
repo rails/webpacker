@@ -1,4 +1,4 @@
-const { public_output_path } = require('./config')
+const config = require('./config')
 const { resolve } = require('path')
 
 
@@ -16,7 +16,7 @@ function formatPublicPath(host = '', path = '') {
 }
 
 module.exports = {
-  path: resolve('public', public_output_path),
-  publicPath: `/${public_output_path}/`.replace(/([^:]\/)\/+/g, '$1'),
-  publicPathWithHost: formatPublicPath(process.env.ASSET_HOST, public_output_path)
+  path: resolve('public', config.public_output_path),
+  publicPath: `/${config.public_output_path}/`.replace(/([^:]\/)\/+/g, '$1'),
+  publicPathWithHost: formatPublicPath(process.env.ASSET_HOST, config.public_output_path)
 }
