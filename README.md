@@ -324,7 +324,8 @@ for loaders above:
 const { environment } = require('webpacker')
 
 // Get a pre-configured plugin
-environment.plugins.get("ExtractText") // Is an ExtractTextPlugin instance
+environment.plugins.get('ExtractText') // Is an ExtractTextPlugin instance
+
 // Add an additional plugin of your choosing
 environment.plugins.add('Fancy', new MyFancyWebpackPlugin)
 
