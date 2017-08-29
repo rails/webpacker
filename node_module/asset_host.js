@@ -1,7 +1,6 @@
 const config = require('./config')
 const { resolve } = require('path')
 
-
 function removeOuterSlashes(string) {
   return string.replace(/^\/*/, '').replace(/\/*$/, '')
 }
