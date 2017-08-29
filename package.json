@@ -1,6 +1,6 @@
 {
-  "name": "webpacker",
-  "version": "1.0.0",
+  "name": "@rails/webpacker",
+  "version": "2.0.0",
   "description": "Webpacker makes it easy to use the JavaScript preprocessor and bundler [Webpack](https://webpack.github.io) to manage application-like JavaScript in Rails. It coexists with the asset pipeline, as the purpose is only to use Webpack for app-like JavaScript, not images, css, or even JavaScript Sprinkles (that all continues to live in app/assets).",
   "main": "node_module/index.js",
   "engines": {
