@@ -27,7 +27,7 @@ EOS
 end
 
 puts "Installing all JavaScript dependencies"
-run "yarn add webpacker"
+run "yarn add @rails/webpacker"
 
 puts "Installing dev server for live reloading"
 run "yarn add --dev webpack-dev-server"
