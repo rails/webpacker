@@ -30,6 +30,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 - [Paths](#paths)
   - [Resolved](#resolved)
   - [Watched](#watched)
+- [Docs](#docs)
 - [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -98,6 +99,7 @@ can use `asset_pack_path` helper:
 <link rel="prefetch" href="<%= asset_pack_path 'application.css' %>" />
 <img src="<%= asset_pack_path 'rails.png' %>" />
 ```
+
 
 ## Integrations
 
@@ -170,6 +172,7 @@ any changes to the configuration files. An example component will
 also be added to your project in `app/javascript` so that you can
 experiment Vue right away.
 
+
 ### Elm
 
 To use Webpacker with [Elm](http://elm-lang.org), create a
@@ -193,6 +196,7 @@ Webpacker ships with two binstubs: `./bin/webpack` and `./bin/webpack-dev-server
 Both are thin wrappers around the standard `webpack.js` and `webpack-dev-server.js`
 executable to ensure that the right configuration file and environment variables
 are loaded depending on your environment.
+
 
 ## Developing with Webpacker
 
@@ -265,6 +269,7 @@ development:
 
 If you have `hmr` turned to true, then the `stylesheet_pack_tag` generates no output, as you will want to configure your styles to be inlined in your JavaScript for hot reloading. During production and testing, the `stylesheet_pack_tag` will create the appropriate HTML tags.
 
+
 ### Resolved
 
 If you are adding webpacker to an existing app that has most of the assets inside
@@ -289,6 +294,7 @@ import 'images/rails.png'
 will make the compilation slow, consider adding specific paths instead of
 whole parent directory if you just need to reference one or two modules
 
+
 ### Watched
 
 By default, the lazy compilation is cached until a file is changed under
@@ -300,6 +306,12 @@ by adding new paths to `watched_paths` array, much like rails `autoload_paths`:
 # or config/application.rb
 Webpacker::Compiler.watched_paths << 'bower_components'
 ```
+
+
+## Docs
+
+You can find more detailed guides under [docs](./docs).
+
 
 ## License
 Webpacker is released under the [MIT License](https://opensource.org/licenses/MIT).
