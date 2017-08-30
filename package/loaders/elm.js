@@ -13,7 +13,7 @@ const loaderOptions = () => {
 }
 
 module.exports = {
-  test: /\.elm$/,
+  test: /\.elm(\.erb)?$/,
   exclude: [/elm-stuff/, /node_modules/],
   loader: loaderOptions()
 }
