@@ -4,7 +4,7 @@ class Webpacker::DevServerProxy < Rack::Proxy
   def rewrite_response(response)
     status, headers, body = response
     headers.delete "transfer-encoding"
-    headers.delete "content-length" if https?
+    headers.delete "content-length" if Webpacker.dev_server.running? && Webpacker.dev_server.https?
     response
   end
 
@@ -20,9 +20,5 @@ class Webpacker::DevServerProxy < Rack::Proxy
   private
     def public_output_uri_path
       Webpacker.config.public_output_path.relative_path_from(Webpacker.config.public_path)
-    end
-
-    def https?
-      Webpacker.dev_server.running? && Webpacker.dev_server.https?
     end
 end
