@@ -6,6 +6,8 @@ module.exports = class extends Environment {
   constructor() {
     super()
 
+    this.plugins.set('ModuleConcatenation', new webpack.optimize.ModuleConcatenationPlugin())
+
     this.plugins.set('UglifyJs', new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
       compress: {
