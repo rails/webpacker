@@ -90,7 +90,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 
 ## Features
 
-* [Webpack 2](https://webpack.js.org/)
+* [Webpack 2 and 3](https://webpack.js.org/)
 * ES6 with [babel](https://babeljs.io/)
 * Automatic code splitting using multiple entry points
 * Stylesheets - SASS and CSS
@@ -202,16 +202,18 @@ experiment Vue right away.
 #### Using Rails helpers in .vue files
 
 Rails helpers cannot be used in `.vue` files by default. To enable them, change
-the extension to `.vue.erb` and additionally amend the `test` in
-`config/webpack/loaders/vue.js` to also include `.vue.erb` files:
+the file extension to `.vue.erb` and additionally amend the `test` regex in
+`config/webpack/environment.js` to make `vue-loader` also include `.vue.erb` files:
 
 ```js
-# config/webpack/loaders/vue.js
+// config/webpack/environment.js
+const { environment } = require('webpacker')
 
-module.exports = {
-  test: /\.vue(\.erb)?$/,
-  ...
-}
+// Update an option directly
+const vueLoader = environment.loaders.get('vue')
+vueLoader.test = /\.vue(\.erb)?$/
+
+module.exports = environment
 ```
 
 ### Elm
@@ -319,6 +321,7 @@ module.exports = environment
 
 The process for adding or modifying webpack plugins is the same as the process
 for loaders above:
+
 ```js
 // config/webpack/environment.js
 const { environment } = require('webpacker')
@@ -438,7 +441,7 @@ Please note that the `webpack-dev-server` will use a self-signed certificate,
 so your web browser will display a warning/exception upon accessing the page. If you get
 `https://localhost:3035/sockjs-node/info?t=1503127986584 net::ERR_INSECURE_RESPONSE`
 in your console, simply open the link in your browser and accept the SSL exception.
-Now if you refresh your rails view everything should work as expected.  
+Now if you refresh your rails view everything should work as expected.
 
 ### Hot module replacement
 
@@ -693,9 +696,7 @@ Now, modify your Vue app to expect the properties.
 
 
 ```js
-
 document.addEventListener('DOMContentLoaded', () => {
-
   // Get the properties BEFORE the app is instantiated
   const node = document.getElementById('hello-vue')
   const props = JSON.parse(node.getAttribute('data'))
@@ -842,7 +843,16 @@ yarn remove prop-types
 }
 ```
 
-3. Finally add `.tsx` to the list of extensions in `config/webpacker.yml`
+3. Add `ts-loader` to `config/webpack/environment.js`
+
+```js
+environment.loaders.add('ts', {
+  test:  /.(ts|tsx)$/,
+  loader: 'ts-loader'
+})
+```
+
+4. Finally add `.tsx` to the list of extensions in `config/webpacker.yml`
 and rename your generated `hello_react.js` using react installer
 to `hello_react.tsx` and make it valid typescript and now you can use
 typescript, JSX with React.
@@ -929,16 +939,15 @@ If you are using vim or emacs and want to ignore certain files you can add `igno
 yarn add ignore-loader
 ```
 
-and create a new loader file inside `config/webpack/loaders`:
+and add `ignore-loader` to `config/webpack/environment.js`
 
 ```js
-// config/webpack/loaders/ignores.js
 // ignores vue~ swap files
-
-module.exports = {
-  test: /.vue~$/,
+const { environment } = require('webpacker')
+environment.loaders.add('ignore', {
+  test:  /.vue~$/,
   loader: 'ignore-loader'
-}
+})
 ```
 
 And now all files with `.vue~` will be ignored by the webpack compiler.
@@ -1144,13 +1153,6 @@ by adding new paths to `watched_paths` array, much like rails `autoload_paths`:
 # config/initializers/webpacker.rb
 # or config/application.rb
 Webpacker::Compiler.watched_paths << 'bower_components'
-```
-
-Compiler stores a timestamp under `tmp/webpacker/` directory to keep track of
-changes and you can configure that by overriding compiler `cache_dir`:
-
-```rb
-Webpacker::Compiler.cache_dir = "tmp/foo"
 ```
 
 ## Troubleshooting
