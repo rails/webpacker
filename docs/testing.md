@@ -1,6 +1,6 @@
-## Testing
+# Testing
 
-### Lazy compilation
+## Lazy compilation
 
 Webpacker lazily compiles assets in test env so you can write your tests without any extra
 setup and everything will just work out of the box.

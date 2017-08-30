@@ -1,4 +1,4 @@
-### Environment variables
+# Environment variables
 
 Environment variables are supported out of the box in Webpacker. For example if
 you run the Webpack dev server like so:

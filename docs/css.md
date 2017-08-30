@@ -1,11 +1,9 @@
-## Linking Styles, Images and Fonts
+# CSS, SASS and SCSS
 
-Static assets like images, fonts and stylesheets support is enabled out-of-box
-and you can link them into your javascript app code and have them
-compiled automatically.
+Webpacker supports import css, sass and scss files directly into your javascript files
+and have them compiled automatically.
 
-
-### Within your JS app
+## Import styles into your JS app
 
 ```sass
 // app/javascript/hello_react/styles/hello-react.sass
@@ -31,8 +29,7 @@ const Hello = props => (
 )
 ```
 
-
-### Inside views
+## Link styles from your Rails views
 
 Under the hood webpack uses
 [extract-text-webpack-plugin](https://github.com/webpack-contrib/extract-text-webpack-plugin) plugin to extract all the referenced styles within your app and compile it into
@@ -43,47 +40,31 @@ a separate `[pack_name].css` bundle so that in your view you can use the
 <%= stylesheet_pack_tag 'hello_react' %>
 ```
 
-You can also link js/images/styles used within your js app in views using
-`asset_pack_path` helper. This helper is useful in cases where you just want to
-create a `<link rel="prefetch">` or `<img />` for an asset.
+## Add bootstrap
 
-```erb
-<%= asset_pack_path 'hello_react.css' %>
-<%# => "/packs/hello_react.css" %>
+You can use yarn to add bootstrap or any other modules available on npm:
 
-<img src="<%= asset_pack_path 'calendar.png' %>" />
-<% # => <img src="/packs/calendar.png" /> %>
+```bash
+yarn add bootstrap
 ```
 
-
-### From node modules folder
-
-You can also import styles from `node_modules` using the following syntax.
-Please note that your styles will always be extracted into `[pack_name].css`:
-
-```sass
-// app/javascript/app-styles.sass
-// ~ to tell webpack that this is not a relative import:
-
-@import '~@material/animation/mdc-animation'
-@import '~bootstrap/dist/css/bootstrap'
-```
+Import Bootstrap and theme (optional) CSS in your app/javascript/packs/app.js file:
 
 ```js
-// Your main app pack
-// app/javascript/packs/app.js
-
-import '../app-styles'
+import 'bootstrap/dist/css/bootstrap'
+import 'bootstrap/dist/css/bootstrap-theme'
 ```
 
-```erb
-<%# In your views %>
+Or in your app/javascript/app.sass file:
 
-<%= javascript_pack_tag 'app' %>
-<%= stylesheet_pack_tag 'app' %>
+```sass
+// ~ to tell that this is not a relative import
+
+@import '~bootstrap/dist/css/bootstrap'
+@import '~bootstrap/dist/css/bootstrap-theme'
 ```
 
-### Post-Processing CSS
+## Post-Processing CSS
 
 Webpacker out-of-the-box provides CSS post-processing using
 [postcss-loader](https://github.com/postcss/postcss-loader)
