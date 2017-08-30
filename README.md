@@ -314,7 +314,7 @@ Webpacker::Compiler.watched_paths << 'bower_components'
 ```
 
 
-# Deployment
+## Deployment
 
 Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which gets run whenever you run `assets:precompile`. If you are not using sprockets you
 can manually trigger `NODE_ENV=production bundle exec rails webpacker:compile`
