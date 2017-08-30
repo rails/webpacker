@@ -104,3 +104,5 @@ Now, add these files to your `layouts/application.html.erb`:
 
 <%= stylesheet_pack_tag 'vendor' %>
 ```
+
+More detailed guides available here: [Webpack guides](https://webpack.js.org/guides/)
