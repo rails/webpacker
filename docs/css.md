@@ -1,8 +1,7 @@
 # CSS, SASS and SCSS
 
 
-Webpacker supports import css, sass and scss files directly into your javascript files
-and have them compiled automatically.
+Webpacker supports importing css, sass and scss files directly into your javascript files.
 
 
 ## Import styles into your JS app

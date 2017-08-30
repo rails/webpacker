@@ -69,19 +69,25 @@ using new `--webpack` option:
 rails new myapp --webpack
 ```
 
-Or add it to your `Gemfile`, run bundle and `./bin/rails webpacker:install` or
-`bundle exec rake webpacker:install` (on rails version < 5.0):
+Or add it to your `Gemfile`:
 
 ```ruby
 # Gemfile
-gem 'webpacker', '~> 2.0'
+gem 'webpacker', '~> 3.0'
 
 # OR if you prefer to use master
 gem 'webpacker', git: 'https://github.com/rails/webpacker.git'
 ```
 
-**Note:** Use `rake` instead of `rails` if you are using webpacker
-with rails version < 5.0
+and finally, run following to install webpacker:
+
+```bash
+bundle
+bundle exec rails webpacker:install
+
+# Or
+bundle exec rake webpacker:install # (on rails version < 5.0)
+```
 
 ### Usage
 
@@ -94,7 +100,7 @@ app/javascript:
   └── src:
   │   └── application.css
   └── images:
-    └── logo.svg
+      └── logo.svg
 ```
 
 You can then link the javascript pack in Rails view using `javascript_pack_tag` helper.
@@ -114,7 +120,7 @@ can use `asset_pack_path` helper:
 ```
 
 **Note:** In order for your styles or static assets files to be available in your view,
-you would need to link them in your "pack" or entry file
+you would need to link them in your "pack" or entry file.
 
 ### Development
 
@@ -128,9 +134,18 @@ happens when you refer to any of the pack assets using the Webpacker helper meth
 That means you don't have to run any separate process. Compilation errors are logged
 to the standard Rails log.
 
-If you want to use live code reloading, or you have enough JavaScript that on-demand compilation is too slow, you'll need to run `./bin/webpack-dev-server`
-in a separate terminal from `./bin/rails server`. This process will watch for changes
+![screen shot 2017-08-30 at 19 39 10](https://user-images.githubusercontent.com/771039/29889140-0bdb0a1e-8dbb-11e7-943d-c222061643ae.png)
+
+If you want to use live code reloading, or you have enough JavaScript that on-demand compilation is too slow, you'll need to run `./bin/webpack-dev-server` or `ruby ./bin/webpack-dev-server` if on windows,
+in a separate terminal from `bundle exec rails s`. This process will watch for changes
 in the `app/javascript/packs/*.js` files and automatically reload the browser to match.
+
+
+```bash
+./bin/webpack-dev-server # webpack dev server
+./bin/webpack --colors --progress # watcher
+./bin/webpack # standalone build
+```
 
 Once you start this development server, Webpacker will automatically start proxying all
 webpack asset requests to this server. When you stop the server, it'll revert to
@@ -143,6 +158,7 @@ precedence over the ones already set in the configuration file.
 ./bin/webpack-dev-server --host example.com --inline true --hot false
 ```
 
+**Note:** Don't forget to prefix `ruby` when running these binstubs on windows
 
 ## Integrations
 
@@ -151,14 +167,14 @@ You can see a list of available commands/tasks by running:
 
 ```bash
 # Within rails app
-./bin/rails webpacker
+bundle exec rails webpacker
 ```
 
 or in rails version < 5.0
 
 ```bash
 # Within rails app
-./bin/rake webpacker
+bundle exec rake webpacker
 ```
 
 
@@ -172,7 +188,7 @@ new Rails 5.1+ app using `--webpack=react` option:
 rails new myapp --webpack=react
 ```
 
-(or run `./bin/rails webpacker:install:react` in a existing Rails app already
+(or run `bundle exec rails webpacker:install:react` in a existing Rails app already
 setup with webpacker).
 
 The installer will add all relevant dependencies using yarn, any changes
@@ -190,7 +206,7 @@ new Rails 5.1+ app using `--webpack=angular` option:
 rails new myapp --webpack=angular
 ```
 
-(or run `./bin/rails webpacker:install:angular` on a Rails app already
+(or run `bundle exec rails webpacker:install:angular` on a Rails app already
 setup with webpacker).
 
 The installer will add TypeScript and Angular core libraries using yarn plus
@@ -208,7 +224,7 @@ new Rails 5.1+ app using `--webpack=vue` option:
 # Rails 5.1+
 rails new myapp --webpack=vue
 ```
-(or run `./bin/rails webpacker:install:vue` on a Rails app already setup with webpacker).
+(or run `bundle exec rails webpacker:install:vue` on a Rails app already setup with webpacker).
 
 The installer will add Vue and required libraries using yarn plus
 any changes to the configuration files. An example component will
@@ -226,7 +242,7 @@ new Rails 5.1+ app using `--webpack=elm` option:
 rails new myapp --webpack=elm
 ```
 
-(or run `./bin/rails webpacker:install:elm` on a Rails app already setup with webpacker).
+(or run `bundle exec rails webpacker:install:elm` on a Rails app already setup with webpacker).
 
 The Elm library and core packages will be added via Yarn and Elm itself.
 An example `Main.elm` app will also be added to your project in `app/javascript`
