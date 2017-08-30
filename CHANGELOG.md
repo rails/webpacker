@@ -1,4 +1,4 @@
-## Unreleased
+## [3.0.0] - 2017-08-30
 
 ### Added
 
@@ -29,7 +29,13 @@
 
 ### Breaking changes
 
-**Note:** requires running `bundle exec rails webpacker:install` and update webpacker.yml
+**Note:** requires running `bundle exec rails webpacker:install`
+
+`config/webpack/**/*.js`:
+
+- The majority of this config moved to the [@rails/webpacker npm package](https://www.npmjs.com/package/@rails/webpacker). `webpacker:install` only creates `config/webpack/{environment,development,test,production}.js` now so if you're upgrading from a previous version you can remove all other files.
+
+`webpacker.yml`:
 
 - Move dev-server config options under defaults so it's transparently available in all environments
 
