@@ -843,16 +843,7 @@ yarn remove prop-types
 }
 ```
 
-3. Add `ts-loader` to `config/webpack/environment.js`
-
-```js
-environment.loaders.add('ts', {
-  test:  /.(ts|tsx)$/,
-  loader: 'ts-loader'
-})
-```
-
-4. Finally add `.tsx` to the list of extensions in `config/webpacker.yml`
+3. Finally add `.tsx` to the list of extensions in `config/webpacker.yml`
 and rename your generated `hello_react.js` using react installer
 to `hello_react.tsx` and make it valid typescript and now you can use
 typescript, JSX with React.
