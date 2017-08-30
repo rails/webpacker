@@ -1,63 +1,75 @@
-# Loads webpacker configuration from config/webpacker.yml
+class Webpacker::Configuration
+  delegate :root_path, :config_path, :env, to: :@webpacker
 
-require "webpacker/file_loader"
+  def initialize(webpacker)
+    @webpacker = webpacker
+  end
 
-class Webpacker::Configuration < Webpacker::FileLoader
-  class << self
-    def entry_path
-      source_path.join(fetch(:source_entry_path))
-    end
+  def refresh
+    @data = load
+  end
 
-    def output_path
-      public_path.join(fetch(:public_output_path))
-    end
+  def dev_server
+    fetch(:dev_server)
+  end
 
-    def manifest_path
-      output_path.join("manifest.json")
-    end
+  def compile?
+    fetch(:compile)
+  end
 
-    def source_path
-      Rails.root.join(source)
-    end
+  def source_path
+    root_path.join(fetch(:source_path))
+  end
 
-    def public_path
-      Rails.root.join("public")
-    end
+  def source_entry_path
+    source_path.join(fetch(:source_entry_path))
+  end
 
-    def file_path(root: Rails.root)
-      root.join("config/webpacker.yml")
-    end
+  def public_path
+    root_path.join("public")
+  end
 
-    def default_file_path
-      file_path(root: Pathname.new(__dir__).join("../install"))
-    end
+  def public_output_path
+    public_path.join(fetch(:public_output_path))
+  end
 
-    def source
-      fetch(:source_path)
-    end
+  def public_manifest_path
+    public_output_path.join("manifest.json")
+  end
 
-    def compile?
-      fetch(:compile)
-    end
+  def cache_manifest?
+    fetch(:cache_manifest)
+  end
 
+  def cache_path
+    root_path.join(fetch(:cache_path))
+  end
+
+  private
     def fetch(key)
       data.fetch(key, defaults[key])
     end
 
     def data
-      load if Webpacker.env.development?
-      raise Webpacker::FileLoader::FileLoaderError.new("Webpacker::Configuration.load must be called first") unless instance
-      instance.data
+      @data ||= load
+    end
+
+    def load
+      YAML.load(config_path.read)[env].deep_symbolize_keys
+
+    rescue Errno::ENOENT => e
+      raise "Webpacker configuration file not found #{config_path}. " \
+            "Please run rails webpacker:install " \
+            "Error: #{e.message}"
+
+    rescue Psych::SyntaxError => e
+      raise "YAML syntax error occurred while parsing #{config_path}. " \
+            "Please note that YAML must be consistently indented using spaces. Tabs are not allowed. " \
+            "Error: #{e.message}"
     end
 
     def defaults
-      @defaults ||= HashWithIndifferentAccess.new(YAML.load(default_file_path.read)[Webpacker.env])
-    end
-  end
-
-  private
-    def load
-      return super unless File.exist?(@path)
-      HashWithIndifferentAccess.new(YAML.load(File.read(@path))[Webpacker.env])
+      @defaults ||= \
+        HashWithIndifferentAccess.new(YAML.load_file(File.expand_path("../../install/config/webpacker.yml", __FILE__))[env])
     end
 end

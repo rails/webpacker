@@ -1,4 +1,57 @@
-## Unreleased
+## [3.0.0] - 2017-08-30
+
+### Added
+
+- `resolved_paths` option to allow adding additional paths webpack should lookup when resolving modules
+
+```yml
+  # config/webpacker.yml
+  # Additional paths webpack should lookup modules
+  resolved_paths: [] # empty by default
+```
+
+- `Webpacker::Compiler.fresh?` and `Webpacker::Compiler.stale?` answer the question of whether compilation is needed.
+  The old `Webpacker::Compiler.compile?` predicate is deprecated.
+
+- Dev server config class that exposes config options through singleton.
+
+  ```rb
+  Webpacker.dev_server.running?
+  ```
+
+- Rack middleware proxies webpacker requests to dev server so we can always serve from same-origin and the lookup works out of the box - no more paths prefixing
+
+- `env` attribute on `Webpacker::Compiler` allows setting custom environment variables that the compilation is being run with
+
+  ```rb
+  Webpacker::Compiler.env['FRONTEND_API_KEY'] = 'your_secret_key'
+  ```
+
+### Breaking changes
+
+**Note:** requires running `bundle exec rails webpacker:install`
+
+`config/webpack/**/*.js`:
+
+- The majority of this config moved to the [@rails/webpacker npm package](https://www.npmjs.com/package/@rails/webpacker). `webpacker:install` only creates `config/webpack/{environment,development,test,production}.js` now so if you're upgrading from a previous version you can remove all other files.
+
+`webpacker.yml`:
+
+- Move dev-server config options under defaults so it's transparently available in all environments
+
+- Add new `HMR` option for hot-module-replacement
+
+- Add HTTPS
+
+### Removed
+
+- Host info from manifest.json, now looks like this:
+
+  ```json
+  {
+    "hello_react.js": "/packs/hello_react.js"
+  }
+  ```
 
 ### Fixed
 
@@ -11,19 +64,21 @@
     host: localhost
 ```
 
+- On Windows, `ruby bin/webpacker` and `ruby bin/webpacker-dev-server` will now bypass yarn, and execute via `node_modules/.bin` directly - [#584](https://github.com/rails/webpacker/pull/584)
+
 ### Breaking changes
 
 - Add `compile` option to `config/webpacker.yml` for configuring lazy compilation of packs when a file under tracked paths is changed [#503](https://github.com/rails/webpacker/pull/503). To enable expected behavior, update `config/webpacker.yml`:
 
   ```yaml
-    default: &default
-      compile: false
-
     test:
       compile: true
 
     development:
       compile: true
+
+    production:
+      compile: false
   ```
 
 - Make test compilation cacheable and configurable so that the lazy compilation

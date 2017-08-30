@@ -16,7 +16,7 @@ CONFIG_FILE       = File.join(APP_PATH, "config/webpacker.yml")
 NODE_MODULES_PATH = File.join(APP_PATH, "node_modules")
 WEBPACK_CONFIG    = File.join(APP_PATH, "config/webpack/#{NODE_ENV}.js")
 
-LISTEN_IP_ADDR  = "0.0.0.0"
+LISTEN_HOST_ADDR = NODE_ENV == 'development' ? 'localhost' : '0.0.0.0'
 
 def args(key)
   index = ARGV.index(key)
@@ -38,7 +38,7 @@ rescue Errno::ENOENT, NoMethodError
 end
 
 begin
-  server = TCPServer.new(LISTEN_IP_ADDR, PORT)
+  server = TCPServer.new(LISTEN_HOST_ADDR, PORT)
   server.close
 
 rescue Errno::EADDRINUSE
@@ -52,14 +52,16 @@ end
   ARGV.delete(arg)
 end
 
-newenv = {
-  "NODE_PATH" => NODE_MODULES_PATH.shellescape,
-  "ASSET_HOST" => DEV_SERVER_ADDR.shellescape
-}.freeze
+env = { "NODE_PATH" => NODE_MODULES_PATH.shellescape }
 
-cmdline = ["yarn", "run", "webpack-dev-server", "--", "--progress", "--color", "--config",
-WEBPACK_CONFIG, "--host", LISTEN_IP_ADDR, "--port", PORT.to_s] + ARGV
+cmd = [
+  "#{NODE_MODULES_PATH}/.bin/webpack-dev-server", "--progress", "--color",
+  "--config", WEBPACK_CONFIG,
+  "--host", LISTEN_HOST_ADDR,
+  "--public", "#{HOSTNAME}:#{PORT}",
+  "--port", PORT.to_s
+] + ARGV
 
 Dir.chdir(APP_PATH) do
-  exec newenv, *cmdline
+  exec env, *cmd
 end

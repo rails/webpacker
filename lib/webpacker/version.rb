@@ -1,3 +1,4 @@
 module Webpacker
-  VERSION = "2.0".freeze
+  # Change the version in package.json too, please!
+  VERSION = "3.0.0".freeze
 end

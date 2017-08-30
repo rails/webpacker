@@ -1,59 +1,76 @@
-require "rake"
+require "open3"
+require "digest/sha1"
 
-module Webpacker::Compiler
-  extend self
-
+class Webpacker::Compiler
   # Additional paths that test compiler needs to watch
   # Webpacker::Compiler.watched_paths << 'bower_components'
   mattr_accessor(:watched_paths) { [] }
 
-  # Compiler cache directory
-  # Webpacker::Compiler.cache_dir = 'tmp/cache'
-  mattr_accessor(:cache_dir) { "tmp/webpacker" }
+  # Additional environment variables that the compiler is being run with
+  # Webpacker::Compiler.env['FRONTEND_API_KEY'] = 'your_secret_key'
+  mattr_accessor(:env) { {} }
+
+  delegate :config, :logger, to: :@webpacker
+
+  def initialize(webpacker)
+    @webpacker = webpacker
+  end
 
   def compile
-    return unless compile?
-    cache_source_timestamp
-    compile_task.invoke
-    compile_task.reenable
+    if stale?
+      record_compilation_digest
+      run_webpack
+    end
   end
 
-  def compile?
-    return true unless File.exist?(cached_timestamp_path)
-    return true unless File.exist?(Webpacker::Configuration.output_path)
-
-    File.read(cached_timestamp_path) != current_source_timestamp
+  # Returns true if all the compiled packs are up to date with the underlying asset files.
+  def fresh?
+    watched_files_digest == last_compilation_digest
   end
 
-  def default_watched_paths
-    ["#{Webpacker::Configuration.source}/**/*", "yarn.lock", "package.json", "config/webpack/**/*"].freeze
+  # Returns true if the compiled packs are out of date with the underlying asset files.
+  def stale?
+    !fresh?
   end
 
   private
-    def current_source_timestamp
+    def last_compilation_digest
+      compilation_digest_path.read if compilation_digest_path.exist? && config.public_manifest_path.exist?
+    end
+
+    def watched_files_digest
       files = Dir[*default_watched_paths, *watched_paths].reject { |f| File.directory?(f) }
-      files.map { |f| File.mtime(f).utc.to_i }.max.to_s
+      Digest::SHA1.hexdigest(files.map { |f| "#{File.basename(f)}/#{File.mtime(f).utc.to_i}" }.join("/"))
     end
 
-    def cache_source_timestamp
-      File.write(cached_timestamp_path, current_source_timestamp)
+    def record_compilation_digest
+      config.cache_path.mkpath
+      compilation_digest_path.write(watched_files_digest)
     end
 
-    def cached_timestamp_path
-      FileUtils.mkdir_p(cache_dir) unless File.directory?(cache_dir)
-      Rails.root.join(cache_dir, ".compiler-timestamp")
+    def run_webpack
+      logger.info "Compiling…"
+
+      sterr, stdout, status = Open3.capture3(webpack_env, "#{RbConfig.ruby} ./bin/webpack")
+
+      if status.success?
+        logger.info "Compiled all packs in #{config.public_output_path}"
+      else
+        logger.error "Compilation failed:\n#{sterr}\n#{stdout}"
+      end
+
+      status.success?
     end
 
-    def compile_task
-      @compile_task ||= load_rake_task("webpacker:compile")
+    def default_watched_paths
+      ["#{config.source_path}/**/*", "yarn.lock", "package.json", "config/webpack/**/*"].freeze
     end
 
-    def load_rake_task(name)
-      load_rakefile unless Rake::Task.task_defined?(name)
-      Rake::Task[name]
+    def compilation_digest_path
+      config.cache_path.join(".last-compilation-digest")
     end
 
-    def load_rakefile
-      @load_rakefile ||= Rake.load_rakefile(Rails.root.join("Rakefile"))
+    def webpack_env
+      env.merge("NODE_ENV" => @webpacker.env, "ASSET_HOST" => ActionController::Base.helpers.compute_asset_host)
     end
 end

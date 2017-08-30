@@ -1,9 +1,18 @@
 require "rails/railtie"
 
 require "webpacker/helper"
+require "webpacker/dev_server_proxy"
 
 class Webpacker::Engine < ::Rails::Engine
-  initializer :webpacker do |app|
+  initializer "webpacker.proxy" do |app|
+    if Rails.env.development?
+      app.middleware.insert_before 0,
+        Rails::VERSION::MAJOR >= 5 ?
+          Webpacker::DevServerProxy : "Webpacker::DevServerProxy", ssl_verify_none: true
+    end
+  end
+
+  initializer "webpacker.helper" do |app|
     ActiveSupport.on_load :action_controller do
       ActionController::Base.helper Webpacker::Helper
     end
@@ -11,8 +20,18 @@ class Webpacker::Engine < ::Rails::Engine
     ActiveSupport.on_load :action_view do
       include Webpacker::Helper
     end
+  end
 
-    Webpacker.bootstrap
-    Spring.after_fork { Webpacker.bootstrap } if defined?(Spring)
+  initializer "webpacker.logger" do
+    config.after_initialize do |app|
+      Webpacker.logger = ::Rails.logger
+    end
+  end
+
+  initializer "webpacker.bootstrap" do
+    if defined?(Rails::Server) || defined?(Rails::Console)
+      Webpacker.bootstrap
+      Spring.after_fork { Webpacker.bootstrap } if defined?(Spring)
+    end
   end
 end
