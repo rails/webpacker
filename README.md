@@ -273,7 +273,7 @@ yarn add json-loader
 
 ```js
 // config/webpack/environment.js
-const { environment } = require('webpacker')
+const { environment } = require('@rails/webpacker')
 
 environment.loaders.add('json', {
   test: /\.json$/,
@@ -291,7 +291,7 @@ the `babel` loader as an example:
 
 ```js
 // config/webpack/environment.js
-const { environment } = require('webpacker')
+const { environment } = require('@rails/webpacker')
 
 // Update an option directly
 const babelLoader = environment.loaders.get('babel')
@@ -307,7 +307,7 @@ for loaders above:
 
 ```js
 // config/webpack/environment.js
-const { environment } = require('webpacker')
+const { environment } = require('@rails/webpacker')
 
 // Get a pre-configured plugin
 environment.plugins.get('ExtractText') // Is an ExtractTextPlugin instance
@@ -917,7 +917,7 @@ and add `ignore-loader` to `config/webpack/environment.js`
 
 ```js
 // ignores vue~ swap files
-const { environment } = require('webpacker')
+const { environment } = require('@rails/webpacker')
 environment.loaders.add('ignore', {
   test:  /.vue~$/,
   loader: 'ignore-loader'
