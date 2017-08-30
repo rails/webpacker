@@ -1,10 +1,10 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const path = require('path')
-const { env, settings } = require('../configuration.js')
+const config = require('../config')
 
 const postcssConfigPath = path.resolve(process.cwd(), '.postcssrc.yml')
-const isProduction = env.NODE_ENV === 'production'
-const extractCSS = !(settings.dev_server && settings.dev_server.hmr)
+const isProduction = process.env.NODE_ENV === 'production'
+const extractCSS = !(config.dev_server && config.dev_server.hmr)
 
 const extractOptions = {
   fallback: 'style-loader',

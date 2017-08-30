@@ -5,7 +5,7 @@
 [![Gem](https://img.shields.io/gem/v/webpacker.svg)](https://github.com/rails/webpacker)
 
 Webpacker makes it easy to use the JavaScript pre-processor and bundler
-[Webpack 2.x.x+](https://webpack.js.org/)
+[Webpack 3.x.x+](https://webpack.js.org/)
 to manage application-like JavaScript in Rails. It coexists with the asset pipeline,
 as the primary purpose for Webpack is app-like JavaScript, not images, CSS, or
 even JavaScript Sprinkles (that all continues to live in app/assets).
@@ -90,7 +90,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 
 ## Features
 
-* [Webpack 2](https://webpack.js.org/)
+* [Webpack 3.x.x](https://webpack.js.org/)
 * ES6 with [babel](https://babeljs.io/)
 * Automatic code splitting using multiple entry points
 * Stylesheets - SASS and CSS
@@ -199,21 +199,6 @@ any changes to the configuration files. An example component will
 also be added to your project in `app/javascript` so that you can
 experiment Vue right away.
 
-#### Using Rails helpers in .vue files
-
-Rails helpers cannot be used in `.vue` files by default. To enable them, change
-the extension to `.vue.erb` and additionally amend the `test` in
-`config/webpack/loaders/vue.js` to also include `.vue.erb` files:
-
-```js
-# config/webpack/loaders/vue.js
-
-module.exports = {
-  test: /\.vue(\.erb)?$/,
-  ...
-}
-```
-
 ### Elm
 
 To use Webpacker with [Elm](http://elm-lang.org), create a
@@ -268,10 +253,9 @@ precedence over the ones already set in the configuration file.
 ### Webpack
 
 Webpacker gives you a default set of configuration files for test, development and
-production environments. They all live together with the shared
-points in `config/webpack/*.js`.
-
-![screen shot 2017-05-23 at 19 56 18](https://cloud.githubusercontent.com/assets/771039/26371229/0983add2-3ff2-11e7-9dc3-d9c2c1094032.png)
+production environments in `config/webpack/*.js`. You can configure each individual
+environment in their respective files or configure them all in the base
+`config/webpack/environment.js` file.
 
 By default, you shouldn't have to make any changes to `config/webpack/*.js`
 files since it's all standard production-ready configuration. However,
@@ -280,28 +264,59 @@ if you do need to customize or add a new loader, this is where you would go.
 
 ### Loaders
 
-Webpack enables the use of loaders to preprocess files. This allows you to
-bundle any static resource way beyond JavaScript. All base loaders
-that ship with webpacker are located inside `config/webpack/loaders`.
-
-If you want to add a new loader, for example, to process `json` files via webpack:
+You can add additional loaders beyond the base set that webpacker provides by
+adding it to your environment. We'll use `json-loader` as an example:
 
 ```
 yarn add json-loader
 ```
 
-And create a `json.js` file inside `loaders` directory:
-
 ```js
-module.exports = {
+// config/webpack/environment.js
+const { environment } = require('@rails/webpacker')
+
+environment.loaders.add('json', {
   test: /\.json$/,
   use: 'json-loader'
-}
+})
+
+module.exports = environment
 ```
 
 Finally add `.json` to the list of extensions in `config/webpacker.yml`. Now if you `import()` any `.json` files inside your javascript
 they will be processed using `json-loader`. Voila!
 
+You can also modify the loaders that webpacker pre-configures for you. We'll update
+the `babel` loader as an example:
+
+```js
+// config/webpack/environment.js
+const { environment } = require('@rails/webpacker')
+
+// Update an option directly
+const babelLoader = environment.loaders.get('babel')
+babelLoader.options.cacheDirectory = false
+
+module.exports = environment
+```
+
+### Plugins
+
+The process for adding or modifying webpack plugins is the same as the process
+for loaders above:
+
+```js
+// config/webpack/environment.js
+const { environment } = require('@rails/webpacker')
+
+// Get a pre-configured plugin
+environment.plugins.get('ExtractText') // Is an ExtractTextPlugin instance
+
+// Add an additional plugin of your choosing
+environment.plugins.add('Fancy', new MyFancyWebpackPlugin)
+
+module.exports = environment
+```
 
 ### Paths
 
@@ -409,7 +424,7 @@ Please note that the `webpack-dev-server` will use a self-signed certificate,
 so your web browser will display a warning/exception upon accessing the page. If you get
 `https://localhost:3035/sockjs-node/info?t=1503127986584 net::ERR_INSECURE_RESPONSE`
 in your console, simply open the link in your browser and accept the SSL exception.
-Now if you refresh your rails view everything should work as expected.  
+Now if you refresh your rails view everything should work as expected.
 
 ### Hot module replacement
 
@@ -664,9 +679,7 @@ Now, modify your Vue app to expect the properties.
 
 
 ```js
-
 document.addEventListener('DOMContentLoaded', () => {
-
   // Get the properties BEFORE the app is instantiated
   const node = document.getElementById('hello-vue')
   const props = JSON.parse(node.getAttribute('data'))
@@ -685,41 +698,21 @@ You can follow same steps for Angular too.
 
 The CommonsChunkPlugin is an opt-in feature that creates a separate file (known as a chunk), consisting of common modules shared between multiple entry points. By separating common modules from bundles, the resulting chunked file can be loaded once initially, and stored in the cache for later use. This results in page speed optimizations as the browser can quickly serve the shared code from the cache, rather than being forced to load a larger bundle whenever a new page is visited.
 
-Create a `app-config.js` file inside `config/webpack` and in that file add:
+Add the plugins in `config/webpack/environment.js`:
 
 ```js
-  module.exports = {
-    plugins: [
-      // Creates a common vendor.js with all shared modules
-      new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor',
-        minChunks: (module) => {
-          // this assumes your vendor imports exist in the node_modules directory
-          return module.context && module.context.indexOf('node_modules') !== -1;
-        }
-      }),
-      // Webpack code chunk - manifest.js
-      new webpack.optimize.CommonsChunkPlugin({
-        name: 'manifest',
-        minChunks: Infinity
-      })
-    ]
+environment.plugins.add('CommonsChunkVendor', new webpack.optimize.CommonsChunkPlugin({
+  name: 'vendor',
+  minChunks: (module) => {
+    // this assumes your vendor imports exist in the node_modules directory
+    return module.context && module.context.indexOf('node_modules') !== -1;
   }
-```
+}))
 
-You can add this in `shared.js` too but we are doing this to ensure smoother upgrades.
-
-```js
-// config/webpack/shared.js
-// .... rest of the config
-
-const appConfig = require('./app-config.js')
-
-plugins: appConfig.plugins.concat([
-
-  // ...existing plugins
-
-])
+environment.plugins.add('CommonsChunkManifest', new webpack.optimize.CommonsChunkPlugin({
+  name: 'manifest',
+  minChunks: Infinity
+}))
 ```
 
 Now, add these files to your `layouts/application.html.erb`:
@@ -833,16 +826,7 @@ yarn remove prop-types
 }
 ```
 
-3. Add a new loader `config/webpack/loaders/typescript.js`:
-
-``` js
-module.exports = {
-  test: /.(ts|tsx)$/,
-  loader: 'ts-loader'
-}
-```
-
-4. Finally add `.tsx` to the list of extensions in `config/webpacker.yml`
+3. Finally add `.tsx` to the list of extensions in `config/webpacker.yml`
 and rename your generated `hello_react.js` using react installer
 to `hello_react.tsx` and make it valid typescript and now you can use
 typescript, JSX with React.
@@ -859,10 +843,10 @@ you would need to follow these steps to add HTML templates support:
 yarn add html-loader
 ```
 
-2. Add html-loader to `config/webpacker/loaders/html.js`
+2. Add html-loader to `config/webpack/environment.js`
 
 ```js
-module.exports = {
+environment.loaders.add('html', {
   test: /\.html$/,
   use: [{
     loader: 'html-loader',
@@ -874,7 +858,7 @@ module.exports = {
       customAttrAssign: [ /\)?\]?=/ ]
     }
   }]
-}
+})
 ```
 
 3. Add `.html` to `config/webpacker.yml`
@@ -921,48 +905,6 @@ export class AppComponent {
 
 That's all. Voila!
 
-
-### CSS modules
-
-To enable CSS modules, you would need to update `config/webpack/loaders/sass.js`
-file, particularly `css-loader`:
-
-```js
-// Add css-modules
-
-{
-  loader: 'css-loader',
-  options: {
-    minimize: env.NODE_ENV === 'production',
-    modules: true,
-    localIdentName: '[path][name]__[local]--[hash:base64:5]'
-  }
-}
-```
-
-That's all. Now, you can use CSS modules within your JS app:
-
-```js
-import React from 'react'
-import styles from './styles'
-
-const Hello = props => (
-  <div className={styles.wrapper}>
-    <img src={clockIcon} alt="clock" className={styles.img} />
-    <h5 className={styles.name}>
-      {props.message} {props.name}!
-    </h5>
-  </div>
-)
-```
-
-
-### CSS-Next
-
-[css-next](http://cssnext.io/) is supported out-of-box in Webpacker allowing the use of
-latest CSS features, today.
-
-
 ### Ignoring swap files
 
 If you are using vim or emacs and want to ignore certain files you can add `ignore-loader`:
@@ -971,16 +913,15 @@ If you are using vim or emacs and want to ignore certain files you can add `igno
 yarn add ignore-loader
 ```
 
-and create a new loader file inside `config/webpack/loaders`:
+and add `ignore-loader` to `config/webpack/environment.js`
 
 ```js
-// config/webpack/loaders/ignores.js
 // ignores vue~ swap files
-
-module.exports = {
-  test: /.vue~$/,
+const { environment } = require('@rails/webpacker')
+environment.loaders.add('ignore', {
+  test:  /.vue~$/,
   loader: 'ignore-loader'
-}
+})
 ```
 
 And now all files with `.vue~` will be ignored by the webpack compiler.
@@ -1068,7 +1009,7 @@ yarn add dotenv
 ```
 
 ```javascript
-// config/webpack/shared.js
+// config/webpack/environment.js
 
 ...
 const dotenv = require('dotenv');
@@ -1096,44 +1037,6 @@ If you'd like to pass custom variables to the compiler, use `Webpack::Compiler.e
 ```rb
 Webpacker::Compiler.env['FRONTEND_API_KEY'] = 'your_secret_key'
 ```
-
-## Extending
-
-We suggest you don't directly overwrite the provided configuration files
-and extend instead for smoother upgrades. Here is one way to do it:
-
-Create a `app-config.js` file inside `config/webpack`, and in that add:
-
-```js
-module.exports = {
-  production: {
-    plugins: [
-      // ... Add plugins
-    ]
-  },
-
-  development: {
-    output: {
-      // ... Custom output path
-    }
-  }
-}
-```
-
-```js
-// config/webpack/production.js
-
-const { plugins } = require('./app-config.js')
-
-plugins: appConfig.plugins.concat([
-
-  // ...existing plugins
-
-])
-```
-
-But this could be done million other ways.
-
 
 ## Deployment
 
@@ -1224,13 +1127,6 @@ by adding new paths to `watched_paths` array, much like rails `autoload_paths`:
 # config/initializers/webpacker.rb
 # or config/application.rb
 Webpacker::Compiler.watched_paths << 'bower_components'
-```
-
-Compiler stores a timestamp under `tmp/webpacker/` directory to keep track of
-changes and you can configure that by overriding compiler `cache_dir`:
-
-```rb
-Webpacker::Compiler.cache_dir = "tmp/foo"
 ```
 
 ## Troubleshooting

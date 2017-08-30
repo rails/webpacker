@@ -1,12 +1,42 @@
 {
-  "name": "webpacker",
-  "version": "1.0.0",
+  "name": "@rails/webpacker",
+  "version": "2.0.0",
   "description": "Webpacker makes it easy to use the JavaScript preprocessor and bundler [Webpack](https://webpack.github.io) to manage application-like JavaScript in Rails. It coexists with the asset pipeline, as the purpose is only to use Webpack for app-like JavaScript, not images, css, or even JavaScript Sprinkles (that all continues to live in app/assets).",
-  "main": "index.js",
+  "main": "package/index.js",
+  "files": [
+    "package"
+  ],
   "engines": {
     "node": ">= 6.0.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "coffee-loader": "^0.8.0",
+    "coffee-script": "^1.12.7",
+    "compression-webpack-plugin": "^1.0.0",
+    "css-loader": "^0.28.5",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "file-loader": "^0.11.2",
+    "glob": "^7.1.2",
+    "js-yaml": "^3.9.1",
+    "node-sass": "^4.5.3",
+    "path-complete-extname": "^0.1.0",
+    "postcss-cssnext": "^3.0.2",
+    "postcss-loader": "^2.0.6",
+    "postcss-smart-import": "^0.7.5",
+    "rails-erb-loader": "^5.2.1",
+    "resolve-url-loader": "^2.1.0",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.18.2",
+    "webpack": "^3.5.5",
+    "webpack-manifest-plugin": "^1.3.1"
+  },
   "devDependencies": {
     "eslint": "^3.16.1",
     "eslint-config-airbnb": "^14.1.0",
@@ -16,7 +46,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "yarn run eslint lib/"
+    "lint": "eslint {package,lib}/"
   },
   "repository": {
     "type": "git",

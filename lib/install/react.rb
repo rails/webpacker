@@ -19,9 +19,6 @@ else
   copy_file "#{__dir__}/examples/react/.babelrc", ".babelrc"
 end
 
-puts "Copying react loader to config/webpack/loaders"
-copy_file "#{__dir__}/config/loaders/installers/react.js", "config/webpack/loaders/react.js"
-
 puts "Copying react example entry file to #{Webpacker.config.source_entry_path}"
 copy_file "#{__dir__}/examples/react/hello_react.jsx", "#{Webpacker.config.source_entry_path}/hello_react.jsx"
 
