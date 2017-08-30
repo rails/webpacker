@@ -17,22 +17,22 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents
 
-  - [Prerequisites](#prerequisites)
-  - [Features](#features)
-  - [Installation](#installation)
-    - [Usage](#usage)
-    - [Development](#development)
-  - [Integrations](#integrations)
-    - [React](#react)
-    - [Angular with TypeScript](#angular-with-typescript)
-    - [Vue](#vue)
-    - [Elm](#elm)
-  - [Paths](#paths)
-    - [Resolved](#resolved)
-    - [Watched](#watched)
+- [Prerequisites](#prerequisites)
+- [Features](#features)
+- [Installation](#installation)
+  - [Usage](#usage)
+  - [Development](#development)
+- [Integrations](#integrations)
+  - [React](#react)
+  - [Angular with TypeScript](#angular-with-typescript)
+  - [Vue](#vue)
+  - [Elm](#elm)
+- [Paths](#paths)
+  - [Resolved](#resolved)
+  - [Watched](#watched)
 - [Deployment](#deployment)
-  - [Docs](#docs)
-  - [License](#license)
+- [Docs](#docs)
+- [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
