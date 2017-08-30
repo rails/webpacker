@@ -33,6 +33,8 @@ module.exports = class extends Environment {
       headers: {
         'Access-Control-Allow-Origin': '*'
       },
+      overlay: true,
+      watchContentBase: true,
       watchOptions: {
         ignored: /node_modules/
       },
