@@ -1,8 +1,10 @@
 # Assets
 
-Static assets like images, fonts and stylesheets support is enabled out-of-box
+
+Static assets like images and fonts support is enabled out-of-box
 and you can link them into your javascript app code and have them
 compiled automatically.
+
 
 ## Import from node modules
 
@@ -31,6 +33,7 @@ import '../styles'
 <%= stylesheet_pack_tag 'app' %>
 ```
 
+
 ## Import from sprockets using helpers
 
 It's possible to link to assets that have been precompiled by sprockets. Add the `.erb` extension to your javascript file, then you can use Sprockets' asset helpers:
@@ -43,6 +46,7 @@ var railsImagePath = "<%= helpers.image_path('rails.png') %>"
 ```
 
 This is enabled by the `rails-erb-loader` loader rule in `config/webpack/loaders/erb.js`.
+
 
 ## Using babel module resolver
 
@@ -75,6 +79,7 @@ And then within your javascript app code:
 import FooImage from 'assets/images/foo-image.png'
 import 'assets/stylesheets/bar'
 ```
+
 
 ## Link in your Rails views
 

@@ -1,7 +1,9 @@
 # CSS, SASS and SCSS
 
+
 Webpacker supports import css, sass and scss files directly into your javascript files
 and have them compiled automatically.
+
 
 ## Import styles into your JS app
 
@@ -29,6 +31,7 @@ const Hello = props => (
 )
 ```
 
+
 ## Link styles from your Rails views
 
 Under the hood webpack uses
@@ -39,6 +42,7 @@ a separate `[pack_name].css` bundle so that in your view you can use the
 ```erb
 <%= stylesheet_pack_tag 'hello_react' %>
 ```
+
 
 ## Add bootstrap
 
@@ -63,6 +67,7 @@ Or in your app/javascript/app.sass file:
 @import '~bootstrap/dist/css/bootstrap'
 @import '~bootstrap/dist/css/bootstrap-theme'
 ```
+
 
 ## Post-Processing CSS
 

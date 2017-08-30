@@ -1,9 +1,17 @@
-# App structure
+# Folder Structure
 
-## Packs
+
+## Packs a.k.a Webpack entries
 
 "Packs" is a special directory made only for Webpack entry files so don't put anything
 here that you don't want to link in your views.
+
+
+## Source
+
+You can put your app source under `app/javascript` folder or whatever you have configured
+in `config/webpacker.yml`.
+
 
 ## Example
 

@@ -1,5 +1,6 @@
 # Typescript
 
+
 ## Typescript with React
 
 1. Setup react using webpacker [react installer](#react). Then add required depedencies
@@ -37,6 +38,7 @@ yarn add ts-loader typescript @types/react @types/react-dom
 and rename your generated `hello_react.js` using react installer
 to `hello_react.tsx` and make it valid typescript and now you can use
 typescript, JSX with React.
+
 
 
 ## HTML templates with Typescript and Angular

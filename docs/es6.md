@@ -1,5 +1,6 @@
 # ES6
 
+
 ## Babel
 
 Webpacker ships with [babel](https://babeljs.io/) - a JavaScript compiler so
@@ -23,6 +24,7 @@ Don't forget to import `babel-polyfill` in your main entry point like so:
 ```js
 import "babel-polyfill"
 ```
+
 
 ## Module import() vs require()
 

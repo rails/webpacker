@@ -1,5 +1,6 @@
 # Deployment
 
+
 Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which gets run whenever you run `assets:precompile`. If you are not using sprockets you
 can manually trigger `bundle exec rails webpacker:compile` during your app deploy.
 
@@ -19,6 +20,7 @@ By default the output will look like this in different environments:
   <link rel="stylesheet" media="screen" href="/packs/calendar-dc02976b5f94b507e3b6.css">
 ```
 
+
 ## Heroku
 
 Heroku installs yarn and node by default if you deploy a rails app with
@@ -29,6 +31,7 @@ heroku create shiny-webpacker-app
 heroku addons:create heroku-postgresql:hobby-dev
 git push heroku master
 ```
+
 
 ## CDN
 

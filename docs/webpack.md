@@ -1,5 +1,6 @@
 # Webpack
 
+
 ## Configuration
 
 Webpacker gives you a default set of configuration files for test, development and
@@ -10,6 +11,7 @@ environment in their respective files or configure them all in the base
 By default, you shouldn't have to make any changes to `config/webpack/*.js`
 files since it's all standard production-ready configuration. However,
 if you do need to customize or add a new loader, this is where you would go.
+
 
 ## Loaders
 
@@ -49,6 +51,7 @@ babelLoader.options.cacheDirectory = false
 module.exports = environment
 ```
 
+
 ## Plugins
 
 The process for adding or modifying webpack plugins is the same as the process
@@ -66,6 +69,7 @@ environment.plugins.add('Fancy', new MyFancyWebpackPlugin)
 
 module.exports = environment
 ```
+
 
 ### Add common chunks
 

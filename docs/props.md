@@ -1,5 +1,6 @@
 # Props
 
+
 ## React
 
 If you need more advanced React-integration, like server rendering, redux, or react-router, see [shakacode/react_on_rails](https://github.com/shakacode/react_on_rails), [react-rails](https://github.com/reactjs/react-rails), and [webpacker-react](https://github.com/renchap/webpacker-react).
@@ -87,7 +88,6 @@ Now, modify your Vue app to expect the properties.
 </style>
 
 ```
-
 
 ```js
 document.addEventListener('DOMContentLoaded', () => {

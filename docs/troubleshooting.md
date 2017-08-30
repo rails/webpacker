@@ -1,5 +1,6 @@
 # Troubleshooting
 
+
 ## ENOENT: no such file or directory - node-sass
 
 *  If you get this error `ENOENT: no such file or directory - node-sass` on Heroku
@@ -9,6 +10,7 @@ basically, it can't find the `node-sass` binary.
 An easy solution is to create a postinstall hook - `npm rebuild node-sass` in
 `package.json` and that will ensure `node-sass` is rebuilt whenever
 you install any new modules.
+
 
 ## Can't find hello_react.js in manifest.json
 
@@ -21,6 +23,7 @@ Therefore, make sure webpack
 (i.e `./bin/webpack-dev-server`) is running and has
 completed the compilation successfully before loading a view.
 
+
 ## throw er; // Unhandled 'error' event
 
 * If you get this error while trying to use Elm, try rebuilding Elm. You can do
@@ -31,6 +34,7 @@ completed the compilation successfully before loading a view.
   "postinstall": "npm rebuild elm"
 }
 ```
+
 
 ## webpack or webpack-dev-server not found
 
@@ -43,6 +47,7 @@ bundle config --delete bin
 ./bin/rails app:update:bin # or rails app:update:bin
 ```
 
+
 ## Running Webpack on Windows
 
 If you are running Webpack on Windows, your command shell may not be able to interpret the preferred interpreter
@@ -53,6 +58,7 @@ manually with Ruby:
 C:\path>ruby bin\webpack
 C:\path>ruby bin\webpack-dev-server
 ```
+
 
 ## Invalid configuration object. Webpack has been initialised using a configuration object that does not match the API schema.
 

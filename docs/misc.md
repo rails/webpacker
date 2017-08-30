@@ -1,5 +1,6 @@
 # How-Tos
 
+
 ## Ignoring swap files
 
 If you are using vim or emacs and want to ignore certain files you can add `ignore-loader`:
