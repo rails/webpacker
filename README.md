@@ -20,13 +20,13 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 - [Prerequisites](#prerequisites)
 - [Features](#features)
 - [Installation](#installation)
+  - [Usage](#usage)
+  - [Development](#development)
 - [Integrations](#integrations)
   - [React](#react)
   - [Angular with TypeScript](#angular-with-typescript)
   - [Vue](#vue)
   - [Elm](#elm)
-- [Binstubs](#binstubs)
-- [Developing with Webpacker](#developing-with-webpacker)
 - [Paths](#paths)
   - [Resolved](#resolved)
   - [Watched](#watched)
@@ -83,8 +83,21 @@ gem 'webpacker', git: 'https://github.com/rails/webpacker.git'
 **Note:** Use `rake` instead of `rails` if you are using webpacker
 with rails version < 5.0
 
-Once installed you can start writing modern ES6-flavored JavaScript app today and link
-javascript pack in your view using `javascript_pack_tag` helper.
+### Usage
+
+Once installed you can start writing modern ES6-flavored JavaScript app today:
+
+```yml
+app/javascript:
+  ├── packs:
+  │   └── application.js
+  └── src:
+  │   └── application.css
+  └── images:
+    └── logo.svg
+```
+
+You can then link the javascript pack in Rails view using `javascript_pack_tag` helper.
 If you have styles imported in your pack file, you can link using `stylesheet_pack_tag`:
 
 ```erb
@@ -97,7 +110,37 @@ can use `asset_pack_path` helper:
 
 ```erb
 <link rel="prefetch" href="<%= asset_pack_path 'application.css' %>" />
-<img src="<%= asset_pack_path 'rails.png' %>" />
+<img src="<%= asset_pack_path 'images/logo.svg' %>" />
+```
+
+**Note:** In order for your styles or static assets files to be available in your view,
+you would need to link them in your "pack" or entry file
+
+### Development
+
+Webpacker ships with two binstubs: `./bin/webpack` and `./bin/webpack-dev-server`.
+Both are thin wrappers around the standard `webpack.js` and `webpack-dev-server.js`
+executable to ensure that the right configuration file and environment variables
+are loaded depending on your environment.
+
+In development, Webpacker compiles on demand rather than upfront by default. This
+happens when you refer to any of the pack assets using the Webpacker helper methods.
+That means you don't have to run any separate process. Compilation errors are logged
+to the standard Rails log.
+
+If you want to use live code reloading, or you have enough JavaScript that on-demand compilation is too slow, you'll need to run `./bin/webpack-dev-server`
+in a separate terminal from `./bin/rails server`. This process will watch for changes
+in the `app/javascript/packs/*.js` files and automatically reload the browser to match.
+
+Once you start this development server, Webpacker will automatically start proxying all
+webpack asset requests to this server. When you stop the server, it'll revert to
+on-demand compilation again.
+
+You can also pass CLI options supported by [webpack-dev-server](https://webpack.js.org/configuration/dev-server/). Please note that inline options will always take
+precedence over the ones already set in the configuration file.
+
+```bash
+./bin/webpack-dev-server --host example.com --inline true --hot false
 ```
 
 
@@ -189,36 +232,6 @@ The Elm library and core packages will be added via Yarn and Elm itself.
 An example `Main.elm` app will also be added to your project in `app/javascript`
 so that you can experiment with Elm right away.
 
-
-## Binstubs
-
-Webpacker ships with two binstubs: `./bin/webpack` and `./bin/webpack-dev-server`.
-Both are thin wrappers around the standard `webpack.js` and `webpack-dev-server.js`
-executable to ensure that the right configuration file and environment variables
-are loaded depending on your environment.
-
-
-## Developing with Webpacker
-
-In development, Webpacker compiles on demand rather than upfront by default. This
-happens when you refer to any of the pack assets using the Webpacker helper methods.
-That means you don't have to run any separate process. Compilation errors are logged
-to the standard Rails log.
-
-If you want to use live code reloading, or you have enough JavaScript that on-demand compilation is too slow, you'll need to run `./bin/webpack-dev-server`
-in a separate terminal from `./bin/rails server`. This process will watch for changes
-in the `app/javascript/packs/*.js` files and automatically reload the browser to match.
-
-Once you start this development server, Webpacker will automatically start proxying all
-webpack asset requests to this server. When you stop the server, it'll revert to
-on-demand compilation again.
-
-You can also pass CLI options supported by [webpack-dev-server](https://webpack.js.org/configuration/dev-server/). Please note that inline options will always take
-precedence over the ones already set in the configuration file.
-
-```bash
-./bin/webpack-dev-server --host example.com --inline true --hot false
-```
 
 ## Paths
 
