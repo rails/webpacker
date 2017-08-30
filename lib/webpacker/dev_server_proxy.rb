@@ -4,7 +4,7 @@ class Webpacker::DevServerProxy < Rack::Proxy
   def rewrite_response(response)
     status, headers, body = response
     headers.delete "transfer-encoding"
-    headers.delete "content-length" if Webpacker.dev_server.https?
+    headers.delete "content-length" if Webpacker.dev_server.running? && Webpacker.dev_server.https?
     response
   end
 
