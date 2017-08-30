@@ -17,21 +17,22 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents
 
-- [Prerequisites](#prerequisites)
-- [Features](#features)
-- [Installation](#installation)
-  - [Usage](#usage)
-  - [Development](#development)
-- [Integrations](#integrations)
-  - [React](#react)
-  - [Angular with TypeScript](#angular-with-typescript)
-  - [Vue](#vue)
-  - [Elm](#elm)
-- [Paths](#paths)
-  - [Resolved](#resolved)
-  - [Watched](#watched)
-- [Docs](#docs)
-- [License](#license)
+  - [Prerequisites](#prerequisites)
+  - [Features](#features)
+  - [Installation](#installation)
+    - [Usage](#usage)
+    - [Development](#development)
+  - [Integrations](#integrations)
+    - [React](#react)
+    - [Angular with TypeScript](#angular-with-typescript)
+    - [Vue](#vue)
+    - [Elm](#elm)
+  - [Paths](#paths)
+    - [Resolved](#resolved)
+    - [Watched](#watched)
+- [Deployment](#deployment)
+  - [Docs](#docs)
+  - [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -311,6 +312,13 @@ by adding new paths to `watched_paths` array, much like rails `autoload_paths`:
 # or config/application.rb
 Webpacker::Compiler.watched_paths << 'bower_components'
 ```
+
+
+# Deployment
+
+Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which gets run whenever you run `assets:precompile`. If you are not using sprockets you
+can manually trigger `NODE_ENV=production bundle exec rails webpacker:compile`
+during your app deploy.
 
 
 ## Docs
