@@ -85,8 +85,8 @@ and finally, run following to install webpacker:
 bundle
 bundle exec rails webpacker:install
 
-# Or
-bundle exec rake webpacker:install # (on rails version < 5.0)
+# OR (on rails version < 5.0)
+bundle exec rake webpacker:install
 ```
 
 ### Usage
@@ -96,6 +96,7 @@ Once installed you can start writing modern ES6-flavored JavaScript app today:
 ```yml
 app/javascript:
   ├── packs:
+  │   # only webpack entry files here
   │   └── application.js
   └── src:
   │   └── application.css
@@ -140,11 +141,15 @@ If you want to use live code reloading, or you have enough JavaScript that on-de
 in a separate terminal from `bundle exec rails s`. This process will watch for changes
 in the `app/javascript/packs/*.js` files and automatically reload the browser to match.
 
-
 ```bash
-./bin/webpack-dev-server # webpack dev server
-./bin/webpack --colors --progress # watcher
-./bin/webpack # standalone build
+# webpack dev server
+./bin/webpack-dev-server
+
+# watcher
+./bin/webpack --colors --progress
+
+# standalone build
+./bin/webpack
 ```
 
 Once you start this development server, Webpacker will automatically start proxying all
@@ -163,20 +168,7 @@ precedence over the ones already set in the configuration file.
 ## Integrations
 
 Webpacker ships with basic out-of-the-box integration for React, Angular, Vue and Elm.
-You can see a list of available commands/tasks by running:
-
-```bash
-# Within rails app
-bundle exec rails webpacker
-```
-
-or in rails version < 5.0
-
-```bash
-# Within rails app
-bundle exec rake webpacker
-```
-
+You can see a list of available commands/tasks by running `bundle exec rails webpacker`:
 
 ### React
 
@@ -258,23 +250,9 @@ but all these options are configurable from `config/webpacker.yml` file.
 The configuration for what Webpack is supposed to compile by default rests
 on the convention that every file in `app/javascript/packs/*`**(default)**
 or whatever path you set for `source_entry_path` in the `webpacker.yml` configuration
-is turned into their own output files (or entry points, as Webpack calls it).
-
-Therefore you don't want to put anything inside `packs` directory that you do want to be
+is turned into their own output files (or entry points, as Webpack calls it). Therefore you don't want to put anything inside `packs` directory that you do want to be
 an entry file. As a rule thumb, put all files your want to link in your views inside
-"packs" directory and keep everything else under `app/javascript`:
-
-```yml
-app/javascript:
-  # source files, structure as you like
-  - app/calender.js
-  - modules/chat.js
-  - src/components/chat.js
-  - # million other ways....
-packs:
-  # only webpack entry files live here
-  - app.js
-```
+"packs" directory and keep everything else under `app/javascript`.
 
 Suppose you want to change the source directory from `app/javascript`
 to `frontend` and output to `assets/packs`. This is how you would do it:
