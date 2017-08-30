@@ -135,8 +135,6 @@ happens when you refer to any of the pack assets using the Webpacker helper meth
 That means you don't have to run any separate process. Compilation errors are logged
 to the standard Rails log.
 
-![screen shot 2017-08-30 at 19 39 10](https://user-images.githubusercontent.com/771039/29889140-0bdb0a1e-8dbb-11e7-943d-c222061643ae.png)
-
 If you want to use live code reloading, or you have enough JavaScript that on-demand compilation is too slow, you'll need to run `./bin/webpack-dev-server` or `ruby ./bin/webpack-dev-server` if on windows,
 in a separate terminal from `bundle exec rails s`. This process will watch for changes
 in the `app/javascript/packs/*.js` files and automatically reload the browser to match.
