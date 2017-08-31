@@ -78,7 +78,7 @@ The CommonsChunkPlugin is an opt-in feature that creates a separate file (known 
 Add the plugins in `config/webpack/environment.js`:
 
 ```js
-environment.plugins.add('CommonsChunkVendor', new webpack.optimize.CommonsChunkPlugin({
+environment.plugins.set('CommonsChunkVendor', new webpack.optimize.CommonsChunkPlugin({
   name: 'vendor',
   minChunks: (module) => {
     // this assumes your vendor imports exist in the node_modules directory
@@ -86,7 +86,7 @@ environment.plugins.add('CommonsChunkVendor', new webpack.optimize.CommonsChunkP
   }
 }))
 
-environment.plugins.add('CommonsChunkManifest', new webpack.optimize.CommonsChunkPlugin({
+environment.plugins.set('CommonsChunkManifest', new webpack.optimize.CommonsChunkPlugin({
   name: 'manifest',
   minChunks: Infinity
 }))
