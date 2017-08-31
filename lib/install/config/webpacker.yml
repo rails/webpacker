@@ -49,7 +49,7 @@ test:
 production:
   <<: *default
 
-  # Production demands on precompilation of packs prior to booting for performance.
+  # Production depends on precompilation of packs prior to booting for performance.
   compile: false
 
   # Cache manifest.json for performance
