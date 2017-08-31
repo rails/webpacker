@@ -66,7 +66,7 @@ module.exports = class Environment {
   }
 
   toWebpackConfig() {
-    return {
+    const result = {
       entry: getEntryObject(),
 
       output: {
@@ -91,5 +91,11 @@ module.exports = class Environment {
         modules: ['node_modules']
       }
     }
+
+    if (this.devtool) {
+      result.devtool = this.devtool
+    }
+
+    return result
   }
 }
