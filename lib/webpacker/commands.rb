@@ -16,7 +16,8 @@ class Webpacker::Commands
   end
 
   def compile
-    compiler.compile
-    manifest.refresh
+    compiler.compile.tap do |success|
+      manifest.refresh if success
+    end
   end
 end

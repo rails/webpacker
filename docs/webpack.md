@@ -26,7 +26,7 @@ yarn add json-loader
 // config/webpack/environment.js
 const { environment } = require('@rails/webpacker')
 
-environment.loaders.add('json', {
+environment.loaders.set('json', {
   test: /\.json$/,
   use: 'json-loader'
 })
@@ -65,7 +65,7 @@ const { environment } = require('@rails/webpacker')
 environment.plugins.get('ExtractText') // Is an ExtractTextPlugin instance
 
 // Add an additional plugin of your choosing
-environment.plugins.add('Fancy', new MyFancyWebpackPlugin)
+environment.plugins.set('Fancy', new MyFancyWebpackPlugin)
 
 module.exports = environment
 ```
