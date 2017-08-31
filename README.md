@@ -162,6 +162,15 @@ precedence over the ones already set in the configuration file.
 ./bin/webpack-dev-server --host example.com --inline true --hot false
 ```
 
+By default, webpack dev server listens on `localhost` in development for security
+but if you want your app to be available over local LAN IP or VM instance like vagrant
+you can pass an additional config option `--listen-host`
+when running `./bin/webpack-dev-server` binstub:
+
+```bash
+./bin/webpack-dev-server --listen-host 0.0.0.0
+```
+
 **Note:** Don't forget to prefix `ruby` when running these binstubs on windows
 
 ## Integrations
