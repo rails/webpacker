@@ -65,7 +65,7 @@ const { environment } = require('@rails/webpacker')
 environment.plugins.get('ExtractText') // Is an ExtractTextPlugin instance
 
 // Add an additional plugin of your choosing
-environment.plugins.add('Fancy', new MyFancyWebpackPlugin)
+environment.plugins.set('Fancy', new MyFancyWebpackPlugin)
 
 module.exports = environment
 ```
