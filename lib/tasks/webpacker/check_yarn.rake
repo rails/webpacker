@@ -1,7 +1,7 @@
 namespace :webpacker do
   desc "Verifies if yarn is installed"
   task :check_yarn do
-    required_yarn_version = "0.20.1"
+    required_yarn_version = "0.25.2"
 
     begin
       yarn_version = `yarn --version`
