@@ -20,6 +20,8 @@ class Webpacker::Compiler
     if stale?
       record_compilation_digest
       run_webpack
+    else
+      true
     end
   end
 
