@@ -12,6 +12,33 @@ By default, you shouldn't have to make any changes to `config/webpack/*.js`
 files since it's all standard production-ready configuration. However,
 if you do need to customize or add a new loader, this is where you would go.
 
+Here is how you can modify webpack configuration:
+
+```js
+// config/webpack/custom.js
+module.exports = {
+  resolve: {
+    alias: {
+      jquery: 'jquery/src/jquery',
+      vue: 'vue/dist/vue.js',
+      React: 'react',
+      ReactDOM: 'react-dom',
+      vue_resource: 'vue-resource/dist/vue-resource',
+    }
+  }
+}
+
+// config/webpack/development.js
+const merge = require('webpack-merge')
+const environment = require('./environment')
+const customConfig = require('./custom')
+
+module.exports = merge(environment.toWebpackConfig(), customConfig)
+```
+
+**Note:** You will have to merge custom config to all env where you want that config
+to be available. In above case, it will be applied to development environment.
+
 
 ## Loaders
 
@@ -60,12 +87,25 @@ for loaders above:
 ```js
 // config/webpack/environment.js
 const { environment } = require('@rails/webpacker')
+const webpack = require('webpack')
 
 // Get a pre-configured plugin
 environment.plugins.get('ExtractText') // Is an ExtractTextPlugin instance
 
-// Add an additional plugin of your choosing
-environment.plugins.set('Fancy', new MyFancyWebpackPlugin)
+// Add an additional plugin of your choosing : ProvidePlugin
+environment.plugins.set(
+  'Provide',
+  new webpack.ProvidePlugin({
+    $: 'jquery',
+    jQuery: 'jquery',
+    jquery: 'jquery',
+    'window.Tether': 'tether',
+    Popper: ['popper.js', 'default'],
+    ActionCable: 'actioncable',
+    Vue: 'vue',
+    VueResource: 'vue-resource',
+  })
+)
 
 module.exports = environment
 ```
@@ -78,18 +118,26 @@ The CommonsChunkPlugin is an opt-in feature that creates a separate file (known 
 Add the plugins in `config/webpack/environment.js`:
 
 ```js
-environment.plugins.set('CommonsChunkVendor', new webpack.optimize.CommonsChunkPlugin({
-  name: 'vendor',
-  minChunks: (module) => {
-    // this assumes your vendor imports exist in the node_modules directory
-    return module.context && module.context.indexOf('node_modules') !== -1;
-  }
-}))
+const webpack = require('webpack')
 
-environment.plugins.set('CommonsChunkManifest', new webpack.optimize.CommonsChunkPlugin({
-  name: 'manifest',
-  minChunks: Infinity
-}))
+environment.plugins.set(
+  'CommonsChunkVendor',
+  new webpack.optimize.CommonsChunkPlugin({
+    name: 'vendor',
+    minChunks: (module) => {
+      // this assumes your vendor imports exist in the node_modules directory
+      return module.context && module.context.indexOf('node_modules') !== -1;
+    }
+  })
+)
+
+environment.plugins.set(
+  'CommonsChunkManifest',
+  new webpack.optimize.CommonsChunkPlugin({
+    name: 'manifest',
+    minChunks: Infinity
+  })
+)
 ```
 
 Now, add these files to your `layouts/application.html.erb`:
@@ -97,12 +145,12 @@ Now, add these files to your `layouts/application.html.erb`:
 ```erb
 <%# Head %>
 
-<%= javascript_pack_tag 'manifest' %>
-<%= javascript_pack_tag 'vendor' %>
+<%= javascript_pack_tag "manifest" %>
+<%= javascript_pack_tag "vendor" %>
 
 <%# If importing any styles from node_modules in your JS app %>
 
-<%= stylesheet_pack_tag 'vendor' %>
+<%= stylesheet_pack_tag "vendor" %>
 ```
 
 More detailed guides available here: [Webpack guides](https://webpack.js.org/guides/)
