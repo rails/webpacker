@@ -2,7 +2,8 @@
 
 ### Added
 
-- Allow webpack dev server listen host/ip to be configurable using `--listen-host` option
+- Allow webpack dev server listen host/ip to be configurable using additional
+`--listen-host` option
 
 ```bash
 ./bin/webpack-dev-server --listen-host 0.0.0.0 --host localhost
@@ -10,16 +11,17 @@
 
 ### Fixed
 
-- Dev server proxy middleware when served under another proxy (example: pow or nginx), which uses `HTTP_X_FORWARDED_HOST` resulting in `404` for webpacker assets
+- Rack dev server proxy middleware when served under another proxy (example: pow),
+which uses `HTTP_X_FORWARDED_HOST` header resulting in `404` for webpacker assets
 
-- Make sure tagged logger works with for rails < 5
+- Make sure tagged logger works with rails < 5
 [#716](https://github.com/rails/webpacker/pull/716)
 
 
 ### Removed
 
 - `watchContentBase` from devServer config so it doesn't unncessarily trigger
-live reload when manifest changes. If you have applied this workaround from [#724](https://github.com/rails/webpacker/issues/724), please revert the changes from `config/webpack/development.js` since this is now fixed.
+live reload when manifest changes. If you have applied this workaround from [#724](https://github.com/rails/webpacker/issues/724), please revert the change from `config/webpack/development.js` since this is now fixed.
 
 
 ## [3.0.0] - 2017-08-30
