@@ -1,22 +1,22 @@
-## Unreleased
-
-### Added
-
-- Allow webpack dev server listen host/ip to be configurable using additional
-`--listen-host` option
-
-```bash
-./bin/webpack-dev-server --listen-host 0.0.0.0 --host localhost
-```
+## [3.0.1] - 2017-09-01
 
 ### Fixed
 
-- Rack dev server proxy middleware when served under another proxy (example: pow),
-which uses `HTTP_X_FORWARDED_HOST` header resulting in `404` for webpacker assets
+- Missing `node_modules/.bin/*` files by bumping minimum Yarn version to 0.25.2 [#727](https://github.com/rails/webpacker/pull/727)
 
-- Make sure tagged logger works with rails < 5
-[#716](https://github.com/rails/webpacker/pull/716)
+- `webpacker:compile` task so that fails properly when webpack compilation fails [#728](https://github.com/rails/webpacker/pull/728)
 
+- Rack dev server proxy middleware when served under another proxy (example: pow), which uses `HTTP_X_FORWARDED_HOST` header resulting in `404` for webpacker assets
+
+- Make sure tagged logger works with rails < 5 [#716](https://github.com/rails/webpacker/pull/716)
+
+### Added
+
+- Allow webpack dev server listen host/ip to be configurable using additional `--listen-host` option
+
+  ```bash
+  ./bin/webpack-dev-server --listen-host 0.0.0.0 --host localhost
+  ```
 
 ### Removed
 
