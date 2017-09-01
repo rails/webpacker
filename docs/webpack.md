@@ -33,7 +33,6 @@ const merge = require('webpack-merge')
 const environment = require('./environment')
 const customConfig = require('./custom')
 
-// Finally export the updated config
 module.exports = merge(environment.toWebpackConfig(), customConfig)
 ```
 
