@@ -19,7 +19,8 @@
 ### Removed
 
 - `watchContentBase` from devServer config so it doesn't unncessarily trigger
-live reload when manifest changes.
+live reload when manifest changes. If you have applied this workaround from [#724](https://github.com/rails/webpacker/issues/724), please revert the changes from `config/webpack/development.js` since this is now fixed.
+
 
 ## [3.0.0] - 2017-08-30
 
