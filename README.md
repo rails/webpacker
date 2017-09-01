@@ -42,7 +42,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 * Ruby 2.2+
 * Rails 4.2+
 * Node.js 6.0.0+
-* Yarn 0.27.5+
+* Yarn 0.25.2+
 
 
 ## Features
