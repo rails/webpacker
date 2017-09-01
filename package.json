@@ -7,7 +7,8 @@
     "package"
   ],
   "engines": {
-    "node": ">= 6.0.0"
+    "node": ">=6.0.0",
+    "yarn": ">=0.25.2"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
