@@ -4,3 +4,5 @@
 node_modules
 .byebug_history
 /test/test_app/tmp
+Gemfile.lock
+yarn.lock
