@@ -4,12 +4,16 @@ namespace :webpacker do
     begin
       node_version = `node -v`
       node_version = `nodejs -v` if node_version.blank?
-      required_node_version = "6.0"
-
       raise Errno::ENOENT if node_version.blank?
 
-      if Gem::Version.new(node_version.strip.tr("v", "")) < Gem::Version.new(required_node_version)
-        $stderr.puts "Webpacker requires Node.js >= v#{required_node_version} and you are using #{node_version}"
+      pkg_path = Pathname.new("#{__dir__}/../../../package.json").realpath
+      node_requirement = JSON.parse(pkg_path.read)["engines"]["node"]
+
+      requirement = Gem::Requirement.new(node_requirement)
+      version = Gem::Version.new(node_version.strip.tr("v", ""))
+
+      unless requirement.satisfied_by?(version)
+        $stderr.puts "Webpacker requires Node.js #{requirement} and you are using #{version}"
         $stderr.puts "Please upgrade Node.js https://nodejs.org/en/download/"
         $stderr.puts "Exiting!" && exit!
       end
