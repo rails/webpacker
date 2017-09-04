@@ -6,10 +6,14 @@ class Webpacker::DevServer
   end
 
   def running?
-    Socket.tcp(host, port, connect_timeout: 1).close
-    true
-  rescue Errno::ECONNREFUSED, NoMethodError
-    false
+    return @running if defined?(@running)
+
+    @running = begin
+        Socket.tcp(host, port, connect_timeout: 0.1).close
+        true
+      rescue Errno::ECONNREFUSED, Errno::ETIMEDOUT, NoMethodError
+        false
+      end
   end
 
   def hot_module_replacing?
