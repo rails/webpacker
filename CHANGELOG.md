@@ -1,3 +1,12 @@
+## Unreleased
+
+- Allow dev server connect timeout (in seconds) to be configurable, default: 0.01
+
+```rb
+# Change to 1s
+Webpacker.dev_server.connect_timeout = 1
+```
+
 ## [3.0.1] - 2017-09-01
 
 ### Fixed
