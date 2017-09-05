@@ -1,4 +1,8 @@
 class Webpacker::DevServer
+  # Configure dev server connection timeout(in seconds), default: 0.01
+  # Webpacker::DevServer.connect_timeout = 1
+  mattr_accessor(:connect_timeout) { 0.01 }
+
   delegate :config, to: :@webpacker
 
   def initialize(webpacker)
@@ -6,14 +10,10 @@ class Webpacker::DevServer
   end
 
   def running?
-    return @running if defined?(@running)
-
-    @running = begin
-        Socket.tcp(host, port, connect_timeout: 0.1).close
-        true
-      rescue Errno::ECONNREFUSED, Errno::ETIMEDOUT, NoMethodError
-        false
-      end
+    Socket.tcp(host, port, connect_timeout: connect_timeout).close
+    true
+  rescue Errno::ECONNREFUSED, Errno::ETIMEDOUT, NoMethodError
+    false
   end
 
   def hot_module_replacing?
