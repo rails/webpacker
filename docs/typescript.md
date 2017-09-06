@@ -56,7 +56,7 @@ yarn add html-loader
 2. Add html-loader to `config/webpack/environment.js`
 
 ```js
-environment.loaders.add('html', {
+environment.loaders.set('html', {
   test: /\.html$/,
   use: [{
     loader: 'html-loader',
