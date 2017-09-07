@@ -5,7 +5,7 @@ require "shellwords"
 require "yaml"
 require "socket"
 
-ENV["RAILS_ENV"] ||= "development"
+ENV["RAILS_ENV"] ||= ENV["RACK_ENV"] || "development"
 RAILS_ENV = ENV["RAILS_ENV"]
 
 ENV["NODE_ENV"] ||= RAILS_ENV
