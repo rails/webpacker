@@ -27,7 +27,7 @@ module.exports = class extends Environment {
 
   toWebpackConfig() {
     const result = super.toWebpackConfig()
-    result.devtool = 'source-map'
+    result.devtool = 'nosources-source-map'
     result.stats = 'normal'
     return result
   }
