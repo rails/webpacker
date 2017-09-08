@@ -78,6 +78,29 @@ babelLoader.options.cacheDirectory = false
 module.exports = environment
 ```
 
+### Overriding Loader Options in Webpack 3+ (for CSS Modules etc.)
+
+In Webpack 3+, if you'd like to specify additional or different options for a loader, edit `config/webpack/environment.js` and provide an options object to override. This is similar to the technique shown above, but the following example shows specifically how to apply CSS Modules, which is what you may be looking for:
+
+```javascript
+const { environment } = require('@rails/webpacker')
+const merge = require('webpack-merge')
+
+const myCssLoaderOptions = {
+  modules: true,
+  sourceMap: true,
+  localIdentName: '[name]__[local]___[hash:base64:5]'
+}
+
+const CSSLoader = environment.loaders.get('style').use.find(el => el.loader === 'css-loader')
+
+CSSLoader.options = merge(CSSLoader.options, myCssLoaderOptions)
+
+module.exports = environment
+```
+
+See [issue #756](https://github.com/rails/webpacker/issues/756#issuecomment-327148547) for additional discussion of this.
+
 
 ## Plugins
 
