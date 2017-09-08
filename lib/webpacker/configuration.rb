@@ -69,7 +69,11 @@ class Webpacker::Configuration
     end
 
     def defaults
-      @defaults ||= \
-        HashWithIndifferentAccess.new(YAML.load_file(File.expand_path("../../install/config/webpacker.yml", __FILE__))[env])
+      @defaults ||=
+        HashWithIndifferentAccess.new(
+          YAML.load_file(
+            File.expand_path("../../install/config/webpacker.yml", __FILE__)
+          )[env]
+        )
     end
 end
