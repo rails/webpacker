@@ -37,7 +37,7 @@ class Webpacker::Compiler
 
   private
     def last_compilation_digest
-      compilation_digest_path.read if compilation_digest_path.exist? && config.public_manifest_path.exist?
+      compilation_digest_path.read if compilation_digest_path.exist? && config.public_manifest_file.exist?
     end
 
     def watched_files_digest
