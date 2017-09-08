@@ -80,9 +80,7 @@ module.exports = environment
 
 ### Overriding Loader Options in Webpack 3+ (for CSS Modules etc.)
 
-In Webpack 3+, if you'd like to specify additional or different options for a loader, editing the actual `config/webpack/{loader}.js` file is *not* the way to go.
-
-Instead, edit `config/webpack/environment.js` and provide an options object to override. This is similar to the technique shown above, but the following example shows specifically how to apply CSS Modules, which is what you may be looking for:
+In Webpack 3+, if you'd like to specify additional or different options for a loader, edit `config/webpack/environment.js` and provide an options object to override. This is similar to the technique shown above, but the following example shows specifically how to apply CSS Modules, which is what you may be looking for:
 
 ```javascript
 const { environment } = require('@rails/webpacker')
