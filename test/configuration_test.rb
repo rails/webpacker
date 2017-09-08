@@ -16,9 +16,9 @@ class ConfigurationTest < Webpacker::Test
     assert_equal Webpacker.config.public_output_path.to_s, public_output_path
   end
 
-  def test_public_manifest_path
-    public_manifest_path = File.expand_path File.join(File.dirname(__FILE__), "test_app/public/packs", "manifest.json").to_s
-    assert_equal Webpacker.config.public_manifest_path.to_s, public_manifest_path
+  def test_public_manifest_file
+    public_manifest_file = File.expand_path File.join(File.dirname(__FILE__), "test_app/public/packs", "manifest.json").to_s
+    assert_equal Webpacker.config.public_manifest_file.to_s, public_manifest_file
   end
 
   def test_cache_path

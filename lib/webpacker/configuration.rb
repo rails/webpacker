@@ -33,8 +33,8 @@ class Webpacker::Configuration
     public_path.join(fetch(:public_output_path))
   end
 
-  def public_manifest_path
-    public_output_path.join("manifest.json")
+  def public_manifest_file
+    public_output_path.join(fetch(:manifest_filename))
   end
 
   def cache_manifest?

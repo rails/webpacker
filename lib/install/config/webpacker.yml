@@ -5,6 +5,7 @@ default: &default
   source_entry_path: packs
   public_output_path: packs
   cache_path: tmp/cache/webpacker
+  manifest_filename: manifest.json
 
   # Additional paths webpack should lookup modules
   # ['app/assets', 'engine/foo/app/assets']
