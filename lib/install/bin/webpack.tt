@@ -3,7 +3,7 @@ $stdout.sync = true
 
 require "shellwords"
 
-ENV["RAILS_ENV"] ||= "development"
+ENV["RAILS_ENV"] ||= ENV["RACK_ENV"] || "development"
 RAILS_ENV = ENV["RAILS_ENV"]
 
 ENV["NODE_ENV"] ||= RAILS_ENV
