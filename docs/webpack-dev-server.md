@@ -17,7 +17,7 @@ Now if you refresh your rails view everything should work as expected.
 ## HOT module replacement
 
 Webpacker out-of-the-box supports HMR with `webpack-dev-server` and
-you can toggle it by setting `dev_server/hmr` option inside webpacker.yml.
+you can toggle it by setting `dev_server/hmr` option inside `webpacker.yml`.
 
 Checkout this guide for more information:
 

@@ -17,7 +17,7 @@ console.log(process.env.FOO) // Compiles to console.log("hello")
 You may want to store configuration in environment variables via `.env` files,
 similar to the [dotenv Ruby gem](https://github.com/bkeepers/dotenv).
 
-In development, if you use Foreman or [Invoker](http://invoker.codemancers.com)
+In development, if you use [Foreman](http://ddollar.github.io/foreman) or [Invoker](http://invoker.codemancers.com)
 to launch the Webpack server, both of these tools have basic support for a
 `.env` file (Invoker also supports `.env.local`), so no further configuration
 is needed.
