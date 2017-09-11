@@ -7,6 +7,10 @@ module.exports = {
   test: /\.vue(\.erb)?$/,
   loader: 'vue-loader',
   options: {
-    extractCSS: isProduction || extractCSS
+    extractCSS: isProduction || extractCSS,
+    loaders: {
+      scss: 'vue-style-loader!css-loader!sass-loader'
+      sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
+    }
   }
 }
