@@ -164,12 +164,14 @@ precedence over the ones already set in the configuration file.
 
 By default, webpack dev server listens on `localhost` in development for security
 but if you want your app to be available over local LAN IP or VM instance like vagrant
-you can pass an additional config option `--listen-host`
+you can set environment variable `WEBPACK_DEV_SERVER_HOST`
 when running `./bin/webpack-dev-server` binstub:
 
 ```bash
-./bin/webpack-dev-server --listen-host 0.0.0.0
+WEBPACK_DEV_SERVER_HOST=0.0.0.0 ./bin/webpack-dev-server
 ```
+
+Dev server listen port can be set either in `config/webpacker.yml` or via environment variable `WEBPACK_DEV_SERVER_PORT`. The later takes precedence.
 
 **Note:** Don't forget to prefix `ruby` when running these binstubs on windows
 

@@ -27,10 +27,10 @@ begin
   dev_server = YAML.load_file(CONFIG_FILE)[RAILS_ENV]["dev_server"]
 
   HOSTNAME          = args('--host') || dev_server["host"]
-  PORT              = args('--port') || dev_server["port"]
+  PORT              = ENV['WEBPACK_DEV_SERVER_PORT'] || dev_server["port"]
   HTTPS             = ARGV.include?('--https') || dev_server["https"]
   DEV_SERVER_ADDR   = "http#{"s" if HTTPS}://#{HOSTNAME}:#{PORT}"
-  LISTEN_HOST_ADDR  = args('--listen-host') || DEFAULT_LISTEN_HOST_ADDR
+  LISTEN_HOST_ADDR  = ENV['WEBPACK_DEV_SERVER_LISTEN_HOST'] || DEFAULT_LISTEN_HOST_ADDR
 
 rescue Errno::ENOENT, NoMethodError
   $stdout.puts "Webpack dev_server configuration not found in #{CONFIG_FILE}."
@@ -47,11 +47,9 @@ rescue Errno::EADDRINUSE
   exit!
 end
 
-# Delete supplied host, port and listen-host CLI arguments
-["--host", "--port", "--listen-host"].each do |arg|
-  ARGV.delete(args(arg))
-  ARGV.delete(arg)
-end
+# Delete supplied host CLI argument
+ARGV.delete(args("--host"))
+ARGV.delete("--host")
 
 env = { "NODE_PATH" => NODE_MODULES_PATH.shellescape }
 
