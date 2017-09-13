@@ -21,11 +21,11 @@ class Webpacker::DevServer
   end
 
   def host
-    ENV['WEBPACK_DEV_SERVER_LISTEN_HOST'] || fetch(:host)
+    ENV["WEBPACK_DEV_SERVER_LISTEN_HOST"] || fetch(:host)
   end
 
   def port
-    ENV['WEBPACK_DEV_SERVER_PORT'] || fetch(:port)
+    ENV["WEBPACK_DEV_SERVER_PORT"] || fetch(:port)
   end
 
   def https?
