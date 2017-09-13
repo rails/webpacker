@@ -8,9 +8,10 @@ class Webpacker::Instance
   end
 
   def env
-    (ENV["NODE_ENV"].presence_in(available_environments) ||
-      Rails.env.presence_in(available_environments) ||
-        "production".freeze).inquiry
+    ActiveSupport::StringInquirer.new(
+      ENV["NODE_ENV"].presence_in(available_environments) ||
+        Rails.env.presence_in(available_environments) ||
+          "production".freeze)
   end
 
   def config
