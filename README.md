@@ -198,7 +198,7 @@ project in `app/javascript/packs` so that you can experiment with React right aw
 
 ### Angular with TypeScript
 
-To use Webpacker with [Angular](https://angularjs.org/), create a
+To use Webpacker with [Angular](https://angular.io/), create a
 new Rails 5.1+ app using `--webpack=angular` option:
 
 ```bash
