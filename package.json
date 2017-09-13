@@ -1,13 +1,14 @@
 {
   "name": "@rails/webpacker",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Use Webpack to manage app-like JavaScript modules in Rails",
   "main": "package/index.js",
   "files": [
     "package"
   ],
   "engines": {
-    "node": ">= 6.0.0"
+    "node": ">=6.0.0",
+    "yarn": ">=0.25.2"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
@@ -18,7 +19,7 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.0",
     "coffee-loader": "^0.8.0",
-    "coffee-script": "^1.12.7",
+    "coffeescript": "^1.12.7",
     "compression-webpack-plugin": "^1.0.0",
     "css-loader": "^0.28.5",
     "extract-text-webpack-plugin": "^3.0.0",

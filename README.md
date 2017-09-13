@@ -42,7 +42,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 * Ruby 2.2+
 * Rails 4.2+
 * Node.js 6.0.0+
-* Yarn 0.20.1+
+* Yarn 0.25.2+
 
 
 ## Features
@@ -162,6 +162,15 @@ precedence over the ones already set in the configuration file.
 ./bin/webpack-dev-server --host example.com --inline true --hot false
 ```
 
+By default, webpack dev server listens on `localhost` in development for security
+but if you want your app to be available over local LAN IP or VM instance like vagrant
+you can pass an additional config option `--listen-host`
+when running `./bin/webpack-dev-server` binstub:
+
+```bash
+./bin/webpack-dev-server --listen-host 0.0.0.0
+```
+
 **Note:** Don't forget to prefix `ruby` when running these binstubs on windows
 
 ## Integrations
@@ -189,7 +198,7 @@ project in `app/javascript/packs` so that you can experiment with React right aw
 
 ### Angular with TypeScript
 
-To use Webpacker with [Angular](https://angularjs.org/), create a
+To use Webpacker with [Angular](https://angular.io/), create a
 new Rails 5.1+ app using `--webpack=angular` option:
 
 ```bash
