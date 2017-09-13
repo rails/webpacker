@@ -21,7 +21,7 @@ class Webpacker::DevServer
   end
 
   def host
-    ENV['WEBPACK_DEV_SERVER_HOST'] || fetch(:host)
+    ENV['WEBPACK_DEV_SERVER_LISTEN_HOST'] || fetch(:host)
   end
 
   def port
