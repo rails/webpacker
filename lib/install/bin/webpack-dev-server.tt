@@ -28,7 +28,7 @@ begin
 
   HOSTNAME          = args('--host') || dev_server["host"]
   PORT              = args('--port') || dev_server["port"]
-  PUBLIC_HOSTNAME   = args('--public') || "#{HOSTNAME}:#{PORT}"
+  PUBLIC_HOSTNAME   = args('--public') || dev_server["public"] || "#{HOSTNAME}:#{PORT}"
   HTTPS             = ARGV.include?('--https') || dev_server["https"]
   DEV_SERVER_ADDR   = "http#{"s" if HTTPS}://#{HOSTNAME}:#{PORT}"
   LISTEN_HOST_ADDR  = args('--listen-host') || DEFAULT_LISTEN_HOST_ADDR
