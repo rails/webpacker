@@ -17,4 +17,12 @@ class ManifestTest < Minitest::Test
   def test_lookup_success
     assert_equal Webpacker.manifest.lookup("bootstrap.js"), "/packs/bootstrap-300631c4f0e0f9c865bc.js"
   end
+
+  def test_include_success
+    assert_equal true, Webpacker.manifest.include?("bootstrap.js")
+  end
+
+  def test_include_failure
+    assert_equal false, Webpacker.manifest.include?("non-existent.js")
+  end
 end

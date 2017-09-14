@@ -19,11 +19,21 @@ class Webpacker::Manifest
   end
 
   def lookup(name)
-    compile if compiling?
+    initialize!
     find name
   end
 
+  def include?(name)
+    initialize!
+    resolve(name).present?
+  end
+
   private
+
+    def initialize!
+      compile if compiling?
+    end
+
     def compiling?
       config.compile? && !dev_server.running?
     end
@@ -33,7 +43,11 @@ class Webpacker::Manifest
     end
 
     def find(name)
-      data[name.to_s] || handle_missing_entry(name)
+      resolve(name) || handle_missing_entry(name)
+    end
+
+    def resolve(name)
+      data[name.to_s] || nil
     end
 
     def handle_missing_entry(name)
