@@ -21,6 +21,10 @@ class Webpacker::Configuration
     root_path.join(fetch(:source_path))
   end
 
+  def resolved_paths
+    root_path.join(fetch(:source_path))
+  end
+
   def source_entry_path
     source_path.join(fetch(:source_entry_path))
   end
