@@ -103,3 +103,121 @@ document.addEventListener('DOMContentLoaded', () => {
 ```
 
 You can follow same steps for Angular too.
+
+
+## Elm
+
+Just like with other implementations, we'll render our data inside a `data`
+attribute:
+
+```erb
+<%= content_tag :div,
+  id: "hello-elm",
+  data: {
+    message: "Hello",
+    name: "David"
+  }.to_json do %>
+<% end %>
+```
+
+We parse the JSON data and pass it to Elm as flags:
+
+```js
+import Elm from '../Main'
+
+document.addEventListener('DOMContentLoaded', () => {
+  const node = document.getElementById('hello-elm')
+  const data = JSON.parse(node.getAttribute('data'))
+  Elm.Main.embed(node, data)
+})
+```
+
+Defining `Flags` as a `type alias`, we instruct Elm to demand flags `message`
+and `name` of type `String` on initialization.
+
+Using `programWithFlags` we bring all the pieces together:
+
+
+```elm
+module Main exposing (..)
+
+import Html exposing (Html, programWithFlags, h1, text)
+import Html.Attributes exposing (style)
+
+
+-- MODEL
+
+
+type alias Flags =
+    { message : String
+    , name : String
+    }
+
+
+type alias Model =
+    { message : String
+    , name : String
+    }
+
+
+type Msg
+    = NoOp
+
+
+
+-- INIT
+
+
+init : Flags -> ( Model, Cmd Msg )
+init flags =
+    let
+        { message, name } =
+            flags
+    in
+        ( Model message name, Cmd.none )
+
+
+
+-- UPDATE
+
+
+update : Msg -> Model -> ( Model, Cmd Msg )
+update msg model =
+    case msg of
+        NoOp ->
+            ( model, Cmd.none )
+
+
+
+-- SUBSCRIPTIONS
+
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    Sub.none
+
+
+
+-- VIEW
+
+
+view : Model -> Html Msg
+view model =
+    h1 [ style [ ( "display", "flex" ), ( "justify-content", "center" ) ] ]
+        [ text (model.message ++ ", " ++ model.name ++ "!") ]
+
+
+
+-- MAIN
+
+
+main : Program Flags Model Msg
+main =
+    programWithFlags
+        { view = view
+        , init = init
+        , update = update
+        , subscriptions = subscriptions
+        }
+
+```
