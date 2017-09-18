@@ -3,7 +3,7 @@ const assetHost = require('../asset_host')
 const { join } = require('path')
 
 module.exports = {
-  test: /\.(jpg|jpeg|png|gif|svg|eot|ttf|woff|woff2)$/i,
+  test: /\.(jpg|jpeg|png|gif|svg|eot|otf|ttf|woff|woff2)$/i,
   use: [{
     loader: 'file-loader',
     options: {
