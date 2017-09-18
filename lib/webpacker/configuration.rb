@@ -22,7 +22,7 @@ class Webpacker::Configuration
   end
 
   def resolved_paths
-    fetch(:resolved_paths)
+    fetch(:resolved_paths).map { |p| root_path.join(p) }
   end
 
   def source_entry_path
