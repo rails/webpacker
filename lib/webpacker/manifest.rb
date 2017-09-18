@@ -1,11 +1,7 @@
 # Singleton registry for accessing the packs path using a generated manifest.
 # This allows javascript_pack_tag, stylesheet_pack_tag, asset_pack_path to take a reference to,
-# say, "calendar.js" or "calendar.css" and turn it into "/packs/calendar.js" or
-# "/packs/calendar.css" in development.
-#
-# In production mode, it returns compiles files, like
-# "/packs/calendar-1016838bab065ae1e314.js" and "/packs/calendar-1016838bab065ae1e314.css",
-# for long-term caching.
+# say, "calendar.js" or "calendar.css" and turn it into "/packs/calendar-1016838bab065ae1e314.js" or
+# "/packs/calendar-1016838bab065ae1e314.css".
 #
 # When the configuration is set to on-demand compilation, with the `compile: true` option in
 # the webpacker.yml file, any lookups will be preceeded by a compilation if one is needed.
