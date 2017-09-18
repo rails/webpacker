@@ -26,7 +26,7 @@ function getPluginMap() {
   const result = new Map()
   result.set('Environment', new webpack.EnvironmentPlugin(JSON.parse(JSON.stringify(process.env))))
   result.set('ExtractText', new ExtractTextPlugin('[name]-[contenthash].css'))
-  result.set('Manifest', new ManifestPlugin({ writeToFileEmit: true }))
+  result.set('Manifest', new ManifestPlugin({ publicPath: assetHost.publicPath, writeToFileEmit: true }))
   return result
 }
 
