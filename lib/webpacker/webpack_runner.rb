@@ -1,7 +1,7 @@
 require "shellwords"
 
 module Webpacker
-  class Runner
+  class WebpackRunner
     def self.run(argv)
       $stdout.sync = true
 
