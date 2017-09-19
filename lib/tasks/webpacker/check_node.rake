@@ -4,7 +4,7 @@ namespace :webpacker do
     begin
       begin
         node_version = `node -v`
-      rescue Errno::EONENT
+      rescue Errno::ENOENT
         node_version = `nodejs -v`
         raise Errno::ENOENT if node_version.blank?
       end
