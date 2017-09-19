@@ -14,8 +14,7 @@ NODE_MODULES_PATH = File.join(APP_PATH, "node_modules")
 WEBPACK_CONFIG    = File.join(APP_PATH, "config/webpack/#{NODE_ENV}.js")
 
 unless File.exist?(WEBPACK_CONFIG)
-  puts "Webpack configuration not found."
-  puts "Please run bundle exec rails webpacker:install to install webpacker"
+  puts "Webpack config #{WEBPACK_CONFIG} not found, please run 'bundle exec rails webpacker:install' to install webpacker with default configs or add the missing config file for your custom environment."
   exit!
 end
 
