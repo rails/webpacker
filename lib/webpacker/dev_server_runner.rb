@@ -7,7 +7,7 @@ module Webpacker
   class DevServerRunner < Webpacker::Runner
     def run
       load_config
-      check_server!
+      detect_port!
       execute_cmd
     end
 
@@ -31,7 +31,7 @@ module Webpacker
         exit!
       end
 
-      def check_server!
+      def detect_port!
         server = TCPServer.new(@listen_host_addr, @port)
         server.close
 
