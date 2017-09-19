@@ -51,17 +51,15 @@ module Webpacker
         exit!
       end
 
-      def update_argv
-      end
-
       def execute_cmd
-        argv = @argv
+        argv = @argv.dup
 
         # Delete supplied host, port and listen-host CLI arguments
         ["--host", "--port", "--listen-host"].each do |arg|
           argv.delete(args(arg))
           argv.delete(arg)
         end
+
         env = { "NODE_PATH" => @node_modules_path.shellescape }
 
         cmd = [
