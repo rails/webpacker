@@ -13,10 +13,8 @@ copy_file "#{__dir__}/config/.babelrc", ".babelrc"
 puts "Creating javascript app source directory"
 directory "#{__dir__}/javascript", Webpacker.config.source_path
 
-puts "Copying binstubs"
-directory "#{__dir__}/bin", "bin"
-
-chmod "bin", 0755 & ~File.umask, verbose: false
+puts "Installing binstubs"
+run "bundle binstubs webpacker"
 
 if File.exists?(".gitignore")
   append_to_file ".gitignore", <<-EOS
