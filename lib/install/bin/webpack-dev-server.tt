@@ -28,6 +28,7 @@ begin
 
   HOSTNAME          = args('--host') || dev_server["host"]
   PORT              = args('--port') || dev_server["port"]
+  PUBLIC_HOSTNAME   = args('--public') || dev_server["public"] || "#{HOSTNAME}:#{PORT}"
   HTTPS             = ARGV.include?('--https') || dev_server["https"]
   DEV_SERVER_ADDR   = "http#{"s" if HTTPS}://#{HOSTNAME}:#{PORT}"
   LISTEN_HOST_ADDR  = args('--listen-host') || DEFAULT_LISTEN_HOST_ADDR
@@ -48,7 +49,7 @@ rescue Errno::EADDRINUSE
 end
 
 # Delete supplied host, port and listen-host CLI arguments
-["--host", "--port", "--listen-host"].each do |arg|
+["--host", "--port", "--public", "--listen-host"].each do |arg|
   ARGV.delete(args(arg))
   ARGV.delete(arg)
 end
@@ -59,7 +60,7 @@ cmd = [
   "#{NODE_MODULES_PATH}/.bin/webpack-dev-server", "--progress", "--color",
   "--config", WEBPACK_CONFIG,
   "--host", LISTEN_HOST_ADDR,
-  "--public", "#{HOSTNAME}:#{PORT}",
+  "--public", PUBLIC_HOSTNAME,
   "--port", PORT.to_s
 ] + ARGV
 

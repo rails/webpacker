@@ -27,6 +27,7 @@ module.exports = class extends Environment {
       hot: dev_server.hmr,
       contentBase: assetHost.path,
       publicPath: assetHost.publicPath,
+      public: dev_server.public,
       clientLogLevel: 'none',
       compress: true,
       historyApiFallback: true,
