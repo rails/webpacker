@@ -13,20 +13,20 @@ module Webpacker
     def initialize(argv)
       @argv = argv
 
-      @app_path          = File.expand_path("../", __dir__)
+      @app_path          = File.expand_path(".", Dir.pwd)
       @config_file       = File.join(@app_path, "config/webpacker.yml")
       @node_modules_path = File.join(@app_path, "node_modules")
       @webpack_config    = File.join(@app_path, "config/webpack/#{ENV["NODE_ENV"]}.js")
-      @default_listen_host_addr = ENV["NODE_ENV"] == 'development' ? 'localhost' : '0.0.0.0'
+      @default_listen_host_addr = ENV["NODE_ENV"] == "development" ? "localhost" : "0.0.0.0"
 
       begin
         dev_server = YAML.load_file(@config_file)[ENV["RAILS_ENV"]]["dev_server"]
 
-        @hostname          = args('--host') || dev_server["host"]
-        @port              = args('--port') || dev_server["port"]
-        @https             = @argv.include?('--https') || dev_server["https"]
+        @hostname          = args("--host") || dev_server["host"]
+        @port              = args("--port") || dev_server["port"]
+        @https             = @argv.include?("--https") || dev_server["https"]
         @dev_server_addr   = "http#{"s" if @https}://#{@hostname}:#{@port}"
-        @listen_host_addr  = args('--listen-host') || @default_listen_host_addr
+        @listen_host_addr  = args("--listen-host") || @default_listen_host_addr
 
       rescue Errno::ENOENT, NoMethodError
         $stdout.puts "Webpack dev_server configuration not found in #{@config_file}."
