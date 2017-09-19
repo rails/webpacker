@@ -1,25 +1,22 @@
 require "shellwords"
 require "yaml"
 require "socket"
+require "webpacker/runner"
 
 module Webpacker
-  class DevServerRunner
-    def self.run(argv)
-      $stdout.sync = true
-
-      new(argv).run
+  class DevServerRunner < Webpacker::Runner
+    def run
+      load_config
+      check_server!
+      execute_cmd
     end
 
-    def initialize(argv)
-      @argv = argv
+    private
 
-      @app_path          = File.expand_path(".", Dir.pwd)
-      @config_file       = File.join(@app_path, "config/webpacker.yml")
-      @node_modules_path = File.join(@app_path, "node_modules")
-      @webpack_config    = File.join(@app_path, "config/webpack/#{ENV["NODE_ENV"]}.js")
-      @default_listen_host_addr = ENV["NODE_ENV"] == "development" ? "localhost" : "0.0.0.0"
+      def load_config
+        @config_file = File.join(@app_path, "config/webpacker.yml")
+        @default_listen_host_addr = ENV["NODE_ENV"] == "development" ? "localhost" : "0.0.0.0"
 
-      begin
         dev_server = YAML.load_file(@config_file)[ENV["RAILS_ENV"]]["dev_server"]
 
         @hostname          = args("--host") || dev_server["host"]
@@ -33,15 +30,7 @@ module Webpacker
         $stdout.puts "Please run bundle exec rails webpacker:install to install webpacker"
         exit!
       end
-    end
 
-    def run
-      check_server!
-      update_argv
-      execute_cmd
-    end
-
-    private
       def check_server!
         server = TCPServer.new(@listen_host_addr, @port)
         server.close
