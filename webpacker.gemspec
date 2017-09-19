@@ -10,6 +10,8 @@ Gem::Specification.new do |s|
   s.homepage = "https://github.com/rails/webpacker"
   s.license  = "MIT"
 
+  s.executables = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+
   s.required_ruby_version = ">= 1.9.3"
 
   s.add_dependency "activesupport", ">= 4.2"
