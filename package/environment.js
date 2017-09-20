@@ -59,6 +59,29 @@ function getModulePaths() {
   return result
 }
 
+function addCacheLoader(rules) {
+  const cacheLoader = {
+    loader: 'cache-loader',
+    options: {
+      cacheDirectory: join(config.cache_path, 'cache-loader')
+    }
+  }
+  for (let rule of rules) {
+    if (rule.use) {
+      rule.use.unshift(cacheLoader)
+    } else if (rule.loader) {
+      let ruleLoader = null
+      if (rule.options) {
+        ruleLoader = { loader: rule.loader, options: rule.options }
+        delete rule.options
+      }
+      rule.use = [cacheLoader, ruleLoader || rule.loader]
+      delete rule.loader
+    }
+  }
+  return rules
+}
+
 module.exports = class Environment {
   constructor() {
     this.loaders = getLoaderMap()
@@ -77,7 +100,7 @@ module.exports = class Environment {
       },
 
       module: {
-        rules: Array.from(this.loaders.values())
+        rules: addCacheLoader(Array.from(this.loaders.values()))
       },
 
       plugins: Array.from(this.plugins.values()),

@@ -18,6 +18,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.0",
+    "cache-loader": "^1.0.3",
     "coffee-loader": "^0.8.0",
     "coffeescript": "^1.12.7",
     "compression-webpack-plugin": "^1.0.0",
