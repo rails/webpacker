@@ -78,7 +78,7 @@ Now, modify your Vue app to expect the properties.
     props: ["message","name"],
     data: function () {
       return {
-          test: 'This will display: ',
+        test: 'This will display: '
       }
     }
   }
