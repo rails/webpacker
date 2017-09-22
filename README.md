@@ -22,6 +22,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 - [Installation](#installation)
   - [Usage](#usage)
   - [Development](#development)
+  - [Webpack configuration](#webpack-configuration)
 - [Integrations](#integrations)
   - [React](#react)
   - [Angular with TypeScript](#angular-with-typescript)
@@ -172,6 +173,10 @@ when running `./bin/webpack-dev-server` binstub:
 ```
 
 **Note:** Don't forget to prefix `ruby` when running these binstubs on windows
+
+### Webpack configuration
+
+See [docs/Webpack](docs/webpack.md) for modifying webpack configuration and loaders.
 
 ## Integrations
 
