@@ -181,7 +181,7 @@ production environments in `config/webpack/*.js`. You can configure each individ
 environment in their respective files or configure them all in the base
 `config/webpack/environment.js` file.
 
-By default, you shouldn't have to make any changes to `config/webpack/*.js`
+By default, you don't need make any changes to `config/webpack/*.js`
 files since it's all standard production-ready configuration.
 See [docs/Webpack](docs/webpack.md) for modifying the configuration and loaders API.
 
