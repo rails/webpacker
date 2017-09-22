@@ -109,6 +109,11 @@ module.exports = environment
 
 See [issue #756](https://github.com/rails/webpacker/issues/756#issuecomment-327148547) for additional discussion of this.
 
+For this to work, don't forget to use the `stylesheet_pack_tag`, for example:
+
+```
+<%= stylesheet_pack_tag 'YOUR_PACK_NAME_HERE' %>
+```
 
 ## Plugins
 
