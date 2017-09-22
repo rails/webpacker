@@ -27,8 +27,8 @@ class ConfigurationTest < Webpacker::Test
   end
 
   def test_extensions
-    webpacker_yml = YAML.load_file('lib/install/config/webpacker.yml')
-    assert_equal Webpacker.config.extensions, webpacker_yml['default']['extensions']
+    webpacker_yml = YAML.load_file("lib/install/config/webpacker.yml")
+    assert_equal Webpacker.config.extensions, webpacker_yml["default"]["extensions"]
   end
 
   def test_cache_manifest?
