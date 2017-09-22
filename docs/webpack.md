@@ -37,7 +37,7 @@ module.exports = merge(environment.toWebpackConfig(), customConfig)
 ```
 
 If you need access to functions within Webpacker's configuration, you can import them like this:
-```
+```js
 const config = require('@rails/webpacker/package/config');
 const asset_host = require('@rails/webpacker/package/asset_host');
 
