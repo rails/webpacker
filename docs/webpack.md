@@ -8,7 +8,7 @@ production environments in `config/webpack/*.js`. You can configure each individ
 environment in their respective files or configure them all in the base
 `config/webpack/environment.js` file.
 
-By default, you shouldn't have to make any changes to `config/webpack/*.js`
+By default, you don't need to make any changes to `config/webpack/*.js`
 files since it's all standard production-ready configuration. However,
 if you do need to customize or add a new loader, this is where you would go.
 
@@ -34,6 +34,14 @@ const environment = require('./environment')
 const customConfig = require('./custom')
 
 module.exports = merge(environment.toWebpackConfig(), customConfig)
+```
+
+If you need access to configs within Webpacker's configuration, you can import them like this:
+```js
+const config = require('@rails/webpacker/package/config');
+const asset_host = require('@rails/webpacker/package/asset_host');
+
+console.log(asset_host.publicPathWithHost);
 ```
 
 **Note:** You will have to merge custom config to all env where you want that config
