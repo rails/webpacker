@@ -174,16 +174,9 @@ when running `./bin/webpack-dev-server` binstub:
 
 **Note:** Don't forget to prefix `ruby` when running these binstubs on windows
 
-### Configuration
+### Webpack configuration
 
-Webpacker gives you a default set of configuration files for test, development and
-production environments in `config/webpack/*.js`. You can configure each individual
-environment in their respective files or configure them all in the base
-`config/webpack/environment.js` file.
-
-By default, you don't need make any changes to `config/webpack/*.js`
-files since it's all standard production-ready configuration.
-See [docs/Webpack](docs/webpack.md) for modifying the configuration and loaders API.
+See [docs/Webpack](docs/webpack.md) for modifying webpack configuration and loaders.
 
 ## Integrations
 
