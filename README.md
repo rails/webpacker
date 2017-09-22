@@ -22,7 +22,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 - [Installation](#installation)
   - [Usage](#usage)
   - [Development](#development)
-  - [Configuration](#configuration)
+  - [Webpack configuration](#webpack-configuration)
 - [Integrations](#integrations)
   - [React](#react)
   - [Angular with TypeScript](#angular-with-typescript)
