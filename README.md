@@ -22,6 +22,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 - [Installation](#installation)
   - [Usage](#usage)
   - [Development](#development)
+  - [Configuration](#configuration)
 - [Integrations](#integrations)
   - [React](#react)
   - [Angular with TypeScript](#angular-with-typescript)
@@ -220,7 +221,7 @@ console.log(asset_host.publicPathWithHost);
 **Note:** You will have to merge custom config to all env where you want that config
 to be available. In above case, it will be applied to development environment.
 
-See [docs/Webpack](docs/webpack.md) for more details.
+See [docs/Webpack](docs/webpack.md) for more details on the configuration and loaders API.
 
 ## Integrations
 
