@@ -173,6 +173,55 @@ when running `./bin/webpack-dev-server` binstub:
 
 **Note:** Don't forget to prefix `ruby` when running these binstubs on windows
 
+### Configuration
+
+
+Webpacker gives you a default set of configuration files for test, development and
+production environments in `config/webpack/*.js`. You can configure each individual
+environment in their respective files or configure them all in the base
+`config/webpack/environment.js` file.
+
+By default, you shouldn't have to make any changes to `config/webpack/*.js`
+files since it's all standard production-ready configuration. However,
+if you do need to customize or add a new loader, this is where you would go.
+
+Here is how you can modify webpack configuration:
+
+```js
+// config/webpack/custom.js
+module.exports = {
+  resolve: {
+    alias: {
+      jquery: 'jquery/src/jquery',
+      vue: 'vue/dist/vue.js',
+      React: 'react',
+      ReactDOM: 'react-dom',
+      vue_resource: 'vue-resource/dist/vue-resource',
+    }
+  }
+}
+
+// config/webpack/development.js
+const merge = require('webpack-merge')
+const environment = require('./environment')
+const customConfig = require('./custom')
+
+module.exports = merge(environment.toWebpackConfig(), customConfig)
+```
+
+If you need access to functions within Webpacker's configuration, you can import them like this:
+```
+const config = require('@rails/webpacker/package/config');
+const asset_host = require('@rails/webpacker/package/asset_host');
+
+console.log(asset_host.publicPathWithHost);
+```
+
+**Note:** You will have to merge custom config to all env where you want that config
+to be available. In above case, it will be applied to development environment.
+
+See [docs/Webpack](docs/webpack.md) for more details.
+
 ## Integrations
 
 Webpacker ships with basic out-of-the-box integration for React, Angular, Vue and Elm.

@@ -36,6 +36,14 @@ const customConfig = require('./custom')
 module.exports = merge(environment.toWebpackConfig(), customConfig)
 ```
 
+If you need access to functions within Webpacker's configuration, you can import them like this:
+```
+const config = require('@rails/webpacker/package/config');
+const asset_host = require('@rails/webpacker/package/asset_host');
+
+console.log(asset_host.publicPathWithHost);
+```
+
 **Note:** You will have to merge custom config to all env where you want that config
 to be available. In above case, it will be applied to development environment.
 
