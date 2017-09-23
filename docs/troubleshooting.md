@@ -51,15 +51,15 @@ bundle config --delete bin
 ## Running Webpack on Windows
 
 If you are running Webpack on Windows, your command shell may not be able to interpret the preferred interpreter
-for the scripts generated in `bin/webpack` and `bin/webpack-dev-server`. Instead you'll want to run the scripts
+for the scripts generated in `webpack` and `webpack-dev-server`. Instead you'll want to run the scripts
 manually with Ruby:
 
 ```
-C:\path>ruby bin\webpack
-C:\path>ruby bin\webpack-dev-server
+C:\path>webpack
+C:\path>webpack-dev-server
 ```
 
 
-## Invalid configuration object. Webpack has been initialised using a configuration object that does not match the API schema.
+## Invalid configuration object. Webpack has been initialized using a configuration object that does not match the API schema.
 
-If you receive this error when running `$ ./bin/webpack-dev-server` ensure your configuration is correct; most likely the path to your "packs" folder is incorrect if you modified from the original "source_path" defined in `config/webpacker.yml`.
+If you receive this error when running `$ webpack-dev-server` ensure your configuration is correct; most likely the path to your "packs" folder is incorrect if you modified from the original "source_path" defined in `config/webpacker.yml`.

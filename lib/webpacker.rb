@@ -24,5 +24,6 @@ require "webpacker/manifest"
 require "webpacker/compiler"
 require "webpacker/commands"
 require "webpacker/dev_server"
+require "webpacker/webpack_runner.rb"
 
 require "webpacker/railtie" if defined?(Rails)
