@@ -127,7 +127,8 @@ you would need to link them in your "pack" or entry file.
 
 ### Development
 
-Webpacker ships with two binstubs: `./bin/webpack` and `./bin/webpack-dev-server`.
+Webpacker ships with two binstubs which are available after installing the gem:
+`webpack` and `webpack-dev-server`.
 Both are thin wrappers around the standard `webpack.js` and `webpack-dev-server.js`
 executable to ensure that the right configuration file and environment variables
 are loaded depending on your environment.
@@ -137,19 +138,19 @@ happens when you refer to any of the pack assets using the Webpacker helper meth
 That means you don't have to run any separate process. Compilation errors are logged
 to the standard Rails log.
 
-If you want to use live code reloading, or you have enough JavaScript that on-demand compilation is too slow, you'll need to run `./bin/webpack-dev-server` or `ruby ./bin/webpack-dev-server` if on windows,
+If you want to use live code reloading, or you have enough JavaScript that on-demand compilation is too slow, you'll need to run `webpack-dev-server` or `ruby webpack-dev-server` if on windows,
 in a separate terminal from `bundle exec rails s`. This process will watch for changes
 in the `app/javascript/packs/*.js` files and automatically reload the browser to match.
 
 ```bash
 # webpack dev server
-./bin/webpack-dev-server
+webpack-dev-server
 
 # watcher
-./bin/webpack --colors --progress
+webpack --colors --progress
 
 # standalone build
-./bin/webpack
+webpack
 ```
 
 Once you start this development server, Webpacker will automatically start proxying all
@@ -160,16 +161,16 @@ You can also pass CLI options supported by [webpack-dev-server](https://webpack.
 precedence over the ones already set in the configuration file.
 
 ```bash
-./bin/webpack-dev-server --host example.com --inline true --hot false
+webpack-dev-server --host example.com --inline true --hot false
 ```
 
 By default, webpack dev server listens on `localhost` in development for security
 but if you want your app to be available over local LAN IP or VM instance like vagrant
 you can pass an additional config option `--listen-host`
-when running `./bin/webpack-dev-server` binstub:
+when running `webpack-dev-server` binstub:
 
 ```bash
-./bin/webpack-dev-server --listen-host 0.0.0.0
+webpack-dev-server --listen-host 0.0.0.0
 ```
 
 **Note:** Don't forget to prefix `ruby` when running these binstubs on windows

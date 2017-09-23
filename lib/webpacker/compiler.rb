@@ -52,16 +52,19 @@ class Webpacker::Compiler
 
     def run_webpack
       logger.info "Compiling…"
+      ENV["RAILS_ENV"] ||= ENV["RACK_ENV"] || "development"
+      ENV["NODE_ENV"] ||= ENV["RAILS_ENV"]
 
-      sterr, stdout, status = Open3.capture3(webpack_env, "#{RbConfig.ruby} ./bin/webpack")
+      success = Webpacker::WebpackRunner.run([])
+      # sterr, stdout, status = Open3.capture3(webpack_env, "#{RbConfig.ruby} ./bin/webpack")
 
-      if status.success?
+      if success
         logger.info "Compiled all packs in #{config.public_output_path}"
       else
         logger.error "Compilation failed:\n#{sterr}\n#{stdout}"
       end
 
-      status.success?
+      success
     end
 
     def default_watched_paths
