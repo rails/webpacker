@@ -115,6 +115,18 @@ For this to work, don't forget to use the `stylesheet_pack_tag`, for example:
 <%= stylesheet_pack_tag 'YOUR_PACK_NAME_HERE' %>
 ```
 
+### Add cache-loader
+[cache-loader](https://github.com/webpack-contrib/cache-loader) caches results of loaders on disk.
+Adding cache-loader to expensive loaders may increase your bundle compilation speed.
+
+```js
+// config/webpack/development.js
+environment.addCacheLoader() // enables on all loaders by default
+environment.addCacheLoader(['style', 'babel']) // enables on babel and style loader
+environment.addCacheLoader('style') // enables only on style
+```
+
+
 ## Plugins
 
 The process for adding or modifying webpack plugins is the same as the process
