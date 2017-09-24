@@ -91,6 +91,19 @@ bundle exec rails webpacker:install
 bundle exec rake webpacker:install
 ```
 
+### Upgrading
+
+When upgrading the webpacker gem you will need to run the `install:upgrade` task.  
+
+```bash
+bundle exec rails webpacker:install:upgrade
+
+# OR (on rails version < 5.0)
+bundle exec rake webpacker:install:upgrade
+```
+
+Please check in any resulting changes in the ruby binstubs, package.json or yarn.lock.
+
 ### Usage
 
 Once installed you can start writing modern ES6-flavored JavaScript app today:
