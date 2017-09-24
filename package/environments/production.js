@@ -1,6 +1,6 @@
-const Environment = require('../environment')
 const webpack = require('webpack')
 const CompressionPlugin = require('compression-webpack-plugin')
+const Environment = require('../environment')
 
 module.exports = class extends Environment {
   constructor() {

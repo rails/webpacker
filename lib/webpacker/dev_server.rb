@@ -17,7 +17,12 @@ class Webpacker::DevServer
   end
 
   def hot_module_replacing?
-    fetch(:hmr)
+    case fetch(:hmr)
+    when true, "true"
+      true
+    else
+      false
+    end
   end
 
   def host
@@ -29,7 +34,12 @@ class Webpacker::DevServer
   end
 
   def https?
-    fetch(:https)
+    case fetch(:https)
+    when true, "true"
+      true
+    else
+      false
+    end
   end
 
   def protocol
@@ -37,12 +47,12 @@ class Webpacker::DevServer
   end
 
   def host_with_port
-    "#{host}:#{port}"
+    fetch(:public)
   end
 
   private
     def fetch(key)
-      config.dev_server.fetch(key, defaults[key])
+      ENV["WEBPACKER_DEV_SERVER_#{key.upcase}"] || config.dev_server.fetch(key, defaults[key])
     end
 
     def defaults
