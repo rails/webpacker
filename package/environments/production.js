@@ -6,9 +6,9 @@ module.exports = class extends Environment {
   constructor() {
     super()
 
-    this.plugins.set('ModuleConcatenation', new webpack.optimize.ModuleConcatenationPlugin())
+    this.addPlugin(new webpack.optimize.ModuleConcatenationPlugin())
 
-    this.plugins.set('UglifyJs', new webpack.optimize.UglifyJsPlugin({
+    this.addPlugin(new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
       compress: {
         warnings: false
@@ -18,17 +18,13 @@ module.exports = class extends Environment {
       }
     }))
 
-    this.plugins.set('Compression', new CompressionPlugin({
+    this.addPlugin(new CompressionPlugin({
       asset: '[path].gz[query]',
       algorithm: 'gzip',
       test: /\.(js|css|html|json|ico|svg|eot|otf|ttf)$/
     }))
-  }
 
-  toWebpackConfig() {
-    const result = super.toWebpackConfig()
-    result.devtool = 'nosources-source-map'
-    result.stats = 'normal'
-    return result
+    this.config.devtool = 'nosources-source-map'
+    this.config.stats = 'normal'
   }
 }

@@ -3,7 +3,11 @@
 
 const { resolve } = require('path')
 const { existsSync } = require('fs')
+const merge = require('webpack-merge')
 const Environment = require('./environment')
+const config = require('./config')
+const assetHost = require('./asset_host')
+const loaders = require('./loaders')
 
 const createEnvironment = () => {
   const path = resolve(__dirname, 'environments', `${process.env.NODE_ENV}.js`)
@@ -13,4 +17,4 @@ const createEnvironment = () => {
 
 const environment = createEnvironment()
 
-module.exports = { environment, Environment }
+module.exports = { merge, environment, config, assetHost, loaders, Environment }
