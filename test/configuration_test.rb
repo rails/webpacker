@@ -26,6 +26,11 @@ class ConfigurationTest < Webpacker::Test
     assert_equal Webpacker.config.cache_path.to_s, cache_path
   end
 
+  def test_extensions
+    webpacker_yml = YAML.load_file("lib/install/config/webpacker.yml")
+    assert_equal Webpacker.config.extensions, webpacker_yml["default"]["extensions"]
+  end
+
   def test_cache_manifest?
     with_node_env("development") do
       refute reloaded_config.cache_manifest?
