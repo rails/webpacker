@@ -190,3 +190,13 @@ Now, add these files to your `layouts/application.html.erb`:
 ```
 
 More detailed guides available here: [Webpack guides](https://webpack.js.org/guides/)
+
+## Including `node_modules` in babel
+
+If you have dependencies that are >ES6 you may want to include them to be processed by babel. A common case where you might need this is if you are finding the UglifyJS is raising errors during production complications. For example:
+
+```
+Unexpected character '`'
+```
+
+To include these dependencies in your pipeline change the value in `babel.exclude_node_modules` in `config/webpacker.yml` to `false`.
