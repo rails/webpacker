@@ -36,7 +36,7 @@ class Webpacker::Instance
   private
     def available_environments
       if config_path.exist?
-        YAML.load(config_path.read).keys
+        YAML.load(ERB.new(File.read(config_path)).result).keys
       else
         [].freeze
       end
