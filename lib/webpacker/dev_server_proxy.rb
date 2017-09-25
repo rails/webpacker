@@ -13,8 +13,8 @@ class Webpacker::DevServerProxy < Rack::Proxy
       env["HTTP_HOST"] = env["HTTP_X_FORWARDED_HOST"] = env["HTTP_X_FORWARDED_SERVER"] = Webpacker.dev_server.host_with_port
       status, headers, body = super(env)
       m = {}
-      headers.each_pair {|k,v| m[k] = v.is_a?(Array) ? v.first : v }
-      [status,m,body]
+      headers.each_pair { |k, v| m[k] = v.is_a?(Array) ? v.first : v }
+      [status, m, body]
     else
       @app.call(env)
     end
