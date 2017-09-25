@@ -93,13 +93,11 @@ bundle exec rake webpacker:install
 
 ### Upgrading
 
-When upgrading the webpacker gem you will need to run the `install:upgrade` task.  
+When upgrading the webpacker gem you will need to upgrade you local binstubs and javascript packages as well.  For all versions of Rails you can accomplish this with these two commands:
 
 ```bash
-bundle exec rails webpacker:install:upgrade
-
-# OR (on rails version < 5.0)
-bundle exec rake webpacker:install:upgrade
+bundle binstubs webpacker --force
+yarn upgrade @rails/webpacker --latest
 ```
 
 Please check in any resulting changes in the ruby binstubs, package.json or yarn.lock.
