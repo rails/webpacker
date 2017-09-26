@@ -189,13 +189,7 @@ You can run following commands to upgrade webpacker to the latest stable version
 ```bash
 bundle update webpacker
 yarn upgrade @rails/webpacker --latest
-
-# update binstubs (optional)
-bundle binstubs webpacker --force
 ```
-
-Please check in any resulting changes in the ruby binstubs, package.json or yarn.lock.
-
 
 ## Integrations
 
