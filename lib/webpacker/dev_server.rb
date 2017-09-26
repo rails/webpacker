@@ -47,7 +47,7 @@ class Webpacker::DevServer
   end
 
   def host_with_port
-    fetch(:public)
+    "#{host}:#{port}"
   end
 
   private
