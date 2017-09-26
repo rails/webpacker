@@ -20,6 +20,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 - [Prerequisites](#prerequisites)
 - [Features](#features)
 - [Installation](#installation)
+  - [Upgrading](#upgrading)
   - [Usage](#usage)
   - [Development](#development)
   - [Webpack configuration](#webpack-configuration)
