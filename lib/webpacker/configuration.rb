@@ -45,6 +45,10 @@ class Webpacker::Configuration
     root_path.join(fetch(:cache_path))
   end
 
+  def extensions
+    fetch(:extensions)
+  end
+
   private
     def fetch(key)
       data.fetch(key, defaults[key])
