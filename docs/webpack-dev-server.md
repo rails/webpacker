@@ -30,3 +30,46 @@ more information:
 
 **Note:** Don't forget to disable `HMR` if you are not running `webpack-dev-server`
 otherwise you will get not found error for stylesheets.
+
+
+## Nginx
+
+If you use Nginx in development to proxy requests to your Rails server from
+another domain, like `myapp.dev`, the Webpacker middleware will be able to
+forward requests for "packs" to the Webpack dev server.
+
+If you're using `inline` mode behing Nginx, you may also need to provide the
+hostname to Webpack dev server so it can initiate the websocket connection for
+live reloading ([Webpack
+docs](https://webpack.js.org/configuration/dev-server/#devserver-public)).
+
+To do so, set the `public` option in `config/webpacker.yml`:
+
+```yaml
+development:
+  # ...
+  dev_server:
+    # ...
+    public: myapp.dev
+```
+
+You may also need to add the following location block to your local Nginx server
+configuration for your Rails app.
+
+```
+server {
+    listen 80;
+    server_name myapp.dev
+
+    # Proxy webpack dev server websocket requests
+    location /sockjs-node {
+        proxy_redirect off;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_pass http://127.0.0.1:3035; # change to match your webpack-dev-server host
+    }
+
+    # ...
+}
+```
