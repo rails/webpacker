@@ -20,6 +20,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 - [Prerequisites](#prerequisites)
 - [Features](#features)
 - [Installation](#installation)
+  - [Upgrading](#upgrading)
   - [Usage](#usage)
   - [Development](#development)
   - [Webpack configuration](#webpack-configuration)
@@ -91,6 +92,7 @@ bundle exec rails webpacker:install
 bundle exec rake webpacker:install
 ```
 
+
 ### Usage
 
 Once installed you can start writing modern ES6-flavored JavaScript app today:
@@ -124,6 +126,7 @@ can use `asset_pack_path` helper:
 
 **Note:** In order for your styles or static assets files to be available in your view,
 you would need to link them in your "pack" or entry file.
+
 
 ### Development
 
@@ -177,6 +180,16 @@ when running `./bin/webpack-dev-server` binstub:
 ### Webpack configuration
 
 See [docs/Webpack](docs/webpack.md) for modifying webpack configuration and loaders.
+
+
+### Upgrading
+
+You can run following commands to upgrade webpacker to the latest stable version, this involves upgrading the gem and npm module:
+
+```bash
+bundle update webpacker
+yarn upgrade @rails/webpacker --latest
+```
 
 ## Integrations
 
