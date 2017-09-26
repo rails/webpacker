@@ -103,9 +103,11 @@ live reload when manifest changes. If you have applied this workaround from [#72
 
 ### Breaking changes
 
-- Add `compile` option to `config/webpacker.yml` for configuring lazy compilation of packs when a file under tracked paths is changed [#503](https://github.com/rails/webpacker/pull/503). To enable expected behavior, update `config/webpacker.yml`:
+- Add `compile` and `cache_path` options to `config/webpacker.yml` for configuring lazy compilation of packs when a file under tracked paths is changed [#503](https://github.com/rails/webpacker/pull/503). To enable expected behavior, update `config/webpacker.yml`:
 
   ```yaml
+    default: &default
+      cache_path: tmp/cache/webpacker
     test:
       compile: true
 
