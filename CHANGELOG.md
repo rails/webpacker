@@ -1,10 +1,21 @@
 ## Unreleased
 
+### Added
+
 - Allow dev server connect timeout (in seconds) to be configurable, default: 0.01
 
 ```rb
 # Change to 1s
 Webpacker.dev_server.connect_timeout = 1
+```
+
+- A new `lookup` method to manifest to perform lookup without raise and return `nil`
+
+```rb
+Webpacker.manifest.lookup('foo.js')
+# => nil
+Webpacker.manifest.lookup!('foo.js')
+# => raises Webpacker::Manifest::MissingEntryError
 ```
 
 ## [3.0.1] - 2017-09-01
