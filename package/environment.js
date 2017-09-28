@@ -45,7 +45,7 @@ function getEntryObject() {
   const paths = sync(join(rootPath, glob))
   paths.forEach((path) => {
     const namespace = relative(join(rootPath), dirname(path))
-    const name = join(namespace, basename(path, extname(path)))
+    const name = basename(path, extname(path))
     result[name] = resolve(path)
   })
   return result
