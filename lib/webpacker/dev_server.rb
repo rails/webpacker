@@ -12,7 +12,7 @@ class Webpacker::DevServer
   def running?
     Socket.tcp(host, port, connect_timeout: connect_timeout).close
     true
-  rescue Errno::ECONNREFUSED, Errno::ETIMEDOUT, NoMethodError
+  rescue
     false
   end
 
