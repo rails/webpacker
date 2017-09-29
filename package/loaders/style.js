@@ -23,9 +23,15 @@ const extractCSSLoader = {
 }
 
 // For hot-reloading use regular loaders
-const inlineCSSLoader = {
+const blobCSSLoader = {
   test: /\.(scss|sass|css)$/i,
-  use: ['style-loader'].concat(extractOptions.use)
+  use: [
+    { loader: 'style-loader' },
+    { loader: 'css-loader', options: { minimize: false, sourceMap: true, importLoaders: 1 } },
+    { loader: 'postcss-loader', options: { sourceMap: true, config: { path: postcssConfigPath } } },
+    { loader: 'resolve-url-loader' },
+    { loader: 'sass-loader', options: { sourceMap: true } }
+]
 }
 
-module.exports = isProduction || extractCSS ? extractCSSLoader : inlineCSSLoader
+module.exports = isProduction || extractCSS ? extractCSSLoader : blobCSSLoader
