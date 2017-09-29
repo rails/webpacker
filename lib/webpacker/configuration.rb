@@ -59,7 +59,7 @@ class Webpacker::Configuration
     end
 
     def load
-      YAML.load(config_path.read)[env].deep_symbolize_keys
+      YAML.load(ERB.new(config_path.read).result)[env].deep_symbolize_keys
 
     rescue Errno::ENOENT => e
       raise "Webpacker configuration file not found #{config_path}. " \
