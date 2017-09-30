@@ -14,23 +14,17 @@ const elmWebpackLoader = {
 
 const elmHotLoader = {
   loader: 'elm-hot-loader',
-  options: {
+  options: Object.assign(elmDefaultOptions, {
     verbose: true,
     warn: true,
     debug: true
-  }
-}
-
-const loaderOptions = () => {
-  if (process.env.NODE_ENV === 'production') {
-    return [elmWebpackLoader]
-  }
-
-  return [elmHotLoader, elmWebpackLoader]
+  })
 }
 
 module.exports = {
   test: /\.elm(\.erb)?$/,
   exclude: [/elm-stuff/, /node_modules/],
-  use: loaderOptions()
+  use: process.env.NODE_ENV === 'production'
+    ? [elmWebpackLoader]
+    : [elmHotLoader, elmWebpackLoader]
 }
