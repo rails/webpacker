@@ -10,7 +10,7 @@ const merge = require('webpack-merge')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
 
-const loaders = require('./loaders')
+const rules = require('./rules')
 const assetHost = require('./asset_host')
 const {
   source_path: sourcePath,
@@ -20,7 +20,7 @@ const {
 } = require('./config')
 
 const getBaseLoaders = () =>
-  Object.values(loaders).map(loader => loader)
+  Object.values(rules).map(rule => rule)
 
 const getBaseResolvedModules = () => {
   const result = []
@@ -113,13 +113,13 @@ module.exports = class Environment {
     })
   }
 
-  addLoader(names, loader) {
-    makeArray(names).forEach(name => this.updateRule(name, { use: makeArray(loader) }))
+  addLoader(ruleName, loader) {
+    makeArray(ruleName).forEach(rule => this.updateRule(rule, { use: makeArray(loader) }))
   }
 
   updateRule(name, options = {}) {
-    const rule = loaders[name]
-    if (!rule) throw new Error(`Rule ${name} not found in ${JSON.stringify(loaders, null, 2)}`)
+    const rule = rules[name]
+    if (!rule) throw new Error(`Rule ${name} not found in ${JSON.stringify(rules, null, 2)}`)
     this.addRule(merge.smart(rule, options))
   }
 
