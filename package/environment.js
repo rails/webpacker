@@ -113,6 +113,14 @@ module.exports = class Environment {
     })
   }
 
+  addResolvedModule(module) {
+    this.mergeConfig({
+      resolve: {
+        modules: makeArray(module)
+      }
+    })
+  }
+
   addLoader(ruleName, loader) {
     makeArray(ruleName).forEach(rule => this.updateRule(rule, { use: makeArray(loader) }))
   }
