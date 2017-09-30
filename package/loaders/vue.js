@@ -5,8 +5,10 @@ const extractCSS = !(devServer && devServer.hmr)
 
 module.exports = {
   test: /\.vue(\.erb)?$/,
-  loader: 'vue-loader',
-  options: {
-    extractCSS: isProduction || extractCSS
-  }
+  use: [{
+    loader: 'vue-loader',
+    options: {
+      extractCSS: isProduction || extractCSS
+    }
+  }]
 }

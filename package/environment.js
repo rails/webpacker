@@ -52,6 +52,8 @@ const getEntryObject = () => {
   return result
 }
 
+const makeArray = obj => (Array.isArray(obj) ? obj : [obj])
+
 module.exports = class Environment {
   constructor() {
     this.mergeOptions = {
@@ -91,26 +93,38 @@ module.exports = class Environment {
     }
   }
 
-  addLoader(loader) {
-    this.config = this.mergeConfig({
+  addEntry(entry) {
+    this.mergeConfig({
+      entry: makeArray(entry)
+    })
+  }
+
+  addRule(rule) {
+    this.mergeConfig({
       module: {
-        rules: Array.isArray(loader) ? loader : [loader]
+        rules: makeArray(rule)
       }
     })
   }
 
   addPlugin(plugin) {
-    this.config = this.mergeConfig({
-      plugins: Array.isArray(plugin) ? plugin : [plugin]
+    this.mergeConfig({
+      plugins: makeArray(plugin)
     })
+  }
+
+  addLoader(names, loader) {
+    makeArray(names).forEach(name => this.updateRule(name, { use: makeArray(loader) }))
+  }
+
+  updateRule(name, options = {}) {
+    const rule = loaders[name]
+    if (!rule) throw new Error(`Rule ${name} not found in ${JSON.stringify(loaders, null, 2)}`)
+    this.addRule(merge.smart(rule, options))
   }
 
   mergeConfig(config) {
     this.config = merge.smartStrategy(this.mergeOptions)(this.config, config)
-    return this.config
-  }
-
-  toWebpackConfig() {
     return this.config
   }
 }
