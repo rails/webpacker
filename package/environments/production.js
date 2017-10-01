@@ -6,27 +6,27 @@ module.exports = class extends Environment {
   constructor() {
     super()
 
-    this.addPlugin([
-      new webpack.optimize.ModuleConcatenationPlugin(),
+    this.plugins.set('ModuleConcatenation', new webpack.optimize.ModuleConcatenationPlugin())
 
-      new webpack.optimize.UglifyJsPlugin({
-        sourceMap: true,
-        compress: {
-          warnings: false
-        },
-        output: {
-          comments: false
-        }
-      }),
+    this.plugins.set('UglifyJs', new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
+      compress: {
+        warnings: false
+      },
+      output: {
+        comments: false
+      }
+    }))
 
-      new CompressionPlugin({
-        asset: '[path].gz[query]',
-        algorithm: 'gzip',
-        test: /\.(js|css|html|json|ico|svg|eot|otf|ttf)$/
-      })
-    ])
+    this.plugins.set('Compression', new CompressionPlugin({
+      asset: '[path].gz[query]',
+      algorithm: 'gzip',
+      test: /\.(js|css|html|json|ico|svg|eot|otf|ttf)$/
+    }))
 
-    this.config.devtool = 'nosources-source-map'
-    this.config.stats = 'normal'
+    this.config.merge({
+      devtool: 'nosources-source-map',
+      stats: 'normal'
+    })
   }
 }

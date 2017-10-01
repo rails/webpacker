@@ -6,33 +6,30 @@ const { sync } = require('glob')
 const extname = require('path-complete-extname')
 
 const webpack = require('webpack')
-const merge = require('webpack-merge')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
 
+const { ConfigList, ConfigObject } = require('./config_types')
 const rules = require('./rules')
+const config = require('./config')
 const assetHost = require('./asset_host')
-const {
-  source_path: sourcePath,
-  resolved_paths: resolvedPaths,
-  source_entry_path: sourceEntryPath,
-  extensions
-} = require('./config')
 
-const getBaseLoaders = () =>
-  Object.values(rules).map(rule => rule)
+const getLoaderList = () => {
+  const result = new ConfigList()
+  Object.entries(rules).forEach(([key, rule]) => result.set(key, rule))
+  return result
+}
 
-const getBaseResolvedModules = () => {
-  const result = []
-  result.push(resolve(sourcePath))
-  result.push('node_modules')
-  if (resolvedPaths) {
-    resolvedPaths.forEach(path => result.push(path))
-  }
+const getPluginList = () => {
+  const result = new ConfigList()
+  result.set('Environment', new webpack.EnvironmentPlugin(JSON.parse(JSON.stringify(process.env))))
+  result.set('ExtractText', new ExtractTextPlugin('[name]-[contenthash].css'))
+  result.set('Manifest', new ManifestPlugin({ publicPath: assetHost.publicPath, writeToFileEmit: true }))
   return result
 }
 
 const getExtensionsGlob = () => {
+  const { extensions } = config
   if (!extensions.length) {
     throw new Error('You must configure at least one extension to compile in webpacker.yml')
   }
@@ -40,99 +37,68 @@ const getExtensionsGlob = () => {
 }
 
 const getEntryObject = () => {
-  const result = {}
+  const result = new ConfigObject()
   const glob = getExtensionsGlob()
-  const entryPath = join(sourcePath, sourceEntryPath)
-  const entryPaths = sync(join(entryPath, glob))
-  entryPaths.forEach((path) => {
-    const namespace = relative(join(entryPath), dirname(path))
+  const rootPath = join(config.source_path, config.source_entry_path)
+  const paths = sync(join(rootPath, glob))
+  paths.forEach((path) => {
+    const namespace = relative(join(rootPath), dirname(path))
     const name = join(namespace, basename(path, extname(path)))
-    result[name] = resolve(path)
+    result.set(name, resolve(path))
   })
   return result
 }
 
-const makeArray = obj => (Array.isArray(obj) ? obj : [obj])
+const getModulePaths = () => {
+  const result = new ConfigList()
+  result.set('source', resolve(config.source_path))
+  result.set('node_modules', 'node_modules')
+  if (config.resolved_paths) {
+    config.resolved_paths.forEach(path => result.set(basename(path), path))
+  }
+  return result
+}
+
+const getBaseConfig = () =>
+  new ConfigObject().merge({
+    output: {
+      filename: '[name]-[chunkhash].js',
+      chunkFilename: '[name]-[chunkhash].chunk.js',
+      path: assetHost.path,
+      publicPath: assetHost.publicPath
+    },
+
+    resolve: {
+      extensions: config.extensions
+    },
+
+    resolveLoader: {
+      modules: ['node_modules']
+    }
+  })
 
 module.exports = class Environment {
   constructor() {
-    this.mergeOptions = {
-      entry: 'append',
-      'module.rules': 'append',
-      plugins: 'append'
-    }
+    this.loaders = getLoaderList()
+    this.plugins = getPluginList()
+    this.config = getBaseConfig()
+    this.entry = getEntryObject()
+    this.resolvedModules = getModulePaths()
+  }
 
-    this.config = {
-      entry: getEntryObject(),
-
-      output: {
-        filename: '[name]-[chunkhash].js',
-        chunkFilename: '[name]-[chunkhash].chunk.js',
-        path: assetHost.path,
-        publicPath: assetHost.publicPath
-      },
+  toWebpackConfig() {
+    return this.config.merge({
+      entry: this.entry.toObject(),
 
       module: {
-        rules: getBaseLoaders()
+        rules: this.loaders.values()
       },
 
-      plugins: [
-        new webpack.EnvironmentPlugin(JSON.parse(JSON.stringify(process.env))),
-        new ExtractTextPlugin('[name]-[contenthash].css'),
-        new ManifestPlugin({ publicPath: assetHost.publicPath, writeToFileEmit: true })
-      ],
+      plugins: this.plugins.values(),
 
       resolve: {
-        extensions,
-        modules: getBaseResolvedModules()
-      },
-
-      resolveLoader: {
-        modules: ['node_modules']
-      }
-    }
-  }
-
-  addEntry(entry) {
-    this.mergeConfig({
-      entry: makeArray(entry)
-    })
-  }
-
-  addRule(rule) {
-    this.mergeConfig({
-      module: {
-        rules: makeArray(rule)
+        modules: this.resolvedModules.values()
       }
     })
-  }
-
-  addPlugin(plugin) {
-    this.mergeConfig({
-      plugins: makeArray(plugin)
-    })
-  }
-
-  addResolvedModule(module) {
-    this.mergeConfig({
-      resolve: {
-        modules: makeArray(module)
-      }
-    })
-  }
-
-  addLoader(ruleName, loader) {
-    makeArray(ruleName).forEach(rule => this.updateRule(rule, { use: makeArray(loader) }))
-  }
-
-  updateRule(name, options = {}) {
-    const rule = rules[name]
-    if (!rule) throw new Error(`Rule ${name} not found in ${JSON.stringify(rules, null, 2)}`)
-    this.addRule(merge.smart(rule, options))
-  }
-
-  mergeConfig(config) {
-    this.config = merge.smartStrategy(this.mergeOptions)(this.config, config)
-    return this.config
   }
 }

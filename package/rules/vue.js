@@ -1,14 +1,13 @@
 const { dev_server: devServer } = require('../config')
 
 const isProduction = process.env.NODE_ENV === 'production'
-const extractCSS = !(devServer && devServer.hmr)
+const inDevServer = process.argv.find(v => v.includes('webpack-dev-server'))
+const extractCSS = !(inDevServer && (devServer && devServer.hmr)) || isProduction
 
 module.exports = {
   test: /\.vue(\.erb)?$/,
   use: [{
     loader: 'vue-loader',
-    options: {
-      extractCSS: isProduction || extractCSS
-    }
+    options: { extractCSS }
   }]
 }
