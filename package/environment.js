@@ -11,6 +11,7 @@ const ManifestPlugin = require('webpack-manifest-plugin')
 
 const config = require('./config')
 const assetHost = require('./asset_host')
+const addCacheLoader = require('./lib/add_cache_loader')
 
 function getLoaderMap() {
   const result = new Map()
@@ -63,6 +64,17 @@ module.exports = class Environment {
   constructor() {
     this.loaders = getLoaderMap()
     this.plugins = getPluginMap()
+  }
+
+  addCacheLoader(loader_names) {
+    if (!loader_names) {
+      loader_names = Array.from(getLoaderMap().keys())
+    } else if (loader_names.constructor === String) {
+      loader_names = [loader_names]
+    }
+    loader_names.forEach((loader_name) =>
+      addCacheLoader(this.loaders.get(loader_name))
+    )
   }
 
   toWebpackConfig() {
