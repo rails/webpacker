@@ -9,9 +9,11 @@ Webpacker does not setup `Karma` by default, so you've to manually install it al
 "scripts": {
   "test": "NODE_ENV=test karma start"
 },
-"devDependencies": {
+"dependencies": {
   "typescript": "^2.5.2",
-  "ts-loader": "^2.3.7",
+  "ts-loader": "^2.3.7"
+},
+"devDependencies": {
   "karma": "^1.7.1",
   "karma-webpack": "^2.0.4",
   "karma-chrome-launcher": "^2.2.0",
