@@ -30,6 +30,16 @@ Webpacker.manifest.lookup!('foo.js')
 
 - Inline CLI args for dev server binstub, use env variables instead
 
+- Coffeescript as core dependency. You have to manually add coffeescript now, if you are using
+it in your app.
+
+```bash
+yarn add coffeescript@1.12.7
+
+# OR coffeescript 2.0
+yarn add coffeescript
+```
+
 ## [3.0.1] - 2017-09-01
 
 ### Fixed
