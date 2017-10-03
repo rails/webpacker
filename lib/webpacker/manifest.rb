@@ -45,7 +45,7 @@ class Webpacker::Manifest
     end
 
     def missing_file_from_manifest_error(bundle_name)
-      msg = <<-MSG
+      <<-MSG
 Webpacker can't find #{bundle_name} in #{config.public_manifest_path}. Possible causes:
 1. You want to set webpacker.yml value of compile to true for your environment
    unless you are using the `webpack -w` or the webpack-dev-server.
