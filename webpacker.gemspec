@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.bindir   = "exe"
   s.executables = `git ls-files -- exe/*`.split("\n").map { |f| File.basename(f) }
 
-  s.required_ruby_version = ">= 1.9.3"
+  s.required_ruby_version = ">= 2.2.0"
 
   s.add_dependency "activesupport", ">= 4.2"
   s.add_dependency "railties",      ">= 4.2"
