@@ -28,7 +28,7 @@ yarn add ts-loader typescript @types/react @types/react-dom
   "exclude": [
     "**/*.spec.ts",
     "node_modules",
-    "vendor"
+    "vendor",
     "public"
   ],
   "compileOnSave": false
