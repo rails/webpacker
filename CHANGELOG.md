@@ -9,6 +9,12 @@
 Webpacker.dev_server.connect_timeout = 1
 ```
 
+- Restrict the source maps generated in production [#770](https://github.com/rails/webpacker/pull/770)
+
+- Binstubs [#833](https://github.com/rails/webpacker/pull/833)
+
+- Allow dev server settings to be overriden by env variables [#843](https://github.com/rails/webpacker/pull/843)
+
 - A new `lookup` method to manifest to perform lookup without raise and return `nil`
 
 ```rb
@@ -16,6 +22,22 @@ Webpacker.manifest.lookup('foo.js')
 # => nil
 Webpacker.manifest.lookup!('foo.js')
 # => raises Webpacker::Manifest::MissingEntryError
+```
+
+- Catch all exceptions in `DevServer.running?` and return false [#878](https://github.com/rails/webpacker/pull/878)
+
+### Removed
+
+- Inline CLI args for dev server binstub, use env variables instead
+
+- Coffeescript as core dependency. You have to manually add coffeescript now, if you are using
+it in your app.
+
+```bash
+yarn add coffeescript@1.12.7
+
+# OR coffeescript 2.0
+yarn add coffeescript
 ```
 
 ## [3.0.1] - 2017-09-01
