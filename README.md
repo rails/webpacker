@@ -159,20 +159,18 @@ Once you start this development server, Webpacker will automatically start proxy
 webpack asset requests to this server. When you stop the server, it'll revert to
 on-demand compilation again.
 
-You can also pass CLI options supported by [webpack-dev-server](https://webpack.js.org/configuration/dev-server/). Please note that inline options will always take
-precedence over the ones already set in the configuration file.
+You can use environment variables as options supported by [webpack-dev-server](https://webpack.js.org/configuration/dev-server/) in the form `WEBPACKER_DEV_SERVER_<OPTION>`. Please note that these environment variables will always take precedence over the ones already set in the configuration file.
 
 ```bash
-./bin/webpack-dev-server --host example.com --inline true --hot false
+WEBPACKER_DEV_SERVER_HOST=example.com WEBPACKER_DEV_SERVER_INLINE=true WEBPACKER_DEV_SERVER_HOT=false ./bin/webpack-dev-server
 ```
 
 By default, webpack dev server listens on `localhost` in development for security
 but if you want your app to be available over local LAN IP or VM instance like vagrant
-you can pass an additional config option `--listen-host`
-when running `./bin/webpack-dev-server` binstub:
+you can set the `host` when running `./bin/webpack-dev-server` binstub:
 
 ```bash
-./bin/webpack-dev-server --listen-host 0.0.0.0
+WEBPACKER_DEV_SERVER_HOST=0.0.0.0 ./bin/webpack-dev-server
 ```
 
 **Note:** Don't forget to prefix `ruby` when running these binstubs on windows
