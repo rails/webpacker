@@ -3,7 +3,7 @@ require "rails/railtie"
 require "webpacker/helper"
 require "webpacker/dev_server_proxy"
 
-class Webpacker::Engine < ::Rails::Engine
+class Webpacker::Railtie < ::Rails::Railtie
   initializer "webpacker.proxy" do |app|
     if Rails.env.development?
       app.middleware.insert_before 0,
