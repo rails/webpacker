@@ -12,7 +12,7 @@ class Webpacker::Railtie < ::Rails::Railtie
     end
   end
 
-  initializer "webpacker.helper" do |app|
+  initializer "webpacker.helper" do
     ActiveSupport.on_load :action_controller do
       ActionController::Base.helper Webpacker::Helper
     end
@@ -23,7 +23,7 @@ class Webpacker::Railtie < ::Rails::Railtie
   end
 
   initializer "webpacker.logger" do
-    config.after_initialize do |app|
+    config.after_initialize do
       if ::Rails.logger.respond_to?(:tagged)
         Webpacker.logger = ::Rails.logger
       else
