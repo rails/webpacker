@@ -1,6 +1,6 @@
 class Webpacker::DevServer
   # Configure dev server connection timeout (in seconds), default: 0.01
-  # Webpacker.dev_server.connect_timeout = 1
+  # Webpacker.dev_server.connect_timeout = 1
   mattr_accessor(:connect_timeout) { 0.01 }
 
   delegate :config, to: :@webpacker
