@@ -3,7 +3,7 @@ require "digest/sha1"
 
 class Webpacker::Compiler
   # Additional paths that test compiler needs to watch
-  # Webpacker::Compiler.watched_paths << 'bower_components'
+  # Webpacker::Compiler.watched_paths << 'bower_components'
   mattr_accessor(:watched_paths) { [] }
 
   # Additional environment variables that the compiler is being run with
