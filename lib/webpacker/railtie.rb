@@ -38,4 +38,9 @@ class Webpacker::Railtie < ::Rails::Railtie
       Spring.after_fork { Webpacker.bootstrap } if defined?(Spring)
     end
   end
+
+  rake_tasks do
+    tasks_path = File.expand_path("../tasks", __dir__)
+    Dir.glob("#{tasks_path}/**/*.rake").sort.each { |ext| load ext }
+  end
 end
