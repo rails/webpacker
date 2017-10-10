@@ -82,7 +82,7 @@ gem 'webpacker', '~> 3.0'
 gem 'webpacker', git: 'https://github.com/rails/webpacker.git'
 ```
 
-and finally, run following to install webpacker:
+and finally, run following to install Webpacker:
 
 ```bash
 bundle
@@ -108,7 +108,7 @@ app/javascript:
       └── logo.svg
 ```
 
-You can then link the javascript pack in Rails view using `javascript_pack_tag` helper.
+You can then link the JavaScript pack in Rails view using `javascript_pack_tag` helper.
 If you have styles imported in your pack file, you can link using `stylesheet_pack_tag`:
 
 ```erb
@@ -182,7 +182,7 @@ See [docs/Webpack](docs/webpack.md) for modifying webpack configuration and load
 
 ### Upgrading
 
-You can run following commands to upgrade webpacker to the latest stable version, this involves upgrading the gem and npm module:
+You can run following commands to upgrade Webpacker to the latest stable version, this involves upgrading the gem and npm module:
 
 ```bash
 bundle update webpacker
@@ -205,7 +205,7 @@ rails new myapp --webpack=react
 ```
 
 (or run `bundle exec rails webpacker:install:react` in a existing Rails app already
-setup with webpacker).
+setup with Webpacker).
 
 The installer will add all relevant dependencies using yarn, any changes
 to the configuration files and an example React component to your
@@ -223,7 +223,7 @@ rails new myapp --webpack=angular
 ```
 
 (or run `bundle exec rails webpacker:install:angular` on a Rails app already
-setup with webpacker).
+setup with Webpacker).
 
 The installer will add TypeScript and Angular core libraries using yarn plus
 any changes to the configuration files. An example component is written in
@@ -240,7 +240,7 @@ new Rails 5.1+ app using `--webpack=vue` option:
 # Rails 5.1+
 rails new myapp --webpack=vue
 ```
-(or run `bundle exec rails webpacker:install:vue` on a Rails app already setup with webpacker).
+(or run `bundle exec rails webpacker:install:vue` on a Rails app already setup with Webpacker).
 
 The installer will add Vue and required libraries using yarn plus
 any changes to the configuration files. An example component will
@@ -258,7 +258,7 @@ new Rails 5.1+ app using `--webpack=elm` option:
 rails new myapp --webpack=elm
 ```
 
-(or run `bundle exec rails webpacker:install:elm` on a Rails app already setup with webpacker).
+(or run `bundle exec rails webpacker:install:elm` on a Rails app already setup with Webpacker).
 
 The Elm library and core packages will be added via Yarn and Elm itself.
 An example `Main.elm` app will also be added to your project in `app/javascript`
@@ -267,8 +267,8 @@ so that you can experiment with Elm right away.
 
 ## Paths
 
-By default, webpacker ships with simple conventions for where the javascript
-app files and compiled webpack bundles will go in your rails app,
+By default, Webpacker ships with simple conventions for where the JavaScript
+app files and compiled webpack bundles will go in your Rails app,
 but all these options are configurable from `config/webpacker.yml` file.
 
 The configuration for what Webpack is supposed to compile by default rests
@@ -303,7 +303,7 @@ If you have `hmr` turned to true, then the `stylesheet_pack_tag` generates no ou
 
 ### Resolved
 
-If you are adding webpacker to an existing app that has most of the assets inside
+If you are adding Webpacker to an existing app that has most of the assets inside
 `app/assets` or inside an engine and you want to share that
 with webpack modules then you can use `resolved_paths`
 option available in `config/webpacker.yml`, which lets you
@@ -330,7 +330,7 @@ whole parent directory if you just need to reference one or two modules
 
 By default, the lazy compilation is cached until a file is changed under
 tracked paths. You can configure the paths tracked
-by adding new paths to `watched_paths` array, much like rails `autoload_paths`:
+by adding new paths to `watched_paths` array, much like Rails `autoload_paths`:
 
 ```rb
 # config/initializers/webpacker.rb
