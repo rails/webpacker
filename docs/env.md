@@ -58,7 +58,7 @@ module.exports = environment
 confusing behavior, in that Foreman/Invoker variables take precedence over
 npm dotenv variables.
 
-If you'd like to pass custom variables to the on demand compiler, use `Webpack::Compiler.env` attribute.
+If you'd like to pass custom variables to the on demand compiler, use `Webpacker::Compiler.env` attribute.
 
 ```rb
 Webpacker::Compiler.env['FRONTEND_API_KEY'] = 'your_secret_key'
