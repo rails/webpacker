@@ -1,5 +1,5 @@
 module Webpacker::Helper
-  # Computes the full path for a given webpacker asset.
+  # Computes the full path for a given Webpacker asset.
   # Return relative path using manifest.json and passes it to asset_url helper
   # This will use asset_path internally, so most of their behaviors will be the same.
   #

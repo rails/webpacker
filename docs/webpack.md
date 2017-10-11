@@ -50,7 +50,7 @@ to be available. In above case, it will be applied to development environment.
 
 ## Loaders
 
-You can add additional loaders beyond the base set that webpacker provides by
+You can add additional loaders beyond the base set that Webpacker provides by
 adding it to your environment. We'll use `json-loader` as an example:
 
 ```
@@ -72,7 +72,7 @@ module.exports = environment
 Finally add `.json` to the list of extensions in `config/webpacker.yml`. Now if you `import()` any `.json` files inside your javascript
 they will be processed using `json-loader`. Voila!
 
-You can also modify the loaders that webpacker pre-configures for you. We'll update
+You can also modify the loaders that Webpacker pre-configures for you. We'll update
 the `babel` loader as an example:
 
 ```js
