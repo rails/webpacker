@@ -15,7 +15,7 @@ you install any new modules.
 ## Can't find hello_react.js in manifest.json
 
 * If you get this error `Can't find hello_react.js in manifest.json`
-when loading a view in the browser it's because Webpack is still compiling packs.
+when loading a view in the browser it's because webpack is still compiling packs.
 Webpacker uses a `manifest.json` file to keep track of packs in all environments,
 however since this file is generated after packs are compiled by webpack. So,
 if you load a view in browser whilst webpack is compiling you will get this error.
@@ -48,9 +48,9 @@ bundle config --delete bin
 ```
 
 
-## Running Webpack on Windows
+## Running webpack on Windows
 
-If you are running Webpack on Windows, your command shell may not be able to interpret the preferred interpreter
+If you are running webpack on Windows, your command shell may not be able to interpret the preferred interpreter
 for the scripts generated in `bin/webpack` and `bin/webpack-dev-server`. Instead you'll want to run the scripts
 manually with Ruby:
 
@@ -60,6 +60,6 @@ C:\path>ruby bin\webpack-dev-server
 ```
 
 
-## Invalid configuration object. Webpack has been initialised using a configuration object that does not match the API schema.
+## Invalid configuration object. webpack has been initialised using a configuration object that does not match the API schema.
 
 If you receive this error when running `$ ./bin/webpack-dev-server` ensure your configuration is correct; most likely the path to your "packs" folder is incorrect if you modified from the original "source_path" defined in `config/webpacker.yml`.

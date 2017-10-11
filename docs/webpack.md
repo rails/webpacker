@@ -1,4 +1,4 @@
-# Webpack
+# webpack
 
 
 ## Configuration
@@ -86,9 +86,9 @@ babelLoader.options.cacheDirectory = false
 module.exports = environment
 ```
 
-### Overriding Loader Options in Webpack 3+ (for CSS Modules etc.)
+### Overriding Loader Options in webpack 3+ (for CSS Modules etc.)
 
-In Webpack 3+, if you'd like to specify additional or different options for a loader, edit `config/webpack/environment.js` and provide an options object to override. This is similar to the technique shown above, but the following example shows specifically how to apply CSS Modules, which is what you may be looking for:
+In webpack 3+, if you'd like to specify additional or different options for a loader, edit `config/webpack/environment.js` and provide an options object to override. This is similar to the technique shown above, but the following example shows specifically how to apply CSS Modules, which is what you may be looking for:
 
 ```javascript
 const { environment } = require('@rails/webpacker')
@@ -189,4 +189,4 @@ Now, add these files to your `layouts/application.html.erb`:
 <%= stylesheet_pack_tag "vendor" %>
 ```
 
-More detailed guides available here: [Webpack guides](https://webpack.js.org/guides/)
+More detailed guides available here: [webpack guides](https://webpack.js.org/guides/)

@@ -13,7 +13,7 @@ run "yarn add elm elm-webpack-loader"
 run "yarn add --dev elm-hot-loader"
 run "yarn run elm package install -- --yes"
 
-say "Updating Webpack paths to include Elm file extension"
+say "Updating webpack paths to include Elm file extension"
 insert_into_file Webpacker.config.config_path, "    - .elm\n", after: /extensions:\n/
 
 say "Updating Elm source location"

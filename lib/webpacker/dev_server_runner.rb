@@ -20,7 +20,7 @@ module Webpacker
         @port              = dev_server["port"]
 
       rescue Errno::ENOENT, NoMethodError
-        $stdout.puts "Webpack dev_server configuration not found in #{@config_file}."
+        $stdout.puts "webpack dev_server configuration not found in #{@config_file}."
         $stdout.puts "Please run bundle exec rails webpacker:install to install webpacker"
         exit!
       end
