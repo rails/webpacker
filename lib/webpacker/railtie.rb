@@ -4,7 +4,6 @@ require "webpacker/helper"
 require "webpacker/dev_server_proxy"
 
 class Webpacker::Railtie < ::Rails::Railtie
-
   # Allows webpacker config values to be set via rails env config files
   config.webpacker = ActiveSupport::OrderedOptions.new
 
