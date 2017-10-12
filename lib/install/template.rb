@@ -10,7 +10,7 @@ copy_file "#{__dir__}/config/.postcssrc.yml", ".postcssrc.yml"
 say "Copying .babelrc to app root directory"
 copy_file "#{__dir__}/config/.babelrc", ".babelrc"
 
-say "Creating javascript app source directory"
+say "Creating JavaScript app source directory"
 directory "#{__dir__}/javascript", Webpacker.config.source_path
 
 say "Installing binstubs"
