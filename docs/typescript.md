@@ -40,6 +40,14 @@ and rename your generated `hello_react.js` using react installer
 to `hello_react.tsx` and make it valid typescript and now you can use
 typescript, JSX with React.
 
+4. Create `config/webpack/loaders/typescript.js` with this content:
+
+```
+module.exports = {
+    test: /.(ts|tsx)$/,
+    loader: 'ts-loader'
+}
+```
 
 
 ## HTML templates with Typescript and Angular
