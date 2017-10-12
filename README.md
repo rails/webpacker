@@ -182,11 +182,12 @@ See [docs/webpack](docs/webpack.md) for modifying webpack configuration and load
 
 ### Upgrading
 
-You can run following commands to upgrade Webpacker to the latest stable version, this involves upgrading the gem and npm module:
+You can run following commands to upgrade Webpacker to the latest stable version, this involves upgrading the gem and related npm modules:
 
 ```bash
 bundle update webpacker
 yarn upgrade @rails/webpacker --latest
+yarn upgrade webpack-dev-server --latest
 ```
 
 ## Integrations
