@@ -4,7 +4,7 @@ require "webpacker/helper"
 require "webpacker/dev_server_proxy"
 
 class Webpacker::Railtie < ::Rails::Railtie
-  
+
   # Allows webpacker config values to be set via rails env config files
   config.webpacker = ActiveSupport::OrderedOptions.new
 
@@ -24,7 +24,7 @@ class Webpacker::Railtie < ::Rails::Railtie
   #     - edit config/environments/production.rb
   #     - add `config.webpacker.check_yarn_integrity = false`
   initializer "webpacker.yarn_check" do |app|
-    if app.config.webpacker[:check_yarn_integrity] || ( !app.config.webpacker.key?(:check_yarn_integrity) && Rails.env.development? )
+    if app.config.webpacker[:check_yarn_integrity] || (!app.config.webpacker.key?(:check_yarn_integrity) && Rails.env.development?)
       ok = system("yarn check --integrity")
 
       if !ok
