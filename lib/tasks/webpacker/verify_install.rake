@@ -1,7 +1,7 @@
 require "webpacker/configuration"
 
 namespace :webpacker do
-  desc "Verifies if webpacker is installed"
+  desc "Verifies if Webpacker is installed"
   task verify_install: [:check_node, :check_yarn, :check_binstubs] do
     if Webpacker.config.config_path.exist?
       $stdout.puts "Webpacker is installed 🎉 🍰"

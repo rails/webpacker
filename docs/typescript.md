@@ -3,7 +3,7 @@
 
 ## Typescript with React
 
-1. Setup react using webpacker [react installer](#react). Then add required depedencies
+1. Setup react using Webpacker [react installer](#react). Then add required depedencies
 for using typescript with React:
 
 ```bash

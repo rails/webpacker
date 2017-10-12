@@ -1,4 +1,4 @@
-# Install webpacker
+# Install Webpacker
 copy_file "#{__dir__}/config/webpacker.yml", "config/webpacker.yml"
 
 say "Copying webpack core config and loaders"

@@ -14,7 +14,7 @@ module Webpacker
       @webpack_config    = File.join(@app_path, "config/webpack/#{ENV["NODE_ENV"]}.js")
 
       unless File.exist?(@webpack_config)
-        $stderr.puts "Webpack config #{@webpack_config} not found, please run 'bundle exec rails webpacker:install' to install webpacker with default configs or add the missing config file for your custom environment."
+        $stderr.puts "webpack config #{@webpack_config} not found, please run 'bundle exec rails webpacker:install' to install Webpacker with default configs or add the missing config file for your custom environment."
         exit!
       end
     end

@@ -49,9 +49,9 @@ class Webpacker::Manifest
 Webpacker can't find #{bundle_name} in #{config.public_manifest_path}. Possible causes:
 1. You want to set webpacker.yml value of compile to true for your environment
    unless you are using the `webpack -w` or the webpack-dev-server.
-2. Webpack has not yet re-run to reflect updates.
+2. webpack has not yet re-run to reflect updates.
 3. You have misconfigured Webpacker's config/webpacker.yml file.
-4. Your Webpack configuration is not creating a manifest.
+4. Your webpack configuration is not creating a manifest.
 Your manifest contains:
 #{JSON.pretty_generate(@data)}
       MSG

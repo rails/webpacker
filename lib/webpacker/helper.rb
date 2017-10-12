@@ -1,5 +1,5 @@
 module Webpacker::Helper
-  # Computes the full path for a given webpacker asset.
+  # Computes the full path for a given Webpacker asset.
   # Return relative path using manifest.json and passes it to asset_url helper
   # This will use asset_path internally, so most of their behaviors will be the same.
   #
@@ -9,7 +9,7 @@ module Webpacker::Helper
   def asset_pack_path(name, **options)
     asset_path(Webpacker.manifest.lookup!(name), **options)
   end
-  # Creates a script tag that references the named pack file, as compiled by Webpack per the entries list
+  # Creates a script tag that references the named pack file, as compiled by webpack per the entries list
   # in config/webpack/shared.js. By default, this list is auto-generated to match everything in
   # app/javascript/packs/*.js. In production mode, the digested reference is automatically looked up.
   #
@@ -21,7 +21,7 @@ module Webpacker::Helper
     javascript_include_tag(*sources_from_pack_manifest(names, type: :javascript), **options)
   end
 
-  # Creates a link tag that references the named pack file, as compiled by Webpack per the entries list
+  # Creates a link tag that references the named pack file, as compiled by webpack per the entries list
   # in config/webpack/shared.js. By default, this list is auto-generated to match everything in
   # app/javascript/packs/*.js. In production mode, the digested reference is automatically looked up.
   #

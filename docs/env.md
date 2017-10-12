@@ -2,7 +2,7 @@
 
 
 Environment variables are supported out of the box in Webpacker. For example if
-you run the Webpack dev server like so:
+you run the webpack dev server like so:
 ```
 FOO=hello BAR=world ./bin/webpack-dev-server
 ```
@@ -18,11 +18,11 @@ You may want to store configuration in environment variables via `.env` files,
 similar to the [dotenv Ruby gem](https://github.com/bkeepers/dotenv).
 
 In development, if you use [Foreman](http://ddollar.github.io/foreman) or [Invoker](http://invoker.codemancers.com)
-to launch the Webpack server, both of these tools have basic support for a
+to launch the webpack server, both of these tools have basic support for a
 `.env` file (Invoker also supports `.env.local`), so no further configuration
 is needed.
 
-However, if you run the Webpack server without Foreman/Invoker, or if you
+However, if you run the webpack server without Foreman/Invoker, or if you
 want more control over what `.env` files to load, you can use the
 [dotenv npm package](https://github.com/motdotla/dotenv). Here is what you could
 do to support a "Ruby-like" dotenv:

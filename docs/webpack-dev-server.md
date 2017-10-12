@@ -1,4 +1,4 @@
-# Webpack Dev Server
+# webpack Dev Server
 
 
 ## HTTPS
@@ -36,10 +36,10 @@ otherwise you will get not found error for stylesheets.
 
 If you use Nginx in development to proxy requests to your Rails server from
 another domain, like `myapp.dev`, the Webpacker middleware will be able to
-forward requests for "packs" to the Webpack dev server.
+forward requests for "packs" to the webpack dev server.
 
 If you're using `inline` mode behing Nginx, you may also need to provide the
-hostname to Webpack dev server so it can initiate the websocket connection for
+hostname to webpack dev server so it can initiate the websocket connection for
 live reloading ([Webpack
 docs](https://webpack.js.org/configuration/dev-server/#devserver-public)).
 

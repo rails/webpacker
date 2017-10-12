@@ -1,9 +1,9 @@
 # Folder Structure
 
 
-## Packs a.k.a Webpack entries
+## Packs a.k.a webpack entries
 
-"Packs" is a special directory made only for Webpack entry files so don't put anything
+"Packs" is a special directory made only for webpack entry files so don't put anything
 here that you don't want to link in your views.
 
 

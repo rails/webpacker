@@ -5,9 +5,9 @@
 [![Gem](https://img.shields.io/gem/v/webpacker.svg)](https://github.com/rails/webpacker)
 
 Webpacker makes it easy to use the JavaScript pre-processor and bundler
-[Webpack 3.x.x+](https://webpack.js.org/)
+[webpack 3.x.x+](https://webpack.js.org/)
 to manage application-like JavaScript in Rails. It coexists with the asset pipeline,
-as the primary purpose for Webpack is app-like JavaScript, not images, CSS, or
+as the primary purpose for webpack is app-like JavaScript, not images, CSS, or
 even JavaScript Sprinkles (that all continues to live in app/assets).
 
 However, it is possible to use Webpacker for CSS, images and fonts assets as well,
@@ -23,7 +23,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
   - [Upgrading](#upgrading)
   - [Usage](#usage)
   - [Development](#development)
-  - [Webpack configuration](#webpack-configuration)
+  - [webpack configuration](#webpack-configuration)
 - [Integrations](#integrations)
   - [React](#react)
   - [Angular with TypeScript](#angular-with-typescript)
@@ -49,7 +49,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 
 ## Features
 
-* [Webpack 3.x.x](https://webpack.js.org/)
+* [webpack 3.x.x](https://webpack.js.org/)
 * ES6 with [babel](https://babeljs.io/)
 * Automatic code splitting using multiple entry points
 * Stylesheets - SASS and CSS
@@ -175,9 +175,9 @@ WEBPACKER_DEV_SERVER_HOST=0.0.0.0 ./bin/webpack-dev-server
 
 **Note:** Don't forget to prefix `ruby` when running these binstubs on windows
 
-### Webpack configuration
+### webpack configuration
 
-See [docs/Webpack](docs/webpack.md) for modifying webpack configuration and loaders.
+See [docs/webpack](docs/webpack.md) for modifying webpack configuration and loaders.
 
 
 ### Upgrading
@@ -271,10 +271,10 @@ By default, Webpacker ships with simple conventions for where the JavaScript
 app files and compiled webpack bundles will go in your Rails app,
 but all these options are configurable from `config/webpacker.yml` file.
 
-The configuration for what Webpack is supposed to compile by default rests
+The configuration for what webpack is supposed to compile by default rests
 on the convention that every file in `app/javascript/packs/*`**(default)**
 or whatever path you set for `source_entry_path` in the `webpacker.yml` configuration
-is turned into their own output files (or entry points, as Webpack calls it). Therefore you don't want to put anything inside `packs` directory that you do want to be
+is turned into their own output files (or entry points, as webpack calls it). Therefore you don't want to put anything inside `packs` directory that you do want to be
 an entry file. As a rule thumb, put all files your want to link in your views inside
 "packs" directory and keep everything else under `app/javascript`.
 
