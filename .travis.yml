@@ -4,6 +4,11 @@ rvm:
   - 2.2.8
   - 2.3.5
   - 2.4.2
+  - ruby-head
+gemfile:
+  - gemfiles/Gemfile-rails.4.2.x
+  - gemfiles/Gemfile-rails.5.0.x
+  - gemfiles/Gemfile-rails.5.1.x
 cache:
   bundler: true
   directories:
