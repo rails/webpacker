@@ -4,7 +4,7 @@ require "webpacker/helper"
 require "webpacker/dev_server_proxy"
 
 class Webpacker::Railtie < ::Rails::Railtie
-  # Allows webpacker config values to be set via rails env config files
+  # Allows Webpacker config values to be set via Rails env config files
   config.webpacker = ActiveSupport::OrderedOptions.new
 
   # ================================
@@ -34,7 +34,7 @@ class Webpacker::Railtie < ::Rails::Railtie
         warn "========================================"
         warn "\n\n"
         warn "To disable this check, please add `config.webpacker.check_yarn_integrity = false`"
-        warn "to your Rails Development config file (config/environments/development.rb)."
+        warn "to your Rails development config file (config/environments/development.rb)."
         warn "\n\n"
 
         exit(1)

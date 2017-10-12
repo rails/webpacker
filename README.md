@@ -192,7 +192,7 @@ yarn upgrade @rails/webpacker --latest
 
 ### Yarn Integrity
 
-By default in development, webpacker runs a yarn integrity check to ensure that all local npm packages are up-to-date.  This is similar to what bundler does currently in Rails, but for Javascript packages.  If your system is out of date, then Rails will not initialize and you will be asked to upgrade your local npm packages by running `yarn install`.
+By default in development, webpacker runs a yarn integrity check to ensure that all local npm packages are up-to-date. This is similar to what bundler does currently in Rails, but for JavaScript packages. If your system is out of date, then Rails will not initialize and you will be asked to upgrade your local npm packages by running `yarn install`.
 
 To turn off this option, you will need to override the default by adding a new config options to your Rails development environment configuration file (`config/environment/development.rb`):
 
