@@ -7,7 +7,7 @@ you run the webpack dev server like so:
 FOO=hello BAR=world ./bin/webpack-dev-server
 ```
 
-You can then reference these variables in your javascript app code with
+You can then reference these variables in your JavaScript app code with
 `process.env`:
 
 ```js

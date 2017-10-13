@@ -69,7 +69,7 @@ environment.loaders.set('json', {
 module.exports = environment
 ```
 
-Finally add `.json` to the list of extensions in `config/webpacker.yml`. Now if you `import()` any `.json` files inside your javascript
+Finally add `.json` to the list of extensions in `config/webpacker.yml`. Now if you `import()` any `.json` files inside your JavaScript
 they will be processed using `json-loader`. Voila!
 
 You can also modify the loaders that Webpacker pre-configures for you. We'll update

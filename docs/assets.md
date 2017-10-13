@@ -2,7 +2,7 @@
 
 
 Static assets like images and fonts support is enabled out-of-box
-and you can link them into your javascript app code and have them
+and you can link them into your JavaScript app code and have them
 compiled automatically.
 
 
@@ -34,9 +34,9 @@ import '../styles'
 ```
 
 
-## Import from sprockets using helpers
+## Import from Sprockets using helpers
 
-It's possible to link to assets that have been precompiled by sprockets. Add the `.erb` extension to your javascript file, then you can use Sprockets' asset helpers:
+It's possible to link to assets that have been precompiled by Sprockets. Add the `.erb` extension to your JavaScript file, then you can use Sprockets' asset helpers:
 
 ```erb
 <%# app/javascript/my_pack/example.js.erb %>

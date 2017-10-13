@@ -53,7 +53,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 * [webpack 3.x.x](https://webpack.js.org/)
 * ES6 with [babel](https://babeljs.io/)
 * Automatic code splitting using multiple entry points
-* Stylesheets - SASS and CSS
+* Stylesheets - Sass and CSS
 * Images and fonts
 * PostCSS - Auto-Prefixer
 * Asset compression, source-maps, and minification
@@ -359,7 +359,7 @@ Webpacker::Compiler.watched_paths << 'bower_components'
 
 ## Deployment
 
-Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which gets run whenever you run `assets:precompile`. If you are not using sprockets you
+Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which gets run whenever you run `assets:precompile`. If you are not using Sprockets you
 can manually trigger `NODE_ENV=production bundle exec rails webpacker:compile`
 during your app deploy.
 
