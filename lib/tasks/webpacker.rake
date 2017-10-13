@@ -1,8 +1,8 @@
 tasks = {
-  "webpacker:install"                 => "Installs and setup webpack with yarn",
+  "webpacker:install"                 => "Installs and setup webpack with Yarn",
   "webpacker:compile"                 => "Compiles webpack bundles based on environment",
   "webpacker:check_node"              => "Verifies if Node.js is installed",
-  "webpacker:check_yarn"              => "Verifies if yarn is installed",
+  "webpacker:check_yarn"              => "Verifies if Yarn is installed",
   "webpacker:check_binstubs"          => "Verifies that bin/webpack & bin/webpack-dev-server are present",
   "webpacker:verify_install"          => "Verifies if Webpacker is installed",
   "webpacker:yarn_install"            => "Support for older Rails versions. Install all JavaScript dependencies as specified via Yarn",

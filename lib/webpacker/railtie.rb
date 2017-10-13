@@ -29,7 +29,7 @@ class Webpacker::Railtie < ::Rails::Railtie
       if !ok
         warn "\n\n"
         warn "========================================"
-        warn "  Your yarn packages are out of date!"
+        warn "  Your Yarn packages are out of date!"
         warn "  Please run `yarn install` to update."
         warn "========================================"
         warn "\n\n"

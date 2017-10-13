@@ -20,7 +20,7 @@ By default the output will look like this in different environments:
 
 ## Heroku
 
-Heroku installs yarn and node by default if you deploy a rails app with
+Heroku installs Yarn and node by default if you deploy a Rails app with
 Webpacker so all you would need to do:
 
 ```bash
@@ -32,5 +32,5 @@ git push heroku master
 
 ## CDN
 
-Webpacker out-of-the-box provides CDN support using your Rails app `config.action_controller.asset_host` setting. If you already have [CDN](http://guides.rubyonrails.org/asset_pipeline.html#cdns) added in your rails app
+Webpacker out-of-the-box provides CDN support using your Rails app `config.action_controller.asset_host` setting. If you already have [CDN](http://guides.rubyonrails.org/asset_pipeline.html#cdns) added in your Rails app
 you don't need to do anything extra for Webpacker, it just works.

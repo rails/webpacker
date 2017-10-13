@@ -45,7 +45,7 @@ a separate `[pack_name].css` bundle so that in your view you can use the
 
 ## Add bootstrap
 
-You can use yarn to add bootstrap or any other modules available on npm:
+You can use Yarn to add bootstrap or any other modules available on npm:
 
 ```bash
 yarn add bootstrap
