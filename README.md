@@ -225,7 +225,7 @@ rails new myapp --webpack=react
 (or run `bundle exec rails webpacker:install:react` in a existing Rails app already
 setup with Webpacker).
 
-The installer will add all relevant dependencies using yarn, any changes
+The installer will add all relevant dependencies using Yarn, any changes
 to the configuration files and an example React component to your
 project in `app/javascript/packs` so that you can experiment with React right away.
 
@@ -243,7 +243,7 @@ rails new myapp --webpack=angular
 (or run `bundle exec rails webpacker:install:angular` on a Rails app already
 setup with Webpacker).
 
-The installer will add TypeScript and Angular core libraries using yarn plus
+The installer will add TypeScript and Angular core libraries using Yarn plus
 any changes to the configuration files. An example component is written in
 TypeScript will also be added to your project in `app/javascript` so that
 you can experiment with Angular right away.
@@ -260,7 +260,7 @@ rails new myapp --webpack=vue
 ```
 (or run `bundle exec rails webpacker:install:vue` on a Rails app already setup with Webpacker).
 
-The installer will add Vue and required libraries using yarn plus
+The installer will add Vue and required libraries using Yarn plus
 any changes to the configuration files. An example component will
 also be added to your project in `app/javascript` so that you can
 experiment Vue right away.

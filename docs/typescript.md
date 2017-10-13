@@ -44,7 +44,7 @@ typescript, JSX with React.
 
 ## HTML templates with Typescript and Angular
 
-After you have installed angular using `bundle exec rails webpacker:install:angular`
+After you have installed Angular using `bundle exec rails webpacker:install:angular`
 you would need to follow these steps to add HTML templates support:
 
 1. Use `yarn` to add html-loader

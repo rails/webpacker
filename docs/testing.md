@@ -92,7 +92,7 @@ setup and everything will just work out of the box.
 Here is a sample system test case with hello_react example component:
 
 ```js
-// Example react component
+// Example React component
 
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
 ```
 
 ```rb
-# Tests example react component
+# Tests example React component
 require "application_system_test_case"
 class HomesTest < ApplicationSystemTestCase
   test "can see the hello message" do
