@@ -293,7 +293,7 @@ The configuration for what webpack is supposed to compile by default rests
 on the convention that every file in `app/javascript/packs/*`**(default)**
 or whatever path you set for `source_entry_path` in the `webpacker.yml` configuration
 is turned into their own output files (or entry points, as webpack calls it). Therefore you don't want to put anything inside `packs` directory that you do want to be
-an entry file. As a rule thumb, put all files your want to link in your views inside
+an entry file. As a rule thumb, put all files you want to link in your views inside
 "packs" directory and keep everything else under `app/javascript`.
 
 Suppose you want to change the source directory from `app/javascript`
