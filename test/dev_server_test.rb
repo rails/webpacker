@@ -1,4 +1,4 @@
-require "webpacker_test_helper"
+require "test_helper"
 
 class DevServerTest < Webpacker::Test
   def test_host

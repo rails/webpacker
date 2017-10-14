@@ -1,4 +1,4 @@
-require "webpacker_test_helper"
+require "test_helper"
 
 class ManifestTest < Minitest::Test
   def test_lookup_exception!
