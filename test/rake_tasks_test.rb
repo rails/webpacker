@@ -1,4 +1,4 @@
-require "webpacker_test_helper"
+require "test_helper"
 
 class RakeTasksTest < Minitest::Test
   def test_rake_tasks

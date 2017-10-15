@@ -1,11 +1,10 @@
 # frozen_string_literal: true
-$LOAD_PATH.unshift(File.dirname(__FILE__))
-
 require "minitest/autorun"
 require "rails"
 require "rails/test_help"
 require "byebug"
-require "test_app/config/environment"
+
+require_relative "test_app/config/environment"
 
 ENV["NODE_ENV"] ||= "production"
 

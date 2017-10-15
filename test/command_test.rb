@@ -1,4 +1,4 @@
-require "webpacker_test_helper"
+require "test_helper"
 
 class CommandTest < Minitest::Test
   def test_compile_command_returns_success_status_when_stale
