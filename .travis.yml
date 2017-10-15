@@ -9,6 +9,7 @@ gemfile:
   - gemfiles/Gemfile-rails.4.2.x
   - gemfiles/Gemfile-rails.5.0.x
   - gemfiles/Gemfile-rails.5.1.x
+  - gemfiles/Gemfile-rails-edge
 cache:
   bundler: true
   directories:
@@ -25,3 +26,6 @@ script:
   - yarn lint
   - bundle exec rubocop
   - bundle exec rake test
+matrix:
+  allow_failures:
+  - gemfile: gemfiles/Gemfile-rails-edge
