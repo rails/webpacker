@@ -63,3 +63,24 @@ C:\path>ruby bin\webpack-dev-server
 ## Invalid configuration object. webpack has been initialised using a configuration object that does not match the API schema.
 
 If you receive this error when running `$ ./bin/webpack-dev-server` ensure your configuration is correct; most likely the path to your "packs" folder is incorrect if you modified from the original "source_path" defined in `config/webpacker.yml`.
+
+## Running Elm on Continuous Integration (CI) services such as CircleCI, CodeShip, Travis CI
+
+If your tests are timing out or erroring on CI it is likely that you are experiencing the slow Elm compilation issue described here: [elm-compiler issue #1473](https://github.com/elm-lang/elm-compiler/issues/1473)
+
+The issue is related to CPU count exposed by the underlying service. The basic solution involves using [libsysconfcpus](https://github.com/obmarg/libsysconfcpus) to change the reported CPU count.
+
+Basic fix involves:
+
+```bash
+# install sysconfcpus on CI
+git clone https://github.com/obmarg/libsysconfcpus.git $HOME/dependencies/libsysconfcpus
+cd libsysconfcpus
+.configure --prefix=$HOME/dependencies/sysconfcpus
+make && make install
+
+# use sysconfcpus with elm-make
+mv $HOME/your_rails_app/node_modules/.bin/elm-make $HOME/your_rails_app/node_modules/.bin/elm-make-old
+printf "#\041/bin/bash\n\necho \"Running elm-make with sysconfcpus -n 2\"\n\n$HOME/dependencies/sysconfcpus/bin/sysconfcpus -n 2 $HOME/your_rails_app/node_modules/.bin/elm-make-old \"\$@\"" > $HOME/your_rails_app/node_modules/.bin/elm-make
+chmod +x $HOME/your_rails_app/node_modules/.bin/elm-make
+```
