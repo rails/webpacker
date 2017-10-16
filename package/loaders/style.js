@@ -4,7 +4,8 @@ const { dev_server: devServer } = require('../config')
 
 const postcssConfigPath = path.resolve(process.cwd(), '.postcssrc.yml')
 const isProduction = process.env.NODE_ENV === 'production'
-const extractCSS = !(devServer && devServer.hmr)
+const inDevServer = process.argv.find(v => v.includes('webpack-dev-server'))
+const extractCSS = !(inDevServer && (devServer && devServer.hmr))
 
 const extractOptions = {
   fallback: 'style-loader',
