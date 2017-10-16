@@ -3,7 +3,8 @@ const { safeLoad } = require('js-yaml')
 const { readFileSync } = require('fs')
 
 const filePath = resolve('config', 'webpacker.yml')
-const config = safeLoad(readFileSync(filePath), 'utf8')[process.env.NODE_ENV]
+const environment = process.env.NODE_ENV || 'development'
+const config = safeLoad(readFileSync(filePath), 'utf8')[environment]
 
 const isBoolean = str => /^true/.test(str) || /^false/.test(str)
 
