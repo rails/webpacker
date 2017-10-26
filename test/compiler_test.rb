@@ -17,4 +17,8 @@ class CompilerTest < Minitest::Test
     assert Webpacker.compiler.stale?
     assert !Webpacker.compiler.fresh?
   end
+
+  def test_compilation_digest_path
+    assert Webpacker.compiler.send(:compilation_digest_path).to_s.ends_with?(Webpacker.env)
+  end
 end
