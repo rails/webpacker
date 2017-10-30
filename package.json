@@ -31,7 +31,7 @@
     "postcss-loader": "^2.0.6",
     "postcss-smart-import": "^0.7.5",
     "rails-erb-loader": "^5.2.1",
-    "resolve-url-loader": "^2.1.0",
+    "resolve-url-loader": "^2.2.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
     "webpack": "^3.5.5",
