@@ -12,7 +12,7 @@ const extractOptions = {
   use: [
     { loader: 'css-loader', options: { minimize: isProduction } },
     { loader: 'postcss-loader', options: { sourceMap: true, config: { path: postcssConfigPath } } },
-    { loader: 'resolve-url-loader', options: { attempts: 0 } },
+    { loader: 'resolve-url-loader', options: { attempts: 1 } },
     { loader: 'sass-loader', options: { sourceMap: true } }
   ]
 }
