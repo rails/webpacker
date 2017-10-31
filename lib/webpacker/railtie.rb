@@ -3,7 +3,7 @@ require "rails/railtie"
 require "webpacker/helper"
 require "webpacker/dev_server_proxy"
 
-class Webpacker::Railtie < ::Rails::Railtie
+class Webpacker::Engine < ::Rails::Engine
   # Allows Webpacker config values to be set via Rails env config files
   config.webpacker = ActiveSupport::OrderedOptions.new
   config.webpacker.check_yarn_integrity = false
@@ -76,10 +76,5 @@ class Webpacker::Railtie < ::Rails::Railtie
       Webpacker.bootstrap
       Spring.after_fork { Webpacker.bootstrap } if defined?(Spring)
     end
-  end
-
-  rake_tasks do
-    tasks_path = File.expand_path("../tasks", __dir__)
-    Dir.glob("#{tasks_path}/**/*.rake").sort.each { |ext| load ext }
   end
 end
