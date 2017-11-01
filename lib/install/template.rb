@@ -18,14 +18,12 @@ run "bundle binstubs webpacker"
 
 say "Adding configurations"
 environment <<CONFIG, env: :development
-# Verifies that versions and hashed value of the package contents in the project's package.json
-config.webpacker.check_yarn_integrity = true
-
+  # Verifies that versions and hashed value of the package contents in the project's package.json
+  config.webpacker.check_yarn_integrity = true
 CONFIG
 environment <<CONFIG, env: :production
-# Verifies that versions and hashed value of the package contents in the project's package.json
-config.webpacker.check_yarn_integrity = false
-
+  # Verifies that versions and hashed value of the package contents in the project's package.json
+  config.webpacker.check_yarn_integrity = false
 CONFIG
 
 if File.exists?(".gitignore")
