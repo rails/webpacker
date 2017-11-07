@@ -80,3 +80,15 @@ plugins:
   postcss-smart-import: {}
   postcss-cssnext: {}
 ```
+
+## Using CSS with [vue-loader](https://github.com/vuejs/vue-loader)
+
+Vue templates require loading the stylesheet in your application in
+order for CSS to work.  This is in addition to loading the JavaScript
+file for the entry point.  Loading the stylesheet will also load the
+CSS for any nested components.
+
+```erb
+<%= stylesheet_pack_tag 'hello_vue' %> 
+<%= javascript_pack_tag 'hello_vue' %>
+```
