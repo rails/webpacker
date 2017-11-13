@@ -16,6 +16,7 @@ const { ConfigList, ConfigObject } = require('./config_types')
 const rules = require('./rules')
 const config = require('./config')
 const assetHost = require('./asset_host')
+const { root, resolveRoot } = require('./root')
 
 const getLoaderList = () => {
   const result = new ConfigList()
@@ -43,7 +44,7 @@ const getExtensionsGlob = () => {
 const getEntryObject = () => {
   const result = new ConfigObject()
   const glob = getExtensionsGlob()
-  const rootPath = join(config.source_path, config.source_entry_path)
+  const rootPath = resolveRoot(config.source_path, config.source_entry_path)
   const paths = sync(join(rootPath, glob))
   paths.forEach((path) => {
     const namespace = relative(join(rootPath), dirname(path))
@@ -55,10 +56,10 @@ const getEntryObject = () => {
 
 const getModulePaths = () => {
   const result = new ConfigList()
-  result.append('source', resolve(config.source_path))
-  result.append('node_modules', 'node_modules')
+  result.append('source', resolveRoot(config.source_path))
+  result.append('node_modules', join(root, 'node_modules'))
   if (config.resolved_paths) {
-    config.resolved_paths.forEach(path => result.append(basename(path), path))
+    config.resolved_paths.forEach(path => result.append(basename(path), resolveRoot(path)))
   }
   return result
 }
@@ -77,7 +78,7 @@ const getBaseConfig = () =>
     },
 
     resolveLoader: {
-      modules: ['node_modules']
+      modules: [join(root, 'node_modules')]
     },
 
     node: {

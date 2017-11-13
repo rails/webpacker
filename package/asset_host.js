@@ -1,5 +1,5 @@
 const config = require('./config')
-const { resolve } = require('path')
+const { resolveRoot } = require('./root')
 
 const removeOuterSlashes = string =>
   string.replace(/^\/*/, '').replace(/\/*$/, '')
@@ -14,7 +14,7 @@ const formatPublicPath = (host = '', path = '') => {
 }
 
 module.exports = {
-  path: resolve('public', config.public_output_path),
+  path: resolveRoot('public', config.public_output_path),
   publicPath: `/${config.public_output_path}/`.replace(/([^:]\/)\/+/g, '$1'),
   publicPathWithHost: formatPublicPath(process.env.WEBPACKER_ASSET_HOST, config.public_output_path)
 }

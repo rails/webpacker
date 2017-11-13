@@ -57,7 +57,7 @@
     "coffeescript": ">= 1.12.7 || >= 2.x"
   },
   "scripts": {
-    "test": "jest",
+    "test": "RAILS_ROOT=test/test_app jest",
     "lint": "eslint {package,lib}/"
   },
   "repository": {
