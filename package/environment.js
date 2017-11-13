@@ -60,7 +60,7 @@ const getModulePaths = () => {
 }
 
 const getBaseConfig = () =>
-  new ConfigObject().merge({
+  new ConfigObject({
     output: {
       filename: '[name]-[chunkhash].js',
       chunkFilename: '[name]-[chunkhash].chunk.js',

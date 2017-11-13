@@ -8,6 +8,11 @@ const { isStrPath, prettyPrint } = require('../utils/helpers')
   * @extends { Object }
 */
 class ConfigObject extends Object {
+  constructor(props = {}) {
+    super()
+    this.merge(props)
+  }
+
   get(key) {
     return isStrPath(key) ? objectify(key, this) : this[key]
   }

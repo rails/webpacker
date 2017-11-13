@@ -21,12 +21,13 @@ class ConfigList extends Array {
   }
 
   insert(key, value, pos = {}) {
-    const currentIndex = this.getIndex(key)
-    let newIndex = this.getIndex(pos.before || pos.after)
+    if (!(pos.before || pos.after)) return this.append(key, value)
 
+    const currentIndex = this.getIndex(key)
     if (currentIndex >= 0) this.splice(currentIndex, 1)
+
+    let newIndex = this.getIndex(pos.before || pos.after)
     if (pos.after) newIndex += 1
-    if (!(pos.before || pos.after)) newIndex = this.length
 
     this.splice(newIndex, 0, { key, value })
     return this
