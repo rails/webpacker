@@ -69,7 +69,7 @@ class Webpacker::Compiler
     end
 
     def compilation_digest_path
-      config.cache_path.join(".last-compilation-digest")
+      config.cache_path.join(".last-compilation-digest-#{Webpacker.env}")
     end
 
     def webpack_env
