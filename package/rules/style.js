@@ -19,7 +19,7 @@ const styleLoader = {
 const extractOptions = {
   fallback: styleLoader,
   use: [
-    { loader: 'css-loader', options: { minimize: isProduction, sourceMap: true } },
+    { loader: 'css-loader', options: { minimize: isProduction, sourceMap: true, importLoaders: 3 } },
     { loader: 'postcss-loader', options: { sourceMap: true, config: { path: postcssConfigPath } } },
     { loader: 'resolve-url-loader', options: { attempts: 1 } },
     { loader: 'sass-loader', options: { sourceMap: true } }
