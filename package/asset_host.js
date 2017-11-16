@@ -1,11 +1,10 @@
 const config = require('./config')
 const { resolve } = require('path')
 
-function removeOuterSlashes(string) {
-  return string.replace(/^\/*/, '').replace(/\/*$/, '')
-}
+const removeOuterSlashes = string =>
+  string.replace(/^\/*/, '').replace(/\/*$/, '')
 
-function formatPublicPath(host = '', path = '') {
+const formatPublicPath = (host = '', path = '') => {
   let formattedHost = removeOuterSlashes(host)
   if (formattedHost && !/^http/i.test(formattedHost)) {
     formattedHost = `//${formattedHost}`

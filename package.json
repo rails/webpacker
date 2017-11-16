@@ -42,13 +42,18 @@
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
-    "eslint-plugin-react": "^6.10.0"
+    "eslint-plugin-react": "^6.10.0",
+    "jest": "^21.2.1"
+  },
+  "jest": {
+    "testRegex": "(/__tests__/.*|(\\.|/))\\.jsx?$",
+    "roots": ["<rootDir>/package"]
   },
   "peerDependencies": {
     "coffeescript": ">= 1.12.7 || >= 2.x"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "lint": "eslint {package,lib}/"
   },
   "repository": {

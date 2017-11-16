@@ -24,6 +24,7 @@ install:
   - yarn
 script:
   - yarn lint
+  - yarn test
   - bundle exec rubocop
   - bundle exec rake test
 matrix:

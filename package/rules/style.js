@@ -5,12 +5,21 @@ const { dev_server: devServer } = require('../config')
 const postcssConfigPath = path.resolve(process.cwd(), '.postcssrc.yml')
 const isProduction = process.env.NODE_ENV === 'production'
 const inDevServer = process.argv.find(v => v.includes('webpack-dev-server'))
-const extractCSS = !(inDevServer && (devServer && devServer.hmr))
+const isHMR = inDevServer && (devServer && devServer.hmr)
+const extractCSS = !(isHMR) || isProduction
+
+const styleLoader = {
+  loader: 'style-loader',
+  options: {
+    hmr: isHMR,
+    sourceMap: true
+  }
+}
 
 const extractOptions = {
-  fallback: 'style-loader',
+  fallback: styleLoader,
   use: [
-    { loader: 'css-loader', options: { minimize: isProduction } },
+    { loader: 'css-loader', options: { minimize: isProduction, sourceMap: true, importLoaders: 3 } },
     { loader: 'postcss-loader', options: { sourceMap: true, config: { path: postcssConfigPath } } },
     { loader: 'resolve-url-loader', options: { attempts: 1 } },
     { loader: 'sass-loader', options: { sourceMap: true } }
@@ -26,7 +35,7 @@ const extractCSSLoader = {
 // For hot-reloading use regular loaders
 const inlineCSSLoader = {
   test: /\.(scss|sass|css)$/i,
-  use: ['style-loader'].concat(extractOptions.use)
+  use: [styleLoader].concat(extractOptions.use)
 }
 
-module.exports = isProduction || extractCSS ? extractCSSLoader : inlineCSSLoader
+module.exports = extractCSS ? extractCSSLoader : inlineCSSLoader

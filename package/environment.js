@@ -9,28 +9,26 @@ const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
 
+const { ConfigList, ConfigObject } = require('./config_types')
+const rules = require('./rules')
 const config = require('./config')
 const assetHost = require('./asset_host')
 
-function getLoaderMap() {
-  const result = new Map()
-  const paths = sync(resolve(__dirname, 'loaders', '*.js'))
-  paths.forEach((path) => {
-    const name = basename(path, extname(path))
-    result.set(name, require(path))
-  })
+const getLoaderList = () => {
+  const result = new ConfigList()
+  Object.entries(rules).forEach(([key, rule]) => result.set(key, rule))
   return result
 }
 
-function getPluginMap() {
-  const result = new Map()
+const getPluginList = () => {
+  const result = new ConfigList()
   result.set('Environment', new webpack.EnvironmentPlugin(JSON.parse(JSON.stringify(process.env))))
   result.set('ExtractText', new ExtractTextPlugin('[name]-[contenthash].css'))
   result.set('Manifest', new ManifestPlugin({ publicPath: assetHost.publicPath, writeToFileEmit: true }))
   return result
 }
 
-function getExtensionsGlob() {
+const getExtensionsGlob = () => {
   const { extensions } = config
   if (!extensions.length) {
     throw new Error('You must configure at least one extension to compile in webpacker.yml')
@@ -38,58 +36,69 @@ function getExtensionsGlob() {
   return extensions.length === 1 ? `**/${extensions[0]}` : `**/*{${extensions.join(',')}}`
 }
 
-function getEntryObject() {
-  const result = {}
+const getEntryObject = () => {
+  const result = new ConfigObject()
   const glob = getExtensionsGlob()
   const rootPath = join(config.source_path, config.source_entry_path)
   const paths = sync(join(rootPath, glob))
   paths.forEach((path) => {
     const namespace = relative(join(rootPath), dirname(path))
     const name = join(namespace, basename(path, extname(path)))
-    result[name] = resolve(path)
+    result.set(name, resolve(path))
   })
   return result
 }
 
-function getModulePaths() {
-  let result = [resolve(config.source_path), 'node_modules']
+const getModulePaths = () => {
+  const result = new ConfigList()
+  result.set('source', resolve(config.source_path))
+  result.set('node_modules', 'node_modules')
   if (config.resolved_paths) {
-    result = result.concat(config.resolved_paths)
+    config.resolved_paths.forEach(path => result.set(basename(path), path))
   }
   return result
 }
 
+const getBaseConfig = () =>
+  new ConfigObject({
+    output: {
+      filename: '[name]-[chunkhash].js',
+      chunkFilename: '[name]-[chunkhash].chunk.js',
+      path: assetHost.path,
+      publicPath: assetHost.publicPath
+    },
+
+    resolve: {
+      extensions: config.extensions
+    },
+
+    resolveLoader: {
+      modules: ['node_modules']
+    }
+  })
+
 module.exports = class Environment {
   constructor() {
-    this.loaders = getLoaderMap()
-    this.plugins = getPluginMap()
+    this.loaders = getLoaderList()
+    this.plugins = getPluginList()
+    this.config = getBaseConfig()
+    this.entry = getEntryObject()
+    this.resolvedModules = getModulePaths()
   }
 
   toWebpackConfig() {
-    return {
-      entry: getEntryObject(),
-
-      output: {
-        filename: '[name]-[chunkhash].js',
-        chunkFilename: '[name]-[chunkhash].chunk.js',
-        path: assetHost.path,
-        publicPath: assetHost.publicPath
-      },
+    return this.config.merge({
+      entry: this.entry.toObject(),
 
       module: {
-        rules: Array.from(this.loaders.values())
+        rules: this.loaders.values()
       },
 
-      plugins: Array.from(this.plugins.values()),
+      plugins: this.plugins.values(),
 
       resolve: {
-        extensions: config.extensions,
-        modules: getModulePaths()
-      },
-
-      resolveLoader: {
-        modules: ['node_modules']
+        modules: this.resolvedModules.values()
       }
-    }
+    })
   }
 }
