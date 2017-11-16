@@ -1,3 +1,56 @@
+## [Unreleased] - 2017-10-04
+
+
+### Added (npm module)
+
+- Expose base config from environment
+
+```js
+environment.config.set('resolve.extensions', ['.foo', '.bar'])
+environment.config.set('output.filename', '[name].js')
+environment.config.delete('output.chunkFilename')
+environment.config.get('resolve')
+environment.config.merge({ output: {
+    filename: '[name].js'
+  }
+})
+```
+
+- Expose new API's for loaders and plugins to insert at position
+
+```js
+const jsonLoader =  {
+  test: /\.json$/,
+  exclude: /node_modules/,
+  loader: 'json-loader'
+}
+
+environment.loaders.set('json', jsonLoader)
+environment.loaders.prepend('json', jsonLoader)
+environment.loaders.insert('json', jsonLoader, { after: 'style' } )
+environment.loaders.insert('json', jsonLoader, { before: 'babel' } )
+
+// Update a plugin
+const manifestPlugin = environment.plugins.get('Manifest')
+manifestPlugin.opts.writeToFileEmit = false
+
+// Update coffee loader to use coffeescript 2
+const babelLoader = environment.loaders.get('babel')
+environment.loaders.set('coffee', {
+  test: /\.coffee(\.erb)?$/,
+  use:  babelLoader.use.concat(['coffee-loader'])
+}, { before: 'json' })
+```
+
+- Expose `resolve.modules` paths like loaders and plugins
+
+```js
+environment.resolvedModules.set('vendor', 'vendor')
+```
+
+- Enable sourcemaps in `style` and `css` loader
+
+
 ## [3.0.2] - 2017-10-04
 
 ### Added
