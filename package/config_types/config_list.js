@@ -8,12 +8,15 @@ class ConfigList extends Array {
     return this[index].value
   }
 
+  /**
+    * @deprecated
+  */
   set(key, value) {
-    return this.add({ key, value })
+    return this.append(key, value)
   }
 
   append(key, value) {
-    return this.set(key, value)
+    return this.add({ key, value })
   }
 
   prepend(key, value) {

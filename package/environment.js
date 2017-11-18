@@ -16,7 +16,7 @@ const assetHost = require('./asset_host')
 
 const getLoaderList = () => {
   const result = new ConfigList()
-  Object.entries(rules).forEach(([key, rule]) => result.set(key, rule))
+  Object.keys(rules).forEach(key => result.set(key, rules[key]))
   return result
 }
 
