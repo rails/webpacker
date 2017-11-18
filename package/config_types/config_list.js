@@ -9,7 +9,7 @@ class ConfigList extends Array {
   }
 
   /**
-    * @deprecated Since 3.0.2 and will be removed in next major release
+    * @deprecated after the 3.0.2 release and will be removed in the next major release
   */
   set(key, value) {
     /* eslint no-console: 0 */
