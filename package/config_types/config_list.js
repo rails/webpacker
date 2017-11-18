@@ -9,9 +9,11 @@ class ConfigList extends Array {
   }
 
   /**
-    * @deprecated
+    * @deprecated Since 3.0.2 and will be removed in next major release
   */
   set(key, value) {
+    /* eslint no-console: 0 */
+    console.warn('set is deprecated! Use append instead')
     return this.append(key, value)
   }
 
