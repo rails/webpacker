@@ -15,13 +15,13 @@ test('set', () => {
 
 test('get', () => {
   const list = new ConfigList()
-  list.set('key', 'value')
+  list.append('key', 'value')
   expect(list.get('key')).toEqual('value')
 })
 
 test('append', () => {
   const list = new ConfigList()
-  list.set('key', 'value')
+  list.append('key', 'value')
   expect(list.append('key1', 'value1')).toEqual([
     { key: 'key', value: 'value' },
     { key: 'key1', value: 'value1' }
@@ -30,7 +30,7 @@ test('append', () => {
 
 test('prepend', () => {
   const list = new ConfigList()
-  list.set('key', 'value')
+  list.append('key', 'value')
   expect(list.prepend('key1', 'value1')).toEqual([
     { key: 'key1', value: 'value1' },
     { key: 'key', value: 'value' }
@@ -39,7 +39,7 @@ test('prepend', () => {
 
 test('insert without position', () => {
   const list = new ConfigList()
-  list.set('key', 'value')
+  list.append('key', 'value')
 
   expect(list.insert('key1', 'value1')).toEqual([
     { key: 'key', value: 'value' },
@@ -55,8 +55,8 @@ test('insert without position', () => {
 
 test('insert before an item', () => {
   const list = new ConfigList()
-  list.set('key', 'value')
-  list.set('key1', 'value1')
+  list.append('key', 'value')
+  list.append('key1', 'value1')
 
   expect(list.insert('key2', 'value2', { before: 'key' })).toEqual([
     { key: 'key2', value: 'value2' },
@@ -74,8 +74,8 @@ test('insert before an item', () => {
 
 test('insert after an item', () => {
   const list = new ConfigList()
-  list.set('key', 'value')
-  list.set('key1', 'value1')
+  list.append('key', 'value')
+  list.append('key1', 'value1')
 
   expect(list.insert('key2', 'value2', { after: 'key' })).toEqual([
     { key: 'key', value: 'value' },
@@ -93,16 +93,16 @@ test('insert after an item', () => {
 
 test('delete', () => {
   const list = new ConfigList()
-  list.set('key', 'value')
-  list.set('key1', 'value1')
+  list.append('key', 'value')
+  list.append('key1', 'value1')
   expect(list.delete('key')).toEqual([{ key: 'key1', value: 'value1' }])
   expect(list.delete('key1')).toEqual([])
 })
 
 test('getIndex', () => {
   const list = new ConfigList()
-  list.set('key', 'value')
-  list.set('key1', 'value1')
+  list.append('key', 'value')
+  list.append('key1', 'value1')
   expect(list.getIndex('key')).toEqual(0)
   expect(list.getIndex('key2')).toEqual(-1)
   expect(() => list.getIndex('key2', true)).toThrow('Item key2 not found')
@@ -110,14 +110,14 @@ test('getIndex', () => {
 
 test('values', () => {
   const list = new ConfigList()
-  list.set('key', 'value')
-  list.set('key1', 'value1')
+  list.append('key', 'value')
+  list.append('key1', 'value1')
   expect(list.values()).toEqual(['value', 'value1'])
 })
 
 test('keys', () => {
   const list = new ConfigList()
-  list.set('key', 'value')
-  list.set('key1', 'value1')
+  list.append('key', 'value')
+  list.append('key1', 'value1')
   expect(list.keys()).toEqual(['key', 'key1'])
 })

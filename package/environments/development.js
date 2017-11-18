@@ -8,8 +8,8 @@ module.exports = class extends Environment {
     super()
 
     if (devServer.hmr) {
-      this.plugins.set('HotModuleReplacement', new webpack.HotModuleReplacementPlugin())
-      this.plugins.set('NamedModules', new webpack.NamedModulesPlugin())
+      this.plugins.append('HotModuleReplacement', new webpack.HotModuleReplacementPlugin())
+      this.plugins.append('NamedModules', new webpack.NamedModulesPlugin())
       this.config.output.filename = '[name]-[hash].js'
     }
 
