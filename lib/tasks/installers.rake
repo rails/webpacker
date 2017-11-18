@@ -1,4 +1,4 @@
-INSTALLERS = {
+installers = {
   "Angular": :angular,
   "Elm": :elm,
   "React": :react,
@@ -7,7 +7,7 @@ INSTALLERS = {
 
 namespace :webpacker do
   namespace :install do
-    INSTALLERS.each do |name, task_name|
+    installers.each do |name, task_name|
       desc "Install everything needed for #{name}"
       task task_name => ["webpacker:verify_install"] do
         template = File.expand_path("../install/#{task_name}.rb", __dir__)
