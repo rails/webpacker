@@ -56,8 +56,8 @@ environment.resolvedModules.set('vendor', 'vendor')
 - Allow skipping webpacker compile using an env variable
 
 ```bash
-SKIP_WEBPACKER_COMPILE=yes|true|y|t
-SKIP_WEBPACKER_COMPILE=true bundle exec rails assets:precompile
+WEBPACKER_PRECOMPILE=no|false|n|f
+WEBPACKER_PRECOMPILE=false bundle exec rails assets:precompile
 ```
 
 
