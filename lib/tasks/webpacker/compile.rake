@@ -34,6 +34,6 @@ end
 
 # Compile packs after we've compiled all other assets during precompilation
 if Rake::Task.task_defined?("assets:precompile")
-  skip_precompile = %w(no false n f).include?(ENV["WEBPACKER_PRECOMPILE"])
-  enhance_assets_precompile unless skip_precompile
+  skip_webpacker_precompile = %w(no false n f).include?(ENV["WEBPACKER_PRECOMPILE"])
+  enhance_assets_precompile unless skip_webpacker_precompile
 end
