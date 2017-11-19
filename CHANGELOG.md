@@ -51,6 +51,11 @@ environment.resolvedModules.set('vendor', 'vendor')
 - Enable sourcemaps in `style` and `css` loader
 
 
+### Added (Gem)
+
+- Use `WEBPACKER_ASSET_HOST` instead of `ASSET_HOST` for CDN
+
+
 ## [3.0.2] - 2017-10-04
 
 ### Added

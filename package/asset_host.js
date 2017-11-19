@@ -16,5 +16,5 @@ const formatPublicPath = (host = '', path = '') => {
 module.exports = {
   path: resolve('public', config.public_output_path),
   publicPath: `/${config.public_output_path}/`.replace(/([^:]\/)\/+/g, '$1'),
-  publicPathWithHost: formatPublicPath(process.env.ASSET_HOST, config.public_output_path)
+  publicPathWithHost: formatPublicPath(process.env.WEBPACKER_ASSET_HOST, config.public_output_path)
 }
