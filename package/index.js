@@ -16,4 +16,6 @@ const createEnvironment = () => {
 
 const environment = createEnvironment()
 
-module.exports = { environment, config, assetHost, loaders, Environment }
+module.exports = {
+  environment, config, assetHost, loaders, Environment
+}

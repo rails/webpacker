@@ -50,8 +50,7 @@ class ConfigList extends Array {
         entry === key ||
         entry.key === key ||
         (entry.constructor && entry.constructor.name === key)
-      )
-    )
+      ))
 
     if (shouldThrow && index < 0) throw new Error(`Item ${key} not found`)
     return index
