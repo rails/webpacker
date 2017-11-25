@@ -61,28 +61,8 @@ fair, the [changelog of v3.0.2] properly mentions the change:
 ## Quick solution
 
 If you are working alone, the easiest way to fix the configuration of
-the [`webpack-dev-server`] is to add an entry to the `/etc/hosts` and
-to modify the `development.dev_server` entry of the
-`config/webpacker.yml` file.
-
-### `/etc/hosts` entry
-
-As mentioned in some of the [sources](#sources) below, you have to add
-an entry to [`/etc/hosts`](https://askubuntu.com/a/183187) to alias
-the hostname of your [Cloud9] workspace to `0.0.0.0`:
-
-```bash
-echo "0.0.0.0 ${C9_HOSTNAME}" | sudo tee -a /etc/hosts
-```
-
-Alternatively, since this has to be run every time your [Cloud9]
-workspace is restarted, you can add it to your `.bashrc` (and source
-it afterwards):
-
-```bash
-echo '(HOSTS_ENTRY="0.0.0.0 ${C9_HOSTNAME}"; grep --quiet "${HOSTS_ENTRY}" /etc/hosts || echo "${HOSTS_ENTRY}" | sudo tee -a /etc/hosts)' >> ~/.bashrc
-source ~/.bashrc
-```
+the [`webpack-dev-server`] is to modify the `development.dev_server`
+entry of the `config/webpacker.yml` file.
 
 ### `config/webpacker.yml` file
 
@@ -108,7 +88,7 @@ into the these custom configuration:
 ```yaml
 dev_server:
   https: true
-  host: your-workspace-name-yourusername.c9users.io
+  host: localhost
   port: 8082
   public: your-workspace-name-yourusername.c9users.io:8082
   hmr: false
@@ -121,8 +101,20 @@ dev_server:
 You can obtain the value `your-workspace-name-yourusername.c9users.io`
 for your [Cloud9] workspace with `echo ${C9_HOSTNAME}`.
 
-There are three main differences with the approaches found in the
+There are four main differences with the approaches found in the
 mentioned [sources](#sources):
+
+- Some solutions suggested to set the [`host`][devserver-host] option
+  to `your-workspace-name-yourusername.c9users.io`, which required to
+  add a line to the `/etc/hosts` file by running `echo "0.0.0.0
+  ${C9_HOSTNAME}" | sudo tee -a /etc/hosts`. This was only necessary
+  due to restrictions in previous versions of [`webpacker`] and how
+  the value of the [`public`][devserver-public] setting was
+  calculated. Currently it is [no longer necessary][pr-comment-hosts]
+  to modify the `/etc/hosts` file because the [`host`][devserver-host]
+  setting can be kept as `localhost`.
+
+[pr-comment-hosts]: https://github.com/rails/webpacker/pull/1033#pullrequestreview-78992024
 
 - Some solutions stressed the need to set the
   [`https`][devserver-https] option to `false` but this failed with
@@ -154,6 +146,7 @@ mentioned [sources](#sources):
   command line. By setting it in the configuration file we don't need
   to care about it in the terminal.
 
+[devserver-host]: https://webpack.js.org/configuration/dev-server/#devserver-host
 [devserver-https]: https://webpack.js.org/configuration/dev-server/#devserver-https
 [devserver-inline]: https://webpack.js.org/configuration/dev-server/#devserver-inline
 [devserver-public]: https://webpack.js.org/configuration/dev-server/#devserver-public
@@ -210,17 +203,13 @@ if [ -n "${C9_USER}" ]; then
   # Make sure that Postgres is running
   sudo service postgresql status || sudo service postgresql start
 
-  # Make sure that the needed entry in /etc/hosts exists
-  HOSTS_ENTRY="0.0.0.0 ${C9_HOSTNAME}"
-  grep --quiet "^${HOSTS_ENTRY}\$" /etc/hosts || echo "${HOSTS_ENTRY}" | sudo tee -a /etc/hosts
-
   # Adapt the configuration of the webpack-dev-server
   export APP_DOMAIN="${C9_HOSTNAME}"
   export RAILS_SERVER_BINDING='0.0.0.0'
   export RAILS_SERVER_PORT='8080'
   export WEBPACKER_DEV_SERVER_PORT='8082'
   export WEBPACKER_DEV_SERVER_HTTPS='true'
-  export WEBPACKER_DEV_SERVER_HOST="${C9_HOSTNAME}"
+  export WEBPACKER_DEV_SERVER_HOST="localhost"
   export WEBPACKER_DEV_SERVER_PUBLIC="${C9_HOSTNAME}:${WEBPACKER_DEV_SERVER_PORT}"
   export WEBPACKER_DEV_SERVER_HMR='false'
   export WEBPACKER_DEV_SERVER_INLINE='false'
@@ -302,12 +291,12 @@ Everything was tested using Chrome Version 62.
 1. Make sure that you are running the [proper binstub
    version](#binstub-versions) of `./bin/webpack-dev-server`.
 
-2. Change the `development.dev_server` entry `config/webpacker.yml` file into:
+1. Change the `development.dev_server` entry `config/webpacker.yml` file into:
 
     ```yaml
     dev_server:
       https: true
-      host: your-workspace-name-yourusername.c9users.io
+      host: localhost
       port: 8082
       public: your-workspace-name-yourusername.c9users.io:8082
       hmr: false
@@ -317,11 +306,5 @@ Everything was tested using Chrome Version 62.
       use_local_ip: false
     ```
 
-3. Then run:
-
-    ```bash
-    echo "0.0.0.0 ${C9_HOSTNAME}" | sudo tee -a /etc/hosts # execute after every restart
-    ```
-
-4. Now running as usual `./bin/webpack-dev-server` in one terminal and
+1. Now running as usual `./bin/webpack-dev-server` in one terminal and
    `./bin/rails s -b $IP -p $PORT` in another should work as expected.
