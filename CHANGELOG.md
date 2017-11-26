@@ -50,6 +50,20 @@ environment.resolvedModules.set('vendor', 'vendor')
 
 - Enable sourcemaps in `style` and `css` loader
 
+- Separate `css` and `sass` loader for easier configuration. `style` loader is now
+`css` loader, which resolves `.css` files and `sass` loader resolves `.scss` and `.sass`
+files.
+
+```js
+// Enable css modules with sass loader
+const sassLoader = environment.loaders.get('sass')
+const cssLoader = sassLoader.use.find(loader => loader.loader === 'css-loader')
+
+cssLoader.options = Object.assign(cssLoader.options, {
+  modules: true,
+  localIdentName: '[path][name]__[local]--[hash:base64:5]'
+})
+```
 
 ### Added (Gem)
 

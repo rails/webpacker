@@ -21,20 +21,19 @@ const extractOptions = {
   use: [
     { loader: 'css-loader', options: { minimize: isProduction, sourceMap: true, importLoaders: 3 } },
     { loader: 'postcss-loader', options: { sourceMap: true, config: { path: postcssConfigPath } } },
-    { loader: 'resolve-url-loader', options: { attempts: 1 } },
-    { loader: 'sass-loader', options: { sourceMap: true } }
+    { loader: 'resolve-url-loader', options: { attempts: 1 } }
   ]
 }
 
 // For production extract styles to a separate bundle
 const extractCSSLoader = {
-  test: /\.(scss|sass|css)$/i,
+  test: /\.(css)$/i,
   use: ExtractTextPlugin.extract(extractOptions)
 }
 
 // For hot-reloading use regular loaders
 const inlineCSSLoader = {
-  test: /\.(scss|sass|css)$/i,
+  test: /\.(css)$/i,
   use: [styleLoader].concat(extractOptions.use)
 }
 
