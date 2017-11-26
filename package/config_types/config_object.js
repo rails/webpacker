@@ -41,6 +41,7 @@ class ConfigObject extends Object {
 
   toObject() {
     const object = {}
+    /* eslint no-return-assign: 0 */
     Object.keys(this).forEach(key => (object[key] = this[key]))
     return object
   }
