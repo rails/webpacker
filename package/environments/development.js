@@ -14,7 +14,7 @@ module.exports = class extends Environment {
     }
 
     this.config.merge({
-      devtool: 'cheap-eval-source-map',
+      devtool: 'cheap-module-source-map',
       output: {
         pathinfo: true
       },
