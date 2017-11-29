@@ -18,6 +18,7 @@ module Webpacker
 
         @hostname          = dev_server["host"]
         @port              = dev_server["port"]
+        @pretty            = dev_server.fetch("pretty", true)
 
       rescue Errno::ENOENT, NoMethodError
         $stdout.puts "webpack dev_server configuration not found in #{@config_file}."
@@ -38,10 +39,9 @@ module Webpacker
         env = { "NODE_PATH" => @node_modules_path.shellescape }
         cmd = [
           "#{@node_modules_path}/.bin/webpack-dev-server",
-          "--progress",
-          "--color",
           "--config", @webpack_config
         ]
+        cmd += ["--progress", "--color"] if @pretty
 
         Dir.chdir(@app_path) do
           exec env, *cmd
