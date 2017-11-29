@@ -73,3 +73,20 @@ server {
     # ...
 }
 ```
+
+## Customizing Logging
+
+By default, the dev server will display a colored progress notification while
+your code is being compiled.  (Under the hood, we are using `webpack-dev-server
+--progress --color`).  However, this might cause issues if you don't use
+`foreman` and/or try to log webpack-dev-server's output to a file.  You can
+disable this stylized output by adding `pretty: false` to your `dev_server`
+config:
+
+```yaml
+development:
+  # ...
+  dev_server:
+    # ...
+    pretty: false
+```
