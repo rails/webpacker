@@ -43,7 +43,7 @@ environment.loaders.set('istanbul-instrumenter', {
   },
   exclude: ["node_modules", /\.test\.ts$/]
 }) /* optional */
-module.exports = environment
+module.exports = environment.toWebpackConfig()
 ```
 
 Finally, update `karma.conf.js` to read the same `test.js` file mentioned above. Rest of the things are mandatory (few marked as optional wherever appropriate).
