@@ -10,11 +10,16 @@ module.exports = class extends Environment {
 
     this.plugins.append('UglifyJs', new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
+      mangle: {
+        safari10: true
+      },
       compress: {
-        warnings: false
+        warnings: false,
+        comparisons: false
       },
       output: {
-        comments: false
+        comments: false,
+        ascii_only: true
       }
     }))
 

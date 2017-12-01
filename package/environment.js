@@ -10,6 +10,7 @@ const extname = require('path-complete-extname')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 
 const { ConfigList, ConfigObject } = require('./config_types')
 const rules = require('./rules')
@@ -25,6 +26,7 @@ const getLoaderList = () => {
 const getPluginList = () => {
   const result = new ConfigList()
   result.append('Environment', new webpack.EnvironmentPlugin(JSON.parse(JSON.stringify(process.env))))
+  result.append('CaseSensitivePaths', new CaseSensitivePathsPlugin())
   result.append('ExtractText', new ExtractTextPlugin('[name]-[contenthash].css'))
   result.append('Manifest', new ManifestPlugin({ publicPath: assetHost.publicPath, writeToFileEmit: true }))
   return result
@@ -76,6 +78,14 @@ const getBaseConfig = () =>
 
     resolveLoader: {
       modules: ['node_modules']
+    },
+
+    node: {
+      dgram: 'empty',
+      fs: 'empty',
+      net: 'empty',
+      tls: 'empty',
+      child_process: 'empty'
     }
   })
 
@@ -93,7 +103,10 @@ module.exports = class Environment {
       entry: this.entry.toObject(),
 
       module: {
-        rules: this.loaders.values()
+        strictExportPresence: true,
+        rules: [
+          { oneOf: this.loaders.values() }
+        ]
       },
 
       plugins: this.plugins.values(),

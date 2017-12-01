@@ -1,8 +1,10 @@
-const { isObject, isArray, isEqual } = require('./helpers')
+const {
+  isObject, isArray, isEqual, isEmpty
+} = require('./helpers')
 
 const deepMerge = (target, source) => {
-  if (!target) return source
-  if (!source) return target
+  if (isEmpty(target)) return source
+  if (isEmpty(source)) return target
   if (isEqual(target, source)) return source
   if (isArray(target) && isArray(source)) return [...new Set([...target, ...source])]
   if (!(isObject(target) && isObject(source))) return source

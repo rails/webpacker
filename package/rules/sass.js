@@ -6,7 +6,10 @@ let sassLoader = JSON.parse(JSON.stringify(cssLoader))
 
 sassLoader = deepMerge(sassLoader, {
   test: /\.(scss|sass)$/i,
-  use: [{ loader: 'sass-loader', options: { sourceMap: true } }]
+  use: [{
+    loader: 'sass-loader',
+    options: { sourceMap: true }
+  }]
 })
 
 module.exports = sassLoader
