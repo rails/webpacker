@@ -265,6 +265,20 @@ any changes to the configuration files. An example component will
 also be added to your project in `app/javascript` so that you can
 experiment Vue right away.
 
+If you're using Rails 5.2+ you need to enable `unsafe-eval` rule for development environment,
+this can be done in the `config/initializers/content_security_policy.rb` with the following
+configuration:
+
+```ruby
+  if Rails.env.development?
+    p.connect_src :self, :https, 'http://localhost:3035'
+    p.script_src :self, :https, :unsafe_eval
+  else
+    p.script_src :self, :https
+  end
+```
+You can read more this in [Vue docs](https://vuejs.org/v2/guide/installation.html#CSP-environments).
+
 
 ### Elm
 
