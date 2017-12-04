@@ -20,7 +20,8 @@ module.exports = class extends Environment {
       },
       devServer: {
         clientLogLevel: 'none',
-        compress: true,
+        compress: devServer.compress,
+        quiet: devServer.quiet,
         disableHostCheck: devServer.disable_host_check,
         host: devServer.host,
         port: devServer.port,
@@ -31,17 +32,15 @@ module.exports = class extends Environment {
         useLocalIp: devServer.use_local_ip,
         public: devServer.public,
         publicPath: assetHost.publicPath,
-        historyApiFallback: true,
-        headers: {
-          'Access-Control-Allow-Origin': '*'
+        historyApiFallback: {
+          disableDotRule: true
         },
+        headers: devServer.headers,
         overlay: devServer.overlay,
-        watchOptions: {
-          ignored: /node_modules/
-        },
         stats: {
           errorDetails: true
-        }
+        },
+        watchOptions: devServer.watch_options
       }
     })
   }

@@ -19,5 +19,5 @@ const elmWebpackLoader = {
 module.exports = {
   test: /\.elm(\.erb)?$/,
   exclude: [/elm-stuff/, /node_modules/],
-  use: isProduction ? [elmWebpackLoader] : ['elm-hot-loader', elmWebpackLoader]
+  use: isProduction ? [elmWebpackLoader] : [{ loader: 'elm-hot-loader' }, elmWebpackLoader]
 }

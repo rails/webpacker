@@ -65,6 +65,27 @@ cssLoader.options = Object.assign(cssLoader.options, {
 })
 ```
 
+- Expose rest of configurable dev server options from webpacker.yml
+
+```yml
+quiet: false
+headers:
+  'Access-Control-Allow-Origin': '*'
+watch_options:
+  ignored: /node_modules/
+```
+
+- Enforce deterministic loader order in desc order, starts processing from top to bottom
+
+- Enforce the entire path of all required modules match the exact case of the actual path on disk using [case sensitive paths plugin](https://github.com/Urthen/case-sensitive-paths-webpack-plugin).
+
+- Add url loader to process and embed smaller static files
+
+
+### Removed
+
+- resolve url loader [#1042](https://github.com/rails/webpacker/issues/1042)
+
 ### Added (Gem)
 
 - Allow skipping webpacker compile using an env variable

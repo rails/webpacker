@@ -4,6 +4,8 @@ const isObject = value => (
   (value.length === undefined || value.length === null)
 )
 
+const isEmpty = value => (value === null || value === undefined)
+
 const isString = key => key && typeof key === 'string'
 
 const isStrPath = (key) => {
@@ -23,6 +25,7 @@ module.exports = {
   isObject,
   isArray,
   isEqual,
+  isEmpty,
   isStrPath,
   canMerge,
   prettyPrint
