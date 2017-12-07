@@ -84,3 +84,16 @@ mv $HOME/your_rails_app/node_modules/.bin/elm-make $HOME/your_rails_app/node_mod
 printf "#\041/bin/bash\n\necho \"Running elm-make with sysconfcpus -n 2\"\n\n$HOME/dependencies/sysconfcpus/bin/sysconfcpus -n 2 $HOME/your_rails_app/node_modules/.bin/elm-make-old \"\$@\"" > $HOME/your_rails_app/node_modules/.bin/elm-make
 chmod +x $HOME/your_rails_app/node_modules/.bin/elm-make
 ```
+
+## Rake assets:precompile fails. ExecJS::RuntimeError
+To avoid conflicts with Uglifier and prevent appearing of ExecJS::RuntimeError need to comment next line in your config:
+```ruby
+# From
+
+Rails.application.config.assets.js_compressor = :uglifier
+
+# To
+
+#Rails.application.config.assets.js_compressor = :uglifier
+
+```
