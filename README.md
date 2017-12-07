@@ -248,6 +248,23 @@ any changes to the configuration files. An example component is written in
 TypeScript will also be added to your project in `app/javascript` so that
 you can experiment with Angular right away.
 
+By default Angular uses a JIT compiler for development environment, this
+compiler is not compatible with restrictive CSP (Content Security
+Policy) environments like Rails 5.2+. You can use Angular AOT compiler
+in development with the [@ngtools/webpack](https://www.npmjs.com/package/@ngtools/webpack#usage) plugin.
+
+Alternatively if you're using Rails 5.2+ you can enable `unsafe-eval` rule for
+development environment, this can be done in the `config/initializers/content_security_policy.rb`
+with the following configuration:
+
+```ruby
+  if Rails.env.development?
+    p.script_src :self, :https, :unsafe_eval
+  else
+    p.script_src :self, :https
+  end
+```
+
 
 ### Vue
 
