@@ -1,4 +1,4 @@
-# webpack Dev Server
+# webpack-dev-server
 
 
 ## HTTPS

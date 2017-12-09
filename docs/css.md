@@ -89,6 +89,6 @@ file for the entry point.  Loading the stylesheet will also load the
 CSS for any nested components.
 
 ```erb
-<%= stylesheet_pack_tag 'hello_vue' %> 
+<%= stylesheet_pack_tag 'hello_vue' %>
 <%= javascript_pack_tag 'hello_vue' %>
 ```
