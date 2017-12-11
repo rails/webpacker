@@ -25,7 +25,7 @@ const jsonLoader =  {
   loader: 'json-loader'
 }
 
-environment.loaders.set('json', jsonLoader)
+environment.loaders.append('json', jsonLoader)
 environment.loaders.prepend('json', jsonLoader)
 environment.loaders.insert('json', jsonLoader, { after: 'style' } )
 environment.loaders.insert('json', jsonLoader, { before: 'babel' } )
@@ -36,7 +36,7 @@ manifestPlugin.opts.writeToFileEmit = false
 
 // Update coffee loader to use coffeescript 2
 const babelLoader = environment.loaders.get('babel')
-environment.loaders.set('coffee', {
+environment.loaders.insert('coffee', {
   test: /\.coffee(\.erb)?$/,
   use:  babelLoader.use.concat(['coffee-loader'])
 }, { before: 'json' })
@@ -45,7 +45,7 @@ environment.loaders.set('coffee', {
 - Expose `resolve.modules` paths like loaders and plugins
 
 ```js
-environment.resolvedModules.set('vendor', 'vendor')
+environment.resolvedModules.append('vendor', 'vendor')
 ```
 
 - Enable sourcemaps in `style` and `css` loader
