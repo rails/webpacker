@@ -32,11 +32,11 @@ git push heroku master
 
 ## Nginx
 
-Webpacker doesn’t serve anything in production. You’re expected to configure your web server to serve files in public/ directly.
+Webpacker doesn't serve anything in production. You’re expected to configure your web server to serve files in public/ directly.
 
-Some servers support sending precompressed versions of files with the `.gz` extension when they’re available. For example, nginx offers a `gzip_static` directive.
+Some servers support sending precompressed versions of files with the `.gz` extension when they're available. For example, nginx offers a `gzip_static` directive.
 
-Here’s a sample nginx site config for a Rails app using Webpacker:
+Here's a sample nginx site config for a Rails app using Webpacker:
 
 ```nginx
 upstream app {
