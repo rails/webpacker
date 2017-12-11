@@ -46,7 +46,7 @@ module.exports = environment
 ```
 
 If you need access to configs within Webpacker's configuration,
-you can import them like this:
+you can import them like so:
 
 ```js
 const { config, asset_host } = require('@rails/webpacker')
@@ -101,7 +101,8 @@ module.exports = environment
 
 ### Coffeescript 2
 
-Out of the box webpacker supports coffeescript 1, but here is how can use Coffeescript 2 too:
+Out of the box webpacker supports coffeescript 1,
+but here is how you can use Coffeescript 2:
 
 ```
 yarn add coffeescript@2.0.1
@@ -124,7 +125,7 @@ module.exports = environment
 
 ### React SVG loader
 
-To use react svg loader, you could append svg loader before file loader:
+To use react svg loader, you should append svg loader before file loader:
 
 ```js
 const { environment } = require('@rails/webpacker')
@@ -188,7 +189,7 @@ const manifestPlugin = environment.plugins.get('Manifest')
 manifestPlugin.opts.writeToFileEmit = false
 
 // Add an additional plugin of your choosing : ProvidePlugin
-environment.plugins.append(
+environment.plugins.prepend(
   'Provide',
   new webpack.ProvidePlugin({
     $: 'jquery',
@@ -258,12 +259,12 @@ Now, add these files to your `layouts/application.html.erb`:
 ```erb
 <%# Head %>
 
-<%= javascript_pack_tag 'manifest' %>
-<%= javascript_pack_tag 'vendor' %>
+<%= javascript_pack_tag "manifest" %>
+<%= javascript_pack_tag "vendor" %>
 
 <%# If importing any styles from node_modules in your JS app %>
 
-<%= stylesheet_pack_tag 'vendor' %>
+<%= stylesheet_pack_tag "vendor" %>
 ```
 
 More detailed guides available here: [webpack guides](https://webpack.js.org/guides/)

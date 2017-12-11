@@ -1,6 +1,6 @@
 # Docker
 
-To setup webpacker with a dockerized Rails application is very trivial.
+To setup webpacker with a dockerized Rails application is trivial.
 
 First, add a new service for webpacker in docker-compose.yml:
 
@@ -18,7 +18,7 @@ services:
       - '3035:3035'
 ```
 
-Add nodejs and yarn as dependencies in Dockerfile,
+add nodejs and yarn as dependencies in Dockerfile,
 
 ```dockerfile
 FROM ruby:2.4.1
