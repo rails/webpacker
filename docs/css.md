@@ -92,3 +92,19 @@ CSS for any nested components.
 <%= stylesheet_pack_tag 'hello_vue' %>
 <%= javascript_pack_tag 'hello_vue' %>
 ```
+
+## Resolve url loader
+
+Since `Sass/libsass` does not provide url rewriting, all linked assets must be relative to the output. Add the missing url rewriting using the resolve-url-loader. Place it directly after the sass-loader in the loader chain.
+
+
+```bash
+yarn add resolve-url-loader
+```
+
+```js
+// Update loaders/sass.js
+const { environment } = require('@rails/webpacker')
+const cssLoader = environment.loaders.get('sass')
+cssLoader.use.push({ loader: 'resolve-url-loader' })
+```

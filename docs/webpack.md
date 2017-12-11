@@ -221,7 +221,7 @@ To add new paths to `resolve.modules`, the API is same as loaders and plugins:
 const { environment } = require('@rails/webpacker')
 
 // Resolved modules list API - prepend, append, insert
-environment.resolvedModules.set('vendor', 'vendor')
+environment.resolvedModules.append('vendor', 'vendor')
 ```
 
 ### Add common chunks

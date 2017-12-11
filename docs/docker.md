@@ -23,9 +23,15 @@ Add nodejs and yarn as dependencies in Dockerfile,
 ```dockerfile
 FROM ruby:2.4.1
 RUN apt-get update -qq
+
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+
 RUN apt-get install -y nodejs
-RUN curl -o- -L https://yarnpkg.com/install.sh | bash
+RUN apt-get update && apt-get install yarn
+
+# Rest of the commands....
 ```
 
 and create an env file to load environment variables from:
@@ -34,4 +40,10 @@ and create an env file to load environment variables from:
 NODE_ENV=development
 RAILS_ENV=development
 WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
+```
+
+Lastly, rebuild your container:
+
+```bash
+docker-compose up --build
 ```
