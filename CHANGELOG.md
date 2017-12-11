@@ -25,7 +25,7 @@ const jsonLoader =  {
   loader: 'json-loader'
 }
 
-environment.loaders.set('json', jsonLoader)
+environment.loaders.append('json', jsonLoader)
 environment.loaders.prepend('json', jsonLoader)
 environment.loaders.insert('json', jsonLoader, { after: 'style' } )
 environment.loaders.insert('json', jsonLoader, { before: 'babel' } )
@@ -36,7 +36,7 @@ manifestPlugin.opts.writeToFileEmit = false
 
 // Update coffee loader to use coffeescript 2
 const babelLoader = environment.loaders.get('babel')
-environment.loaders.set('coffee', {
+environment.loaders.insert('coffee', {
   test: /\.coffee(\.erb)?$/,
   use:  babelLoader.use.concat(['coffee-loader'])
 }, { before: 'json' })
@@ -45,7 +45,7 @@ environment.loaders.set('coffee', {
 - Expose `resolve.modules` paths like loaders and plugins
 
 ```js
-environment.resolvedModules.set('vendor', 'vendor')
+environment.resolvedModules.append('vendor', 'vendor')
 ```
 
 - Enable sourcemaps in `style` and `css` loader
@@ -75,6 +75,13 @@ watch_options:
   ignored: /node_modules/
 ```
 
+- `pretty` option to disable/enable color and progress output when running dev server
+
+```yml
+dev_server:
+  pretty: false
+```
+
 - Enforce deterministic loader order in desc order, starts processing from top to bottom
 
 - Enforce the entire path of all required modules match the exact case of the actual path on disk using [case sensitive paths plugin](https://github.com/Urthen/case-sensitive-paths-webpack-plugin).
@@ -96,6 +103,9 @@ WEBPACKER_PRECOMPILE=false bundle exec rails assets:precompile
 ```
 
 - Use `WEBPACKER_ASSET_HOST` instead of `ASSET_HOST` for CDN
+
+- Alias `webpacker:compile` task to `assets:precompile` if is not defined so it works
+without sprockets
 
 
 ## [3.0.2] - 2017-10-04

@@ -30,6 +30,44 @@ git push heroku master
 ```
 
 
+## Nginx
+
+Webpacker doesn't serve anything in production. You’re expected to configure your web server to serve files in public/ directly.
+
+Some servers support sending precompressed versions of files with the `.gz` extension when they're available. For example, nginx offers a `gzip_static` directive.
+
+Here's a sample nginx site config for a Rails app using Webpacker:
+
+```nginx
+upstream app {
+  # ...
+}
+
+server {
+  server_name www.example.com;
+  root /path/to/app/public;
+
+  location @app {
+    proxy_pass http://app;
+    proxy_redirect off;
+
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+  }
+
+  location / {
+    try_files $uri @app;
+  }
+
+  location ^~ /packs/ {
+    gzip_static on;
+    expires max;
+  }
+}
+```
+
 ## CDN
 
 Webpacker out-of-the-box provides CDN support using your Rails app `config.action_controller.asset_host` setting. If you already have [CDN](http://guides.rubyonrails.org/asset_pipeline.html#cdns) added in your Rails app

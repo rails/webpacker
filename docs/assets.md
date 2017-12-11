@@ -42,7 +42,7 @@ It's possible to link to assets that have been precompiled by Sprockets. Add the
 <%# app/javascript/my_pack/example.js.erb %>
 
 <% helpers = ActionController::Base.helpers %>
-var railsImagePath = "<%= helpers.image_path('rails.png') %>"
+const railsImagePath = "<%= helpers.image_path('rails.png') %>"
 ```
 
 This is enabled by the `rails-erb-loader` loader rule in `config/webpack/loaders/erb.js`.
