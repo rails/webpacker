@@ -103,8 +103,9 @@ yarn add resolve-url-loader
 ```
 
 ```js
-// Update loaders/sass.js
+// webpack/environment.js
 const { environment } = require('@rails/webpacker')
+
 const cssLoader = environment.loaders.get('sass')
 cssLoader.use.push({ loader: 'resolve-url-loader' })
 ```
