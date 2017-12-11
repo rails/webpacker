@@ -160,7 +160,12 @@ Once you start this development server, Webpacker will automatically start proxy
 webpack asset requests to this server. When you stop the server, it'll revert to
 on-demand compilation again.
 
-You can use environment variables as options supported by [webpack-dev-server](https://webpack.js.org/configuration/dev-server/) in the form `WEBPACKER_DEV_SERVER_<OPTION>`. Please note that these environment variables will always take precedence over the ones already set in the configuration file.
+You can use environment variables as options supported by
+[webpack-dev-server](https://webpack.js.org/configuration/dev-server/) in the
+form `WEBPACKER_DEV_SERVER_<OPTION>`. Please note that these environment
+variables will always take precedence over the ones already set in the
+configuration file, and that the _same_ environment variables must
+be available to the `rails server` process.
 
 ```bash
 WEBPACKER_DEV_SERVER_HOST=example.com WEBPACKER_DEV_SERVER_INLINE=true WEBPACKER_DEV_SERVER_HOT=false ./bin/webpack-dev-server
