@@ -75,6 +75,13 @@ watch_options:
   ignored: /node_modules/
 ```
 
+- `pretty` option to disable/enable color and progress output when running dev server
+
+```yml
+dev_server:
+  pretty: false
+```
+
 - Enforce deterministic loader order in desc order, starts processing from top to bottom
 
 - Enforce the entire path of all required modules match the exact case of the actual path on disk using [case sensitive paths plugin](https://github.com/Urthen/case-sensitive-paths-webpack-plugin).
@@ -96,6 +103,9 @@ WEBPACKER_PRECOMPILE=false bundle exec rails assets:precompile
 ```
 
 - Use `WEBPACKER_ASSET_HOST` instead of `ASSET_HOST` for CDN
+
+- Alias `webpacker:compile` task to `assets:precompile` if is not defined so it works
+without sprockets
 
 
 ## [3.0.2] - 2017-10-04
