@@ -4,7 +4,8 @@
   "description": "Use webpack to manage app-like JavaScript modules in Rails",
   "main": "package/index.js",
   "files": [
-    "package"
+    "package",
+    "lib/install/config/webpacker.yml"
   ],
   "engines": {
     "node": ">=6.0.0",
