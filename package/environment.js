@@ -54,11 +54,9 @@ const getEntryObject = () => {
 }
 
 const getModulePaths = () => {
-  const result = new ConfigList()
-  result.append('source', resolve(config.source_path))
-  result.append('node_modules', 'node_modules')
+  let result = [resolve(config.source_path), 'node_modules']
   if (config.resolved_paths) {
-    config.resolved_paths.forEach(path => result.append(basename(path), path))
+    result = result.concat(config.resolved_paths)
   }
   return result
 }
@@ -112,7 +110,7 @@ module.exports = class Environment {
       plugins: this.plugins.values(),
 
       resolve: {
-        modules: this.resolvedModules.values()
+        modules: this.resolvedModules
       }
     })
   }
