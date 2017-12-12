@@ -77,7 +77,7 @@ file in your app root with standard plugins.
 
 ```yml
 plugins:
-  postcss-smart-import: {}
+  postcss-import: {}
   postcss-cssnext: {}
 ```
 
