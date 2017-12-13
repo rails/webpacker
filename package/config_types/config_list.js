@@ -3,6 +3,8 @@
   * @extends { Array }
 */
 class ConfigList extends Array {
+  static get [Symbol.species]() { return Array }
+
   get(key) {
     const index = this.getIndex(key, true)
     return this[index].value
