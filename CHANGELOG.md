@@ -1,3 +1,33 @@
+## [Unreleased]
+
+### Added (npm module)
+
+- Upgrade gems and webpack dependencies
+
+- `postcss-import` in place of `postcss-smart-import`
+
+
+### Removed (npm module)
+
+- `postcss-smart-import`, `coffee-loader`, `rails-erb-loader` as dependencies
+
+
+### Fixed (npm module)
+
+- Return native array type for `ConfigList` [#1098](https://github.com/rails/webpacker/pull/1098)
+
+
+### Added (Gem)
+
+- New `asset_pack_url` helper [#1102](https://github.com/rails/webpacker/pull/1102)
+
+- New installers for coffee and erb
+
+```bash
+bundle exec rails webpacker:install:erb
+bundle exec rails webpacker:install::coffee
+```
+
 ## [3.1.1] - 2017-12-11
 
 ### Fixed
