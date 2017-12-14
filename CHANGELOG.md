@@ -27,7 +27,7 @@ and add it to webpack build from your `config/webpack/environment.js`
 
 ### Removed (npm module)
 
-- `postcss-smart-import`, `coffee-loader`, `rails-erb-loader` as dependencies
+- `postcss-smart-import`, `coffee-loader`, `url-loader`, `rails-erb-loader` as dependencies
 
 
 ### Fixed (npm module)
