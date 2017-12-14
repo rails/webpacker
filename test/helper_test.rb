@@ -8,12 +8,20 @@ class HelperTest < ActionView::TestCase
   def setup
     @request = Class.new do
       def send_early_hints(links) end
+      def base_url
+        "https://example.com"
+      end
     end.new
   end
 
   def test_asset_pack_path
     assert_equal "/packs/bootstrap-300631c4f0e0f9c865bc.js", asset_pack_path("bootstrap.js")
     assert_equal "/packs/bootstrap-c38deda30895059837cf.css", asset_pack_path("bootstrap.css")
+  end
+
+  def test_asset_pack_url
+    assert_equal "https://example.com/packs/bootstrap-300631c4f0e0f9c865bc.js", asset_pack_url("bootstrap.js")
+    assert_equal "https://example.com/packs/bootstrap-c38deda30895059837cf.css", asset_pack_url("bootstrap.css")
   end
 
   def test_javascript_pack_tag
