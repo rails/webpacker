@@ -1,3 +1,12 @@
+/* global test expect, describe */
+
+// environment.js expects to find config/webpacker.yml and resolved modules from
+// the root of a Rails project
+const cwd = process.cwd();
+const chdirApp = () => process.chdir('test/test_app')
+const chdirCwd = () => process.chdir(cwd)
+chdirApp();
+
 const { resolve, join } = require('path')
 const { sync } = require('glob')
 const assert = require('assert')
@@ -7,6 +16,8 @@ const { ConfigList, ConfigObject } = require('../config_types')
 const Environment = require('../environment')
 
 describe('Environment', () => {
+  afterAll(chdirCwd);
+
   let environment;
 
   describe('toWebpackConfig', () => {
@@ -16,14 +27,14 @@ describe('Environment', () => {
 
     test('should return entry', () => {
       const config = environment.toWebpackConfig()
-      expect(config.entry.application).toEqual(resolve('test', 'test_app', 'app', 'javascript', 'packs', 'application.js'))
+      expect(config.entry.application).toEqual(resolve('app', 'javascript', 'packs', 'application.js'))
     })
 
     test('should return output', () => {
       const config = environment.toWebpackConfig()
       expect(config.output.filename).toEqual('[name]-[chunkhash].js')
       expect(config.output.chunkFilename).toEqual('[name]-[chunkhash].chunk.js')
-      expect(config.output.path).toEqual(resolve('test', 'test_app', 'public', 'packs-test'))
+      expect(config.output.path).toEqual(resolve('public', 'packs-test'))
       expect(config.output.publicPath).toEqual('/packs-test/')
     })
 
@@ -43,15 +54,15 @@ describe('Environment', () => {
 
     test('should return default resolveLoader', () => {
       const config = environment.toWebpackConfig()
-      expect(config.resolveLoader.modules).toEqual([join('test', 'test_app','node_modules')])
+      expect(config.resolveLoader.modules).toEqual(['node_modules'])
     })
 
     test('should return default resolve.modules with additions', () => {
       const config = environment.toWebpackConfig()
       expect(config.resolve.modules).toEqual([
-        resolve('test', 'test_app', 'app', 'javascript'),
-        join('test', 'test_app', 'node_modules'),
-        resolve('test', 'test_app', 'app', 'assets'),
+        resolve('app', 'javascript'),
+        'node_modules',
+        'app/assets',
         '/etc/yarn',
       ])
     })
