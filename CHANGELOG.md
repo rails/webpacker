@@ -1,5 +1,23 @@
 ## [Unreleased]
 
+### Breaking change
+
+If you are using react, vue, angular, elm, erb or coffeescript inside your
+`packs/` please re-run the integration installers as described in the README.
+
+```bash
+bundle exec rails webpacker:install:react
+bundle exec rails webpacker:install:vue
+bundle exec rails webpacker:install:angular
+bundle exec rails webpacker:install:elm
+bundle exec rails webpacker:install:erb
+bundle exec rails webpacker:install::coffee
+```
+
+Or simply copy required loaders into your `config/webpack/loaders/` directory
+and add it to webpack build from your `config/webpack/environment.js`
+
+
 ### Added (npm module)
 
 - Upgrade gems and webpack dependencies

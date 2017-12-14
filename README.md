@@ -327,7 +327,7 @@ so that you can experiment with Elm right away.
 
 ### Coffeescript
 
-To add coffeescript[Coffeescript](http://coffeescript.org/) support,
+To add [Coffeescript](http://coffeescript.org/) support,
 run `bundle exec rails webpacker:install:coffee` on a Rails app already
 setup with Webpacker.
 
