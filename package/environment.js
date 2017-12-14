@@ -104,9 +104,7 @@ module.exports = class Environment {
 
       module: {
         strictExportPresence: true,
-        rules: [
-          { oneOf: this.loaders.values() }
-        ]
+        rules: this.loaders.values()
       },
 
       plugins: this.plugins.values(),
