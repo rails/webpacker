@@ -26,6 +26,14 @@ class ConfigurationTest < Webpacker::Test
     assert_equal Webpacker.config.cache_path.to_s, cache_path
   end
 
+  def test_resolved_paths
+    assert_equal Webpacker.config.resolved_paths, ["app/assets", "/etc/yarn"]
+  end
+
+  def test_resolved_paths_globbed
+    assert_equal Webpacker.config.resolved_paths_globbed, ["app/assets/**/*", "/etc/yarn/**/*"]
+  end
+
   def test_extensions
     webpacker_yml = YAML.load_file("lib/install/config/webpacker.yml")
     assert_equal Webpacker.config.extensions, webpacker_yml["default"]["extensions"]
