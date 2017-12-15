@@ -65,7 +65,12 @@ class Webpacker::Compiler
     end
 
     def default_watched_paths
-      [*config.resolved_paths_globbed, "#{config.source_path}/**/*", "yarn.lock", "package.json", "config/webpack/**/*"].freeze
+      [
+        *config.resolved_paths_globbed,
+        "#{config.source_path.relative_path_from(Rails.root)}/**/*",
+        "yarn.lock", "package.json",
+        "config/webpack/**/*"
+      ].freeze
     end
 
     def compilation_digest_path
