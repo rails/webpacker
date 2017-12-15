@@ -99,3 +99,21 @@ Rails.application.config.assets.js_compressor = :uglifier
 #Rails.application.config.assets.js_compressor = :uglifier
 
 ```
+
+### Angular: WARNING in ./node_modules/@angular/core/esm5/core.js, Critical dependency: the request of a dependency is an expression
+
+To silent these warnings, please update `config/webpack/environment.js`
+
+```js
+// environment.js
+const webpack = require('webpack')
+const { resolve } = require('path')
+const { environment, config } = require('@rails/webpacker')
+
+environment.plugins.set('ContextReplacement',
+  new webpack.ContextReplacementPlugin(
+    /angular(\\|\/)core(\\|\/)(@angular|esm5)/,
+    resolve(config.source_path)
+  )
+)
+```
