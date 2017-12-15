@@ -2,9 +2,9 @@
 
 // environment.js expects to find config/webpacker.yml and resolved modules from
 // the root of a Rails project
-const cwd = process.cwd()
+
 const chdirApp = () => process.chdir('test/test_app')
-const chdirCwd = () => process.chdir(cwd)
+const chdirCwd = () => process.chdir(process.cwd())
 chdirApp()
 
 const { resolve } = require('path')
