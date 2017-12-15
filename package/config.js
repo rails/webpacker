@@ -28,4 +28,7 @@ if (config.dev_server) {
   })
 }
 
+config.outputPath = resolve('public', config.public_output_path)
+config.publicPath = `/${config.public_output_path}/`.replace(/([^:]\/)\/+/g, '$1')
+
 module.exports = config

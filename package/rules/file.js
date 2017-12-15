@@ -1,6 +1,5 @@
 const { join } = require('path')
 const { source_path } = require('../config')
-const assetHost = require('../asset_host')
 
 module.exports = {
   exclude: /\.(js|jsx|coffee|ts|tsx|vue|elm|scss|sass|css|html|json)?(\.erb)?$/,
@@ -8,8 +7,7 @@ module.exports = {
     loader: 'file-loader',
     options: {
       name: '[path][name]-[hash].[ext]',
-      context: join(source_path),
-      publicPath: assetHost.publicPathWithHost
+      context: join(source_path)
     }
   }]
 }

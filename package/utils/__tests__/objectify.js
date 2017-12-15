@@ -1,5 +1,4 @@
 /* global test expect */
-console.log('objectify test cwd', process.cwd());
 
 const objectify = require('../objectify')
 

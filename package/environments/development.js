@@ -1,7 +1,6 @@
 const webpack = require('webpack')
 const Environment = require('../environment')
-const { dev_server: devServer } = require('../config')
-const assetHost = require('../asset_host')
+const { dev_server: devServer, outputPath: contentBase, publicPath } = require('../config')
 
 module.exports = class extends Environment {
   constructor() {
@@ -27,11 +26,11 @@ module.exports = class extends Environment {
         port: devServer.port,
         https: devServer.https,
         hot: devServer.hmr,
-        contentBase: assetHost.path,
+        contentBase,
         inline: devServer.inline,
         useLocalIp: devServer.use_local_ip,
         public: devServer.public,
-        publicPath: assetHost.publicPath,
+        publicPath,
         historyApiFallback: {
           disableDotRule: true
         },

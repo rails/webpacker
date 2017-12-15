@@ -49,9 +49,9 @@ If you need access to configs within Webpacker's configuration,
 you can import them like so:
 
 ```js
-const { config, asset_host } = require('@rails/webpacker')
+const { config } = require('@rails/webpacker')
 
-console.log(asset_host.publicPathWithHost)
+console.log(config.output_path)
 console.log(config.source_path)
 ```
 

@@ -1,24 +1,21 @@
-/* global test expect, describe */
+/* global test expect, describe, afterAll, beforeEach */
 
 // environment.js expects to find config/webpacker.yml and resolved modules from
 // the root of a Rails project
-const cwd = process.cwd();
+
 const chdirApp = () => process.chdir('test/test_app')
-const chdirCwd = () => process.chdir(cwd)
-chdirApp();
+const chdirCwd = () => process.chdir(process.cwd())
+chdirApp()
 
-const { resolve, join } = require('path')
-const { sync } = require('glob')
-const assert = require('assert')
-
-const { ConfigList, ConfigObject } = require('../config_types')
-
+const { resolve } = require('path')
+const rules = require('../rules')
+const { ConfigList } = require('../config_types')
 const Environment = require('../environment')
 
 describe('Environment', () => {
-  afterAll(chdirCwd);
+  afterAll(chdirCwd)
 
-  let environment;
+  let environment
 
   describe('toWebpackConfig', () => {
     beforeEach(() => {
@@ -40,11 +37,11 @@ describe('Environment', () => {
 
     test('should return default loader rules for each file in config/loaders', () => {
       const config = environment.toWebpackConfig()
-      const rules = Object.keys(require('../rules'))
-      const [{ oneOf: configRules }] = config.module.rules;
+      const defaultRules = Object.keys(rules)
+      const configRules = config.module.rules
 
-      expect(rules.length).toBeGreaterThan(1)
-      expect(configRules.length).toEqual(rules.length)
+      expect(defaultRules.length).toBeGreaterThan(1)
+      expect(configRules.length).toEqual(defaultRules.length)
     })
 
     test('should return default plugins', () => {
@@ -63,7 +60,7 @@ describe('Environment', () => {
         resolve('app', 'javascript'),
         'node_modules',
         'app/assets',
-        '/etc/yarn',
+        '/etc/yarn'
       ])
     })
 
