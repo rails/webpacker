@@ -30,6 +30,8 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
   - [Angular with TypeScript](#angular-with-typescript)
   - [Vue](#vue)
   - [Elm](#elm)
+  - [Coffeescript](#coffeescript)
+  - [Erb](#erb)
 - [Paths](#paths)
   - [Resolved](#resolved)
   - [Watched](#watched)
@@ -322,6 +324,25 @@ rails new myapp --webpack=elm
 The Elm library and core packages will be added via Yarn and Elm itself.
 An example `Main.elm` app will also be added to your project in `app/javascript`
 so that you can experiment with Elm right away.
+
+### Coffeescript
+
+To add [Coffeescript](http://coffeescript.org/) support,
+run `bundle exec rails webpacker:install:coffee` on a Rails app already
+setup with Webpacker.
+
+An example `hello_coffee.coffee` file will also be added to your project
+in `app/javascript/packs` so that you can experiment with Coffeescript right away.
+
+### Erb
+
+To add [Erb](https://apidock.com/ruby/ERB) support in your JS templates,
+run `bundle exec rails webpacker:install:erb` on a Rails app already
+setup with Webpacker.
+
+An example `hello_erb.js.erb` file will also be added to your project
+in `app/javascript/packs` so that you can experiment with Erb flavoured
+javascript right away.
 
 
 ## Paths

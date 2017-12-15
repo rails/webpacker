@@ -145,6 +145,33 @@ environment.loaders.insert('svg', {
 }, { before: 'file' })
 ```
 
+
+### Url Loader
+
+```js
+// config/webpack/loaders/url.js
+
+const { assetHost } = require('@rails/webpacker')
+
+module.exports = {
+  test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+  use: [{
+    loader: 'url-loader',
+    options: {
+      limit: 10000,
+      name: '[name]-[hash].[ext]',
+      publicPath: assetHost.publicPathWithHost
+    }
+  }]
+}
+
+// config/webpack/environment.js
+
+const { environment } = require('@rails/webpacker')
+
+environment.loaders.prepend('url', url)
+```
+
 ### Overriding Loader Options in webpack 3+ (for CSS Modules etc.)
 
 In webpack 3+, if you'd like to specify additional or different options for a loader, edit `config/webpack/environment.js` and provide an options object to override. This is similar to the technique shown above, but the following example shows specifically how to apply CSS Modules, which is what you may be looking for:

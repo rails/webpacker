@@ -1,3 +1,64 @@
+## [Unreleased]
+
+### Breaking changes
+
+If you are using react, vue, angular, elm, erb or coffeescript inside your
+`packs/` please re-run the integration installers as described in the README.
+
+```bash
+bundle exec rails webpacker:install:react
+bundle exec rails webpacker:install:vue
+bundle exec rails webpacker:install:angular
+bundle exec rails webpacker:install:elm
+bundle exec rails webpacker:install:erb
+bundle exec rails webpacker:install::coffee
+```
+
+Or simply copy required loaders used in your app into your `config/webpack/loaders/`
+directory and add it to webpack build from `config/webpack/environment.js`
+
+```js
+const erb =  require('./loaders/erb')
+const elm =  require('./loaders/elm')
+const typescript =  require('./loaders/typescript')
+const vue =  require('./loaders/vue')
+const coffee =  require('./loaders/coffee')
+
+environment.loaders.append('coffee', coffee)
+environment.loaders.append('vue', vue)
+environment.loaders.append('typescript', typescript)
+environment.loaders.append('elm', elm)
+environment.loaders.append('erb', erb)
+```
+
+### Added (npm module)
+
+- Upgrade gems and webpack dependencies
+
+- `postcss-import` in place of `postcss-smart-import`
+
+
+### Removed (npm module)
+
+- `postcss-smart-import`, `coffee-loader`, `url-loader`, `rails-erb-loader` as dependencies
+
+
+### Fixed (npm module)
+
+- Return native array type for `ConfigList` [#1098](https://github.com/rails/webpacker/pull/1098)
+
+
+### Added (Gem)
+
+- New `asset_pack_url` helper [#1102](https://github.com/rails/webpacker/pull/1102)
+
+- New installers for coffee and erb
+
+```bash
+bundle exec rails webpacker:install:erb
+bundle exec rails webpacker:install::coffee
+```
+
 ## [3.1.1] - 2017-12-11
 
 ### Fixed
