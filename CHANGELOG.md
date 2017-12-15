@@ -1,6 +1,6 @@
 ## [Unreleased]
 
-### Breaking change
+### Breaking changes
 
 If you are using react, vue, angular, elm, erb or coffeescript inside your
 `packs/` please re-run the integration installers as described in the README.
@@ -14,9 +14,22 @@ bundle exec rails webpacker:install:erb
 bundle exec rails webpacker:install::coffee
 ```
 
-Or simply copy required loaders into your `config/webpack/loaders/` directory
-and add it to webpack build from your `config/webpack/environment.js`
+Or simply copy required loaders used in your app into your `config/webpack/loaders/`
+directory and add it to webpack build from `config/webpack/environment.js`
 
+```js
+const erb =  require('./loaders/erb')
+const elm =  require('./loaders/elm')
+const typescript =  require('./loaders/typescript')
+const vue =  require('./loaders/vue')
+const coffee =  require('./loaders/coffee')
+
+environment.loaders.append('coffee', coffee)
+environment.loaders.append('vue', vue)
+environment.loaders.append('typescript', typescript)
+environment.loaders.append('elm', elm)
+environment.loaders.append('erb', erb)
+```
 
 ### Added (npm module)
 
