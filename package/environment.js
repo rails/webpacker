@@ -15,7 +15,6 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 const { ConfigList, ConfigObject } = require('./config_types')
 const rules = require('./rules')
 const config = require('./config')
-const assetHost = require('./asset_host')
 
 const getLoaderList = () => {
   const result = new ConfigList()
@@ -28,7 +27,7 @@ const getPluginList = () => {
   result.append('Environment', new webpack.EnvironmentPlugin(JSON.parse(JSON.stringify(process.env))))
   result.append('CaseSensitivePaths', new CaseSensitivePathsPlugin())
   result.append('ExtractText', new ExtractTextPlugin('[name]-[contenthash].css'))
-  result.append('Manifest', new ManifestPlugin({ publicPath: assetHost.publicPath, writeToFileEmit: true }))
+  result.append('Manifest', new ManifestPlugin({ publicPath: config.publicPath, writeToFileEmit: true }))
   return result
 }
 
@@ -68,8 +67,8 @@ const getBaseConfig = () =>
     output: {
       filename: '[name]-[chunkhash].js',
       chunkFilename: '[name]-[chunkhash].chunk.js',
-      path: assetHost.path,
-      publicPath: assetHost.publicPath
+      path: config.outputPath,
+      publicPath: config.publicPath
     },
 
     resolve: {

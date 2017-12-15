@@ -5,7 +5,6 @@ const { resolve } = require('path')
 const { existsSync } = require('fs')
 const Environment = require('./environment')
 const config = require('./config')
-const assetHost = require('./asset_host')
 const loaders = require('./rules')
 
 const createEnvironment = () => {
@@ -17,5 +16,5 @@ const createEnvironment = () => {
 const environment = createEnvironment()
 
 module.exports = {
-  environment, config, assetHost, loaders, Environment
+  environment, config, loaders, Environment
 }
