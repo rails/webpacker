@@ -58,9 +58,9 @@ describe('Environment', () => {
       const config = environment.toWebpackConfig()
       expect(config.resolve.modules).toEqual([
         resolve('app', 'javascript'),
-        'node_modules',
-        'app/assets',
-        '/etc/yarn'
+        resolve('app/assets'),
+        resolve('/etc/yarn'),
+        'node_modules'
       ])
     })
 
