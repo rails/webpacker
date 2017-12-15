@@ -64,8 +64,12 @@ class Webpacker::Compiler
       status.success?
     end
 
+    def resolved_paths_globbed
+      config.resolved_paths.map(&:to_s).map { |p| "#{p}/**/*" }
+    end
+
     def default_watched_paths
-      ["#{config.source_path}/**/*", "yarn.lock", "package.json", "config/webpack/**/*"].freeze
+      [*resolved_paths_globbed, "#{config.source_path}/**/*", "yarn.lock", "package.json", "config/webpack/**/*"].freeze
     end
 
     def compilation_digest_path
