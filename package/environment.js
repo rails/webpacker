@@ -55,10 +55,10 @@ const getEntryObject = () => {
 const getModulePaths = () => {
   const result = new ConfigList()
   result.append('source', resolve(config.source_path))
-  result.append('node_modules', 'node_modules')
   if (config.resolved_paths) {
-    config.resolved_paths.forEach(path => result.append(basename(path), path))
+    config.resolved_paths.forEach(path => result.append(path, resolve(path)))
   }
+  result.append('node_modules', 'node_modules')
   return result
 }
 
