@@ -10,7 +10,7 @@ ENV["NODE_ENV"] ||= "production"
 
 Webpacker.instance = Webpacker::Instance.new \
   root_path: Pathname.new(File.expand_path("test_app", __dir__)),
-  config_path: Pathname.new(File.expand_path("../lib/install/config/webpacker.yml", __dir__))
+  config_path: Pathname.new(File.expand_path("./test_app/config/webpacker.yml", __dir__))
 
 class Webpacker::Test < Minitest::Test
   private
