@@ -1,4 +1,13 @@
-## [Unreleased]
+**Please note that Webpacker 3.1.0 and 3.1.1 has some serious bugs so please consider using either 3.0.2 or 3.2.0**
+
+## [3.2.0] - 2017-12-16
+
+### To upgrade:
+
+```bash
+bundle update webpacker
+yarn upgrade @rails/webpacker
+```
 
 ### Breaking changes
 
@@ -14,7 +23,9 @@ bundle exec rails webpacker:install:erb
 bundle exec rails webpacker:install::coffee
 ```
 
-Or simply copy required loaders used in your app into your `config/webpack/loaders/`
+Or simply copy required loaders used in your app from
+https://github.com/rails/webpacker/tree/master/lib/install/loaders
+into your `config/webpack/loaders/`
 directory and add it to webpack build from `config/webpack/environment.js`
 
 ```js
@@ -42,6 +53,8 @@ environment.loaders.append('erb', erb)
 
 - `postcss-smart-import`, `coffee-loader`, `url-loader`, `rails-erb-loader` as dependencies
 
+-  `publicPath` from file loader [#1107](https://github.com/rails/webpacker/pull/1107)
+
 
 ### Fixed (npm module)
 
@@ -58,6 +71,9 @@ environment.loaders.append('erb', erb)
 bundle exec rails webpacker:install:erb
 bundle exec rails webpacker:install::coffee
 ```
+
+- Resolved paths from webpacker.yml to compiler watched list
+
 
 ## [3.1.1] - 2017-12-11
 
