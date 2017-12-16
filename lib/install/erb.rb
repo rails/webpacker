@@ -6,7 +6,7 @@ copy_file "#{__dir__}/loaders/erb.js", Rails.root.join("config/webpack/loaders/e
 say "Adding erb loader to config/webpack/environment.js"
 insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
   "const erb =  require('./loaders/erb')\n",
-  after: "const { environment } = require('@rails/webpacker')\n"
+  after: "require('@rails/webpacker')\n"
 
 insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
   "environment.loaders.append('erb', erb)\n",
