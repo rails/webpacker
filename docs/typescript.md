@@ -35,11 +35,32 @@ yarn add ts-loader typescript @types/react @types/react-dom
 }
 ```
 
-3. Finally add `.tsx` to the list of extensions in `config/webpacker.yml`
-and rename your generated `hello_react.js` using react installer
-to `hello_react.tsx` and make it valid typescript and now you can use
-typescript, JSX with React.
+3. Add a typescript loader into your `config/webpack/loaders/` directory and
+add it to the webpack build `config/webpack/environment.js`
 
+```js
+// config/webpack/loaders/typescript.js
+
+module.exports = {
+  test: /\.(ts|tsx)?(\.erb)?$/,
+  use: [{
+    loader: 'ts-loader'
+  }]
+}
+```
+
+```js
+// config/webpack/environment.js
+
+const typescript =  require('./loaders/typescript')
+environment.loaders.append('typescript', typescript)
+```
+
+4. Add `.tsx` to the list of extensions in `config/webpacker.yml`
+
+5. Rename the generated `hello_react.js` from the react installer
+to `hello_react.tsx`. Convert the file into valid typescript and you can now use
+typescript, JSX with React.
 
 
 ## HTML templates with Typescript and Angular
