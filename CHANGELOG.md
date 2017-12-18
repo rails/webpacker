@@ -42,6 +42,14 @@ environment.loaders.append('elm', elm)
 environment.loaders.append('erb', erb)
 ```
 
+In `.postcssrc.yml` you need to change the plugin name from `postcss-smart-import` to `postcss-import`:
+
+```yml
+plugins:
+  postcss-import: {}
+  postcss-cssnext: {}
+```
+
 ### Added (npm module)
 
 - Upgrade gems and webpack dependencies
