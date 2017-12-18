@@ -20,7 +20,7 @@ bundle exec rails webpacker:install:vue
 bundle exec rails webpacker:install:angular
 bundle exec rails webpacker:install:elm
 bundle exec rails webpacker:install:erb
-bundle exec rails webpacker:install::coffee
+bundle exec rails webpacker:install:coffee
 ```
 
 Or simply copy required loaders used in your app from
@@ -69,7 +69,7 @@ environment.loaders.append('erb', erb)
 
 ```bash
 bundle exec rails webpacker:install:erb
-bundle exec rails webpacker:install::coffee
+bundle exec rails webpacker:install:coffee
 ```
 
 - Resolved paths from webpacker.yml to compiler watched list
