@@ -1,6 +1,6 @@
 require "webpacker/configuration"
 
-say "Copying vue loader to config/webpack/loaders"
+say "Copying erb loader to config/webpack/loaders"
 copy_file "#{__dir__}/loaders/erb.js", Rails.root.join("config/webpack/loaders/erb.js").to_s
 
 say "Adding erb loader to config/webpack/environment.js"
