@@ -25,9 +25,9 @@ class Webpacker::Engine < ::Rails::Engine
   #     - add `config.webpacker.check_yarn_integrity = false`
   initializer "webpacker.yarn_check" do |app|
     if File.exist?("yarn.lock") && app.config.webpacker.check_yarn_integrity
-      ok = system("yarn check --integrity")
+      output = `yarn check --integrity 2>&1`
 
-      if !ok
+      unless $?.success?
         warn "\n\n"
         warn "========================================"
         warn "  Your Yarn packages are out of date!"
@@ -36,6 +36,8 @@ class Webpacker::Engine < ::Rails::Engine
         warn "\n\n"
         warn "To disable this check, please add `config.webpacker.check_yarn_integrity = false`"
         warn "to your Rails development config file (config/environments/development.rb)."
+        warn "\n\n"
+        warn output
         warn "\n\n"
 
         exit(1)
