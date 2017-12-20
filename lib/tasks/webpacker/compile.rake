@@ -37,5 +37,5 @@ if Rake::Task.task_defined?("assets:precompile")
   skip_webpacker_precompile = %w(no false n f).include?(ENV["WEBPACKER_PRECOMPILE"])
   enhance_assets_precompile unless skip_webpacker_precompile
 else
-  Rake::Task.define_task("assets:precompile" => ["webpacker:compile"])
+  Rake::Task.define_task("assets:precompile" => ["webpacker:yarn_install", "webpacker:compile"])
 end
