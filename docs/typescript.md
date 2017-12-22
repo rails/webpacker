@@ -3,43 +3,15 @@
 
 ## Typescript with React
 
-1. Setup react using Webpacker [react installer](#react). Then add required depedencies
-for using typescript with React:
+1. Setup react using Webpacker [react installer](#react). Then run the typescript installer
 
 ```bash
-yarn add ts-loader typescript @types/react @types/react-dom
+bundle exec rails webpacker:install:typescript
+yarn add @types/react @types/react-dom
 ```
 
-2. Add a `tsconfig.json` to project root:
-
-``` json
-{
-  "compilerOptions": {
-    "declaration": false,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "lib": ["es6", "dom"],
-    "module": "es6",
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "jsx": "react",
-    "target": "es5"
-  },
-  "exclude": [
-    "**/*.spec.ts",
-    "node_modules",
-    "vendor",
-    "public"
-  ],
-  "compileOnSave": false
-}
-```
-
-3. Finally add `.tsx` to the list of extensions in `config/webpacker.yml`
-and rename your generated `hello_react.js` using react installer
-to `hello_react.tsx` and make it valid typescript and now you can use
-typescript, JSX with React.
-
+2. Rename the generated `hello_react.js` to `hello_react.tsx`. Make the file valid typescript and
+now you can use typescript, JSX with React.
 
 
 ## HTML templates with Typescript and Angular

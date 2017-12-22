@@ -12,7 +12,8 @@ tasks = {
   "webpacker:install:angular"         => "Installs and setup example Angular component",
   "webpacker:install:elm"             => "Installs and setup example Elm component",
   "webpacker:install:erb"             => "Installs Erb loader with an example",
-  "webpacker:install:coffee"          => "Installs CoffeeScript loader with an example"
+  "webpacker:install:coffee"          => "Installs CoffeeScript loader with an example",
+  "webpacker:install:typescript"      => "Installs Typescript loader with an example"
 }.freeze
 
 desc "Lists all available tasks in Webpacker"
