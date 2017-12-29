@@ -35,7 +35,21 @@ yarn add ts-loader typescript @types/react @types/react-dom
 }
 ```
 
-3. Finally add `.tsx` to the list of extensions in `config/webpacker.yml`
+3. Edit `config/webpack/environment.js` and add ts-loader (webpacker@3.2.0 and above)
+
+```js
+const { environment } = require("@rails/webpacker");
+
+environment.loaders.set("typescript", {
+  test: /\.(tsx|ts)?$/,
+  use: "ts-loader"
+});
+
+module.exports = environment;
+```
+
+
+4. Finally add `.tsx` to the list of extensions in `config/webpacker.yml`
 and rename your generated `hello_react.js` using react installer
 to `hello_react.tsx` and make it valid typescript and now you can use
 typescript, JSX with React.
