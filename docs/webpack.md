@@ -68,17 +68,10 @@ yarn add json-loader
 // config/webpack/environment.js
 const { environment } = require('@rails/webpacker')
 
-environment.loaders.append('json', {
+environment.loaders.set('json', {
   test: /\.json$/,
   use: 'json-loader'
 })
-
-// Insert json loader at the top of list
-environment.loaders.prepend('json', jsonLoader)
-
-// Insert json loader after/before a given loader
-environment.loaders.insert('json', jsonLoader, { after: 'style'} )
-environment.loaders.insert('json', jsonLoader, { before: 'babel'} )
 
 module.exports = environment
 ```
@@ -115,7 +108,7 @@ const { environment } = require('@rails/webpacker')
 const babelLoader = environment.loaders.get('babel')
 
 // Replace existing coffee loader with CS2 version
-environment.loaders.insert('coffee', {
+environment.loaders.set('coffee', {
   test: /\.coffee(\.erb)?$/,
   use:  babelLoader.use.concat(['coffee-loader'])
 })
@@ -125,14 +118,14 @@ module.exports = environment
 
 ### React SVG loader
 
-To use react svg loader, you should append svg loader before file loader:
+To use react svg loader, you should configure svg loader to run before file loader:
 
 ```js
 const { environment } = require('@rails/webpacker')
 
 const babelLoader = environment.loaders.get('babel')
 
-environment.loaders.insert('svg', {
+environment.loaders.set('svg', {
   test: /\.svg$/,
   use: babelLoader.use.concat([
     {
@@ -142,7 +135,7 @@ environment.loaders.insert('svg', {
       }
     }
   ])
-}, { before: 'file' })
+})
 ```
 
 
@@ -169,7 +162,7 @@ module.exports = {
 
 const { environment } = require('@rails/webpacker')
 
-environment.loaders.prepend('url', url)
+environment.loaders.set('url', url)
 ```
 
 ### Overriding Loader Options in webpack 3+ (for CSS Modules etc.)
@@ -216,7 +209,7 @@ const manifestPlugin = environment.plugins.get('Manifest')
 manifestPlugin.opts.writeToFileEmit = false
 
 // Add an additional plugin of your choosing : ProvidePlugin
-environment.plugins.prepend(
+environment.plugins.set(
   'Provide',
   new webpack.ProvidePlugin({
     $: 'jquery',
@@ -229,14 +222,6 @@ environment.plugins.prepend(
     VueResource: 'vue-resource',
   })
 )
-
-// Insert before a given plugin
-environment.plugins.insert('CommonChunkVendor',
-  new webpack.optimize.CommonsChunkPlugin({
-    name: 'vendor', // Vendor code
-    minChunks: (module) => module.context && module.context.indexOf('node_modules') !== -1
-  })
-, { before: 'manifest' })
 
 module.exports = environment
 ```
@@ -261,7 +246,7 @@ Add the plugins in `config/webpack/environment.js`:
 ```js
 const webpack = require('webpack')
 
-environment.plugins.append(
+environment.plugins.set(
   'CommonsChunkVendor',
   new webpack.optimize.CommonsChunkPlugin({
     name: 'vendor',
@@ -272,7 +257,7 @@ environment.plugins.append(
   })
 )
 
-environment.plugins.append(
+environment.plugins.set(
   'CommonsChunkManifest',
   new webpack.optimize.CommonsChunkPlugin({
     name: 'manifest',
