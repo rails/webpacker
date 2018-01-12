@@ -5,9 +5,15 @@ module Webpacker::Helper
   #
   # Example:
   #
+  #   # In development mode with hot module replacement:
+  #   <%= asset_pack_path 'calendar.css' %>  # => nil
+  #
+  #   # In production mode:
   #   <%= asset_pack_path 'calendar.css' %> # => "/packs/calendar-1016838bab065ae1e122.css"
   def asset_pack_path(name, **options)
-    asset_path(Webpacker.manifest.lookup!(name), **options)
+    unless Webpacker.dev_server.running? && Webpacker.dev_server.hot_module_replacing?
+      asset_path(Webpacker.manifest.lookup!(name), **options)
+    end
   end
 
   # Computes the absolute path for a given Webpacker asset.
@@ -16,9 +22,15 @@ module Webpacker::Helper
   #
   # Example:
   #
+  #   # In development mode with hot module replacement:
+  #   <%= asset_pack_url 'calendar.css' %> # => nil
+  #
+  #   # In production mode:
   #   <%= asset_pack_url 'calendar.css' %> # => "http://example.com/packs/calendar-1016838bab065ae1e122.css"
   def asset_pack_url(name, **options)
-    asset_url(Webpacker.manifest.lookup!(name), **options)
+    unless Webpacker.dev_server.running? && Webpacker.dev_server.hot_module_replacing?
+      asset_url(Webpacker.manifest.lookup!(name), **options)
+    end
   end
 
   # Creates a script tag that references the named pack file, as compiled by webpack per the entries list
