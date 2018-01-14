@@ -3,7 +3,7 @@ class Webpacker::DevServer
   # Webpacker.dev_server.connect_timeout = 1
   cattr_accessor(:connect_timeout) { 0.01 }
 
-  delegate :config, :env, to: :@webpacker
+  delegate :config, to: :@webpacker
 
   def initialize(webpacker)
     @webpacker = webpacker
