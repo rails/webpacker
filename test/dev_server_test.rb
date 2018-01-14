@@ -1,7 +1,7 @@
 require "test_helper"
 
 class DevServerTest < Webpacker::Test
-  def test_running
+  def test_running?
     with_node_env("production") do
       reloaded_config
       refute Webpacker.dev_server.running?

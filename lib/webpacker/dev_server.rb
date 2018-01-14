@@ -10,11 +10,11 @@ class Webpacker::DevServer
   end
 
   def running?
-    if env.production?
-      false
-    else
+    if config.dev_server.present?
       Socket.tcp(host, port, connect_timeout: connect_timeout).close
       true
+    else
+      false
     end
   rescue
     false

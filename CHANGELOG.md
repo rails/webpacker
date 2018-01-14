@@ -2,7 +2,7 @@
 
 ## [Unreleased]
 
-- Disable dev server running? check in production environments [#1179](https://github.com/rails/webpacker/pull/1179)
+- Disable dev server running? check if no dev server config is present in that environment [#1179](https://github.com/rails/webpacker/pull/1179)
 
 ## [3.2.0] - 2017-12-16
 
