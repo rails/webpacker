@@ -3,15 +3,19 @@ class Webpacker::DevServer
   # Webpacker.dev_server.connect_timeout = 1
   cattr_accessor(:connect_timeout) { 0.01 }
 
-  delegate :config, to: :@webpacker
+  delegate :config, :env, to: :@webpacker
 
   def initialize(webpacker)
     @webpacker = webpacker
   end
 
   def running?
-    Socket.tcp(host, port, connect_timeout: connect_timeout).close
-    true
+    if env.production?
+      false
+    else
+      Socket.tcp(host, port, connect_timeout: connect_timeout).close
+      true
+    end
   rescue
     false
   end
