@@ -1,6 +1,13 @@
 require "test_helper"
 
 class DevServerTest < Webpacker::Test
+  def test_running?
+    with_node_env("production") do
+      reloaded_config
+      refute Webpacker.dev_server.running?
+    end
+  end
+
   def test_host
     with_node_env("development") do
       reloaded_config
