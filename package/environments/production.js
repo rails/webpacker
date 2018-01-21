@@ -1,5 +1,6 @@
 const webpack = require('webpack')
 const CompressionPlugin = require('compression-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const Environment = require('../environment')
 
 module.exports = class extends Environment {
@@ -8,18 +9,24 @@ module.exports = class extends Environment {
 
     this.plugins.append('ModuleConcatenation', new webpack.optimize.ModuleConcatenationPlugin())
 
-    this.plugins.append('UglifyJs', new webpack.optimize.UglifyJsPlugin({
+    this.plugins.append('UglifyJs', new UglifyJsPlugin({
+      parallel: true,
+      cache: true,
       sourceMap: true,
-      mangle: {
-        safari10: true
-      },
-      compress: {
+      uglifyOptions: {
+        ie8: false,
+        ecma: 8,
         warnings: false,
-        comparisons: false
-      },
-      output: {
-        comments: false,
-        ascii_only: true
+        mangle: {
+          safari10: true
+        },
+        compress: {
+          warnings: false,
+          comparisons: false
+        },
+        output: {
+          ascii_only: true
+        }
       }
     }))
 
