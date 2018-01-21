@@ -14,6 +14,8 @@
 
 - Update default extensions and move to installer [#1181](https://github.com/rails/webpacker/pull/1181)
 
+- Revert file loader [#1196](https://github.com/rails/webpacker/pull/1196)
+
 
 ## [3.2.0] - 2017-12-16
 
