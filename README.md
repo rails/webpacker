@@ -306,7 +306,7 @@ configuration:
     p.script_src :self, :https
   end
 ```
-You can read more this in [Vue docs](https://vuejs.org/v2/guide/installation.html#CSP-environments).
+You can read more about this in the [Vue docs](https://vuejs.org/v2/guide/installation.html#CSP-environments).
 
 
 ### Elm
