@@ -2,7 +2,7 @@ const { join } = require('path')
 const { source_path } = require('../config')
 
 module.exports = {
-  exclude: /\.(js|jsx|coffee|ts|tsx|vue|elm|scss|sass|css|html|json)?(\.erb)?$/,
+  test: /\.(jpg|jpeg|png|gif|tiff|ico|svg|eot|otf|ttf|woff|woff2)$/i,
   use: [{
     loader: 'file-loader',
     options: {

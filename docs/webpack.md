@@ -142,7 +142,10 @@ environment.loaders.insert('svg', {
       }
     }
   ])
-}, { before: 'file' })
+}, { after: 'file' })
+
+const fileLoader = environment.loaders.get('file')
+fileLoader.exclude = /\.(svg)$/i
 ```
 
 

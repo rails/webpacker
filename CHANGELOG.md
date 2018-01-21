@@ -4,6 +4,19 @@
 
 - Disable dev server running? check if no dev server config is present in that environment [#1179](https://github.com/rails/webpacker/pull/1179)
 
+- Fix checking 'webpack' binstub on Windows [#1123](https://github.com/rails/webpacker/pull/1123)
+
+- silence yarn output if checking is successfull [#1131](https://github.com/rails/webpacker/pull/1131)
+
+- Update uglifyJs plugin to support ES6 [#1194](https://github.com/rails/webpacker/pull/1194)
+
+- Add typescript installer [#1145](https://github.com/rails/webpacker/pull/1145)
+
+- Update default extensions and move to installer [#1181](https://github.com/rails/webpacker/pull/1181)
+
+- Revert file loader [#1196](https://github.com/rails/webpacker/pull/1196)
+
+
 ## [3.2.0] - 2017-12-16
 
 ### To upgrade:
