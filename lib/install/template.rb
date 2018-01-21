@@ -34,7 +34,7 @@ EOS
 end
 
 say "Installing all JavaScript dependencies"
-run "yarn add @rails/webpacker coffeescript@1.12.7"
+run "yarn add @rails/webpacker"
 
 say "Installing dev server for live reloading"
 run "yarn add --dev webpack-dev-server"
