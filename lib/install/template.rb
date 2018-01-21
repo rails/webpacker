@@ -29,6 +29,7 @@ if File.exists?(".gitignore")
 /node_modules
 yarn-debug.log*
 yarn-error.log*
+.yarn-integrity
 EOS
 end
 
