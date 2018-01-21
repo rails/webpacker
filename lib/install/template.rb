@@ -27,6 +27,8 @@ if File.exists?(".gitignore")
 /public/packs
 /public/packs-test
 /node_modules
+yarn-debug.log*
+yarn-error.log*
 EOS
 end
 
