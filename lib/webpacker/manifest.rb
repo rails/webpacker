@@ -67,7 +67,17 @@ Your manifest contains:
 
     def load
       if config.public_manifest_path.exist?
-        JSON.parse config.public_manifest_path.read
+        data = JSON.parse config.public_manifest_path.read
+        #if the build was done on a windows box manifest.json will have backslashes as keys
+        #we will ensure lookups continue to succeed
+        data.keys.each do |key|
+          dup_key = String.new key #key is frozen
+          unless dup_key.gsub!("\\", "/").eql?(key)
+            dup_key.freeze
+            data[dup_key] = data[key]
+          end
+        end
+        data
       else
         {}
       end
