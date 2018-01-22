@@ -19,8 +19,8 @@ run "bundle binstubs webpacker"
 say "Adding configurations"
 
 # Verifies that versions and hashed value of the package contents in the project's package.json
-inject_into_file "config/environments/development.rb", "    config.webpacker.check_yarn_integrity = true", after: "Rails.application.configure do\n", verbose: false
-inject_into_file "config/environments/production.rb", "   config.webpacker.check_yarn_integrity = false", after: "Rails.application.configure do\n", verbose: false
+inject_into_file "config/environments/development.rb", "  config.webpacker.check_yarn_integrity = true", after: "Rails.application.configure do\n", verbose: false
+inject_into_file "config/environments/production.rb", "  config.webpacker.check_yarn_integrity = false", after: "Rails.application.configure do\n", verbose: false
 
 if File.exists?(".gitignore")
   append_to_file ".gitignore", <<-EOS
