@@ -28,24 +28,24 @@ class Webpacker::Manifest
   end
 
   private
-  def compiling?
-    config.compile? && !dev_server.running?
-  end
+    def compiling?
+      config.compile? && !dev_server.running?
+    end
 
-  def compile
-    Webpacker.logger.tagged("Webpacker") { compiler.compile }
-  end
+    def compile
+      Webpacker.logger.tagged("Webpacker") { compiler.compile }
+    end
 
-  def find(name)
-    data[name.to_s].presence
-  end
+    def find(name)
+      data[name.to_s].presence
+    end
 
-  def handle_missing_entry(name)
-    raise Webpacker::Manifest::MissingEntryError, missing_file_from_manifest_error(name)
-  end
+    def handle_missing_entry(name)
+      raise Webpacker::Manifest::MissingEntryError, missing_file_from_manifest_error(name)
+    end
 
-  def missing_file_from_manifest_error(bundle_name)
-    <<-MSG
+    def missing_file_from_manifest_error(bundle_name)
+      <<-MSG
 Webpacker can't find #{bundle_name} in #{config.public_manifest_path}. Possible causes:
 1. You want to set webpacker.yml value of compile to true for your environment
    unless you are using the `webpack -w` or the webpack-dev-server.
@@ -54,32 +54,32 @@ Webpacker can't find #{bundle_name} in #{config.public_manifest_path}. Possible 
 4. Your webpack configuration is not creating a manifest.
 Your manifest contains:
 #{JSON.pretty_generate(@data)}
-    MSG
-  end
-
-  def data
-    if config.cache_manifest?
-      @data ||= load
-    else
-      refresh
+      MSG
     end
-  end
 
-  def load
-    if config.public_manifest_path.exist?
-      data = JSON.parse config.public_manifest_path.read
-      #if the build was done on a windows box manifest.json will have backslashes as keys
-      #we will ensure lookups continue to succeed
-      data.keys.each do |key|
-        dup_key = String.new key #key is frozen
-        unless dup_key.gsub!('\\', '/').eql?(key)
-          dup_key.freeze
-          data[dup_key] = data[key]
-        end
+    def data
+      if config.cache_manifest?
+        @data ||= load
+      else
+        refresh
       end
-      data
-    else
-      {}
     end
-  end
+
+    def load
+      if config.public_manifest_path.exist?
+        data = JSON.parse config.public_manifest_path.read
+        #if the build was done on a windows box manifest.json will have backslashes as keys
+        #we will ensure lookups continue to succeed
+        data.keys.each do |key|
+          dup_key = String.new key #key is frozen
+          unless dup_key.gsub!("\\", "/").eql?(key)
+            dup_key.freeze
+            data[dup_key] = data[key]
+          end
+        end
+        data
+      else
+        {}
+      end
+    end
 end
