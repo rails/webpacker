@@ -24,6 +24,7 @@ copy_file "#{__dir__}/examples/vue/app.vue",
   "#{Webpacker.config.source_path}/app.vue"
 
 say "Installing all Vue dependencies"
-run "yarn add vue vue-loader vue-template-compiler"
+run "yarn add vue"
+run "yarn add --dev vue-loader vue-template-compiler"
 
 say "Webpacker now supports Vue.js 🎉", :green
