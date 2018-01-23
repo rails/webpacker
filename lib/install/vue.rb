@@ -26,4 +26,15 @@ copy_file "#{__dir__}/examples/vue/app.vue",
 say "Installing all Vue dependencies"
 run "yarn add vue vue-loader vue-template-compiler"
 
+if Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR > 1
+  say "You need to enable unsafe-eval rule.", :yellow
+  say "This can be done in Rails 5.2+ for development environment in the CSP initializer", :yellow
+  say "config/initializers/content_security_policy.rb with a snippet like this:", :yellow
+  say "if Rails.env.development?", :yellow
+  say "  p.script_src :self, :https, :unsafe_eval", :yellow
+  say "else", :yellow
+  say "  p.script_src :self, :https", :yellow
+  say "end", :yellow
+end
+
 say "Webpacker now supports Vue.js 🎉", :green
