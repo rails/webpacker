@@ -69,7 +69,7 @@ module Webpacker::Helper
 
   private
     def stylesheet?(name)
-      File.extname(name) == '.css'
+      File.extname(name) == ".css"
     end
 
     def sources_from_pack_manifest(names, type:)
