@@ -11,7 +11,7 @@ module Webpacker::Helper
   #   # In production mode:
   #   <%= asset_pack_path 'calendar.css' %> # => "/packs/calendar-1016838bab065ae1e122.css"
   def asset_pack_path(name, **options)
-    unless Webpacker.dev_server.running? && Webpacker.dev_server.hot_module_replacing?
+    unless stylesheet?(name) && Webpacker.dev_server.running? && Webpacker.dev_server.hot_module_replacing?
       asset_path(Webpacker.manifest.lookup!(name), **options)
     end
   end
@@ -68,6 +68,10 @@ module Webpacker::Helper
   end
 
   private
+    def stylesheet?(name)
+      File.extname(name) == ".css"
+    end
+
     def sources_from_pack_manifest(names, type:)
       names.map { |name| Webpacker.manifest.lookup!(pack_name_with_extension(name, type: type)) }
     end
