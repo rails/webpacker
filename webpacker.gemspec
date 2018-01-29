@@ -14,7 +14,6 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = ">= 2.2.0"
 
-  s.add_dependency "activesupport", ">= 4.2"
   s.add_dependency "railties",      ">= 4.2"
   s.add_dependency "rack-proxy",    ">= 0.6.1"
 
