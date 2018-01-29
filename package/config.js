@@ -9,6 +9,9 @@ const filePath = resolve('config', 'webpacker.yml')
 const environment = process.env.NODE_ENV || 'development'
 const defaultConfig = safeLoad(readFileSync(defaultFilePath), 'utf8')[environment]
 const appConfig = safeLoad(readFileSync(filePath), 'utf8')[environment]
+
+if (appConfig.extensions !== undefined) delete defaultConfig.extensions
+
 const config = deepMerge(defaultConfig, appConfig)
 
 const isBoolean = str => /^true/.test(str) || /^false/.test(str)
