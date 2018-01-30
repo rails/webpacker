@@ -39,7 +39,7 @@ and create an env file to load environment variables from:
 ```env
 NODE_ENV=development
 RAILS_ENV=development
-WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
+WEBPACKER_DEV_SERVER_HOST=0.0.0.0
 ```
 
 Lastly, rebuild your container:
