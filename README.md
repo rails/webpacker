@@ -30,6 +30,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
   - [Angular with TypeScript](#angular-with-typescript)
   - [Vue](#vue)
   - [Elm](#elm)
+  - [Stimulus](#stimulus)
   - [Coffeescript](#coffeescript)
   - [Erb](#erb)
 - [Paths](#paths)
@@ -324,6 +325,20 @@ rails new myapp --webpack=elm
 The Elm library and core packages will be added via Yarn and Elm itself.
 An example `Main.elm` app will also be added to your project in `app/javascript`
 so that you can experiment with Elm right away.
+
+### Stimulus
+
+To use Webpacker with [Stimulus](http://stimulusjs.org), create a
+new Rails 5.1+ app using `--webpack=stimulus` option:
+
+```
+# Rails 5.1+
+rails new myapp --webpack=stimulus
+```
+
+(or run `bundle exec rails webpacker:install:stimulus` on a Rails app already setup with Webpacker).
+
+Please read [The Stimulus Handbook](https://stimulusjs.org/handbook/introduction) or learn more about its source code at https://github.com/stimulusjs/stimulus
 
 ### Coffeescript
 

@@ -11,6 +11,7 @@ tasks = {
   "webpacker:install:vue"             => "Installs and setup example Vue component",
   "webpacker:install:angular"         => "Installs and setup example Angular component",
   "webpacker:install:elm"             => "Installs and setup example Elm component",
+  "webpacker:install:stimulus"        => "Install and setup Stimulus component",
   "webpacker:install:erb"             => "Installs Erb loader with an example",
   "webpacker:install:coffee"          => "Installs CoffeeScript loader with an example",
   "webpacker:install:typescript"      => "Installs Typescript loader with an example"

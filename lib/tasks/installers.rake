@@ -5,7 +5,8 @@ installers = {
   "Vue": :vue,
   "Erb": :erb,
   "Coffee": :coffee,
-  "Typescript": :typescript
+  "Typescript": :typescript,
+  "Stimulus": :stimulus
 }.freeze
 
 dependencies = {
