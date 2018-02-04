@@ -1,5 +1,5 @@
 say "Appending Stimulus setup code to #{Webpacker.config.source_entry_path}/application.js"
-inject_into_file "#{Webpacker.config.source_entry_path}/application.js", :after => "console.log('Hello World from Webpacker')" do
+inject_into_file "#{Webpacker.config.source_entry_path}/application.js", after: "console.log('Hello World from Webpacker')" do
   open("#{__dir__}/examples/stimulus/setup.js").read
 end
 
