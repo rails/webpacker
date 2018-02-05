@@ -6,10 +6,12 @@ Webpacker supports importing CSS, Sass and SCSS files directly into your JavaScr
 
 ## Import styles into your JS app
 
-```sass
-// app/javascript/hello_react/styles/hello-react.sass
+Stylesheets end with '.modules.*' is treated as [CSS Modules](https://github.com/css-modules/css-modules).
 
-.hello-react
+```sass
+// app/javascript/hello_react/styles/hello-react.module.sass
+
+.helloReact
   padding: 20px
   font-size: 12px
 ```
@@ -20,10 +22,10 @@ Webpacker supports importing CSS, Sass and SCSS files directly into your JavaScr
 
 import React from 'react'
 import helloIcon from '../hello_react/images/icon.png'
-import '../hello_react/styles/hello-react'
+import styles from '../hello_react/styles/hello-react'
 
 const Hello = props => (
-  <div className="hello-react">
+  <div className={styles.helloReact}>
     <img src={helloIcon} alt="hello-icon" />
     <p>Hello {props.name}!</p>
   </div>

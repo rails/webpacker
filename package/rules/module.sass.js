@@ -2,7 +2,7 @@ const styleRuleFactory = require('./style_rule_factory')
 
 module.exports = styleRuleFactory(
   /\.(scss|sass)$/i,
-  false,
+  true,
   [{
     loader: 'sass-loader',
     options: { sourceMap: true }
