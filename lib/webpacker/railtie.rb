@@ -28,17 +28,17 @@ class Webpacker::Engine < ::Rails::Engine
       output = `yarn check --integrity 2>&1`
 
       unless $?.success?
-        warn "\n\n"
-        warn "========================================"
-        warn "  Your Yarn packages are out of date!"
-        warn "  Please run `yarn install` to update."
-        warn "========================================"
-        warn "\n\n"
-        warn "To disable this check, please add `config.webpacker.check_yarn_integrity = false`"
-        warn "to your Rails development config file (config/environments/development.rb)."
-        warn "\n\n"
-        warn output
-        warn "\n\n"
+        $stderr.puts "\n\n"
+        $stderr.puts "========================================"
+        $stderr.puts "  Your Yarn packages are out of date!"
+        $stderr.puts "  Please run `yarn install` to update."
+        $stderr.puts "========================================"
+        $stderr.puts "\n\n"
+        $stderr.puts "To disable this check, please add `config.webpacker.check_yarn_integrity = false`"
+        $stderr.puts "to your Rails development config file (config/environments/development.rb)."
+        $stderr.puts "\n\n"
+        $stderr.puts output
+        $stderr.puts "\n\n"
 
         exit(1)
       end
