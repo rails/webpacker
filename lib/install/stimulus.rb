@@ -1,6 +1,6 @@
 say "Appending Stimulus setup code to #{Webpacker.config.source_entry_path}/application.js"
-inject_into_file "#{Webpacker.config.source_entry_path}/application.js", after: "console.log('Hello World from Webpacker')" do
-  open("#{__dir__}/examples/stimulus/setup.js").read
+append_to_file "#{Webpacker.config.source_entry_path}/application.js" do 
+  "\n" + open("#{__dir__}/examples/stimulus/application.js").read
 end
 
 say "Creating controllers directory"
