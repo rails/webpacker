@@ -4,7 +4,7 @@ append_to_file "#{Webpacker.config.source_entry_path}/application.js" do
 end
 
 say "Creating controllers directory"
-directory "#{__dir__}/examples/stimulus/controllers", "#{Webpacker.config.source_entry_path}/controllers"
+directory "#{__dir__}/examples/stimulus/controllers", "#{Webpacker.config.source_path}/controllers"
 
 say "Installing all Stimulus dependencies"
 run "yarn add stimulus"
