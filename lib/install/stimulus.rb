@@ -1,5 +1,5 @@
 say "Appending Stimulus setup code to #{Webpacker.config.source_entry_path}/application.js"
-append_to_file "#{Webpacker.config.source_entry_path}/application.js" do 
+append_to_file "#{Webpacker.config.source_entry_path}/application.js" do
   "\n" + open("#{__dir__}/examples/stimulus/application.js").read
 end
 
