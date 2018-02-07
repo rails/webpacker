@@ -6,7 +6,7 @@ const deepMerge = (target, source) => {
   if (isEmpty(target)) return source
   if (isEmpty(source)) return target
   if (isEqual(target, source)) return source
-  if (isArray(target) && isArray(source)) return [...new Set([...target, ...source])]
+  if (isArray(target) && isArray(source)) return [...new Set([...source, ...target])]
   if (!(isObject(target) && isObject(source))) return source
 
   return [...Object.keys(target), ...Object.keys(source)].reduce(
