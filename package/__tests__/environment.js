@@ -70,5 +70,22 @@ describe('Environment', () => {
       expect(config.plugins).toBeInstanceOf(Array)
       expect(config.plugins).not.toBeInstanceOf(ConfigList)
     })
+
+    test('should return resolve extensions as listed in app config', () => {
+      const config = environment.toWebpackConfig()
+
+      expect(config.resolve.extensions).toEqual([
+        '.jsx',
+        '.js',
+        '.sass',
+        '.scss',
+        '.css',
+        '.png',
+        '.svg',
+        '.gif',
+        '.jpeg',
+        '.jpg',
+      ])
+    })
   })
 })
