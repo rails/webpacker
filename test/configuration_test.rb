@@ -35,7 +35,8 @@ class ConfigurationTest < Webpacker::Test
   end
 
   def test_extensions
-    webpacker_yml = YAML.load_file("lib/install/config/webpacker.yml")
+    config_path = File.expand_path File.join(File.dirname(__FILE__), "test_app/config/webpacker.yml").to_s
+    webpacker_yml = YAML.load_file(config_path)
     assert_equal Webpacker.config.extensions, webpacker_yml["default"]["extensions"]
   end
 

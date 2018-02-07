@@ -33,10 +33,7 @@ const getPluginList = () => {
 
 const getExtensionsGlob = () => {
   const { extensions } = config
-  if (!extensions.length) {
-    throw new Error('You must configure at least one extension to compile in webpacker.yml')
-  }
-  return extensions.length === 1 ? `**/${extensions[0]}` : `**/*{${extensions.join(',')}}`
+  return extensions.length === 1 ? `**/*${extensions[0]}` : `**/*{${extensions.join(',')}}`
 }
 
 const getEntryObject = () => {
