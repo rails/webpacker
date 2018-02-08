@@ -11,6 +11,7 @@ const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
+const HashOutputPlugin = require('webpack-plugin-hash-output')
 
 const { ConfigList, ConfigObject } = require('./config_types')
 const rules = require('./rules')
@@ -28,6 +29,7 @@ const getPluginList = () => {
   result.append('CaseSensitivePaths', new CaseSensitivePathsPlugin())
   result.append('ExtractText', new ExtractTextPlugin('[name]-[contenthash].css'))
   result.append('Manifest', new ManifestPlugin({ publicPath: config.publicPath, writeToFileEmit: true }))
+  result.append('HashOutput', new HashOutputPlugin())
   return result
 }
 
