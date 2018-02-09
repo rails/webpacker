@@ -20,8 +20,18 @@ const styleRuleFactory = (test, modules, preprocessors) => {
   const extractOptions = {
     fallback: styleLoader,
     use: [
-      { loader: 'css-loader', options: { minimize: isProduction, sourceMap: true, importLoaders: 2, modules } },
-      { loader: 'postcss-loader', options: { sourceMap: true, config: { path: postcssConfigPath } } },
+      {
+        loader: 'css-loader',
+        options: {
+          minimize: isProduction, sourceMap: true, importLoaders: 2, modules
+        }
+      },
+      {
+        loader: 'postcss-loader',
+        options: {
+          sourceMap: true, config: { path: postcssConfigPath }
+        }
+      },
       ...preprocessors
     ]
   }
