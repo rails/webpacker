@@ -31,18 +31,18 @@ const styleRuleFactory = (test, modules, preprocessors) => {
     : { exclude: /\.module\.[a-z]+$/ }
 
   // For production extract styles to a separate bundle
-  const extractCSSLoader = {
-    test,
-    use: ExtractTextPlugin.extract(extractOptions),
-    ...modulesCondition
-  }
+  const extractCSSLoader = Object.assign(
+    {},
+    { test, use: ExtractTextPlugin.extract(extractOptions) },
+    modulesCondition
+  )
 
   // For hot-reloading use regular loaders
-  const inlineCSSLoader = {
-    test,
-    use: [styleLoader].concat(extractOptions.use),
-    ...modulesCondition
-  }
+  const inlineCSSLoader = Object.assign(
+    {},
+    { test, use: [styleLoader].concat(extractOptions.use) },
+    modulesCondition
+  )
 
   return extractCSS ? extractCSSLoader : inlineCSSLoader
 }
