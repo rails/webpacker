@@ -1,5 +1,19 @@
 **Please note that Webpacker 3.1.0 and 3.1.1 has some serious bugs so please consider using either 3.0.2 or 3.2.0**
 
+## [3.2.2] - 2018-02-11
+
+### Added
+
+- Stimulus example [https://stimulusjs.org/](https://stimulusjs.org/)
+
+```bash
+bundle exec rails webpacker:install:stimulus
+```
+
+- Upgrade gems and npm packages [#1254](https://github.com/rails/webpacker/pull/1254)
+
+And, bunch of bug fixes [See changes](https://github.com/rails/webpacker/compare/v3.2.1...3.2.2)
+
 ## [3.2.1] - 2018-01-21
 
 - Disable dev server running? check if no dev server config is present in that environment [#1179](https://github.com/rails/webpacker/pull/1179)

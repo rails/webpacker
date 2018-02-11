@@ -1,6 +1,6 @@
 {
   "name": "@rails/webpacker",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "description": "Use webpack to manage app-like JavaScript modules in Rails",
   "main": "package/index.js",
   "files": [
