@@ -3,7 +3,7 @@
 
 ## Typescript with React
 
-1. Setup react using Webpacker [react installer](#react). Then run the typescript installer
+1. Setup react using Webpacker [react installer](../README.md#react). Then run the typescript installer
 
 ```bash
 bundle exec rails webpacker:install:typescript
@@ -13,6 +13,41 @@ yarn add @types/react @types/react-dom
 2. Rename the generated `hello_react.js` to `hello_react.tsx`. Make the file valid typescript and
 now you can use typescript, JSX with React.
 
+## Typescript with Vue components
+
+1. Setup vue using Webpacker [vue installer](../README.md#vue). Then run the typescript installer
+
+```bash
+bundle exec rails webpacker:install:typescript
+```
+
+2. Rename generated `hello_vue.js` to `hello_vue.ts`.
+3. Change generated `config/webpack/loaders/typescript.js` from
+
+```js
+module.exports = {
+  test: /\.(ts|tsx)?(\.erb)?$/,
+  use: [{
+    loader: 'ts-loader'
+  }]
+}
+```
+
+to
+
+```js
+module.exports = {
+  test: /\.(ts|tsx)?(\.erb)?$/,
+  use: [{
+    loader: 'ts-loader',
+    options: {
+      appendTsSuffixTo: [/\.vue$/]
+    }
+  }]
+}
+```
+
+and now you can use `<script lang="ts">` in your `.vue` component files.
 
 ## HTML templates with Typescript and Angular
 
