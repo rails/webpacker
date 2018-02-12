@@ -12,7 +12,7 @@ bundle exec rails webpacker:install:stimulus
 
 - Upgrade gems and npm packages [#1254](https://github.com/rails/webpacker/pull/1254)
 
-And, bunch of bug fixes [See changes](https://github.com/rails/webpacker/compare/v3.2.1...3.2.2)
+And, bunch of bug fixes [See changes](https://github.com/rails/webpacker/compare/v3.2.1...v3.2.2)
 
 ## [3.2.1] - 2018-01-21
 
