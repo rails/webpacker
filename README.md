@@ -86,7 +86,7 @@ gem 'webpacker', '~> 3.2'
 gem 'webpacker', git: 'https://github.com/rails/webpacker.git'
 ```
 
-and finally, run following to install Webpacker:
+Finally, run following to install Webpacker:
 
 ```bash
 bundle
@@ -99,7 +99,7 @@ bundle exec rake webpacker:install
 
 ### Usage
 
-Once installed you can start writing modern ES6-flavored JavaScript app today:
+Once installed, you can start writing modern ES6-flavored JavaScript apps right away:
 
 ```yml
 app/javascript:
@@ -112,8 +112,8 @@ app/javascript:
       └── logo.svg
 ```
 
-You can then link the JavaScript pack in Rails view using `javascript_pack_tag` helper.
-If you have styles imported in your pack file, you can link using `stylesheet_pack_tag`:
+You can then link the JavaScript pack in Rails views using the `javascript_pack_tag` helper.
+If you have styles imported in your pack file, you can link them by using `stylesheet_pack_tag`:
 
 ```erb
 <%= javascript_pack_tag 'application' %>
@@ -121,7 +121,7 @@ If you have styles imported in your pack file, you can link using `stylesheet_pa
 ```
 
 If you want to link a static asset for `<link rel="prefetch">` or `<img />` tag, you
-can use `asset_pack_path` helper:
+can use the `asset_pack_path` helper:
 
 ```erb
 <link rel="prefetch" href="<%= asset_pack_path 'application.css' %>" />
@@ -136,16 +136,16 @@ you would need to link them in your "pack" or entry file.
 
 Webpacker ships with two binstubs: `./bin/webpack` and `./bin/webpack-dev-server`.
 Both are thin wrappers around the standard `webpack.js` and `webpack-dev-server.js`
-executable to ensure that the right configuration file and environment variables
-are loaded depending on your environment.
+executables to ensure that the right configuration files and environmental variables
+are loaded based on your environment.
 
 In development, Webpacker compiles on demand rather than upfront by default. This
 happens when you refer to any of the pack assets using the Webpacker helper methods.
-That means you don't have to run any separate process. Compilation errors are logged
+This means that you don't have to run any separate processes. Compilation errors are logged
 to the standard Rails log.
 
-If you want to use live code reloading, or you have enough JavaScript that on-demand compilation is too slow, you'll need to run `./bin/webpack-dev-server` or `ruby ./bin/webpack-dev-server` if on windows,
-in a separate terminal from `bundle exec rails s`. This process will watch for changes
+If you want to use live code reloading, or you have enough JavaScript that on-demand compilation is too slow, you'll need to run `./bin/webpack-dev-server` or `ruby ./bin/webpack-dev-server`. Windows users will need to run these commands
+in a terminal separate from `bundle exec rails s`. This process will watch for changes
 in the `app/javascript/packs/*.js` files and automatically reload the browser to match.
 
 ```bash
@@ -160,35 +160,35 @@ in the `app/javascript/packs/*.js` files and automatically reload the browser to
 ```
 
 Once you start this development server, Webpacker will automatically start proxying all
-webpack asset requests to this server. When you stop the server, it'll revert to
-on-demand compilation again.
+webpack asset requests to this server. When you stop the server, it'll revert back to
+on-demand compilation.
 
 You can use environment variables as options supported by
 [webpack-dev-server](https://webpack.js.org/configuration/dev-server/) in the
-form `WEBPACKER_DEV_SERVER_<OPTION>`. Please note that these environment
+form `WEBPACKER_DEV_SERVER_<OPTION>`. Please note that these environmental
 variables will always take precedence over the ones already set in the
-configuration file, and that the _same_ environment variables must
+configuration file, and that the _same_ environmental variables must
 be available to the `rails server` process.
 
 ```bash
 WEBPACKER_DEV_SERVER_HOST=example.com WEBPACKER_DEV_SERVER_INLINE=true WEBPACKER_DEV_SERVER_HOT=false ./bin/webpack-dev-server
 ```
 
-By default, webpack dev server listens on `localhost` in development for security
-but if you want your app to be available over local LAN IP or VM instance like vagrant
+By default, the webpack dev server listens on `localhost` in development for security purposes.
+However, if you want your app to be available over local LAN IP or a VM instance like vagrant,
 you can set the `host` when running `./bin/webpack-dev-server` binstub:
 
 ```bash
 WEBPACKER_DEV_SERVER_HOST=0.0.0.0 ./bin/webpack-dev-server
 ```
 
-**Note:** You need to allow webpack-dev-server host as allowed origin for `connect-src` if you are running your application in a restrict CSP environment like Rails 5.2+. This can be done in Rails 5.2+ for development environment in the CSP initializer `config/initializers/content_security_policy.rb` with a snippet like this:
+**Note:** You need to allow webpack-dev-server host as an allowed origin for `connect-src` if you are running your application in a restrict CSP environment (like Rails 5.2+). This can be done in Rails 5.2+ in the CSP initializer `config/initializers/content_security_policy.rb` with a snippet like this:
 
 ```ruby
   p.connect_src :self, :https, 'http://localhost:3035', 'ws://localhost:3035' if Rails.env.development?
 ```
 
-**Note:** Don't forget to prefix `ruby` when running these binstubs on windows
+**Note:** Don't forget to prefix `ruby` when running these binstubs on Windows
 
 ### webpack configuration
 
@@ -197,7 +197,7 @@ See [docs/webpack](docs/webpack.md) for modifying webpack configuration and load
 
 ### Upgrading
 
-You can run following commands to upgrade Webpacker to the latest stable version, this involves upgrading the gem and related npm modules:
+You can run following commands to upgrade Webpacker to the latest stable version. This process involves upgrading the gem and related npm modules:
 
 ```bash
 bundle update webpacker
@@ -207,15 +207,15 @@ yarn upgrade webpack-dev-server --latest
 
 ### Yarn Integrity
 
-By default in development, webpacker runs a yarn integrity check to ensure that all local npm packages are up-to-date. This is similar to what bundler does currently in Rails, but for JavaScript packages. If your system is out of date, then Rails will not initialize and you will be asked to upgrade your local npm packages by running `yarn install`.
+By default, in development, webpacker runs a yarn integrity check to ensure that all local npm packages are up-to-date. This is similar to what bundler does currently in Rails, but for JavaScript packages. If your system is out of date, then Rails will not initialize. You will be asked to upgrade your local npm packages by running `yarn install`.
 
-To turn off this option, you will need to override the default by adding a new config options to your Rails development environment configuration file (`config/environment/development.rb`):
+To turn off this option, you will need to override the default by adding a new config option to your Rails development environment configuration file (`config/environment/development.rb`):
 
 ```
 config.webpacker.check_yarn_integrity = false
 ```
 
-You may also turn on this option by adding the config option to any Rails environment configuration file:
+You may also turn on this feature by adding the config option to any Rails environment configuration file:
 
 ```
 config.webpacker.check_yarn_integrity = true
@@ -239,8 +239,8 @@ rails new myapp --webpack=react
 (or run `bundle exec rails webpacker:install:react` in a existing Rails app already
 setup with Webpacker).
 
-The installer will add all relevant dependencies using Yarn, any changes
-to the configuration files and an example React component to your
+The installer will add all relevant dependencies using Yarn, changes
+to the configuration files, and an example React component to your
 project in `app/javascript/packs` so that you can experiment with React right away.
 
 
@@ -257,19 +257,19 @@ rails new myapp --webpack=angular
 (or run `bundle exec rails webpacker:install:angular` on a Rails app already
 setup with Webpacker).
 
-The installer will add TypeScript and Angular core libraries using Yarn plus
-any changes to the configuration files. An example component is written in
+The installer will add the TypeScript and Angular core libraries using Yarn alongside
+a few changes to the configuration files. An example component written in
 TypeScript will also be added to your project in `app/javascript` so that
 you can experiment with Angular right away.
 
-By default Angular uses a JIT compiler for development environment, this
+By default, Angular uses a JIT compiler for development environment. This
 compiler is not compatible with restrictive CSP (Content Security
 Policy) environments like Rails 5.2+. You can use Angular AOT compiler
 in development with the [@ngtools/webpack](https://www.npmjs.com/package/@ngtools/webpack#usage) plugin.
 
-Alternatively if you're using Rails 5.2+ you can enable `unsafe-eval` rule for
-development environment, this can be done in the `config/initializers/content_security_policy.rb`
-with the following configuration:
+Alternatively if you're using Rails 5.2+ you can enable `unsafe-eval` rule for your
+development environment. This can be done in the `config/initializers/content_security_policy.rb`
+with the following code:
 
 ```ruby
   if Rails.env.development?
