@@ -11,7 +11,7 @@ const environment = process.env.NODE_ENV || 'development'
 const defaultConfig = safeLoad(readFileSync(defaultFilePath), 'utf8')[environment]
 const appConfig = safeLoad(readFileSync(filePath), 'utf8')[environment]
 
-if (isArray(appConfig.extensions) && appConfig.extensions.length) {
+if (isArray(appConfig.extensions) && appConfig.extensions.length && defaultConfig) {
   delete defaultConfig.extensions
 } else {
   /* eslint no-console: 0 */
