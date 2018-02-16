@@ -291,13 +291,12 @@ rails new myapp --webpack=vue
 ```
 (or run `bundle exec rails webpacker:install:vue` on a Rails app already setup with Webpacker).
 
-The installer will add Vue and required libraries using Yarn plus
-any changes to the configuration files. An example component will
-also be added to your project in `app/javascript` so that you can
-experiment Vue right away.
+The installer will add Vue and its required libraries using Yarn alongside
+automatically applying changes needed to the configuration files. An example component will
+be added to your project in `app/javascript` so that you can experiment with Vue right away.
 
-If you're using Rails 5.2+ you need to enable `unsafe-eval` rule for development environment,
-this can be done in the `config/initializers/content_security_policy.rb` with the following
+If you're using Rails 5.2+ you'll need to enable `unsafe-eval` rule for your development environment.
+This can be done in the `config/initializers/content_security_policy.rb` with the following
 configuration:
 
 ```ruby
@@ -322,7 +321,7 @@ rails new myapp --webpack=elm
 
 (or run `bundle exec rails webpacker:install:elm` on a Rails app already setup with Webpacker).
 
-The Elm library and core packages will be added via Yarn and Elm itself.
+The Elm library and its core packages will be added via Yarn and Elm.
 An example `Main.elm` app will also be added to your project in `app/javascript`
 so that you can experiment with Elm right away.
 
@@ -356,15 +355,15 @@ run `bundle exec rails webpacker:install:erb` on a Rails app already
 setup with Webpacker.
 
 An example `hello_erb.js.erb` file will also be added to your project
-in `app/javascript/packs` so that you can experiment with Erb flavoured
+in `app/javascript/packs` so that you can experiment with Erb-flavoured
 javascript right away.
 
 
 ## Paths
 
 By default, Webpacker ships with simple conventions for where the JavaScript
-app files and compiled webpack bundles will go in your Rails app,
-but all these options are configurable from `config/webpacker.yml` file.
+app files and compiled webpack bundles will go in your Rails app.
+All these options are configurable from `config/webpacker.yml` file.
 
 The configuration for what webpack is supposed to compile by default rests
 on the convention that every file in `app/javascript/packs/*`**(default)**
@@ -399,16 +398,16 @@ If you have `hmr` turned to true, then the `stylesheet_pack_tag` generates no ou
 ### Resolved
 
 If you are adding Webpacker to an existing app that has most of the assets inside
-`app/assets` or inside an engine and you want to share that
-with webpack modules then you can use `resolved_paths`
-option available in `config/webpacker.yml`, which lets you
-add additional paths webpack should lookup when resolving modules:
+`app/assets` or inside an engine, and you want to share that
+with webpack modules, you can use the `resolved_paths`
+option available in `config/webpacker.yml`. This lets you
+add additional paths that webpack should lookup when resolving modules:
 
 ```yml
 resolved_paths: ['app/assets']
 ```
 
-You can then import them inside your modules like so:
+You can then import these items inside your modules like so:
 
 ```js
 // Note it's relative to parent directory i.e. app/assets
@@ -423,9 +422,9 @@ whole parent directory if you just need to reference one or two modules
 
 ### Watched
 
-By default, the lazy compilation is cached until a file is changed under
-tracked paths. You can configure the paths tracked
-by adding new paths to `watched_paths` array, much like Rails `autoload_paths`:
+By default, the lazy compilation is cached until a file is changed under your
+tracked paths. You can configure which paths are tracked
+by adding new paths to `watched_paths` array. This is much like Rails' `autoload_paths`:
 
 ```rb
 # config/initializers/webpacker.rb
@@ -436,7 +435,7 @@ Webpacker::Compiler.watched_paths << 'bower_components'
 
 ## Deployment
 
-Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which gets run whenever you run `assets:precompile`. If you are not using Sprockets `webpacker:compile` is automatically aliased to `assets:precompile`. Remember to set NODE_ENV environment variable to production during deployment or when running the rake task.
+Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which gets run whenever you run `assets:precompile`. If you are not using Sprockets, `webpacker:compile` is automatically aliased to `assets:precompile`. Remember to set NODE_ENV environment variable to production during deployment or when running this rake task.
 
 ## Docs
 
