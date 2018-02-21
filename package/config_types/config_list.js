@@ -10,15 +10,6 @@ class ConfigList extends Array {
     return this[index].value
   }
 
-  /**
-    * @deprecated after the 3.0.2 release and will be removed in the next major release
-  */
-  set(key, value) {
-    /* eslint no-console: 0 */
-    console.warn('set is deprecated! Use append instead')
-    return this.append(key, value)
-  }
-
   append(key, value) {
     return this.add({ key, value })
   }

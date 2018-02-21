@@ -12,9 +12,9 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 
-const { ConfigList, ConfigObject } = require('./config_types')
-const rules = require('./rules')
-const config = require('./config')
+const { ConfigList, ConfigObject } = require('../config_types')
+const rules = require('../rules')
+const config = require('../config')
 
 const getLoaderList = () => {
   const result = new ConfigList()
@@ -85,7 +85,7 @@ const getBaseConfig = () =>
     }
   })
 
-module.exports = class Environment {
+module.exports = class Base {
   constructor() {
     this.loaders = getLoaderList()
     this.plugins = getPluginList()

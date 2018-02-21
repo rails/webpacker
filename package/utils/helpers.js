@@ -1,10 +1,11 @@
-const isObject = value => (
+const isObject = value =>
   typeof value === 'object' &&
   value !== null &&
   (value.length === undefined || value.length === null)
-)
 
-const isEmpty = value => (value === null || value === undefined)
+const isBoolean = str => /^true/.test(str) || /^false/.test(str)
+
+const isEmpty = value => value === null || value === undefined
 
 const isString = key => key && typeof key === 'string'
 
@@ -21,8 +22,21 @@ const canMerge = value => isObject(value) || isArray(value)
 
 const prettyPrint = obj => JSON.stringify(obj, null, 2)
 
+const chdirTestApp = () => {
+  try {
+    return process.chdir('test/test_app')
+  } catch (e) {
+    return null
+  }
+}
+
+const chdirCwd = () => process.chdir(process.cwd())
+
 module.exports = {
+  chdirTestApp,
+  chdirCwd,
   isObject,
+  isBoolean,
   isArray,
   isEqual,
   isEmpty,
