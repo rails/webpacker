@@ -11,7 +11,7 @@ services:
     build: .
     env_file:
       - '.env.docker'
-    command: bundle exec webpack-dev-server
+    command: ./bin/webpack-dev-server
     volumes:
       - .:/webpacker-example-app
     ports:
