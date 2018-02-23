@@ -9,8 +9,6 @@ Gem::Specification.new do |s|
   s.summary  = "Use webpack to manage app-like JavaScript modules in Rails"
   s.homepage = "https://github.com/rails/webpacker"
   s.license  = "MIT"
-  s.bindir   = "exe"
-  s.executables = `git ls-files -- exe/*`.split("\n").map { |f| File.basename(f) }
 
   s.required_ruby_version = ">= 2.2.0"
 
