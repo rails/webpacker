@@ -4,7 +4,7 @@
 Webpacker supports importing CSS, Sass and SCSS files directly into your JavaScript files.
 
 
-## Import styles into your JS app
+## Import global styles into your JS app
 
 ```sass
 // app/javascript/hello_react/styles/hello-react.sass
@@ -29,6 +29,36 @@ const Hello = props => (
   </div>
 )
 ```
+
+## Import scoped styles into your JS app
+
+Stylesheets end with '.modules.*' is treated as [CSS Modules](https://github.com/css-modules/css-modules).
+
+```sass
+// app/javascript/hello_react/styles/hello-react.module.sass
+
+.helloReact
+  padding: 20px
+  font-size: 12px
+```
+
+```js
+// React component example
+// app/javascripts/packs/hello_react.jsx
+
+import React from 'react'
+import helloIcon from '../hello_react/images/icon.png'
+import styles from '../hello_react/styles/hello-react'
+
+const Hello = props => (
+  <div className={styles.helloReact}>
+    <img src={helloIcon} alt="hello-icon" />
+    <p>Hello {props.name}!</p>
+  </div>
+)
+```
+
+**Note:** Declared class is referenced as object property in JavaScript.
 
 
 ## Link styles from your Rails views
