@@ -5,6 +5,7 @@ tasks = {
   "webpacker:check_node"              => "Verifies if Node.js is installed",
   "webpacker:check_yarn"              => "Verifies if Yarn is installed",
   "webpacker:check_binstubs"          => "Verifies that webpack & webpack-dev-server are present",
+  "webpacker:binstubs"                => "Installs Webpacker binstubs in this application",
   "webpacker:verify_install"          => "Verifies if Webpacker is installed",
   "webpacker:yarn_install"            => "Support for older Rails versions. Install all JavaScript dependencies as specified via Yarn",
   "webpacker:install:react"           => "Installs and setup example React component",

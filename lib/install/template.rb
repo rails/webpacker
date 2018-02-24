@@ -13,10 +13,7 @@ copy_file "#{__dir__}/config/.babelrc", ".babelrc"
 say "Creating JavaScript app source directory"
 directory "#{__dir__}/javascript", Webpacker.config.source_path
 
-say "Copying binstubs"
-directory "#{__dir__}/bin", "bin"
-
-chmod "bin", 0755 & ~File.umask, verbose: false
+apply "#{__dir__}/binstubs.rb"
 
 say "Adding configurations"
 
