@@ -78,6 +78,8 @@ class Webpacker::Compiler
     end
 
     def webpack_env
-      env.merge("NODE_ENV" => @webpacker.env, "WEBPACKER_ASSET_HOST" => ActionController::Base.helpers.compute_asset_host)
+      env.merge("NODE_ENV"                    => @webpacker.env,
+                "WEBPACKER_ASSET_HOST"        => ActionController::Base.helpers.compute_asset_host,
+                "WEBPACKER_RELATIVE_URL_ROOT" => ActionController::Base.relative_url_root)
     end
 end
