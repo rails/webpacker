@@ -46,7 +46,7 @@ describe('Environment', () => {
 
     test('should return default plugins', () => {
       const config = environment.toWebpackConfig()
-      expect(config.plugins.length).toEqual(4)
+      expect(config.plugins.length).toEqual(5)
     })
 
     test('should return default resolveLoader', () => {
