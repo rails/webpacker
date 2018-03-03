@@ -41,6 +41,6 @@ copy_file "#{__dir__}/examples/typescript/hello_typescript.ts",
   "#{Webpacker.config.source_entry_path}/hello_typescript.ts"
 
 say "Installing all typescript dependencies"
-run "yarn add typescript ts-loader #{additional_packages}"
+run "yarn add typescript ts-loader@3.5.0 #{additional_packages}"
 
 say "Webpacker now supports typescript 🎉", :green
