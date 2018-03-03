@@ -6,7 +6,7 @@ require "byebug"
 
 require_relative "test_app/config/environment"
 
-ENV["NODE_ENV"] ||= "production"
+ENV["NODE_ENV"] = "production"
 
 Webpacker.instance = Webpacker::Instance.new \
   root_path: Pathname.new(File.expand_path("test_app", __dir__)),
@@ -15,7 +15,9 @@ Webpacker.instance = Webpacker::Instance.new \
 class Webpacker::Test < Minitest::Test
   private
     def reloaded_config
+      Webpacker.instance.instance_variable_set(:@env, nil)
       Webpacker.instance.instance_variable_set(:@config, nil)
+      Webpacker.env
       Webpacker.config
     end
 

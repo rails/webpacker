@@ -1,7 +1,3 @@
-const styleRuleFactory = require('./style_rule_factory')
+const getStyleRule = require('../utils/get_style_rule')
 
-module.exports = styleRuleFactory(
-  /\.(css)$/i,
-  false,
-  []
-)
+module.exports = getStyleRule(/\.(css)$/i)

@@ -8,9 +8,7 @@ class Webpacker::Instance
   end
 
   def env
-    (ENV["NODE_ENV"].presence_in(available_environments) ||
-      Rails.env.presence_in(available_environments) ||
-        "production".freeze).inquiry
+    @env ||= Webpacker::Env.inquire self
   end
 
   def config
@@ -32,13 +30,4 @@ class Webpacker::Instance
   def commands
     @commands ||= Webpacker::Commands.new self
   end
-
-  private
-    def available_environments
-      if config_path.exist?
-        YAML.load(config_path.read).keys
-      else
-        [].freeze
-      end
-    end
 end

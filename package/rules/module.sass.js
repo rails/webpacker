@@ -1,10 +1,8 @@
-const styleRuleFactory = require('./style_rule_factory')
+const getStyleRule = require('../utils/get_style_rule')
 
-module.exports = styleRuleFactory(
-  /\.(scss|sass)$/i,
-  true,
-  [{
+module.exports = getStyleRule(/\.(scss|sass)$/i, true, [
+  {
     loader: 'sass-loader',
     options: { sourceMap: true }
-  }]
-)
+  }
+])

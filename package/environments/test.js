@@ -1,3 +1,3 @@
-const Environment = require('../environment')
+const Base = require('./base')
 
-module.exports = class extends Environment {}
+module.exports = class extends Base {}

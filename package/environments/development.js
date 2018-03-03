@@ -1,8 +1,9 @@
 const webpack = require('webpack')
-const Environment = require('../environment')
-const { dev_server: devServer, outputPath: contentBase, publicPath } = require('../config')
+const Base = require('./base')
+const devServer = require('../dev_server')
+const { outputPath: contentBase, publicPath } = require('../config')
 
-module.exports = class extends Environment {
+module.exports = class extends Base {
   constructor() {
     super()
 
