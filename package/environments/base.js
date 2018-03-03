@@ -8,8 +8,8 @@ const { sync } = require('glob')
 const extname = require('path-complete-extname')
 
 const webpack = require('webpack')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const ManifestPlugin = require('webpack-manifest-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const WebpackAssetsManifest = require('webpack-assets-manifest')
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 
 const { ConfigList, ConfigObject } = require('../config_types')
@@ -24,10 +24,25 @@ const getLoaderList = () => {
 
 const getPluginList = () => {
   const result = new ConfigList()
-  result.append('Environment', new webpack.EnvironmentPlugin(JSON.parse(JSON.stringify(process.env))))
+  result.append(
+    'Environment',
+    new webpack.EnvironmentPlugin(JSON.parse(JSON.stringify(process.env)))
+  )
   result.append('CaseSensitivePaths', new CaseSensitivePathsPlugin())
-  result.append('ExtractText', new ExtractTextPlugin('[name]-[contenthash].css'))
-  result.append('Manifest', new ManifestPlugin({ publicPath: config.publicPath, writeToFileEmit: true }))
+  result.append(
+    'ExtractText',
+    new MiniCssExtractPlugin({
+      filename: '[name]-[contenthash:8].css',
+      chunkFilename: '[name]-[contenthash:8].chunk.css'
+    })
+  )
+  result.append(
+    'Manifest',
+    new WebpackAssetsManifest({
+      writeToDisk: true,
+      publicPath: true
+    })
+  )
   return result
 }
 
@@ -61,9 +76,11 @@ const getModulePaths = () => {
 
 const getBaseConfig = () =>
   new ConfigObject({
+    mode: 'production',
     output: {
       filename: '[name]-[chunkhash].js',
       chunkFilename: '[name]-[chunkhash].chunk.js',
+      hotUpdateChunkFilename: '[id]-[hash].hot-update.js',
       path: config.outputPath,
       publicPath: config.publicPath
     },

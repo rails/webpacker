@@ -3,10 +3,19 @@ require "webpacker/configuration"
 say "Copying vue loader to config/webpack/loaders"
 copy_file "#{__dir__}/loaders/vue.js", Rails.root.join("config/webpack/loaders/vue.js").to_s
 
+say "Adding vue loader plugin to config/webpack/environment.js"
+insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
+  "const { VueLoaderPlugin } = require('vue-loader')\n",
+  after: "require('@rails/webpacker')\n"
+
+insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
+  "environment.plugins.append('VueLoaderPlugin', new VueLoaderPlugin())\n",
+  before: "module.exports"
+
 say "Adding vue loader to config/webpack/environment.js"
 insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
   "const vue =  require('./loaders/vue')\n",
-  after: "require('@rails/webpacker')\n"
+  after: "require('vue-loader')\n"
 
 insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
   "environment.loaders.append('vue', vue)\n",
@@ -24,7 +33,7 @@ copy_file "#{__dir__}/examples/vue/app.vue",
   "#{Webpacker.config.source_path}/app.vue"
 
 say "Installing all Vue dependencies"
-run "yarn add vue vue-loader vue-template-compiler"
+run "yarn add vue vue-loader@next vue-template-compiler"
 
 if Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR > 1
   say "You need to enable unsafe-eval rule.", :yellow
