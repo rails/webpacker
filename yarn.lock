@@ -1299,13 +1299,13 @@ commondir@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/commondir/-/commondir-1.0.1.tgz#ddd800da0c66127393cca5950ea968a3aaf1253b"
 
-compression-webpack-plugin@^1.1.6:
-  version "1.1.6"
-  resolved "https://registry.yarnpkg.com/compression-webpack-plugin/-/compression-webpack-plugin-1.1.6.tgz#450808fe143b4c5216a14f0c315c47bec3d83cec"
+compression-webpack-plugin@^1.1.10:
+  version "1.1.10"
+  resolved "https://registry.yarnpkg.com/compression-webpack-plugin/-/compression-webpack-plugin-1.1.10.tgz#dbc2d2d65729a89f7b195668211d38ea0883df98"
   dependencies:
-    async "^2.4.1"
     cacache "^10.0.1"
     find-cache-dir "^1.0.0"
+    neo-async "^2.5.0"
     serialize-javascript "^1.4.0"
     webpack-sources "^1.0.1"
 
@@ -3745,6 +3745,10 @@ nan@^2.3.0, nan@^2.3.2:
 natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
+
+neo-async@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.5.0.tgz#76b1c823130cca26acfbaccc8fbaf0a2fa33b18f"
 
 node-fetch@^1.0.1:
   version "1.7.3"
