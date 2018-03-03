@@ -4,6 +4,8 @@
 ### Added
 
 - Separate task for installing/updating binstubs
+- CSS modules support [#1248](https://github.com/rails/webpacker/pull/1248)
+- Pass `relative_url_root` to webpacker config [#1236](https://github.com/rails/webpacker/pull/1236)
 
 ### Breaking changes
 
@@ -12,6 +14,10 @@
 ```
 bundle exec rails webpacker:binstubs
 ```
+
+### Fixed
+- Limit ts-loader to 3.5.0 until webpack 4 support [#1308](https://github.com/rails/webpacker/pull/1308)
+- Custom env support [#1304](https://github.com/rails/webpacker/pull/1304)
 
 ## [3.2.2] - 2018-02-11
 
