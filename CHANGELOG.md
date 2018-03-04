@@ -15,6 +15,17 @@
 ```
 bundle exec rails webpacker:binstubs
 ```
+- set function is now removed from plugins and loaders, please use `append` or `prepend`
+
+```js
+// config/webpack/environment.js
+const { environment } = require('@rails/webpacker')
+
+environment.loaders.append('json', {
+  test: /\.json$/,
+  use: 'json-loader'
+})
+```
 
 ### Fixed
 - Limit ts-loader to 3.5.0 until webpack 4 support [#1308](https://github.com/rails/webpacker/pull/1308)
