@@ -14,7 +14,7 @@ and add `ignore-loader` to `config/webpack/environment.js`
 ```js
 // ignores vue~ swap files
 const { environment } = require('@rails/webpacker')
-environment.loaders.set('ignore', {
+environment.loaders.append('ignore', {
   test:  /.vue~$/,
   loader: 'ignore-loader'
 })
