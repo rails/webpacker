@@ -2,14 +2,18 @@ require "test_helper"
 
 class EnvTest < Webpacker::Test
   def test_current
-    reloaded_config
-    assert_equal Webpacker.env, "production"
+    assert_equal Webpacker.env, Rails.env
   end
 
-  def test_custom
-    with_node_env("default") do
-      reloaded_config
-      assert_equal Webpacker.env, "default"
+  def test_custom_without_config
+    with_rails_env("foo") do
+      assert_equal Webpacker.env, "production"
+    end
+  end
+
+  def test_custom_with_config
+    with_rails_env("staging") do
+      assert_equal Webpacker.env, "staging"
     end
   end
 
