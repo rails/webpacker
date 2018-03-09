@@ -1,6 +1,6 @@
 require "test_helper"
 
-class RakeTasksTest < Minitest::Test
+class RakeTasksTest < Webpacker::Test
   def test_rake_tasks
     output = Dir.chdir(test_app_path) { `rake -T` }
     assert_includes output, "webpacker"
@@ -25,8 +25,10 @@ class RakeTasksTest < Minitest::Test
   def test_rake_webpacker_yarn_install_in_non_production_environments
     assert_includes test_app_dev_dependencies, "right-pad"
 
-    test_app_dir_with_clean_env do
-      `bundle exec rake webpacker:yarn_install`
+    with_environment("NODE_ENV" => "test", "RAILS_ENV" => "test") do
+      Dir.chdir(test_app_path) do
+        `bundle exec rake webpacker:yarn_install`
+      end
     end
 
     assert_includes installed_node_module_names, "right-pad",
@@ -34,8 +36,10 @@ class RakeTasksTest < Minitest::Test
   end
 
   def test_rake_webpacker_yarn_install_in_production_environment
-    test_app_dir_with_clean_env do
-      `RAILS_ENV=production bundle exec rake webpacker:yarn_install`
+    with_environment("NODE_ENV" => "production", "RAILS_ENV" => "production") do
+      Dir.chdir(test_app_path) do
+        `bundle exec rake webpacker:yarn_install`
+      end
     end
 
     refute_includes installed_node_module_names, "right-pad",
@@ -45,12 +49,6 @@ class RakeTasksTest < Minitest::Test
   private
     def test_app_path
       File.expand_path("test_app", __dir__)
-    end
-
-    def test_app_dir_with_clean_env
-      Bundler.with_clean_env do
-        Dir.chdir(test_app_path) { yield }
-      end
     end
 
     def test_app_dev_dependencies
