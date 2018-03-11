@@ -27,7 +27,7 @@
     "glob": "^7.1.2",
     "js-yaml": "^3.10.0",
     "node-sass": "^4.7.2",
-    "path-complete-extname": "^0.1.0",
+    "path-complete-extname": "^1.0.0",
     "postcss-cssnext": "^3.1.0",
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.1.0",
