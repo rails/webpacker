@@ -74,7 +74,7 @@ Specify the plugin in your `.babelrc` with the custom root or alias. Here's an e
 And then within your javascript app code:
 
 ```js
-// Note: we don't have do any ../../ jazz
+// Note: we don't have to do any ../../ jazz
 
 import FooImage from 'assets/images/foo-image.png'
 import 'assets/stylesheets/bar'
