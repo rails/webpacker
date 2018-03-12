@@ -44,7 +44,7 @@ say "Installing all JavaScript dependencies"
 run "yarn add @rails/webpacker"
 
 say "Installing dev server for live reloading"
-run "yarn add --dev webpack-dev-server"
+run "yarn add --dev webpack-dev-server@2.11.2"
 
 if Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR > 1
   say "You need to allow webpack-dev-server host as allowed origin for connect-src.", :yellow
