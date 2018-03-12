@@ -1,5 +1,11 @@
 **Please note that Webpacker 3.1.0 and 3.1.1 has some serious bugs so please consider using either 3.0.2 or 3.2.0**
 
+## [3.3.1] - 2018-03-12
+
+## Fixed
+
+- Use webpack dev server 2.x until webpacker supports webpack 4.x [#1338](https://github.com/rails/webpacker/issues/1338)
+
 ## [3.3.0] - 2018-03-03
 
 ### Added
