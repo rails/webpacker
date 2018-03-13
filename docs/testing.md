@@ -126,3 +126,12 @@ class HomesTest < ApplicationSystemTestCase
   end
 end
 ```
+
+## Capybara setup for Rails
+Make sure you configure Rails to serve static files from the public directory in the test environment.
+
+```rb
+# config/environments/test.rb
+# Configure public file server for tests with Cache-Control for performance.
+config.public_file_server.enabled = true
+```
