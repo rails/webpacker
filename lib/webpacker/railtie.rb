@@ -22,7 +22,7 @@ class Webpacker::Engine < ::Rails::Engine
   #
   #    to turn on:
   #     - edit config/environments/production.rb
-  #     - add `config.webpacker.check_yarn_integrity = false`
+  #     - add `config.webpacker.check_yarn_integrity = true`
   initializer "webpacker.yarn_check" do |app|
     if File.exist?("yarn.lock") && app.config.webpacker.check_yarn_integrity
       output = `yarn check --integrity 2>&1`
