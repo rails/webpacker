@@ -2,7 +2,7 @@ const { resolve } = require('path')
 const { safeLoad } = require('js-yaml')
 const { readFileSync } = require('fs')
 const deepMerge = require('./utils/deep_merge')
-const { isArray } = require('./utils/helpers')
+const { isArray, isEmpty } = require('./utils/helpers')
 const env = require('./env')
 
 const defaultConfigPath = require.resolve('../lib/install/config/webpacker.yml')
@@ -13,7 +13,9 @@ const getConfig = () => {
   const app = safeLoad(readFileSync(configPath), 'utf8')[env]
 
   if (isArray(app.extensions) && app.extensions.length) {
-    delete defaults.extensions
+    if (!isEmpty(defaults)) {
+      delete defaults.extensions
+    }
   }
 
   const config = deepMerge(defaults, app)
