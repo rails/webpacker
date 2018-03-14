@@ -9,7 +9,7 @@ const defaultConfigPath = require.resolve('../lib/install/config/webpacker.yml')
 const configPath = resolve('config', 'webpacker.yml')
 
 const getConfig = () => {
-  const defaults = safeLoad(readFileSync(defaultConfigPath), 'utf8')[env]
+  const defaults = safeLoad(readFileSync(defaultConfigPath), 'utf8')[env] || {}
   const app = safeLoad(readFileSync(configPath), 'utf8')[env]
 
   if (isArray(app.extensions) && app.extensions.length) {
