@@ -65,3 +65,4 @@ production:
 cucumber:
   <<: *default
   compile: true
+  extend_default_env: development
