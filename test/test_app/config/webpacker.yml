@@ -61,3 +61,8 @@ production:
 
   # Cache manifest.json for performance
   cache_manifest: true
+
+cucumber:
+  <<: *default
+  compile: true
+  extend_default_env: development

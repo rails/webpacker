@@ -28,4 +28,13 @@ describe('Webpacker', () => {
       stats: 'normal'
     })
   })
+
+  test('with a non-standard env extending webpacker\s default', () => {
+    process.env.NODE_ENV = 'cucumber'
+    process.env.RAILS_ENV = 'cucumber'
+    const { environment } = require('../index')
+    expect(environment.toWebpackConfig()).toMatchObject({
+      devtool: 'cheap-module-source-map'
+    })
+  })
 })

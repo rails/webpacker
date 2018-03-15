@@ -432,6 +432,14 @@ by adding new paths to `watched_paths` array. This is much like Rails' `autoload
 Webpacker::Compiler.watched_paths << 'bower_components'
 ```
 
+## Non standard ENV
+
+If you want to use non-standard ENV (such as "staging"), you can specify the webpacker standard ENV to be extended.
+
+``` yml
+staging:
+  extend_default_env: production
+```
 
 ## Deployment
 
