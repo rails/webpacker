@@ -202,7 +202,7 @@ You can run following commands to upgrade Webpacker to the latest stable version
 ```bash
 bundle update webpacker
 yarn upgrade @rails/webpacker --latest
-yarn upgrade webpack-dev-server --latest
+yarn add webpack-dev-server@^2.11.1
 ```
 
 ### Yarn Integrity
