@@ -12,7 +12,7 @@ const devServer = () => {
   if (devServerConfig) {
     Object.keys(devServerConfig).forEach((key) => {
       const envValue = fetch(`WEBPACKER_DEV_SERVER_${key.toUpperCase().replace(/_/g, '')}`)
-      if (isEmpty(envValue)) return devServerConfig[key]
+      if (isEmpty(envValue)) return
       devServerConfig[key] = envValue
     })
   }
