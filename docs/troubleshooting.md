@@ -117,3 +117,12 @@ environment.plugins.append('ContextReplacement',
   )
 )
 ```
+
+# Rake assets:precompile or bin/webpack fails. Can't find executable webpack for gem webpacker (Gem::Exception)
+
+This can happen if you need to update your webpack and webpack-dev-server
+binstubs.  You can update your binstubs by running:
+
+```
+bundle exec rails webpacker:binstubs
+```
