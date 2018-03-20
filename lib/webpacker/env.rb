@@ -18,11 +18,11 @@ class Webpacker::Env
 
   private
     def current
-      (ENV["NODE_ENV"] || Rails.env).presence_in(available_environments)
+      Rails.env.presence_in(available_environments)
     end
 
     def fallback_env_warning
-      logger.info "NODE_ENV=#{ENV["NODE_ENV"]} and RAILS_ENV=#{Rails.env} environment is not defined in config/webpacker.yml, falling back to #{DEFAULT} environment"
+      logger.info "RAILS_ENV=#{Rails.env} environment is not defined in config/webpacker.yml, falling back to #{DEFAULT} environment"
     end
 
     def available_environments

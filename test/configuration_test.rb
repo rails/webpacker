@@ -41,30 +41,26 @@ class ConfigurationTest < Webpacker::Test
   end
 
   def test_cache_manifest?
-    with_node_env("development") do
-      refute reloaded_config.cache_manifest?
+    assert Webpacker.config.cache_manifest?
+
+    with_rails_env("development") do
+      refute Webpacker.config.cache_manifest?
     end
 
-    with_node_env("test") do
-      refute reloaded_config.cache_manifest?
-    end
-
-    with_node_env("production") do
-      assert reloaded_config.cache_manifest?
+    with_rails_env("test") do
+      refute Webpacker.config.cache_manifest?
     end
   end
 
   def test_compile?
-    with_node_env("development") do
-      assert reloaded_config.compile?
+    refute Webpacker.config.compile?
+
+    with_rails_env("development") do
+      assert Webpacker.config.compile?
     end
 
-    with_node_env("test") do
-      assert reloaded_config.compile?
-    end
-
-    with_node_env("production") do
-      refute reloaded_config.compile?
+    with_rails_env("test") do
+      assert Webpacker.config.compile?
     end
   end
 end

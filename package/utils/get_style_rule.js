@@ -1,9 +1,10 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const path = require('path')
 const devServer = require('../dev_server')
+const { nodeEnv } = require('../env')
 
 const postcssConfigPath = path.resolve(process.cwd(), '.postcssrc.yml')
-const isProduction = process.env.NODE_ENV === 'production'
+const isProduction = nodeEnv === 'production'
 const inDevServer = process.argv.find(v => v.includes('webpack-dev-server'))
 const isHMR = inDevServer && (devServer && devServer.hmr)
 const extractCSS = !isHMR || isProduction

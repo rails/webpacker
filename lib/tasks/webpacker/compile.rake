@@ -1,3 +1,5 @@
+ENV["NODE_ENV"] ||= "production"
+
 $stdout.sync = true
 
 def ensure_log_goes_to_stdout
