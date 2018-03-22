@@ -22,7 +22,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 - [Installation](#installation)
   - [Usage](#usage)
   - [Development](#development)
-  - [webpack configuration](#webpack-configuration)
+  - [Webpack Configuration](#webpack-configuration)
   - [Upgrading](#upgrading)
   - [Yarn Integrity](#yarn-integrity)
 - [Integrations](#integrations)
@@ -190,7 +190,7 @@ WEBPACKER_DEV_SERVER_HOST=0.0.0.0 ./bin/webpack-dev-server
 
 **Note:** Don't forget to prefix `ruby` when running these binstubs on Windows
 
-### webpack configuration
+### Webpack Configuration
 
 See [docs/webpack](docs/webpack.md) for modifying webpack configuration and loaders.
 
