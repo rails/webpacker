@@ -23,6 +23,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
   - [Usage](#usage)
   - [Development](#development)
   - [Webpack Configuration](#webpack-configuration)
+  - [Custom Rails environments](#custom-rails-environments)
   - [Upgrading](#upgrading)
   - [Yarn Integrity](#yarn-integrity)
 - [Integrations](#integrations)
@@ -193,6 +194,56 @@ WEBPACKER_DEV_SERVER_HOST=0.0.0.0 ./bin/webpack-dev-server
 ### Webpack Configuration
 
 See [docs/webpack](docs/webpack.md) for modifying webpack configuration and loaders.
+
+
+### Custom Rails environments
+
+Out of the box Webpacker ships with - development, test and production environments in `config/webpacker.yml` however, in most production apps extra environments are needed as part of deployment workflow. Webpacker supports this out of the box from version 3.4.0+ onwards.
+
+You can choose to define additional environment configurations in webpacker.yml,
+
+```yml
+staging:
+  <<: *default
+
+  # Production depends on precompilation of packs prior to booting for performance.
+  compile: false
+
+  # Cache manifest.json for performance
+  cache_manifest: true
+
+  # Compile staging packs to a separate directory
+  public_output_path: packs-staging
+```
+
+or, Webpacker will use production environment as a fallback environment for loading configurations. Please note, `NODE_ENV` can either be set to `production` or `development`.
+This means you don't need to create additional environment files inside `config/webpacker/*` and instead use webpacker.yml to load different configurations using `RAILS_ENV`.
+
+For example, the below command will compile assets in production mode but will use staging configurations from `config/webpacker.yml` if available or use fallback production environment configuration:
+
+```bash
+RAILS_ENV=staging bundle exec rails assets:precompile
+```
+
+And, this will compile in development mode and load configuration for cucumber environment
+if defined in webpacker.yml or fallback to production configuration
+
+```bash
+RAILS_ENV=cucumber NODE_ENV=development bundle exec rails assets:precompile
+```
+
+Please note, binstubs compiles in development mode however rake tasks
+compiles in production mode.
+
+```bash
+# Compiles in development mode unless NODE_ENV is specified
+./bin/webpack
+./bin/webpack-dev-server
+
+# compiles in production mode by default unless NODE_ENV is specified
+bundle exec rails assets:precompile
+bundle exec rails webpacker:compile
+```
 
 
 ### Upgrading

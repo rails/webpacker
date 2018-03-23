@@ -1,5 +1,13 @@
 **Please note that Webpacker 3.1.0 and 3.1.1 has some serious bugs so please consider using either 3.0.2 or 3.2.0**
 
+## [3.4.0] - 2018-03-23
+
+## Added
+  - Support for custom Rails environments [#1359](https://github.com/rails/webpacker/pull/1359)
+
+*This could break the compilation if you set NODE_ENV to custom environment. Now, NODE_ENV only understands production or development mode*
+
+
 ## [3.3.1] - 2018-03-12
 
 ## Fixed
