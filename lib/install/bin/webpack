@@ -6,6 +6,7 @@ ENV["NODE_ENV"]  ||= ENV["NODE_ENV"] || "development"
 require "pathname"
 ENV["BUNDLE_GEMFILE"] ||= File.expand_path("../../Gemfile",
   Pathname.new(__FILE__).realpath)
+ENV["RAILS_LOAD_PATH"] = $LOAD_PATH.join(";")
 
 require "rubygems"
 require "bundler/setup"

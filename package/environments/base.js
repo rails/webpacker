@@ -56,6 +56,18 @@ const getModulePaths = () => {
     config.resolved_paths.forEach(path => result.append(path, resolve(path)))
   }
   result.append('node_modules', 'node_modules')
+
+  // gems assets
+  // eg. actionview-5.2.0.rc2/lib
+  const { RAILS_LOAD_PATH } = process.env
+  const railsLoadPath = RAILS_LOAD_PATH ? RAILS_LOAD_PATH.split(';') : []
+  railsLoadPath.forEach(path => {
+    // eg. actionview-5.2.0.rc2/lib/assets/compiled/rails-ujs.js
+    result.append(`${path}-compiled`, `${path}/assets/compiled`)
+    // eg. turbolinks-source-5.1.0/lib/assets/javascripts/turbolinks.js
+    result.append(`${path}-javascripts`, `${path}/assets/javascripts`)
+  })
+
   return result
 }
 
