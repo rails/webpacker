@@ -1,6 +1,14 @@
 **Please note that Webpacker 3.1.0 and 3.1.1 has some serious bugs so please consider using either 3.0.2 or 3.2.0**
 
+## [3.4.1] - 2018-03-24
+
+## Fixed
+  - Yarn integrity check in development [#1374](https://github.com/rails/webpacker/issues/1374)
+
+
 ## [3.4.0] - 2018-03-23
+
+**Please use 3.4.1 instead**
 
 ## Added
   - Support for custom Rails environments [#1359](https://github.com/rails/webpacker/pull/1359)
