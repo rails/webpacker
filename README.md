@@ -81,7 +81,7 @@ Or add it to your `Gemfile`:
 
 ```ruby
 # Gemfile
-gem 'webpacker', '~> 3.3'
+gem 'webpacker', '~> 3.4'
 
 # OR if you prefer to use master
 gem 'webpacker', git: 'https://github.com/rails/webpacker.git'
