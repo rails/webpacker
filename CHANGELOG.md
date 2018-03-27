@@ -32,7 +32,7 @@
 
 ### Breaking changes
 
-- Fixes #1281 by installing binstubs only as local executables. To upgrade:
+- Fixes [#1281](https://github.com/rails/webpacker/issues/1281) by installing binstubs only as local executables. To upgrade:
 
 ```
 bundle exec rails webpacker:binstubs
