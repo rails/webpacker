@@ -22,4 +22,4 @@ copy_file "#{__dir__}/examples/coffee/hello_coffee.coffee",
 say "Installing all Coffeescript dependencies"
 run "yarn add coffeescript@1.12.7 coffee-loader"
 
-say "Webpacker now supports Coffeeescript 🎉", :green
+say "Webpacker now supports Coffeescript 🎉", :green
