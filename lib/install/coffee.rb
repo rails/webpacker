@@ -20,6 +20,6 @@ copy_file "#{__dir__}/examples/coffee/hello_coffee.coffee",
   "#{Webpacker.config.source_entry_path}/hello_coffee.coffee"
 
 say "Installing all Coffeescript dependencies"
-run "yarn add coffeescript@1.12.7 coffee-loader"
+run "yarn add coffeescript coffee-loader"
 
 say "Webpacker now supports Coffeeescript 🎉", :green
