@@ -33,22 +33,6 @@ module Webpacker::Helper
     end
   end
 
-  # Creates a image tag that references the named pack file.
-  # This will use asset_pack_path internally, so most of their behaviors will be the same.
-  #
-  # Example:
-  #
-  #   # In development mode with hot module replacement:
-  #   <%= image_pack_tag 'logo.png' %> # => nil
-  #
-  #   # In production mode:
-  #   <%= image_pack_tag 'logo.png' %> # => "http://example.com/packs/logo-1016838bab065ae1e122.png"
-  def image_pack_tag(name, **options)
-    unless Webpacker.dev_server.running? && Webpacker.dev_server.hot_module_replacing?
-      image_tag(asset_pack_path(name), **options)
-    end
-  end
-
   # Creates a script tag that references the named pack file, as compiled by webpack per the entries list
   # in config/webpack/shared.js. By default, this list is auto-generated to match everything in
   # app/javascript/packs/*.js. In production mode, the digested reference is automatically looked up.
