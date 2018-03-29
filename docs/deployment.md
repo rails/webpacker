@@ -20,6 +20,12 @@ By default the output will look like this in different environments:
 
 ## Heroku
 
+Make sure you have the `heroku/nodejs` buildpack listed first in your app. You can add it by running:
+
+```
+heroku buildpacks:add heroku/nodejs -i 1
+```
+
 Heroku installs Yarn and node by default if you deploy a Rails app with
 Webpacker so all you would need to do:
 
