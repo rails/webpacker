@@ -3,10 +3,9 @@ language: ruby
 before_install:
   - gem update --system
 rvm:
-  - 2.2.9
-  - 2.3.6
-  - 2.4.3
-  - 2.5.0
+  - 2.3.7
+  - 2.4.4
+  - 2.5.1
   - ruby-head
 gemfile:
   - gemfiles/Gemfile-rails.4.2.x
