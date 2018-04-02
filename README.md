@@ -85,6 +85,9 @@ gem 'webpacker', '~> 3.4'
 
 # OR if you prefer to use master
 gem 'webpacker', git: 'https://github.com/rails/webpacker.git'
+
+# OR to try out 4.x pre-release
+gem 'webpacker', '>= 4.0.x'
 ```
 
 Finally, run following to install Webpacker:
@@ -254,6 +257,9 @@ You can run following commands to upgrade Webpacker to the latest stable version
 bundle update webpacker
 yarn upgrade @rails/webpacker --latest
 yarn add webpack-dev-server@^2.11.1
+
+# Or to install a latest release (including pre-releases)
+yarn add @rails/webpacker
 ```
 
 ### Yarn Integrity
