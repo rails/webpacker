@@ -1,19 +1,26 @@
 **Please note that Webpacker 3.1.0 and 3.1.1 have some serious bugs so please consider using either 3.0.2 or 3.2.0**
 
+## [4.0.0-pre.2] - 2018-04-2
+
+## Fixed
+
+- Webpack dev server version in installer
+
+
 ## [4.0.0-pre.1] - 2018-04-2
 
 Pre-release to try out webpack 4.0 support
 
-## Added
+### Added
   - Webpack 4.0 support [#1376](https://github.com/rails/webpacker/pull/1316)
 
-## Fixed
+### Fixed
   - Remove compilation digest file if webpack command fails[#1398](https://github.com/rails/webpacker/issues/1398)
 
 
 ## [3.4.1] - 2018-03-24
 
-## Fixed
+### Fixed
   - Yarn integrity check in development [#1374](https://github.com/rails/webpacker/issues/1374)
 
 
@@ -21,7 +28,7 @@ Pre-release to try out webpack 4.0 support
 
 **Please use 3.4.1 instead**
 
-## Added
+### Added
   - Support for custom Rails environments [#1359](https://github.com/rails/webpacker/pull/1359)
 
 *This could break the compilation if you set NODE_ENV to custom environment. Now, NODE_ENV only understands production or development mode*
@@ -29,7 +36,7 @@ Pre-release to try out webpack 4.0 support
 
 ## [3.3.1] - 2018-03-12
 
-## Fixed
+### Fixed
 
 - Use webpack dev server 2.x until webpacker supports webpack 4.x [#1338](https://github.com/rails/webpacker/issues/1338)
 
