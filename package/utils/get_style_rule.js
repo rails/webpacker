@@ -1,4 +1,4 @@
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const path = require('path')
 const devServer = require('../dev_server')
 const { nodeEnv } = require('../env')
@@ -18,46 +18,35 @@ const styleLoader = {
 }
 
 const getStyleRule = (test, modules = false, preprocessors = []) => {
-  const extractOptions = {
-    fallback: styleLoader,
-    use: [
-      {
-        loader: 'css-loader',
-        options: {
-          minimize: isProduction,
-          sourceMap: true,
-          importLoaders: 2,
-          modules
-        }
-      },
-      {
-        loader: 'postcss-loader',
-        options: {
-          sourceMap: true,
-          config: { path: postcssConfigPath }
-        }
-      },
-      ...preprocessors
-    ]
-  }
+  const use = [
+    {
+      loader: 'css-loader',
+      options: {
+        minimize: isProduction,
+        sourceMap: true,
+        importLoaders: 2,
+        modules
+      }
+    },
+    {
+      loader: 'postcss-loader',
+      options: {
+        sourceMap: true,
+        config: { path: postcssConfigPath }
+      }
+    },
+    ...preprocessors
+  ]
 
   const options = modules ? { include: /\.module\.[a-z]+$/ } : { exclude: /\.module\.[a-z]+$/ }
 
-  // For production extract styles to a separate bundle
-  const extractCSSLoader = Object.assign(
-    {},
-    { test, use: ExtractTextPlugin.extract(extractOptions) },
-    options
-  )
+  if (extractCSS) {
+    use.unshift(MiniCssExtractPlugin.loader)
+  } else {
+    use.unshift(styleLoader)
+  }
 
-  // For hot-reloading use regular loaders
-  const inlineCSSLoader = Object.assign(
-    {},
-    { test, use: [styleLoader].concat(extractOptions.use) },
-    options
-  )
-
-  return extractCSS ? extractCSSLoader : inlineCSSLoader
+  return Object.assign({}, { test, use }, options)
 }
 
 module.exports = getStyleRule

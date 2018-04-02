@@ -1,37 +1,10 @@
-const webpack = require('webpack')
-const CompressionPlugin = require('compression-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const CompressionPlugin = require('compression-webpack-plugin')
 const Base = require('./base')
 
 module.exports = class extends Base {
   constructor() {
     super()
-
-    this.plugins.append('ModuleConcatenation', new webpack.optimize.ModuleConcatenationPlugin())
-
-    this.plugins.append(
-      'UglifyJs',
-      new UglifyJsPlugin({
-        parallel: true,
-        cache: true,
-        sourceMap: true,
-        uglifyOptions: {
-          ie8: false,
-          ecma: 8,
-          warnings: false,
-          mangle: {
-            safari10: true
-          },
-          compress: {
-            warnings: false,
-            comparisons: false
-          },
-          output: {
-            ascii_only: true
-          }
-        }
-      })
-    )
 
     this.plugins.append(
       'Compression',
@@ -44,7 +17,31 @@ module.exports = class extends Base {
 
     this.config.merge({
       devtool: 'nosources-source-map',
-      stats: 'normal'
+      stats: 'normal',
+      bail: true,
+      optimization: {
+        minimizer: [
+          new UglifyJsPlugin({
+            parallel: true,
+            cache: true,
+            sourceMap: true,
+            uglifyOptions: {
+              ecma: 8,
+              compress: {
+                warnings: false,
+                comparisons: false
+              },
+              mangle: {
+                safari10: true
+              },
+              output: {
+                comments: false,
+                ascii_only: true
+              }
+            }
+          })
+        ]
+      }
     })
   }
 }
