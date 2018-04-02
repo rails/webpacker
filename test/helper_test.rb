@@ -31,6 +31,12 @@ class HelperTest < ActionView::TestCase
     assert_equal "https://example.com/packs/bootstrap-c38deda30895059837cf.css", asset_pack_url("bootstrap.css")
   end
 
+  def test_image_pack_tag
+    assert_equal \
+      "<img alt=\"Edit Entry\" src=\"/packs/application-k344a6d59eef8632c9d1.png\" width=\"16\" height=\"10\" />",
+      image_pack_tag("application.png", size: "16x10", alt: "Edit Entry")
+  end
+
   def test_javascript_pack_tag
     assert_equal \
       %(<script src="/packs/bootstrap-300631c4f0e0f9c865bc.js"></script>),
