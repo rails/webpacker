@@ -33,6 +33,16 @@ module Webpacker::Helper
     end
   end
 
+  # Creates a image tag that references the named pack file.
+  #
+  # Example:
+  #
+  #  <%= image_pack_tag 'application.png', size: '16x10', alt: 'Edit Entry' %>
+  #  <img alt='Edit Entry' src='/packs/application-k344a6d59eef8632c9d1.png' width='16' height='10' />
+  def image_pack_tag(name, **options)
+    image_tag(asset_path(Webpacker.manifest.lookup!(name)), **options)
+  end
+
   # Creates a script tag that references the named pack file, as compiled by webpack per the entries list
   # in config/webpack/shared.js. By default, this list is auto-generated to match everything in
   # app/javascript/packs/*.js. In production mode, the digested reference is automatically looked up.
