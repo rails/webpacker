@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    webpacker (3.4.1)
+    webpacker (4.0.0.pre.pre.1)
       activesupport (>= 4.2)
       rack-proxy (>= 0.6.1)
       railties (>= 4.2)

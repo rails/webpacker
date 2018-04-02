@@ -1,5 +1,16 @@
 **Please note that Webpacker 3.1.0 and 3.1.1 have some serious bugs so please consider using either 3.0.2 or 3.2.0**
 
+## [4.0.0-pre.1] - 2018-04-2
+
+Pre-release to try out webpack 4.0 support
+
+## Added
+  - Webpack 4.0 support [#1376](https://github.com/rails/webpacker/pull/1316)
+
+## Fixed
+  - Remove compilation digest file if webpack command fails[#1398](https://github.com/rails/webpacker/issues/1398)
+
+
 ## [3.4.1] - 2018-03-24
 
 ## Fixed
