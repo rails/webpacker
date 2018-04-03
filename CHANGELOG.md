@@ -1,5 +1,10 @@
 **Please note that Webpacker 3.1.0 and 3.1.1 has some serious bugs so please consider using either 3.0.2 or 3.2.0**
 
+## [3.4.2] - 2018-04-3
+
+### Fixed
+  - Lock webpacker version in installer [#1401](https://github.com/rails/webpacker/issues/1401)
+
 ## [3.4.1] - 2018-03-24
 
 ## Fixed
