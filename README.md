@@ -492,7 +492,7 @@ Webpacker::Compiler.watched_paths << 'bower_components'
 
 ## Deployment
 
-Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which gets run whenever you run `assets:precompile`. If you are not using Sprockets, `webpacker:compile` is automatically aliased to `assets:precompile`. Remember to set NODE_ENV environment variable to production during deployment or when running this rake task.
+Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which gets run whenever you run `assets:precompile`. If you are not using Sprockets, `webpacker:compile` is automatically aliased to `assets:precompile`. Similar to sprockets both rake tasks will compile packs in production mode but will use `RAILS_ENV` to load configuration from `config/webpacker.yml` (if available). 
 
 ## Docs
 
