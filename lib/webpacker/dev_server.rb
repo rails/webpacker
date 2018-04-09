@@ -60,6 +60,6 @@ class Webpacker::DevServer
     end
 
     def defaults
-      config.send(:defaults)[:dev_server]
+      config.send(:defaults)[:dev_server] || {}
     end
 end
