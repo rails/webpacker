@@ -47,7 +47,6 @@ class Webpacker::Engine < ::Rails::Engine
 
   initializer "webpacker.proxy" do |app|
     insert_middleware = Webpacker.config.dev_server.present? rescue nil
-    insert_middleware ||= false
     if insert_middleware
       app.middleware.insert_before 0,
         Rails::VERSION::MAJOR >= 5 ?
