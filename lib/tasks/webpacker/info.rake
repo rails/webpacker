@@ -6,9 +6,12 @@ namespace :webpacker do
     $stdout.puts "Ruby: #{`ruby --version`}"
     $stdout.puts "Rails: #{Rails.version}"
     $stdout.puts "Webpacker: #{Webpacker::VERSION}"
-    $stdout.puts "@rails/webpacker: #{`npm view @rails/webpacker version`}"
     $stdout.puts "Node: #{`node --version`}"
     $stdout.puts "Yarn: #{`yarn --version`}"
+
+    $stdout.puts "\n"
+    $stdout.puts "@rails/webpacker: \n#{`npm list @rails/webpacker version`}"
+
     
     $stdout.puts "Is bin/webpack present?: #{present? 'bin/webpack'}"
     $stdout.puts "Is bin/webpack-dev-server present?: #{present? 'bin/webpack-dev-server'}"
