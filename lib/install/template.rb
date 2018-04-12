@@ -19,7 +19,7 @@ say "Adding configurations"
 
 check_yarn_integrity_config = ->(value) { <<CONFIG }
 # Verifies that versions and hashed value of the package contents in the project's package.json
-  config.webpacker.check_yarn_integrity = #{value}
+config.webpacker.check_yarn_integrity = #{value}
 CONFIG
 
 if Rails::VERSION::MAJOR >= 5
