@@ -4,15 +4,13 @@ require "rails"
 require "rails/test_help"
 require "byebug"
 
+require_relative "test_app/config/environment"
+
 Rails.env = "production"
 
-# Webpacker.instance paths hacks need to be done before application initialization
-require "webpacker"
 Webpacker.instance = Webpacker::Instance.new \
   root_path: Pathname.new(File.expand_path("test_app", __dir__)),
   config_path: Pathname.new(File.expand_path("./test_app/config/webpacker.yml", __dir__))
-
-require_relative "test_app/config/environment"
 
 class Webpacker::Test < Minitest::Test
   private
