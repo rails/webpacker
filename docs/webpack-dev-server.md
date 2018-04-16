@@ -23,8 +23,27 @@ Checkout this guide for more information:
 
 - https://webpack.js.org/configuration/dev-server/#devserver-hot
 
-To support HMR with React you would need to add `react-hot-loader`. Checkout this guide for
-more information:
+To support HMR with React you would need to add `react-hot-loader`.
+
+Update your development.js to look like this following:
+
+```
+const environment = require('./environment')
+const merge = require('webpack-merge')
+
+const babelLoader = environment.loaders.get('babel').use.find(el => el.loader === 'babel-loader')
+babelLoader.options = merge(babelLoader.options, { plugins: ['react-hot-loader/babel'] })
+
+const entries = environment.entry
+Object.keys(entries).forEach((entry) => {
+  entries.set(entry, ['react-hot-loader/patch', entries[entry]])
+});
+
+module.exports = environment.toWebpackConfig()
+
+```
+
+Checkout this guide for more information:
 
 - https://gaearon.github.io/react-hot-loader/getstarted/
 
