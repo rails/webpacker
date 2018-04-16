@@ -7,7 +7,25 @@ chdirTestApp()
 const config = require('../config')
 
 describe('Config', () => {
+  beforeEach(() => jest.resetModules())
   afterAll(chdirCwd)
+
+  test('public path', () => {
+    delete process.env.RAILS_RELATIVE_URL_ROOT
+
+    const config = require('../config')
+
+    expect(config.publicPath).toEqual('/packs/')
+  })
+
+  // also tests removal of extra slashes
+  test('public path with relative root', () => {
+    process.env.RAILS_RELATIVE_URL_ROOT = '/foo'
+
+    const config = require('../config')
+
+    expect(config.publicPath).toEqual('/foo/packs/')
+  })
 
   test('should return extensions as listed in app config', () => {
     expect(config.extensions).toEqual([
