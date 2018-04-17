@@ -1,6 +1,6 @@
 /* global test expect, describe */
 
-const { chdirTestApp, chdirCwd } = require('../utils/helpers')
+const { chdirCwd, chdirTestApp } = require('../utils/helpers')
 
 chdirTestApp()
 
@@ -11,6 +11,8 @@ describe('Config', () => {
   afterAll(chdirCwd)
 
   test('public path', () => {
+    process.env.NODE_ENV = 'development'
+
     delete process.env.RAILS_RELATIVE_URL_ROOT
 
     const config = require('../config')
@@ -20,6 +22,7 @@ describe('Config', () => {
 
   // also tests removal of extra slashes
   test('public path with relative root', () => {
+    process.env.NODE_ENV = 'development'
     process.env.RAILS_RELATIVE_URL_ROOT = '/foo'
 
     const config = require('../config')
