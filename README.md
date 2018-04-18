@@ -251,7 +251,7 @@ bundle exec rails webpacker:compile
 
 ### Upgrading
 
-You can run following commands to upgrade Webpacker to the latest stable version. This process involves upgrading the gem and related npm modules:
+You can run following commands to upgrade Webpacker to the latest stable version. This process involves upgrading the gem and related JavaScript packages:
 
 ```bash
 bundle update webpacker
@@ -264,7 +264,7 @@ yarn add @rails/webpacker@4.0.0-pre.2
 
 ### Yarn Integrity
 
-By default, in development, webpacker runs a yarn integrity check to ensure that all local npm packages are up-to-date. This is similar to what bundler does currently in Rails, but for JavaScript packages. If your system is out of date, then Rails will not initialize. You will be asked to upgrade your local npm packages by running `yarn install`.
+By default, in development, webpacker runs a yarn integrity check to ensure that all local JavaScript packages are up-to-date. This is similar to what bundler does currently in Rails, but for JavaScript packages. If your system is out of date, then Rails will not initialize. You will be asked to upgrade your local JavaScript packages by running `yarn install`.
 
 To turn off this option, you will need to override the default by adding a new config option to your Rails development environment configuration file (`config/environment/development.rb`):
 
