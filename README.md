@@ -157,7 +157,7 @@ in the `app/javascript/packs/*.js` files and automatically reload the browser to
 ./bin/webpack-dev-server
 
 # watcher
-./bin/webpack --colors --progress
+./bin/webpack --watch --colors --progress
 
 # standalone build
 ./bin/webpack
