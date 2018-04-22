@@ -83,7 +83,7 @@ dev_server:
   use_local_ip: false
 ```
 
-into the these custom configuration:
+into these custom configuration:
 
 ```yaml
 dev_server:
