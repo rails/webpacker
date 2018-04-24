@@ -26,18 +26,18 @@ if Rails::VERSION::MAJOR >= 5
   environment check_yarn_integrity_config.call("true"), env: :development
   environment check_yarn_integrity_config.call("false"), env: :production
 else
-  inject_into_file "config/environments/development.rb", "\n  #{check_yarn_integrity_config.call("true")}", after: "Rails.application.configure do", verbose: false
-  inject_into_file "config/environments/production.rb", "\n  #{check_yarn_integrity_config.call("false")}", after: "Rails.application.configure do", verbose: false
+  inject_into_file "config/environments/development.rb", optimize_indentation(check_yarn_integrity_config.call("true"), 2), after: "Rails.application.configure do", verbose: false
+  inject_into_file "config/environments/production.rb", optimize_indentation(check_yarn_integrity_config.call("false"), 2), after: "Rails.application.configure do", verbose: false
 end
 
 if File.exists?(".gitignore")
-  append_to_file ".gitignore", <<-EOS
-/public/packs
-/public/packs-test
-/node_modules
-yarn-debug.log*
-.yarn-integrity
-EOS
+  append_to_file ".gitignore", optimize_indentation(<<-EOS)
+    /public/packs
+    /public/packs-test
+    /node_modules
+    yarn-debug.log*
+    .yarn-integrity
+  EOS
 end
 
 say "Installing all JavaScript dependencies"
