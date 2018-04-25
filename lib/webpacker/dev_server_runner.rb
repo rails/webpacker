@@ -37,7 +37,7 @@ module Webpacker
 
       def execute_cmd
         cmd = [
-          "#{@node_modules_path}/.bin/webpack-dev-server",
+          "#{%[yarn bin]}/webpack-dev-server",
           "--config", @webpack_config
         ]
         cmd += ["--progress", "--color"] if @pretty
