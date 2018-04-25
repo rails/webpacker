@@ -10,7 +10,6 @@ module Webpacker
       @argv = argv
 
       @app_path          = File.expand_path(".", Dir.pwd)
-      @node_modules_path = File.join(@app_path, "node_modules")
       @webpack_config    = File.join(@app_path, "config/webpack/#{ENV["NODE_ENV"]}.js")
 
       unless File.exist?(@webpack_config)
