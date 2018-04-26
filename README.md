@@ -186,7 +186,7 @@ WEBPACKER_DEV_SERVER_HOST=0.0.0.0 ./bin/webpack-dev-server
 **Note:** You need to allow webpack-dev-server host as an allowed origin for `connect-src` if you are running your application in a restrict CSP environment (like Rails 5.2+). This can be done in Rails 5.2+ in the CSP initializer `config/initializers/content_security_policy.rb` with a snippet like this:
 
 ```ruby
-  p.connect_src :self, :https, 'http://localhost:3035', 'ws://localhost:3035' if Rails.env.development?
+  policy.connect_src :self, :https, 'http://localhost:3035', 'ws://localhost:3035' if Rails.env.development?
 ```
 
 **Note:** Don't forget to prefix `ruby` when running these binstubs on Windows
@@ -324,9 +324,9 @@ with the following code:
 
 ```ruby
   if Rails.env.development?
-    p.script_src :self, :https, :unsafe_eval
+    policy.script_src :self, :https, :unsafe_eval
   else
-    p.script_src :self, :https
+    policy.script_src :self, :https
   end
 ```
 
@@ -352,9 +352,9 @@ configuration:
 
 ```ruby
   if Rails.env.development?
-    p.script_src :self, :https, :unsafe_eval
+    policy.script_src :self, :https, :unsafe_eval
   else
-    p.script_src :self, :https
+    policy.script_src :self, :https
   end
 ```
 You can read more about this in the [Vue docs](https://vuejs.org/v2/guide/installation.html#CSP-environments).
@@ -486,7 +486,7 @@ Webpacker::Compiler.watched_paths << 'bower_components'
 
 ## Deployment
 
-Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which gets run whenever you run `assets:precompile`. If you are not using Sprockets, `webpacker:compile` is automatically aliased to `assets:precompile`. Remember to set NODE_ENV environment variable to production during deployment or when running this rake task.
+Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which gets run whenever you run `assets:precompile`. If you are not using Sprockets, `webpacker:compile` is automatically aliased to `assets:precompile`. Similar to sprockets both rake tasks will compile packs in production mode but will use `RAILS_ENV` to load configuration from `config/webpacker.yml` (if available).
 
 ## Docs
 
