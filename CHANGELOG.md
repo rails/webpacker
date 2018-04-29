@@ -1,5 +1,22 @@
 **Please note that Webpacker 3.1.0 and 3.1.1 have some serious bugs so please consider using either 3.0.2 or 3.2.0**
 
+## [3.5.0] - 2018-04-29
+
+### Fixed
+  - Remove compilation digest file if webpack command fails [#1399](https://github.com/rails/webpacker/pull/1399)
+  - Handle http dev_server setting properly in the proxy [#1420]
+  - Use correct protocol [#1425](https://github.com/rails/webpacker/pull/1425)
+
+### Added
+  - `image_pack_tag` helper [#1400](https://github.com/rails/webpacker/pull/1400)
+  - devserver proxy for custom environments [#1415](https://github.com/rails/webpacker/pull/1415)
+  - Rails webpacker:info task [#1416](https://github.com/rails/webpacker/pull/1416)
+  (https://github.com/rails/webpacker/pull/1420)
+  - Include `RAILS_RELATIVE_URL_ROOT` environment variable in publicPath [#1428](https://github.com/rails/webpacker/pull/1428)
+
+Complete list of changes: [#1464](https://github.com/rails/webpacker/pull/1464)
+
+
 ## [3.4.3] - 2018-04-3
 
 ### Fixed
