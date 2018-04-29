@@ -13,6 +13,8 @@ even JavaScript Sprinkles (that all continues to live in app/assets).
 However, it is possible to use Webpacker for CSS, images and fonts assets as well,
 in which case you may not even need the asset pipeline. This is mostly relevant when exclusively using component-based JavaScript frameworks.
 
+**NOTE:** The master branch now hosts the code for v4.x.x. Please refer to [3.4-stable](https://github.com/rails/webpacker/tree/3-4-stable) branch for 3.x documentation.
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents
@@ -81,7 +83,7 @@ Or add it to your `Gemfile`:
 
 ```ruby
 # Gemfile
-gem 'webpacker', '~> 3.4'
+gem 'webpacker', '~> 3.5'
 
 # OR if you prefer to use master
 gem 'webpacker', git: 'https://github.com/rails/webpacker.git'

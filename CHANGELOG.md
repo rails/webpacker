@@ -18,6 +18,9 @@ Pre-release to try out webpack 4.0 support
   - Remove compilation digest file if webpack command fails[#1398](https://github.com/rails/webpacker/issues/1398)
 
 
+Please refer to [3.4-stable](https://github.com/rails/webpacker/tree/3-4-stable) branch
+for further releases and changelogs:
+
 ## [3.4.1] - 2018-03-24
 
 ### Fixed
