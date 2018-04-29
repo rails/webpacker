@@ -29,7 +29,7 @@ module.exports = {
 }
 
 // config/webpack/environment.js
-const environment = require('./environment')
+const { environment } = require('@rails/webpacker')
 const customConfig = require('./custom')
 
 // Set nested object prop using path notation

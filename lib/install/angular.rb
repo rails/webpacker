@@ -14,9 +14,9 @@ if Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR > 1
   say "This can be done in Rails 5.2+ for development environment in the CSP initializer", :yellow
   say "config/initializers/content_security_policy.rb with a snippet like this:", :yellow
   say "if Rails.env.development?", :yellow
-  say "  p.script_src :self, :https, :unsafe_eval", :yellow
+  say "  policy.script_src :self, :https, :unsafe_eval", :yellow
   say "else", :yellow
-  say "  p.script_src :self, :https", :yellow
+  say "  policy.script_src :self, :https", :yellow
   say "end", :yellow
 end
 

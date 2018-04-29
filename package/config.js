@@ -20,6 +20,14 @@ if (isArray(app.extensions) && app.extensions.length) delete defaults.extensions
 
 const config = deepMerge(defaults, app)
 config.outputPath = resolve('public', config.public_output_path)
-config.publicPath = `/${config.public_output_path}/`.replace(/([^:]\/)\/+/g, '$1')
+
+let publicPath = `/${config.public_output_path}/`
+// Add prefix to publicPath.
+if (process.env.RAILS_RELATIVE_URL_ROOT) {
+  publicPath = `/${process.env.RAILS_RELATIVE_URL_ROOT}${publicPath}`
+}
+
+// Remove extra slashes.
+config.publicPath = publicPath.replace(/(^\/|[^:]\/)\/+/g, '$1')
 
 module.exports = config

@@ -1,10 +1,18 @@
 require "test_helper"
 
 class CompilerTest < Minitest::Test
-  def setup
+  def remove_compilation_digest_path
     Webpacker.compiler.send(:compilation_digest_path).tap do |path|
       path.delete if path.exist?
     end
+  end
+
+  def setup
+    remove_compilation_digest_path
+  end
+
+  def teardown
+    remove_compilation_digest_path
   end
 
   def test_custom_environment_variables
@@ -27,6 +35,27 @@ class CompilerTest < Minitest::Test
   def test_freshness
     assert Webpacker.compiler.stale?
     assert !Webpacker.compiler.fresh?
+  end
+
+  def test_freshness_on_compile_success
+    status = OpenStruct.new(success?: true)
+
+    assert Webpacker.compiler.stale?
+    Open3.stub :capture3, [:sterr, :stdout, status] do
+      Webpacker.compiler.compile
+      assert Webpacker.compiler.fresh?
+    end
+  end
+
+  def test_staleness_on_compile_fail
+    status = OpenStruct.new(success?: false)
+
+    assert Webpacker.compiler.stale?
+    Open3.stub :capture3, [:sterr, :stdout, status] do
+
+      Webpacker.compiler.compile
+      assert Webpacker.compiler.stale?
+    end
   end
 
   def test_compilation_digest_path

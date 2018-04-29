@@ -81,7 +81,7 @@ Or add it to your `Gemfile`:
 
 ```ruby
 # Gemfile
-gem 'webpacker', '~> 3.3'
+gem 'webpacker', '~> 3.4'
 
 # OR if you prefer to use master
 gem 'webpacker', git: 'https://github.com/rails/webpacker.git'
@@ -154,7 +154,7 @@ in the `app/javascript/packs/*.js` files and automatically reload the browser to
 ./bin/webpack-dev-server
 
 # watcher
-./bin/webpack --colors --progress
+./bin/webpack --watch --colors --progress
 
 # standalone build
 ./bin/webpack
@@ -186,7 +186,7 @@ WEBPACKER_DEV_SERVER_HOST=0.0.0.0 ./bin/webpack-dev-server
 **Note:** You need to allow webpack-dev-server host as an allowed origin for `connect-src` if you are running your application in a restrict CSP environment (like Rails 5.2+). This can be done in Rails 5.2+ in the CSP initializer `config/initializers/content_security_policy.rb` with a snippet like this:
 
 ```ruby
-  p.connect_src :self, :https, 'http://localhost:3035', 'ws://localhost:3035' if Rails.env.development?
+  policy.connect_src :self, :https, 'http://localhost:3035', 'ws://localhost:3035' if Rails.env.development?
 ```
 
 **Note:** Don't forget to prefix `ruby` when running these binstubs on Windows
@@ -248,7 +248,7 @@ bundle exec rails webpacker:compile
 
 ### Upgrading
 
-You can run following commands to upgrade Webpacker to the latest stable version. This process involves upgrading the gem and related npm modules:
+You can run following commands to upgrade Webpacker to the latest stable version. This process involves upgrading the gem and related JavaScript packages:
 
 ```bash
 bundle update webpacker
@@ -258,7 +258,7 @@ yarn add webpack-dev-server@^2.11.1
 
 ### Yarn Integrity
 
-By default, in development, webpacker runs a yarn integrity check to ensure that all local npm packages are up-to-date. This is similar to what bundler does currently in Rails, but for JavaScript packages. If your system is out of date, then Rails will not initialize. You will be asked to upgrade your local npm packages by running `yarn install`.
+By default, in development, webpacker runs a yarn integrity check to ensure that all local JavaScript packages are up-to-date. This is similar to what bundler does currently in Rails, but for JavaScript packages. If your system is out of date, then Rails will not initialize. You will be asked to upgrade your local JavaScript packages by running `yarn install`.
 
 To turn off this option, you will need to override the default by adding a new config option to your Rails development environment configuration file (`config/environment/development.rb`):
 
@@ -324,9 +324,9 @@ with the following code:
 
 ```ruby
   if Rails.env.development?
-    p.script_src :self, :https, :unsafe_eval
+    policy.script_src :self, :https, :unsafe_eval
   else
-    p.script_src :self, :https
+    policy.script_src :self, :https
   end
 ```
 
@@ -352,9 +352,9 @@ configuration:
 
 ```ruby
   if Rails.env.development?
-    p.script_src :self, :https, :unsafe_eval
+    policy.script_src :self, :https, :unsafe_eval
   else
-    p.script_src :self, :https
+    policy.script_src :self, :https
   end
 ```
 You can read more about this in the [Vue docs](https://vuejs.org/v2/guide/installation.html#CSP-environments).
@@ -486,7 +486,7 @@ Webpacker::Compiler.watched_paths << 'bower_components'
 
 ## Deployment
 
-Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which gets run whenever you run `assets:precompile`. If you are not using Sprockets, `webpacker:compile` is automatically aliased to `assets:precompile`. Remember to set NODE_ENV environment variable to production during deployment or when running this rake task.
+Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which gets run whenever you run `assets:precompile`. If you are not using Sprockets, `webpacker:compile` is automatically aliased to `assets:precompile`. Similar to sprockets both rake tasks will compile packs in production mode but will use `RAILS_ENV` to load configuration from `config/webpacker.yml` (if available).
 
 ## Docs
 

@@ -1,4 +1,4 @@
-**Please note that Webpacker 3.1.0 and 3.1.1 has some serious bugs so please consider using either 3.0.2 or 3.2.0**
+**Please note that Webpacker 3.1.0 and 3.1.1 have some serious bugs so please consider using either 3.0.2 or 3.2.0**
 
 ## [3.4.3] - 2018-04-3
 
@@ -37,7 +37,7 @@
 
 ### Breaking changes
 
-- Fixes #1281 by installing binstubs only as local executables. To upgrade:
+- Fixes [#1281](https://github.com/rails/webpacker/issues/1281) by installing binstubs only as local executables. To upgrade:
 
 ```
 bundle exec rails webpacker:binstubs

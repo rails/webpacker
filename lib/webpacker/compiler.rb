@@ -19,7 +19,9 @@ class Webpacker::Compiler
   def compile
     if stale?
       record_compilation_digest
-      run_webpack
+      run_webpack.tap do |success|
+        remove_compilation_digest if !success
+      end
     else
       true
     end
@@ -50,10 +52,14 @@ class Webpacker::Compiler
       compilation_digest_path.write(watched_files_digest)
     end
 
+    def remove_compilation_digest
+      compilation_digest_path.delete if compilation_digest_path.exist?
+    end
+
     def run_webpack
       logger.info "Compiling…"
 
-      sterr, stdout, status = Open3.capture3(webpack_env, "#{RbConfig.ruby} ./bin/webpack")
+      stdout, sterr , status = Open3.capture3(webpack_env, "#{RbConfig.ruby} ./bin/webpack")
 
       if status.success?
         logger.info "Compiled all packs in #{config.public_output_path}"
