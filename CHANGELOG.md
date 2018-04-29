@@ -1,5 +1,10 @@
 **Please note that Webpacker 3.1.0 and 3.1.1 have some serious bugs so please consider using either 3.0.2 or 3.2.0**
 
+## [3.5.1] - 2018-04-29
+
+- Upgraded gems and Javascript packages
+
+
 ## [3.5.0] - 2018-04-29
 
 ### Fixed
