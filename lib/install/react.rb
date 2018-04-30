@@ -23,7 +23,7 @@ say "Copying react example entry file to #{Webpacker.config.source_entry_path}"
 copy_file "#{__dir__}/examples/react/hello_react.jsx", "#{Webpacker.config.source_entry_path}/hello_react.jsx"
 
 say "Updating webpack paths to include .jsx file extension"
-insert_into_file Webpacker.config.config_path, optimize_indentation("- .jsx", 4), after: /extensions:\n/
+insert_into_file Webpacker.config.config_path, "- .jsx\n".indent(4), after: /extensions:\n/
 
 say "Installing all react dependencies"
 run "yarn add react react-dom babel-preset-react prop-types"

@@ -26,7 +26,7 @@ run "yarn add --dev elm-hot-loader"
 run "yarn run elm package install -- --yes"
 
 say "Updating webpack paths to include .elm file extension"
-insert_into_file Webpacker.config.config_path, optimize_indentation("- .elm", 4), after: /extensions:\n/
+insert_into_file Webpacker.config.config_path, "- .elm\n".indent(4), after: /extensions:\n/
 
 say "Updating Elm source location"
 gsub_file "elm-package.json", /\"\.\"\n/,
