@@ -2,7 +2,7 @@ const { join } = require('path')
 const { source_path: sourcePath } = require('../config')
 
 module.exports = {
-  test: /\.(jpg|jpeg|png|gif|tiff|ico|svg|eot|otf|ttf|woff|woff2)$/i,
+  test: /\.(jpg|jpeg|png|gif|tiff|ico|svg|eot|otf|ttf|woff|woff2|pdf)$/i,
   use: [
     {
       loader: 'file-loader',
