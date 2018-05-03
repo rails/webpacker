@@ -1,5 +1,11 @@
 **Please note that Webpacker 3.1.0 and 3.1.1 have some serious bugs so please consider using either 3.0.2 or 3.2.0**
 
+## [3.5.3] - 2018-05-03
+
+### Fixed
+  - Relax Javascript package dependencies [#1466](https://github.com/rails/webpacker/pull/1466#issuecomment-386336605)
+
+
 ## [3.5.2] - 2018-04-29
 
 - Pin Javascript package to 3.5.x
