@@ -19,6 +19,12 @@ tasks = {
   "webpacker:install:typescript"      => "Installs Typescript loader with an example"
 }.freeze
 
+if ENV["BUNDLE_BIN"]
+  bin_path = ENV["BUNDLE_BIN"]
+else
+  bin_path = "./bin"
+end
+
 desc "Lists all available tasks in Webpacker"
 task :webpacker do
   puts "Available Webpacker tasks are:"

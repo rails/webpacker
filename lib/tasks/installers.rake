@@ -17,11 +17,6 @@ namespace :webpacker do
   namespace :install do
     installers.each do |name, task_name|
       desc "Install everything needed for #{name}"
-      if ENV["BUNDLE_BIN"]
-        bin_path = ENV["BUNDLE_BIN"]
-      else
-        bin_path = "./bin"
-      end
       task task_name => ["webpacker:verify_install"] do
         template = File.expand_path("../install/#{task_name}.rb", __dir__)
         base_path =
