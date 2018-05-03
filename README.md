@@ -1,6 +1,6 @@
 # Webpacker
 
-![travis-ci status](https://api.travis-ci.org/rails/webpacker.svg?branch=master)
+![travis-ci status](https://api.travis-ci.org/rails/webpacker.svg?branch=3-x-stable)
 [![node.js](https://img.shields.io/badge/node-%3E%3D%206.0.0-brightgreen.svg)](https://nodejs.org/en/)
 [![Gem](https://img.shields.io/gem/v/webpacker.svg)](https://github.com/rails/webpacker)
 
