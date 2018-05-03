@@ -17,13 +17,18 @@ namespace :webpacker do
   namespace :install do
     installers.each do |name, task_name|
       desc "Install everything needed for #{name}"
+      if ENV["BUNDLE_BIN"]
+        bin_path = ENV["BUNDLE_BIN"]
+      else
+        bin_path = "./bin"
+      end
       task task_name => ["webpacker:verify_install"] do
         template = File.expand_path("../install/#{task_name}.rb", __dir__)
         base_path =
           if Rails::VERSION::MAJOR >= 5
-            "#{RbConfig.ruby} ./bin/rails app:template"
+            "#{RbConfig.ruby} #{bin_path}/rails app:template"
           else
-            "#{RbConfig.ruby} ./bin/rake rails:template"
+            "#{RbConfig.ruby} #{bin_path}/rake rails:template"
           end
 
         dependencies[name] ||= []
