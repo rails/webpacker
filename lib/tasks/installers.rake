@@ -13,6 +13,12 @@ dependencies = {
   "Angular": [:typescript]
 }
 
+if ENV["BUNDLE_BIN"]
+  bin_path = ENV["BUNDLE_BIN"]
+else
+  bin_path = "./bin"
+end
+
 namespace :webpacker do
   namespace :install do
     installers.each do |name, task_name|
