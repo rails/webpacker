@@ -1,9 +1,5 @@
 install_template_path = File.expand_path("../../install/template.rb", __dir__).freeze
-if ENV["BUNDLE_BIN"]
-  bin_path = ENV["BUNDLE_BIN"]
-else
-  bin_path = "./bin"
-end
+bin_path = ENV["BUNDLE_BIN"] || "./bin"
 
 namespace :webpacker do
   desc "Install Webpacker in this application"
