@@ -17,7 +17,7 @@
   - Handle http dev_server setting properly in the proxy [#1420]
   - Use correct protocol [#1425](https://github.com/rails/webpacker/pull/1425)
 
-### Added
+### Added
   - `image_pack_tag` helper [#1400](https://github.com/rails/webpacker/pull/1400)
   - devserver proxy for custom environments [#1415](https://github.com/rails/webpacker/pull/1415)
   - Rails webpacker:info task [#1416](https://github.com/rails/webpacker/pull/1416)
