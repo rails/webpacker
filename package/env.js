@@ -11,7 +11,7 @@ const nodeEnv = process.env.NODE_ENV
 
 const config = safeLoad(readFileSync(configPath), 'utf8')
 const availableEnvironments = Object.keys(config).join('|')
-const regex = new RegExp(availableEnvironments, 'g')
+const regex = new RegExp("^(" + availableEnvironments + ")$", 'g')
 
 module.exports = {
   railsEnv: railsEnv && railsEnv.match(regex) ? railsEnv : DEFAULT,
