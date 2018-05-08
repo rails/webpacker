@@ -40,6 +40,7 @@ class Webpacker::Compiler
   private
     def last_compilation_digest
       compilation_digest_path.read if compilation_digest_path.exist? && config.public_manifest_path.exist?
+    rescue Errno::ENOENT, Errno::ENOTDIR
     end
 
     def watched_files_digest
@@ -54,6 +55,7 @@ class Webpacker::Compiler
 
     def remove_compilation_digest
       compilation_digest_path.delete if compilation_digest_path.exist?
+    rescue Errno::ENOENT, Errno::ENOTDIR
     end
 
     def run_webpack
