@@ -92,7 +92,7 @@ gem 'webpacker', git: 'https://github.com/rails/webpacker.git'
 gem 'webpacker', '>= 4.0.x'
 ```
 
-Finally, run following to install Webpacker:
+Finally, run the following to install Webpacker:
 
 ```bash
 bundle
@@ -102,6 +102,11 @@ bundle exec rails webpacker:install
 bundle exec rake webpacker:install
 ```
 
+Optional: To fix ["unmet peer dependency" warnings](https://github.com/rails/webpacker/issues/1078),
+
+```bash
+yarn upgrade
+```
 
 ### Usage
 
