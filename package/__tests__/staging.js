@@ -19,8 +19,7 @@ describe('Custom environment', () => {
       expect(config.output.path).toEqual(resolve('public', 'packs-staging'))
       expect(config.output.publicPath).toEqual('/packs-staging/')
       expect(config).toMatchObject({
-        devtool: 'nosources-source-map',
-        stats: 'normal'
+        "devtool": "cheap-module-source-map"
       })
     })
   })

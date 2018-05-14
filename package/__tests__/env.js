@@ -22,7 +22,7 @@ describe('Env', () => {
     delete process.env.NODE_ENV
     expect(require('../env')).toEqual({
       railsEnv: 'development',
-      nodeEnv: 'production'
+      nodeEnv: 'development'
     })
   })
 
@@ -30,8 +30,8 @@ describe('Env', () => {
     delete process.env.NODE_ENV
     delete process.env.RAILS_ENV
     expect(require('../env')).toEqual({
-      railsEnv: 'production',
-      nodeEnv: 'production'
+      railsEnv: 'development',
+      nodeEnv: 'development'
     })
   })
 
@@ -40,7 +40,7 @@ describe('Env', () => {
     process.env.NODE_ENV = 'staging'
     expect(require('../env')).toEqual({
       railsEnv: 'staging',
-      nodeEnv: 'production'
+      nodeEnv: 'development'
     })
   })
 })
