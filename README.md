@@ -90,6 +90,7 @@ gem 'webpacker', git: 'https://github.com/rails/webpacker.git'
 
 # OR to try out 4.x pre-release
 gem 'webpacker', '>= 4.0.x'
+yarn add @rails/webpacker@4.0.0-pre.2 
 ```
 
 Finally, run following to install Webpacker:
