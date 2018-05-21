@@ -26,7 +26,7 @@ module.exports = class extends Base {
             cache: true,
             sourceMap: true,
             uglifyOptions: {
-              ecma: 8,
+              ecma: 5,
               compress: {
                 warnings: false,
                 comparisons: false
