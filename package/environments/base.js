@@ -5,6 +5,7 @@ const {
   basename, dirname, join, relative, resolve
 } = require('path')
 const { sync } = require('glob')
+const { inspect } = require('util')
 const extname = require('path-complete-extname')
 
 const webpack = require('webpack')
@@ -102,6 +103,18 @@ const getBaseConfig = () =>
     }
   })
 
+const logConfig = (environment, generatedConfig) => {
+  Object.keys(environment).forEach((key) => {
+    console.log(`\n============ Webpacker environment.${key} ============`);
+    console.log(inspect(environment[key], { colors: true, depth: null }));
+  });
+
+  console.log('\n\n==================================================');
+  console.log('============ generated Webpack Config ============');
+  console.log('==================================================\n');
+  console.log(inspect(generatedConfig, { colors: true, depth: null }));
+}
+
 module.exports = class Base {
   constructor() {
     this.loaders = getLoaderList()
@@ -112,7 +125,7 @@ module.exports = class Base {
   }
 
   toWebpackConfig() {
-    return this.config.merge({
+    const mergedConfig = this.config.merge({
       entry: this.entry.toObject(),
 
       module: {
@@ -125,6 +138,12 @@ module.exports = class Base {
       resolve: {
         modules: this.resolvedModules.values()
       }
-    })
+    });
+
+    if (process.argv.includes('--show-config')) {
+      logConfig(this, mergedConfig)
+      process.exit()
+    }
+    return mergedConfig
   }
 }
