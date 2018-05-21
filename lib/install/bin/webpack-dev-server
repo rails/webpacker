@@ -2,7 +2,7 @@
 
 ENV["RAILS_ENV"] ||= ENV["RACK_ENV"]
 ENV["RAILS_ENV"] ||= ENV["NODE_ENV"]
-ENV["RAILS_ENV"] || "development"
+ENV["RAILS_ENV"] ||= "development"
 ENV["NODE_ENV"] = ENV["RAILS_ENV"]
 
 require "pathname"
