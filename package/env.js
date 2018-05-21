@@ -2,7 +2,7 @@ const { resolve } = require('path')
 const { safeLoad } = require('js-yaml')
 const { readFileSync } = require('fs')
 
-const NODE_ENVIRONMENTS = ['development', 'production']
+const NODE_ENVIRONMENTS = ['development', 'test', 'production']
 const DEFAULT = 'production'
 const configPath = resolve('config', 'webpacker.yml')
 
