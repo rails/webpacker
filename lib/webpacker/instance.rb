@@ -12,7 +12,11 @@ class Webpacker::Instance
   end
 
   def config
-    @config ||= Webpacker::Configuration.new self
+    @config ||= Webpacker::Configuration.new(
+      root_path: root_path,
+      config_path: config_path,
+      env: env
+    )
   end
 
   def compiler
