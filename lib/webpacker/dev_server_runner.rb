@@ -1,6 +1,7 @@
 require "shellwords"
-require "yaml"
 require "socket"
+require "webpacker/configuration"
+require "webpacker/dev_server"
 require "webpacker/runner"
 
 module Webpacker
@@ -28,7 +29,7 @@ module Webpacker
         @pretty            = dev_server.pretty?
 
       rescue Errno::ENOENT, NoMethodError
-        $stdout.puts "webpack dev_server configuration not found in #{@config_file}[#{ENV["RAILS_ENV"]}]."
+        $stdout.puts "webpack dev_server configuration not found in #{config.config_path}[#{ENV["RAILS_ENV"]}]."
         $stdout.puts "Please run bundle exec rails webpacker:install to install Webpacker"
         exit!
       end
