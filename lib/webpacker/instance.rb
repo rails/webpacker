@@ -24,7 +24,7 @@ class Webpacker::Instance
   end
 
   def dev_server
-    @dev_server ||= Webpacker::DevServer.new self
+    @dev_server ||= Webpacker::DevServer.new config
   end
 
   def manifest

@@ -17,8 +17,10 @@ class Webpacker::Test < Minitest::Test
     def reloaded_config
       Webpacker.instance.instance_variable_set(:@env, nil)
       Webpacker.instance.instance_variable_set(:@config, nil)
+      Webpacker.instance.instance_variable_set(:@dev_server, nil)
       Webpacker.env
       Webpacker.config
+      Webpacker.dev_server
     end
 
     def with_rails_env(env)
