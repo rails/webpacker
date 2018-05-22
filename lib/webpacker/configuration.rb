@@ -1,8 +1,10 @@
 class Webpacker::Configuration
-  delegate :root_path, :config_path, :env, to: :@webpacker
+  attr_reader :root_path, :config_path, :env
 
-  def initialize(webpacker)
-    @webpacker = webpacker
+  def initialize(root_path:, config_path:, env:)
+    @root_path = root_path
+    @config_path = config_path
+    @env = env
   end
 
   def refresh
