@@ -6,6 +6,10 @@ const { chdirTestApp, chdirCwd } = require('../utils/helpers')
 chdirTestApp()
 
 describe('Custom environment', () => {
+  beforeEach(() => {
+    jest.resetModules()
+  })
+
   afterAll(chdirCwd)
 
   describe('toWebpackConfig', () => {
@@ -13,6 +17,7 @@ describe('Custom environment', () => {
 
     test('should use staging config and production environment', () => {
       process.env.RAILS_ENV = 'staging'
+      process.env.NODE_ENV = 'staging'
       const { environment } = require('../index')
 
       const config = environment.toWebpackConfig()

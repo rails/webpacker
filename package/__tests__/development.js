@@ -6,6 +6,10 @@ const { chdirTestApp, chdirCwd } = require('../utils/helpers')
 chdirTestApp()
 
 describe('Development environment', () => {
+  beforeEach(() => {
+    jest.resetModules()
+  })
+
   afterAll(chdirCwd)
 
   describe('toWebpackConfig', () => {
