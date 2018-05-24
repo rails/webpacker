@@ -31,9 +31,7 @@ module.exports = class extends Base {
                 warnings: false,
                 comparisons: false
               },
-              mangle: {
-                safari10: true
-              },
+              safari10: true,
               output: {
                 comments: false,
                 ascii_only: true
