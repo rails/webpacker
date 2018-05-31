@@ -6,7 +6,7 @@
 Webpacker ships with [babel](https://babeljs.io/) - a JavaScript compiler so
 you can use next generation JavaScript, today. The Webpacker installer sets up a
 standard `.babelrc` file in your app root, which will work great in most cases
-because of [babel-env-preset](https://github.com/babel/babel-preset-env).
+because of [@babel/preset-env](https://github.com/babel/babel/tree/master/packages/babel-preset-env).
 
 Following ES6/7 features are supported out of the box:
 
@@ -19,10 +19,10 @@ Following ES6/7 features are supported out of the box:
 We have also included [babel polyfill](https://babeljs.io/docs/usage/polyfill/)
 that includes a custom regenerator runtime and core-js.
 
-Don't forget to import `babel-polyfill` in your main entry point like so:
+Don't forget to import `@babel/polyfill` in your main entry point like so:
 
 ```js
-import "babel-polyfill"
+import "@babel/polyfill"
 ```
 
 

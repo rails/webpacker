@@ -4,7 +4,9 @@
 
 ## Breaking changes
 
-- postcss-next is replaced with postcss-preset-env
+  - postcss-next is replaced with postcss-preset-env
+  - babel@7
+
 
 ## [4.0.0-pre.2] - 2018-04-2
 
