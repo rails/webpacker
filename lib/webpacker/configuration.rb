@@ -1,8 +1,14 @@
-class Webpacker::Configuration
-  delegate :root_path, :config_path, :env, to: :@webpacker
+require "yaml"
+require "active_support/core_ext/hash/keys"
+require "active_support/core_ext/hash/indifferent_access"
 
-  def initialize(webpacker)
-    @webpacker = webpacker
+class Webpacker::Configuration
+  attr_reader :root_path, :config_path, :env
+
+  def initialize(root_path:, config_path:, env:)
+    @root_path = root_path
+    @config_path = config_path
+    @env = env
   end
 
   def refresh
