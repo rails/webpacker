@@ -1,5 +1,11 @@
 **Please note that Webpacker 3.1.0 and 3.1.1 have some serious bugs so please consider using either 3.0.2 or 3.2.0**
 
+## [4.0.0-pre.3] - 2018-??-?
+
+## Breaking changes
+
+- postcss-next is replaced with postcss-preset-env
+
 ## [4.0.0-pre.2] - 2018-04-2
 
 ## Fixed

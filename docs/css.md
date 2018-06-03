@@ -108,7 +108,7 @@ file in your app root with standard plugins.
 ```yml
 plugins:
   postcss-import: {}
-  postcss-cssnext: {}
+  postcss-preset-env: {}
 ```
 
 ## Using CSS with [vue-loader](https://github.com/vuejs/vue-loader)
