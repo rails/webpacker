@@ -15,6 +15,8 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 const { ConfigList, ConfigObject } = require('../config_types')
 const rules = require('../rules')
 const config = require('../config')
+const { isNotObject, prettyPrint } = require('../utils/helpers')
+const deepMerge = require('../utils/deep_merge')
 
 const getLoaderList = () => {
   const result = new ConfigList()
@@ -111,13 +113,46 @@ module.exports = class Base {
     this.resolvedModules = getModulePaths()
   }
 
+  splitChunks(callback = null) {
+    let appConfig = {}
+    const defaultConfig = {
+      optimization: {
+        // Split vendor and common chunks
+        // https://twitter.com/wSokra/status/969633336732905474
+        splitChunks: {
+          chunks: 'all',
+          name: 'vendors'
+        },
+        // Separate runtime chunk to enable long term caching
+        // https://twitter.com/wSokra/status/969679223278505985
+        runtimeChunk: true
+      }
+    }
+
+    if (callback) {
+      appConfig = callback(defaultConfig)
+      if (isNotObject(appConfig)) {
+        throw new Error(`
+          ${prettyPrint(appConfig)} is not a valid splitChunks configuration.
+          See https://webpack.js.org/plugins/split-chunks-plugin/#configuration
+        `)
+      }
+    }
+
+    return this.config.merge(deepMerge(defaultConfig, appConfig))
+  }
+
   toWebpackConfig() {
     return this.config.merge({
       entry: this.entry.toObject(),
 
       module: {
         strictExportPresence: true,
-        rules: this.loaders.values()
+        rules: [
+          // Disable non-standard ES feature.
+          { parser: { requireEnsure: false } },
+          ...this.loaders.values()
+        ]
       },
 
       plugins: this.plugins.values(),
