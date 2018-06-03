@@ -2,6 +2,10 @@
 
 ## [4.0.0-pre.3] - 2018-??-?
 
+### Added
+
+  - Move supported browsers configuration to [.browserslistrc](https://github.com/browserslist/browserslist#queries)
+
 ## Breaking changes
 
   - postcss-next is replaced with postcss-preset-env
