@@ -32,3 +32,6 @@ script:
 matrix:
   allow_failures:
   - gemfile: gemfiles/Gemfile-rails-edge
+  exclude:
+    - rvm: 2.3.7
+      gemfile: gemfiles/Gemfile-rails-edge
