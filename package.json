@@ -26,27 +26,28 @@
     "css-loader": "^0.28.11",
     "file-loader": "^1.1.11",
     "glob": "^7.1.2",
-    "js-yaml": "^3.11.0",
+    "js-yaml": "^3.12.0",
     "mini-css-extract-plugin": "^0.4.0",
     "node-sass": "^4.9.0",
     "path-complete-extname": "^1.0.0",
     "postcss-import": "^11.1.0",
-    "postcss-loader": "^2.1.4",
+    "postcss-loader": "^2.1.5",
     "postcss-preset-env": "^5.1.0",
-    "sass-loader": "^7.0.1",
+    "sass-loader": "^7.0.2",
     "style-loader": "^0.21.0",
     "uglifyjs-webpack-plugin": "^1.2.5",
-    "webpack": "^4.6.0",
+    "webpack": "^4.10.2",
     "webpack-assets-manifest": "^3.0.1",
-    "webpack-cli": "^2.0.15"
+    "webpack-cli": "^3.0.1",
+    "webpack-sources": "^1.1.0"
   },
   "devDependencies": {
     "eslint": "^4.18.2",
     "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.7.0",
-    "jest": "^22.4.2"
+    "eslint-plugin-react": "^7.8.2",
+    "jest": "^23.1.0"
   },
   "jest": {
     "testRegex": "(/__tests__/.*|(\\.|/))\\.jsx?$",
