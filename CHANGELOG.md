@@ -5,6 +5,27 @@
 ### Added
 
   - Move supported browsers configuration to [.browserslistrc](https://github.com/browserslist/browserslist#queries)
+  - Support compiling dependencies with babel [#1546](https://github.com/rails/webpacker/pull/1546)
+  - Split chunking API [#1546](https://github.com/rails/webpacker/pull/1546)
+
+  ```js
+  // environment.js
+  const { environment } = require('@rails/webpacker')
+  // Enable with default config
+  environment.splitChunks()
+  // Disable vendors chunks
+  environment.splitChunks((config) => Object.assign({}, config, { optimization: { splitChunks: false }})
+  // Disable runtime chunk
+  environment.splitChunks((config) => Object.assign({}, config, { optimization: { runtimeChunk: false }}))
+  ```
+
+  ```erb
+  # To include vendor chunk in your layout file
+  <%= javascript_pack_tag 'vendors '%>
+
+  # To include runtime chunks in your view
+  <%= javascript_pack_tag 'runtime~application '%>
+  ```
 
 ## Breaking changes
 

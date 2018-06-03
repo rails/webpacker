@@ -32,7 +32,7 @@ const getPluginList = () => {
   )
   result.append('CaseSensitivePaths', new CaseSensitivePathsPlugin())
   result.append(
-    'ExtractText',
+    'MiniCssExtract',
     new MiniCssExtractPlugin({
       filename: '[name]-[contenthash:8].css',
       chunkFilename: '[name]-[contenthash:8].chunk.css'
