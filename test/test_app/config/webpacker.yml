@@ -5,6 +5,7 @@ default: &default
   source_entry_path: packs
   public_output_path: packs
   cache_path: tmp/cache/webpacker
+  optimize_css: true
 
   # Additional paths webpack should lookup modules
   # ['app/assets', 'engine/foo/app/assets']
@@ -32,6 +33,9 @@ default: &default
 development:
   <<: *default
   compile: true
+  devtool: cheap-module-eval-source-map
+  optimize_css: false
+  uglify: false
 
   # Reference: https://webpack.js.org/configuration/dev-server/
   dev_server:
@@ -49,12 +53,14 @@ development:
 test:
   <<: *default
   compile: true
+  devtool: nosources-source-map
 
   # Compile test packs to a separate directory
   public_output_path: packs-test
 
 production:
   <<: *default
+  devtool: nosources-source-map
 
   # Production depends on precompilation of packs prior to booting for performance.
   compile: false
@@ -64,7 +70,6 @@ production:
 
 staging:
   <<: *default
-
   devtool: nosources-source-map
 
   # Production depends on precompilation of packs prior to booting for performance.
