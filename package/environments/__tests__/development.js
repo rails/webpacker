@@ -1,5 +1,7 @@
 /* Globalx test expect, describe, afterAll, beforeEach */
 
+const RAILS_ENV = process.env.RAILS_ENV
+const NODE_ENV = process.env.NODE_ENV
 process.env.RAILS_ENV = 'development'
 process.env.NODE_ENV = 'development'
 
@@ -14,13 +16,12 @@ const rules = require('../../rules')
 const { ConfigList } = require('../../config_types')
 const Environment = require('../development')
 
-
 describe('Development Environment', () => {
-  beforeAll(() => {
-
+  afterAll(() => {
+    chdirCwd()
+    process.env.RAILS_ENV = RAILS_ENV
+    process.env.NODE_ENV = NODE_ENV
   })
-
-  afterAll(chdirCwd)
 
   let environment
 
