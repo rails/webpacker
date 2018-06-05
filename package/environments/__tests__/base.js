@@ -3,6 +3,11 @@
 // environment.js expects to find config/webpacker.yml and resolved modules from
 // the root of a Rails project
 
+const RAILS_ENV = process.env.RAILS_ENV
+const NODE_ENV = process.env.NODE_ENV
+process.env.RAILS_ENV = 'production'
+process.env.NODE_ENV = 'production'
+
 const { chdirTestApp, chdirCwd } = require('../../utils/helpers')
 
 chdirTestApp()
@@ -75,3 +80,7 @@ describe('Environment', () => {
     })
   })
 })
+
+
+process.env.RAILS_ENV = RAILS_ENV
+process.env.NODE_ENV = NODE_ENV
