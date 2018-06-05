@@ -19,8 +19,6 @@ const Environment = require('../development')
 describe('Development Environment', () => {
   afterAll(() => {
     chdirCwd()
-    process.env.RAILS_ENV = RAILS_ENV
-    process.env.NODE_ENV = NODE_ENV
   })
 
   let environment
@@ -39,3 +37,6 @@ describe('Development Environment', () => {
     })
   })
 })
+
+process.env.RAILS_ENV = RAILS_ENV
+process.env.NODE_ENV = NODE_ENV
