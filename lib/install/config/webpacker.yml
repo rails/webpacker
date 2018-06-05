@@ -5,6 +5,7 @@ default: &default
   source_entry_path: packs
   public_output_path: packs
   cache_path: tmp/cache/webpacker
+  optimize_css: true
 
   # Additional paths webpack should lookup modules
   # ['app/assets', 'engine/foo/app/assets']
@@ -35,6 +36,7 @@ development:
   <<: *default
   compile: true
   devtool: cheap-module-eval-source-map
+  optimize_css: false
   uglify: false
 
   # Reference: https://webpack.js.org/configuration/dev-server/

@@ -3,10 +3,10 @@ class Webpacker::DevServer
   # Webpacker.dev_server.connect_timeout = 1
   cattr_accessor(:connect_timeout) { 0.01 }
 
-  delegate :config, to: :@webpacker
+  attr_reader :config
 
-  def initialize(webpacker)
-    @webpacker = webpacker
+  def initialize(config)
+    @config = config
   end
 
   def running?
@@ -52,6 +52,10 @@ class Webpacker::DevServer
 
   def host_with_port
     "#{host}:#{port}"
+  end
+
+  def pretty?
+    fetch(:pretty)
   end
 
   private

@@ -28,7 +28,7 @@ describe('Development Environment', () => {
     beforeEach(() => {
     })
 
-    test('should return default plugins, without CompressionPlugin', () => {
+    test('should return default plugins, without Compression or CSSOptimization', () => {
       environment = new Environment()
       const config = environment.toWebpackConfig()
       expect(config.plugins.map((p) => p.constructor.name)).toEqual(["EnvironmentPlugin",

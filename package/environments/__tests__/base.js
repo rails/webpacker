@@ -48,6 +48,7 @@ describe('Environment', () => {
                                                                      "CaseSensitivePathsPlugin",
                                                                      "MiniCssExtractPlugin",
                                                                      "WebpackAssetsManifest",
+                                                                     "OptimizeCssAssetsWebpackPlugin",
                                                                      "CompressionPlugin"])
     })
 

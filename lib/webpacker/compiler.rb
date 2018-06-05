@@ -45,7 +45,12 @@ class Webpacker::Compiler
 
     def watched_files_digest
       files = Dir[*default_watched_paths, *watched_paths].reject { |f| File.directory?(f) }
-      Digest::SHA1.hexdigest(files.map { |f| "#{File.basename(f)}/#{File.mtime(f).utc.to_i}" }.join("/"))
+      file_ids = if ENV["CI"]
+        files.sort.map { |f| "#{File.basename(f)}/#{Digest::SHA1.file(f).hexdigest}" }
+      else
+        files.map { |f| "#{File.basename(f)}/#{File.mtime(f).utc.to_i}" }
+      end
+      Digest::SHA1.hexdigest(file_ids.join("/"))
     end
 
     def record_compilation_digest
