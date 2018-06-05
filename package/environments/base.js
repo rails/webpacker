@@ -11,6 +11,8 @@ const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const WebpackAssetsManifest = require('webpack-assets-manifest')
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
+const CompressionPlugin = require('compression-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 const { ConfigList, ConfigObject } = require('../config_types')
 const rules = require('../rules')
@@ -20,7 +22,7 @@ const getLoaderList = () => {
   const result = new ConfigList()
   Object.keys(rules).forEach(key => result.append(key, rules[key]))
   return result
-}
+};
 
 const getPluginList = () => {
   const result = new ConfigList()
@@ -43,6 +45,16 @@ const getPluginList = () => {
       publicPath: true
     })
   )
+  if (config.gzip) {
+    result.append(
+      'Compression',
+      new CompressionPlugin({
+        asset: '[path].gz[query]',
+        algorithm: 'gzip',
+        test: /\.(js|css|html|json|ico|svg|eot|otf|ttf)$/
+      })
+    )
+  }
   return result
 }
 
@@ -74,8 +86,32 @@ const getModulePaths = () => {
   return result
 }
 
-const getBaseConfig = () =>
-  new ConfigObject({
+const buildUglifier = () => {
+  const options = {
+    parallel: true,
+    cache: true,
+    sourceMap: true,
+    uglifyOptions: {
+      ecma: 5,
+      compress: {
+        warnings: false,
+        comparisons: false
+      },
+      output: {
+        comments: false,
+        ascii_only: true
+      },
+      safari10: true
+    }
+  }
+  if (config.uglify === 'fast') {
+    options.uglifyOptions.compress = false
+  }
+  return new UglifyJsPlugin(options)
+}
+
+const getBaseConfig = () => {
+  const options = {
     mode: 'production',
     output: {
       filename: '[name]-[chunkhash].js',
@@ -100,7 +136,13 @@ const getBaseConfig = () =>
       tls: 'empty',
       child_process: 'empty'
     }
-  })
+  }
+  // eslint-disable-next-line no-prototype-builtins
+  if (config.hasOwnProperty('devtool')) { options.devtool = config.devtool }
+  if (config.uglify) { options.optimization = { minimizer: [buildUglifier] } }
+
+  return new ConfigObject(options)
+}
 
 module.exports = class Base {
   constructor() {

@@ -1,4 +1,4 @@
-/* global test expect, describe, afterAll, beforeEach */
+/* Globalx test expect, describe, afterAll, beforeEach */
 
 // environment.js expects to find config/webpacker.yml and resolved modules from
 // the root of a Rails project
@@ -44,7 +44,11 @@ describe('Environment', () => {
 
     test('should return default plugins', () => {
       const config = environment.toWebpackConfig()
-      expect(config.plugins.length).toEqual(4)
+      expect(config.plugins.map((p) => p.constructor.name)).toEqual(["EnvironmentPlugin",
+                                                                     "CaseSensitivePathsPlugin",
+                                                                     "MiniCssExtractPlugin",
+                                                                     "WebpackAssetsManifest",
+                                                                     "CompressionPlugin"])
     })
 
     test('should return default resolveLoader', () => {

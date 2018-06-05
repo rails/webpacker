@@ -10,7 +10,7 @@ const configPath = resolve('config', 'webpacker.yml')
 
 const getDefaultConfig = () => {
   const defaultConfig = safeLoad(readFileSync(defaultConfigPath), 'utf8')
-  return defaultConfig[railsEnv] || defaultConfig.production
+  return defaultConfig[railsEnv] || defaultConfig.default
 }
 
 const defaults = getDefaultConfig()
