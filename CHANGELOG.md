@@ -20,10 +20,10 @@
   ```
 
   ```erb
-  # To include vendor chunk in your layout file
-  <%= javascript_pack_tag 'vendors '%>
+  <%# To include vendor chunk in your layout file %>
+  <%= javascript_pack_tag 'vendors' %>
 
-  # To include runtime chunks in your view
+  <%# To include runtime chunks in your view %>
   <%= javascript_pack_tag 'runtime~application '%>
   ```
 
