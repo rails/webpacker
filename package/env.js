@@ -2,7 +2,7 @@ const { resolve } = require('path')
 const { safeLoad } = require('js-yaml')
 const { readFileSync } = require('fs')
 
-const NODE_ENVIRONMENTS = ['development', 'production']
+const NODE_ENVIRONMENTS = ['development', 'production', 'test']
 const DEFAULT = 'production'
 const configPath = resolve('config', 'webpacker.yml')
 
@@ -11,7 +11,7 @@ const nodeEnv = process.env.NODE_ENV
 
 const config = safeLoad(readFileSync(configPath), 'utf8')
 const availableEnvironments = Object.keys(config).join('|')
-const regex = new RegExp("^(" + availableEnvironments + ")$", 'g')
+const regex = new RegExp(`^(${availableEnvironments})$`, 'g')
 
 module.exports = {
   railsEnv: railsEnv && railsEnv.match(regex) ? railsEnv : DEFAULT,
