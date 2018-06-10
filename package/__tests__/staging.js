@@ -11,7 +11,7 @@ describe('Custom environment', () => {
   describe('toWebpackConfig', () => {
     beforeEach(() => jest.resetModules())
 
-    test('should use staging config and production environment', () => {
+    test('should use staging config and default production environment', () => {
       process.env.RAILS_ENV = 'staging'
       delete process.env.NODE_ENV
 
