@@ -6,6 +6,7 @@
 
   - Move supported browsers configuration to [.browserslistrc](https://github.com/browserslist/browserslist#queries)
   - Support compiling dependencies with babel [#1546](https://github.com/rails/webpacker/pull/1546)
+  - Support compiling ES Modules https://nodejs.org/api/esm.html [#1546](https://github.com/rails/webpacker/pull/1546)
   - Split chunking API [#1546](https://github.com/rails/webpacker/pull/1546)
 
   ```js
