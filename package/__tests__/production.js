@@ -16,8 +16,8 @@ describe('Production environment', () => {
       process.env.NODE_ENV = 'production'
 
       const { environment } = require('../index')
-
       const config = environment.toWebpackConfig()
+
       expect(config.output.path).toEqual(resolve('public', 'packs'))
       expect(config.output.publicPath).toEqual('/packs/')
       expect(config).toMatchObject({
