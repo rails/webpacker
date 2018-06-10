@@ -22,7 +22,6 @@ module.exports = class extends Base {
       devtool: 'nosources-source-map',
       stats: 'normal',
       bail: true,
-      performance: false,
       optimization: {
         minimizer: [
           new UglifyJsPlugin({
