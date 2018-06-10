@@ -1,13 +1,14 @@
 require "webpacker/configuration"
 
 babelrc = Rails.root.join(".babelrc")
+babel_react_preset = ["@babel/preset-react", { "useBuiltIns": true }]
 
 if File.exist?(babelrc)
   react_babelrc = JSON.parse(File.read(babelrc))
   react_babelrc["presets"] ||= []
 
-  unless react_babelrc["presets"].include?("react")
-    react_babelrc["presets"].push("@babel/preset-react")
+  unless react_babelrc["presets"].flatten.include?("@babel/preset-react")
+    react_babelrc["presets"].push(babel_react_preset)
     say "Copying react preset to your .babelrc file"
 
     File.open(babelrc, "w") do |f|
