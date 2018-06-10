@@ -13,6 +13,8 @@ describe('Production environment', () => {
 
     test('should use production config and environment', () => {
       process.env.RAILS_ENV = 'production'
+      process.env.NODE_ENV = 'production'
+
       const { environment } = require('../index')
 
       const config = environment.toWebpackConfig()

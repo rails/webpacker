@@ -13,6 +13,8 @@ describe('Custom environment', () => {
 
     test('should use staging config and production environment', () => {
       process.env.RAILS_ENV = 'staging'
+      process.env.NODE_ENV = 'production'
+
       const { environment } = require('../index')
 
       const config = environment.toWebpackConfig()
