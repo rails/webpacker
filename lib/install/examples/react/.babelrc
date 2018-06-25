@@ -4,9 +4,7 @@
       "@babel/env",
       {
         "modules": false,
-        "targets": {
-          "forceAllTransforms": true
-        },
+        "forceAllTransforms": true,
         "useBuiltIns": "entry"
       }
     ],
