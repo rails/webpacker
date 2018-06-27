@@ -2,7 +2,7 @@ const { canMerge, prettyPrint } = require('./helpers')
 const deepMerge = require('./deep_merge')
 
 const deepAssign = (obj, path, value) => {
-  if (!value) throw new Error(`Value can't be ${value}`)
+  if (!value && value !== false) throw new Error(`Value can't be ${value}`)
 
   const keys = path.split('.')
   const key = keys.pop()
