@@ -1,5 +1,12 @@
 **Please note that Webpacker 3.1.0 and 3.1.1 have some serious bugs so please consider using either 3.0.2 or 3.2.0**
 
+## [3.5.5] - 2018-07-09
+  See changes: https://github.com/rails/webpacker/compare/e8b197e36c77181ca2e4765c620faea59dcd0351...3-x-stable
+
+### Added
+  - On CI, sort files & check modified w/ digest intead of mtime[#1522](https://github.com/rails/webpacker/pull/1522)
+
+
 ## [3.5.3] - 2018-05-03
 
 ### Fixed
