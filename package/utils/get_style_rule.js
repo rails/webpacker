@@ -4,10 +4,9 @@ const devServer = require('../dev_server')
 const { nodeEnv } = require('../env')
 
 const postcssConfigPath = path.resolve(process.cwd(), '.postcssrc.yml')
-const isProduction = nodeEnv === 'production'
 const inDevServer = process.argv.find(v => v.includes('webpack-dev-server'))
 const isHMR = inDevServer && (devServer && devServer.hmr)
-const extractCSS = !isHMR || isProduction
+const extractCSS = !isHMR || nodeEnv === 'production'
 
 const styleLoader = {
   loader: 'style-loader',
@@ -22,7 +21,6 @@ const getStyleRule = (test, modules = false, preprocessors = []) => {
     {
       loader: 'css-loader',
       options: {
-        minimize: isProduction,
         sourceMap: true,
         importLoaders: 2,
         modules
