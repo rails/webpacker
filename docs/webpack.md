@@ -266,7 +266,7 @@ Now, add vendor chunk to your `layouts/application.html.erb`:
 <%= javascript_pack_tag 'vendors' %>
 ```
 
-And runtime chunk to individual views where you have included your pack:
+and runtime chunk to individual views where you have included your pack:
 
 ```erb
 <%# To include runtime chunks in your view for application pack %>
