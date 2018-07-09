@@ -27,6 +27,7 @@ describe('Config', () => {
 
   test('should return extensions as listed in app config', () => {
     expect(config.extensions).toEqual([
+      '.mjs',
       '.js',
       '.sass',
       '.scss',
