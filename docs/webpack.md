@@ -229,16 +229,6 @@ environment.plugins.prepend(
     VueResource: 'vue-resource',
   })
 )
-
-// Insert before a given plugin
-environment.plugins.insert('CommonChunkVendor',
-  new webpack.optimize.CommonsChunkPlugin({
-    name: 'vendor', // Vendor code
-    minChunks: (module) => module.context && module.context.indexOf('node_modules') !== -1
-  })
-, { before: 'manifest' })
-
-module.exports = environment
 ```
 
 ## Resolved modules
@@ -252,46 +242,36 @@ const { environment } = require('@rails/webpacker')
 environment.resolvedModules.append('vendor', 'vendor')
 ```
 
-### Add common chunks
+### Split common chunks
 
-The CommonsChunkPlugin is an opt-in feature that creates a separate file (known as a chunk), consisting of common modules shared between multiple entry points. By separating common modules from bundles, the resulting chunked file can be loaded once initially, and stored in the cache for later use. This results in page speed optimizations as the browser can quickly serve the shared code from the cache, rather than being forced to load a larger bundle whenever a new page is visited.
+CommonsChunkPlugin was used to avoid duplicated dependencies across them, but further optimizations were not possible. Since webpack v4, the CommonsChunkPlugin was removed in favor of optimization.splitChunks: https://webpack.js.org/plugins/split-chunks-plugin/
 
-Add the plugins in `config/webpack/environment.js`:
+Enable it from your `config/webpack/environment.js`:
 
 ```js
-const webpack = require('webpack')
-
-environment.plugins.append(
-  'CommonsChunkVendor',
-  new webpack.optimize.CommonsChunkPlugin({
-    name: 'vendor',
-    minChunks: (module) => {
-      // this assumes your vendor imports exist in the node_modules directory
-      return module.context && module.context.indexOf('node_modules') !== -1
-    }
-  })
-)
-
-environment.plugins.append(
-  'CommonsChunkManifest',
-  new webpack.optimize.CommonsChunkPlugin({
-    name: 'manifest',
-    minChunks: Infinity
-  })
-)
+// environment.js
+const { environment } = require('@rails/webpacker')
+// Enable with default config
+environment.splitChunks()
+// Disable vendors chunks
+environment.splitChunks((config) => Object.assign({}, config, { optimization: { splitChunks: false }})
+// Disable runtime chunk
+environment.splitChunks((config) => Object.assign({}, config, { optimization: { runtimeChunk: false }}))
 ```
 
-Now, add these files to your `layouts/application.html.erb`:
+Now, add vendor chunk to your `layouts/application.html.erb`:
 
 ```erb
-<%# Head %>
+<%# To include vendor chunk in your layout file %>
+<%= javascript_pack_tag 'vendors' %>
+```
 
-<%= javascript_pack_tag "manifest" %>
-<%= javascript_pack_tag "vendor" %>
+And runtime chunk to individual views where you have included your pack:
 
-<%# If importing any styles from node_modules in your JS app %>
-
-<%= stylesheet_pack_tag "vendor" %>
+```erb
+<%# To include runtime chunks in your view for application pack %>
+<%= javascript_pack_tag 'runtime~application '%>
+<%= javascript_pack_tag 'application '%>
 ```
 
 More detailed guides available here: [webpack guides](https://webpack.js.org/guides/)
