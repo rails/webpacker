@@ -110,7 +110,7 @@ And, bunch of bug fixes [See changes](https://github.com/rails/webpacker/compare
 
 - Fix checking 'webpack' binstub on Windows [#1123](https://github.com/rails/webpacker/pull/1123)
 
-- silence yarn output if checking is successfull [#1131](https://github.com/rails/webpacker/pull/1131)
+- silence yarn output if checking is successful [#1131](https://github.com/rails/webpacker/pull/1131)
 
 - Update uglifyJs plugin to support ES6 [#1194](https://github.com/rails/webpacker/pull/1194)
 
@@ -336,7 +336,7 @@ Webpacker.dev_server.connect_timeout = 1
 
 - Binstubs [#833](https://github.com/rails/webpacker/pull/833)
 
-- Allow dev server settings to be overriden by env variables [#843](https://github.com/rails/webpacker/pull/843)
+- Allow dev server settings to be overridden by env variables [#843](https://github.com/rails/webpacker/pull/843)
 
 - A new `lookup` method to manifest to perform lookup without raise and return `nil`
 
