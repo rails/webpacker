@@ -1,3 +1,4 @@
+require "erb"
 require "test_helper"
 
 class ConfigurationTest < Webpacker::Test
@@ -43,8 +44,8 @@ class ConfigurationTest < Webpacker::Test
   end
 
   def test_extensions
-    config_path = File.expand_path File.join(File.dirname(__FILE__), "test_app/config/webpacker.yml").to_s
-    webpacker_yml = YAML.load_file(config_path)
+    config_path = Pathname.new(File.expand_path(File.join(File.dirname(__FILE__), "test_app/config/webpacker.yml").to_s))
+    webpacker_yml = YAML.load(ERB.new(config_path.read).result)
     assert_equal @config.extensions, webpacker_yml["default"]["extensions"]
   end
 
