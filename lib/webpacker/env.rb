@@ -1,3 +1,4 @@
+require "erb"
 class Webpacker::Env
   DEFAULT = "production".freeze
 
@@ -27,7 +28,7 @@ class Webpacker::Env
 
     def available_environments
       if config_path.exist?
-        YAML.load(config_path.read).keys
+        YAML.load(ERB.new(config_path.read).result).keys
       else
         [].freeze
       end
