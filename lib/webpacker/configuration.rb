@@ -71,6 +71,10 @@ class Webpacker::Configuration
     fetch(:webpack_compile_output)
   end
 
+  def extract_css?
+    fetch(:extract_css)
+  end
+
   private
     def fetch(key)
       data.fetch(key, defaults[key])

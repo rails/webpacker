@@ -5,13 +5,13 @@ module Webpacker::Helper
   #
   # Example:
   #
-  #   # In development mode with hot module replacement:
+  #   # When extract_css is false in webpacker.yml and the file is a css:
   #   <%= asset_pack_path 'calendar.css' %>  # => nil
   #
-  #   # In production mode:
+  #   # When extract_css is true in webpacker.yml or the file is not a css:
   #   <%= asset_pack_path 'calendar.css' %> # => "/packs/calendar-1016838bab065ae1e122.css"
   def asset_pack_path(name, **options)
-    unless stylesheet?(name) && Webpacker.dev_server.running? && Webpacker.dev_server.hot_module_replacing?
+    if Webpacker.config.extract_css? || !stylesheet?(name)
       asset_path(Webpacker.manifest.lookup!(name), **options)
     end
   end
@@ -22,13 +22,13 @@ module Webpacker::Helper
   #
   # Example:
   #
-  #   # In development mode with hot module replacement:
+  #   # When extract_css is false in webpacker.yml and the file is a css:
   #   <%= asset_pack_url 'calendar.css' %> # => nil
   #
-  #   # In production mode:
+  #   # When extract_css is true in webpacker.yml or the file is not a css:
   #   <%= asset_pack_url 'calendar.css' %> # => "http://example.com/packs/calendar-1016838bab065ae1e122.css"
   def asset_pack_url(name, **options)
-    unless Webpacker.dev_server.running? && Webpacker.dev_server.hot_module_replacing?
+    if Webpacker.config.extract_css? || !stylesheet?(name)
       asset_url(Webpacker.manifest.lookup!(name), **options)
     end
   end
@@ -64,15 +64,15 @@ module Webpacker::Helper
   #
   # Examples:
   #
-  #   # In development mode with hot module replacement:
+  #   # When extract_css is false in webpacker.yml:
   #   <%= stylesheet_pack_tag 'calendar', 'data-turbolinks-track': 'reload' %> # =>
   #   nil
   #
-  #   # In production mode:
+  #   # When extract_css is true in webpacker.yml:
   #   <%= stylesheet_pack_tag 'calendar', 'data-turbolinks-track': 'reload' %> # =>
   #   <link rel="stylesheet" media="screen" href="/packs/calendar-1016838bab065ae1e122.css" data-turbolinks-track="reload" />
   def stylesheet_pack_tag(*names, **options)
-    unless Webpacker.dev_server.running? && Webpacker.dev_server.hot_module_replacing?
+    if Webpacker.config.extract_css?
       stylesheet_link_tag(*sources_from_pack_manifest(names, type: :stylesheet), **options)
     end
   end

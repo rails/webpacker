@@ -60,6 +60,9 @@ production:
   # Production depends on precompilation of packs prior to booting for performance.
   compile: false
 
+  # Emit css as a file
+  extract_css: true
+
   # Cache manifest.json for performance
   cache_manifest: true
 
@@ -68,6 +71,9 @@ staging:
 
   # Production depends on precompilation of packs prior to booting for performance.
   compile: false
+
+  # Emit css as a file
+  extract_css: true
 
   # Cache manifest.json for performance
   cache_manifest: true

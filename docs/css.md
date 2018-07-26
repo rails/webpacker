@@ -72,6 +72,7 @@ a separate `[pack_name].css` bundle so that in your view you can use the
 <%= stylesheet_pack_tag 'hello_react' %>
 ```
 
+Webpacker emits css files only if `extract_css` is set to true in webpacker.yml otherwise `stylesheet_pack_tag` returns nil.
 
 ## Add bootstrap
 
