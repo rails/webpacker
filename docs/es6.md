@@ -26,7 +26,7 @@ import "@babel/polyfill"
 ```
 
 
-## Module import() vs require()
+## Module import vs require()
 
 While you are free to use `require()` and `module.exports`, we encourage you
 to use `import` and `export` instead since it reads and looks much better.
