@@ -21,7 +21,6 @@ const getStyleRule = (test, modules = false, preprocessors = []) => {
     {
       loader: 'css-loader',
       options: {
-        minimize: isProduction,
         sourceMap: true,
         importLoaders: 2,
         modules
