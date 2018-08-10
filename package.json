@@ -26,7 +26,7 @@
     "babel-loader": "^8.0.0-beta",
     "case-sensitive-paths-webpack-plugin": "^2.1.2",
     "compression-webpack-plugin": "^1.1.11",
-    "css-loader": "^0.28.11",
+    "css-loader": "^1.0.0",
     "file-loader": "^1.1.11",
     "glob": "^7.1.2",
     "js-yaml": "^3.12.0",
