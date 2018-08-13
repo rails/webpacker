@@ -1,10 +1,17 @@
 const { resolve } = require('path')
 const { safeLoad } = require('js-yaml')
-const { readFileSync } = require('fs')
+const { readFileSync, existsSync } = require('fs')
 
 const NODE_ENVIRONMENTS = ['development', 'production', 'test']
 const DEFAULT = 'production'
-const configPath = resolve('config', 'webpacker.yml')
+
+let configPath
+
+if (existsSync('config/webpacker.yml')) {
+  configPath = resolve('config', 'webpacker.yml')
+} else {
+  configPath = require.resolve('../lib/install/config/webpacker.yml')
+}
 
 const railsEnv = process.env.RAILS_ENV
 const nodeEnv = process.env.NODE_ENV

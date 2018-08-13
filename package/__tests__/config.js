@@ -8,6 +8,7 @@ const config = require('../config')
 
 describe('Config', () => {
   beforeEach(() => jest.resetModules())
+
   afterAll(chdirCwd)
 
   test('public path', () => {
@@ -24,6 +25,14 @@ describe('Config', () => {
     const config = require('../config')
     expect(config.publicPath).toEqual('/foo/packs/')
   })
+
+  test('without a webpacker.yml file', () => {
+    const fs = require('fs');
+    fs.existsSync = jest.fn();
+    fs.existsSync.mockReturnValue(false);
+    const config = require('../config')
+    expect(config.publicPath).toEqual('/foo/packs/');
+  });
 
   test('should return extensions as listed in app config', () => {
     expect(config.extensions).toEqual([

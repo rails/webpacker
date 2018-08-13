@@ -1,12 +1,19 @@
 const { resolve } = require('path')
 const { safeLoad } = require('js-yaml')
-const { readFileSync } = require('fs')
+const { readFileSync, existsSync } = require('fs')
 const deepMerge = require('./utils/deep_merge')
 const { isArray } = require('./utils/helpers')
 const { railsEnv } = require('./env')
 
 const defaultConfigPath = require.resolve('../lib/install/config/webpacker.yml')
-const configPath = resolve('config', 'webpacker.yml')
+
+let configPath
+
+if (existsSync('config/webpacker.yml')) {
+  configPath = resolve('config', 'webpacker.yml')
+} else {
+  configPath = require.resolve('../lib/install/config/webpacker.yml')
+}
 
 const getDefaultConfig = () => {
   const defaultConfig = safeLoad(readFileSync(defaultConfigPath), 'utf8')
