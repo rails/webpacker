@@ -94,7 +94,7 @@ gem 'webpacker', '>= 4.0.x'
 yarn add @rails/webpacker@4.0.0-pre.2
 ```
 
-Finally, run following to install Webpacker:
+Finally, run the following to install Webpacker:
 
 ```bash
 bundle
@@ -104,6 +104,11 @@ bundle exec rails webpacker:install
 bundle exec rake webpacker:install
 ```
 
+Optional: To fix ["unmet peer dependency" warnings](https://github.com/rails/webpacker/issues/1078),
+
+```bash
+yarn upgrade
+```
 
 ### Usage
 
@@ -193,7 +198,9 @@ WEBPACKER_DEV_SERVER_HOST=0.0.0.0 ./bin/webpack-dev-server
 **Note:** You need to allow webpack-dev-server host as an allowed origin for `connect-src` if you are running your application in a restrict CSP environment (like Rails 5.2+). This can be done in Rails 5.2+ in the CSP initializer `config/initializers/content_security_policy.rb` with a snippet like this:
 
 ```ruby
-  policy.connect_src :self, :https, 'http://localhost:3035', 'ws://localhost:3035' if Rails.env.development?
+  Rails.application.config.content_security_policy do |policy|
+    policy.connect_src :self, :https, 'http://localhost:3035', 'ws://localhost:3035' if Rails.env.development?
+  end
 ```
 
 **Note:** Don't forget to prefix `ruby` when running these binstubs on Windows

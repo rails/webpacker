@@ -30,7 +30,6 @@ const getStyleRule = (test, modules = false, preprocessors = []) => {
     {
       loader: 'css-loader',
       options: {
-        minimize: isProduction,
         sourceMap: true,
         importLoaders: 2,
         modules
@@ -39,8 +38,7 @@ const getStyleRule = (test, modules = false, preprocessors = []) => {
     {
       loader: 'postcss-loader',
       options: {
-        sourceMap: true,
-        config: { path: postcssConfigPath }
+        sourceMap: true
       }
     },
     ...preprocessors
