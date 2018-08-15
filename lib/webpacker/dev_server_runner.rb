@@ -44,7 +44,7 @@ module Webpacker
       end
 
       def execute_cmd
-        env = { "NODE_PATH" => @node_modules_path.shellescape }
+        env = Webpacker::Compiler.env.merge("NODE_PATH" => @node_modules_path.shellescape)
         cmd = [
           "#{@node_modules_path}/.bin/webpack-dev-server",
           "--config", @webpack_config
