@@ -11,10 +11,6 @@ class Webpacker::Configuration
     @env = env
   end
 
-  def refresh
-    @data = load
-  end
-
   def dev_server
     fetch(:dev_server)
   end
@@ -61,6 +57,14 @@ class Webpacker::Configuration
 
   def extensions
     fetch(:extensions)
+  end
+
+  def check_yarn_integrity=(value)
+    data[:check_yarn_integrity] = value
+  end
+
+  def check_yarn_integrity?
+    fetch(:check_yarn_integrity)
   end
 
   private
