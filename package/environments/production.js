@@ -16,7 +16,11 @@ module.exports = class extends Base {
       })
     )
 
-    this.plugins.append('OptimizeCSSAssets', new OptimizeCSSAssetsPlugin())
+    this.plugins.append('OptimizeCSSAssets', new OptimizeCSSAssetsPlugin({
+      cssPreprocessorOptions: {
+        safe: true
+      }
+    }))
 
     this.config.merge({
       devtool: 'nosources-source-map',
