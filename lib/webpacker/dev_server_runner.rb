@@ -50,6 +50,7 @@ module Webpacker
           "--config", @webpack_config
         ]
         cmd += ["--progress", "--color"] if @pretty
+        cmd += @argv
 
         Dir.chdir(@app_path) do
           exec env, *cmd
