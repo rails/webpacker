@@ -25,7 +25,7 @@ class CompilerTest < Minitest::Test
     assert_equal Webpacker.compiler.send(:default_watched_paths), [
       "app/assets/**/*",
       "/etc/yarn/**/*",
-      "test/test_app/app/javascript/**/*",
+      "app/javascript/**/*",
       "yarn.lock",
       "package.json",
       "config/webpack/**/*"
@@ -59,6 +59,6 @@ class CompilerTest < Minitest::Test
   end
 
   def test_compilation_digest_path
-    assert Webpacker.compiler.send(:compilation_digest_path).to_s.ends_with?(Webpacker.env)
+    assert_equal Webpacker.compiler.send(:compilation_digest_path).basename.to_s, "last-compilation-digest-#{Webpacker.env}"
   end
 end

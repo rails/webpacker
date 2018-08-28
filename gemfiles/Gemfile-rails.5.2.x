@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 gem "webpacker", path: ".."
 
-gem "rails", "~> 5.0.0"
+gem "rails", "~> 5.2.0"
 gem "rake", ">= 11.1"
 gem "rubocop", ">= 0.49", require: false
 gem "rack-proxy", require: false

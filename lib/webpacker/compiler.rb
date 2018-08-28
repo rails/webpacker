@@ -40,11 +40,17 @@ class Webpacker::Compiler
   private
     def last_compilation_digest
       compilation_digest_path.read if compilation_digest_path.exist? && config.public_manifest_path.exist?
+    rescue Errno::ENOENT, Errno::ENOTDIR
     end
 
     def watched_files_digest
       files = Dir[*default_watched_paths, *watched_paths].reject { |f| File.directory?(f) }
-      Digest::SHA1.hexdigest(files.map { |f| "#{File.basename(f)}/#{File.mtime(f).utc.to_i}" }.join("/"))
+      file_ids = if ENV["CI"]
+        files.sort.map { |f| "#{File.basename(f)}/#{Digest::SHA1.file(f).hexdigest}" }
+      else
+        files.map { |f| "#{File.basename(f)}/#{File.mtime(f).utc.to_i}" }
+      end
+      Digest::SHA1.hexdigest(file_ids.join("/"))
     end
 
     def record_compilation_digest
@@ -54,12 +60,13 @@ class Webpacker::Compiler
 
     def remove_compilation_digest
       compilation_digest_path.delete if compilation_digest_path.exist?
+    rescue Errno::ENOENT, Errno::ENOTDIR
     end
 
     def run_webpack
       logger.info "Compiling…"
 
-      stdout, sterr , status = Open3.capture3(webpack_env, "#{RbConfig.ruby} ./bin/webpack")
+      stdout, sterr , status = Open3.capture3(webpack_env, "#{RbConfig.ruby} #{@webpacker.root_path}/bin/webpack")
 
       if status.success?
         logger.info "Compiled all packs in #{config.public_output_path}"
@@ -80,7 +87,7 @@ class Webpacker::Compiler
     end
 
     def compilation_digest_path
-      config.cache_path.join(".last-compilation-digest-#{Webpacker.env}")
+      config.cache_path.join("last-compilation-digest-#{Webpacker.env}")
     end
 
     def webpack_env

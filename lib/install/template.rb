@@ -10,34 +10,26 @@ copy_file "#{__dir__}/config/.postcssrc.yml", ".postcssrc.yml"
 say "Copying .babelrc to app root directory"
 copy_file "#{__dir__}/config/.babelrc", ".babelrc"
 
-say "Creating JavaScript app source directory"
-directory "#{__dir__}/javascript", Webpacker.config.source_path
+say "Copying .browserslistrc to app root directory"
+copy_file "#{__dir__}/config/.browserslistrc", ".browserslistrc"
+
+if Dir.exists?(Webpacker.config.source_path)
+  say "The JavaScript app source directory already exists"
+else
+  say "Creating JavaScript app source directory"
+  directory "#{__dir__}/javascript", Webpacker.config.source_path
+end
 
 apply "#{__dir__}/binstubs.rb"
 
-say "Adding configurations"
-
-check_yarn_integrity_config = ->(value) { <<CONFIG }
-# Verifies that versions and hashed value of the package contents in the project's package.json
-config.webpacker.check_yarn_integrity = #{value}
-CONFIG
-
-if Rails::VERSION::MAJOR >= 5
-  environment check_yarn_integrity_config.call("true"), env: :development
-  environment check_yarn_integrity_config.call("false"), env: :production
-else
-  inject_into_file "config/environments/development.rb", optimize_indentation(check_yarn_integrity_config.call("true"), 2), after: "Rails.application.configure do", verbose: false
-  inject_into_file "config/environments/production.rb", optimize_indentation(check_yarn_integrity_config.call("false"), 2), after: "Rails.application.configure do", verbose: false
-end
-
 if File.exists?(".gitignore")
-  append_to_file ".gitignore", optimize_indentation(<<-EOS)
-    /public/packs
-    /public/packs-test
-    /node_modules
-    yarn-debug.log*
-    .yarn-integrity
-  EOS
+  append_to_file ".gitignore", <<-EOS
+/public/packs
+/public/packs-test
+/node_modules
+yarn-debug.log*
+.yarn-integrity
+EOS
 end
 
 say "Installing all JavaScript dependencies"

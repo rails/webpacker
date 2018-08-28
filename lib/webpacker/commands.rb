@@ -11,7 +11,6 @@ class Webpacker::Commands
   end
 
   def bootstrap
-    config.refresh
     manifest.refresh
   end
 

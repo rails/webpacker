@@ -13,7 +13,7 @@ class Webpacker::Env
 
   def inquire
     fallback_env_warning unless current
-    (current || DEFAULT).inquiry
+    current || DEFAULT.inquiry
   end
 
   private

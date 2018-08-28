@@ -1,5 +1,21 @@
 **Please note that Webpacker 3.1.0 and 3.1.1 have some serious bugs so please consider using either 3.0.2 or 3.2.0**
 
+## [4.0.0-pre.3] - 2018-??-?
+
+### Added
+
+  - Move supported browsers configuration to [.browserslistrc](https://github.com/browserslist/browserslist#queries)
+
+## Breaking changes
+
+  - postcss-next is replaced with postcss-preset-env
+  - babel@7
+
+## Fixed
+
+  - Bring back test env [#1563](https://github.com/rails/webpacker/pull/1563)
+
+
 ## [4.0.0-pre.2] - 2018-04-2
 
 ## Fixed
@@ -18,7 +34,7 @@ Pre-release to try out webpack 4.0 support
   - Remove compilation digest file if webpack command fails[#1398](https://github.com/rails/webpacker/issues/1398)
 
 
-Please refer to [3.4-stable](https://github.com/rails/webpacker/tree/3-4-stable) branch
+Please refer to [3-x-stable](https://github.com/rails/webpacker/tree/3-x-stable) branch
 for further releases and changelogs:
 
 ## [3.4.1] - 2018-03-24
@@ -94,7 +110,7 @@ And, bunch of bug fixes [See changes](https://github.com/rails/webpacker/compare
 
 - Fix checking 'webpack' binstub on Windows [#1123](https://github.com/rails/webpacker/pull/1123)
 
-- silence yarn output if checking is successfull [#1131](https://github.com/rails/webpacker/pull/1131)
+- silence yarn output if checking is successful [#1131](https://github.com/rails/webpacker/pull/1131)
 
 - Update uglifyJs plugin to support ES6 [#1194](https://github.com/rails/webpacker/pull/1194)
 
@@ -320,7 +336,7 @@ Webpacker.dev_server.connect_timeout = 1
 
 - Binstubs [#833](https://github.com/rails/webpacker/pull/833)
 
-- Allow dev server settings to be overriden by env variables [#843](https://github.com/rails/webpacker/pull/843)
+- Allow dev server settings to be overridden by env variables [#843](https://github.com/rails/webpacker/pull/843)
 
 - A new `lookup` method to manifest to perform lookup without raise and return `nil`
 

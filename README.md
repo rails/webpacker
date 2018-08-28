@@ -13,7 +13,7 @@ even JavaScript Sprinkles (that all continues to live in app/assets).
 However, it is possible to use Webpacker for CSS, images and fonts assets as well,
 in which case you may not even need the asset pipeline. This is mostly relevant when exclusively using component-based JavaScript frameworks.
 
-**NOTE:** The master branch now hosts the code for v4.x.x. Please refer to [3.4-stable](https://github.com/rails/webpacker/tree/3-4-stable) branch for 3.x documentation.
+**NOTE:** The master branch now hosts the code for v4.x.x. Please refer to [3-x-stable](https://github.com/rails/webpacker/tree/3-x-stable) branch for 3.x documentation.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -87,12 +87,14 @@ gem 'webpacker', '~> 3.5'
 
 # OR if you prefer to use master
 gem 'webpacker', git: 'https://github.com/rails/webpacker.git'
+yarn add https://github.com/rails/webpacker.git
 
 # OR to try out 4.x pre-release
 gem 'webpacker', '>= 4.0.x'
+yarn add @rails/webpacker@4.0.0-pre.2
 ```
 
-Finally, run following to install Webpacker:
+Finally, run the following to install Webpacker:
 
 ```bash
 bundle
@@ -102,6 +104,11 @@ bundle exec rails webpacker:install
 bundle exec rake webpacker:install
 ```
 
+Optional: To fix ["unmet peer dependency" warnings](https://github.com/rails/webpacker/issues/1078),
+
+```bash
+yarn upgrade
+```
 
 ### Usage
 
@@ -191,7 +198,9 @@ WEBPACKER_DEV_SERVER_HOST=0.0.0.0 ./bin/webpack-dev-server
 **Note:** You need to allow webpack-dev-server host as an allowed origin for `connect-src` if you are running your application in a restrict CSP environment (like Rails 5.2+). This can be done in Rails 5.2+ in the CSP initializer `config/initializers/content_security_policy.rb` with a snippet like this:
 
 ```ruby
-  policy.connect_src :self, :https, 'http://localhost:3035', 'ws://localhost:3035' if Rails.env.development?
+  Rails.application.config.content_security_policy do |policy|
+    policy.connect_src :self, :https, 'http://localhost:3035', 'ws://localhost:3035' if Rails.env.development?
+  end
 ```
 
 **Note:** Don't forget to prefix `ruby` when running these binstubs on Windows
@@ -257,6 +266,7 @@ You can run following commands to upgrade Webpacker to the latest stable version
 
 ```bash
 bundle update webpacker
+rails webpacker:binstubs
 yarn upgrade @rails/webpacker --latest
 yarn add webpack-dev-server@^2.11.1
 
@@ -268,16 +278,20 @@ yarn add @rails/webpacker@4.0.0-pre.2
 
 By default, in development, webpacker runs a yarn integrity check to ensure that all local JavaScript packages are up-to-date. This is similar to what bundler does currently in Rails, but for JavaScript packages. If your system is out of date, then Rails will not initialize. You will be asked to upgrade your local JavaScript packages by running `yarn install`.
 
-To turn off this option, you will need to override the default by adding a new config option to your Rails development environment configuration file (`config/environment/development.rb`):
+To turn off this option, you will need to change the default setting in `config/webpacker.yml`:
 
-```
-config.webpacker.check_yarn_integrity = false
+```yaml
+# config/webpacker.yml
+development:
+  ...
+  # Verifies that versions and hashed value of the package contents in the project's package.json
+  check_yarn_integrity: false
 ```
 
-You may also turn on this feature by adding the config option to any Rails environment configuration file:
+You may also turn on this feature by adding the config option for any Rails environment in `config/webpacker.yml`:
 
-```
-config.webpacker.check_yarn_integrity = true
+```yaml
+  check_yarn_integrity: true
 ```
 
 ## Integrations
