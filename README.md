@@ -278,16 +278,20 @@ yarn add @rails/webpacker@4.0.0-pre.2
 
 By default, in development, webpacker runs a yarn integrity check to ensure that all local JavaScript packages are up-to-date. This is similar to what bundler does currently in Rails, but for JavaScript packages. If your system is out of date, then Rails will not initialize. You will be asked to upgrade your local JavaScript packages by running `yarn install`.
 
-To turn off this option, you will need to override the default by adding a new config option to your Rails development environment configuration file (`config/environment/development.rb`):
+To turn off this option, you will need to change the default setting in `config/webpacker.yml`:
 
-```
-config.webpacker.check_yarn_integrity = false
+```yaml
+# config/webpacker.yml
+development:
+  ...
+  # Verifies that versions and hashed value of the package contents in the project's package.json
+  check_yarn_integrity: false
 ```
 
-You may also turn on this feature by adding the config option to any Rails environment configuration file:
+You may also turn on this feature by adding the config option for any Rails environment in `config/webpacker.yml`:
 
-```
-config.webpacker.check_yarn_integrity = true
+```yaml
+  check_yarn_integrity: true
 ```
 
 ## Integrations

@@ -8,9 +8,7 @@ require_relative "test_app/config/environment"
 
 Rails.env = "production"
 
-Webpacker.instance = Webpacker::Instance.new \
-  root_path: Pathname.new(File.expand_path("test_app", __dir__)),
-  config_path: Pathname.new(File.expand_path("./test_app/config/webpacker.yml", __dir__))
+Webpacker.instance = ::Webpacker::Instance.new
 
 class Webpacker::Test < Minitest::Test
   private
