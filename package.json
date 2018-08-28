@@ -24,7 +24,7 @@
     "@babel/preset-env": "^7.0.0",
     "@babel/runtime": "^7.0.0",
     "babel-core": "^7.0.0-bridge",
-    "babel-loader": "^8.0.0-beta",
+    "babel-loader": "^8.0.0",
     "case-sensitive-paths-webpack-plugin": "^2.1.2",
     "compression-webpack-plugin": "^1.1.11",
     "css-loader": "^1.0.0",
