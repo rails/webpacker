@@ -33,19 +33,4 @@ describe('getStyleRule', () => {
 
     expect(cssRule.use).toMatchObject(expect.arrayContaining(expectation))
   })
-
-  test('adds default postcssrc if one is not found', () => {
-    const fs = require('fs')
-    fs.existsSync = jest.fn()
-    fs.existsSync.mockReturnValue(false)
-
-    const cssRule = getStyleRule(/\.(css)$/i, true)
-    const loader = cssRule.use.find((currentLoader) => {
-      return currentLoader.loader === 'postcss-loader'
-    })
-
-    if (loader.options.config) {
-      expect(loader.options.config.path).toContain('lib/install/config/.postcssrc.yml');
-    }
-  });
 })
