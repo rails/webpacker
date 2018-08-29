@@ -5,8 +5,7 @@
   "main": "package/index.js",
   "files": [
     "package",
-    "lib/install/config/webpacker.yml",
-    "lib/install/config/.postcssrc.yml"
+    "lib/install/config/webpacker.yml"
   ],
   "engines": {
     "node": ">=6.0.0",
