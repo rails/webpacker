@@ -74,33 +74,32 @@ const getModulePaths = () => {
   return result
 }
 
-const getBaseConfig = () =>
-  new ConfigObject({
-    mode: 'production',
-    output: {
-      filename: '[name]-[chunkhash].js',
-      chunkFilename: '[name]-[chunkhash].chunk.js',
-      hotUpdateChunkFilename: '[id]-[hash].hot-update.js',
-      path: config.outputPath,
-      publicPath: config.publicPath
-    },
+const getBaseConfig = () => new ConfigObject({
+  mode: 'production',
+  output: {
+    filename: '[name]-[chunkhash].js',
+    chunkFilename: '[name]-[chunkhash].chunk.js',
+    hotUpdateChunkFilename: '[id]-[hash].hot-update.js',
+    path: config.outputPath,
+    publicPath: config.publicPath
+  },
 
-    resolve: {
-      extensions: config.extensions
-    },
+  resolve: {
+    extensions: config.extensions
+  },
 
-    resolveLoader: {
-      modules: ['node_modules']
-    },
+  resolveLoader: {
+    modules: ['node_modules']
+  },
 
-    node: {
-      dgram: 'empty',
-      fs: 'empty',
-      net: 'empty',
-      tls: 'empty',
-      child_process: 'empty'
-    }
-  })
+  node: {
+    dgram: 'empty',
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty',
+    child_process: 'empty'
+  }
+})
 
 module.exports = class Base {
   constructor() {
