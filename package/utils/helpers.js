@@ -1,7 +1,6 @@
-const isObject = value =>
-  typeof value === 'object' &&
-  value !== null &&
-  (value.length === undefined || value.length === null)
+const isObject = value => typeof value === 'object'
+  && value !== null
+  && (value.length === undefined || value.length === null)
 
 const isBoolean = str => /^true/.test(str) || /^false/.test(str)
 

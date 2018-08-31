@@ -1,7 +1,7 @@
 # Webpacker
 
 ![travis-ci status](https://api.travis-ci.org/rails/webpacker.svg?branch=master)
-[![node.js](https://img.shields.io/badge/node-%3E%3D%206.0.0-brightgreen.svg)](https://nodejs.org/en/)
+[![node.js](https://img.shields.io/badge/node-%3E%3D%206.14.0-brightgreen.svg)](https://nodejs.org/en/)
 [![Gem](https://img.shields.io/gem/v/webpacker.svg)](https://github.com/rails/webpacker)
 
 Webpacker makes it easy to use the JavaScript pre-processor and bundler
@@ -50,8 +50,8 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 
 * Ruby 2.2+
 * Rails 4.2+
-* Node.js 6.0.0+
-* Yarn 0.25.2+
+* Node.js 6.14.0+
+* Yarn 1.x+
 
 
 ## Features
