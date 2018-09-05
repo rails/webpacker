@@ -144,3 +144,13 @@ environment.loaders.get('sass').use.splice(-1, 0, {
   }
 });
 ```
+
+## Configure [Autoprefixer](https://github.com/postcss/autoprefixer)
+
+By default, Autoprefixer does not apply Internet Explorer CSS grid polyfills. If you wish to enable these, or change any other Autoprefixer config, do it through `.postcssrc.yml`:
+
+```yml
+plugins:
+  postcss-import: {}
+  postcss-cssnext: { features: { autoprefixer: { grid: true } } }
+```
