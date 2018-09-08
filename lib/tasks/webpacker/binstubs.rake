@@ -1,5 +1,5 @@
 binstubs_template_path = File.expand_path("../../install/binstubs.rb", __dir__).freeze
-bin_path = ENV["BUNDLE_BIN"] || "./bin"
+bin_path = ENV["BUNDLE_BIN"] || Rails.root.join("bin")
 
 namespace :webpacker do
   desc "Installs Webpacker binstubs in this application"

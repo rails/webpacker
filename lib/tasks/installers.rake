@@ -14,7 +14,7 @@ dependencies = {
   "Angular": [:typescript]
 }
 
-bin_path = ENV["BUNDLE_BIN"] || "./bin"
+bin_path = ENV["BUNDLE_BIN"] || Rails.root.join("bin")
 
 namespace :webpacker do
   namespace :install do
