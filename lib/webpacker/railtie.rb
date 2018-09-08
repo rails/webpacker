@@ -1,4 +1,5 @@
 require "rails/railtie"
+require "rails/engine"
 
 require "webpacker/helper"
 require "webpacker/dev_server_proxy"
@@ -29,23 +30,24 @@ class Webpacker::Engine < ::Rails::Engine
   #     - edit config/environments/production.rb
   #     - add `config.webpacker.check_yarn_integrity = true`
   initializer "webpacker.yarn_check" do |app|
-    if File.exist?("yarn.lock") && Webpacker.config.config_path.exist? && Webpacker.config.check_yarn_integrity?
-      output = `yarn check --integrity && yarn check --verify-tree 2>&1`
+    Dir.chdir(Rails.root) do
+      if File.exist?("yarn.lock") && Webpacker.config.config_path.exist? && Webpacker.config.check_yarn_integrity?
+        output = `yarn check --integrity && yarn check --verify-tree 2>&1`
 
-      unless $?.success?
-        $stderr.puts "\n\n"
-        $stderr.puts "========================================"
-        $stderr.puts "  Your Yarn packages are out of date!"
-        $stderr.puts "  Please run `yarn install --check-files` to update."
-        $stderr.puts "========================================"
-        $stderr.puts "\n\n"
-        $stderr.puts "To disable this check, please change `check_yarn_integrity`"
-        $stderr.puts "to `false` in your webpacker config file (config/webpacker.yml)."
-        $stderr.puts "\n\n"
-        $stderr.puts output
-        $stderr.puts "\n\n"
-
-        exit(1)
+        unless $?.success?
+          $stderr.puts "\n\n"
+          $stderr.puts "========================================"
+          $stderr.puts "  Your Yarn packages are out of date!"
+          $stderr.puts "  Please run `yarn install --check-files` to update."
+          $stderr.puts "========================================"
+          $stderr.puts "\n\n"
+          $stderr.puts "To disable this check, please change `check_yarn_integrity`"
+          $stderr.puts "to `false` in your webpacker config file (config/webpacker.yml)."
+          $stderr.puts "\n\n"
+          $stderr.puts output
+          $stderr.puts "\n\n"
+          exit(1)
+        end
       end
     end
   end
