@@ -10,7 +10,5 @@ end
 
 # Run clobber if the assets:clobber is run
 if Rake::Task.task_defined?("assets:clobber")
-  Rake::Task["assets:clobber"].enhance do
-    Rake::Task["webpacker:clobber"].invoke
-  end
+  Rake::Task["assets:clobber"].enhance ["webpacker:clobber"]
 end
