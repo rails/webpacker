@@ -22,8 +22,9 @@ end
 
 apply "#{__dir__}/binstubs.rb"
 
-if File.exists?(".gitignore")
-  append_to_file ".gitignore" do
+git_ignore_path = Rails.root.join(".gitignore")
+if File.exists?(git_ignore_path)
+  append_to_file git_ignore_path do
     "\n"                   +
     "/public/packs\n"      +
     "/public/packs-test\n" +
