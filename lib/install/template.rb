@@ -34,16 +34,18 @@ if File.exists?(".gitignore")
   end
 end
 
-if Webpacker::VERSION =~ /^[0-9]+\.[0-9]+\.[0-9]+$/
-  say "Installing all JavaScript dependencies [#{Webpacker::VERSION}]"
-  run "yarn add @rails/webpacker@#{Webpacker::VERSION}"
-else
-  say "Installing all JavaScript dependencies [from prerelease rails/webpacker]"
-  run "yarn add @rails/webpacker@next"
-end
+Dir.chdir(Rails.root) do
+  if Webpacker::VERSION =~ /^[0-9]+\.[0-9]+\.[0-9]+$/
+    say "Installing all JavaScript dependencies [#{Webpacker::VERSION}]"
+    run "yarn add @rails/webpacker@#{Webpacker::VERSION}"
+  else
+    say "Installing all JavaScript dependencies [from prerelease rails/webpacker]"
+    run "yarn add @rails/webpacker@next"
+  end
 
-say "Installing dev server for live reloading"
-run "yarn add --dev webpack-dev-server"
+  say "Installing dev server for live reloading"
+  run "yarn add --dev webpack-dev-server"
+end
 
 if Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR > 1
   say "You need to allow webpack-dev-server host as allowed origin for connect-src.", :yellow
