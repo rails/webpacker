@@ -1,6 +1,6 @@
 **Please note that Webpacker 3.1.0 and 3.1.1 have some serious bugs so please consider using either 3.0.2 or 3.2.0**
 
-## [4.0.0-pre.3] - 2018-??-?
+## [4.0.0-pre.3] - 2018-10-01
 
 ### Added
 
@@ -15,6 +15,7 @@
 
   - Bring back test env [#1563](https://github.com/rails/webpacker/pull/1563)
 
+Please see a list of [commits](https://github.com/rails/webpacker/compare/2dd68f0273074aadb3f869c4c30369d5e4e3fea7...master)
 
 ## [4.0.0-pre.2] - 2018-04-2
 
