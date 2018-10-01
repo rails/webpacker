@@ -32,8 +32,13 @@ yarn-debug.log*
 EOS
 end
 
-say "Installing all JavaScript dependencies"
-run "yarn add @rails/webpacker"
+if Webpacker::VERSION == /^[0-9]+\.[0-9]+\.[0-9]+$/
+  say "Installing all JavaScript dependencies [#{Webpacker::VERSION}]"
+  run "yarn add @rails/webpacker"
+else
+  say "Installing all JavaScript dependencies [from prerelease rails/webpacker]"
+  run "yarn add https://github.com/rails/webpacker"
+end
 
 say "Installing dev server for live reloading"
 run "yarn add --dev webpack-dev-server"
