@@ -41,6 +41,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
   - [Watched](#watched)
 - [Deployment](#deployment)
 - [Docs](#docs)
+- [Contributing](#contributing)
 - [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -510,9 +511,16 @@ Webpacker::Compiler.watched_paths << 'bower_components'
 
 Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which gets run whenever you run `assets:precompile`. If you are not using Sprockets, `webpacker:compile` is automatically aliased to `assets:precompile`. Similar to sprockets both rake tasks will compile packs in production mode but will use `RAILS_ENV` to load configuration from `config/webpacker.yml` (if available).
 
+
 ## Docs
 
 You can find more detailed guides under [docs](./docs).
+
+
+## Contributing
+[![Code Helpers](https://www.codetriage.com/rails/webpacker/badges/users.svg)](https://www.codetriage.com/rails/webpacker)
+
+We encourage you to contribute to Webpacker! See [CONTRIBUTING](CONTRIBUTING.md) for guidelines about how to proceed.
 
 
 ## License
