@@ -271,7 +271,7 @@ yarn upgrade @rails/webpacker --latest
 yarn add webpack-dev-server@^2.11.1
 
 # Or to install a latest release (including pre-releases)
-yarn add @rails/webpacker@4.0.0-pre.2
+yarn add @rails/webpacker@next
 ```
 
 ### Yarn Integrity
