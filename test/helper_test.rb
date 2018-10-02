@@ -43,6 +43,12 @@ class HelperTest < ActionView::TestCase
       javascript_pack_tag("bootstrap.js")
   end
 
+  def test_javascript_pack_tag_symbol
+    assert_equal \
+      %(<script src="/packs/bootstrap-300631c4f0e0f9c865bc.js"></script>),
+      javascript_pack_tag(:bootstrap)
+  end
+
   def test_javascript_pack_tag_splat
     assert_equal \
       %(<script src="/packs/bootstrap-300631c4f0e0f9c865bc.js" defer="defer"></script>\n) +
@@ -54,6 +60,12 @@ class HelperTest < ActionView::TestCase
     assert_equal \
       %(<link rel="stylesheet" media="screen" href="/packs/bootstrap-c38deda30895059837cf.css" />),
       stylesheet_pack_tag("bootstrap.css")
+  end
+
+  def test_stylesheet_pack_tag_symbol
+    assert_equal \
+      %(<link rel="stylesheet" media="screen" href="/packs/bootstrap-c38deda30895059837cf.css" />),
+      stylesheet_pack_tag(:bootstrap)
   end
 
   def test_stylesheet_pack_tag_splat
