@@ -87,6 +87,6 @@ module Webpacker::Helper
     end
 
     def pack_name_with_extension(name, type:)
-      "#{name}#{compute_asset_extname(name, type: type)}"
+      "#{name}#{compute_asset_extname(name.to_s, type: type)}"
     end
 end
