@@ -67,6 +67,10 @@ class Webpacker::Configuration
     fetch(:check_yarn_integrity)
   end
 
+  def webpack_compile_output?
+    fetch(:webpack_compile_output)
+  end
+
   private
     def fetch(key)
       data.fetch(key, defaults[key])
