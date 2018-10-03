@@ -1,5 +1,6 @@
 module Main exposing (..)
 
+import Browser
 import Html exposing (Html, h1, text)
 import Html.Attributes exposing (style)
 
@@ -21,7 +22,7 @@ view : Model -> Html Message
 view model =
   -- The inline style is being used for example purposes in order to keep this example simple and
   -- avoid loading additional resources. Use a proper stylesheet when building your own app.
-  h1 [style [("display", "flex"), ("justify-content", "center")]]
+  h1 [style "display" "flex", style "justify-content" "center"]
      [text "Hello Elm!"]
 
 -- MESSAGE
@@ -43,11 +44,11 @@ subscriptions model =
 
 -- MAIN
 
-main : Program Never Model Message
+main : Program (Maybe {}) Model Message
 main =
-  Html.program
+  Browser.element
     {
-      init = init,
+      init = always init,
       view = view,
       update = update,
       subscriptions = subscriptions
