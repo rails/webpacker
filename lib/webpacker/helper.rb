@@ -52,7 +52,8 @@ module Webpacker::Helper
   #   <%= javascript_pack_tag 'calendar', 'data-turbolinks-track': 'reload' %> # =>
   #   <script src="/packs/calendar-1016838bab065ae1e314.js" data-turbolinks-track="reload"></script>
   def javascript_pack_tag(*names, **options)
-    javascript_include_tag(*sources_from_pack_manifest(names, type: :javascript), **options)
+    javascript_source_name = sources_from_pack_manifest(names, options[:split_chunks], type: :javascript)
+    javascript_include_tag(*javascript_source_name, **options.except(:split_chunks))
   end
 
   # Creates a link tag that references the named pack file, as compiled by webpack per the entries list
@@ -73,7 +74,8 @@ module Webpacker::Helper
   #   <link rel="stylesheet" media="screen" href="/packs/calendar-1016838bab065ae1e122.css" data-turbolinks-track="reload" />
   def stylesheet_pack_tag(*names, **options)
     unless Webpacker.dev_server.running? && Webpacker.dev_server.hot_module_replacing?
-      stylesheet_link_tag(*sources_from_pack_manifest(names, type: :stylesheet), **options)
+      stylesheet_source_name = sources_from_pack_manifest(names, options[:split_chunks], type: :stylesheet)
+      stylesheet_link_tag(*stylesheet_source_name, **options.except(:split_chunks))
     end
   end
 
@@ -82,8 +84,16 @@ module Webpacker::Helper
       File.extname(name) == ".css"
     end
 
-    def sources_from_pack_manifest(names, type:)
-      names.map { |name| Webpacker.manifest.lookup!(pack_name_with_extension(name, type: type)) }
+    def sources_from_pack_manifest(names, using_split_chunks = false, type:)
+      names.map do |name|
+        full_pack_name = pack_name_with_extension(name, type: type)
+
+        if using_split_chunks
+          Webpacker.manifest.lookup_entrypoint!(name, type: type)
+        else
+          Webpacker.manifest.lookup!(full_pack_name)
+        end
+      end.flatten
     end
 
     def pack_name_with_extension(name, type:)

@@ -27,6 +27,10 @@ class Webpacker::Manifest
     lookup(name) || handle_missing_entry(name)
   end
 
+  def lookup_entrypoint!(name, type:)
+    lookup!("entrypoints")[name][manifest_type(type)]
+  end
+
   private
     def compiling?
       config.compile? && !dev_server.running?
@@ -70,6 +74,14 @@ Your manifest contains:
         JSON.parse config.public_manifest_path.read
       else
         {}
+      end
+    end
+
+    def manifest_type(type)
+      case type
+      when :javascript then "js"
+      when :stylesheet then "css"
+      else type.to_s
       end
     end
 end
