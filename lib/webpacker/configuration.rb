@@ -63,6 +63,10 @@ class Webpacker::Configuration
     fetch(:extensions)
   end
 
+  def webpack_compile_output?
+    fetch(:webpack_compile_output)
+  end
+
   private
     def fetch(key)
       data.fetch(key, defaults[key])
