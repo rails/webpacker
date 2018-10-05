@@ -256,6 +256,47 @@ const { environment } = require('@rails/webpacker')
 environment.resolvedModules.append('vendor', 'vendor')
 ```
 
+### Add SplitChunks (Webpack V4)
+Originally, chunks (and modules imported inside them) were connected by a parent-child relationship in the internal webpack graph. The CommonsChunkPlugin was used to avoid duplicated dependencies across them, but further optimizations were not possible
+
+Since webpack v4, the CommonsChunkPlugin was removed in favor of optimization.splitChunks.
+
+For the full configuration options of SplitChunks, see the [Webpack documentation](https://webpack.js.org/plugins/split-chunks-plugin/).
+
+```js
+// config/webpack/environment.js
+const WebpackAssetsManifest = require('webpack-assets-manifest');
+
+const splitChunks = {
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    },
+  },
+};
+
+environment.config.merge(splitChunks);
+
+// Should override the existing manifest plugin
+environment.plugins.insert(
+  'Manifest',
+  new WebpackAssetsManifest({
+    entrypoints: true, // default in rails is false
+    writeToDisk: true, // rails defaults copied from webpacker
+    publicPath: true // rails defaults copied from webpacker
+  })
+)
+```
+
+The `javascript_pack_tag` and `stylesheet_pack_tag` doesn't know (by default) whether they should use the entrypoints or that it should use the normal way of adding a pack. To make sure the `*_pack_tag` works with `SplitChunks`, you should use the following syntax;
+
+```erb
+javascript_pack_tag "your-entrypoint-javascript-file.js", split_chunks: true
+stylesheet_pack_tag "your-entrypoint-stylesheet-file.css", split_chunks: true
+```
+
+For the old configuration with the CommonsChunkPlugin see below
+
 ### Add common chunks
 
 The CommonsChunkPlugin is an opt-in feature that creates a separate file (known as a chunk), consisting of common modules shared between multiple entry points. By separating common modules from bundles, the resulting chunked file can be loaded once initially, and stored in the cache for later use. This results in page speed optimizations as the browser can quickly serve the shared code from the cache, rather than being forced to load a larger bundle whenever a new page is visited.
