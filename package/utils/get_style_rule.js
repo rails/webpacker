@@ -1,7 +1,7 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const { resolve } = require('path')
 const devServer = require('../dev_server')
 const { nodeEnv } = require('../env')
-const { resolve } = require('path')
 
 const isProduction = nodeEnv === 'production'
 const inDevServer = process.argv.find(v => v.includes('webpack-dev-server'))
