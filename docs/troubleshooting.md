@@ -117,6 +117,3 @@ environment.plugins.append('ContextReplacement',
   )
 )
 ```
-
-## Compilation triggered even when files haven't changed
-Webpacker compares the modified times (mtimes) of files to see if they have changed & determine whether to recompile on-demand. For CI environments that clone the repository before running tests, the modified times will be set to when the repository was cloned, not when the file was last modified. To prevent unnecessary recompilation on CI, Webpacker watches for the `CI` environment variable, and instead compares the SHA hashes of all files to determine if they've actually changed. You can enable this behavior outside of CI environemnts, or in those that don't set the `CI` env var, by running `CI=true bin/webpack` (or `webpack-dev-server`).
