@@ -17,7 +17,7 @@ class Webpacker::Commands
         next if version_of_file == file_in_manifest
 
         [version_of_file, File.mtime(version_of_file).utc.to_i]
-      end.compact.sort_by(&:last)[0..-(count_to_keep + 1)].map(&:first)
+      end.compact.sort_by(&:last).reverse.drop(count_to_keep).map(&:first)
     end
 
     files_to_be_removed.each { |f| File.delete f }
