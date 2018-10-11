@@ -7,6 +7,7 @@ class RakeTasksTest < Minitest::Test
     assert_includes output, "webpacker:check_binstubs"
     assert_includes output, "webpacker:check_node"
     assert_includes output, "webpacker:check_yarn"
+    assert_includes output, "webpacker:clean"
     assert_includes output, "webpacker:clobber"
     assert_includes output, "webpacker:compile"
     assert_includes output, "webpacker:install"
