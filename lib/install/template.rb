@@ -37,7 +37,7 @@ if Webpacker::VERSION == /^[0-9]+\.[0-9]+\.[0-9]+$/
   run "yarn add @rails/webpacker"
 else
   say "Installing all JavaScript dependencies [from prerelease rails/webpacker]"
-  run "yarn add https://github.com/rails/webpacker"
+  run "yarn add rails/webpacker"
 end
 
 say "Installing dev server for live reloading"
