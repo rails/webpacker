@@ -346,11 +346,13 @@ development environment. This can be done in the `config/initializers/content_se
 with the following code:
 
 ```ruby
+Rails.application.config.content_security_policy do |policy|
   if Rails.env.development?
     policy.script_src :self, :https, :unsafe_eval
   else
     policy.script_src :self, :https
   end
+end
 ```
 
 
@@ -374,11 +376,13 @@ This can be done in the `config/initializers/content_security_policy.rb` with th
 configuration:
 
 ```ruby
+Rails.application.config.content_security_policy do |policy|
   if Rails.env.development?
     policy.script_src :self, :https, :unsafe_eval
   else
     policy.script_src :self, :https
   end
+end
 ```
 You can read more about this in the [Vue docs](https://vuejs.org/v2/guide/installation.html#CSP-environments).
 
