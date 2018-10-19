@@ -295,9 +295,9 @@ javascript_pack_tag "your-entrypoint-javascript-file.js", split_chunks: true
 stylesheet_pack_tag "your-entrypoint-stylesheet-file.css", split_chunks: true
 ```
 
-For the old configuration with the CommonsChunkPlugin see below
+For the old configuration with the CommonsChunkPlugin see below. **Note** that this functionality is deprecated in Webpack V4.
 
-### Add common chunks
+### Add common chunks (deprecated in Webpack V4)
 
 The CommonsChunkPlugin is an opt-in feature that creates a separate file (known as a chunk), consisting of common modules shared between multiple entry points. By separating common modules from bundles, the resulting chunked file can be loaded once initially, and stored in the cache for later use. This results in page speed optimizations as the browser can quickly serve the shared code from the cache, rather than being forced to load a larger bundle whenever a new page is visited.
 
