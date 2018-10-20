@@ -33,6 +33,6 @@ class ManifestTest < Minitest::Test
       "/packs/application-k344a6d59eef8632c9d1.js"
     ]
 
-    assert_equal Webpacker.manifest.lookup_entrypoint!("application", type: :javascript), application_entrypoints
+    assert_equal Webpacker.manifest.lookup!("application", type: :javascript), application_entrypoints
   end
 end
