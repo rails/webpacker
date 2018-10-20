@@ -52,8 +52,7 @@ module Webpacker::Helper
   #   <%= javascript_pack_tag 'calendar', 'data-turbolinks-track': 'reload' %> # =>
   #   <script src="/packs/calendar-1016838bab065ae1e314.js" data-turbolinks-track="reload"></script>
   def javascript_pack_tag(*names, **options)
-    javascript_source_names = sources_from_pack_manifest(names, type: :javascript)
-    javascript_include_tag(*javascript_source_names, **options)
+    javascript_include_tag(*sources_from_pack_manifest(names, type: :javascript), **options)
   end
 
   # Creates a link tag that references the named pack file, as compiled by webpack per the entries list
@@ -74,8 +73,7 @@ module Webpacker::Helper
   #   <link rel="stylesheet" media="screen" href="/packs/calendar-1016838bab065ae1e122.css" data-turbolinks-track="reload" />
   def stylesheet_pack_tag(*names, **options)
     unless Webpacker.dev_server.running? && Webpacker.dev_server.hot_module_replacing?
-      stylesheet_source_names = sources_from_pack_manifest(names, type: :stylesheet)
-      stylesheet_link_tag(*stylesheet_source_names, **options)
+      stylesheet_link_tag(*sources_from_pack_manifest(names, type: :stylesheet), **options)
     end
   end
 
