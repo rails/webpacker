@@ -288,11 +288,11 @@ environment.plugins.insert(
 )
 ```
 
-The `javascript_pack_tag` and `stylesheet_pack_tag` doesn't know (by default) whether they should use the entrypoints or that it should use the normal way of adding a pack. To make sure the `*_pack_tag` works with `SplitChunks`, you should use the following syntax;
+To use the `javascript_pack_tag` or the `stylesheet_pack_tag` with `SplitChunks` or `RuntimeChunks` you can refer to the packs as usual.
 
 ```erb
-javascript_pack_tag "your-entrypoint-javascript-file.js", split_chunks: true
-stylesheet_pack_tag "your-entrypoint-stylesheet-file.css", split_chunks: true
+javascript_pack_tag "your-entrypoint-javascript-file"
+stylesheet_pack_tag "your-entrypoint-stylesheet-file"
 ```
 
 For the old configuration with the CommonsChunkPlugin see below. **Note** that this functionality is deprecated in Webpack V4.
