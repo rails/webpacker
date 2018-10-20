@@ -103,4 +103,7 @@ app/javascript:
 
 <img src="<%= asset_pack_path 'images/calendar.png' %>" />
 <% # => <img src="/packs/images/calendar.png" /> %>
+
+<%= image_pack_tag 'images/calendar.png' %>
+<% # => <img src="/packs/images/calendar.png" /> %>
 ```
