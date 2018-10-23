@@ -117,3 +117,14 @@ environment.plugins.append('ContextReplacement',
   )
 )
 ```
+
+## Webpacker can’t find application.js in public/packs/manifest.json after silently unsuccessful compilation
+
+If you have Webpack installed, but you lack `webpack-cli` package in `package.json` (for instance because it's only a development dependency) you might see a passing `rails assets:precompile` or `rails webpacker:compile` process that silently did not compile anything.
+
+To fix it, just add this package as a dependency:
+
+```
+$ yarn remove webpack-cli # in case it was in development dependencies
+$ yarn add webpack-cli
+```
