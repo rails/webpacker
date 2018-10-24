@@ -16,7 +16,7 @@ Webpacker supports importing CSS, Sass and SCSS files directly into your JavaScr
 
 ```js
 // React component example
-// app/javascripts/packs/hello_react.jsx
+// app/javascript/packs/hello_react.jsx
 
 import React from 'react'
 import helloIcon from '../hello_react/images/icon.png'
@@ -44,7 +44,7 @@ Stylesheets end with `.module.*` is treated as [CSS Modules](https://github.com/
 
 ```js
 // React component example
-// app/javascripts/packs/hello_react.jsx
+// app/javascript/packs/hello_react.jsx
 
 import React from 'react'
 import helloIcon from '../hello_react/images/icon.png'
@@ -156,7 +156,7 @@ const styles = require('../hello_react/styles/hello-react');
 You may also use the package [typings-for-css-modules-loader](https://github.com/Jimdo/typings-for-css-modules-loader) instead of `css-loader` to automatically generate typescript `.d.ts` files in order to help resolve any css/scss styles. To do that:
 
 ```js
-// app/javascripts/packs/hello_react.jsx
+// app/javascript/packs/hello_react.jsx
 import * as styles from '../hello_react.styles/hello-react.module.scss';
 ```
 
