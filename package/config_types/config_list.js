@@ -10,6 +10,13 @@ class ConfigList extends Array {
     return this[index].value
   }
 
+  reset() {
+    const that = this
+    that.keys().forEach((key) => {
+      that.delete(key)
+    })
+  }
+
   append(key, value) {
     return this.add({ key, value })
   }

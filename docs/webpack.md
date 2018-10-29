@@ -99,6 +99,8 @@ babelLoader.options.cacheDirectory = false
 module.exports = environment
 ```
 
+**If you don't like the default configuration taking by webpacker, you can alse use `environment.loaders.reset()` to remove all the loaders, and then set the relevant configuration for your project.**
+
 ### Coffeescript 2
 
 Out of the box webpacker supports coffeescript 1,

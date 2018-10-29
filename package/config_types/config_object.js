@@ -13,6 +13,14 @@ class ConfigObject extends Object {
     this.merge(props)
   }
 
+  reset() {
+    const that = this
+    const object = that.toObject()
+    Object.keys(object).forEach((key) => {
+      that.delete(key)
+    })
+  }
+
   get(key) {
     return isStrPath(key) ? objectify(key, this) : this[key]
   }

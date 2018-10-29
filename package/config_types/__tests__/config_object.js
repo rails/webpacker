@@ -20,6 +20,20 @@ test('get', () => {
   expect(object.get('key')).toEqual('value')
 })
 
+test('reset', () => {
+  const object = new ConfigObject()
+  object.set('key1', 'value1')
+  object.set('key2', 'value2')
+  object.set('key3', 'value3')
+  expect(object.toObject()).toEqual({
+    key1: 'value1',
+    key2: 'value2',
+    key3: 'value3',
+  })
+  object.reset()
+  expect(object.toObject()).toEqual({})
+})
+
 test('delete', () => {
   const object = new ConfigObject()
   object.set('key', { key1: 'value' })

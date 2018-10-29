@@ -8,6 +8,20 @@ test('new', () => {
   expect(list).toBeInstanceOf(Array)
 })
 
+test('reset', () => {
+  const list = new ConfigList()
+  list.append('key1', 'value1')
+  list.append('key2', 'value2')
+  list.append('key3', 'value3')
+  expect(list).toEqual([
+    { key: 'key1', value: 'value1' },
+    { key: 'key2', value: 'value2' },
+    { key: 'key3', value: 'value3' }
+  ])
+  list.reset()
+  expect(list).toEqual([])
+})
+
 test('get', () => {
   const list = new ConfigList()
   list.append('key', 'value')
