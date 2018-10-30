@@ -64,7 +64,7 @@ const Hello = props => (
 ## Link styles from your Rails views
 
 Under the hood webpack uses
-[extract-text-webpack-plugin](https://github.com/webpack-contrib/extract-text-webpack-plugin) plugin to extract all the referenced styles within your app and compile it into
+[mini-css-extract-plugin](https://github.com/webpack-contrib/mini-css-extract-plugin) plugin to extract all the referenced styles within your app and compile it into
 a separate `[pack_name].css` bundle so that in your view you can use the
 `stylesheet_pack_tag` helper.
 
