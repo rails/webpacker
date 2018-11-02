@@ -19,6 +19,8 @@ class CompilerTest < Minitest::Test
     assert Webpacker.compiler.send(:webpack_env)["FOO"] == nil
     Webpacker.compiler.env["FOO"] = "BAR"
     assert Webpacker.compiler.send(:webpack_env)["FOO"] == "BAR"
+  ensure
+    Webpacker.compiler.env = {}
   end
 
   def test_default_watched_paths
