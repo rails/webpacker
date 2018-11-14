@@ -49,6 +49,7 @@ class ConfigurationTest < Webpacker::Test
   end
 
   def test_cache_manifest?
+    # this implicity tests production and the ERB processing of the config
     assert @config.cache_manifest?
 
     @config = Webpacker::Configuration.new(
