@@ -1,16 +1,16 @@
 installers = {
-  "Angular": :angular,
-  "Elm": :elm,
-  "React": :react,
-  "Vue": :vue,
-  "Erb": :erb,
-  "Coffee": :coffee,
-  "Typescript": :typescript,
-  "Stimulus": :stimulus
+  Angular: :angular,
+  Elm: :elm,
+  React: :react,
+  Vue: :vue,
+  Erb: :erb,
+  Coffee: :coffee,
+  Typescript: :typescript,
+  Stimulus: :stimulus
 }.freeze
 
 dependencies = {
-  "Angular": [:typescript]
+  Angular: [:typescript]
 }
 
 bin_path = ENV["BUNDLE_BIN"] || "./bin"
