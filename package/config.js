@@ -1,12 +1,17 @@
 const { resolve } = require('path')
 const { safeLoad } = require('js-yaml')
-const { readFileSync } = require('fs')
+const { readFileSync, existsSync } = require('fs')
 const deepMerge = require('./utils/deep_merge')
 const { isArray } = require('./utils/helpers')
 const { railsEnv } = require('./env')
 
 const defaultConfigPath = require.resolve('../lib/install/config/webpacker.yml')
-const configPath = resolve('config', 'webpacker.yml')
+
+// We use ruby to compile the erb, then output the hidden yaml file, fall back in case its not there
+let configPath = resolve('config', '.webpacker.yml')
+if (!existsSync(configPath)) {
+  configPath = resolve('config', 'webpacker.yml')
+}
 
 const getDefaultConfig = () => {
   const defaultConfig = safeLoad(readFileSync(defaultConfigPath), 'utf8')
