@@ -1,7 +1,7 @@
 require "webpacker/configuration"
 
 babelrc = Rails.root.join(".babelrc")
-babel_react_preset = ["@babel/preset-react", { "useBuiltIns": true }]
+babel_react_preset = ["@babel/preset-react", { useBuiltIns: true }]
 
 if File.exist?(babelrc)
   react_babelrc = JSON.parse(File.read(babelrc))
@@ -17,11 +17,11 @@ if File.exist?(babelrc)
   end
 else
   say "Copying .babelrc to app root directory"
-  copy_file "#{__dir__}/examples/react/.babelrc", ".babelrc"
+  copy_file "#{File.dirname(File.realpath(__FILE__))}/examples/react/.babelrc", ".babelrc"
 end
 
 say "Copying react example entry file to #{Webpacker.config.source_entry_path}"
-copy_file "#{__dir__}/examples/react/hello_react.jsx", "#{Webpacker.config.source_entry_path}/hello_react.jsx"
+copy_file "#{File.dirname(File.realpath(__FILE__))}/examples/react/hello_react.jsx", "#{Webpacker.config.source_entry_path}/hello_react.jsx"
 
 say "Updating webpack paths to include .jsx file extension"
 insert_into_file Webpacker.config.config_path, "- .jsx\n".indent(4), after: /extensions:\n/

@@ -1,26 +1,26 @@
 # Install Webpacker
-copy_file "#{__dir__}/config/webpacker.yml", "config/webpacker.yml"
+copy_file "#{File.dirname(File.realpath(__FILE__))}/config/webpacker.yml", "config/webpacker.yml"
 
 puts "Copying webpack core config"
-directory "#{__dir__}/config/webpack", "config/webpack"
+directory "#{File.dirname(File.realpath(__FILE__))}/config/webpack", "config/webpack"
 
 say "Copying .postcssrc.yml to app root directory"
-copy_file "#{__dir__}/config/.postcssrc.yml", ".postcssrc.yml"
+copy_file "#{File.dirname(File.realpath(__FILE__))}/config/.postcssrc.yml", ".postcssrc.yml"
 
 say "Copying .babelrc to app root directory"
-copy_file "#{__dir__}/config/.babelrc", ".babelrc"
+copy_file "#{File.dirname(File.realpath(__FILE__))}/config/.babelrc", ".babelrc"
 
 say "Copying .browserslistrc to app root directory"
-copy_file "#{__dir__}/config/.browserslistrc", ".browserslistrc"
+copy_file "#{File.dirname(File.realpath(__FILE__))}/config/.browserslistrc", ".browserslistrc"
 
 if Dir.exists?(Webpacker.config.source_path)
   say "The JavaScript app source directory already exists"
 else
   say "Creating JavaScript app source directory"
-  directory "#{__dir__}/javascript", Webpacker.config.source_path
+  directory "#{File.dirname(File.realpath(__FILE__))}/javascript", Webpacker.config.source_path
 end
 
-apply "#{__dir__}/binstubs.rb"
+apply "#{File.dirname(File.realpath(__FILE__))}/binstubs.rb"
 
 if File.exists?(".gitignore")
   append_to_file ".gitignore", <<-EOS

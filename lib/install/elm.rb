@@ -1,7 +1,7 @@
 require "webpacker/configuration"
 
 say "Copying elm loader to config/webpack/loaders"
-copy_file "#{__dir__}/loaders/elm.js", Rails.root.join("config/webpack/loaders/elm.js").to_s
+copy_file "#{File.dirname(File.realpath(__FILE__))}/loaders/elm.js", Rails.root.join("config/webpack/loaders/elm.js").to_s
 
 say "Adding elm loader to config/webpack/environment.js"
 insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
@@ -13,11 +13,11 @@ insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
   before: "module.exports"
 
 say "Copying Elm example entry file to #{Webpacker.config.source_entry_path}"
-copy_file "#{__dir__}/examples/elm/hello_elm.js",
+copy_file "#{File.dirname(File.realpath(__FILE__))}/examples/elm/hello_elm.js",
   "#{Webpacker.config.source_entry_path}/hello_elm.js"
 
 say "Copying Elm app file to #{Webpacker.config.source_path}"
-copy_file "#{__dir__}/examples/elm/Main.elm",
+copy_file "#{File.dirname(File.realpath(__FILE__))}/examples/elm/Main.elm",
   "#{Webpacker.config.source_path}/Main.elm"
 
 say "Installing all Elm dependencies"

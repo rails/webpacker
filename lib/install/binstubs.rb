@@ -1,4 +1,4 @@
 say "Copying binstubs"
-directory "#{__dir__}/bin", "bin"
+directory "#{File.dirname(File.realpath(__FILE__))}/bin", "bin"
 
 chmod "bin", 0755 & ~File.umask, verbose: false

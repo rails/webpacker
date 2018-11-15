@@ -5,7 +5,7 @@ namespace :webpacker do
       yarn_version = `yarn --version`
       raise Errno::ENOENT if yarn_version.blank?
 
-      pkg_path = Pathname.new("#{__dir__}/../../../package.json").realpath
+      pkg_path = Pathname.new("#{File.dirname(File.realpath(__FILE__))}/../../../package.json").realpath
       yarn_requirement = JSON.parse(pkg_path.read)["engines"]["yarn"]
 
       requirement = Gem::Requirement.new(yarn_requirement)

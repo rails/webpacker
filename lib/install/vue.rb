@@ -1,7 +1,7 @@
 require "webpacker/configuration"
 
 say "Copying vue loader to config/webpack/loaders"
-copy_file "#{__dir__}/loaders/vue.js", Rails.root.join("config/webpack/loaders/vue.js").to_s
+copy_file "#{File.dirname(File.realpath(__FILE__))}/loaders/vue.js", Rails.root.join("config/webpack/loaders/vue.js").to_s
 
 say "Adding vue loader plugin to config/webpack/environment.js"
 insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
@@ -25,11 +25,11 @@ say "Updating webpack paths to include .vue file extension"
 insert_into_file Webpacker.config.config_path, "- .vue\n".indent(4), after: /extensions:\n/
 
 say "Copying the example entry file to #{Webpacker.config.source_entry_path}"
-copy_file "#{__dir__}/examples/vue/hello_vue.js",
+copy_file "#{File.dirname(File.realpath(__FILE__))}/examples/vue/hello_vue.js",
   "#{Webpacker.config.source_entry_path}/hello_vue.js"
 
 say "Copying Vue app file to #{Webpacker.config.source_entry_path}"
-copy_file "#{__dir__}/examples/vue/app.vue",
+copy_file "#{File.dirname(File.realpath(__FILE__))}/examples/vue/app.vue",
   "#{Webpacker.config.source_path}/app.vue"
 
 say "Installing all Vue dependencies"

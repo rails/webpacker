@@ -3,8 +3,8 @@ require "test_helper"
 class ConfigurationTest < Webpacker::Test
   def setup
     @config = Webpacker::Configuration.new(
-      root_path: Pathname.new(File.expand_path("test_app", __dir__)),
-      config_path: Pathname.new(File.expand_path("./test_app/config/webpacker.yml", __dir__)),
+      root_path: Pathname.new(File.expand_path("test_app", File.dirname(File.realpath(__FILE__)))),
+      config_path: Pathname.new(File.expand_path("./test_app/config/webpacker.yml", File.dirname(File.realpath(__FILE__)))),
       env: "production"
     )
   end

@@ -20,7 +20,7 @@ namespace :webpacker do
     installers.each do |name, task_name|
       desc "Install everything needed for #{name}"
       task task_name => ["webpacker:verify_install"] do
-        template = File.expand_path("../install/#{task_name}.rb", __dir__)
+        template = File.expand_path("../install/#{task_name}.rb", File.dirname(File.realpath(__FILE__)))
         base_path =
           if Rails::VERSION::MAJOR >= 5
             "#{RbConfig.ruby} #{bin_path}/rails app:template"
@@ -30,7 +30,7 @@ namespace :webpacker do
 
         dependencies[name] ||= []
         dependencies[name].each do |dependency|
-          dependency_template = File.expand_path("../install/#{dependency}.rb", __dir__)
+          dependency_template = File.expand_path("../install/#{dependency}.rb", File.dirname(File.realpath(__FILE__)))
           system "#{base_path} LOCATION=#{dependency_template}"
         end
 

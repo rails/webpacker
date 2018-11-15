@@ -1,4 +1,4 @@
-install_template_path = File.expand_path("../../install/template.rb", __dir__).freeze
+install_template_path = File.expand_path("../../install/template.rb", File.dirname(File.realpath(__FILE__))).freeze
 bin_path = ENV["BUNDLE_BIN"] || "./bin"
 
 namespace :webpacker do

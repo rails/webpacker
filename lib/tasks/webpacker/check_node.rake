@@ -5,7 +5,7 @@ namespace :webpacker do
       node_version = `node -v || nodejs -v`
       raise Errno::ENOENT if node_version.blank?
 
-      pkg_path = Pathname.new("#{__dir__}/../../../package.json").realpath
+      pkg_path = Pathname.new("#{File.dirname(File.realpath(__FILE__))}/../../../package.json").realpath
       node_requirement = JSON.parse(pkg_path.read)["engines"]["node"]
 
       requirement = Gem::Requirement.new(node_requirement)

@@ -24,6 +24,6 @@ class RakeTasksTest < Minitest::Test
 
   private
     def test_app_path
-      File.expand_path("test_app", __dir__)
+      File.expand_path("test_app", File.dirname(File.realpath(__FILE__)))
     end
 end

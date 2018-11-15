@@ -1,4 +1,4 @@
-binstubs_template_path = File.expand_path("../../install/binstubs.rb", __dir__).freeze
+binstubs_template_path = File.expand_path("../../install/binstubs.rb", File.dirname(File.realpath(__FILE__))).freeze
 bin_path = ENV["BUNDLE_BIN"] || "./bin"
 
 namespace :webpacker do
