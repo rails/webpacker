@@ -59,7 +59,7 @@ const getEntryObject = () => {
   paths.forEach((path) => {
     const namespace = relative(join(rootPath), dirname(path))
     const name = join(namespace, basename(path, extname(path)))
-    result.merge({ [name]: resolve(path) })
+    result[name] = resolve(path)
   })
   return result
 }
