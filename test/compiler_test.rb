@@ -25,7 +25,7 @@ class CompilerTest < Minitest::Test
     assert_equal Webpacker.compiler.send(:default_watched_paths), [
       "app/assets/**/*",
       "/etc/yarn/**/*",
-      "test/test_app/app/javascript/**/*",
+      "app/javascript/**/*",
       "yarn.lock",
       "package.json",
       "config/webpack/**/*"
