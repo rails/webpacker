@@ -102,13 +102,22 @@ Or in your app/javascript/app.sass file:
 
 Webpacker out-of-the-box provides CSS post-processing using
 [postcss-loader](https://github.com/postcss/postcss-loader)
-and the installer sets up a standard `.postcssrc.yml`
+and the installer sets up a standard `postcss.config.js`
 file in your app root with standard plugins.
 
-```yml
-plugins:
-  postcss-import: {}
-  postcss-preset-env: {}
+```js
+module.exports = {
+  plugins: [
+    require('postcss-import'),
+    require('postcss-flexbugs-fixes'),
+    require('postcss-preset-env')({
+      autoprefixer: {
+        flexbox: 'no-2009'
+      },
+      stage: 3
+    })
+  ]
+}
 ```
 
 ## Using CSS with [vue-loader](https://github.com/vuejs/vue-loader)

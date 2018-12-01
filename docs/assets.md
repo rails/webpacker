@@ -56,12 +56,12 @@ You can also use [babel-plugin-module-resolver](https://github.com/tleunen/babel
 yarn add babel-plugin-module-resolver
 ```
 
-Specify the plugin in your `.babelrc` with the custom root or alias. Here's an example:
+Specify the plugin in your `babel.config.js` with the custom root or alias. Here's an example:
 
-```json
+```js
 {
-  "plugins": [
-    ["module-resolver", {
+  plugins: [
+    [require("module-resolver").default, {
       "root": ["./app"],
       "alias": {
         "assets": "./assets"

@@ -5,7 +5,7 @@
 
 Webpacker ships with [babel](https://babeljs.io/) - a JavaScript compiler so
 you can use next generation JavaScript, today. The Webpacker installer sets up a
-standard `.babelrc` file in your app root, which will work great in most cases
+standard `babel.config.js` file in your app root, which will work great in most cases
 because of [@babel/preset-env](https://github.com/babel/babel/tree/master/packages/babel-preset-env).
 
 Following ES6/7 features are supported out of the box:
