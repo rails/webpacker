@@ -25,4 +25,14 @@ class ManifestTest < Minitest::Test
   def test_lookup_success
     assert_equal Webpacker.manifest.lookup("bootstrap.js"), "/packs/bootstrap-300631c4f0e0f9c865bc.js"
   end
+
+  def test_lookup_entrypoint
+    application_entrypoints = [
+      "/packs/vendors~application~bootstrap-c20632e7baf2c81200d3.chunk.js",
+      "/packs/vendors~application-e55f2aae30c07fb6d82a.chunk.js",
+      "/packs/application-k344a6d59eef8632c9d1.js"
+    ]
+
+    assert_equal Webpacker.manifest.lookup!("application", type: :javascript), application_entrypoints
+  end
 end

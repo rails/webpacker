@@ -83,10 +83,6 @@ module Webpacker::Helper
     end
 
     def sources_from_pack_manifest(names, type:)
-      names.map { |name| Webpacker.manifest.lookup!(pack_name_with_extension(name, type: type)) }
-    end
-
-    def pack_name_with_extension(name, type:)
-      "#{name}#{compute_asset_extname(name.to_s, type: type)}"
+      names.map { |name| Webpacker.manifest.lookup!(name, type: type) }.flatten
     end
 end

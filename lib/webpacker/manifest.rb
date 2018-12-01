@@ -18,13 +18,29 @@ class Webpacker::Manifest
     @data = load
   end
 
-  def lookup(name)
+  def lookup(name, pack_type = {})
     compile if compiling?
-    find name
+
+    # When using SplitChunks or RuntimeChunks the manifest hash will contain
+    # an extra object called "entrypoints". When the entrypoints key is not
+    # present in the manifest, or the name is not found in the entrypoints hash,
+    # it will raise a NoMethodError. If this happens, we should try to lookup
+    # a single instance of the pack based on the given name.
+    begin
+      manifest_pack_type = manifest_type(pack_type[:type])
+      manifest_pack_name = manifest_name(name, manifest_pack_type)
+
+      # Lookup the pack in the entrypoints of the manifest
+      find("entrypoints")[manifest_pack_name][manifest_pack_type]
+    rescue NoMethodError
+
+      # Lookup a single instance of the pack
+      find(full_pack_name(name, pack_type[:type]))
+    end
   end
 
-  def lookup!(name)
-    lookup(name) || handle_missing_entry(name)
+  def lookup!(name, pack_type = {})
+    lookup(name, pack_type) || handle_missing_entry(name)
   end
 
   private
@@ -36,12 +52,49 @@ class Webpacker::Manifest
       Webpacker.logger.tagged("Webpacker") { compiler.compile }
     end
 
+    def data
+      if config.cache_manifest?
+        @data ||= load
+      else
+        refresh
+      end
+    end
+
     def find(name)
       data[name.to_s].presence
     end
 
+    def full_pack_name(name, pack_type)
+      return name unless File.extname(name.to_s).empty?
+      "#{name}.#{manifest_type(pack_type)}"
+    end
+
     def handle_missing_entry(name)
       raise Webpacker::Manifest::MissingEntryError, missing_file_from_manifest_error(name)
+    end
+
+    def load
+      if config.public_manifest_path.exist?
+        JSON.parse config.public_manifest_path.read
+      else
+        {}
+      end
+    end
+
+    # The `manifest_name` method strips of the file extension of the name, because in the
+    # manifest hash the entrypoints are defined by their pack name without the extension.
+    # When the user provides a name with a file extension, we want to try to strip it off.
+    def manifest_name(name, pack_type)
+      return name if File.extname(name.to_s).empty?
+      File.basename(name, pack_type)
+    end
+
+    def manifest_type(pack_type)
+      case pack_type
+      when :javascript then "js"
+      when :stylesheet then "css"
+      else pack_type.to_s
+      end
     end
 
     def missing_file_from_manifest_error(bundle_name)
@@ -55,21 +108,5 @@ Webpacker can't find #{bundle_name} in #{config.public_manifest_path}. Possible 
 Your manifest contains:
 #{JSON.pretty_generate(@data)}
       MSG
-    end
-
-    def data
-      if config.cache_manifest?
-        @data ||= load
-      else
-        refresh
-      end
-    end
-
-    def load
-      if config.public_manifest_path.exist?
-        JSON.parse config.public_manifest_path.read
-      else
-        {}
-      end
     end
 end
