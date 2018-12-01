@@ -2,6 +2,8 @@ const isObject = value => typeof value === 'object'
   && value !== null
   && (value.length === undefined || value.length === null)
 
+const isNotObject = value => !isObject(value)
+
 const isBoolean = str => /^true/.test(str) || /^false/.test(str)
 
 const isEmpty = value => value === null || value === undefined
@@ -35,6 +37,7 @@ module.exports = {
   chdirTestApp,
   chdirCwd,
   isObject,
+  isNotObject,
   isBoolean,
   isArray,
   isEqual,

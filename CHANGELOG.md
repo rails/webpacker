@@ -1,5 +1,14 @@
 **Please note that Webpacker 3.1.0 and 3.1.1 have some serious bugs so please consider using either 3.0.2 or 3.2.0**
 
+## [Unreleased] - xxxxxx
+
+### Added
+
+  - Move `.babelrc` and `.postcssrc` to `.js` variant [#1822](https://github.com/rails/webpacker/pull/1822)
+  - Use postcss safe parser when optimising css assets [#1822](https://github.com/rails/webpacker/pull/1822)
+  - Add split chunks api (undocumented)
+  - Allow changing static file extensions using webpacker.yml (undocumented)
+
 ## [4.0.0-pre.3] - 2018-10-01
 
 ### Added
