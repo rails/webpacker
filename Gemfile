@@ -4,7 +4,7 @@ gemspec
 
 gem "rails"
 gem "rake", ">= 11.1"
-gem "rubocop", ">= 0.49", require: false
+gem "rubocop", git: "https://github.com/rubocop-hq/rubocop.git", require: false
 gem "rack-proxy", require: false
 
 group :test do

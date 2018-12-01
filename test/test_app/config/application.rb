@@ -7,5 +7,6 @@ module TestApp
     config.secret_key_base = "abcdef"
     config.eager_load = true
     config.webpacker.check_yarn_integrity = false
+    config.active_support.test_order = :sorted
   end
 end
