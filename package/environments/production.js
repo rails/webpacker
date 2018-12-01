@@ -1,6 +1,7 @@
 const TerserPlugin = require('terser-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const safePostCssParser = require('postcss-safe-parser')
 const Base = require('./base')
 
 module.exports = class extends Base {
@@ -17,7 +18,16 @@ module.exports = class extends Base {
       })
     )
 
-    this.plugins.append('OptimizeCSSAssets', new OptimizeCSSAssetsPlugin())
+    this.plugins.append(
+      'OptimizeCSSAssets',
+      new OptimizeCSSAssetsPlugin({
+        parser: safePostCssParser,
+        map: {
+          inline: false,
+          annotation: true
+        }
+      })
+    )
 
     this.config.merge({
       devtool: 'nosources-source-map',

@@ -4,11 +4,11 @@ copy_file "#{__dir__}/config/webpacker.yml", "config/webpacker.yml"
 puts "Copying webpack core config"
 directory "#{__dir__}/config/webpack", "config/webpack"
 
-say "Copying .postcssrc.yml to app root directory"
-copy_file "#{__dir__}/config/.postcssrc.yml", ".postcssrc.yml"
+say "Copying postcss.config.js to app root directory"
+copy_file "#{__dir__}/config/postcss.config.js", "postcss.config.js"
 
-say "Copying .babelrc to app root directory"
-copy_file "#{__dir__}/config/.babelrc", ".babelrc"
+say "Copying babel.config.js to app root directory"
+copy_file "#{__dir__}/config/babel.config.js", "babel.config.js"
 
 say "Copying .browserslistrc to app root directory"
 copy_file "#{__dir__}/config/.browserslistrc", ".browserslistrc"
