@@ -9,7 +9,7 @@ insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
   after: "require('@rails/webpacker')\n"
 
 insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
-  "environment.loaders.append('coffee', coffee)\n",
+  "environment.loaders.prepend('coffee', coffee)\n",
   before: "module.exports"
 
 say "Updating webpack paths to include .coffee file extension"

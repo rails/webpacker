@@ -24,7 +24,7 @@ insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
   after: "require('@rails/webpacker')\n"
 
 insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
-  "environment.loaders.append('typescript', typescript)\n",
+  "environment.loaders.prepend('typescript', typescript)\n",
   before: "module.exports"
 
 say "Copying tsconfig.json to the Rails root directory for typescript"
