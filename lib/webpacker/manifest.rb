@@ -4,7 +4,7 @@
 # "/packs/calendar-1016838bab065ae1e314.css".
 #
 # When the configuration is set to on-demand compilation, with the `compile: true` option in
-# the webpacker.yml file, any lookups will be preceeded by a compilation if one is needed.
+# the webpacker.yml file, any lookups will be preceded by a compilation if one is needed.
 class Webpacker::Manifest
   class MissingEntryError < StandardError; end
 
