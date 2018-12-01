@@ -10,8 +10,9 @@ module.exports = class extends Base {
     this.plugins.append(
       'Compression',
       new CompressionPlugin({
-        asset: '[path].gz[query]',
+        filename: '[path].gz[query]',
         algorithm: 'gzip',
+        cache: true,
         test: /\.(js|css|html|json|ico|svg|eot|otf|ttf)$/
       })
     )
