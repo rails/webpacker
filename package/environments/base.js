@@ -151,7 +151,7 @@ module.exports = class Base {
 
       module: {
         strictExportPresence: true,
-        rules: [{ parser: { requireEnsure: false } }, this.loaders.values()]
+        rules: [{ parser: { requireEnsure: false } }, ...this.loaders.values()]
       },
 
       plugins: this.plugins.values(),
