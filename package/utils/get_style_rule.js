@@ -1,4 +1,5 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const { resolve } = require('path')
 const devServer = require('../dev_server')
 const { nodeEnv } = require('../env')
 
@@ -29,6 +30,7 @@ const getStyleRule = (test, modules = false, preprocessors = []) => {
     {
       loader: 'postcss-loader',
       options: {
+        config: { path: resolve() },
         sourceMap: true
       }
     },
