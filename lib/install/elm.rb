@@ -27,7 +27,7 @@ run "yarn run elm init"
 run "yarn run elm make"
 
 say "Updating webpack paths to include .elm file extension"
-insert_into_file Webpacker.config.config_path, "- .elm\n".indent(4), after: /extensions:\n/
+insert_into_file Webpacker.config.config_path, "- .elm\n".indent(4), after: /\s+extensions:\n/
 
 say "Updating Elm source location"
 gsub_file "elm.json", /\"\src\"\n/,
