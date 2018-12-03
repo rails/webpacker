@@ -25,7 +25,7 @@ class RakeTasksTest < Webpacker::Test
   def test_rake_webpacker_yarn_install_in_non_production_environments
     assert_includes test_app_dev_dependencies, "right-pad"
 
-    with_environment("NODE_ENV" => "test", "RAILS_ENV" => "test") do
+    with_environment("NODE_ENV" => "test") do
       Dir.chdir(test_app_path) do
         `bundle exec rake webpacker:yarn_install`
       end
@@ -36,7 +36,7 @@ class RakeTasksTest < Webpacker::Test
   end
 
   def test_rake_webpacker_yarn_install_in_production_environment
-    with_environment("NODE_ENV" => "production", "RAILS_ENV" => "production") do
+    with_environment("NODE_ENV" => "production") do
       Dir.chdir(test_app_path) do
         `bundle exec rake webpacker:yarn_install`
       end
