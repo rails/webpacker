@@ -45,15 +45,22 @@ module Webpacker
 
       def execute_cmd
         env = Webpacker::Compiler.env
-        cmd = [
-          "#{@node_modules_bin_path}/webpack-dev-server",
-          "--config", @webpack_config
-        ]
+
+        cmd = if node_modules_bin_exist?
+          ["#{@node_modules_bin_path}/webpack-dev-server"]
+        else
+          ["yarn", "webpack-dev-server"]
+        end
+        cmd += ["--config", @webpack_config]
         cmd += ["--progress", "--color"] if @pretty
 
         Dir.chdir(@app_path) do
-          exec env, *cmd
+          Kernel.exec env, *cmd
         end
+      end
+
+      def node_modules_bin_exist?
+        File.exist?("#{@node_modules_bin_path}/webpack-dev-server")
       end
   end
 end
