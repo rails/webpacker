@@ -1,6 +1,7 @@
 const { resolve } = require('path')
 const { safeLoad } = require('js-yaml')
 const { readFileSync } = require('fs')
+const url = require('url')
 const deepMerge = require('./utils/deep_merge')
 const { isArray } = require('./utils/helpers')
 const { railsEnv } = require('./env')
@@ -27,7 +28,9 @@ if (process.env.RAILS_RELATIVE_URL_ROOT) {
   publicPath = `/${process.env.RAILS_RELATIVE_URL_ROOT}${publicPath}`
 }
 
-// Remove extra slashes.
-config.publicPath = publicPath.replace(/(^\/|[^:]\/)\/+/g, '$1')
+// Ensure that the publicPath includes our asset host so dynamic imports
+// (code-splitting chunks) load from the CDN instead of a relative path.
+const assetHost = process.env.WEBPACKER_ASSET_HOST
+if (assetHost) config.publicPath = url.resolve(assetHost, publicPath)
 
 module.exports = config
