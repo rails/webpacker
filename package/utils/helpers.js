@@ -33,9 +33,16 @@ const chdirTestApp = () => {
 
 const chdirCwd = () => process.chdir(process.cwd())
 
+const removeTrailingSlash = (path) => {
+  const hasTrailingSlash = path.endsWith('/')
+  if (hasTrailingSlash) return path.substr(0, path.length - 1)
+  return path
+}
+
 module.exports = {
   chdirTestApp,
   chdirCwd,
+  removeTrailingSlash,
   isObject,
   isNotObject,
   isBoolean,
