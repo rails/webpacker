@@ -33,7 +33,9 @@ const chdirTestApp = () => {
 
 const chdirCwd = () => process.chdir(process.cwd())
 
-const resetEnv = () => (process.env = {})
+const resetEnv = () => {
+  process.env = {}
+}
 
 const ensureTrailingSlash = path => (path.endsWith('/') ? path : `${path}/`)
 
