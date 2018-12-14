@@ -25,7 +25,7 @@ describe('Environment', () => {
     test('should return entry', () => {
       const config = environment.toWebpackConfig()
       expect(config.entry.application).toEqual(
-        resolve('app', 'javascript', 'packs', 'application.js')
+        resolve('app', 'frontend', 'packs', 'application.js')
       )
     })
 
@@ -57,7 +57,7 @@ describe('Environment', () => {
     test('should return default resolve.modules with additions', () => {
       const config = environment.toWebpackConfig()
       expect(config.resolve.modules).toEqual([
-        resolve('app', 'javascript'),
+        resolve('app', 'frontend'),
         resolve('app/assets'),
         resolve('/etc/yarn'),
         'node_modules'

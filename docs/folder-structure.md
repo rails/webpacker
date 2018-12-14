@@ -9,7 +9,7 @@ here that you don't want to link in your views.
 
 ## Source
 
-You can put your app source under `app/javascript` folder or whatever you have configured
+You can put your app source under `app/frontend` folder or whatever you have configured
 in `config/webpacker.yml`.
 
 
@@ -18,16 +18,16 @@ in `config/webpacker.yml`.
 Let's say you're building a calendar app. Your JS app structure could look like this:
 
 ```js
-// app/javascript/packs/calendar.js
+// app/frontend/packs/calendar.js
 
 import 'calendar'
 ```
 
 ```
-app/javascript/calendar/index.js // gets loaded by import 'calendar'
-app/javascript/calendar/components/grid.jsx
-app/javascript/calendar/styles/grid.sass
-app/javascript/calendar/models/month.js
+app/frontend/calendar/index.js // gets loaded by import 'calendar'
+app/frontend/calendar/components/grid.jsx
+app/frontend/calendar/styles/grid.sass
+app/frontend/calendar/models/month.js
 ```
 
 ```erb
@@ -45,8 +45,8 @@ But it could also look a million other ways.
 You can also namespace your packs using directories similar to a Rails app.
 
 ```
-app/javascript/packs/admin/orders.js
-app/javascript/packs/shop/orders.js
+app/frontend/packs/admin/orders.js
+app/frontend/packs/shop/orders.js
 ```
 
 and reference them in your views like this:

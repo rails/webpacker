@@ -20,7 +20,7 @@ If you're not concerned with view helpers to pass props or server rendering, can
 ```
 
 ```js
-// app/javascript/packs/hello_react.js
+// app/frontend/packs/hello_react.js
 
 const Hello = props => (
   <div className='react-app-wrapper'>

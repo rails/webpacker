@@ -7,7 +7,7 @@ Webpacker supports importing CSS, Sass and SCSS files directly into your JavaScr
 ## Import global styles into your JS app
 
 ```sass
-// app/javascript/hello_react/styles/hello-react.sass
+// app/frontend/hello_react/styles/hello-react.sass
 
 .hello-react
   padding: 20px
@@ -16,7 +16,7 @@ Webpacker supports importing CSS, Sass and SCSS files directly into your JavaScr
 
 ```js
 // React component example
-// app/javascript/packs/hello_react.jsx
+// app/frontend/packs/hello_react.jsx
 
 import React from 'react'
 import helloIcon from '../hello_react/images/icon.png'
@@ -35,7 +35,7 @@ const Hello = props => (
 Stylesheets end with `.module.*` is treated as [CSS Modules](https://github.com/css-modules/css-modules).
 
 ```sass
-// app/javascript/hello_react/styles/hello-react.module.sass
+// app/frontend/hello_react/styles/hello-react.module.sass
 
 .helloReact
   padding: 20px
@@ -44,7 +44,7 @@ Stylesheets end with `.module.*` is treated as [CSS Modules](https://github.com/
 
 ```js
 // React component example
-// app/javascript/packs/hello_react.jsx
+// app/frontend/packs/hello_react.jsx
 
 import React from 'react'
 import helloIcon from '../hello_react/images/icon.png'
@@ -82,14 +82,14 @@ You can use Yarn to add bootstrap or any other modules available on npm:
 yarn add bootstrap
 ```
 
-Import Bootstrap and theme (optional) CSS in your app/javascript/packs/app.js file:
+Import Bootstrap and theme (optional) CSS in your app/frontend/packs/app.js file:
 
 ```js
 import 'bootstrap/dist/css/bootstrap'
 import 'bootstrap/dist/css/bootstrap-theme'
 ```
 
-Or in your app/javascript/app.sass file:
+Or in your app/frontend/app.sass file:
 
 ```sass
 // ~ to tell that this is not a relative import
@@ -166,7 +166,7 @@ const styles = require('../hello_react/styles/hello-react');
 You may also use the package [typings-for-css-modules-loader](https://github.com/Jimdo/typings-for-css-modules-loader) instead of `css-loader` to automatically generate typescript `.d.ts` files in order to help resolve any css/scss styles. To do that:
 
 ```js
-// app/javascript/packs/hello_react.jsx
+// app/frontend/packs/hello_react.jsx
 import * as styles from '../hello_react.styles/hello-react.module.scss';
 ```
 

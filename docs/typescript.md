@@ -90,7 +90,7 @@ environment.loaders.append('html', {
 4. Setup a custom `d.ts` definition
 
 ```ts
-// app/javascript/hello_angular/html.d.ts
+// app/frontend/hello_angular/html.d.ts
 
 declare module "*.html" {
   const content: string

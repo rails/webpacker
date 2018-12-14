@@ -45,7 +45,7 @@ module Webpacker::Helper
 
   # Creates a script tag that references the named pack file, as compiled by webpack per the entries list
   # in config/webpack/shared.js. By default, this list is auto-generated to match everything in
-  # app/javascript/packs/*.js. In production mode, the digested reference is automatically looked up.
+  # app/frontend/packs/*.js. In production mode, the digested reference is automatically looked up.
   #
   # Example:
   #
@@ -57,7 +57,7 @@ module Webpacker::Helper
 
   # Creates a link tag that references the named pack file, as compiled by webpack per the entries list
   # in config/webpack/shared.js. By default, this list is auto-generated to match everything in
-  # app/javascript/packs/*.js. In production mode, the digested reference is automatically looked up.
+  # app/frontend/packs/*.js. In production mode, the digested reference is automatically looked up.
   #
   # Note: If the development server is running and hot module replacement is active, this will return nothing.
   # In that setup you need to configure your styles to be inlined in your JavaScript for hot reloading.

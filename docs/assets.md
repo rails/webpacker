@@ -12,7 +12,7 @@ You can also import styles from `node_modules` using the following syntax.
 Please note that your styles will always be extracted into `[pack_name].css`:
 
 ```sass
-// app/javascript/styles.sass
+// app/frontend/styles.sass
 // ~ to tell webpack that this is not a relative import:
 
 @import '~@material/animation/mdc-animation'
@@ -21,7 +21,7 @@ Please note that your styles will always be extracted into `[pack_name].css`:
 
 ```js
 // Your main app pack
-// app/javascript/packs/app.js
+// app/frontend/packs/app.js
 
 import '../styles'
 ```
@@ -39,7 +39,7 @@ import '../styles'
 It's possible to link to assets that have been precompiled by Sprockets. Add the `.erb` extension to your JavaScript file, then you can use Sprockets' asset helpers:
 
 ```erb
-<%# app/javascript/my_pack/example.js.erb %>
+<%# app/frontend/my_pack/example.js.erb %>
 
 <% helpers = ActionController::Base.helpers %>
 const railsImagePath = "<%= helpers.image_path('rails.png') %>"
@@ -88,7 +88,7 @@ You can also link `js/images/styles/fonts` used within your js app in views usin
 create a `<link rel="prefetch">` or `<img />` for an asset.
 
 ```yml
-app/javascript:
+app/frontend:
   - packs
     - hello_react.js
   - styles
