@@ -34,8 +34,6 @@ matrix:
   allow_failures:
   - gemfile: gemfiles/Gemfile-rails-edge
   exclude:
-    - rvm: ruby-head
-      gemfile: gemfiles/Gemfile-rails.4.2.x
     - rvm: 2.3.8
       gemfile: gemfiles/Gemfile-rails-edge
     - rvm: ruby-head
