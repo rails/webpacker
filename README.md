@@ -444,7 +444,7 @@ app files and compiled webpack bundles will go in your Rails app.
 All these options are configurable from `config/webpacker.yml` file.
 
 The configuration for what webpack is supposed to compile by default rests
-on the convention that every file in `appfrontend/packs/*`**(default)**
+on the convention that every file in `app/frontend/packs/*`**(default)**
 or whatever path you set for `source_entry_path` in the `webpacker.yml` configuration
 is turned into their own output files (or entry points, as webpack calls it). Therefore you don't want to put anything inside `packs` directory that you do not want to be
 an entry file. As a rule of thumb, put all files you want to link in your views inside
