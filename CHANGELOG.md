@@ -9,6 +9,11 @@
   ```js
   environment.loaders.prepend()
   ```
+  - Separate CSS extraction from build environment [#1625](https://github.com/rails/webpacker/pull/1625)
+  ```yml
+  # Extract and emit a css file
+  extract_css: true
+  ```
   - Separate rule to compile node modules
   (fixes cases where ES6 libraries were included in the app code) [#1823](https://github.com/rails/webpacker/pull/1823)
   - File loader extensions API [#1823](https://github.com/rails/webpacker/pull/1823)

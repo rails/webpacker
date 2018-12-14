@@ -20,15 +20,6 @@ class Webpacker::DevServer
     false
   end
 
-  def hot_module_replacing?
-    case fetch(:hmr)
-    when true, "true"
-      true
-    else
-      false
-    end
-  end
-
   def host
     fetch(:host)
   end

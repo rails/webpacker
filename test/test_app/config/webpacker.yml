@@ -16,6 +16,9 @@ default: &default
   # Reload manifest.json on all requests so we reload latest compiled packs
   cache_manifest: false
 
+  # Extract and emit a css file
+  extract_css: false
+
   static_assets_extensions:
     - .jpg
     - .jpeg
@@ -75,7 +78,7 @@ production:
   # Production depends on precompilation of packs prior to booting for performance.
   compile: false
 
-  # Emit css as a file
+  # Extract and emit a css file
   extract_css: true
 
   # Cache manifest.json for performance
@@ -87,7 +90,7 @@ staging:
   # Production depends on precompilation of packs prior to booting for performance.
   compile: false
 
-  # Emit css as a file
+  # Extract and emit a css file
   extract_css: true
 
   # Cache manifest.json for performance
