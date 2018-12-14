@@ -116,7 +116,7 @@ yarn upgrade
 Once installed, you can start writing modern ES6-flavored JavaScript apps right away:
 
 ```yml
-app/javascript:
+app/frontend:
   ├── packs:
   │   # only webpack entry files here
   │   └── application.js
@@ -160,7 +160,7 @@ to the standard Rails log.
 
 If you want to use live code reloading, or you have enough JavaScript that on-demand compilation is too slow, you'll need to run `./bin/webpack-dev-server` or `ruby ./bin/webpack-dev-server`. Windows users will need to run these commands
 in a terminal separate from `bundle exec rails s`. This process will watch for changes
-in the `app/javascript/packs/*.js` files and automatically reload the browser to match.
+in the `app/frontend/packs/*.js` files and automatically reload the browser to match.
 
 ```bash
 # webpack dev server
@@ -315,7 +315,7 @@ setup with Webpacker).
 
 The installer will add all relevant dependencies using Yarn, changes
 to the configuration files, and an example React component to your
-project in `app/javascript/packs` so that you can experiment with React right away.
+project in `app/frontend/packs` so that you can experiment with React right away.
 
 
 ### Angular with TypeScript
@@ -333,7 +333,7 @@ setup with Webpacker).
 
 The installer will add the TypeScript and Angular core libraries using Yarn alongside
 a few changes to the configuration files. An example component written in
-TypeScript will also be added to your project in `app/javascript` so that
+TypeScript will also be added to your project in `app/frontend` so that
 you can experiment with Angular right away.
 
 By default, Angular uses a JIT compiler for development environment. This
@@ -369,7 +369,7 @@ rails new myapp --webpack=vue
 
 The installer will add Vue and its required libraries using Yarn alongside
 automatically applying changes needed to the configuration files. An example component will
-be added to your project in `app/javascript` so that you can experiment with Vue right away.
+be added to your project in `app/frontend` so that you can experiment with Vue right away.
 
 If you're using Rails 5.2+ you'll need to enable `unsafe-eval` rule for your development environment.
 This can be done in the `config/initializers/content_security_policy.rb` with the following
@@ -400,7 +400,7 @@ rails new myapp --webpack=elm
 (or run `bundle exec rails webpacker:install:elm` on a Rails app already setup with Webpacker).
 
 The Elm library and its core packages will be added via Yarn and Elm.
-An example `Main.elm` app will also be added to your project in `app/javascript`
+An example `Main.elm` app will also be added to your project in `app/frontend`
 so that you can experiment with Elm right away.
 
 ### Stimulus
@@ -424,7 +424,7 @@ run `bundle exec rails webpacker:install:coffee` on a Rails app already
 setup with Webpacker.
 
 An example `hello_coffee.coffee` file will also be added to your project
-in `app/javascript/packs` so that you can experiment with Coffeescript right away.
+in `app/frontend/packs` so that you can experiment with Coffeescript right away.
 
 ### Erb
 
@@ -433,7 +433,7 @@ run `bundle exec rails webpacker:install:erb` on a Rails app already
 setup with Webpacker.
 
 An example `hello_erb.js.erb` file will also be added to your project
-in `app/javascript/packs` so that you can experiment with Erb-flavoured
+in `app/frontend/packs` so that you can experiment with Erb-flavoured
 javascript right away.
 
 
@@ -444,13 +444,13 @@ app files and compiled webpack bundles will go in your Rails app.
 All these options are configurable from `config/webpacker.yml` file.
 
 The configuration for what webpack is supposed to compile by default rests
-on the convention that every file in `app/javascript/packs/*`**(default)**
+on the convention that every file in `appfrontend/packs/*`**(default)**
 or whatever path you set for `source_entry_path` in the `webpacker.yml` configuration
 is turned into their own output files (or entry points, as webpack calls it). Therefore you don't want to put anything inside `packs` directory that you do not want to be
 an entry file. As a rule of thumb, put all files you want to link in your views inside
-"packs" directory and keep everything else under `app/javascript`.
+"packs" directory and keep everything else under `app/frontend`.
 
-Suppose you want to change the source directory from `app/javascript`
+Suppose you want to change the source directory from `app/frontend`
 to `frontend` and output to `assets/packs`. This is how you would do it:
 
 ```yml
