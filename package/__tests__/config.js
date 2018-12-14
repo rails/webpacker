@@ -1,18 +1,17 @@
 /* global test expect, describe */
 
-const { chdirCwd, chdirTestApp } = require('../utils/helpers')
+const { chdirCwd, chdirTestApp, resetEnv } = require('../utils/helpers')
 
 chdirTestApp()
 
 const config = require('../config')
 
 describe('Config', () => {
-  beforeEach(() => jest.resetModules())
+  beforeEach(() => jest.resetModules() && resetEnv())
   afterAll(chdirCwd)
 
   test('public path', () => {
     process.env.RAILS_ENV = 'development'
-    delete process.env.RAILS_RELATIVE_URL_ROOT
     const config = require('../config')
     expect(config.publicPath).toEqual('/packs/')
   })
@@ -25,8 +24,31 @@ describe('Config', () => {
     expect(config.publicPath).toEqual('/foo/packs/')
   })
 
+  test('public path with relative root without slash', () => {
+    process.env.RAILS_ENV = 'development'
+    process.env.RAILS_RELATIVE_URL_ROOT = 'foo'
+    const config = require('../config')
+    expect(config.publicPath).toEqual('/foo/packs/')
+  })
+
+  test('public path with asset host and relative root', () => {
+    process.env.RAILS_ENV = 'development'
+    process.env.RAILS_RELATIVE_URL_ROOT = '/foo/'
+    process.env.WEBPACKER_ASSET_HOST = 'http://foo.com/'
+    const config = require('../config')
+    expect(config.publicPath).toEqual('http://foo.com/foo/packs/')
+  })
+
+  test('public path with asset host', () => {
+    process.env.RAILS_ENV = 'development'
+    process.env.WEBPACKER_ASSET_HOST = 'http://foo.com/'
+    const config = require('../config')
+    expect(config.publicPath).toEqual('http://foo.com/packs/')
+  })
+
   test('should return extensions as listed in app config', () => {
     expect(config.extensions).toEqual([
+      '.mjs',
       '.js',
       '.sass',
       '.scss',

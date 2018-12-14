@@ -1,5 +1,38 @@
 **Please note that Webpacker 3.1.0 and 3.1.1 have some serious bugs so please consider using either 3.0.2 or 3.2.0**
 
+## [Unreleased] - xxxxxx
+
+## Breaking changes
+
+  - Order of rules changed so you might have to change append to prepend,
+  depending on how you want to process packs [#1823](https://github.com/rails/webpacker/pull/1823)
+  ```js
+  environment.loaders.prepend()
+  ```
+  - Separate rule to compile node modules
+  (fixes cases where ES6 libraries were included in the app code) [#1823](https://github.com/rails/webpacker/pull/1823)
+  - File loader extensions API [#1823](https://github.com/rails/webpacker/pull/1823)
+  ```yml
+  # webpacker.yml
+  static_assets_extensions:
+    - .pdf
+    # etc..
+  ```
+
+### Added
+
+  - Move `.babelrc` and `.postcssrc` to `.js` variant [#1822](https://github.com/rails/webpacker/pull/1822)
+  - Use postcss safe parser when optimising css assets [#1822](https://github.com/rails/webpacker/pull/1822)
+  - Add split chunks api (undocumented)
+  ```js
+  const { environment } = require('@rails/webpacker')
+  // Enable with default config
+  environment.splitChunks()
+  // Configure via a callback
+  environment.splitChunks((config) => Object.assign({}, config, { optimization: { splitChunks: false }}))
+  ```
+  - Allow changing static file extensions using webpacker.yml (undocumented)
+
 ## [4.0.0-pre.3] - 2018-10-01
 
 ### Added

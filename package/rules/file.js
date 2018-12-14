@@ -1,8 +1,8 @@
 const { join } = require('path')
-const { source_path: sourcePath } = require('../config')
+const { source_path: sourcePath, static_assets_extensions: fileExtensions } = require('../config')
 
 module.exports = {
-  test: /\.(jpg|jpeg|png|gif|tiff|ico|svg|eot|otf|ttf|woff|woff2)$/i,
+  test: new RegExp(`(${fileExtensions.join('|')})`, 'i'),
   use: [
     {
       loader: 'file-loader',

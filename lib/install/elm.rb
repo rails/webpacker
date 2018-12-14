@@ -9,7 +9,7 @@ insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
   after: "require('@rails/webpacker')\n"
 
 insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
-  "environment.loaders.append('elm', elm)\n",
+  "environment.loaders.prepend('elm', elm)\n",
   before: "module.exports"
 
 say "Copying Elm example entry file to #{Webpacker.config.source_entry_path}"
@@ -27,7 +27,7 @@ run "yarn run elm init"
 run "yarn run elm make"
 
 say "Updating webpack paths to include .elm file extension"
-insert_into_file Webpacker.config.config_path, "- .elm\n".indent(4), after: /extensions:\n/
+insert_into_file Webpacker.config.config_path, "- .elm\n".indent(4), after: /\s+extensions:\n/
 
 say "Updating Elm source location"
 gsub_file "elm.json", /\"\src\"\n/,
