@@ -40,7 +40,10 @@ module.exports = class extends Base {
         headers: devServer.headers,
         overlay: devServer.overlay,
         stats: {
-          errorDetails: true
+          entrypoints: false,
+          errorDetails: false,
+          modules: false,
+          moduleTrace: false
         },
         watchOptions: devServer.watch_options
       }
