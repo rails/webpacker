@@ -2,7 +2,7 @@ const { resolve } = require('path')
 const { safeLoad } = require('js-yaml')
 const { readFileSync } = require('fs')
 const deepMerge = require('./utils/deep_merge')
-const { isArray } = require('./utils/helpers')
+const { isArray, ensureTrailingSlash } = require('./utils/helpers')
 const { railsEnv } = require('./env')
 
 const defaultConfigPath = require.resolve('../lib/install/config/webpacker.yml')
@@ -21,13 +21,21 @@ if (isArray(app.extensions) && app.extensions.length) delete defaults.extensions
 const config = deepMerge(defaults, app)
 config.outputPath = resolve('public', config.public_output_path)
 
-let publicPath = `/${config.public_output_path}/`
-// Add prefix to publicPath.
-if (process.env.RAILS_RELATIVE_URL_ROOT) {
-  publicPath = `/${process.env.RAILS_RELATIVE_URL_ROOT}${publicPath}`
+// Ensure that the publicPath includes our asset host so dynamic imports
+// (code-splitting chunks and static assets) load from the CDN instead of a relative path.
+const getPublicPath = () => {
+  const rootUrl = process.env.WEBPACKER_ASSET_HOST || '/'
+  let packPath = `${config.public_output_path}/`
+  // Add relative root prefix to pack path.
+  if (process.env.RAILS_RELATIVE_URL_ROOT) {
+    let relativeRoot = process.env.RAILS_RELATIVE_URL_ROOT
+    relativeRoot = relativeRoot.startsWith('/') ? relativeRoot.substr(1) : relativeRoot
+    packPath = `${ensureTrailingSlash(relativeRoot)}${packPath}`
+  }
+
+  return ensureTrailingSlash(rootUrl) + packPath
 }
 
-// Remove extra slashes.
-config.publicPath = publicPath.replace(/(^\/|[^:]\/)\/+/g, '$1')
+config.publicPath = getPublicPath()
 
 module.exports = config

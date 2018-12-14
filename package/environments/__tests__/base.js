@@ -24,7 +24,9 @@ describe('Environment', () => {
 
     test('should return entry', () => {
       const config = environment.toWebpackConfig()
-      expect(config.entry.application).toEqual(resolve('app', 'javascript', 'packs', 'application.js'))
+      expect(config.entry.application).toEqual(
+        resolve('app', 'javascript', 'packs', 'application.js')
+      )
     })
 
     test('should return output', () => {
@@ -38,8 +40,8 @@ describe('Environment', () => {
       const defaultRules = Object.keys(rules)
       const configRules = config.module.rules
 
-      expect(defaultRules.length).toBeGreaterThan(1)
-      expect(configRules.length).toEqual(defaultRules.length)
+      expect(defaultRules.length).toEqual(7)
+      expect(configRules.length).toEqual(8)
     })
 
     test('should return default plugins', () => {
