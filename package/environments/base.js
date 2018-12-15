@@ -43,7 +43,7 @@ const getPluginList = () => {
   result.append(
     'Manifest',
     new WebpackAssetsManifest({
-      integrity: true,
+      integrity: false,
       entrypoints: true,
       writeToDisk: true,
       publicPath: true
