@@ -1,8 +1,14 @@
 **Please note that Webpacker 3.1.0 and 3.1.1 have some serious bugs so please consider using either 3.0.2 or 3.2.0**
 
+## [4.0.0.rc.2] - 2018-12-15
+
+### Fixed
+ - Disable integrity hash generation [#1835](https://github.com/rails/webpacker/issues/1835)
+
+
 ## [4.0.0.rc.1] - 2018-12-14
 
-## Breaking changes
+### Breaking changes
 
   - Order of rules changed so you might have to change append to prepend,
   depending on how you want to process packs [#1823](https://github.com/rails/webpacker/pull/1823)
@@ -44,12 +50,12 @@
 
   - Move supported browsers configuration to [.browserslistrc](https://github.com/browserslist/browserslist#queries)
 
-## Breaking changes
+### Breaking changes
 
   - postcss-next is replaced with postcss-preset-env
   - babel@7
 
-## Fixed
+### Fixed
 
   - Bring back test env [#1563](https://github.com/rails/webpacker/pull/1563)
 
@@ -57,7 +63,7 @@ Please see a list of [commits](https://github.com/rails/webpacker/compare/2dd68f
 
 ## [4.0.0-pre.2] - 2018-04-2
 
-## Fixed
+### Fixed
 
 - Webpack dev server version in installer
 
