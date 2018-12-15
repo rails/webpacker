@@ -80,7 +80,7 @@ module MyEngine
   module ApplicationHelper
     include ::Webpacker::Helper
 
-    def current_webpacker
+    def current_webpacker_instance
       MyEngine.webpacker
     end
   end
