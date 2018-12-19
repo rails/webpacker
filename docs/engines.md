@@ -50,7 +50,7 @@ module MyEngine
         next unless insert_middleware
 
         app.middleware.insert_before(
-          0, "Webpacker::DevServerProxy",
+          0, Webpacker::DevServerProxy, # "Webpacker::DevServerProxy" if Rails version < 5
           ssl_verify_none: true,
           webpacker: MyEngine.webpacker
         )
