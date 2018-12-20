@@ -2,6 +2,7 @@ installers = {
   "Angular": :angular,
   "Elm": :elm,
   "React": :react,
+  "Reason": :reason,
   "Vue": :vue,
   "Erb": :erb,
   "Coffee": :coffee,

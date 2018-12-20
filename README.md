@@ -403,6 +403,23 @@ The Elm library and its core packages will be added via Yarn and Elm.
 An example `Main.elm` app will also be added to your project in `app/javascript`
 so that you can experiment with Elm right away.
 
+### Reason with ReasonReact
+
+To use Webpacker with [Reason](https://reasonml.github.io/) and [ReasonReact](https://reasonml.github.io/reason-react/en/),
+create a new Rails 5.1+ app using `--webpack=reason` option:
+
+```
+# Rails 5.1+
+rails new myapp --webpack=reason
+```
+
+(or run `bundle exec rails webpacker:install:reason` on a Rails app already setup with Webpacker).
+
+The [BuckleScript](https://bucklescript.github.io/en/) compiler and its core packages will be added
+via Yarn. An example `App.re` app will also be added to your project in `app/javascript`
+so that you can experiment with Reason and ReasonReact right away.
+
+
 ### Stimulus
 
 To use Webpacker with [Stimulus](http://stimulusjs.org), create a
