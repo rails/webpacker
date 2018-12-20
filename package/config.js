@@ -19,7 +19,7 @@ const app = safeLoad(readFileSync(configPath), 'utf8')[railsEnv]
 if (isArray(app.extensions) && app.extensions.length) delete defaults.extensions
 
 const config = deepMerge(defaults, app)
-config.outputPath = resolve('public', config.public_output_path)
+config.outputPath = resolve(config.public_root_path, config.public_output_path)
 
 // Ensure that the publicPath includes our asset host so dynamic imports
 // (code-splitting chunks and static assets) load from the CDN instead of a relative path.
