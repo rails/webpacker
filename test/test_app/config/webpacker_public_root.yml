@@ -1,0 +1,19 @@
+# Note: You must restart bin/webpack-dev-server for changes to take effect
+
+default: &default
+  public_root_path: ../public
+
+development:
+  <<: *default
+  compile: true
+
+test:
+  <<: *default
+  compile: true
+  public_output_path: packs-test
+
+production:
+  <<: *default
+  compile: false
+  extract_css: true
+  cache_manifest: true
