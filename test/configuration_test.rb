@@ -22,6 +22,15 @@ class ConfigurationTest < Webpacker::Test
   def test_public_output_path
     public_output_path = File.expand_path File.join(File.dirname(__FILE__), "test_app/public/packs").to_s
     assert_equal @config.public_output_path.to_s, public_output_path
+
+    @config = Webpacker::Configuration.new(
+      root_path: @config.root_path,
+      config_path: Pathname.new(File.expand_path("./test_app/config/webpacker_public_root.yml", __dir__)),
+      env: "production"
+    )
+
+    public_output_path = File.expand_path File.join(File.dirname(__FILE__), "public/packs").to_s
+    assert_equal @config.public_output_path.to_s, public_output_path
   end
 
   def test_public_manifest_path
