@@ -7,7 +7,7 @@ module Webpacker::Helper
   end
 
   # Computes the relative path for a given Webpacker asset.
-  # Return relative path using manifest.json and passes it to asset_path helper
+  # Return relative path using manifest.json and passes it to asset_path helper.
   # This will use asset_path internally, so most of their behaviors will be the same.
   #
   # Example:
@@ -24,7 +24,7 @@ module Webpacker::Helper
   end
 
   # Computes the absolute path for a given Webpacker asset.
-  # Return absolute path using manifest.json and passes it to asset_url helper
+  # Return absolute path using manifest.json and passes it to asset_url helper.
   # This will use asset_url internally, so most of their behaviors will be the same.
   #
   # Example:
