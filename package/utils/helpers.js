@@ -1,3 +1,5 @@
+const { stringify } = require('flatted/cjs')
+
 const isObject = value => typeof value === 'object'
   && value !== null
   && (value.length === undefined || value.length === null)
@@ -17,7 +19,7 @@ const isStrPath = (key) => {
 
 const isArray = value => Array.isArray(value)
 
-const isEqual = (target, source) => JSON.stringify(target) === JSON.stringify(source)
+const isEqual = (target, source) => stringify(target) === stringify(source)
 
 const canMerge = value => isObject(value) || isArray(value)
 
