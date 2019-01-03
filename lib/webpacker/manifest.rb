@@ -18,6 +18,12 @@ class Webpacker::Manifest
     @data = load
   end
 
+  # Computes the relative path for a given Webpacker asset using manifest.json.
+  # If no asset is found, returns nil.
+  #
+  # Example:
+  #
+  #   Webpacker.manifest.lookup('calendar.js') # => "/packs/calendar-1016838bab065ae1e122.js"
   def lookup(name, pack_type = {})
     compile if compiling?
 
@@ -39,6 +45,7 @@ class Webpacker::Manifest
     end
   end
 
+  # Like lookup, except that if no asset is found, raises a Webpacker::Manifest::MissingEntryError.
   def lookup!(name, pack_type = {})
     lookup(name, pack_type) || handle_missing_entry(name)
   end
