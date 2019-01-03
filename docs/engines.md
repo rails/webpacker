@@ -120,7 +120,28 @@ end
 
 ## Step 7: serving compiled packs.
 
-To serve static assets in production via Rails you might need to add a middleware and point it to your engine's webpacker output path:
+There are two approaches on serving compiled assets.
+
+### Put engine's assets to the root app's public/ folder
+
+You can serve engine's assets using the main app's static files server which serves files from `public/` folder.
+
+For that you must configure your engine's webpacker to put compiled assets to the app's `public/` folder:
+
+```yml
+# my_engine/config/webpacker.yml
+default: &default
+  # ...
+  # public_root_path could be used to override the path to `public/` folder
+  # (relative to the engine root)
+  public_root_path: ../public
+  # use a different sub-folder name
+  public_output_path: my-engine-packs
+```
+
+### Use a separate middleware
+
+To serve static assets from the engine's `public/` folder you must add a middleware and point it to your engine's webpacker output path:
 
 ```ruby
 # application.rb
@@ -132,4 +153,3 @@ config.middleware.use(
 ```
 
 **NOTE:** in the example above we assume that your `public_output_path` is set to `my-engine-packs` in your engine's `webpacker.yml`.
- 
