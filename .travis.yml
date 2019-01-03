@@ -37,3 +37,7 @@ matrix:
   exclude:
     - rvm: 2.3.8
       gemfile: gemfiles/Gemfile-rails-edge
+    - rvm: 2.4.5
+      gemfile: gemfiles/Gemfile-rails-edge
+    - rvm: 2.5.3
+      gemfile: gemfiles/Gemfile-rails-edge
