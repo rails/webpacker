@@ -9,8 +9,10 @@ const fetch = (key) => {
 const devServerConfig = config.dev_server
 
 if (devServerConfig) {
+  const envPrefix = config.dev_server.env_prefix || 'WEBPACKER_DEV_SERVER_'
+
   Object.keys(devServerConfig).forEach((key) => {
-    const envValue = fetch(`WEBPACKER_DEV_SERVER_${key.toUpperCase().replace(/_/g, '')}`)
+    const envValue = fetch(`${envPrefix}${key.toUpperCase().replace(/_/g, '')}`)
     if (envValue !== undefined) devServerConfig[key] = envValue
   })
 }
