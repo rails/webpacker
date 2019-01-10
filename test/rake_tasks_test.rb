@@ -14,6 +14,7 @@ class RakeTasksTest < Minitest::Test
     assert_includes output, "webpacker:install:elm"
     assert_includes output, "webpacker:install:react"
     assert_includes output, "webpacker:install:vue"
+    assert_includes output, "webpacker:install:jest"
     assert_includes output, "webpacker:verify_install"
   end
 
