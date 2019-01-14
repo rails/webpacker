@@ -48,6 +48,13 @@ default: &default
     - .jpeg
     - .jpg
 
+  define_plugin:
+    enabled: true
+    mapping:
+      typeof document: "'object'"
+      typeof self: "'object'"
+      typeof window: "'object'"
+
 development:
   <<: *default
   compile: true

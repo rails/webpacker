@@ -8,6 +8,7 @@ const { chdirTestApp, chdirCwd } = require('../../utils/helpers')
 chdirTestApp()
 
 const { resolve } = require('path')
+const webpack = require('webpack')
 const rules = require('../../rules')
 const { ConfigList } = require('../../config_types')
 const Environment = require('../base')
@@ -46,7 +47,7 @@ describe('Environment', () => {
 
     test('should return default plugins', () => {
       const config = environment.toWebpackConfig()
-      expect(config.plugins.length).toEqual(4)
+      expect(config.plugins.length).toEqual(5)
     })
 
     test('should return default resolveLoader', () => {
@@ -69,6 +70,45 @@ describe('Environment', () => {
 
       expect(config.plugins).toBeInstanceOf(Array)
       expect(config.plugins).not.toBeInstanceOf(ConfigList)
+    })
+  })
+
+  describe('define_plugin configuration', () => {
+    test('plugins should not include DefinePlugin if there is no define_plugin configuration', () => {
+      const config = require('../../config')
+      config.define_plugin = undefined
+
+      const environment = new Environment()
+      expect(environment.toWebpackConfig().plugins.length).toEqual(4)
+      expect(environment.toWebpackConfig().plugins.some(p => p instanceof webpack.DefinePlugin)).toEqual(false)
+    })
+
+    test('plugins should not include DefinePlugin if define_plugin.enabled is false', () => {
+      const config = require('../../config')
+      config.define_plugin = config.define_plugin || {}
+      config.define_plugin.enabled = false
+
+      const environment = new Environment()
+      expect(environment.toWebpackConfig().plugins.length).toEqual(4)
+      expect(environment.toWebpackConfig().plugins.some(p => p instanceof webpack.DefinePlugin)).toEqual(false)
+    })
+
+    test('plugins should include DefinePlugin if define_plugin.enabled is true', () => {
+      const config = require('../../config')
+      config.define_plugin = config.define_plugin || {}
+      config.define_plugin.enabled = true
+      config.define_plugin.mapping = {
+        foo: 'bar'
+      }
+
+      const environment = new Environment()
+      expect(environment.toWebpackConfig().plugins.length).toEqual(5)
+      expect(environment.toWebpackConfig().plugins.some(p => p instanceof webpack.DefinePlugin)).toEqual(true)
+
+      const definePluginInstance =
+        environment.toWebpackConfig().plugins.find(p => p instanceof webpack.DefinePlugin)
+
+      expect(definePluginInstance.definitions).toEqual({ foo: 'bar' })
     })
   })
 })

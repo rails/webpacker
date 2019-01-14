@@ -49,6 +49,14 @@ const getPluginList = () => {
       publicPath: true
     })
   )
+
+  if (config.define_plugin && config.define_plugin.enabled) {
+    result.append(
+      'Define',
+      new webpack.DefinePlugin(config.define_plugin.mapping)
+    )
+  }
+
   return result
 }
 

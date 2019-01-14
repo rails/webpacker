@@ -63,4 +63,15 @@ describe('Config', () => {
       '.jpg'
     ])
   })
+
+  test('should return define_plugin config as listed in app config', () => {
+    expect(config.define_plugin).toEqual({
+      enabled: true,
+      mapping: {
+        'typeof document': "'object'",
+        'typeof self': "'object'",
+        'typeof window': "'object'"
+      }
+    })
+  })
 })
