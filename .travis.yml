@@ -41,3 +41,5 @@ matrix:
       gemfile: gemfiles/Gemfile-rails-edge
     - rvm: 2.5.3
       gemfile: gemfiles/Gemfile-rails-edge
+    - rvm: ruby-head
+      gemfile: gemfiles/Gemfile-rails.4.2.x
