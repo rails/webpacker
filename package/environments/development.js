@@ -9,7 +9,6 @@ module.exports = class extends Base {
 
     if (devServer.hmr) {
       this.plugins.append('HotModuleReplacement', new webpack.HotModuleReplacementPlugin())
-      this.plugins.append('NamedModules', new webpack.NamedModulesPlugin())
       this.config.output.filename = '[name]-[hash].js'
     }
 

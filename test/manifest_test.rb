@@ -22,6 +22,10 @@ class ManifestTest < Minitest::Test
     assert_nil Webpacker.manifest.lookup("foo.js")
   end
 
+  def test_lookup_chunks_nil
+    assert_nil Webpacker.manifest.lookup_pack_with_chunks("foo.js")
+  end
+
   def test_lookup_success
     assert_equal Webpacker.manifest.lookup("bootstrap.js"), "/packs/bootstrap-300631c4f0e0f9c865bc.js"
   end
@@ -33,6 +37,6 @@ class ManifestTest < Minitest::Test
       "/packs/application-k344a6d59eef8632c9d1.js"
     ]
 
-    assert_equal Webpacker.manifest.lookup!("application", type: :javascript), application_entrypoints
+    assert_equal Webpacker.manifest.lookup_pack_with_chunks!("application", type: :javascript), application_entrypoints
   end
 end

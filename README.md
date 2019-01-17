@@ -142,6 +142,31 @@ can use the `asset_pack_path` helper:
 <img src="<%= asset_pack_path 'images/logo.svg' %>" />
 ```
 
+If you are using new webpack 4 split chunks API, then consider using `javascript_packs_with_chunks_tag` helper, which creates html
+tags for a pack and all the dependent chunks.
+
+```erb
+<%= javascript_packs_with_chunks_tag 'calendar', 'map', 'data-turbolinks-track': 'reload' %>
+
+<script src="/packs/vendor-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+<script src="/packs/calendar~runtime-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+<script src="/packs/calendar-1016838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+<script src="/packs/map~runtime-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+<script src="/packs/map-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+```
+
+**Important:** Pass all your pack names when using `javascript_packs_with_chunks_tag`
+helper otherwise you will get duplicated chunks on the page.
+
+```erb
+<%# DO %>
+<%= javascript_packs_with_chunks_tag 'calendar', 'map' %>
+
+<%# DON'T %>
+<%= javascript_packs_with_chunks_tag 'calendar' %>
+<%= javascript_packs_with_chunks_tag 'map' %>
+```
+
 **Note:** In order for your styles or static assets files to be available in your view,
 you would need to link them in your "pack" or entry file.
 

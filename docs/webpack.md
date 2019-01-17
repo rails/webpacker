@@ -267,32 +267,36 @@ For the full configuration options of SplitChunks, see the [Webpack documentatio
 // config/webpack/environment.js
 const WebpackAssetsManifest = require('webpack-assets-manifest');
 
-const splitChunks = {
-  optimization: {
-    splitChunks: {
-      chunks: 'all'
-    },
-  },
-};
+// Enable the default config
+environment.splitChunks()
 
-environment.config.merge(splitChunks);
-
-// Should override the existing manifest plugin
-environment.plugins.insert(
-  'Manifest',
-  new WebpackAssetsManifest({
-    entrypoints: true, // default in rails is false
-    writeToDisk: true, // rails defaults copied from webpacker
-    publicPath: true // rails defaults copied from webpacker
-  })
-)
+// or using custom config
+environment.splitChunks((config) => Object.assign({}, config, { optimization: { splitChunks: false }}))
 ```
 
-To use the `javascript_pack_tag` or the `stylesheet_pack_tag` with `SplitChunks` or `RuntimeChunks` you can refer to the packs as usual.
+Then use, `javascript_packs_with_chunks_tag` helper to include all the transpiled
+packs with the chunks in your view, which creates html tags for all the chunks.
 
 ```erb
-javascript_pack_tag "your-entrypoint-javascript-file"
-stylesheet_pack_tag "your-entrypoint-stylesheet-file"
+<%= javascript_packs_with_chunks_tag 'calendar', 'map', 'data-turbolinks-track': 'reload' %>
+
+<script src="/packs/vendor-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+<script src="/packs/calendar~runtime-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+<script src="/packs/calendar-1016838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+<script src="/packs/map~runtime-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+<script src="/packs/map-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+```
+
+**Important:** Pass all your pack names when using this helper otherwise you will
+get duplicated chunks on the page.
+
+```erb
+<%# DO %>
+<%= javascript_packs_with_chunks_tag 'calendar', 'map' %>
+
+<%# DON'T %>
+<%= javascript_packs_with_chunks_tag 'calendar' %>
+<%= javascript_packs_with_chunks_tag 'map' %>
 ```
 
 For the old configuration with the CommonsChunkPlugin see below. **Note** that this functionality is deprecated in Webpack V4.

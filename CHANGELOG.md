@@ -1,5 +1,37 @@
 **Please note that Webpacker 3.1.0 and 3.1.1 have some serious bugs so please consider using either 3.0.2 or 3.2.0**
 
+## [4.0.0] - Unreleased
+
+### Fixed
+ - Issue with javascript_pack_tag asset duplication [#1898](https://github.com/rails/webpacker/pull/1898)
+
+
+### Added
+ - `javascript_packs_with_chunks_tag` helper, which creates html tags
+  for a pack and all the dependent chunks, when using splitchunks.
+
+```erb
+<%= javascript_packs_with_chunks_tag 'calendar', 'map', 'data-turbolinks-track': 'reload' %>
+
+<script src="/packs/vendor-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+<script src="/packs/calendar~runtime-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+<script src="/packs/calendar-1016838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+<script src="/packs/map~runtime-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+<script src="/packs/map-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+```
+
+**Important:** Pass all your pack names when using `javascript_packs_with_chunks_tag`
+helper otherwise you will get duplicated chunks on the page.
+
+```erb
+<%# DO %>
+<%= javascript_packs_with_chunks_tag 'calendar', 'map' %>
+
+<%# DON'T %>
+<%= javascript_packs_with_chunks_tag 'calendar' %>
+<%= javascript_packs_with_chunks_tag 'map' %>
+```
+
 ## [4.0.0.rc.2] - 2018-12-15
 
 ### Fixed
