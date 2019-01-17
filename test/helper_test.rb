@@ -64,7 +64,7 @@ class HelperTest < ActionView::TestCase
       %(<script src="/packs/vendors~application~bootstrap-c20632e7baf2c81200d3.chunk.js"></script>\n) +
         %(<script src="/packs/vendors~application-e55f2aae30c07fb6d82a.chunk.js"></script>\n) +
         %(<script src="/packs/application-k344a6d59eef8632c9d1.js"></script>),
-      javascript_pack_tag("application")
+      javascript_packs_with_chunks_tag("application")
   end
 
   def test_stylesheet_pack_tag

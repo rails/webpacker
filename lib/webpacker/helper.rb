@@ -59,7 +59,29 @@ module Webpacker::Helper
   #   <%= javascript_pack_tag 'calendar', 'data-turbolinks-track': 'reload' %> # =>
   #   <script src="/packs/calendar-1016838bab065ae1e314.js" data-turbolinks-track="reload"></script>
   def javascript_pack_tag(*names, **options)
-    javascript_include_tag(*sources_from_pack_manifest(names, type: :javascript), **options)
+    javascript_include_tag(*sources_from_manifest_entries(names, type: :javascript), **options)
+  end
+
+  # Creates script tags that references the chunks from entrypoints when using split chunks API,
+  # as compiled by webpack per the entries list in config/webpack/shared.js.
+  # By default, this list is auto-generated to match everything in
+  # app/javascript/packs/*.js and all the dependent chunks. In production mode, the digested reference is automatically looked up.
+  # See: https://webpack.js.org/plugins/split-chunks-plugin/
+  # Example:
+  #
+  #   <%= javascript_packs_with_chunks_tag 'calendar', 'map', 'data-turbolinks-track': 'reload' %> # =>
+  #   <script src="/packs/vendor-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+  #   <script src="/packs/calendar~runtime-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+  #   <script src="/packs/calendar-1016838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+  #   <script src="/packs/map~runtime-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+  #   <script src="/packs/map-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+  # DO:
+  # <%= javascript_packs_with_chunks_tag 'calendar', 'map' %>
+  # DON'T:
+  # <%= javascript_packs_with_chunks_tag 'calendar' %>
+  # <%= javascript_packs_with_chunks_tag 'map' %>
+  def javascript_packs_with_chunks_tag(*names, **options)
+    javascript_include_tag(*sources_from_manifest_entrypoints(names, type: :javascript), **options)
   end
 
   # Creates a link tag that references the named pack file, as compiled by webpack per the entries list
@@ -80,7 +102,7 @@ module Webpacker::Helper
   #   <link rel="stylesheet" media="screen" href="/packs/calendar-1016838bab065ae1e122.css" data-turbolinks-track="reload" />
   def stylesheet_pack_tag(*names, **options)
     if current_webpacker_instance.config.extract_css?
-      stylesheet_link_tag(*sources_from_pack_manifest(names, type: :stylesheet), **options)
+      stylesheet_link_tag(*sources_from_manifest_entries(names, type: :stylesheet), **options)
     end
   end
 
@@ -89,7 +111,11 @@ module Webpacker::Helper
       File.extname(name) == ".css"
     end
 
-    def sources_from_pack_manifest(names, type:)
+    def sources_from_manifest_entries(names, type:)
       names.map { |name| current_webpacker_instance.manifest.lookup!(name, type: type) }.flatten
+    end
+
+    def sources_from_manifest_entrypoints(names, type:)
+      names.map { |name| current_webpacker_instance.manifest.lookup_pack_with_chunks!(name, type: type) }.flatten.uniq
     end
 end

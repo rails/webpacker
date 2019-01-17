@@ -18,6 +18,20 @@ class Webpacker::Manifest
     @data = load
   end
 
+  def lookup_pack_with_chunks(name, pack_type = {})
+    compile if compiling?
+
+    manifest_pack_type = manifest_type(pack_type[:type])
+    manifest_pack_name = manifest_name(name, manifest_pack_type)
+    find("entrypoints")[manifest_pack_name][manifest_pack_type]
+  rescue NoMethodError
+    nil
+  end
+
+  def lookup_pack_with_chunks!(name, pack_type = {})
+    lookup_pack_with_chunks(name, pack_type) || handle_missing_entry(name)
+  end
+
   # Computes the relative path for a given Webpacker asset using manifest.json.
   # If no asset is found, returns nil.
   #
@@ -27,22 +41,7 @@ class Webpacker::Manifest
   def lookup(name, pack_type = {})
     compile if compiling?
 
-    # When using SplitChunks or RuntimeChunks the manifest hash will contain
-    # an extra object called "entrypoints". When the entrypoints key is not
-    # present in the manifest, or the name is not found in the entrypoints hash,
-    # it will raise a NoMethodError. If this happens, we should try to lookup
-    # a single instance of the pack based on the given name.
-    begin
-      manifest_pack_type = manifest_type(pack_type[:type])
-      manifest_pack_name = manifest_name(name, manifest_pack_type)
-
-      # Lookup the pack in the entrypoints of the manifest
-      find("entrypoints")[manifest_pack_name][manifest_pack_type]
-    rescue NoMethodError
-
-      # Lookup a single instance of the pack
-      find(full_pack_name(name, pack_type[:type]))
-    end
+    find(full_pack_name(name, pack_type[:type]))
   end
 
   # Like lookup, except that if no asset is found, raises a Webpacker::Manifest::MissingEntryError.
