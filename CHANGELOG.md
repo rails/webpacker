@@ -1,5 +1,12 @@
 **Please note that Webpacker 3.1.0 and 3.1.1 have some serious bugs so please consider using either 3.0.2 or 3.2.0**
 
+## [4.0.0.rc.5] - 2019-01-21
+
+### Updated
+
+- Gems and node dependencies
+
+
 ## [4.0.0.rc.4] - 2019-01-21
 
 ### Added
