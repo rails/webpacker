@@ -1,5 +1,31 @@
 **Please note that Webpacker 3.1.0 and 3.1.1 have some serious bugs so please consider using either 3.0.2 or 3.2.0**
 
+## [Unreleased] - ??
+
+### Added
+ - `stylesheet_packs_with_chunks_tag` helper, similar to javascript helper but for
+ loading stylesheets chunks.
+
+```erb
+<%= stylesheet_packs_with_chunks_tag 'calendar', 'map', 'data-turbolinks-track': 'reload' %>
+
+<link rel="stylesheet" media="screen" href="/packs/3-8c7ce31a.chunk.css" />
+<link rel="stylesheet" media="screen" href="/packs/calendar-8c7ce31a.chunk.css" />
+<link rel="stylesheet" media="screen" href="/packs/map-8c7ce31a.chunk.css" />
+```
+
+**Important:** Pass all your pack names when using `stylesheet_packs_with_chunks_tag`
+helper otherwise you will get duplicated chunks on the page.
+
+```erb
+<%# DO %>
+# <%= stylesheet_packs_with_chunks_tag 'calendar', 'map' %>
+<%# DON'T %>
+# <%= stylesheet_packs_with_chunks_tag 'calendar' %>
+# <%= stylesheet_packs_with_chunks_tag 'map' %>
+```
+
+
 ## [4.0.0.rc.3] - 2019-01-17
 
 ### Fixed

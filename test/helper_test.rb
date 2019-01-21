@@ -67,6 +67,14 @@ class HelperTest < ActionView::TestCase
       javascript_packs_with_chunks_tag("application")
   end
 
+  def test_stylesheet_pack_tag_split_chunks
+    assert_equal \
+      %(<link rel="stylesheet" media="screen" href="/packs/1-c20632e7baf2c81200d3.chunk.css" />\n) +
+        %(<link rel="stylesheet" media="screen" href="/packs/application-k344a6d59eef8632c9d1.chunk.css" />\n) +
+        %(<link rel="stylesheet" media="screen" href="/packs/hello_stimulus-k344a6d59eef8632c9d1.chunk.css" />),
+      stylesheet_packs_with_chunks_tag("application", "hello_stimulus")
+  end
+
   def test_stylesheet_pack_tag
     assert_equal \
       %(<link rel="stylesheet" media="screen" href="/packs/bootstrap-c38deda30895059837cf.css" />),
