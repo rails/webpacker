@@ -96,7 +96,7 @@ Rails.application.config.assets.js_compressor = :uglifier
 
 # To
 
-#Rails.application.config.assets.js_compressor = :uglifier
+Rails.application.config.assets.js_compressor = Uglifier.new(harmony: true)
 
 ```
 
