@@ -62,7 +62,7 @@ module Webpacker::Helper
     javascript_include_tag(*sources_from_manifest_entries(names, type: :javascript), **options)
   end
 
-  # Creates script tags that references the chunks from entrypoints when using split chunks API,
+  # Creates script tags that references the js chunks from entrypoints when using split chunks API,
   # as compiled by webpack per the entries list in config/webpack/shared.js.
   # By default, this list is auto-generated to match everything in
   # app/javascript/packs/*.js and all the dependent chunks. In production mode, the digested reference is automatically looked up.
@@ -70,11 +70,11 @@ module Webpacker::Helper
   # Example:
   #
   #   <%= javascript_packs_with_chunks_tag 'calendar', 'map', 'data-turbolinks-track': 'reload' %> # =>
-  #   <script src="/packs/vendor-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
-  #   <script src="/packs/calendar~runtime-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
-  #   <script src="/packs/calendar-1016838bab065ae1e314.js" data-turbolinks-track="reload"></script>
-  #   <script src="/packs/map~runtime-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
-  #   <script src="/packs/map-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+  #   <script src="/packs/vendor-16838bab065ae1e314.chunk.js" data-turbolinks-track="reload"></script>
+  #   <script src="/packs/calendar~runtime-16838bab065ae1e314.chunk.js" data-turbolinks-track="reload"></script>
+  #   <script src="/packs/calendar-1016838bab065ae1e314.chunk.js" data-turbolinks-track="reload"></script>
+  #   <script src="/packs/map~runtime-16838bab065ae1e314.chunk.js" data-turbolinks-track="reload"></script>
+  #   <script src="/packs/map-16838bab065ae1e314.chunk.js" data-turbolinks-track="reload"></script>
   # DO:
   # <%= javascript_packs_with_chunks_tag 'calendar', 'map' %>
   # DON'T:
@@ -103,6 +103,28 @@ module Webpacker::Helper
   def stylesheet_pack_tag(*names, **options)
     if current_webpacker_instance.config.extract_css?
       stylesheet_link_tag(*sources_from_manifest_entries(names, type: :stylesheet), **options)
+    end
+  end
+
+  # Creates link tags that references the css chunks from entrypoints when using split chunks API,
+  # as compiled by webpack per the entries list in config/webpack/shared.js.
+  # By default, this list is auto-generated to match everything in
+  # app/javascript/packs/*.js and all the dependent chunks. In production mode, the digested reference is automatically looked up.
+  # See: https://webpack.js.org/plugins/split-chunks-plugin/
+  # Example:
+  #
+  #   <%= stylesheet_packs_with_chunks_tag 'calendar', 'map' %> # =>
+  #   <link rel="stylesheet" media="screen" href="/packs/3-8c7ce31a.chunk.css" />
+  #   <link rel="stylesheet" media="screen" href="/packs/calendar-8c7ce31a.chunk.css" />
+  #   <link rel="stylesheet" media="screen" href="/packs/map-8c7ce31a.chunk.css" />
+  # DO:
+  # <%= stylesheet_packs_with_chunks_tag 'calendar', 'map' %>
+  # DON'T:
+  # <%= stylesheet_packs_with_chunks_tag 'calendar' %>
+  # <%= stylesheet_packs_with_chunks_tag 'map' %>
+  def stylesheet_packs_with_chunks_tag(*names, **options)
+    if current_webpacker_instance.config.extract_css?
+      stylesheet_link_tag(*sources_from_manifest_entrypoints(names, type: :stylesheet), **options)
     end
   end
 
