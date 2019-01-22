@@ -31,7 +31,7 @@ environment.config.optimization.splitChunks = {
   cacheGroups: {
     vendor: {
       name: 'something-vendor',
-      chunks: chunk => chunk.name === something',
+      chunks: chunk => chunk.name === 'something',
       reuseExistingChunk: true,
       priority: 1,
       test: /[\\/]node_modules[\\/]/,
