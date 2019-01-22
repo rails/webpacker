@@ -42,7 +42,7 @@ environment.config.optimization.splitChunks = {
 };
 ```
 
-When using the new Webpack 4 `splitChunks` API, also consider using the `javascript_packs_with_chunks_tag` and `stylesheet_packs_with_chunks_tag` helpers, which create HTML tags for the packs and all its dependent chunks.
+When using the new Webpack 4 [`splitChunks` API](https://webpack.js.org/plugins/split-chunks-plugin/), also consider using the `javascript_packs_with_chunks_tag` and `stylesheet_packs_with_chunks_tag` helpers, which create HTML tags for the packs and all its dependent chunks.
 
 Package-specific notes:
 
