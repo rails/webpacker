@@ -14,7 +14,7 @@ insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
 
 say "Adding vue loader to config/webpack/environment.js"
 insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
-  "const vue =  require('./loaders/vue')\n",
+  "const vue = require('./loaders/vue')\n",
   after: "require('vue-loader')\n"
 
 insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
