@@ -7,6 +7,43 @@ To update a Webpacker v3.5 app to v4, follow these steps:
 1. `.babelrc` should be replaced with `babel.config.js` and `.postcssrc.yml` should be replaced with `postcss.config.js` ([#1822](https://github.com/rails/webpacker/pull/1822)). If you never changed these files from their defaults, the versions of [babel.config.js](../lib/install/config/babel.config.js) and [postcss.config.js](../lib/install/config/postcss.config.js) in the webpacker repository should be usable.
 1. Due to the change in [#1625](https://github.com/rails/webpacker/pull/1625), you'll want to make sure that `extract_css` is set to true for the `default` environment in `webpacker.yml` if you want to have Webpacker supply your CSS.
 
+If you're using split chunks, pay special attention to the [`CommonsChunkPlugin` removal in Webpack 4](https://webpack.js.org/migrate/4/#commonschunkplugin) ([This gist](https://gist.github.com/sokra/1522d586b8e5c0f5072d7565c2bee693) may also be useful for upgrading).
+
+Where previously you'd have code like this:
+
+```js
+environment.plugins.append(
+  'CommonsChunk',
+   new CommonsChunkPlugin({
+      name: 'something-vendor',
+      chunks: ['something'],
+      minChunks(module) {
+        return module.context && module.context.includes('node_modules');
+      },
+  }),
+);
+```
+
+It would now be more like:
+
+```js
+environment.config.optimization.splitChunks = {
+  cacheGroups: {
+    vendor: {
+      name: 'something-vendor',
+      chunks: chunk => chunk.name === something',
+      reuseExistingChunk: true,
+      priority: 1,
+      test: /[\\/]node_modules[\\/]/,
+      minChunks: 1,
+      minSize: 0,
+    },
+  },
+};
+```
+
+When using the new Webpack 4 `splitChunks` API, also consider using the `javascript_packs_with_chunks_tag` and `stylesheet_packs_with_chunks_tag` helpers, which create HTML tags for the packs and all its dependent chunks.
+
 Package-specific notes:
 
 - If you're using React, you need to add `"@babel/preset-react"`, to the list of `presets` in your babel config.
