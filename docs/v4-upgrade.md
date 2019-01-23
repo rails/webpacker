@@ -60,6 +60,33 @@ get duplicated chunks on the page.
 - If you're using Vue Loader, you'll need to upgrade to [v15](https://vue-loader.vuejs.org/migrating.html) for webpack 4.
 - To see what webpacker generates for a given framework with v4, you may want to re-run `bundle exec rake webpacker:install:FRAMEWORK` and let it override the files for your given JavaScript framework, and then compare them to see what changes you'll need to make.
 
+### Excluding node_modules from being transpiled by babel-loader
+
+One change to take into consideration, is that Webpacker 4 transpiles the
+`node_modules` folder with the `babel-loader`. This folder used to be ignored by
+webpacker 3. The new behavior helps in case some library contains ES6 code, but in
+some cases it can lead to issues. To avoid running `babel-loader` in the
+`node_modules` folder, replicating the same behavior as Webpacker 3, the
+following code can be added to `config/webpack/environment.js`:
+
+```javascript
+environment.loaders.delete('nodeModules')
+```
+
+Alternatively, in order to skip only a specific library in the `node_modules`
+folder, this code can be added:
+
+```javascript
+const nodeModulesLoader = environment.loaders.get('nodeModules')
+if (!Array.isArray(nodeModulesLoader.exclude)) {
+  nodeModulesLoader.exclude = (nodeModulesLoader.exclude == null)
+    ? []
+    : [nodeModulesLoader.exclude]
+}
+nodeModulesLoader.exclude.push(/some-library/) // replace `some-library` with
+                                               // the actual path to exclude
+```
+
 ### Example upgrades
 
 This is what an upgrade to Webpacker 4 looked like for existing Rails apps (please contribute yours!):
