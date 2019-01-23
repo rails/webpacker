@@ -60,13 +60,13 @@ get duplicated chunks on the page.
 - If you're using Vue Loader, you'll need to upgrade to [v15](https://vue-loader.vuejs.org/migrating.html) for webpack 4.
 - To see what webpacker generates for a given framework with v4, you may want to re-run `bundle exec rake webpacker:install:FRAMEWORK` and let it override the files for your given JavaScript framework, and then compare them to see what changes you'll need to make.
 
-### Excluding node_modules from babel-loader
+### Excluding node_modules from being transpiled by babel-loader
 
-One change to take into consideration, is that Webpack 4 transpiles the
+One change to take into consideration, is that Webpacker 4 transpiles the
 `node_modules` folder with the `babel-loader`. This folder used to be ignored by
-webpack 3. The new behavior helps in case some library contains ES6 code, but in
+webpacker 3. The new behavior helps in case some library contains ES6 code, but in
 some cases it can lead to issues. To avoid running `babel-loader` in the
-`node_modules` folder, replicating the same behavior of Webpacker 3, the
+`node_modules` folder, replicating the same behavior as Webpacker 3, the
 following code can be added to `config/webpack/environment.js`:
 
 ```javascript
