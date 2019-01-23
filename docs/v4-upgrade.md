@@ -7,48 +7,60 @@ To update a Webpacker v3.5 app to v4, follow these steps:
 1. `.babelrc` should be replaced with `babel.config.js` and `.postcssrc.yml` should be replaced with `postcss.config.js` ([#1822](https://github.com/rails/webpacker/pull/1822)). If you never changed these files from their defaults, the versions of [babel.config.js](../lib/install/config/babel.config.js) and [postcss.config.js](../lib/install/config/postcss.config.js) in the webpacker repository should be usable.
 1. Due to the change in [#1625](https://github.com/rails/webpacker/pull/1625), you'll want to make sure that `extract_css` is set to true for the `default` environment in `webpacker.yml` if you want to have Webpacker supply your CSS.
 
-If you're using split chunks, pay special attention to the [`CommonsChunkPlugin` removal in Webpack 4](https://webpack.js.org/migrate/4/#commonschunkplugin) ([This gist](https://gist.github.com/sokra/1522d586b8e5c0f5072d7565c2bee693) may also be useful for upgrading).
+### Add SplitChunks
 
-Where previously you'd have code like this:
+If you used the `CommonsChunkPlugin` you'll need to upgrade to using the new `splitChunks`.
 
-```js
-environment.plugins.append(
-  'CommonsChunk',
-   new CommonsChunkPlugin({
-      name: 'something-vendor',
-      chunks: ['something'],
-      minChunks(module) {
-        return module.context && module.context.includes('node_modules');
-      },
-  }),
-);
-```
+Originally, chunks (and modules imported inside them) were connected by a parent-child relationship in the internal webpack graph. The `CommonsChunkPlugin` was used to avoid duplicated dependencies across them, but further optimizations were not possible.
 
-It would now be more like:
+In webpack v4, `CommonsChunkPlugin` was removed in favor of `optimization.splitChunks`.
+
+For the full configuration options of `splitChunks`, see the [Webpack documentation](https://webpack.js.org/plugins/split-chunks-plugin/).
 
 ```js
-environment.config.optimization.splitChunks = {
-  cacheGroups: {
-    vendor: {
-      name: 'something-vendor',
-      chunks: chunk => chunk.name === 'something',
-      reuseExistingChunk: true,
-      priority: 1,
-      test: /[\\/]node_modules[\\/]/,
-      minChunks: 1,
-      minSize: 0,
-    },
-  },
-};
+// config/webpack/environment.js
+const WebpackAssetsManifest = require('webpack-assets-manifest');
+
+// Enable the default config
+environment.splitChunks()
+
+// or using custom config
+environment.splitChunks((config) => Object.assign({}, config, { optimization: { splitChunks: false }}))
 ```
 
-When using the new Webpack 4 [`splitChunks` API](https://webpack.js.org/plugins/split-chunks-plugin/), also consider using the `javascript_packs_with_chunks_tag` and `stylesheet_packs_with_chunks_tag` helpers, which create HTML tags for the packs and all its dependent chunks.
+Then use, `javascript_packs_with_chunks_tag` helper to include all the transpiled
+packs with the chunks in your view, which creates html tags for all the chunks.
 
-Package-specific notes:
+```erb
+<%= javascript_packs_with_chunks_tag 'calendar', 'map', 'data-turbolinks-track': 'reload' %>
+
+<!-- would create the following: -->
+<script src="/packs/vendor-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+<script src="/packs/calendar~runtime-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+<script src="/packs/calendar-1016838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+<script src="/packs/map~runtime-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+<script src="/packs/map-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+```
+
+**Important:** Pass all your pack names when using this helper otherwise you will
+get duplicated chunks on the page.
+
+```erb
+<%# DO %>
+<%= javascript_packs_with_chunks_tag 'calendar', 'map' %>
+
+<%# DON'T %>
+<%= javascript_packs_with_chunks_tag 'calendar' %>
+<%= javascript_packs_with_chunks_tag 'map' %>
+```
+
+### Package-specific notes:
 
 - If you're using React, you need to add `"@babel/preset-react"`, to the list of `presets` in your babel config.
 - If you're using Vue Loader, you'll need to upgrade to [v15](https://vue-loader.vuejs.org/migrating.html) for webpack 4.
 - To see what webpacker generates for a given framework with v4, you may want to re-run `bundle exec rake webpacker:install:FRAMEWORK` and let it override the files for your given JavaScript framework, and then compare them to see what changes you'll need to make.
+
+### Example upgrades
 
 This is what an upgrade to Webpacker 4 looked like for existing Rails apps (please contribute yours!):
 
