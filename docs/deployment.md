@@ -72,3 +72,14 @@ server {
 
 Webpacker out-of-the-box provides CDN support using your Rails app `config.action_controller.asset_host` setting. If you already have [CDN](http://guides.rubyonrails.org/asset_pipeline.html#cdns) added in your Rails app
 you don't need to do anything extra for Webpacker, it just works.
+
+## Capistrano
+
+### Assets compiling on every deployment even if JavaScript and CSS files are not changed
+
+Make sure you have `public/packs` and `node_modules` in `:linked_dirs`
+
+```ruby
+append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/packs", ".bundle", "node_modules"
+```
+
