@@ -2,7 +2,7 @@
 
 ## [4.0.0.rc.5] - 2019-01-21
 
-### Updated
+### Updated
 
 - Gems and node dependencies
 
@@ -28,7 +28,7 @@ helper otherwise you will get duplicated chunks on the page.
 <%# DO %>
 # <%= stylesheet_packs_with_chunks_tag 'calendar', 'map' %>
 <%# DON'T %>
-# <%= stylesheet_packs_with_chunks_tag 'calendar' %>
+# <%= stylesheet_packs_with_chunks_tag 'calendar' %>
 # <%= stylesheet_packs_with_chunks_tag 'map' %>
 ```
 
@@ -438,7 +438,7 @@ without sprockets
 - Allow dev server connect timeout (in seconds) to be configurable, default: 0.01
 
 ```rb
-# Change to 1s
+# Change to 1s
 Webpacker.dev_server.connect_timeout = 1
 ```
 
