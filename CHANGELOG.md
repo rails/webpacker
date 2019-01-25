@@ -1,5 +1,31 @@
 **Please note that Webpacker 3.1.0 and 3.1.1 have some serious bugs so please consider using either 3.0.2 or 3.2.0**
 
+## [x] - x-x-x
+
+### Fixed
+
+- Remove `context` from file loader in favour of simpler paths
+
+```rb
+# before
+"_/assets/images/avatar.png": "/packs/_/assets/images/avatar-057862c747f0fdbeae506bdd0516cad1.png"
+
+# after
+"media/avatar.png": "/packs/media/avatar-057862c747f0fdbeae506bdd0516cad1.png"
+```
+
+### Added
+
+- Namespaces for compiled packs in the public directory
+
+```rb
+# before
+"runtime~hello_react" => "/packs/runtime~hello_react-da2baf7fd07b0e8b6d17.js"
+
+# after
+"runtime~hello_react" => "/packs/js/runtime~hello_react-da2baf7fd07b0e8b6d17.js"
+```
+
 ## [4.0.0.rc.5] - 2019-01-21
 
 ### Updated
