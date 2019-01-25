@@ -21,6 +21,18 @@
 "media/avatar.png": "/packs/media/avatar-057862c747f0fdbeae506bdd0516cad1.png"
 ```
 
+To get old behaviour:
+
+```js
+// config/webpack/environment.js
+
+const { environment, config } = require('@rails/webpacker')
+const { join } = require('path')
+
+const fileLoader = environment.loaders.get('file')
+fileLoader.use[0].options.context = join(config.source_path)
+```
+
 ### Added
 
 - Namespaces for compiled packs in the public directory
