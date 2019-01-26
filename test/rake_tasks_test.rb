@@ -15,6 +15,7 @@ class RakeTasksTest < Minitest::Test
     assert_includes output, "webpacker:install:react"
     assert_includes output, "webpacker:install:vue"
     assert_includes output, "webpacker:verify_install"
+    assert_includes output, "webpacker:eject"
   end
 
   def test_rake_task_webpacker_check_binstubs

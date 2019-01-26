@@ -1,0 +1,8 @@
+default: &default
+  compile: false
+development:
+  <<: *default
+test:
+  <<: *default
+production:
+  <<: *default
