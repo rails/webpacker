@@ -30,7 +30,7 @@ module.exports = class extends Base {
     )
 
     this.config.merge({
-      devtool: 'nosources-source-map',
+      devtool: 'source-map',
       stats: 'normal',
       bail: true,
       optimization: {
