@@ -14,7 +14,7 @@ module.exports = class extends Base {
         filename: '[path].gz[query]',
         algorithm: 'gzip',
         cache: true,
-        test: /\.(js|css|html|json|ico|svg|eot|otf|ttf)$/
+        test: /\.(js|css|html|json|ico|svg|eot|otf|ttf|map)$/
       })
     )
 
