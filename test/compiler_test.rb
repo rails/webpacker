@@ -63,4 +63,14 @@ class CompilerTest < Minitest::Test
   def test_compilation_digest_path
     assert_equal Webpacker.compiler.send(:compilation_digest_path).basename.to_s, "last-compilation-digest-#{Webpacker.env}"
   end
+
+  def test_external_env_variables
+    assert_equal Webpacker.compiler.send(:webpack_env)["WEBPACKER_ASSET_HOST"], ActionController::Base.helpers.compute_asset_host
+    assert_equal Webpacker.compiler.send(:webpack_env)["WEBPACKER_RELATIVE_URL_ROOT"], ActionController::Base.relative_url_root
+
+    ENV["WEBPACKER_ASSET_HOST"] = "foo.bar"
+    ENV["WEBPACKER_RELATIVE_URL_ROOT"] = "/baz"
+    assert_equal Webpacker.compiler.send(:webpack_env)["WEBPACKER_ASSET_HOST"], "foo.bar"
+    assert_equal Webpacker.compiler.send(:webpack_env)["WEBPACKER_RELATIVE_URL_ROOT"], "/baz"
+  end
 end
