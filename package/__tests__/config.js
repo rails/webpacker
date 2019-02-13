@@ -63,4 +63,16 @@ describe('Config', () => {
       '.jpg'
     ])
   })
+
+  test('should return static assets extensions as listed in app config', () => {
+    expect(config.static_assets_extensions).toEqual([
+      '.jpg',
+      '.jpeg',
+      '.png',
+      '.gif',
+      '.tiff',
+      '.ico',
+      '.svg',
+    ])
+  })
 })
