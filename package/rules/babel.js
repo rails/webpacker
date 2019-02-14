@@ -1,12 +1,12 @@
 const { join, resolve } = require('path')
-const { cache_path: cachePath, source_path: sourcePath } = require('../config')
+const { cache_path: cachePath, source_path: sourcePath, resolved_paths: resolvedPaths } = require('../config')
 const { nodeEnv } = require('../env')
 
 // Process application Javascript code with Babel.
 // Uses application .babelrc to apply any transformations
 module.exports = {
   test: /\.(js|jsx|mjs)?(\.erb)?$/,
-  include: resolve(sourcePath),
+  include: [sourcePath, ...resolvedPaths].map(p => resolve(p)),
   exclude: /node_modules/,
   use: [
     {
