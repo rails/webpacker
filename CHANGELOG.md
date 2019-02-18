@@ -20,6 +20,8 @@ environment.config.merge({ devtool: 'none' })
 module.exports = environment.toWebpackConfig()
 ```
 
+- Reintroduced `context` to the file loader. Reverting the simpler paths change
+
 
 ## [4.0.0.rc.7] - 2019-01-25
 
