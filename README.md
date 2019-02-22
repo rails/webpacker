@@ -298,6 +298,10 @@ yarn add webpack-dev-server@^3.1.14
 
 # Or to install a latest release (including pre-releases)
 yarn add @rails/webpacker@next
+
+# After a major-version upgrade (eg. webpacker 3 to 4)
+rm .babelrc
+bundle exec rails webpacker:install # or webpacker:install:react
 ```
 
 ### Yarn Integrity
