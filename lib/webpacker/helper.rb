@@ -47,7 +47,7 @@ module Webpacker::Helper
   #  <%= image_pack_tag 'application.png', size: '16x10', alt: 'Edit Entry' %>
   #  <img alt='Edit Entry' src='/packs/application-k344a6d59eef8632c9d1.png' width='16' height='10' />
   def image_pack_tag(name, **options)
-    image_tag(asset_path(current_webpacker_instance.manifest.lookup!(name)), **options)
+    image_tag(resolve_path_to_image(name), **options)
   end
 
   # Creates a script tag that references the named pack file, as compiled by webpack per the entries list
@@ -139,5 +139,12 @@ module Webpacker::Helper
 
     def sources_from_manifest_entrypoints(names, type:)
       names.map { |name| current_webpacker_instance.manifest.lookup_pack_with_chunks!(name, type: type) }.flatten.uniq
+    end
+
+    def resolve_path_to_image(name)
+      path = name.starts_with?("media/") ? name : "media/#{name}"
+      asset_path(current_webpacker_instance.manifest.lookup!(path))
+    rescue
+      asset_path(current_webpacker_instance.manifest.lookup!(name))
     end
 end
