@@ -61,7 +61,7 @@ Specify the plugin in your `babel.config.js` with the custom root or alias. Here
 ```js
 {
   plugins: [
-    [require("module-resolver").default, {
+    [require("babel-plugin-module-resolver").default, {
       "root": ["./app"],
       "alias": {
         "assets": "./assets"
