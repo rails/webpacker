@@ -87,6 +87,21 @@ nodeModulesLoader.exclude.push(/some-library/) // replace `some-library` with
                                                // the actual path to exclude
 ```
 
+### Source Maps are enabled by default
+
+Source maps are now enabled in production to make debugging in production easier. Enabling source maps doesn't have drawbacks for most of the applications since maps are compressed by default and aren't loaded by browsers unless Dev Tools are opened.
+
+If you want to keep the old behavior source maps can be disabled in any environment configuration, e.g:
+
+```js
+// config/webpack/production.js
+
+const environment = require('./environment')
+environment.config.merge({ devtool: 'none' })
+
+module.exports = environment.toWebpackConfig()
+```
+
 ### Example upgrades
 
 This is what an upgrade to Webpacker 4 looked like for existing Rails apps (please contribute yours!):

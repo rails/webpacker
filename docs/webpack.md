@@ -38,6 +38,7 @@ environment.config.set('output.filename', '[name].js')
 
 // Merge custom config
 environment.config.merge(customConfig)
+environment.config.merge({ devtool: 'none' })
 
 // Delete a property
 environment.config.delete('output.chunkFilename')

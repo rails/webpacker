@@ -1,5 +1,26 @@
 **Please note that Webpacker 3.1.0 and 3.1.1 have some serious bugs so please consider using either 3.0.2 or 3.2.0**
 
+## [x] - x-x-x
+
+### Fixed
+
+- Re-enable source maps in production to make debugging in production
+  easier. Enabling source maps doesn't have drawbacks for most of the
+  applications since maps are compressed by default and aren't loaded
+  by browsers unless Dev Tools are opened.
+
+Source maps can be disabled in any environment configuration, e.g:
+
+```js
+// config/webpack/production.js
+
+const environment = require('./environment')
+environment.config.merge({ devtool: 'none' })
+
+module.exports = environment.toWebpackConfig()
+```
+
+
 ## [4.0.0.rc.7] - 2019-01-25
 
 ### Fixed
