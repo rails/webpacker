@@ -8,9 +8,16 @@ ensure
   Webpacker.logger = old_logger
 end
 
+def yarn_install_available?
+  rails_major = Rails::VERSION::MAJOR
+  rails_minor = Rails::VERSION::MINOR
+
+  rails_major > 5 || (rails_major == 5 && rails_minor >= 1)
+end
+
 def enhance_assets_precompile
-  # For Rails < 5.1
-  deps = Rake::Task.task_defined?("yarn:install") ? [] : ["webpacker:yarn_install"]
+  # yarn:install was added in Rails 5.1
+  deps = yarn_install_available? ? [] : ["webpacker:yarn_install"]
   Rake::Task["assets:precompile"].enhance(deps) do
     Rake::Task["webpacker:compile"].invoke
   end
