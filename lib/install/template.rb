@@ -23,14 +23,15 @@ end
 apply "#{__dir__}/binstubs.rb"
 
 if File.exists?(".gitignore")
-  append_to_file ".gitignore", <<-EOS
-/public/packs
-/public/packs-test
-/node_modules
-/yarn-error.log
-yarn-debug.log*
-.yarn-integrity
-EOS
+  append_to_file ".gitignore" do
+    "\n"                   +
+    "/public/packs\n"      +
+    "/public/packs-test\n" +
+    "/node_modules\n"      +
+    "/yarn-error.log\n"    +
+    "yarn-debug.log*\n"    +
+    ".yarn-integrity\n"
+  end
 end
 
 if Webpacker::VERSION == /^[0-9]+\.[0-9]+\.[0-9]+$/
