@@ -74,6 +74,8 @@ environment.loaders.append('json', {
   use: 'json-loader'
 })
 
+const jsonLoader = environment.loaders.get('json')
+
 // Insert json loader at the top of list
 environment.loaders.prepend('json', jsonLoader)
 
