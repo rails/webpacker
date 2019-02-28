@@ -84,7 +84,7 @@ import 'assets/stylesheets/bar'
 ## Link in your Rails views
 
 You can also link `js/images/styles/fonts` used within your js app in views using
-`asset_pack_path` helper. This helper is useful in cases where you just want to
+`asset_pack_path` and `image_pack_tag` helpers. These helpers are useful in cases where you just want to
 create a `<link rel="prefetch">` or `<img />` for an asset.
 
 ```yml
@@ -97,13 +97,17 @@ app/javascript:
     - calendar.png
 ```
 
-```erb
-<%= asset_pack_path 'hello_react.css' %>
-<%# => "/packs/hello_react.css" %>
-
-<img src="<%= asset_pack_path 'images/calendar.png' %>" />
-<% # => <img src="/packs/images/calendar.png" /> %>
-
-<%= image_pack_tag 'images/calendar.png' %>
-<% # => <img src="/packs/images/calendar.png" /> %>
+```js
+// `app/javascript/packs/app.js` (or any of your packs):
+require.context('../images', true)
 ```
+
+```erb
+<img src="<%= asset_pack_path 'media/calendar.png' %>" />
+<% # => <img src="/packs/media/calendar.png" /> %>
+
+<%= image_pack_tag 'media/calendar.png' %>
+<% # => <img src="/packs/media/calendar.png" /> %>
+```
+
+Note the `media/` prefix replacing any subfolder structure prefix you might have in `app/javascript`.
