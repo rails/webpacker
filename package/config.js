@@ -40,5 +40,6 @@ const getPublicPath = () => {
 }
 
 config.publicPath = getPublicPath()
+config.publicPathWithoutCDN = `/${config.public_output_path}/`
 
 module.exports = config
