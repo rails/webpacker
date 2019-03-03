@@ -1,12 +1,13 @@
 GIT
   remote: https://github.com/rubocop-hq/rubocop.git
-  revision: 19d65afe162a5c095d81fd69982c1308fbbf9b46
+  revision: dc69686abf10d9f38ed3a39037fab76ae8874138
   specs:
-    rubocop (0.63.0)
+    rubocop (0.65.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.5, != 2.5.1.1)
       powerpack (~> 0.1)
+      psych (>= 3.1.0)
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.4.0)
@@ -66,13 +67,13 @@ GEM
     arel (9.0.0)
     ast (2.4.0)
     builder (3.2.3)
-    byebug (10.0.2)
+    byebug (11.0.0)
     concurrent-ruby (1.1.4)
     crass (1.0.4)
     erubi (1.8.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    i18n (1.5.2)
+    i18n (1.5.3)
       concurrent-ruby (~> 1.0)
     jaro_winkler (1.5.2)
     loofah (2.2.3)
@@ -90,10 +91,11 @@ GEM
     nio4r (2.3.1)
     nokogiri (1.10.1)
       mini_portile2 (~> 2.4.0)
-    parallel (1.13.0)
+    parallel (1.14.0)
     parser (2.6.0.0)
       ast (~> 2.4.0)
     powerpack (0.1.2)
+    psych (3.1.0)
     rack (2.0.6)
     rack-proxy (0.6.5)
       rack
