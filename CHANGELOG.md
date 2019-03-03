@@ -22,6 +22,27 @@ module.exports = environment.toWebpackConfig()
 
 - Reintroduced `context` to the file loader. Reverting the simpler paths change
 
+- Updated file loader to have filename based on the path. This change
+keeps the old behaviour intact i.e. let people use namespaces for media
+inside `app/javascript` and also include media outside of `app/javascript`
+with simpler paths, for example from `node_modules` or `app/assets`
+
+```bash
+# Files inside app/javascript (i.e. packs source path)
+# media/[full_path_relative_to_app_javascript]/name_of_the_asset_with_digest
+media/images/google-97e897b3851e415bec4fd30c265eb3ce.jpg
+media/images/rails-45b116b1f66cc5e6f9724e8f9a2db73d.png
+media/images/some_namespace/google-97e897b3851e415bec4fd30c265eb3ce.jpg
+
+# Files outside app/javascript (i.e. packs source path)
+# media/[containing_folder_name]/name_of_the_asset_with_digest
+media/some_assets/rails_assets-f0f7bbb5.png
+media/webfonts/fa-brands-400-4b115e11.woff2
+```
+
+This change is done so we don't end up paths like `media/_/assets/images/rails_assets-f0f7bbb5ef00110a0dcef7c2cb7d34a6.png` or `media/_/_/node_modules/foo-f0f7bbb5ef00110a0dcef7c2cb7d34a6.png` for media outside of
+`app/javascript`
+
 
 ## [4.0.0.rc.7] - 2019-01-25
 

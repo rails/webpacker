@@ -7,7 +7,12 @@ module.exports = {
     {
       loader: 'file-loader',
       options: {
-        name: 'media/[path][name]-[hash].[ext]',
+        name(file) {
+          if (file.includes(sourcePath)) {
+            return 'media/[path][name]-[hash].[ext]'
+          }
+          return 'media/[folder]/[name]-[hash:8].[ext]'
+        },
         context: join(sourcePath)
       }
     }
