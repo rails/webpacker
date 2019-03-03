@@ -22,7 +22,7 @@ describe('DevServer', () => {
 
   test('with custom env prefix', () => {
     const config = require('../config')
-    config.dev_server.env_prefix = 'TEST_WEBPACKER_DEV_SERVER_'
+    config.dev_server.env_prefix = 'TEST_WEBPACKER_DEV_SERVER'
 
     process.env.NODE_ENV = 'development'
     process.env.RAILS_ENV = 'development'
