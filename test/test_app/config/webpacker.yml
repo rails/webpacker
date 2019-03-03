@@ -28,11 +28,6 @@ default: &default
     - .tiff
     - .ico
     - .svg
-    - .eot
-    - .otf
-    - .ttf
-    - .woff
-    - .woff2
 
   extensions:
     - .mjs
