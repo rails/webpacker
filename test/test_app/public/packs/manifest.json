@@ -4,7 +4,8 @@
   "bootstrap.js": "/packs/bootstrap-300631c4f0e0f9c865bc.js",
   "application.js": "/packs/application-k344a6d59eef8632c9d1.js",
   "application.png": "/packs/application-k344a6d59eef8632c9d1.png",
-  "media/image.jpg": "/packs/media/image-c38deda30895059837cf.jpg",
+  "media/images/image.jpg": "/packs/media/images/image-c38deda30895059837cf.jpg",
+  "media/images/nested/image.jpg": "/packs/media/images/nested/image-c38deda30895059837cf.jpg",
   "entrypoints": {
     "application": {
       "js": [

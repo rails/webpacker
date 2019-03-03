@@ -39,11 +39,17 @@ class HelperTest < ActionView::TestCase
       "<img alt=\"Edit Entry\" src=\"/packs/application-k344a6d59eef8632c9d1.png\" width=\"16\" height=\"10\" />",
       image_pack_tag("application.png", size: "16x10", alt: "Edit Entry")
     assert_equal \
-      "<img alt=\"Edit Entry\" src=\"/packs/media/image-c38deda30895059837cf.jpg\" width=\"16\" height=\"10\" />",
+      "<img alt=\"Edit Entry\" src=\"/packs/media/images/image-c38deda30895059837cf.jpg\" width=\"16\" height=\"10\" />",
       image_pack_tag("image.jpg", size: "16x10", alt: "Edit Entry")
     assert_equal \
-      "<img alt=\"Edit Entry\" src=\"/packs/media/image-c38deda30895059837cf.jpg\" width=\"16\" height=\"10\" />",
-      image_pack_tag("media/image.jpg", size: "16x10", alt: "Edit Entry")
+      "<img alt=\"Edit Entry\" src=\"/packs/media/images/image-c38deda30895059837cf.jpg\" width=\"16\" height=\"10\" />",
+      image_pack_tag("media/images/image.jpg", size: "16x10", alt: "Edit Entry")
+    assert_equal \
+      "<img alt=\"Edit Entry\" src=\"/packs/media/images/nested/image-c38deda30895059837cf.jpg\" width=\"16\" height=\"10\" />",
+      image_pack_tag("nested/image.jpg", size: "16x10", alt: "Edit Entry")
+    assert_equal \
+      "<img alt=\"Edit Entry\" src=\"/packs/media/images/nested/image-c38deda30895059837cf.jpg\" width=\"16\" height=\"10\" />",
+      image_pack_tag("media/images/nested/image.jpg", size: "16x10", alt: "Edit Entry")
   end
 
   def test_javascript_pack_tag
