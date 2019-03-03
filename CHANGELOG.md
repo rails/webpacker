@@ -1,6 +1,6 @@
 **Please note that Webpacker 3.1.0 and 3.1.1 have some serious bugs so please consider using either 3.0.2 or 3.2.0**
 
-## [x] - x-x-x
+## [4.0.0.rc.8] - 2019-03-03
 
 ### Fixed
 
