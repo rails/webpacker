@@ -69,10 +69,13 @@ yarn add json-loader
 // config/webpack/environment.js
 const { environment } = require('@rails/webpacker')
 
-environment.loaders.append('json', {
+const jsonLoader = {
   test: /\.json$/,
   use: 'json-loader'
-})
+}
+
+// Insert json loader at the end of list
+environment.loaders.append('json', jsonLoader)
 
 // Insert json loader at the top of list
 environment.loaders.prepend('json', jsonLoader)
