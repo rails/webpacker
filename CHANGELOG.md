@@ -155,7 +155,14 @@ helper otherwise you will get duplicated chunks on the page.
   extract_css: true
   ```
   - Separate rule to compile node modules
-  (fixes cases where ES6 libraries were included in the app code) [#1823](https://github.com/rails/webpacker/pull/1823)
+  (fixes cases where ES6 libraries were included in the app code) [#1823](https://github.com/rails/webpacker/pull/1823).
+
+    In previous versions only application code was transpiled. Now everything in `node_modules` transpiled with Babel. In some cases it could break your build (known issue with `mapbox-gl` package being broken by Babel, https://github.com/mapbox/mapbox-gl-js/issues/3422).
+
+    [`nodeModules` loader](https://github.com/rails/webpacker/pull/1823/files#diff-456094c8451b5774db50028dfecf4aa8) ignores `config.babel.js` and uses hard-coded `'@babel/preset-env', { modules: false }` config.
+
+    To keep previous behavior, remove `nodeModules` loader specifying `environment.loaders.delete('nodeModules');` in your `config/webpack/environment.js` file.
+
   - File loader extensions API [#1823](https://github.com/rails/webpacker/pull/1823)
   ```yml
   # webpacker.yml
