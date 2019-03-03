@@ -16,7 +16,7 @@ class CompilerTest < Minitest::Test
   end
 
   def test_custom_environment_variables
-    assert Webpacker.compiler.send(:webpack_env)["FOO"] == nil
+    assert_nil Webpacker.compiler.send(:webpack_env)["FOO"]
     Webpacker.compiler.env["FOO"] = "BAR"
     assert Webpacker.compiler.send(:webpack_env)["FOO"] == "BAR"
   ensure
@@ -65,8 +65,8 @@ class CompilerTest < Minitest::Test
   end
 
   def test_external_env_variables
-    assert_equal Webpacker.compiler.send(:webpack_env)["WEBPACKER_ASSET_HOST"], ActionController::Base.helpers.compute_asset_host
-    assert_equal Webpacker.compiler.send(:webpack_env)["WEBPACKER_RELATIVE_URL_ROOT"], ActionController::Base.relative_url_root
+    assert_nil Webpacker.compiler.send(:webpack_env)["WEBPACKER_ASSET_HOST"]
+    assert_nil Webpacker.compiler.send(:webpack_env)["WEBPACKER_RELATIVE_URL_ROOT"]
 
     ENV["WEBPACKER_ASSET_HOST"] = "foo.bar"
     ENV["WEBPACKER_RELATIVE_URL_ROOT"] = "/baz"
