@@ -13,7 +13,7 @@ even JavaScript Sprinkles (that all continues to live in app/assets).
 However, it is possible to use Webpacker for CSS, images and fonts assets as well,
 in which case you may not even need the asset pipeline. This is mostly relevant when exclusively using component-based JavaScript frameworks.
 
-**NOTE:** The master branch now hosts the code for v4.x.x. Please refer to [3-x-stable](https://github.com/rails/webpacker/tree/3-x-stable) branch for 3.x documentation.
+**NOTE:** The master branch now hosts the code for v4.x.x. Please refer to [3-x-stable](https://github.com/rails/webpacker/tree/3-x-stable) branch for 3.x documentation. See the [v4-upgrade guide](docs/v4-upgrade.md) for an overview of the changes.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
