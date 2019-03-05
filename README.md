@@ -84,15 +84,14 @@ Or add it to your `Gemfile`:
 
 ```ruby
 # Gemfile
-gem 'webpacker', '~> 3.5'
+gem 'webpacker', '~> 4.0'
 
 # OR if you prefer to use master
 gem 'webpacker', git: 'https://github.com/rails/webpacker.git'
 yarn add https://github.com/rails/webpacker.git
 
-# OR to try out 4.x pre-release
-gem 'webpacker', '>= 4.0.x'
-yarn add @rails/webpacker@next
+# OR to use legacy version
+gem 'webpacker', '~> 3.5'
 ```
 
 Finally, run the following to install Webpacker:
