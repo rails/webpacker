@@ -1,5 +1,9 @@
 **Please note that Webpacker 3.1.0 and 3.1.1 have some serious bugs so please consider using either 3.0.2 or 3.2.0**
 
+## [4.0.2] - 2019-03-06
+
+- Bump the version on npm
+
 ## [4.0.1] - 2019-03-04
 
 ### Fixed
