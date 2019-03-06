@@ -1,5 +1,9 @@
 **Please note that Webpacker 3.1.0 and 3.1.1 have some serious bugs so please consider using either 3.0.2 or 3.2.0**
 
+## [3.6.0] - 2019-03-06
+  See changes: https://github.com/rails/webpacker/compare/88a253ed42966eb2d5c997435e9396881513bce1...3-x-stable
+
+
 ## [3.5.5] - 2018-07-09
   See changes: https://github.com/rails/webpacker/compare/e8b197e36c77181ca2e4765c620faea59dcd0351...3-x-stable
 
@@ -33,7 +37,7 @@
 ### Added
   - `image_pack_tag` helper [#1400](https://github.com/rails/webpacker/pull/1400)
   - devserver proxy for custom environments [#1415](https://github.com/rails/webpacker/pull/1415)
-  - Rails webpacker:info task [#1416](https://github.com/rails/webpacker/pull/1416)  
+  - Rails webpacker:info task [#1416](https://github.com/rails/webpacker/pull/1416)
   - Include `RAILS_RELATIVE_URL_ROOT` environment variable in publicPath [#1428](https://github.com/rails/webpacker/pull/1428)
 
 Complete list of changes: [#1464](https://github.com/rails/webpacker/pull/1464)
