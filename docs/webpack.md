@@ -269,7 +269,6 @@ For the full configuration options of SplitChunks, see the [Webpack documentatio
 
 ```js
 // config/webpack/environment.js
-const WebpackAssetsManifest = require('webpack-assets-manifest');
 
 // Enable the default config
 environment.splitChunks()
