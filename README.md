@@ -306,7 +306,7 @@ To turn off this option, you will need to change the default setting in `config/
 # config/webpacker.yml
 development:
   ...
-  # Verifies that versions and hashed value of the package contents in the project's package.json
+  # Verifies that correct packages and versions are installed by inspecting package.json, yarn.lock, and node_modules
   check_yarn_integrity: false
 ```
 
