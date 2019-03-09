@@ -22,7 +22,7 @@ cache:
 
 install:
   - bundle install
-  - nvm install node
+  - nvm install 11.10.1
   - node -v
   - npm i -g yarn
   - yarn
