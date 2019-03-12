@@ -32,7 +32,7 @@ const Hello = props => (
 
 ## Import scoped styles into your JS app
 
-Stylesheets end with `.module.*` is treated as [CSS Modules](https://github.com/css-modules/css-modules).
+Stylesheets that end with `.module.*` are treated as [CSS Modules](https://github.com/css-modules/css-modules).
 
 ```sass
 // app/javascript/hello_react/styles/hello-react.module.sass
