@@ -18,6 +18,13 @@ class DevServerRunnerTest < Webpacker::Test
     verify_command(cmd, use_node_modules: true)
   end
 
+  def test_run_cmd_via_node_modules_with_arguments
+    argv = ["--key", "~/.ssl/private.key"]
+    cmd = ["#{test_app_path}/node_modules/.bin/webpack-dev-server", "--config", "#{test_app_path}/config/webpack/development.js"] + argv
+
+    verify_command(cmd, use_node_modules: true, argv: argv)
+  end
+
   def test_run_cmd_via_yarn
     cmd = ["yarn", "webpack-dev-server", "--config", "#{test_app_path}/config/webpack/development.js"]
 
@@ -29,18 +36,18 @@ class DevServerRunnerTest < Webpacker::Test
       File.expand_path("test_app", __dir__)
     end
 
-    def verify_command(cmd, use_node_modules: true)
+    def verify_command(cmd, use_node_modules: true, argv: [])
       cwd = Dir.pwd
       Dir.chdir(test_app_path)
 
       klass = Webpacker::DevServerRunner
-      instance = klass.new([])
+      instance = klass.new(argv)
       mock = Minitest::Mock.new
       mock.expect(:call, nil, [{}, *cmd])
 
       klass.stub(:new, instance) do
         instance.stub(:node_modules_bin_exist?, use_node_modules) do
-          Kernel.stub(:exec, mock) { klass.run([]) }
+          Kernel.stub(:exec, mock) { klass.run(argv) }
         end
       end
 
