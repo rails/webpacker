@@ -1,6 +1,6 @@
 module Webpacker::Helper
   # Returns current Webpacker instance.
-  # Could be overriden to use multiple Webpacker
+  # Could be overridden to use multiple Webpacker
   # configurations within the same app (e.g. with engines)
   def current_webpacker_instance
     Webpacker.instance
