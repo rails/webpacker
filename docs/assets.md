@@ -90,24 +90,30 @@ create a `<link rel="prefetch">` or `<img />` for an asset.
 ```yml
 app/javascript:
   - packs
-    - hello_react.js
-  - styles
-    - hello_react.css
+    - app.js
   - images
     - calendar.png
 ```
 
 ```js
-// `app/javascript/packs/app.js` (or any of your packs):
+// app/javascript/packs/app.js (or any of your packs)
+
+// import all image files in a folder:
 require.context('../images', true)
 ```
 
 ```erb
-<img src="<%= asset_pack_path 'media/calendar.png' %>" />
-<% # => <img src="/packs/media/calendar.png" /> %>
+<%# Rails view, for example app/views/layouts/application.html.erb %>
 
-<%= image_pack_tag 'media/calendar.png' %>
-<% # => <img src="/packs/media/calendar.png" /> %>
+<img src="<%= asset_pack_path 'media/images/calendar.png' %>" />
+<% # => <img src="/packs/media/images/calendar-k344a6d59eef8632c9d1.png" /> %>
+
+<%= image_pack_tag 'media/images/calendar.png' %>
+<% # => <img src="/packs/media/images/calendar-k344a6d59eef8632c9d1.png" /> %>
+
+<%# no path resolves to default 'images' folder: %>
+<%= image_pack_tag 'calendar.png' %>
+<% # => <img src="/packs/media/images/calendar-k344a6d59eef8632c9d1.png" /> %>
 ```
 
-Note the `media/` prefix replacing any subfolder structure prefix you might have in `app/javascript`.
+Note you need to add a `media/` prefix (not `/media/`) to any subfolder structure you might have in `app/javascript`. See more examples in the [tests](https://github.com/rails/webpacker/blob/0b86cadb5ed921e2c1538382e72a236ec30a5d97/test/helper_test.rb#L37).
