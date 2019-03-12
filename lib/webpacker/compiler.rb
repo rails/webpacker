@@ -66,7 +66,7 @@ class Webpacker::Compiler
 
       if status.success?
         logger.info "Compiled all packs in #{config.public_output_path}"
-        logger.error "#{stderr}\n" unless stderr.empty?
+        logger.error "#{stderr}" unless stderr.empty?
       else
         logger.error "Compilation failed:\n#{stderr}"
       end
