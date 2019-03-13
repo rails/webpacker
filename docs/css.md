@@ -32,7 +32,7 @@ const Hello = props => (
 
 ## Import scoped styles into your JS app
 
-Stylesheets end with `.module.*` is treated as [CSS Modules](https://github.com/css-modules/css-modules).
+Stylesheets that end with `.module.*` are treated as [CSS Modules](https://github.com/css-modules/css-modules).
 
 ```sass
 // app/javascript/hello_react/styles/hello-react.module.sass
@@ -59,6 +59,59 @@ const Hello = props => (
 ```
 
 **Note:** Declared class is referenced as object property in JavaScript.
+
+## Import scoped styles into your TypeScript app
+
+Using CSS modules with a TypeScript application requires a few differences from a JavaScript app. The CSS / Sass files are the same:
+
+```sass
+// app/javascript/hello_react/styles/hello-react.module.sass
+
+.helloReact
+  padding: 20px
+  font-size: 12px
+```
+
+There must also be a type definition file for these styles:
+
+```typescript
+export const helloReact: string;
+```
+
+You can then import the styles like this:
+
+```typescript
+// React component example
+// app/javascripts/packs/hello_react.tsx
+
+import React from 'react'
+import helloIcon from '../hello_react/images/icon.png'
+import * as styles from '../hello_react/styles/hello-react.module.sass'
+
+const Hello = props => (
+  <div className={styles.helloReact}>
+    <img src={helloIcon} alt="hello-icon" />
+    <p>Hello {props.name}!</p>
+  </div>
+)
+```
+
+You can automatically generate type definitions for the styles by installing the `typed-scss-modules` as a development dependency:
+
+```
+yarn add typed-scss-modules --dev
+```
+
+Then by adding these lines to your `package.json`:
+
+```
+"scripts": {
+  "gen-typings": "yarn run tsm app/javascript/**/*.sass",
+  "watch-typings": "yarn run tsm app/javascript/**/*.sass -w"
+},
+```
+
+You can generate the typings for the stylesheet by running the command `yarn gen-typings` when you've finished writing CSS, or run `yarn watch-typings` to have it automatically generate them as you go.
 
 
 ## Link styles from your Rails views
