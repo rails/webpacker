@@ -85,7 +85,7 @@ append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/pack
 
 If you have `node_modules` added to `:linked_dirs` you'll need to run yarn install before `deploy:assets:precompile`, so you can add this code snippet at the bottom deploy.rb
 
-```
+```ruby
 before "deploy:assets:precompile", "deploy:yarn_install"
 namespace :deploy do
   desc "Run rake yarn install"
