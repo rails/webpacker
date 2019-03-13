@@ -15,11 +15,14 @@ const styleLoader = {
 }
 
 const getStyleRule = (test, modules = false, preprocessors = []) => {
+  const options = modules ? { include: /\.module\.[a-z]+$/ } : { exclude: /\.module\.[a-z]+$/ }
+  const sourceMap = options.devtool === 'none'
+
   const use = [
     {
       loader: 'css-loader',
       options: {
-        sourceMap: true,
+        sourceMap,
         importLoaders: 2,
         localIdentName: '[name]__[local]___[hash:base64:5]',
         modules
@@ -34,8 +37,6 @@ const getStyleRule = (test, modules = false, preprocessors = []) => {
     },
     ...preprocessors
   ]
-
-  const options = modules ? { include: /\.module\.[a-z]+$/ } : { exclude: /\.module\.[a-z]+$/ }
 
   if (config.extract_css) {
     use.unshift(MiniCssExtractPlugin.loader)
