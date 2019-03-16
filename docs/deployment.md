@@ -83,3 +83,19 @@ Make sure you have `public/packs` and `node_modules` in `:linked_dirs`
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/packs", ".bundle", "node_modules"
 ```
 
+If you have `node_modules` added to `:linked_dirs` you'll need to run yarn install before `deploy:assets:precompile`, so you can add this code snippet at the bottom deploy.rb
+
+```ruby
+before "deploy:assets:precompile", "deploy:yarn_install"
+namespace :deploy do
+  desc "Run rake yarn install"
+  task :yarn_install do
+    on roles(:web) do
+      within release_path do
+        execute("cd #{release_path} && yarn install --silent --no-progress --no-audit --no-optional")
+      end
+    end
+  end
+end
+```
+
