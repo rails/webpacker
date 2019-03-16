@@ -865,3 +865,6 @@ bundle exec rails webpacker:install:[react, angular, vue]
 ```rb
 config.x.webpacker[:digesting] = true
 ```
+
+
+[4.0.2]: https://github.com/rails/webpacker/compare/v3.5.5...v4.0.2
