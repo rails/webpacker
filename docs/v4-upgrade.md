@@ -125,6 +125,16 @@ The compiled packs in the public directory are now stored under namespaces:
 "runtime~hello_react" => "/packs/js/runtime~hello_react-da2baf7fd07b0e8b6d17.js"
 ```
 
+## Upgrading projects with custom Webpack setups that use only the view helpers
+The default value for `extract_css` is **false** in `config/webpack.yml`. Custom webpack builds that extract the CSS such as often used with [React on Rails](https://github.com/shakacode/react_on_rails) should set this value to true or else no CSS link tags are generated.
+
+  ```yml
+  default: &default
+     # other stuff
+     extract_css: true
+     # by default, extract and emit a css file. The default is false
+  ```
+
 ## Example Upgrades
 
 This is what an upgrade to Webpacker 4 looked like for existing Rails apps (please contribute yours!):
