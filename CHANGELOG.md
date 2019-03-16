@@ -186,11 +186,15 @@ helper otherwise you will get duplicated chunks on the page.
   ```js
   environment.loaders.prepend()
   ```
-  - Separate CSS extraction from build environment [#1625](https://github.com/rails/webpacker/pull/1625)
+  - Separate CSS extraction from build environment [#1625](https://github.com/rails/webpacker/pull/1625). Breaking change because the default is false. **Custom webpack builds that extract the CSS such as often used with [React on Rails](https://github.com/shakacode/react_on_rails) should set this value to true or else no CSS link tags are generated.**
   ```yml
-  # Extract and emit a css file
+  # Extract and emit a css file. The default is false
   extract_css: true
   ```
+  
+
+  
+  
   - Separate rule to compile node modules
   (fixes cases where ES6 libraries were included in the app code) [#1823](https://github.com/rails/webpacker/pull/1823).
 
