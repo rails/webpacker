@@ -84,26 +84,36 @@ import 'assets/stylesheets/bar'
 ## Link in your Rails views
 
 You can also link `js/images/styles/fonts` used within your js app in views using
-`asset_pack_path` helper. This helper is useful in cases where you just want to
+`asset_pack_path` and `image_pack_tag` helpers. These helpers are useful in cases where you just want to
 create a `<link rel="prefetch">` or `<img />` for an asset.
 
 ```yml
 app/javascript:
   - packs
-    - hello_react.js
-  - styles
-    - hello_react.css
+    - app.js
   - images
     - calendar.png
 ```
 
-```erb
-<%= asset_pack_path 'hello_react.css' %>
-<%# => "/packs/hello_react.css" %>
+```js
+// app/javascript/packs/app.js (or any of your packs)
 
-<img src="<%= asset_pack_path 'images/calendar.png' %>" />
-<% # => <img src="/packs/images/calendar.png" /> %>
-
-<%= image_pack_tag 'images/calendar.png' %>
-<% # => <img src="/packs/images/calendar.png" /> %>
+// import all image files in a folder:
+require.context('../images', true)
 ```
+
+```erb
+<%# Rails view, for example app/views/layouts/application.html.erb %>
+
+<img src="<%= asset_pack_path 'media/images/calendar.png' %>" />
+<% # => <img src="/packs/media/images/calendar-k344a6d59eef8632c9d1.png" /> %>
+
+<%= image_pack_tag 'media/images/calendar.png' %>
+<% # => <img src="/packs/media/images/calendar-k344a6d59eef8632c9d1.png" /> %>
+
+<%# no path resolves to default 'images' folder: %>
+<%= image_pack_tag 'calendar.png' %>
+<% # => <img src="/packs/media/images/calendar-k344a6d59eef8632c9d1.png" /> %>
+```
+
+Note you need to add a `media/` prefix (not `/media/`) to any subfolder structure you might have in `app/javascript`. See more examples in the [tests](https://github.com/rails/webpacker/blob/0b86cadb5ed921e2c1538382e72a236ec30a5d97/test/helper_test.rb#L37).
