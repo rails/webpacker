@@ -290,7 +290,7 @@ You can run following commands to upgrade Webpacker to the latest stable version
 bundle update webpacker
 rails webpacker:binstubs
 yarn upgrade @rails/webpacker --latest
-yarn add webpack-dev-server@^3.1.14
+yarn upgrade webpack-dev-server --latest
 
 # Or to install a latest release (including pre-releases)
 yarn add @rails/webpacker@next
