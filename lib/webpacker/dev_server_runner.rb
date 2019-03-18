@@ -51,6 +51,12 @@ module Webpacker
         else
           ["yarn", "webpack-dev-server"]
         end
+
+        if ARGV.include?("--debug")
+          cmd = [ "node", "--inspect-brk"] + cmd
+          ARGV.delete("--debug")
+        end
+
         cmd += ["--config", @webpack_config]
         cmd += ["--progress", "--color"] if @pretty
 

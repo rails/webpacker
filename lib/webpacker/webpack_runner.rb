@@ -11,6 +11,12 @@ module Webpacker
       else
         ["yarn", "webpack"]
       end
+
+      if ARGV.include?("--debug")
+        cmd = [ "node", "--inspect-brk"] + cmd
+        ARGV.delete("--debug")
+      end
+
       cmd += ["--config", @webpack_config] + @argv
 
       Dir.chdir(@app_path) do
