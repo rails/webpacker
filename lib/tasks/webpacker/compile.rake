@@ -26,7 +26,18 @@ end
 namespace :webpacker do
   desc "Compile JavaScript packs using webpack for production with digests"
   task compile: ["webpacker:verify_install", :environment] do
-    Webpacker.with_node_env("production") do
+    node_env = "production"
+
+    if ENV.has_key?("NODE_ENV")
+      node_env = ENV["NODE_ENV"]
+
+      if node_env != "production"
+        $stdout.puts "Using NODE_ENV=#{ENV["NODE_ENV"]} from local "\
+          "environment instead of default NODE_ENV=production"
+      end
+    end
+
+    Webpacker.with_node_env(node_env) do
       ensure_log_goes_to_stdout do
         if Webpacker.compile
           # Successful compilation!
