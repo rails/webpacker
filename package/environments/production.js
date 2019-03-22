@@ -1,8 +1,10 @@
+const { join } = require('path')
 const TerserPlugin = require('terser-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const safePostCssParser = require('postcss-safe-parser')
 const Base = require('./base')
+const { cache_path: cachePath } = require('../config')
 
 module.exports = class extends Base {
   constructor() {
@@ -13,7 +15,7 @@ module.exports = class extends Base {
       new CompressionPlugin({
         filename: '[path].gz[query]',
         algorithm: 'gzip',
-        cache: true,
+        cache: join(cachePath, 'compression-webpack-plugin'),
         test: /\.(js|css|html|json|ico|svg|eot|otf|ttf|map)$/
       })
     )
@@ -37,7 +39,7 @@ module.exports = class extends Base {
         minimizer: [
           new TerserPlugin({
             parallel: true,
-            cache: true,
+            cache: join(cachePath, 'terser-webpack-plugin'),
             sourceMap: true,
             terserOptions: {
               parse: {
