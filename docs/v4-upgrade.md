@@ -140,3 +140,4 @@ The default value for `extract_css` is **false** in `config/webpack.yml`. Custom
 This is what an upgrade to Webpacker 4 looked like for existing Rails apps (please contribute yours!):
 
 - https://github.com/connorshea/ContinueFromCheckpoint/pull/77
+- https://gist.github.com/easybills-admin/79a88f9915adbc7c8676227604b6e185
