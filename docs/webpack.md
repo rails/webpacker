@@ -221,7 +221,7 @@ const webpack = require('webpack')
 
 // Get a pre-configured plugin
 const manifestPlugin = environment.plugins.get('Manifest')
-manifestPlugin.opts.writeToFileEmit = false
+manifestPlugin.options.writeToFileEmit = false
 
 // Add an additional plugin of your choosing : ProvidePlugin
 environment.plugins.prepend(
