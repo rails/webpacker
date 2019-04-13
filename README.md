@@ -34,7 +34,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
   - [Vue](#vue)
   - [Elm](#elm)
   - [Stimulus](#stimulus)
-  - [Coffeescript](#coffeescript)
+  - [CoffeeScript](#coffeescript)
   - [Erb](#erb)
 - [Paths](#paths)
   - [Resolved](#resolved)
@@ -292,7 +292,7 @@ rails webpacker:binstubs
 yarn upgrade @rails/webpacker --latest
 yarn upgrade webpack-dev-server --latest
 
-# Or to install a latest release (including pre-releases)
+# Or to install the latest release (including pre-releases)
 yarn add @rails/webpacker@next
 ```
 
@@ -331,7 +331,7 @@ new Rails 5.1+ app using `--webpack=react` option:
 rails new myapp --webpack=react
 ```
 
-(or run `bundle exec rails webpacker:install:react` in a existing Rails app already
+(or run `bundle exec rails webpacker:install:react` in an existing Rails app already
 setup with Webpacker).
 
 The installer will add all relevant dependencies using Yarn, changes
@@ -438,14 +438,14 @@ rails new myapp --webpack=stimulus
 
 Please read [The Stimulus Handbook](https://stimulusjs.org/handbook/introduction) or learn more about its source code at https://github.com/stimulusjs/stimulus
 
-### Coffeescript
+### CoffeeScript
 
-To add [Coffeescript](http://coffeescript.org/) support,
+To add [CoffeeScript](http://coffeescript.org/) support,
 run `bundle exec rails webpacker:install:coffee` on a Rails app already
 setup with Webpacker.
 
 An example `hello_coffee.coffee` file will also be added to your project
-in `app/javascript/packs` so that you can experiment with Coffeescript right away.
+in `app/javascript/packs` so that you can experiment with CoffeeScript right away.
 
 ### Erb
 
