@@ -101,8 +101,9 @@ module Webpacker::Helper
   #   <%= stylesheet_pack_tag 'calendar', 'data-turbolinks-track': 'reload' %> # =>
   #   <link rel="stylesheet" media="screen" href="/packs/calendar-1016838bab065ae1e122.css" data-turbolinks-track="reload" />
   def stylesheet_pack_tag(*names, **options)
+    sources = sources_from_manifest_entries(names, type: :stylesheet)
     if current_webpacker_instance.config.extract_css?
-      stylesheet_link_tag(*sources_from_manifest_entries(names, type: :stylesheet), **options)
+      stylesheet_link_tag(*sources, **options)
     end
   end
 
