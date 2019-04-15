@@ -5,7 +5,7 @@ To update a Webpacker v3.5 app to v4, follow these steps:
 
 1. Update the `webpacker` gem and the `@rails/webpacker` package to v4. This will upgrade Webpack itself from 3.x to 4.x, make sure you're aware of [any deprecations which might effect you](https://webpack.js.org/migrate/4/). Also make sure any other packages you depend on support Webpack 4 and don't require any changes, e.g. if you explicitly include `webpack` you need to upgrade it to 4.x, and if you use `webpack-dev-server` you need to upgrade it to 3.x.
 
-2. Browser support definitions have been moved to [`.browserslistrc`](../lib/install/config/.browserslistrc) to `/`.
+2. Browser support definitions have been moved from [`.browserslistrc`](../lib/install/config/.browserslistrc) to `/`.
 
 3. Merge any differences between [`config/webpacker.yml`](../lib/install/config/webpacker.yml) and your `config/webpacker.yml`.
 
