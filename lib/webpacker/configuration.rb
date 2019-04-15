@@ -15,6 +15,10 @@ class Webpacker::Configuration
     fetch(:dev_server)
   end
 
+  def compile=(value)
+    data[:compile] = value
+  end
+
   def compile?
     fetch(:compile)
   end
