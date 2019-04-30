@@ -73,12 +73,14 @@ One change to take into consideration, is that Webpacker 4 transpiles the
 `node_modules` folder with the `babel-loader`. This folder used to be ignored by
 Webpacker 3. The new behavior helps in case some library contains ES6 code, but in
 some cases it can lead to issues. To avoid running `babel-loader` in the
-`node_modules` folder, replicating the same behavior as Webpacker 3, the
-following code can be added to `config/webpack/environment.js`:
+`node_modules` folder, replicating the same behavior as Webpacker 3, set
+`compile_dependencies` to `false`
 
-```javascript
-environment.loaders.delete('nodeModules')
-```
+```yml
+  default: &default
+     # other stuff
+     compile_dependencies: false
+  ```
 
 Alternatively, in order to skip only a specific library in the `node_modules`
 folder, this code can be added:

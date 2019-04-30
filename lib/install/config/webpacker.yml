@@ -19,6 +19,9 @@ default: &default
   # Extract and emit a css file
   extract_css: false
 
+  # Compile node_modules in addition to source files
+  compile_dependencies: true
+
   static_assets_extensions:
     - .jpg
     - .jpeg

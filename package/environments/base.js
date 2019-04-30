@@ -22,7 +22,9 @@ const config = require('../config')
 
 const getLoaderList = () => {
   const result = new ConfigList()
-  Object.keys(rules).forEach(key => result.append(key, rules[key]))
+  Object.keys(rules)
+    .filter(rule => rule !== 'nodeModules' || (rule === 'nodeModules' && config.compile_dependencies))
+    .forEach(key => result.append(key, rules[key]))
   return result
 }
 

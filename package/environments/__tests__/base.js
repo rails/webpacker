@@ -44,6 +44,17 @@ describe('Environment', () => {
       expect(configRules.length).toEqual(8)
     })
 
+    test('should not include node_modules rule if compile_dependencies is false', () => {
+      require('../../config').compile_dependencies = false
+      environment = new Environment()
+
+      const config = environment.toWebpackConfig()
+      const defaultRules = Object.keys(rules)
+      const configRules = config.module.rules
+
+      expect(configRules.length).toEqual(defaultRules.length)
+    })
+
     test('should return default plugins', () => {
       const config = environment.toWebpackConfig()
       expect(config.plugins.length).toEqual(4)
