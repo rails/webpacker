@@ -104,7 +104,7 @@ If you want to keep the old behavior source maps can be disabled in any environm
 // config/webpack/production.js
 
 const environment = require('./environment')
-environment.config.merge({ devtool: 'none' })
+environment.config.merge({ devtool: false })
 
 module.exports = environment.toWebpackConfig()
 ```
