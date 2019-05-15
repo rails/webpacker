@@ -36,7 +36,7 @@ module.exports = class extends Base {
       optimization: {
         minimizer: [
           new TerserPlugin({
-            parallel: true,
+            parallel: Number.parseInt(process.env.WEBPACKER_PARALLEL) || true,
             cache: true,
             sourceMap: true,
             terserOptions: {
