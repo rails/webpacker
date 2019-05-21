@@ -1,10 +1,9 @@
 source "https://rubygems.org"
 
-gem "webpacker", path: ".."
+gemspec path: "../"
 
 gem "rails", "~> 4.2.0"
 gem "rake", ">= 11.1"
-gem "rubocop", git: "https://github.com/rubocop-hq/rubocop.git", require: false
 gem "rack-proxy", require: false
 gem "minitest", "~> 5.0"
 gem "byebug"
