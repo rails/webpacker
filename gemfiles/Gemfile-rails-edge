@@ -7,7 +7,6 @@ gem "webpacker", path: ".."
 gem "rails", github: "rails/rails"
 gem "arel", github: "rails/arel"
 gem "rake", ">= 11.1"
-gem "rubocop", git: "https://github.com/rubocop-hq/rubocop.git", require: false
 gem "rack-proxy", require: false
 gem "minitest", "~> 5.0"
 gem "byebug"

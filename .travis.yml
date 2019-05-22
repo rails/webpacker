@@ -22,7 +22,7 @@ cache:
 
 install:
   - bundle install
-  - nvm install node
+  - nvm install 10
   - node -v
   - npm i -g yarn
   - yarn
@@ -33,7 +33,8 @@ script:
   - bundle exec rake test
 matrix:
   allow_failures:
-  - gemfile: gemfiles/Gemfile-rails-edge
+    - gemfile: gemfiles/Gemfile-rails-edge
+    - rvm: ruby-head
   exclude:
     - rvm: 2.3.8
       gemfile: gemfiles/Gemfile-rails-edge
