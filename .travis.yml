@@ -1,6 +1,5 @@
 language: ruby
 before_install:
-  - gem update --system
   - gem uni -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
   - gem i bundler -v '< 2'
 rvm:
