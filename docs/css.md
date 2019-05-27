@@ -106,8 +106,8 @@ Then by adding these lines to your `package.json`:
 
 ```
 "scripts": {
-  "gen-typings": "yarn run tsm app/javascript/**/*.sass",
-  "watch-typings": "yarn run tsm app/javascript/**/*.sass -w"
+  "gen-typings": "yarn run tsm \"app/javascript/**/*.sass\"",
+  "watch-typings": "yarn run tsm \"app/javascript/**/*.sass\" -w"
 },
 ```
 
