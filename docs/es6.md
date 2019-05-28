@@ -16,13 +16,14 @@ Following ES6/7 features are supported out of the box:
 * Dynamic import() - useful for route level code-splitting
 * Class Fields and Static Properties.
 
-We have also included [babel polyfill](https://babeljs.io/docs/usage/polyfill/)
-that includes a custom regenerator runtime and core-js.
+We have also included [core-js](https://github.com/zloirock/core-js) to polyfill features in the
+older browsers.
 
-Don't forget to import `@babel/polyfill` in your main entry point like so:
+Don't forget to add these lines into your main entry point:
 
 ```js
-import "@babel/polyfill"
+import "core-js/stable";
+import "regenerator-runtime/runtime";
 ```
 
 
