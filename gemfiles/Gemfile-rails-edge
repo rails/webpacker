@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-gem "webpacker", path: ".."
+gemspec path: "../"
 
 gem "rails", github: "rails/rails"
 gem "arel", github: "rails/arel"
