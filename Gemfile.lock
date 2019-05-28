@@ -139,7 +139,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (~> 1.12)
+  bundler (>= 1.12)
   byebug
   minitest (~> 5.0)
   rack-proxy
