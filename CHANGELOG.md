@@ -1,5 +1,9 @@
 **Please note that Webpacker 3.1.0 and 3.1.1 have some serious bugs so please consider using either 3.0.2 or 3.2.0**
 
+## [[4.0.3]](https://github.com/rails/webpacker/compare/v4.0.2...v4.0.3) - 2019-05-28
+
+Please see the diff
+
 ## [4.0.2] - 2019-03-06
 
 - Bump the version on npm
