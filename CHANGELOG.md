@@ -1,5 +1,9 @@
 **Please note that Webpacker 3.1.0 and 3.1.1 have some serious bugs so please consider using either 3.0.2 or 3.2.0**
 
+## [[4.0.6]](https://github.com/rails/webpacker/compare/v4.0.5...v4.0.6) - 2019-05-30
+
+- Webpack should not be transpiled [#2111](https://github.com/rails/webpacker/pull/2111)
+
 ## [[4.0.5]](https://github.com/rails/webpacker/compare/v4.0.4...v4.0.5) - 2019-05-30
 
 - Don't let babel & core-js transpile each other [#2110](https://github.com/rails/webpacker/pull/2110)
