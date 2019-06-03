@@ -19,7 +19,12 @@ class Webpacker::Compiler
   def compile
     if stale?
       run_webpack.tap do |success|
-        record_compilation_digest if success
+        # We used to only record the digest on success
+        # However, the output file is still written on error, (at least with ts-loader), meaning that the
+        # digest should still be updated. If it's not, you can end up in a situation where a recompile doesn't
+        # take place when it should.
+        # See https://github.com/rails/webpacker/issues/2113
+        record_compilation_digest
       end
     else
       true
