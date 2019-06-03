@@ -1,5 +1,13 @@
 **Please note that Webpacker 3.1.0 and 3.1.1 have some serious bugs so please consider using either 3.0.2 or 3.2.0**
 
+## [[4.0.7]](https://github.com/rails/webpacker/compare/v4.0.6...v4.0.7) - 2019-06-03
+
+- Prevent `@babel/plugin-transform-runtime` from rewriting babel helpers in core-js. Remove unneeded runtime `@babel/runtime-corejs3` [#2116](https://github.com/rails/webpacker/pull/2116)
+  - Fix for: [#2109 Uncaught TypeError: __webpack_require__(...) is not a function](https://github.com/rails/webpacker/issues/2109): **If you are upgrading**, please check your `babel.config.js` against the [default `babel.config.js`](https://github.com/rails/webpacker/blob/master/lib/install/config/babel.config.js):
+    - `@babel/preset-env` should contain `corejs: 3` 
+    - `@babel/plugin-transform-runtime` should contain `corejs: false`
+- Removed unneeded runtime `@babel/runtime-corejs3`
+
 ## [[4.0.6]](https://github.com/rails/webpacker/compare/v4.0.5...v4.0.6) - 2019-05-30
 
 - Webpack should not be transpiled [#2111](https://github.com/rails/webpacker/pull/2111)
@@ -16,7 +24,7 @@
 
 Please see the diff
 
-### Breaking changes
+##### Breaking changes (for pre-existing apps)
 
  - [`@babel/polyfill`](https://babeljs.io/docs/en/next/babel-polyfill.html) [doesn't make it possible to provide a smooth migration path from `core-js@2` to `core-js@3`](https://github.com/zloirock/core-js/blob/master/docs/2019-03-19-core-js-3-babel-and-a-look-into-the-future.md#babelpolyfill): for this reason, it was decided to deprecate `@babel/polyfill` in favor of separate inclusion of required parts of `core-js` and `regenerator-runtime`. [#2031](https://github.com/rails/webpacker/pull/2031)
 
