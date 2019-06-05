@@ -27,7 +27,7 @@ import "regenerator-runtime/runtime";
 
 ## Lazy Loading
 
-Lazy loading is avaible out of the box with splited chunks.
+Lazy loading is avaible out of the box with split chunks.
 
 For instance, you can lazy load Vue JS components:
 
