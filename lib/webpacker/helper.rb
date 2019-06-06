@@ -50,6 +50,15 @@ module Webpacker::Helper
     image_tag(resolve_path_to_image(name), **options)
   end
 
+  # Displays an image which when clicked will submit the form.
+  #
+  # Example:
+  #  <%= imagge_submit_pack_tag 'button.png', alt: 'Submit button' %>
+  #  <input type="image" src="/packs/media/images/button-9221496029db7bc81b230307a1627c06.png" alt="Submit button" />
+  def image_submit_pack_tag(name, **options)
+    image_submit_tag(resolve_path_to_image(name), **options)
+  end
+
   # Creates a script tag that references the named pack file, as compiled by webpack per the entries list
   # in config/webpack/shared.js. By default, this list is auto-generated to match everything in
   # app/javascript/packs/*.js. In production mode, the digested reference is automatically looked up.

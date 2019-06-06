@@ -52,6 +52,12 @@ class HelperTest < ActionView::TestCase
       image_pack_tag("media/images/nested/image.jpg", size: "16x10", alt: "Edit Entry")
   end
 
+  def test_image_submit_pack_tag
+    assert_equal \
+      %(<input type="image" src="/packs/media/images/image-c38deda30895059837cf.jpg" alt="Submit button" />),
+      image_submit_pack_tag("image.jpg", alt: "Submit button")
+  end
+
   def test_javascript_pack_tag
     assert_equal \
       %(<script src="/packs/bootstrap-300631c4f0e0f9c865bc.js"></script>),
