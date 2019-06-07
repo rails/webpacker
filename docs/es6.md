@@ -27,71 +27,13 @@ import "regenerator-runtime/runtime";
 
 ## Lazy Loading
 
-Lazy loading is avaible out of the box with split chunks.
+[Webpack Lazy Loading](https://webpack.js.org/guides/lazy-loading/) is avaible out of the box with split chunks.
 
-For instance, you can lazy load Vue JS components:
+To make it works, you need Webpack and Webpacker 4. Then enable `SplitChunks` as it is explained in [docs/webpack](docs/webpack.md).
 
-Before:
-```js
-import Vue from 'vue'
-import { VCard } from 'vuetify/lib'
+Dynamic import and [Code splitting](https://webpack.js.org/guides/code-splitting/) are actually a Webpack features that just work with Webpacker out of the box.
 
-Vue.component('VCard', VCard)
-```
-
-After:
-```js
-import Vue from 'vue'
-
-// With destructuring assignment
-Vue.component('VCard', import('vuetify/lib').then(({ VCard }) => VCard)
-
-// Or without destructuring assignment
-Vue.component('OtherComponent', () => import('./OtherComponent'))
-```
-
-You can use it in Single File Component as well:
-
-```html
-<template>
-  ...
-</template>
-
-<script>
-export default {
-  components: {
-    OtherComponent: () => import('./OtherComponent')
-  }
-}
-</script>
-```
-
-By wrapping the import function into an arrow function, Vue will execute it only when it gets requested, loading the module in that moment.
-
-### Automatic registration
-
-
-```js
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/OtherComponent.vue -> <other-component></other-component>
- * Eg. ./UI/ButtonComponent.vue -> <button-component></button-component>
- */
- 
-const files = require.context('./', true, /\.vue$/i)
-files.keys().map(key => {
-  const component = key.split('/').pop().split('.')[0]
-
-  // With Lazy Loading
-  Vue.component(component, () => import(`${key}`))
-  
-  // Or without Lazy Loading
-  Vue.component(component, files(key).default)
-}) 
- ```
+Don't forget that you can use [magic comments](https://webpack.js.org/api/module-methods/#magic-comments) to control your chunks options.
 
 ## Module import vs require()
 
