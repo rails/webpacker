@@ -49,14 +49,13 @@ class CompilerTest < Minitest::Test
     end
   end
 
-  def test_staleness_on_compile_fail
+  def test_freshness_on_compile_fail
     status = OpenStruct.new(success?: false)
 
     assert Webpacker.compiler.stale?
     Open3.stub :capture3, [:sterr, :stdout, status] do
-
       Webpacker.compiler.compile
-      assert Webpacker.compiler.stale?
+      assert Webpacker.compiler.fresh?
     end
   end
 
