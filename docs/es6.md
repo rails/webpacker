@@ -1,6 +1,5 @@
 # ES6
 
-
 ## Babel
 
 Webpacker ships with [babel](https://babeljs.io/) - a JavaScript compiler so
@@ -26,6 +25,25 @@ import "core-js/stable";
 import "regenerator-runtime/runtime";
 ```
 
+## Dynamic/Lazy Chunk Loading
+
+For this section, you need Webpack and Webpacker 4. Then enable `SplitChunks` as it is explained in [docs/webpack](docs/webpack.md).
+
+[Dynamic code splitting](https://webpack.js.org/guides/code-splitting#dynamic-imports) enables you to conditionally request/run only the JS that you need. For example, if your site has a `searchBarComponent` on every page, you can reduce the page overhead by deferring the request for the `searchBarComponent` code until after the page has loaded, until the user has scrolled it into view, or until the user has clicked on an element.
+
+```js
+ function loadSearchBarComponent() {
+   return import(/* webpackChunkName: "searchBarComponent" */ './pathTo/searchBarComponent')
+ }
+```
+
+The comment you see above (`/* webpackChunkName */`) is not arbitrary, it is one of webpacks [magic comments](https://webpack.js.org/api/module-methods/#magic-comments). They can be used to fine-tune `import()` with settings such as `defer` or `prefetch`.
+
+**Warning**: You should not attempt to dynamically load anything from your `packs/` folder. Instead, try to make your `pack` scripts a hub from which you dynamically load `non-pack` scripts.
+
+- [Docs for using magic comments](https://webpack.js.org/api/module-methods/#magic-comments)
+- [Docs for configuring `splitChunks` in webpacker](https://github.com/rails/webpacker/blob/master/docs/webpack.md#add-splitchunks-webpack-v4).
+- [Docs for using dynamic `import()`](https://webpack.js.org/guides/code-splitting#dynamic-imports).
 
 ## Module import vs require()
 

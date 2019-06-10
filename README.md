@@ -407,6 +407,72 @@ end
 ```
 You can read more about this in the [Vue docs](https://vuejs.org/v2/guide/installation.html#CSP-environments).
 
+#### Lazy loading integration
+
+See [docs/es6](docs/es6.md) to know more about Webpack and Webpacker configuration.
+
+For instance, you can lazy load Vue JS components:
+
+Before:
+```js
+import Vue from 'vue'
+import { VCard } from 'vuetify/lib'
+
+Vue.component('VCard', VCard)
+```
+
+After:
+```js
+import Vue from 'vue'
+
+// With destructuring assignment
+Vue.component('VCard', import('vuetify/lib').then(({ VCard }) => VCard)
+
+// Or without destructuring assignment
+Vue.component('OtherComponent', () => import('./OtherComponent'))
+```
+
+You can use it in a Single File Component as well:
+
+```html
+<template>
+  ...
+</template>
+
+<script>
+export default {
+  components: {
+    OtherComponent: () => import('./OtherComponent')
+  }
+}
+</script>
+```
+
+By wrapping the import function into an arrow function, Vue will execute it only when it gets requested, loading the module in that moment.
+
+##### Automatic registration
+
+```js
+/**
+ * The following block of code may be used to automatically register your
+ * Vue components. It will recursively scan this directory for the Vue
+ * components and automatically register them with their "basename".
+ *
+ * Eg. ./components/OtherComponent.vue -> <other-component></other-component>
+ * Eg. ./UI/ButtonComponent.vue -> <button-component></button-component>
+ */
+
+const files = require.context('./', true, /\.vue$/i)
+files.keys().map(key => {
+  const component = key.split('/').pop().split('.')[0]
+
+  // With Lazy Loading
+  Vue.component(component, () => import(`${key}`))
+
+  // Or without Lazy Loading
+  Vue.component(component, files(key).default)
+})
+```
 
 ### Elm
 
