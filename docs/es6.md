@@ -25,15 +25,22 @@ import "core-js/stable";
 import "regenerator-runtime/runtime";
 ```
 
-## Lazy Loading
+## Dynamic/Lazy Chunk Loading
+[Dynamic code splitting](https://webpack.js.org/guides/code-splitting#dynamic-imports) enables you to conditionally request/run only the JS that you need. For example, if your site has a `searchBarComponent` on every page, you can reduce the page overhead by deferring the request for the `searchBarComponent` code until after the page has loaded, until the user has scrolled it into view, or until the user has clicked on an element.
 
-[Webpack Lazy Loading](https://webpack.js.org/guides/lazy-loading/) is avaible out of the box with split chunks.
+```js
+ function loadSearchBarComponent() {
+   return import(/* webpackChunkName: "searchBarComponent" */ './pathTo/searchBarComponent')
+ }
+```
 
-To make it works, you need Webpack and Webpacker 4. Then enable `SplitChunks` as it is explained in [docs/webpack](docs/webpack.md).
+The comment you see above (`/* webpackChunkName */`) is not arbitrary, it is one of webpacks [magic comments](https://webpack.js.org/api/module-methods/#magic-comments). They can be used to fine-tune `import()` with settings such as `defer` or `prefetch`.
 
-Dynamic import and [Code splitting](https://webpack.js.org/guides/code-splitting/) are actually a Webpack features that just work with Webpacker out of the box.
+**Warning**: You should not attempt to dynamically load anything from your `packs/` folder. Instead, try to make your `pack` scripts a hub from which you dynamically load `non-pack` scripts.
 
-Don't forget that you can use [magic comments](https://webpack.js.org/api/module-methods/#magic-comments) to control your chunks options.
+- [Docs for using magic comments](https://webpack.js.org/api/module-methods/#magic-comments)
+- [Docs for configuring `splitChunks` in webpacker](https://github.com/rails/webpacker/blob/master/docs/webpack.md#add-splitchunks-webpack-v4).
+- [Docs for using dynamic `import()`](https://webpack.js.org/guides/code-splitting#dynamic-imports).
 
 ## Module import vs require()
 
