@@ -126,3 +126,17 @@ environment.plugins.append('ContextReplacement',
   )
 )
 ```
+
+### Compilation Fails Silently
+
+If compiling is not producing output files and there are no error messages to help troubleshoot. Setting the webpack_compile_output configuration variable to 'true' in webpacker.yml may add some helpful error information to your log file (Rails log/development.log or log/production.log)
+
+```yml
+# webpacker.yml
+default: &default
+  source_path: app/javascript
+  source_entry_path: packs
+  public_root_path: public
+  public_output_path: complaints_packs
+  webpack_compile_output: true
+```
