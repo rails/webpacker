@@ -432,7 +432,7 @@ Vue.component('VCard', import('vuetify/lib').then(({ VCard }) => VCard)
 Vue.component('OtherComponent', () => import('./OtherComponent'))
 ```
 
-You can use it in Single File Component as well:
+You can use it in a Single File Component as well:
 
 ```html
 <template>
