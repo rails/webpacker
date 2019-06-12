@@ -605,7 +605,7 @@ Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which 
 
 ## Docs
 
-- [Development]()
+- [Development](https://github.com/rails/webpacker#development)
   - [Webpack](./docs/webpack.md)
   - [Webpack-dev-server](./docs/webpack-dev-server.md)
   - [Environment Variables](./docs/env.md)
