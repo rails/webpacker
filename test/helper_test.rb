@@ -79,6 +79,12 @@ class HelperTest < ActionView::TestCase
       javascript_packs_with_chunks_tag("application")
   end
 
+  def test_preload_pack_asset
+    assert_equal \
+      %(<link rel="preload" href="/packs/fonts/fa-regular-400-944fb546bd7018b07190a32244f67dc9.woff2" as="font" type="font/woff2" crossorigin="anonymous">),
+      preload_pack_asset("fonts/fa-regular-400.woff2")
+  end
+
   def test_stylesheet_pack_tag_split_chunks
     assert_equal \
       %(<link rel="stylesheet" media="screen" href="/packs/1-c20632e7baf2c81200d3.chunk.css" />\n) +
