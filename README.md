@@ -605,7 +605,25 @@ Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which 
 
 ## Docs
 
-You can find more detailed guides under [docs](./docs).
+- [Development](https://github.com/rails/webpacker#development)
+  - [Webpack](./docs/webpack.md)
+  - [Webpack-dev-server](./docs/webpack-dev-server.md)
+  - [Environment Variables](./docs/env.md)
+  - [Folder Structure](./docs/folder-structure.md)
+  - [Assets](./docs/assets.md)
+	  - [CSS, Sass and SCSS](./docs/css.md)
+	  - [ES6](./docs/es6.md)
+    - [Props](./docs/props.md)
+    - [Typescript](./docs/typescript.md)
+  - [Yarn](./docs/yarn.md)
+  - [Misc](./docs/misc.md)
+- [Deployment](./docs/deployment.md)
+  - [Docker](./docs/docker.md)
+  - [Using in Rails engines](./docs/engines.md)
+  - [Webpacker on Cloud9](./docs/cloud9.md)
+- [Testing](./docs/testing.md)
+- [Troubleshooting](./docs/troubleshooting.md)
+- [v3 to v4 Upgrade Guide](./docs/v4-upgrade.md)
 
 
 ## Contributing
