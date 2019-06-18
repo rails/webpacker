@@ -34,6 +34,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
   - [Vue](#vue)
   - [Elm](#elm)
   - [Stimulus](#stimulus)
+  - [Svelte](#svelte)
   - [CoffeeScript](#coffeescript)
   - [Erb](#erb)
 - [Paths](#paths)
@@ -489,6 +490,20 @@ rails new myapp --webpack=elm
 The Elm library and its core packages will be added via Yarn and Elm.
 An example `Main.elm` app will also be added to your project in `app/javascript`
 so that you can experiment with Elm right away.
+
+### Svelte
+
+To use Webpacker with [Svelte](https://svelte.dev), create a
+new Rails 5.1+ app using `--webpack=svelte` option:
+
+```
+# Rails 5.1+
+rails new myapp --webpack=svelte
+```
+
+(or run `bundle exec rails webpacker:install:svelte` on a Rails app already setup with Webpacker).
+
+Please play with the [Svelte Tutorial](https://svelte.dev/tutorial/basics) or learn more about its API at https://svelte.dev/docs
 
 ### Stimulus
 
