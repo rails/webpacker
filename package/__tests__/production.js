@@ -21,7 +21,7 @@ describe('Production environment', () => {
       expect(config.output.path).toEqual(resolve('public', 'packs'))
       expect(config.output.publicPath).toEqual('/packs/')
       expect(config).toMatchObject({
-        devtool: 'source-map',
+        devtool: 'none',
         stats: 'normal'
       })
     })
