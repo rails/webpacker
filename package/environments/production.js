@@ -30,7 +30,7 @@ module.exports = class extends Base {
     )
 
     this.config.merge({
-      devtool: 'source-map',
+      devtool: 'none',
       stats: 'normal',
       bail: true,
       optimization: {
@@ -38,7 +38,7 @@ module.exports = class extends Base {
           new TerserPlugin({
             parallel: true,
             cache: true,
-            sourceMap: true,
+            sourceMap: false,
             terserOptions: {
               parse: {
                 // Let terser parse ecma 8 code but always output
