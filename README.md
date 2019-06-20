@@ -358,25 +358,79 @@ a few changes to the configuration files. An example component written in
 TypeScript will also be added to your project in `app/javascript` so that
 you can experiment with Angular right away.
 
-By default, Angular uses a JIT compiler for development environment. This
-compiler is not compatible with restrictive CSP (Content Security
-Policy) environments like Rails 5.2+. You can use Angular AOT compiler
-in development with the [@ngtools/webpack](https://www.npmjs.com/package/@ngtools/webpack#usage) plugin.
+#### AOT compiler and Content Security Policy
 
-Alternatively if you're using Rails 5.2+ you can enable `unsafe-eval` rule for your
-development environment. This can be done in the `config/initializers/content_security_policy.rb`
-with the following code:
+By default, Angular uses a Just-In-Time (JIT) compiler which uses `eval` and therefore results in
+errors if you are using a Content Security Policy that doesn't include `unsafe-eval` as an allowed
+`script_src`.
+
+To prevent this, you can use the Angular Ahead-Of-Time (AOT) compiler, provided by the
+[@ngtools/webpack](https://www.npmjs.com/package/@ngtools/webpack#usage)
+plugin. To enable AOT:
+
+1. Add/update the following dependencies in `package.json`:
+    ```javascript
+      "dependencies": {
+        …
+        "@angular/compiler-cli": "^8.0.2",
+        "@ngtools/webpack": "^8.0.3",
+        "typescript": "~3.4.5",
+        …
+      },
+    ```
+
+2. Add/update the following config files:
+    ```javascript
+    // config/webpack/loaders/angular.js
+    const { AngularCompilerPlugin } = require('@ngtools/webpack')
+
+    module.exports = {
+      test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
+      use: [
+        {
+          loader: '@ngtools/webpack'
+        }
+      ]
+    }
+
+    // config/webpack/environment.js
+    const { environment }           = require('@rails/webpacker')
+    const { AngularCompilerPlugin } = require('@ngtools/webpack')
+    const angular                   = require('./loaders/angular')
+
+    environment.loaders.prepend('angular', angular)
+    environment.plugins.prepend('angular',
+      new AngularCompilerPlugin({
+        tsConfigPath: './tsconfig.json',
+        entryModule: './app/javascript/hello_angular/app/app.module.ts#AppModule',
+        sourceMap: true
+      })
+    )
+
+    module.exports = environment
+    ```
+    Note that `AngularCompilerPlugin` knows how to handle TypeScript and replaces any `typescript`
+    loader that you may have already been using.
+
+3. Update your pack's index/entrypoint file to use `bootstrapModuleFactory` instead of `bootstrapModule`:
+    ```javascript
+    // app/javascript/hello_angular/index.ts
+    import './polyfills.ts';
+    import { platformBrowser } from '@angular/platform-browser';
+    import { AppModuleNgFactory } from './app/app.module.ngfactory';
+    platformBrowser().bootstrapModuleFactory(AppModuleNgFactory);
+    ```
+
+Alternatively, if you're using Rails 5.2+, you can allow `unsafe-eval` in your
+`config/initializers/content_security_policy.rb`:
 
 ```ruby
 Rails.application.config.content_security_policy do |policy|
-  if Rails.env.development?
-    policy.script_src :self, :https, :unsafe_eval
-  else
-    policy.script_src :self, :https
-  end
+  …
+  policy.script_src :self, :https, :unsafe_eval
+  …
 end
 ```
-
 
 ### Vue
 
