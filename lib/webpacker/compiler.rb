@@ -27,6 +27,7 @@ class Webpacker::Compiler
         record_compilation_digest
       end
     else
+      logger.info "Everything's up-to-date. Nothing to do"
       true
     end
   end
