@@ -28,14 +28,7 @@ config.outputPath = resolve(config.public_root_path, config.public_output_path)
 // (code-splitting chunks and static assets) load from the CDN instead of a relative path.
 const getPublicPath = () => {
   const rootUrl = process.env.WEBPACKER_ASSET_HOST || '/'
-  let packPath = `${config.public_output_path}/`
-  // Add relative root prefix to pack path.
-  if (process.env.RAILS_RELATIVE_URL_ROOT) {
-    let relativeRoot = process.env.RAILS_RELATIVE_URL_ROOT
-    relativeRoot = relativeRoot.startsWith('/') ? relativeRoot.substr(1) : relativeRoot
-    packPath = `${ensureTrailingSlash(relativeRoot)}${packPath}`
-  }
-
+  const packPath = `${config.public_output_path}/`
   return ensureTrailingSlash(rootUrl) + packPath
 }
 
