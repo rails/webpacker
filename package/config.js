@@ -27,9 +27,8 @@ config.outputPath = resolve(config.public_root_path, config.public_output_path)
 // Ensure that the publicPath includes our asset host so dynamic imports
 // (code-splitting chunks and static assets) load from the CDN instead of a relative path.
 const getPublicPath = () => {
-  const rootUrl = process.env.WEBPACKER_ASSET_HOST || '/'
-  const packPath = `${config.public_output_path}/`
-  return ensureTrailingSlash(rootUrl) + packPath
+  const rootUrl = ensureTrailingSlash(process.env.WEBPACKER_ASSET_HOST || '/')
+  return `${rootUrl}${config.public_output_path}/`
 }
 
 config.publicPath = getPublicPath()
