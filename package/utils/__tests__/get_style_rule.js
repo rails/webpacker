@@ -19,6 +19,7 @@ describe('getStyleRule', () => {
 
   test('includes modules if set to true', () => {
     const cssRule = getStyleRule(/\.(scss)$/i, true)
+
     const expectation = {
       test: /\.(scss)$/i,
       include: /\.module\.[a-z]+$/
@@ -27,7 +28,7 @@ describe('getStyleRule', () => {
     expect(cssRule).toMatchObject(expectation)
   })
 
-  test('includes localIdentName inside modules', () => {
+  test('includes localIdentName inside module', () => {
     const cssRule = getStyleRule(/\.(scss)$/i, true)
     cssRule.use.map((u) => {
       if(u.loader == 'css-loader')
