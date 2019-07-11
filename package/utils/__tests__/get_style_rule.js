@@ -50,7 +50,7 @@ describe('getStyleRule', () => {
       {
         const expectation = {
           importLoaders: 2,
-           modules: false
+          modules: false
         }
         expect(u.options).toMatchObject(expectation)
       }
