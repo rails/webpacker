@@ -19,7 +19,6 @@ describe('getStyleRule', () => {
 
   test('includes modules if set to true', () => {
     const cssRule = getStyleRule(/\.(scss)$/i, true)
-
     const expectation = {
       test: /\.(scss)$/i,
       include: /\.module\.[a-z]+$/
@@ -38,6 +37,20 @@ describe('getStyleRule', () => {
            modules: {
             localIdentName: '[name]__[local]___[hash:base64:5]'
           }
+        }
+        expect(u.options).toMatchObject(expectation)
+      }
+    })
+  })
+
+  test('module return false value', () => {
+    const cssRule = getStyleRule(/\.(scss)$/i, false)
+    cssRule.use.map((u) => {
+      if(u.loader == 'css-loader')
+      {
+        const expectation = {
+          importLoaders: 2,
+           modules: false
         }
         expect(u.options).toMatchObject(expectation)
       }
