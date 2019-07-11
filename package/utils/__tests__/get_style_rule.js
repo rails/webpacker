@@ -19,7 +19,6 @@ describe('getStyleRule', () => {
 
   test('includes modules if set to true', () => {
     const cssRule = getStyleRule(/\.(scss)$/i, true)
-
     const expectation = {
       test: /\.(scss)$/i,
       include: /\.module\.[a-z]+$/
