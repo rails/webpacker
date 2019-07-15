@@ -11,8 +11,13 @@ class RakeTasksTest < Minitest::Test
     assert_includes output, "webpacker:compile"
     assert_includes output, "webpacker:install"
     assert_includes output, "webpacker:install:angular"
+    assert_includes output, "webpacker:install:coffee"
     assert_includes output, "webpacker:install:elm"
+    assert_includes output, "webpacker:install:erb"
     assert_includes output, "webpacker:install:react"
+    assert_includes output, "webpacker:install:svelte"
+    assert_includes output, "webpacker:install:stimulus"
+    assert_includes output, "webpacker:install:typescript"
     assert_includes output, "webpacker:install:vue"
     assert_includes output, "webpacker:verify_install"
   end
