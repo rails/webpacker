@@ -19,6 +19,11 @@ class ConfigurationTest < Webpacker::Test
     assert_equal @config.source_entry_path.to_s, source_entry_path
   end
 
+  def test_public_root_path
+    public_root_path = File.expand_path File.join(File.dirname(__FILE__), "test_app/public").to_s
+    assert_equal @config.public_path.to_s, public_root_path
+  end
+
   def test_public_output_path
     public_output_path = File.expand_path File.join(File.dirname(__FILE__), "test_app/public/packs").to_s
     assert_equal @config.public_output_path.to_s, public_output_path
