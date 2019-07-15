@@ -6,7 +6,7 @@ copy_file "#{__dir__}/loaders/vue.js", Rails.root.join("config/webpack/loaders/v
 say "Adding vue loader plugin to config/webpack/environment.js"
 insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
   "const { VueLoaderPlugin } = require('vue-loader')\n",
-  after: "require('@rails/webpacker')\n"
+  after: /require\(('|")@rails\/webpacker\1\);?\n/
 
 insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
   "environment.plugins.prepend('VueLoaderPlugin', new VueLoaderPlugin())\n",
