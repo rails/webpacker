@@ -9,7 +9,7 @@ This guide describes how to do that using [Rails engines](https://guides.rubyonr
 
 ## Step 1: create Rails engine.
 
-First, you create a Rails engine (say, `MyEngine`). See the offical [Rails guide](https://guides.rubyonrails.org/engines.html).
+First, you create a Rails engine (say, `MyEngine`). See the official [Rails guide](https://guides.rubyonrails.org/engines.html).
 
 ## Step 2: install Webpacker within the engine.
 
