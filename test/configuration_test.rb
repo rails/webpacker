@@ -109,4 +109,24 @@ class ConfigurationTest < Webpacker::Test
 
     assert @config.compile?
   end
+
+  def test_extract_css?
+    assert @config.extract_css?
+
+    @config = Webpacker::Configuration.new(
+      root_path: @config.root_path,
+      config_path: @config.config_path,
+      env: "development"
+    )
+
+    refute @config.extract_css?
+
+    @config = Webpacker::Configuration.new(
+      root_path: @config.root_path,
+      config_path: @config.config_path,
+      env: "test"
+    )
+
+    refute @config.extract_css?
+  end
 end
