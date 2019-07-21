@@ -310,7 +310,7 @@ Before preload or prefetch your assets, please read [https://developer.mozilla.o
 
 Webpack also provide it's own methods for preload or prefetch [https://medium.com/webpack/link-rel-prefetch-preload-in-webpack-51a52358f84c](https://medium.com/webpack/link-rel-prefetch-preload-in-webpack-51a52358f84c).
 
-You can preload your assets with the `preload_pack_asset` helper.
+You can preload your assets with the `preload_pack_asset` helper if you have Rails >= 5.2.x.
 
 ```erb
 <%= preload_pack_asset 'fonts/fa-regular-400.woff2' %>

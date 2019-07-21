@@ -92,7 +92,9 @@ module Webpacker::Helper
   #   <%= preload_pack_asset 'fonts/fa-regular-400.woff2' %> # =>
   #   <link rel="preload" href="/packs/fonts/fa-regular-400-944fb546bd7018b07190a32244f67dc9.woff2" as="font" type="font/woff2" crossorigin="anonymous">
   def preload_pack_asset(name, **options)
-    preload_link_tag(current_webpacker_instance.manifest.lookup!(name), options)
+    if Rails::VERSION::MAJOR > 5 || (Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR >= 2)
+      preload_link_tag(current_webpacker_instance.manifest.lookup!(name), options)
+    end
   end
 
   # Creates a link tag that references the named pack file, as compiled by webpack per the entries list
