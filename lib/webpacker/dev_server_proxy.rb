@@ -10,7 +10,7 @@ class Webpacker::DevServerProxy < Rack::Proxy
 
   def rewrite_response(response)
     _status, headers, _body = response
-    headers.delete "transfer-encoding"
+    headers.delete "transfer-encoding" unless headers["transfer-encoding"] == "chunked"
     headers.delete "content-length" if dev_server.running? && dev_server.https?
     response
   end
