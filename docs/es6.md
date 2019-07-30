@@ -27,7 +27,7 @@ import "regenerator-runtime/runtime";
 
 ## Dynamic/Lazy Chunk Loading
 
-For this section, you need Webpack and Webpacker 4. Then enable `SplitChunks` as it is explained in [docs/webpack](docs/webpack.md).
+For this section, you need Webpack and Webpacker 4. Then enable `SplitChunks` as it is explained in [docs/webpack](webpack.md).
 
 [Dynamic code splitting](https://webpack.js.org/guides/code-splitting#dynamic-imports) enables you to conditionally request/run only the JS that you need. For example, if your site has a `searchBarComponent` on every page, you can reduce the page overhead by deferring the request for the `searchBarComponent` code until after the page has loaded, until the user has scrolled it into view, or until the user has clicked on an element.
 
