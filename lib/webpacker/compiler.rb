@@ -62,7 +62,7 @@ class Webpacker::Compiler
     end
 
     def run_webpack
-      logger.info "Compiling…"
+      logger.info "Compiling..."
 
       stdout, stderr, status = Open3.capture3(
         webpack_env,
