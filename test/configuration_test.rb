@@ -14,6 +14,11 @@ class ConfigurationTest < Webpacker::Test
     assert_equal source_path, @config.source_path.to_s
   end
 
+  def test_source_path_globbed
+    assert_equal @config.source_path_globbed,
+                 "app/javascript/**/*{.mjs,.js,.sass,.scss,.css,.module.sass,.module.scss,.module.css,.png,.svg,.gif,.jpeg,.jpg}"
+  end
+
   def test_source_entry_path
     source_entry_path = File.expand_path File.join(File.dirname(__FILE__), "test_app/app/javascript", "packs").to_s
     assert_equal @config.source_entry_path.to_s, source_entry_path
@@ -53,7 +58,10 @@ class ConfigurationTest < Webpacker::Test
   end
 
   def test_resolved_paths_globbed
-    assert_equal @config.resolved_paths_globbed, ["app/assets/**/*", "/etc/yarn/**/*"]
+    assert_equal @config.resolved_paths_globbed, [
+      "app/assets/**/*{.mjs,.js,.sass,.scss,.css,.module.sass,.module.scss,.module.css,.png,.svg,.gif,.jpeg,.jpg}",
+      "/etc/yarn/**/*{.mjs,.js,.sass,.scss,.css,.module.sass,.module.scss,.module.css,.png,.svg,.gif,.jpeg,.jpg}"
+    ]
   end
 
   def test_extensions

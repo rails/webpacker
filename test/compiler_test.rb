@@ -25,9 +25,9 @@ class CompilerTest < Minitest::Test
 
   def test_default_watched_paths
     assert_equal Webpacker.compiler.send(:default_watched_paths), [
-      "app/assets/**/*",
-      "/etc/yarn/**/*",
-      "app/javascript/**/*",
+      "app/assets/**/*{.mjs,.js,.sass,.scss,.css,.module.sass,.module.scss,.module.css,.png,.svg,.gif,.jpeg,.jpg}",
+      "/etc/yarn/**/*{.mjs,.js,.sass,.scss,.css,.module.sass,.module.scss,.module.css,.png,.svg,.gif,.jpeg,.jpg}",
+      "app/javascript/**/*{.mjs,.js,.sass,.scss,.css,.module.sass,.module.scss,.module.css,.png,.svg,.gif,.jpeg,.jpg}",
       "yarn.lock",
       "package.json",
       "config/webpack/**/*"

@@ -21,7 +21,7 @@ copy_file "#{__dir__}/loaders/typescript.js", Rails.root.join("config/webpack/lo
 say "Adding typescript loader to config/webpack/environment.js"
 insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
   "const typescript =  require('./loaders/typescript')\n",
-  after: "require('@rails/webpacker')\n"
+  after: /require\(('|")@rails\/webpacker\1\);?\n/
 
 insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
   "environment.loaders.prepend('typescript', typescript)\n",

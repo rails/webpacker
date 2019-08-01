@@ -62,7 +62,7 @@ class Webpacker::Compiler
     end
 
     def run_webpack
-      logger.info "Compiling…"
+      logger.info "Compiling..."
 
       stdout, stderr, status = Open3.capture3(
         webpack_env,
@@ -87,7 +87,7 @@ class Webpacker::Compiler
     def default_watched_paths
       [
         *config.resolved_paths_globbed,
-        "#{config.source_path.relative_path_from(config.root_path)}/**/*",
+        config.source_path_globbed,
         "yarn.lock", "package.json",
         "config/webpack/**/*"
       ].freeze

@@ -23,12 +23,16 @@ class Webpacker::Configuration
     root_path.join(fetch(:source_path))
   end
 
+  def source_path_globbed
+    globbed_path_with_extensions(source_path.relative_path_from(root_path))
+  end
+
   def resolved_paths
     fetch(:resolved_paths)
   end
 
   def resolved_paths_globbed
-    resolved_paths.map { |p| "#{p}/**/*" }
+    resolved_paths.map { |p| globbed_path_with_extensions(p) }
   end
 
   def source_entry_path
@@ -101,5 +105,9 @@ class Webpacker::Configuration
     def defaults
       @defaults ||= \
         HashWithIndifferentAccess.new(YAML.load_file(File.expand_path("../../install/config/webpacker.yml", __FILE__))[env])
+    end
+
+    def globbed_path_with_extensions(path)
+      "#{path}/**/*{#{extensions.join(',')}}"
     end
 end
