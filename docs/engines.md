@@ -155,7 +155,7 @@ To serve static assets from the engine's `public/` folder you must add a middlew
 # application.rb
 
 config.middleware.use(
-  "Rack::Static",
+  Rack::Static,
   urls: ["/my-engine-packs"], root: "my_engine/public"
 )
 ```
