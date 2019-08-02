@@ -80,11 +80,9 @@ class HelperTest < ActionView::TestCase
   end
 
   def test_preload_pack_asset
-    if Rails::VERSION::MAJOR > 5 || (Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR >= 2)
-      assert_equal \
-        %(<link rel="preload" href="/packs/fonts/fa-regular-400-944fb546bd7018b07190a32244f67dc9.woff2" as="font" type="font/woff2" crossorigin="anonymous">),
-        preload_pack_asset("fonts/fa-regular-400.woff2")
-    end
+    assert_equal \
+      %(<link rel="preload" href="/packs/fonts/fa-regular-400-944fb546bd7018b07190a32244f67dc9.woff2" as="font" type="font/woff2" crossorigin="anonymous">),
+      preload_pack_asset("fonts/fa-regular-400.woff2")
   end
 
   def test_stylesheet_pack_tag_split_chunks
