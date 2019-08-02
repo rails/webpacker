@@ -105,5 +105,4 @@ class ConfigurationTest < Webpacker::Test
       refute Webpacker.config.extract_css?
     end
   end
-
 end
