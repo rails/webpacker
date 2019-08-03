@@ -25,13 +25,13 @@ class DevServerTest < Webpacker::Test
 
   def test_protocol
     with_rails_env("development") do
-      assert_equal Webpacker.dev_server.protocol, 'http'
+      assert_equal Webpacker.dev_server.protocol, "http"
     end
   end
 
   def test_host_with_port
     with_rails_env("development") do
-      assert_equal Webpacker.dev_server.host_with_port, 'localhost:3035'
+      assert_equal Webpacker.dev_server.host_with_port, "localhost:3035"
     end
   end
 
