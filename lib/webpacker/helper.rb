@@ -94,29 +94,6 @@ module Webpacker::Helper
   def preload_pack_asset(name, **options)
     if self.class.method_defined?(:preload_link_tag)
       preload_link_tag(current_webpacker_instance.manifest.lookup!(name), options)
-    else
-      href = current_webpacker_instance.manifest.lookup!(name)
-      extname = File.extname(href).downcase.delete(".")
-      mime_type = options.delete(:type) || Mime::Type.lookup_by_extension(extname).try(:to_s)
-      as_type = options.delete(:as) || resolve_link_as(extname, mime_type)
-      crossorigin = options.delete(:crossorigin)
-      crossorigin = "anonymous" if crossorigin == true || (crossorigin.blank? && as_type == "font")
-      nopush = options.delete(:nopush) || false
-
-      early_hints_link = "<#{href}>; rel=preload; as=#{as_type}"
-      early_hints_link += "; type=#{mime_type}" if mime_type
-      early_hints_link += "; crossorigin=#{crossorigin}" if crossorigin
-      early_hints_link += "; nopush" if nopush
-
-      request.send_early_hints("Link" => early_hints_link) if respond_to?(:request) && request
-
-      tag.link({
-        rel: "preload",
-        href: href,
-        as: as_type,
-        type: mime_type,
-        crossorigin: crossorigin
-      }.merge!(options.symbolize_keys))
     end
   end
 
