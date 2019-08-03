@@ -7,11 +7,15 @@ namespace :webpacker do
   end
 end
 
-# safe workaround for adding action
-namespace :yarn do
-  task :install do
-    Rake::Task["yarn:install"].enhance do
-      exit(1) unless $?.success?
-    end
+def enhance_yarn_install
+  Rake::Task["yarn:install"].enhance do
+    exit(1) unless $?.success?
   end
+end
+
+if Rake::Task.task_defined?("yarn:install")
+  enhance_yarn_install
+else
+  # this is mainly for pre-5.x era
+  Rake::Task.define_task("yarn:install" => "webpacker:yarn_install")
 end
