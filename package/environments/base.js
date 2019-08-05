@@ -65,7 +65,11 @@ const getEntryObject = () => {
   paths.forEach((path) => {
     const namespace = relative(join(rootPath), dirname(path))
     const name = join(namespace, basename(path, extname(path)))
-    result.set(name, resolve(path))
+
+    // Allows for multiple filetypes per entry (https://webpack.js.org/guides/entry-advanced/)
+    let resultList = result.get(name) || []
+    resultList.push(resolve(path))
+    result.set(name, resultList)
   })
   return result
 }
