@@ -22,4 +22,20 @@ class DevServerTest < Webpacker::Test
       assert_equal Webpacker.dev_server.https?, false
     end
   end
+
+  def test_protocol
+    with_rails_env("development") do
+      assert_equal Webpacker.dev_server.protocol, "http"
+    end
+  end
+
+  def test_host_with_port
+    with_rails_env("development") do
+      assert_equal Webpacker.dev_server.host_with_port, "localhost:3035"
+    end
+  end
+
+  def test_default_env_prefix
+    assert_equal Webpacker::DevServer::DEFAULT_ENV_PREFIX, "WEBPACKER_DEV_SERVER"
+  end
 end
