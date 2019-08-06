@@ -3,6 +3,18 @@
 
 Webpacker supports importing CSS, Sass and SCSS files directly into your JavaScript files.
 
+Importing and loading styles is a two step process:
+
+1. You need to tell webpack which file(s) it has to compile and know how to load
+  
+   When you do `import '../scss/application.scss'`, you're telling webpack to include `application.scss` in the build. This does not mean it's going to be compiled into your javascript, only that webpack now compiles and knows how to load this file. (How that file compilation is handled is depending on how your loaders (`css-loader`, `sass-loader`, `file-loader`, etc.) are configured.)
+
+2. You need to load those files in your views
+
+   In order to have styles load in production, you need to include `stylesheet_pack_tag` with the same name as the javascript file that imports the styles.
+
+   When you do `<%= stylesheet_pack_tag 'application' %>`, that's a run-time inclusion from Rails, where Rails gets the correct "asset path" to that file from webpack.
+
 
 ## Import global styles into your JS app
 
