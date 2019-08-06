@@ -73,40 +73,36 @@ class ConfigurationTest < Webpacker::Test
   def test_cache_manifest?
     assert @config.cache_manifest?
 
-    @config = Webpacker::Configuration.new(
-      root_path: @config.root_path,
-      config_path: @config.config_path,
-      env: "development"
-    )
+    with_rails_env("development") do
+      refute Webpacker.config.cache_manifest?
+    end
 
-    refute @config.cache_manifest?
-
-    @config = Webpacker::Configuration.new(
-      root_path: @config.root_path,
-      config_path: @config.config_path,
-      env: "test"
-    )
-
-    refute @config.cache_manifest?
+    with_rails_env("test") do
+      refute Webpacker.config.cache_manifest?
+    end
   end
 
   def test_compile?
     refute @config.compile?
 
-    @config = Webpacker::Configuration.new(
-      root_path: @config.root_path,
-      config_path: @config.config_path,
-      env: "development"
-    )
+    with_rails_env("development") do
+      assert Webpacker.config.compile?
+    end
 
-    assert @config.compile?
+    with_rails_env("test") do
+      assert Webpacker.config.compile?
+    end
+  end
 
-    @config = Webpacker::Configuration.new(
-      root_path: @config.root_path,
-      config_path: @config.config_path,
-      env: "test"
-    )
+  def test_extract_css?
+    assert @config.extract_css?
 
-    assert @config.compile?
+    with_rails_env("development") do
+      refute Webpacker.config.extract_css?
+    end
+
+    with_rails_env("test") do
+      refute Webpacker.config.extract_css?
+    end
   end
 end
