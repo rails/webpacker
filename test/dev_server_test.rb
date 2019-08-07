@@ -37,7 +37,7 @@ class DevServerTest < Webpacker::Test
 
   def test_pretty?
     with_rails_env("development") do
-      assert_equal Webpacker.dev_server.pretty?, true
+      refute Webpacker.dev_server.pretty?
     end
   end
 
