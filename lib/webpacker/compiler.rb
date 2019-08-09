@@ -75,6 +75,7 @@ class Webpacker::Compiler
         logger.error "#{stderr}" unless stderr.empty?
       else
         logger.error "Compilation failed:\n#{stderr}"
+        logger.error "#{stdout}" unless stdout.empty?
       end
 
       if config.webpack_compile_output?
