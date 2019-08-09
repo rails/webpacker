@@ -74,8 +74,8 @@ class Webpacker::Compiler
         logger.info "Compiled all packs in #{config.public_output_path}"
         logger.error "#{stderr}" unless stderr.empty?
       else
-        logger.error "Compilation failed:\n#{stderr}"
-        logger.error "#{stdout}" unless stdout.empty?
+        non_empty_streams = [stdout, stderr].delete_if(&:empty?)
+        logger.error "Compilation failed:\n#{non_empty_streams.join("\n\n")}"
       end
 
       if config.webpack_compile_output?
