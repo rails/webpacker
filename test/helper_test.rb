@@ -84,6 +84,14 @@ class HelperTest < ActionView::TestCase
       assert_equal \
         %(<link rel="preload" href="/packs/fonts/fa-regular-400-944fb546bd7018b07190a32244f67dc9.woff2" as="font" type="font/woff2" crossorigin="anonymous">),
         preload_pack_asset("fonts/fa-regular-400.woff2")
+    else
+      error = assert_raises do
+        preload_pack_asset("fonts/fa-regular-400.woff2")
+      end
+
+      assert_equal \
+        "You need Rails >= 5.2 to use this tag.",
+        error.message
     end
   end
 
