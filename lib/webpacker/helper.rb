@@ -78,10 +78,25 @@ module Webpacker::Helper
   # DO:
   # <%= javascript_packs_with_chunks_tag 'calendar', 'map' %>
   # DON'T:
-  # <%= javascript_packs_with_chunks_tag 'calendar' %>
+  # <%= javascript_packs_with_chunks_tag 'calendar' %>
   # <%= javascript_packs_with_chunks_tag 'map' %>
   def javascript_packs_with_chunks_tag(*names, **options)
     javascript_include_tag(*sources_from_manifest_entrypoints(names, type: :javascript), **options)
+  end
+
+  # Creates a link tag, for preloading, that references a given Webpacker asset
+  # In production mode, the digested reference is automatically looked up.
+  # See: https://developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content
+  # Example:
+  #
+  #   <%= preload_pack_asset 'fonts/fa-regular-400.woff2' %> # =>
+  #   <link rel="preload" href="/packs/fonts/fa-regular-400-944fb546bd7018b07190a32244f67dc9.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  def preload_pack_asset(name, **options)
+    if self.class.method_defined?(:preload_link_tag)
+      preload_link_tag(current_webpacker_instance.manifest.lookup!(name), options)
+    else
+      raise "You need Rails >= 5.2 to use this tag."
+    end
   end
 
   # Creates a link tag that references the named pack file, as compiled by webpack per the entries list
@@ -120,7 +135,7 @@ module Webpacker::Helper
   # DO:
   # <%= stylesheet_packs_with_chunks_tag 'calendar', 'map' %>
   # DON'T:
-  # <%= stylesheet_packs_with_chunks_tag 'calendar' %>
+  # <%= stylesheet_packs_with_chunks_tag 'calendar' %>
   # <%= stylesheet_packs_with_chunks_tag 'map' %>
   def stylesheet_packs_with_chunks_tag(*names, **options)
     if current_webpacker_instance.config.extract_css?
