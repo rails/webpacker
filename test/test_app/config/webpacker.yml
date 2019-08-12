@@ -60,6 +60,7 @@ development:
     overlay: true
     disable_host_check: true
     use_local_ip: false
+    pretty: false
 
 test:
   <<: *default

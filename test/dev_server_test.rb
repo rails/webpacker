@@ -35,6 +35,12 @@ class DevServerTest < Webpacker::Test
     end
   end
 
+  def test_pretty?
+    with_rails_env("development") do
+      refute Webpacker.dev_server.pretty?
+    end
+  end
+
   def test_default_env_prefix
     assert_equal Webpacker::DevServer::DEFAULT_ENV_PREFIX, "WEBPACKER_DEV_SERVER"
   end
