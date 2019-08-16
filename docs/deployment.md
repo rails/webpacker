@@ -79,7 +79,7 @@ you don't need to do anything extra for Webpacker, it just works.
 
 Make sure you have `public/packs` and `node_modules` in `:linked_dirs`
 
-```ruby		
-append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/packs", ".bundle", "node_modules"		
-```		
+```ruby
+append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/packs", ".bundle", "node_modules"
+```
 
