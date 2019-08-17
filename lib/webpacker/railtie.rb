@@ -89,4 +89,8 @@ class Webpacker::Engine < ::Rails::Engine
       end
     end
   end
+
+  initializer "webpacker.set_source" do |app|
+    app.config.javascript_path = Webpacker.config.source_path.relative_path_from(Rails.root.join("app")).to_s
+  end
 end

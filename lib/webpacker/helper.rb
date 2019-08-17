@@ -1,13 +1,13 @@
 module Webpacker::Helper
-  # Returns current Webpacker instance.
+  # Returns the current Webpacker instance.
   # Could be overridden to use multiple Webpacker
-  # configurations within the same app (e.g. with engines)
+  # configurations within the same app (e.g. with engines).
   def current_webpacker_instance
     Webpacker.instance
   end
 
   # Computes the relative path for a given Webpacker asset.
-  # Return relative path using manifest.json and passes it to asset_path helper.
+  # Returns the relative path using manifest.json and passes it to asset_path helper.
   # This will use asset_path internally, so most of their behaviors will be the same.
   #
   # Example:
@@ -24,7 +24,7 @@ module Webpacker::Helper
   end
 
   # Computes the absolute path for a given Webpacker asset.
-  # Return absolute path using manifest.json and passes it to asset_url helper.
+  # Returns the absolute path using manifest.json and passes it to asset_url helper.
   # This will use asset_url internally, so most of their behaviors will be the same.
   #
   # Example:
@@ -40,7 +40,7 @@ module Webpacker::Helper
     end
   end
 
-  # Creates a image tag that references the named pack file.
+  # Creates an image tag that references the named pack file.
   #
   # Example:
   #
@@ -62,7 +62,7 @@ module Webpacker::Helper
     javascript_include_tag(*sources_from_manifest_entries(names, type: :javascript), **options)
   end
 
-  # Creates script tags that references the js chunks from entrypoints when using split chunks API,
+  # Creates script tags that reference the js chunks from entrypoints when using split chunks API,
   # as compiled by webpack per the entries list in config/webpack/shared.js.
   # By default, this list is auto-generated to match everything in
   # app/javascript/packs/*.js and all the dependent chunks. In production mode, the digested reference is automatically looked up.
@@ -78,10 +78,25 @@ module Webpacker::Helper
   # DO:
   # <%= javascript_packs_with_chunks_tag 'calendar', 'map' %>
   # DON'T:
-  # <%= javascript_packs_with_chunks_tag 'calendar' %>
+  # <%= javascript_packs_with_chunks_tag 'calendar' %>
   # <%= javascript_packs_with_chunks_tag 'map' %>
   def javascript_packs_with_chunks_tag(*names, **options)
     javascript_include_tag(*sources_from_manifest_entrypoints(names, type: :javascript), **options)
+  end
+
+  # Creates a link tag, for preloading, that references a given Webpacker asset.
+  # In production mode, the digested reference is automatically looked up.
+  # See: https://developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content
+  # Example:
+  #
+  #   <%= preload_pack_asset 'fonts/fa-regular-400.woff2' %> # =>
+  #   <link rel="preload" href="/packs/fonts/fa-regular-400-944fb546bd7018b07190a32244f67dc9.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  def preload_pack_asset(name, **options)
+    if self.class.method_defined?(:preload_link_tag)
+      preload_link_tag(current_webpacker_instance.manifest.lookup!(name), options)
+    else
+      raise "You need Rails >= 5.2 to use this tag."
+    end
   end
 
   # Creates a link tag that references the named pack file, as compiled by webpack per the entries list
@@ -106,12 +121,13 @@ module Webpacker::Helper
     end
   end
 
-  # Creates link tags that references the css chunks from entrypoints when using split chunks API,
+  # Creates link tags that reference the css chunks from entrypoints when using split chunks API,
   # as compiled by webpack per the entries list in config/webpack/shared.js.
   # By default, this list is auto-generated to match everything in
   # app/javascript/packs/*.js and all the dependent chunks. In production mode, the digested reference is automatically looked up.
   # See: https://webpack.js.org/plugins/split-chunks-plugin/
-  # Example:
+  #
+  # Examples:
   #
   #   <%= stylesheet_packs_with_chunks_tag 'calendar', 'map' %> # =>
   #   <link rel="stylesheet" media="screen" href="/packs/3-8c7ce31a.chunk.css" />
@@ -120,7 +136,7 @@ module Webpacker::Helper
   # DO:
   # <%= stylesheet_packs_with_chunks_tag 'calendar', 'map' %>
   # DON'T:
-  # <%= stylesheet_packs_with_chunks_tag 'calendar' %>
+  # <%= stylesheet_packs_with_chunks_tag 'calendar' %>
   # <%= stylesheet_packs_with_chunks_tag 'map' %>
   def stylesheet_packs_with_chunks_tag(*names, **options)
     if current_webpacker_instance.config.extract_css?

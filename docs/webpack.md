@@ -277,7 +277,7 @@ environment.splitChunks()
 environment.splitChunks((config) => Object.assign({}, config, { optimization: { splitChunks: false }}))
 ```
 
-Then use, `javascript_packs_with_chunks_tag` helper to include all the transpiled
+Then use the `javascript_packs_with_chunks_tag` and `stylesheet_packs_with_chunks_tag` helpers to include all the transpiled
 packs with the chunks in your view, which creates html tags for all the chunks.
 
 ```erb
@@ -303,6 +303,20 @@ get duplicated chunks on the page.
 ```
 
 For the old configuration with the CommonsChunkPlugin see below. **Note** that this functionality is deprecated in Webpack V4.
+
+#### Preloading
+
+Before preload or prefetch your assets, please read [https://developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content](https://developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content).
+
+Webpack also provide it's own methods for preload or prefetch [https://medium.com/webpack/link-rel-prefetch-preload-in-webpack-51a52358f84c](https://medium.com/webpack/link-rel-prefetch-preload-in-webpack-51a52358f84c).
+
+You can preload your assets with the `preload_pack_asset` helper if you have Rails >= 5.2.x.
+
+```erb
+<%= preload_pack_asset 'fonts/fa-regular-400.woff2' %>
+```
+
+**Warning:** You don't want to preload the css, you want to preload the fonts and images inside the css so that fonts, css, and images can all be downloaded in parallel instead of waiting for the browser to parse the css.
 
 ### Add common chunks (deprecated in Webpack V4)
 
