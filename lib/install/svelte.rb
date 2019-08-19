@@ -5,7 +5,7 @@ copy_file "#{__dir__}/loaders/svelte.js", Rails.root.join("config/webpack/loader
 
 say "Adding svelte loader to config/webpack/environment.js"
 insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
-  "const svelte =  require('./loaders/svelte')\n",
+  "const svelte = require('./loaders/svelte')\n",
   after: /require\(('|")@rails\/webpacker\1\);?\n/
 
 insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
