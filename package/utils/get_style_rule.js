@@ -7,11 +7,7 @@ const inDevServer = process.argv.find(v => v.includes('webpack-dev-server'))
 const isHMR = inDevServer && (devServer && devServer.hmr)
 
 const styleLoader = {
-  loader: 'style-loader',
-  options: {
-    hmr: isHMR,
-    sourceMap: true
-  }
+  loader: 'style-loader'
 }
 
 const getStyleRule = (test, modules = false, preprocessors = []) => {
