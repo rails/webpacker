@@ -44,7 +44,7 @@ describe('getStyleRule', () => {
     expect(cssRule.use).toMatchObject(expect.arrayContaining(expectation))
   })
 
-  test(`adds style-loader when extract_css is true',`, () => {
+  test('adds style-loader when extract_css is true', () => {
     const expectation = [{loader: 'style-loader'}]
 
     require('../../config').extract_css = false
