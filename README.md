@@ -90,6 +90,7 @@ gem 'webpacker', '~> 4.x'
 # OR if you prefer to use master
 gem 'webpacker', git: 'https://github.com/rails/webpacker.git'
 yarn add https://github.com/rails/webpacker.git
+yarn add core-js regenerator-runtime
 ```
 
 Finally, run the following to install Webpacker:
@@ -121,6 +122,13 @@ app/javascript:
   │   └── application.css
   └── images:
       └── logo.svg
+```
+
+In `/packs/application.js`, include this at the top of the file:
+
+```js
+import "core-js/stable";
+import "regenerator-runtime/runtime";
 ```
 
 You can then link the JavaScript pack in Rails views using the `javascript_pack_tag` helper.
