@@ -38,7 +38,7 @@ import "core-js/stable";
 import "regenerator-runtime/runtime";
 ```
 
-Don't forget install those dependencies directly!
+Don't forget to install those dependencies directly!
 
 ```sh
 yarn add --save core-js regenerator-runtime
