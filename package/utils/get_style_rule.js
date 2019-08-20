@@ -1,6 +1,5 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { resolve } = require('path')
-const devServer = require('../dev_server')
 const config = require('../config')
 
 const styleLoader = {
