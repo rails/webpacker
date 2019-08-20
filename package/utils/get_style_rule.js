@@ -3,9 +3,6 @@ const { resolve } = require('path')
 const devServer = require('../dev_server')
 const config = require('../config')
 
-const inDevServer = process.argv.find(v => v.includes('webpack-dev-server'))
-const isHMR = inDevServer && (devServer && devServer.hmr)
-
 const styleLoader = {
   loader: 'style-loader'
 }
