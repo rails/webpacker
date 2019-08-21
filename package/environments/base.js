@@ -12,10 +12,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const WebpackAssetsManifest = require('webpack-assets-manifest')
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 const PnpWebpackPlugin = require('pnp-webpack-plugin')
-
-const { isNotObject, prettyPrint } = require('../utils/helpers')
 const deepMerge = require('deepmerge')
 
+const { isNotObject, prettyPrint } = require('../utils/helpers')
 const { ConfigList, ConfigObject } = require('../config_types')
 const rules = require('../rules')
 const config = require('../config')

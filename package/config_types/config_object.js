@@ -1,6 +1,6 @@
+const deepMerge = require('deepmerge')
 const objectify = require('../utils/objectify')
 const deepAssign = require('../utils/deep_assign')
-const deepMerge = require('deepmerge')
 const { isStrPath, prettyPrint } = require('../utils/helpers')
 
 /**

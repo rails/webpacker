@@ -1,5 +1,5 @@
-const { canMerge, prettyPrint } = require('./helpers')
 const deepMerge = require('deepmerge')
+const { canMerge, prettyPrint } = require('./helpers')
 
 const deepAssign = (obj, path, value) => {
   if (!value && value !== false) throw new Error(`Value can't be ${value}`)
