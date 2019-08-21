@@ -1,7 +1,7 @@
 const { resolve } = require('path')
 const { safeLoad } = require('js-yaml')
 const { readFileSync } = require('fs')
-const deepMerge = require('./utils/deep_merge')
+const deepMerge = require('deepmerge')
 const { isArray, ensureTrailingSlash } = require('./utils/helpers')
 const { railsEnv } = require('./env')
 

@@ -14,7 +14,7 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 const PnpWebpackPlugin = require('pnp-webpack-plugin')
 
 const { isNotObject, prettyPrint } = require('../utils/helpers')
-const deepMerge = require('../utils/deep_merge')
+const deepMerge = require('deepmerge')
 
 const { ConfigList, ConfigObject } = require('../config_types')
 const rules = require('../rules')

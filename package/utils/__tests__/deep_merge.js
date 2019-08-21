@@ -1,6 +1,6 @@
 /* global test expect */
 
-const deepMerge = require('../deep_merge')
+const deepMerge = require('deepmerge')
 
 test('deep merge objects together', () => {
   const object1 = { foo: { bar: [1, 2, 3], z: 1 }, x: 0 }
