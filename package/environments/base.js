@@ -70,7 +70,7 @@ const getEntryObject = () => {
     // Allows for multiple filetypes per entry (https://webpack.js.org/guides/entry-advanced/)
     // Transforms the config object value to an array with all values under the same name
     let previousPaths = result.get(name)
-    if(previousPaths){
+    if (previousPaths) {
       previousPaths = Array.isArray(previousPaths) ? previousPaths : [previousPaths]
       previousPaths.append(assetPaths)
       assetPaths = previousPaths
