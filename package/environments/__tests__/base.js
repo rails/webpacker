@@ -29,6 +29,16 @@ describe('Environment', () => {
       )
     })
 
+    test('should return multi file entry points', () => {
+      const config = environment.toWebpackConfig()
+      expect(config.entry.multi_entry.sort()).toEqual(
+          [
+            resolve('app', 'javascript', 'packs', 'multi_entry.css'),
+            resolve('app', 'javascript', 'packs', 'multi_entry.js')
+          ]
+      )
+    })
+
     test('should return output', () => {
       const config = environment.toWebpackConfig()
       expect(config.output.filename).toEqual('js/[name]-[contenthash].js')

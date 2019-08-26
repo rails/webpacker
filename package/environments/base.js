@@ -72,7 +72,7 @@ const getEntryObject = () => {
     let previousPaths = result.get(name)
     if (previousPaths) {
       previousPaths = Array.isArray(previousPaths) ? previousPaths : [previousPaths]
-      previousPaths.append(assetPaths)
+      previousPaths.push(assetPaths)
       assetPaths = previousPaths
     }
 
