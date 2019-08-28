@@ -20,14 +20,22 @@ By default the output will look like this in different environments:
 
 ## Heroku
 
-Heroku installs Yarn and node by default if you deploy a Rails app with
-Webpacker so all you would need to do:
+In order for your Webpacker app to run on Heroku, you'll need to do a bit of configuration before hand.
 
-```bash
-heroku create shiny-webpacker-app
+```
+heroku create my-webpacker-heroku-app
 heroku addons:create heroku-postgresql:hobby-dev
+heroku buildpacks:add heroku/nodejs
+heroku buildpacks:add heroku/ruby
 git push heroku master
 ```
+
+We're essentially doing the following here:
+
+* Creating an app on Heroku
+* Creating a Postgres database for the app (this is assuming that you're using Heroku Postgres for your app)
+* Adding the Heroku NodeJS and Ruby buildpacks for your app. This allows the `npm` or `yarn` executables to properly function when compiling your app - as well as Ruby. 
+* Pushing our code to Heroku and kicking off the deployment
 
 
 ## Nginx
