@@ -301,8 +301,54 @@ Pre-release to try out webpack 4.0 support
   - Remove compilation digest file if webpack command fails[#1398](https://github.com/rails/webpacker/issues/1398)
 
 
-Please refer to [3-x-stable](https://github.com/rails/webpacker/tree/3-x-stable) branch
-for further releases and changelogs:
+## [3.6.0] - 2019-03-06
+  See changes: https://github.com/rails/webpacker/compare/88a253ed42966eb2d5c997435e9396881513bce1...3-x-stable
+
+
+## [3.5.5] - 2018-07-09
+  See changes: https://github.com/rails/webpacker/compare/e8b197e36c77181ca2e4765c620faea59dcd0351...3-x-stable
+
+### Added
+  - On CI, sort files & check modified w/ digest intead of mtime[#1522](https://github.com/rails/webpacker/pull/1522)
+
+
+## [3.5.3] - 2018-05-03
+
+### Fixed
+  - Relax Javascript package dependencies [#1466](https://github.com/rails/webpacker/pull/1466#issuecomment-386336605)
+
+
+## [3.5.2] - 2018-04-29
+
+- Pin Javascript package to 3.5.x
+
+
+## [3.5.1] - 2018-04-29
+
+- Upgraded gems and Javascript packages
+
+
+## [3.5.0] - 2018-04-29
+
+### Fixed
+  - Remove compilation digest file if webpack command fails [#1399](https://github.com/rails/webpacker/pull/1399)
+  - Handle http dev_server setting properly in the proxy [#1420](https://github.com/rails/webpacker/pull/1420)
+  - Use correct protocol [#1425](https://github.com/rails/webpacker/pull/1425)
+
+### Added
+  - `image_pack_tag` helper [#1400](https://github.com/rails/webpacker/pull/1400)
+  - devserver proxy for custom environments [#1415](https://github.com/rails/webpacker/pull/1415)
+  - Rails webpacker:info task [#1416](https://github.com/rails/webpacker/pull/1416)
+  - Include `RAILS_RELATIVE_URL_ROOT` environment variable in publicPath [#1428](https://github.com/rails/webpacker/pull/1428)
+
+Complete list of changes: [#1464](https://github.com/rails/webpacker/pull/1464)
+
+
+## [3.4.3] - 2018-04-3
+
+### Fixed
+  - Lock webpacker version in installer [#1401](https://github.com/rails/webpacker/issues/1401)
+
 
 ## [3.4.1] - 2018-03-24
 
