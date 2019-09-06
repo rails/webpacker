@@ -1,7 +1,7 @@
 require "webpacker/configuration"
 
-say "Copying vue loader to config/webpack/loaders"
-copy_file "#{__dir__}/loaders/vue.js", Rails.root.join("config/webpack/loaders/vue.js").to_s
+say "Copying vue rule to config/webpack/rules"
+copy_file "#{__dir__}/rules/vue.js", Rails.root.join("config/webpack/rules/vue.js").to_s
 
 say "Adding vue loader plugin to config/webpack/environment.js"
 insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
@@ -12,13 +12,13 @@ insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
   "environment.plugins.prepend('VueLoaderPlugin', new VueLoaderPlugin())\n",
   before: "module.exports"
 
-say "Adding vue loader to config/webpack/environment.js"
+say "Adding vue rule to config/webpack/environment.js"
 insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
-  "const vue = require('./loaders/vue')\n",
+  "const vue = require('./rules/vue')\n",
   after: "require('vue-loader')\n"
 
 insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
-  "environment.loaders.prepend('vue', vue)\n",
+  "environment.rules.prepend('vue', vue)\n",
   before: "module.exports"
 
 say "Updating webpack paths to include .vue file extension"

@@ -16,9 +16,9 @@ tasks = {
   "webpacker:install:elm"             => "Installs and setup example Elm component",
   "webpacker:install:svelte"          => "Installs and setup example Svelte component",
   "webpacker:install:stimulus"        => "Installs and setup example Stimulus component",
-  "webpacker:install:erb"             => "Installs Erb loader with an example",
-  "webpacker:install:coffee"          => "Installs CoffeeScript loader with an example",
-  "webpacker:install:typescript"      => "Installs Typescript loader with an example"
+  "webpacker:install:erb"             => "Installs Erb rule with an example",
+  "webpacker:install:coffee"          => "Installs CoffeeScript rule with an example",
+  "webpacker:install:typescript"      => "Installs Typescript rule with an example"
 }.freeze
 
 desc "Lists all available tasks in Webpacker"

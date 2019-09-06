@@ -10,7 +10,7 @@ environment in their respective files or configure them all in the base
 
 By default, you don't need to make any changes to `config/webpack/*.js`
 files since it's all standard production-ready configuration. However,
-if you do need to customize or add a new loader, this is where you would go.
+if you do need to customize or add a new rule, this is where you would go.
 
 Here is how you can modify webpack configuration:
 
@@ -56,9 +56,9 @@ console.log(config.output_path)
 console.log(config.source_path)
 ```
 
-## Loaders
+## Rules
 
-You can add additional loaders beyond the base set that Webpacker provides by
+You can add additional rules beyond the base set that Webpacker provides by
 adding it to your environment. We'll use `json-loader` as an example:
 
 ```
@@ -69,20 +69,20 @@ yarn add json-loader
 // config/webpack/environment.js
 const { environment } = require('@rails/webpacker')
 
-const jsonLoader = {
+const jsonRule = {
   test: /\.json$/,
   use: 'json-loader'
 }
 
-// Insert json loader at the end of list
-environment.loaders.append('json', jsonLoader)
+// Insert json rule at the end of list
+environment.rules.append('json', jsonRule)
 
-// Insert json loader at the top of list
-environment.loaders.prepend('json', jsonLoader)
+// Insert json rule at the top of list
+environment.rules.prepend('json', jsonRule)
 
-// Insert json loader after/before a given loader
-environment.loaders.insert('json', jsonLoader, { after: 'style'} )
-environment.loaders.insert('json', jsonLoader, { before: 'babel'} )
+// Insert json rule after/before a given rule
+environment.rules.insert('json', jsonRule, { after: 'style'} )
+environment.rules.insert('json', jsonRule, { before: 'babel'} )
 
 module.exports = environment
 ```
@@ -90,15 +90,15 @@ module.exports = environment
 Finally add `.json` to the list of extensions in `config/webpacker.yml`. Now if you `import()` any `.json` files inside your JavaScript
 they will be processed using `json-loader`. Voila!
 
-You can also modify the loaders that Webpacker pre-configures for you. We'll update
-the `babel` loader as an example:
+You can also modify the rules that Webpacker pre-configures for you. We'll update
+the `babel` rule as an example:
 
 ```js
 // config/webpack/environment.js
 const { environment } = require('@rails/webpacker')
 
-const babelLoader = environment.loaders.get('babel')
-babelLoader.options.cacheDirectory = false
+const babelRule = environment.rules.get('babel')
+babelRule.options.cacheDirectory = false
 
 module.exports = environment
 ```
@@ -116,29 +116,29 @@ yarn add coffeescript@2.0.1
 // config/webpack/environment.js
 const { environment } = require('@rails/webpacker')
 
-const babelLoader = environment.loaders.get('babel')
+const babelRule = environment.rules.get('babel')
 
-// Replace existing coffee loader with CS2 version
-environment.loaders.insert('coffee', {
+// Replace existing coffee rule with CS2 version
+environment.rules.insert('coffee', {
   test: /\.coffee(\.erb)?$/,
-  use:  babelLoader.use.concat(['coffee-loader'])
+  use:  babelRule.use.concat(['coffee-loader'])
 })
 
 module.exports = environment
 ```
 
-### React SVG loader
+### React SVG rule
 
-To use react svg loader, you should append svg loader before file loader:
+To use react svg rule, you should append svg rule before file rule:
 
 ```js
 const { environment } = require('@rails/webpacker')
 
-const babelLoader = environment.loaders.get('babel')
+const babelRule = environment.rules.get('babel')
 
-environment.loaders.insert('svg', {
+environment.rules.insert('svg', {
   test: /\.svg$/,
-  use: babelLoader.use.concat([
+  use: babelRule.use.concat([
     {
       loader: 'react-svg-loader',
       options: {
@@ -148,15 +148,15 @@ environment.loaders.insert('svg', {
   ])
 }, { before: 'file' })
 
-const fileLoader = environment.loaders.get('file')
-fileLoader.exclude = /\.(svg)$/i
+const fileRule = environment.rules.get('file')
+fileRule.exclude = /\.(svg)$/i
 ```
 
 
-### Url Loader
+### Url Rule
 
 ```js
-// config/webpack/loaders/url.js
+// config/webpack/rules/url.js
 
 module.exports = {
   test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
@@ -172,32 +172,32 @@ module.exports = {
 // config/webpack/environment.js
 
 const { environment } = require('@rails/webpacker')
-const url = require('./loaders/url')
+const url = require('./rules/url')
 
-environment.loaders.prepend('url', url)
+environment.rules.prepend('url', url)
 
-// avoid using both file and url loaders
-environment.loaders.get('file').test = /\.(tiff|ico|svg|eot|otf|ttf|woff|woff2)$/i
+// avoid using both file and url rules
+environment.rules.get('file').test = /\.(tiff|ico|svg|eot|otf|ttf|woff|woff2)$/i
 ```
 
-### Overriding Loader Options in webpack 3+ (for CSS Modules etc.)
+### Overriding Rule Options in webpack 3+ (for CSS Modules etc.)
 
-In webpack 3+, if you'd like to specify additional or different options for a loader, edit `config/webpack/environment.js` and provide an options object to override. This is similar to the technique shown above, but the following example shows specifically how to apply CSS Modules, which is what you may be looking for:
+In webpack 3+, if you'd like to specify additional or different options for a rule, edit `config/webpack/environment.js` and provide an options object to override. This is similar to the technique shown above, but the following example shows specifically how to apply CSS Modules, which is what you may be looking for:
 
 ```javascript
 const { environment } = require('@rails/webpacker')
 const merge = require('webpack-merge')
 
-const myCssLoaderOptions = {
+const myCssRuleOptions = {
   modules: {
     localIdentName: '[name]__[local]___[hash:base64:5]'
   },
   sourceMap: true,
 }
 
-const CSSLoader = environment.loaders.get('sass').use.find(el => el.loader === 'css-loader')
+const CSSRule = environment.rules.get('sass').use.find(el => el.loader === 'css-loader')
 
-CSSLoader.options = merge(CSSLoader.options, myCssLoaderOptions)
+CSSRule.options = merge(CSSRule.options, myCssRuleOptions)
 
 module.exports = environment
 ```
@@ -213,7 +213,7 @@ For this to work, don't forget to use the `stylesheet_pack_tag`, for example:
 ## Plugins
 
 The process for adding or modifying webpack plugins is the same as the process
-for loaders above:
+for rules above:
 
 ```js
 // config/webpack/environment.js
@@ -252,7 +252,7 @@ module.exports = environment
 
 ## Resolved modules
 
-To add new paths to `resolve.modules`, the API is same as loaders and plugins:
+To add new paths to `resolve.modules`, the API is same as rules and plugins:
 
 ```js
 const { environment } = require('@rails/webpacker')

@@ -5,9 +5,9 @@ const sass = require('./sass')
 const moduleCss = require('./module.css')
 const moduleSass = require('./module.sass')
 
-// Webpack loaders are processed in reverse order
+// Webpack rules are processed in reverse order
 // https://webpack.js.org/concepts/loaders/#loader-features
-// Lastly, process static files using file loader
+// Lastly, process static files using file rule
 module.exports = {
   file,
   css,

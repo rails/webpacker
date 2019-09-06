@@ -4,7 +4,7 @@
 const { resolve } = require('path')
 const { existsSync } = require('fs')
 const Environment = require('./environments/base')
-const loaders = require('./rules')
+const rules = require('./rules')
 const config = require('./config')
 const devServer = require('./dev_server')
 const { nodeEnv } = require('./env')
@@ -20,5 +20,5 @@ module.exports = {
   devServer,
   environment: createEnvironment(),
   Environment,
-  loaders
+  rules
 }

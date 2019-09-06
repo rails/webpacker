@@ -4,12 +4,22 @@
 
 ## [[6.0.0]](https://github.com/rails/webpacker/compare/v5.1.1...v6.0.0) - 2020-TBD
 
+- In general, "loaders" have been renamed to "rules" to better align with
+  Webpack documentation and to better differentiate from the specific loader
+  modules (e.g. `babel-loader`). More reasoning is available in the issue
+  [#2257](https://github.com/rails/webpacker/issues/2257).
+  [#2271](https://github.com/rails/webpacker/pull/2271) 
+  - To upgrade you must replace all references to `environment.loaders` to
+    `environment.rules`. Similarly, `@rails/webpacker` now exports `rules`
+    instead of `loaders`.
+  - Commands like `rails webpacker:install:react` will now install relevant
+    files to `config/webpack/rules/` instead of `config/webpack/loaders/`.
 - `node_modules` will no longer be compiled by default. This primarily fixes [rails issue #35501](https://github.com/rails/rails/issues/35501) as well as [numerous other webpacker issues](https://github.com/rails/webpacker/issues/2131#issuecomment-581618497). The disabled loader can still be required explicitly via:
 ```js
 const nodeModules = require('@rails/webpacker/rules/node_modules.js')
-environment.loaders.append('nodeModules', nodeModules)
+environment.rules.append('nodeModules', nodeModules)
 ```
-- If you have added `environment.loaders.delete('nodeModules')` to your `environment.js`, this must be removed or you will receive an error (`Item nodeModules not found`).
+- If you have added `environment.loaders.delete('nodeModules')` (or after the rename, `environment.rules.delete('nodeModules')`) to your `environment.js`, this must be removed or you will receive an error (`Item nodeModules not found`).
 - The install task will now set the `extract_css` default to `true` in all environments and generate a separate `application.css` file for the default `application` pack, as supported by multiple files per entry introduced in 5.0.0.  [#2608](https://github.com/rails/webpacker/pull/2608)
 
 ## [[5.1.1]](https://github.com/rails/webpacker/compare/v5.1.0...v5.1.1) - 2020-04-20

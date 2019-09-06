@@ -45,7 +45,7 @@ describe('Environment', () => {
       expect(config.output.chunkFilename).toEqual('js/[name]-[contenthash].chunk.js')
     })
 
-    test('should return default loader rules for each file in config/loaders', () => {
+    test('should return default loader rules for each file in config/rules', () => {
       const config = environment.toWebpackConfig()
       const defaultRules = Object.keys(rules)
       const configRules = config.module.rules

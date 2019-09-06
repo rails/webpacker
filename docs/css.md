@@ -7,7 +7,7 @@ Importing and loading styles is a two step process:
 
 1. You need to tell webpack which file(s) it has to compile and know how to load
 
-   When you do `import '../scss/application.scss'`, you're telling webpack to include `application.scss` in the build. This does not mean it's going to be compiled into your javascript, only that webpack now compiles and knows how to load this file. (How that file compilation is handled is depending on how your loaders (`css-loader`, `sass-loader`, `file-loader`, etc.) are configured.)
+   When you do `import '../scss/application.scss'`, you're telling webpack to include `application.scss` in the build. This does not mean it's going to be compiled into your javascript, only that webpack now compiles and knows how to load this file. (How that file compilation is handled is depending on how your rules are configured to use the relevant loaders (`css-loader`, `sass-loader`, `file-loader`, etc.))
 
 2. You need to load those files in your views
 
@@ -267,8 +267,11 @@ yarn add resolve-url-loader
 const { environment } = require('@rails/webpacker')
 
 // resolve-url-loader must be used before sass-loader
-environment.loaders.get('sass').use.splice(-1, 0, {
-  loader: 'resolve-url-loader'
+environment.rules.get('sass').use.splice(-1, 0, {
+  loader: 'resolve-url-loader',
+  options: {
+    attempts: 1
+  }
 });
 
 module.exports = environment
@@ -298,7 +301,7 @@ yarn add --dev typings-for-css-modules-loader
 const { environment } = require('@rails/webpacker')
 
 // replace css-loader with typings-for-css-modules-loader
-environment.loaders.get('moduleSass').use = environment.loaders.get('moduleSass').use.map((u) => {
+environment.rules.get('moduleSass').use = environment.rules.get('moduleSass').use.map((u) => {
   if(u.loader == 'css-loader') {
     return { ...u, loader: 'typings-for-css-modules-loader' };
   } else {

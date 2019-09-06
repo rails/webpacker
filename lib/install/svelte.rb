@@ -1,15 +1,15 @@
 require "webpacker/configuration"
 
-say "Copying svelte loader to config/webpack/loaders"
-copy_file "#{__dir__}/loaders/svelte.js", Rails.root.join("config/webpack/loaders/svelte.js").to_s
+say "Copying svelte rule to config/webpack/rules"
+copy_file "#{__dir__}/rules/svelte.js", Rails.root.join("config/webpack/rules/svelte.js").to_s
 
-say "Adding svelte loader to config/webpack/environment.js"
+say "Adding svelte rule to config/webpack/environment.js"
 insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
-  "const svelte = require('./loaders/svelte')\n",
+  "const svelte = require('./rules/svelte')\n",
   after: /require\(('|")@rails\/webpacker\1\);?\n/
 
 insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
-  "environment.loaders.prepend('svelte', svelte)\n",
+  "environment.rules.prepend('svelte', svelte)\n",
   before: "module.exports"
 
 say "Copying Svelte example entry file to #{Webpacker.config.source_entry_path}"

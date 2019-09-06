@@ -20,7 +20,7 @@ const { ConfigList, ConfigObject } = require('../config_types')
 const rules = require('../rules')
 const config = require('../config')
 
-const getLoaderList = () => {
+const getRuleList = () => {
   const result = new ConfigList()
   Object.keys(rules).forEach((key) => result.append(key, rules[key]))
   return result
@@ -121,7 +121,7 @@ const getBaseConfig = () => new ConfigObject({
 
 module.exports = class Base {
   constructor() {
-    this.loaders = getLoaderList()
+    this.rules = getRuleList()
     this.plugins = getPluginList()
     this.config = getBaseConfig()
     this.entry = getEntryObject()
@@ -163,7 +163,7 @@ module.exports = class Base {
 
       module: {
         strictExportPresence: true,
-        rules: this.loaders.values()
+        rules: this.rules.values()
       },
 
       plugins: this.plugins.values(),

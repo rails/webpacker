@@ -1,15 +1,15 @@
 require "webpacker/configuration"
 
-say "Copying elm loader to config/webpack/loaders"
-copy_file "#{__dir__}/loaders/elm.js", Rails.root.join("config/webpack/loaders/elm.js").to_s
+say "Copying elm rule to config/webpack/rules"
+copy_file "#{__dir__}/rules/elm.js", Rails.root.join("config/webpack/rules/elm.js").to_s
 
-say "Adding elm loader to config/webpack/environment.js"
+say "Adding elm rule to config/webpack/environment.js"
 insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
-  "const elm =  require('./loaders/elm')\n",
+  "const elm =  require('./rules/elm')\n",
   after: /require\(('|")@rails\/webpacker\1\);?\n/
 
 insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
-  "environment.loaders.prepend('elm', elm)\n",
+  "environment.rules.prepend('elm', elm)\n",
   before: "module.exports"
 
 say "Copying Elm example entry file to #{Webpacker.config.source_entry_path}"
