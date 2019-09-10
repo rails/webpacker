@@ -1,7 +1,7 @@
 # Deployment
 
 
-Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which gets run whenever you run `assets:precompile`. 
+Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which gets run whenever you run `assets:precompile`.
 If you are not using Sprockets `webpacker:compile` is automatically aliased to `assets:precompile`. Remember to set NODE_ENV environment variable to production during deployment or when running the rake task.
 
 The `javascript_pack_tag` and `stylesheet_pack_tag` helper method will automatically insert the correct HTML tag for compiled pack. Just like the asset pipeline does it.
@@ -34,7 +34,7 @@ We're essentially doing the following here:
 
 * Creating an app on Heroku
 * Creating a Postgres database for the app (this is assuming that you're using Heroku Postgres for your app)
-* Adding the Heroku NodeJS and Ruby buildpacks for your app. This allows the `npm` or `yarn` executables to properly function when compiling your app - as well as Ruby. 
+* Adding the Heroku NodeJS and Ruby buildpacks for your app. This allows the `npm` or `yarn` executables to properly function when compiling your app - as well as Ruby.
 * Pushing our code to Heroku and kicking off the deployment
 
 
@@ -48,10 +48,11 @@ Here's a sample nginx site config for a Rails app using Webpacker:
 
 ```nginx
 upstream app {
-  # ...
+  # server unix:///path/to/app/tmp/puma.sock;
 }
 
 server {
+  listen 80;
   server_name www.example.com;
   root /path/to/app/public;
 
@@ -69,9 +70,17 @@ server {
     try_files $uri @app;
   }
 
+  location = /favicon.ico { access_log off; log_not_found off; }
+  location = /robots.txt  { access_log off; log_not_found off; }
+
+  location ~ /\.(?!well-known).* {
+    deny all;
+  }
+
   location ^~ /packs/ {
     gzip_static on;
     expires max;
+    add_header Cache-Control public;
   }
 }
 ```
