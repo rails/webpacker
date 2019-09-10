@@ -7,6 +7,8 @@
   "fonts/fa-regular-400.woff2": "/packs/fonts/fa-regular-400-944fb546bd7018b07190a32244f67dc9.woff2",
   "media/images/image.jpg": "/packs/media/images/image-c38deda30895059837cf.jpg",
   "media/images/nested/image.jpg": "/packs/media/images/nested/image-c38deda30895059837cf.jpg",
+  "media/images/mb-icon.png": "/packs/media/images/mb-icon-c38deda30895059837cf.png",
+  "media/images/nested/mb-icon.png": "/packs/media/images/nested/mb-icon-c38deda30895059837cf.png",
   "entrypoints": {
     "application": {
       "js": [

@@ -50,6 +50,16 @@ module Webpacker::Helper
     image_tag(resolve_path_to_image(name), **options)
   end
 
+  # Creates a link tag for a favicon that references the named pack file.
+  #
+  # Example:
+  #
+  #  <%= favicon_pack_tag 'mb-icon.png', rel: 'apple-touch-icon', type: 'image/png' %>
+  #  <link href="/packs/mb-icon-k344a6d59eef8632c9d1.png" rel="apple-touch-icon" type="image/png" />
+  def favicon_pack_tag(name, **options)
+    favicon_link_tag(resolve_path_to_image(name), **options)
+  end
+
   # Creates a script tag that references the named pack file, as compiled by webpack per the entries list
   # in config/webpack/shared.js. By default, this list is auto-generated to match everything in
   # app/javascript/packs/*.js. In production mode, the digested reference is automatically looked up.

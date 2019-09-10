@@ -52,6 +52,24 @@ class HelperTest < ActionView::TestCase
       image_pack_tag("media/images/nested/image.jpg", size: "16x10", alt: "Edit Entry")
   end
 
+  def test_favicon_pack_tag
+    assert_equal \
+      "<link rel=\"apple-touch-icon\" type=\"image/png\" href=\"/packs/application-k344a6d59eef8632c9d1.png\" />",
+      favicon_pack_tag("application.png", rel: "apple-touch-icon", type: "image/png")
+    assert_equal \
+      "<link rel=\"apple-touch-icon\" type=\"image/png\" href=\"/packs/media/images/mb-icon-c38deda30895059837cf.png\" />",
+      favicon_pack_tag("mb-icon.png", rel: "apple-touch-icon", type: "image/png")
+    assert_equal \
+      "<link rel=\"apple-touch-icon\" type=\"image/png\" href=\"/packs/media/images/mb-icon-c38deda30895059837cf.png\" />",
+      favicon_pack_tag("media/images/mb-icon.png", rel: "apple-touch-icon", type: "image/png")
+    assert_equal \
+      "<link rel=\"apple-touch-icon\" type=\"image/png\" href=\"/packs/media/images/nested/mb-icon-c38deda30895059837cf.png\" />",
+      favicon_pack_tag("nested/mb-icon.png", rel: "apple-touch-icon", type: "image/png")
+    assert_equal \
+      "<link rel=\"apple-touch-icon\" type=\"image/png\" href=\"/packs/media/images/nested/mb-icon-c38deda30895059837cf.png\" />",
+      favicon_pack_tag("media/images/nested/mb-icon.png", rel: "apple-touch-icon", type: "image/png")
+  end
+
   def test_javascript_pack_tag
     assert_equal \
       %(<script src="/packs/bootstrap-300631c4f0e0f9c865bc.js"></script>),
