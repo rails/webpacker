@@ -19,6 +19,10 @@ class CompilerTest < Webpacker::Test
     with_rails_env("development") do
       assert_equal Webpacker.compiler.send(:webpack_command), "yarn webpack --progress --color --config config/webpack/development.js"
     end
+
+    with_rails_env("test") do
+      assert_equal Webpacker.compiler.send(:webpack_command), "yarn webpack --progress --color --config config/webpack/test.js"
+    end
   end
 
   def test_custom_environment_variables
