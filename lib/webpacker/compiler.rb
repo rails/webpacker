@@ -22,14 +22,7 @@ class Webpacker::Compiler
 
   def compile
     if stale?
-      run_webpack.tap do |success|
-        # We used to only record the digest on success
-        # However, the output file is still written on error, (at least with ts-loader), meaning that the
-        # digest should still be updated. If it's not, you can end up in a situation where a recompile doesn't
-        # take place when it should.
-        # See https://github.com/rails/webpacker/issues/2113
-        record_compilation_digest
-      end
+      run_webpack
     else
       logger.info "Everything's up-to-date. Nothing to do"
       true
@@ -68,21 +61,28 @@ class Webpacker::Compiler
     def run_webpack
       logger.info "Compiling..."
 
-      stdout, stderr, status = Open3.capture3(webpack_env, webpack_command, chdir: File.expand_path(config.root_path))
-
-      if status.success?
-        logger.info "Compiled all packs in #{config.public_output_path}"
-        logger.error "#{stderr}" unless stderr.empty?
-
+      Open3.popen2e(webpack_env, webpack_command, chdir: File.expand_path(config.root_path)) do |stdin, stdout_err, wait_thread|
         if config.webpack_compile_output?
-          logger.info stdout
+          while line = stdout_err.gets
+            logger.info line.chomp
+          end
         end
-      else
-        non_empty_streams = [stdout, stderr].delete_if(&:empty?)
-        logger.error "Compilation failed:\n#{non_empty_streams.join("\n\n")}"
-      end
 
-      status.success?
+        status = wait_thread.value
+
+        # We used to only record the digest on success
+        # However, the output file is still written on error, (at least with ts-loader), meaning that the
+        # digest should still be updated. If it's not, you can end up in a situation where a recompile doesn't
+        # take place when it should.
+        # See https://github.com/rails/webpacker/issues/2113
+        record_compilation_digest
+
+        if status.success?
+          logger.info "Compiled all packs in #{config.public_output_path}"
+        else
+          logger.error "Compilation failed!"
+        end
+      end
     end
 
     def default_watched_paths
