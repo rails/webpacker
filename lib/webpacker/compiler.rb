@@ -68,11 +68,7 @@ class Webpacker::Compiler
     def run_webpack
       logger.info "Compiling..."
 
-      stdout, stderr, status = Open3.capture3(
-        webpack_env,
-        "yarn webpack --progress --color --config config/webpack/#{ENV['NODE_ENV']}.js #{opts.join(' ')}",
-        chdir: File.expand_path(config.root_path)
-      )
+      stdout, stderr, status = Open3.capture3(webpack_env, webpack_command, chdir: File.expand_path(config.root_path))
 
       if status.success?
         logger.info "Compiled all packs in #{config.public_output_path}"
@@ -102,12 +98,15 @@ class Webpacker::Compiler
       config.cache_path.join("last-compilation-digest-#{webpacker.env}")
     end
 
+    def webpack_command
+      "yarn webpack --progress --color --config config/webpack/#{webpacker.env}.js #{opts.join(' ')}".rstrip.freeze
+    end
+
     def webpack_env
-      return env unless defined?(ActionController::Base)
+      return env.merge!("NODE_ENV" => ENV.fetch("NODE_ENV", webpacker.env)) unless defined?(ActionController::Base)
 
       env.merge("WEBPACKER_ASSET_HOST"        => ENV.fetch("WEBPACKER_ASSET_HOST", ActionController::Base.helpers.compute_asset_host),
-                "WEBPACKER_RELATIVE_URL_ROOT" => ENV.fetch("WEBPACKER_RELATIVE_URL_ROOT", ActionController::Base.relative_url_root),
-                "NODE_ENV" => ENV.fetch("NODE_ENV", webpacker.env)
+                "WEBPACKER_RELATIVE_URL_ROOT" => ENV.fetch("WEBPACKER_RELATIVE_URL_ROOT", ActionController::Base.relative_url_root)
               )
     end
 end

@@ -1,6 +1,6 @@
 require "test_helper"
 
-class CompilerTest < Minitest::Test
+class CompilerTest < Webpacker::Test
   def remove_compilation_digest_path
     Webpacker.compiler.send(:compilation_digest_path).tap do |path|
       path.delete if path.exist?
@@ -15,12 +15,27 @@ class CompilerTest < Minitest::Test
     remove_compilation_digest_path
   end
 
+  def test_command
+    with_rails_env("development") do
+      assert_equal Webpacker.compiler.send(:webpack_command), "yarn webpack --progress --color --config config/webpack/development.js"
+    end
+  end
+
   def test_custom_environment_variables
     assert_nil Webpacker.compiler.send(:webpack_env)["FOO"]
     Webpacker.compiler.env["FOO"] = "BAR"
     assert Webpacker.compiler.send(:webpack_env)["FOO"] == "BAR"
   ensure
     Webpacker.compiler.env = {}
+  end
+
+  def test_custom_opts
+    assert_equal Webpacker.compiler.opts, []
+
+    Webpacker.compiler.opts = %w[--debug]
+    assert_equal Webpacker.compiler.send(:webpack_command), "yarn webpack --progress --color --config config/webpack/production.js --debug"
+  ensure
+    Webpacker.compiler.opts = []
   end
 
   def test_default_watched_paths
