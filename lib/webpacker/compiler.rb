@@ -66,7 +66,7 @@ class Webpacker::Compiler
 
       stdout, stderr, status = Open3.capture3(
         webpack_env,
-        "#{RbConfig.ruby} ./bin/webpack",
+        "yarn webpack --progress --color --config config/webpack/#{ENV['NODE_ENV']}.js",
         chdir: File.expand_path(config.root_path)
       )
 
@@ -102,6 +102,8 @@ class Webpacker::Compiler
       return env unless defined?(ActionController::Base)
 
       env.merge("WEBPACKER_ASSET_HOST"        => ENV.fetch("WEBPACKER_ASSET_HOST", ActionController::Base.helpers.compute_asset_host),
-                "WEBPACKER_RELATIVE_URL_ROOT" => ENV.fetch("WEBPACKER_RELATIVE_URL_ROOT", ActionController::Base.relative_url_root))
+                "WEBPACKER_RELATIVE_URL_ROOT" => ENV.fetch("WEBPACKER_RELATIVE_URL_ROOT", ActionController::Base.relative_url_root),
+                "NODE_ENV" => ENV.fetch("NODE_ENV", webpacker.env)
+              )
     end
 end
