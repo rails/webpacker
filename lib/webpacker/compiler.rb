@@ -10,6 +10,10 @@ class Webpacker::Compiler
   # Webpacker::Compiler.env['FRONTEND_API_KEY'] = 'your_secret_key'
   cattr_accessor(:env) { {} }
 
+  # Additional options passed to webpack
+  # Webpacker::Compiler.opts = %w[--debug]
+  cattr_accessor(:opts) { [] }
+
   delegate :config, :logger, to: :webpacker
 
   def initialize(webpacker)
@@ -66,7 +70,7 @@ class Webpacker::Compiler
 
       stdout, stderr, status = Open3.capture3(
         webpack_env,
-        "yarn webpack --progress --color --config config/webpack/#{ENV['NODE_ENV']}.js",
+        "yarn webpack --progress --color --config config/webpack/#{ENV['NODE_ENV']}.js #{opts.join(' ')}",
         chdir: File.expand_path(config.root_path)
       )
 
