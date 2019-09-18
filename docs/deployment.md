@@ -77,7 +77,7 @@ server {
     deny all;
   }
 
-  location ^~ /packs/ {
+  location ^~ /assets|packs/ {
     gzip_static on;
     brotli_static on; # Optional, see below
     expires max;
