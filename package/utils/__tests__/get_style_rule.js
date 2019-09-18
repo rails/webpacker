@@ -44,6 +44,15 @@ describe('getStyleRule', () => {
     expect(cssRule.use).toMatchObject(expect.arrayContaining(expectation))
   })
 
+  test('adds style-loader when extract_css is true', () => {
+    const expectation = [{loader: 'style-loader'}]
+
+    require('../../config').extract_css = false
+    const cssRule = getStyleRule(/\.(css)$/i)
+
+    expect(cssRule.use).toMatchObject(expect.objectContaining(expectation))
+  })
+
   test(`doesn't add mini-css-extract-plugin when extract_css is false`, () => {
     const MiniCssExtractPlugin = require('mini-css-extract-plugin')
     const expectation = [MiniCssExtractPlugin.loader]
