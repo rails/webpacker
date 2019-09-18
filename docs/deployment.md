@@ -79,15 +79,15 @@ server {
 
 ### Installing the ngx_brotli module
 
-If you wanna serve Brotli compressed files with nginx, you need to install the `nginx_brotli` module. Installation instructions from source can be found in the official [google/ngx_brotli](https://github.com/google/ngx_brotli) repository. Alternatively, depending on your platform, the module might be available via a pre-compiled package.
+If you want to serve Brotli compressed files with nginx, you will need to install the `nginx_brotli` module. Installation instructions from source can be found in the official [google/ngx_brotli](https://github.com/google/ngx_brotli) git repository. Alternatively, depending on your platform, the module might be available via a pre-compiled package.
 
-Once installed, you need to load the module. As we wanna serve pre-compressed files, we only need the static module. Add the following line to your `nginx.conf` file and reload nginx:
+Once installed, you need to load the module. As we want to serve the pre-compressed files, we only need the static module. Add the following line to your `nginx.conf` file and reload nginx:
 
 ```
 load_module modules/ngx_http_brotli_static_module.so;
 ```
 
-Now you can set `brotli_static on;` in your nginx site config, per the config in the last section above.
+Now, you can set `brotli_static on;` in your nginx site config, as per the config in the last section above.
 
 ## CDN
 
