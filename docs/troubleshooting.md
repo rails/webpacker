@@ -4,22 +4,36 @@
 
 1. Read the error message carefully. The error message will tell you the precise key value
    that is not matching what Webpack expects.
-2. Put a `debugger` statement in your Webpack configuration and run `bin/webpack --debug`. 
+2. Put a `debugger` statement in your Webpack configuration and run `bin/webpack --debug`.
    If you have a node debugger installed, you'll see the Chrome debugger for your webpack
-   config. For example, install the Chrome extension [NiM](https://chrome.google.com/webstore/detail/nodejs-v8-inspector-manag/gnhhdgbaldcilmgcpfddgdbkhjohddkj) and 
+   config. For example, install the Chrome extension [NiM](https://chrome.google.com/webstore/detail/nodejs-v8-inspector-manag/gnhhdgbaldcilmgcpfddgdbkhjohddkj) and
    set the option for the dev tools to open automatically. For more details on debugging,
    see the official [Webpack docs on debugging](https://webpack.js.org/contribute/debugging/#devtools)
 
 ## ENOENT: no such file or directory - node-sass
 
-*  If you get this error `ENOENT: no such file or directory - node-sass` on Heroku
-or elsewhere during `assets:precompile` or `bundle exec rails webpacker:compile`
-then you would need to rebuild node-sass. It's a bit of a weird error;
-basically, it can't find the `node-sass` binary.
-An easy solution is to create a postinstall hook - `npm rebuild node-sass` in
-`package.json` and that will ensure `node-sass` is rebuilt whenever
-you install any new modules.
+If you get the error `ENOENT: no such file or directory - node-sass` on deploy with
+`assets:precompile` or `bundle exec rails webpacker:compile` you may need to
+move Sass to production `dependencies`.
 
+Move any packages that related to Sass (e.g. `node-sass` or `sass-loader`) from
+`devDependencies` to `dependencies` in `package.json`. This is because
+webpacker is running on a production system with the Rails workflow to build
+the assets. Particurly on hosting providers that try to detect and do the right
+thing, like Heroku.
+
+However, if you get this on local development, or not during a deploy then you
+may need to rebuild `node-sass`. It's a bit of a weird error; basically, it
+can't find the `node-sass` binary.  An easy solution is to create a postinstall
+hook to ensure `node-sass` is rebuilt whenever new modules are installed.
+
+In `package.json`:
+
+```json
+"scripts": {
+  "postinstall": "npm rebuild node-sass"
+}
+```
 
 ## Can't find hello_react.js in manifest.json
 
