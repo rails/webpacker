@@ -15,14 +15,15 @@ now you can use typescript, JSX with React.
 
 ## Typescript with Vue components
 
-1. Setup vue using Webpacker [vue installer](../README.md#vue). Then run the typescript installer
+1. Setup Vue using the Webpacker [Vue installer](../README.md#vue). Then run the TypeScript installer
 
 ```bash
 bundle exec rails webpacker:install:typescript
 ```
 
 2. Rename generated `hello_vue.js` to `hello_vue.ts`.
-3. Change generated `config/webpack/loaders/typescript.js` from
+3. Add the webpack plug-n-play plugin to your yarn packages with `yarn add pnp-webpack-plugin`.
+4. Change the generated `config/webpack/loaders/typescript.js` from
 
 ```js
 module.exports = {
@@ -36,18 +37,20 @@ module.exports = {
 to
 
 ```js
+const PnpWebpackPlugin = require('pnp-webpack-plugin');
+
 module.exports = {
   test: /\.(ts|tsx)?(\.erb)?$/,
   use: [{
     loader: 'ts-loader',
-    options: {
+    options: PnpWebpackPlugin.tsLoaderOptions({
       appendTsSuffixTo: [/\.vue$/]
-    }
+    })
   }]
 }
 ```
 
-and now you can use `<script lang="ts">` in your `.vue` component files.
+and now you can use `<script lang="ts">` in your `.vue` component files. See [the php-webpack-plugin docs for the `ts-loader` integration](https://github.com/arcanis/pnp-webpack-plugin#ts-loader-integration) for more info.
 
 ## HTML templates with Typescript and Angular
 
