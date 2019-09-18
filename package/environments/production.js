@@ -18,6 +18,18 @@ module.exports = class extends Base {
       })
     )
 
+    if ('brotli' in process.versions) {
+      this.plugins.append(
+        'Compression Brotli',
+        new CompressionPlugin({
+          filename: '[path].br[query]',
+          algorithm: 'brotliCompress',
+          cache: true,
+          test: /\.(js|css|html|json|ico|svg|eot|otf|ttf|map)$/
+        })
+      )
+    }
+
     this.plugins.append(
       'OptimizeCSSAssets',
       new OptimizeCSSAssetsPlugin({
