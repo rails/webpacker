@@ -41,7 +41,7 @@ import "regenerator-runtime/runtime";
 Don't forget to install those dependencies directly!
 
 ```sh
-yarn add --save core-js regenerator-runtime
+yarn add core-js regenerator-runtime
 ```
 
 ## [4.0.2] - 2019-03-06
