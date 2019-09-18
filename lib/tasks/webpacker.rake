@@ -2,6 +2,7 @@ tasks = {
   "webpacker:info"                    => "Provides information on Webpacker's environment",
   "webpacker:install"                 => "Installs and setup webpack with Yarn",
   "webpacker:compile"                 => "Compiles webpack bundles based on environment",
+  "webpacker:clean"                   => "Remove old compiled webpacks",
   "webpacker:clobber"                 => "Removes the webpack compiled output directory",
   "webpacker:check_node"              => "Verifies if Node.js is installed",
   "webpacker:check_yarn"              => "Verifies if Yarn is installed",
