@@ -11,6 +11,14 @@ describe('deepAssign()', () => {
     expect(deepAssign(object, path, value)).toEqual(expectation)
   })
 
+  test('deeply assigns array of properties', () => {
+    const object = { foo: {} }
+    const path = ['foo', 'bar.baz']
+    const value = { x: 1, y: 2 }
+    const expectation = { foo: { 'bar.baz': { x: 1, y: 2 } } }
+    expect(deepAssign(object, path, value)).toEqual(expectation)
+  })
+
   test('allows assignment of a literal false', () => {
     const object = { foo: { bar: { } } }
     const path = 'foo.bar'
