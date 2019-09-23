@@ -23,7 +23,7 @@ module Webpacker
   end
 
   delegate :logger, :logger=, :env, to: :instance
-  delegate :config, :compiler, :manifest, :commands, :dev_server, to: :instance
+  delegate :config, :compiler, :manifest, :commands, :dev_server, :installing?, to: :instance
   delegate :bootstrap, :clean, :clobber, :compile, to: :commands
 end
 

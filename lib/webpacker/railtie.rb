@@ -29,7 +29,7 @@ class Webpacker::Engine < ::Rails::Engine
   #     - edit config/environments/production.rb
   #     - add `config.webpacker.check_yarn_integrity = true`
   initializer "webpacker.yarn_check" do |app|
-    if File.exist?("yarn.lock") && Webpacker.config.config_path.exist? && Webpacker.config.check_yarn_integrity?
+    if File.exist?("yarn.lock") && !Webpacker.installing? && Webpacker.config.check_yarn_integrity?
       output = `yarn check --integrity && yarn check --verify-tree 2>&1`
 
       unless $?.success?
@@ -51,11 +51,13 @@ class Webpacker::Engine < ::Rails::Engine
   end
 
   initializer "webpacker.proxy" do |app|
-    insert_middleware = Webpacker.config.dev_server.present? rescue nil
-    if insert_middleware
-      app.middleware.insert_before 0,
-        Rails::VERSION::MAJOR >= 5 ?
-          Webpacker::DevServerProxy : "Webpacker::DevServerProxy", ssl_verify_none: true
+    unless Webpacker.installing?
+      insert_middleware = Webpacker.config.dev_server.present? rescue nil
+      if insert_middleware
+        app.middleware.insert_before 0,
+          Rails::VERSION::MAJOR >= 5 ?
+            Webpacker::DevServerProxy : "Webpacker::DevServerProxy", ssl_verify_none: true
+      end
     end
   end
 
@@ -91,6 +93,8 @@ class Webpacker::Engine < ::Rails::Engine
   end
 
   initializer "webpacker.set_source" do |app|
-    app.config.javascript_path = Webpacker.config.source_path.relative_path_from(Rails.root.join("app")).to_s
+    unless Webpacker.installing?
+      app.config.javascript_path = Webpacker.config.source_path.relative_path_from(Rails.root.join("app")).to_s
+    end
   end
 end

@@ -11,6 +11,10 @@ class Webpacker::Instance
     @env ||= Webpacker::Env.inquire self
   end
 
+  def installing?
+    !ENV["WEBPACKER_INSTALL_IN_PROGRESS"].nil?
+  end
+
   def config
     @config ||= Webpacker::Configuration.new(
       root_path: root_path,
