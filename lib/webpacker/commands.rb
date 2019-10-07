@@ -7,7 +7,10 @@ class Webpacker::Commands
 
   def clean(count_to_keep = 2)
     if config.public_output_path.exist? && config.public_manifest_path.exist?
-      files_in_manifest = manifest.refresh.values.map { |f| File.join config.root_path, "public", f }
+      files_in_manifest = []
+      scan_for_paths(manifest.refresh, files_in_manifest)
+      files_in_manifest.uniq!
+
       files_to_be_removed = files_in_manifest.flat_map do |file_in_manifest|
         file_prefix, file_ext = file_in_manifest.scan(/(.*)[0-9a-f]{20}(.*)/).first
         versions_of_file = Dir.glob("#{file_prefix}*#{file_ext}").grep(/#{file_prefix}[0-9a-f]{20}#{file_ext}/)
@@ -34,6 +37,16 @@ class Webpacker::Commands
   def compile
     compiler.compile.tap do |success|
       manifest.refresh if success
+    end
+  end
+
+  def scan_for_paths(hash, paths)
+    hash.values.each do |value|
+      if value.is_a?(Hash)
+        scan_for_paths(value, paths)
+      else
+        paths << File.join(config.root_path, "public", value)
+      end
     end
   end
 end
