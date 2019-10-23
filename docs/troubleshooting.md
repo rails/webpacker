@@ -19,7 +19,7 @@ move Sass to production `dependencies`.
 Move any packages that related to Sass (e.g. `node-sass` or `sass-loader`) from
 `devDependencies` to `dependencies` in `package.json`. This is because
 webpacker is running on a production system with the Rails workflow to build
-the assets. Particurly on hosting providers that try to detect and do the right
+the assets. Particularly on hosting providers that try to detect and do the right
 thing, like Heroku.
 
 However, if you get this on local development, or not during a deploy then you
