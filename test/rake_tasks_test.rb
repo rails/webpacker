@@ -42,10 +42,8 @@ class RakeTasksTest < Minitest::Test
   end
 
   def test_rake_webpacker_yarn_install_in_production_environment
-    Webpacker.with_node_env("production") do
-      Dir.chdir(test_app_path) do
-        `bundle exec rake webpacker:yarn_install`
-      end
+    Dir.chdir(test_app_path) do
+      `bundle exec rake webpacker:yarn_install`
     end
 
     refute_includes installed_node_module_names, "right-pad",
