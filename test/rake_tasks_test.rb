@@ -28,26 +28,35 @@ class RakeTasksTest < Minitest::Test
     refute_includes output, "webpack binstubs not found."
   end
 
-  def test_rake_webpacker_yarn_install_in_non_production_environments
-    assert_includes test_app_dev_dependencies, "right-pad"
-
-    Webpacker.with_node_env("test") do
-      Dir.chdir(test_app_path) do
-        `bundle exec rake webpacker:yarn_install`
-      end
-    end
-
-    assert_includes installed_node_module_names, "right-pad",
-                    "Expected dev dependencies to be installed"
-  end
-
-  def test_rake_webpacker_yarn_install_in_production_environment
+  def test_rake_webpacker_yarn_install_in_default_environment
     Dir.chdir(test_app_path) do
       `bundle exec rake webpacker:yarn_install`
     end
 
     refute_includes installed_node_module_names, "right-pad",
                     "Expected only production dependencies to be installed"
+  end
+  
+  def test_rake_webpacker_yarn_install_in_explicit_production_environment
+    ENV["NODE_ENV"] = "production"
+	
+    Dir.chdir(test_app_path) do
+      `bundle exec rake webpacker:yarn_install`
+    end
+
+    refute_includes installed_node_module_names, "right-pad",
+                    "Expected only production dependencies to be installed"
+  end
+  
+  def test_rake_webpacker_yarn_install_in_non_production_environment
+    ENV["NODE_ENV"] = "test"
+	
+    Dir.chdir(test_app_path) do
+      `bundle exec rake webpacker:yarn_install`
+    end
+
+    assert_includes installed_node_module_names, "right-pad",
+                    "Expected development dependencies to be installed"
   end
 
   private
