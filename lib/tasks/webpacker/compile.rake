@@ -1,3 +1,5 @@
+ENV["NODE_ENV"] ||= "production"
+
 $stdout.sync = true
 
 def ensure_log_goes_to_stdout
@@ -26,15 +28,13 @@ end
 namespace :webpacker do
   desc "Compile JavaScript packs using webpack for production with digests"
   task compile: ["webpacker:verify_install", :environment] do
-    Webpacker.with_node_env("production") do
-      ensure_log_goes_to_stdout do
-        if Webpacker.compile
-          # Successful compilation!
-        else
-          # Failed compilation
-          exit!
-        end
-      end
+    ensure_log_goes_to_stdout do
+	  if Webpacker.compile
+	    # Successful compilation!
+	  else
+	    # Failed compilation
+	    exit!
+	  end
     end
   end
 end
