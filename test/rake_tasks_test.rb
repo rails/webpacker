@@ -38,10 +38,8 @@ class RakeTasksTest < Minitest::Test
   end
   
   def test_rake_webpacker_yarn_install_in_explicit_production_environment
-    ENV["NODE_ENV"] = "production"
-	
     Dir.chdir(test_app_path) do
-      `bundle exec rake webpacker:yarn_install`
+      `NODE_ENV=production bundle exec rake webpacker:yarn_install`
     end
 
     refute_includes installed_node_module_names, "right-pad",
@@ -49,10 +47,8 @@ class RakeTasksTest < Minitest::Test
   end
   
   def test_rake_webpacker_yarn_install_in_non_production_environment
-    ENV["NODE_ENV"] = "test"
-	
     Dir.chdir(test_app_path) do
-      `bundle exec rake webpacker:yarn_install`
+      `NODE_ENV=test bundle exec rake webpacker:yarn_install`
     end
 
     assert_includes installed_node_module_names, "right-pad",
