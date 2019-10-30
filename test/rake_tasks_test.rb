@@ -36,7 +36,7 @@ class RakeTasksTest < Minitest::Test
     refute_includes installed_node_module_names, "right-pad",
                     "Expected only production dependencies to be installed"
   end
-  
+
   def test_rake_webpacker_yarn_install_in_explicit_production_environment
     Dir.chdir(test_app_path) do
       `NODE_ENV=production bundle exec rake webpacker:yarn_install`
@@ -45,7 +45,7 @@ class RakeTasksTest < Minitest::Test
     refute_includes installed_node_module_names, "right-pad",
                     "Expected only production dependencies to be installed"
   end
-  
+
   def test_rake_webpacker_yarn_install_in_non_production_environment
     Dir.chdir(test_app_path) do
       `NODE_ENV=test bundle exec rake webpacker:yarn_install`
