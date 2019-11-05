@@ -19,6 +19,74 @@ Now if you refresh your Rails view everything should work as expected.
 Webpacker out-of-the-box supports HMR with `webpack-dev-server` and
 you can toggle it by setting `dev_server/hmr` option inside `webpacker.yml`.
 
+Before turning HMR on, consider upgrading to latest stable gems and packages:
+https://github.com/rails/webpacker#upgrading
+
+Here's the full set of changes you need to do to get the most out of HMR (this is subject to change, for the latest solution, check the webpack/HMR official documentation links below):
+
+```diff
+# Procfile.dev
+web: bundle exec puma -C config/puma.rb
+- webpacker: ./bin/webpack-dev-server
++ webpacker: ./bin/webpack-dev-server --hot
+```
+
+```diff
+// app/javascript/app.jsx
+
+import React from 'react';
++ import { hot } from 'react-hot-loader';
+
+const App = () => <SomeComponent(s) />
+
+- export default App;
++ export default hot(module)(App);
+```
+
+```diff
+development:
+  # ...
+  dev_server:
+-    hmr: false
++    hmr: true
+    # Inline should be set to true if using HMR
+-    inline: false
++    inline: true
+```
+
+```diff
+// config/webpack/development.js
+
+process.env.NODE_ENV = process.env.NODE_ENV || 'development'
+
+const environment = require('./environment')
+
+// allows for editing sass/scss files directly in browser
++ if (!module.hot) {
++   environment.loaders.get('sass').use.find(item => item.loader === 'sass-loader').options.sourceMapContents = false
++ }
++ 
+module.exports = environment.toWebpackConfig()
+```
+
+```diff
+// config/webpack/environment.js
+
+// ...
+
+// Fixes: React-Hot-Loader: react-🔥-dom patch is not detected. React 16.6+ features may not work.
+// https://github.com/gaearon/react-hot-loader/issues/1227#issuecomment-482139583
++ environment.config.merge({ resolve: { alias: { 'react-dom': '@hot-loader/react-dom' } } });
+
+module.exports = environment;
+```
+
+Also install required packages:
+
+```sh
+yarn add react-hot-loader "@hot-loader/react-dom"
+```
+
 Checkout this guide for more information:
 
 - https://webpack.js.org/configuration/dev-server/#devserver-hot
