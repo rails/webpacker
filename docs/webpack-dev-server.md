@@ -25,7 +25,7 @@ https://github.com/rails/webpacker#upgrading
 Here's the full set of changes you need to do to get the most out of HMR (this is subject to change, for the latest solution, check the webpack/HMR official documentation links below):
 
 ```diff
-# Procfile.dev
+# Procfile.dev (only if you need/use it)
 web: bundle exec puma -C config/puma.rb
 - webpacker: ./bin/webpack-dev-server
 + webpacker: ./bin/webpack-dev-server --hot
@@ -49,9 +49,7 @@ development:
   dev_server:
 -    hmr: false
 +    hmr: true
-    # Inline should be set to true if using HMR
--    inline: false
-+    inline: true
+# ...
 ```
 
 ```diff
