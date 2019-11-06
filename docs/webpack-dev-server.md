@@ -35,12 +35,12 @@ web: bundle exec puma -C config/puma.rb
 // app/javascript/app.jsx
 
 import React from 'react';
-+ import { hot } from 'react-hot-loader';
++ import { hot } from 'react-hot-loader/root';
 
 const App = () => <SomeComponent(s) />
 
 - export default App;
-+ export default hot(module)(App);
++ export default hot(App);
 ```
 
 ```diff
