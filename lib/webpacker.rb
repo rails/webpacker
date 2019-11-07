@@ -14,6 +14,14 @@ module Webpacker
     @instance ||= Webpacker::Instance.new
   end
 
+  def with_node_env(env)
+    original = ENV["NODE_ENV"]
+    ENV["NODE_ENV"] = env
+    yield
+  ensure
+    ENV["NODE_ENV"] = original
+  end
+
   delegate :logger, :logger=, :env, to: :instance
   delegate :config, :compiler, :manifest, :commands, :dev_server, to: :instance
   delegate :bootstrap, :clean, :clobber, :compile, to: :commands
