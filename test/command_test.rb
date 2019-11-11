@@ -24,4 +24,10 @@ class CommandTest < Minitest::Test
       end
     end
   end
+
+  def test_clean_command_works_with_nested_hashes_and_without_any_compiled_files
+    File.stub :delete, true do
+      assert Webpacker.commands.clean
+    end
+  end
 end
