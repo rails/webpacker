@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "bundler", ">= 1.3.0"
   s.add_development_dependency "rubocop", "< 0.69"
+  s.add_development_dependency "rubocop-performance"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- test/*`.split("\n")

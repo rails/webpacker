@@ -1,3 +1,4 @@
+require: rubocop-performance
 AllCops:
   TargetRubyVersion: 2.2
   # RuboCop has a bunch of cops enabled by default. This setting tells RuboCop
@@ -71,7 +72,7 @@ Layout/SpaceAroundOperators:
   Enabled: true
 
 Layout/SpaceBeforeFirstArg:
-    Enabled: true
+  Enabled: true
 
 # Defining a method with parameters needs parentheses.
 Style/MethodDefParentheses:
