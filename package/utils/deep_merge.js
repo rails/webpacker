@@ -10,11 +10,11 @@ const deepMerge = (target, source) => {
   if (!(isObject(target) && isObject(source))) return source
 
   return [...Object.keys(target), ...Object.keys(source)].reduce(
-    (result, key) => (Object.assign(
-      {},
-      result,
-      { [key]: deepMerge(target[key], source[key]) }
-    )),
+    (result, key) => ({
+
+      ...result,
+      [key]: deepMerge(target[key], source[key])
+    }),
     {}
   )
 }

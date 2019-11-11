@@ -37,7 +37,9 @@ const getStyleRule = (test, modules = false, preprocessors = []) => {
   }
 
   // sideEffects - See https://github.com/webpack/webpack/issues/6571
-  return Object.assign({}, { test, use, sideEffects: !modules }, options)
+  return {
+    test, use, sideEffects: !modules, ...options
+  }
 }
 
 module.exports = getStyleRule
