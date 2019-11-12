@@ -12,7 +12,7 @@ class Webpacker::Env
   end
 
   def inquire
-    fallback_env_warning unless current
+    fallback_env_warning if config_path.exist? && !current
     current || DEFAULT.inquiry
   end
 
