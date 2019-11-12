@@ -22,7 +22,7 @@ const config = require('../config')
 
 const getLoaderList = () => {
   const result = new ConfigList()
-  Object.keys(rules).forEach(key => result.append(key, rules[key]))
+  Object.keys(rules).forEach((key) => result.append(key, rules[key]))
   return result
 }
 
@@ -74,7 +74,7 @@ const getModulePaths = () => {
   const result = new ConfigList()
   result.append('source', resolve(config.source_path))
   if (config.resolved_paths) {
-    config.resolved_paths.forEach(path => result.append(path, resolve(path)))
+    config.resolved_paths.forEach((path) => result.append(path, resolve(path)))
   }
   result.append('node_modules', 'node_modules')
   return result

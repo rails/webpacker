@@ -38,7 +38,7 @@ class ConfigList extends Array {
   }
 
   getIndex(key, shouldThrow = false) {
-    const index = this.findIndex(entry => (
+    const index = this.findIndex((entry) => (
       entry === key
         || entry.key === key
         || (entry.constructor && entry.constructor.name === key)
@@ -64,11 +64,11 @@ class ConfigList extends Array {
   }
 
   values() {
-    return this.map(item => item.value)
+    return this.map((item) => item.value)
   }
 
   keys() {
-    return this.map(item => item.key)
+    return this.map((item) => item.key)
   }
 }
 
