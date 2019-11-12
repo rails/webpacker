@@ -1,10 +1,22 @@
 **Please note that Webpacker 3.1.0 and 3.1.1 have some serious bugs so please consider using either 3.0.2 or 3.2.0**
 
+## [[4.1.0]](https://github.com/rails/webpacker/compare/v4.0.7...v4.1.0) - 2019-11-12
+
+- Added favicon_pack_tag to generate favicon links [#2281](https://github.com/rails/webpacker/pull/2281)
+- Add support for Brotli compression [#2273](https://github.com/rails/webpacker/pull/2273)
+- Support .(sass|scss).erb [#2259](https://github.com/rails/webpacker/pull/2259)
+- Elm: Enable production optimizations when compiling in production [#2234](https://github.com/rails/webpacker/pull/2234)
+- fixes webpacker:clean erroring because of nested hashes [#2318](https://github.com/rails/webpacker/pull/2318)
+- Revert of production env enforcement [#2341](https://github.com/rails/webpacker/pull/2341)
+- Add a preload_pack_asset helper [#2124](https://github.com/rails/webpacker/pull/2124)
+- Record the compilation digest even on webpack error [#2117](https://github.com/rails/webpacker/pull/2117)
+- See more changes [here](https://github.com/rails/webpacker/compare/v4.0.7...v4.1.0)
+
 ## [[4.0.7]](https://github.com/rails/webpacker/compare/v4.0.6...v4.0.7) - 2019-06-03
 
 - Prevent `@babel/plugin-transform-runtime` from rewriting babel helpers in core-js. Remove unneeded runtime `@babel/runtime-corejs3` [#2116](https://github.com/rails/webpacker/pull/2116)
-  - Fix for: [#2109 Uncaught TypeError: __webpack_require__(...) is not a function](https://github.com/rails/webpacker/issues/2109): **If you are upgrading**, please check your `babel.config.js` against the [default `babel.config.js`](https://github.com/rails/webpacker/blob/master/lib/install/config/babel.config.js):
-    - `@babel/preset-env` should contain `corejs: 3` 
+  - Fix for: [#2109 Uncaught TypeError: **webpack_require**(...) is not a function](https://github.com/rails/webpacker/issues/2109): **If you are upgrading**, please check your `babel.config.js` against the [default `babel.config.js`](https://github.com/rails/webpacker/blob/master/lib/install/config/babel.config.js):
+    - `@babel/preset-env` should contain `corejs: 3`
     - `@babel/plugin-transform-runtime` should contain `corejs: false`
 - Removed unneeded runtime `@babel/runtime-corejs3`
 
@@ -26,16 +38,19 @@ Please see the diff
 
 ##### Breaking changes (for pre-existing apps)
 
- - [`@babel/polyfill`](https://babeljs.io/docs/en/next/babel-polyfill.html) [doesn't make it possible to provide a smooth migration path from `core-js@2` to `core-js@3`](https://github.com/zloirock/core-js/blob/master/docs/2019-03-19-core-js-3-babel-and-a-look-into-the-future.md#babelpolyfill): for this reason, it was decided to deprecate `@babel/polyfill` in favor of separate inclusion of required parts of `core-js` and `regenerator-runtime`. [#2031](https://github.com/rails/webpacker/pull/2031)
+- [`@babel/polyfill`](https://babeljs.io/docs/en/next/babel-polyfill.html) [doesn't make it possible to provide a smooth migration path from `core-js@2` to `core-js@3`](https://github.com/zloirock/core-js/blob/master/docs/2019-03-19-core-js-3-babel-and-a-look-into-the-future.md#babelpolyfill): for this reason, it was decided to deprecate `@babel/polyfill` in favor of separate inclusion of required parts of `core-js` and `regenerator-runtime`. [#2031](https://github.com/rails/webpacker/pull/2031)
 
 In each of your `/packs/*.js` files, change this:
+
 ```js
-import "@babel/polyfill";
+import '@babel/polyfill'
 ```
+
 to this:
+
 ```js
-import "core-js/stable";
-import "regenerator-runtime/runtime";
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
 ```
 
 Don't forget to install those dependencies directly!
@@ -54,11 +69,9 @@ yarn add core-js regenerator-runtime
 
 - Pre-release version installer
 
-
 ## [4.0.0] - 2019-03-04
 
 No changes in this release. See RC releases for changes.
-
 
 ## [4.0.0.rc.8] - 2019-03-03
 
@@ -83,9 +96,9 @@ module.exports = environment.toWebpackConfig()
 - Reintroduced `context` to the file loader. Reverting the simpler paths change
 
 - Updated file loader to have filename based on the path. This change
-keeps the old behaviour intact i.e. let people use namespaces for media
-inside `app/javascript` and also include media outside of `app/javascript`
-with simpler paths, for example from `node_modules` or `app/assets`
+  keeps the old behaviour intact i.e. let people use namespaces for media
+  inside `app/javascript` and also include media outside of `app/javascript`
+  with simpler paths, for example from `node_modules` or `app/assets`
 
 ```bash
 # Files inside app/javascript (i.e. packs source path)
@@ -103,13 +116,11 @@ media/webfonts/fa-brands-400-4b115e11.woff2
 This change is done so we don't end up paths like `media/_/assets/images/rails_assets-f0f7bbb5ef00110a0dcef7c2cb7d34a6.png` or `media/_/_/node_modules/foo-f0f7bbb5ef00110a0dcef7c2cb7d34a6.png` for media outside of
 `app/javascript`
 
-
 ## [4.0.0.rc.7] - 2019-01-25
 
 ### Fixed
 
 - Webpacker builds test app assets [#1908](https://github.com/rails/webpacker/issues/1908)
-
 
 ## [4.0.0.rc.6] - 2019-01-25
 
@@ -156,12 +167,12 @@ fileLoader.use[0].options.context = join(config.source_path) // optional if you 
 
 - Gems and node dependencies
 
-
 ## [4.0.0.rc.4] - 2019-01-21
 
 ### Added
- - `stylesheet_packs_with_chunks_tag` helper, similar to javascript helper but for
- loading stylesheets chunks.
+
+- `stylesheet_packs_with_chunks_tag` helper, similar to javascript helper but for
+  loading stylesheets chunks.
 
 ```erb
 <%= stylesheet_packs_with_chunks_tag 'calendar', 'map', 'data-turbolinks-track': 'reload' %>
@@ -182,15 +193,15 @@ helper otherwise you will get duplicated chunks on the page.
 # <%= stylesheet_packs_with_chunks_tag 'map' %>
 ```
 
-
 ## [4.0.0.rc.3] - 2019-01-17
 
 ### Fixed
- - Issue with javascript_pack_tag asset duplication [#1898](https://github.com/rails/webpacker/pull/1898)
 
+- Issue with javascript_pack_tag asset duplication [#1898](https://github.com/rails/webpacker/pull/1898)
 
 ### Added
- - `javascript_packs_with_chunks_tag` helper, which creates html tags
+
+- `javascript_packs_with_chunks_tag` helper, which creates html tags
   for a pack and all the dependent chunks, when using splitchunks.
 
 ```erb
@@ -218,68 +229,77 @@ helper otherwise you will get duplicated chunks on the page.
 ## [4.0.0.rc.2] - 2018-12-15
 
 ### Fixed
- - Disable integrity hash generation [#1835](https://github.com/rails/webpacker/issues/1835)
 
+- Disable integrity hash generation [#1835](https://github.com/rails/webpacker/issues/1835)
 
 ## [4.0.0.rc.1] - 2018-12-14
 
 ### Breaking changes
 
-  - Order of rules changed so you might have to change append to prepend,
+- Order of rules changed so you might have to change append to prepend,
   depending on how you want to process packs [#1823](https://github.com/rails/webpacker/pull/1823)
-  ```js
-  environment.loaders.prepend()
-  ```
-  - Separate CSS extraction from build environment [#1625](https://github.com/rails/webpacker/pull/1625)
-  ```yml
-  # Extract and emit a css file
-  extract_css: true
-  ```
-  - Separate rule to compile node modules
+
+```js
+environment.loaders.prepend()
+```
+
+- Separate CSS extraction from build environment [#1625](https://github.com/rails/webpacker/pull/1625)
+
+```yml
+# Extract and emit a css file
+extract_css: true
+```
+
+- Separate rule to compile node modules
   (fixes cases where ES6 libraries were included in the app code) [#1823](https://github.com/rails/webpacker/pull/1823).
 
-    In previous versions only application code was transpiled. Now everything in `node_modules` is transpiled with Babel. In some cases it could break your build (known issue with `mapbox-gl` package being broken by Babel, https://github.com/mapbox/mapbox-gl-js/issues/3422).
+  In previous versions only application code was transpiled. Now everything in `node_modules` is transpiled with Babel. In some cases it could break your build (known issue with `mapbox-gl` package being broken by Babel, https://github.com/mapbox/mapbox-gl-js/issues/3422).
 
-    [`nodeModules` loader](https://github.com/rails/webpacker/pull/1823/files#diff-456094c8451b5774db50028dfecf4aa8) ignores `config.babel.js` and uses hard-coded `'@babel/preset-env', { modules: false }` config.
+  [`nodeModules` loader](https://github.com/rails/webpacker/pull/1823/files#diff-456094c8451b5774db50028dfecf4aa8) ignores `config.babel.js` and uses hard-coded `'@babel/preset-env', { modules: false }` config.
 
-    To keep previous behavior, remove `nodeModules` loader specifying `environment.loaders.delete('nodeModules');` in your `config/webpack/environment.js` file.
+  To keep previous behavior, remove `nodeModules` loader specifying `environment.loaders.delete('nodeModules');` in your `config/webpack/environment.js` file.
 
-  - File loader extensions API [#1823](https://github.com/rails/webpacker/pull/1823)
-  ```yml
-  # webpacker.yml
-  static_assets_extensions:
-    - .pdf
-    # etc..
-  ```
+- File loader extensions API [#1823](https://github.com/rails/webpacker/pull/1823)
+
+```yml
+# webpacker.yml
+static_assets_extensions:
+  - .pdf
+  # etc..
+```
 
 ### Added
 
-  - Move `.babelrc` and `.postcssrc` to `.js` variant [#1822](https://github.com/rails/webpacker/pull/1822)
-  - Use postcss safe parser when optimising css assets [#1822](https://github.com/rails/webpacker/pull/1822)
-  - Add split chunks api (undocumented)
-  ```js
-  const { environment } = require('@rails/webpacker')
-  // Enable with default config
-  environment.splitChunks()
-  // Configure via a callback
-  environment.splitChunks((config) => Object.assign({}, config, { optimization: { splitChunks: false }}))
-  ```
-  - Allow changing static file extensions using webpacker.yml (undocumented)
+- Move `.babelrc` and `.postcssrc` to `.js` variant [#1822](https://github.com/rails/webpacker/pull/1822)
+- Use postcss safe parser when optimising css assets [#1822](https://github.com/rails/webpacker/pull/1822)
+- Add split chunks api (undocumented)
+
+```js
+const { environment } = require('@rails/webpacker')
+// Enable with default config
+environment.splitChunks()
+// Configure via a callback
+environment.splitChunks(config =>
+  Object.assign({}, config, { optimization: { splitChunks: false } })
+)
+```
+
+- Allow changing static file extensions using webpacker.yml (undocumented)
 
 ## [4.0.0-pre.3] - 2018-10-01
 
 ### Added
 
-  - Move supported browsers configuration to [.browserslistrc](https://github.com/browserslist/browserslist#queries)
+- Move supported browsers configuration to [.browserslistrc](https://github.com/browserslist/browserslist#queries)
 
 ### Breaking changes
 
-  - postcss-next is replaced with postcss-preset-env
-  - babel@7
+- postcss-next is replaced with postcss-preset-env
+- babel@7
 
 ### Fixed
 
-  - Bring back test env [#1563](https://github.com/rails/webpacker/pull/1563)
+- Bring back test env [#1563](https://github.com/rails/webpacker/pull/1563)
 
 Please see a list of [commits](https://github.com/rails/webpacker/compare/2dd68f0273074aadb3f869c4c30369d5e4e3fea7...master)
 
@@ -289,82 +309,82 @@ Please see a list of [commits](https://github.com/rails/webpacker/compare/2dd68f
 
 - Webpack dev server version in installer
 
-
 ## [4.0.0-pre.1] - 2018-04-2
 
 Pre-release to try out webpack 4.0 support
 
 ### Added
-  - Webpack 4.0 support [#1376](https://github.com/rails/webpacker/pull/1316)
+
+- Webpack 4.0 support [#1376](https://github.com/rails/webpacker/pull/1316)
 
 ### Fixed
-  - Remove compilation digest file if webpack command fails[#1398](https://github.com/rails/webpacker/issues/1398)
 
+- Remove compilation digest file if webpack command fails[#1398](https://github.com/rails/webpacker/issues/1398)
 
 ## [3.6.0] - 2019-03-06
-  See changes: https://github.com/rails/webpacker/compare/88a253ed42966eb2d5c997435e9396881513bce1...3-x-stable
 
+See changes: https://github.com/rails/webpacker/compare/88a253ed42966eb2d5c997435e9396881513bce1...3-x-stable
 
 ## [3.5.5] - 2018-07-09
-  See changes: https://github.com/rails/webpacker/compare/e8b197e36c77181ca2e4765c620faea59dcd0351...3-x-stable
+
+See changes: https://github.com/rails/webpacker/compare/e8b197e36c77181ca2e4765c620faea59dcd0351...3-x-stable
 
 ### Added
-  - On CI, sort files & check modified w/ digest intead of mtime[#1522](https://github.com/rails/webpacker/pull/1522)
 
+- On CI, sort files & check modified w/ digest intead of mtime[#1522](https://github.com/rails/webpacker/pull/1522)
 
 ## [3.5.3] - 2018-05-03
 
 ### Fixed
-  - Relax Javascript package dependencies [#1466](https://github.com/rails/webpacker/pull/1466#issuecomment-386336605)
 
+- Relax Javascript package dependencies [#1466](https://github.com/rails/webpacker/pull/1466#issuecomment-386336605)
 
 ## [3.5.2] - 2018-04-29
 
 - Pin Javascript package to 3.5.x
 
-
 ## [3.5.1] - 2018-04-29
 
 - Upgraded gems and Javascript packages
 
-
 ## [3.5.0] - 2018-04-29
 
 ### Fixed
-  - Remove compilation digest file if webpack command fails [#1399](https://github.com/rails/webpacker/pull/1399)
-  - Handle http dev_server setting properly in the proxy [#1420](https://github.com/rails/webpacker/pull/1420)
-  - Use correct protocol [#1425](https://github.com/rails/webpacker/pull/1425)
+
+- Remove compilation digest file if webpack command fails [#1399](https://github.com/rails/webpacker/pull/1399)
+- Handle http dev_server setting properly in the proxy [#1420](https://github.com/rails/webpacker/pull/1420)
+- Use correct protocol [#1425](https://github.com/rails/webpacker/pull/1425)
 
 ### Added
-  - `image_pack_tag` helper [#1400](https://github.com/rails/webpacker/pull/1400)
-  - devserver proxy for custom environments [#1415](https://github.com/rails/webpacker/pull/1415)
-  - Rails webpacker:info task [#1416](https://github.com/rails/webpacker/pull/1416)
-  - Include `RAILS_RELATIVE_URL_ROOT` environment variable in publicPath [#1428](https://github.com/rails/webpacker/pull/1428)
+
+- `image_pack_tag` helper [#1400](https://github.com/rails/webpacker/pull/1400)
+- devserver proxy for custom environments [#1415](https://github.com/rails/webpacker/pull/1415)
+- Rails webpacker:info task [#1416](https://github.com/rails/webpacker/pull/1416)
+- Include `RAILS_RELATIVE_URL_ROOT` environment variable in publicPath [#1428](https://github.com/rails/webpacker/pull/1428)
 
 Complete list of changes: [#1464](https://github.com/rails/webpacker/pull/1464)
-
 
 ## [3.4.3] - 2018-04-3
 
 ### Fixed
-  - Lock webpacker version in installer [#1401](https://github.com/rails/webpacker/issues/1401)
 
+- Lock webpacker version in installer [#1401](https://github.com/rails/webpacker/issues/1401)
 
 ## [3.4.1] - 2018-03-24
 
 ### Fixed
-  - Yarn integrity check in development [#1374](https://github.com/rails/webpacker/issues/1374)
 
+- Yarn integrity check in development [#1374](https://github.com/rails/webpacker/issues/1374)
 
 ## [3.4.0] - 2018-03-23
 
 **Please use 3.4.1 instead**
 
 ### Added
-  - Support for custom Rails environments [#1359](https://github.com/rails/webpacker/pull/1359)
 
-*This could break the compilation if you set NODE_ENV to custom environment. Now, NODE_ENV only understands production or development mode*
+- Support for custom Rails environments [#1359](https://github.com/rails/webpacker/pull/1359)
 
+_This could break the compilation if you set NODE_ENV to custom environment. Now, NODE_ENV only understands production or development mode_
 
 ## [3.3.1] - 2018-03-12
 
@@ -387,6 +407,7 @@ Complete list of changes: [#1464](https://github.com/rails/webpacker/pull/1464)
 ```
 bundle exec rails webpacker:binstubs
 ```
+
 - set function is now removed from plugins and loaders, please use `append` or `prepend`
 
 ```js
@@ -400,6 +421,7 @@ environment.loaders.append('json', {
 ```
 
 ### Fixed
+
 - Limit ts-loader to 3.5.0 until webpack 4 support [#1308](https://github.com/rails/webpacker/pull/1308)
 - Custom env support [#1304](https://github.com/rails/webpacker/pull/1304)
 
@@ -433,7 +455,6 @@ And, bunch of bug fixes [See changes](https://github.com/rails/webpacker/compare
 
 - Revert file loader [#1196](https://github.com/rails/webpacker/pull/1196)
 
-
 ## [3.2.0] - 2017-12-16
 
 ### To upgrade:
@@ -463,11 +484,11 @@ into your `config/webpack/loaders/`
 directory and add it to webpack build from `config/webpack/environment.js`
 
 ```js
-const erb =  require('./loaders/erb')
-const elm =  require('./loaders/elm')
-const typescript =  require('./loaders/typescript')
-const vue =  require('./loaders/vue')
-const coffee =  require('./loaders/coffee')
+const erb = require('./loaders/erb')
+const elm = require('./loaders/elm')
+const typescript = require('./loaders/typescript')
+const vue = require('./loaders/vue')
+const coffee = require('./loaders/coffee')
 
 environment.loaders.append('coffee', coffee)
 environment.loaders.append('vue', vue)
@@ -490,18 +511,15 @@ plugins:
 
 - `postcss-import` in place of `postcss-smart-import`
 
-
 ### Removed (npm module)
 
 - `postcss-smart-import`, `coffee-loader`, `url-loader`, `rails-erb-loader` as dependencies
 
--  `publicPath` from file loader [#1107](https://github.com/rails/webpacker/pull/1107)
-
+- `publicPath` from file loader [#1107](https://github.com/rails/webpacker/pull/1107)
 
 ### Fixed (npm module)
 
 - Return native array type for `ConfigList` [#1098](https://github.com/rails/webpacker/pull/1098)
-
 
 ### Added (Gem)
 
@@ -516,16 +534,13 @@ bundle exec rails webpacker:install:coffee
 
 - Resolved paths from webpacker.yml to compiler watched list
 
-
 ## [3.1.1] - 2017-12-11
 
 ### Fixed
 
 - Include default webpacker.yml config inside npm package
 
-
 ## [3.1.0] - 2017-12-11
-
 
 ### Added (npm module)
 
@@ -536,7 +551,8 @@ environment.config.set('resolve.extensions', ['.foo', '.bar'])
 environment.config.set('output.filename', '[name].js')
 environment.config.delete('output.chunkFilename')
 environment.config.get('resolve')
-environment.config.merge({ output: {
+environment.config.merge({
+  output: {
     filename: '[name].js'
   }
 })
@@ -545,7 +561,7 @@ environment.config.merge({ output: {
 - Expose new API's for loaders and plugins to insert at position
 
 ```js
-const jsonLoader =  {
+const jsonLoader = {
   test: /\.json$/,
   exclude: /node_modules/,
   loader: 'json-loader'
@@ -553,8 +569,8 @@ const jsonLoader =  {
 
 environment.loaders.append('json', jsonLoader)
 environment.loaders.prepend('json', jsonLoader)
-environment.loaders.insert('json', jsonLoader, { after: 'style' } )
-environment.loaders.insert('json', jsonLoader, { before: 'babel' } )
+environment.loaders.insert('json', jsonLoader, { after: 'style' })
+environment.loaders.insert('json', jsonLoader, { before: 'babel' })
 
 // Update a plugin
 const manifestPlugin = environment.plugins.get('Manifest')
@@ -562,10 +578,14 @@ manifestPlugin.opts.writeToFileEmit = false
 
 // Update coffee loader to use coffeescript 2
 const babelLoader = environment.loaders.get('babel')
-environment.loaders.insert('coffee', {
-  test: /\.coffee(\.erb)?$/,
-  use:  babelLoader.use.concat(['coffee-loader'])
-}, { before: 'json' })
+environment.loaders.insert(
+  'coffee',
+  {
+    test: /\.coffee(\.erb)?$/,
+    use: babelLoader.use.concat(['coffee-loader'])
+  },
+  { before: 'json' }
+)
 ```
 
 - Expose `resolve.modules` paths like loaders and plugins
@@ -577,8 +597,8 @@ environment.resolvedModules.append('vendor', 'vendor')
 - Enable sourcemaps in `style` and `css` loader
 
 - Separate `css` and `sass` loader for easier configuration. `style` loader is now
-`css` loader, which resolves `.css` files and `sass` loader resolves `.scss` and `.sass`
-files.
+  `css` loader, which resolves `.css` files and `sass` loader resolves `.scss` and `.sass`
+  files.
 
 ```js
 // Enable css modules with sass loader
@@ -614,7 +634,6 @@ dev_server:
 
 - Add url loader to process and embed smaller static files
 
-
 ### Removed
 
 - resolve url loader [#1042](https://github.com/rails/webpacker/issues/1042)
@@ -631,8 +650,7 @@ WEBPACKER_PRECOMPILE=false bundle exec rails assets:precompile
 - Use `WEBPACKER_ASSET_HOST` instead of `ASSET_HOST` for CDN
 
 - Alias `webpacker:compile` task to `assets:precompile` if is not defined so it works
-without sprockets
-
+  without sprockets
 
 ## [3.0.2] - 2017-10-04
 
@@ -667,7 +685,7 @@ Webpacker.manifest.lookup!('foo.js')
 - Inline CLI args for dev server binstub, use env variables instead
 
 - Coffeescript as core dependency. You have to manually add coffeescript now, if you are using
-it in your app.
+  it in your app.
 
 ```bash
 yarn add coffeescript@1.12.7
@@ -699,8 +717,7 @@ yarn add coffeescript
 ### Removed
 
 - `watchContentBase` from devServer config so it doesn't unncessarily trigger
-live reload when manifest changes. If you have applied this workaround from [#724](https://github.com/rails/webpacker/issues/724), please revert the change from `config/webpack/development.js` since this is now fixed.
-
+  live reload when manifest changes. If you have applied this workaround from [#724](https://github.com/rails/webpacker/issues/724), please revert the change from `config/webpack/development.js` since this is now fixed.
 
 ## [3.0.0] - 2017-08-30
 
@@ -709,9 +726,9 @@ live reload when manifest changes. If you have applied this workaround from [#72
 - `resolved_paths` option to allow adding additional paths webpack should lookup when resolving modules
 
 ```yml
-  # config/webpacker.yml
-  # Additional paths webpack should lookup modules
-  resolved_paths: [] # empty by default
+# config/webpacker.yml
+# Additional paths webpack should lookup modules
+resolved_paths: [] # empty by default
 ```
 
 - `Webpacker::Compiler.fresh?` and `Webpacker::Compiler.stale?` answer the question of whether compilation is needed.
@@ -764,8 +781,8 @@ live reload when manifest changes. If you have applied this workaround from [#72
 - Serve assets using `localhost` from dev server - [#424](https://github.com/rails/webpacker/issues/424)
 
 ```yml
-  dev_server:
-    host: localhost
+dev_server:
+  host: localhost
 ```
 
 - On Windows, `ruby bin/webpacker` and `ruby bin/webpacker-dev-server` will now bypass yarn, and execute via `node_modules/.bin` directly - [#584](https://github.com/rails/webpacker/pull/584)
@@ -775,21 +792,21 @@ live reload when manifest changes. If you have applied this workaround from [#72
 - Add `compile` and `cache_path` options to `config/webpacker.yml` for configuring lazy compilation of packs when a file under tracked paths is changed [#503](https://github.com/rails/webpacker/pull/503). To enable expected behavior, update `config/webpacker.yml`:
 
   ```yaml
-    default: &default
-      cache_path: tmp/cache/webpacker
-    test:
-      compile: true
+  default: &default
+    cache_path: tmp/cache/webpacker
+  test:
+    compile: true
 
-    development:
-      compile: true
+  development:
+    compile: true
 
-    production:
-      compile: false
+  production:
+    compile: false
   ```
 
 - Make test compilation cacheable and configurable so that the lazy compilation
-only triggers if files are changed under tracked paths.
-Following paths are watched by default -
+  only triggers if files are changed under tracked paths.
+  Following paths are watched by default -
 
   ```rb
     ["app/javascript/**/*", "yarn.lock", "package.json", "config/webpack/**/*"]
@@ -805,6 +822,7 @@ Following paths are watched by default -
 ## [2.0] - 2017-05-24
 
 ### Fixed
+
 - Update `.babelrc` to fix compilation issues - [#306](https://github.com/rails/webpacker/issues/306)
 
 - Duplicated asset hosts - [#320](https://github.com/rails/webpacker/issues/320), [#397](https://github.com/rails/webpacker/pull/397)
@@ -817,24 +835,28 @@ Following paths are watched by default -
 
 - ARGV support for `webpack-dev-server` - [#286](https://github.com/rails/webpacker/issues/286)
 
-
 ### Added
+
 - [Elm](http://elm-lang.org) support. You can now add Elm support via the following methods:
+
   - New app: `rails new <app> --webpack=elm`
   - Within an existing app: `rails webpacker:install:elm`
 
 - Support for custom `public_output_path` paths independent of `source_entry_path` in `config/webpacker.yml`. `output` is also now relative to `public/`. - [#397](https://github.com/rails/webpacker/pull/397)
 
-    Before (compile to `public/packs`):
-    ```yaml
-      source_entry_path: packs
-      public_output_path: packs
-    ```
-    After (compile to `public/sweet/js`):
-    ```yaml
-      source_entry_path: packs
-      public_output_path: sweet/js
-    ```
+  Before (compile to `public/packs`):
+
+  ```yaml
+  source_entry_path: packs
+  public_output_path: packs
+  ```
+
+  After (compile to `public/sweet/js`):
+
+  ```yaml
+  source_entry_path: packs
+  public_output_path: sweet/js
+  ```
 
 - `https` option to use `https` mode, particularly on platforms like - https://community.c9.io/t/running-a-rails-app/1615 or locally - [#176](https://github.com/rails/webpacker/issues/176)
 
@@ -843,25 +865,28 @@ Following paths are watched by default -
 ```json
 {
   "presets": [
-    ["env", {
-      "modules": false,
-      "targets": {
-        "browsers": "> 1%",
-        "uglify": true
-      },
-      "useBuiltIns": true
-    }]
+    [
+      "env",
+      {
+        "modules": false,
+        "targets": {
+          "browsers": "> 1%",
+          "uglify": true
+        },
+        "useBuiltIns": true
+      }
+    ]
   ],
 
   "plugins": [
     "syntax-dynamic-import",
-    "transform-class-properties", { "spec": true }
+    "transform-class-properties",
+    { "spec": true }
   ]
 }
 ```
 
 - Source-map support for production bundle
-
 
 #### Breaking Change
 
@@ -877,14 +902,16 @@ Following paths are watched by default -
   rm config/webpack/development.server.js
   ```
 
-  __Warning__: For now you also have to add a pattern in `.gitignore` by hand.
+  **Warning**: For now you also have to add a pattern in `.gitignore` by hand.
+
   ```diff
    /public/packs
   +/public/packs-test
    /node_modules
-   ```
+  ```
 
 ## [1.2] - 2017-04-27
+
 Some of the changes made requires you to run below commands to install new changes.
 
 ```
@@ -892,13 +919,14 @@ bundle update webpacker
 bundle exec rails webpacker:install
 ```
 
-
 ### Fixed
+
 - Support Spring - [#205](https://github.com/rails/webpacker/issues/205)
 
   ```ruby
   Spring.after_fork { Webpacker.bootstrap } if defined?(Spring)
   ```
+
 - Check node version and yarn before installing webpacker - [#217](https://github.com/rails/webpacker/issues/217)
 
 - Include webpacker helper to views - [#172](https://github.com/rails/webpacker/issues/172)
@@ -911,27 +939,28 @@ bundle exec rails webpacker:install
 
 - Move babel presets and plugins to .babelrc - [#202](https://github.com/rails/webpacker/issues/202)
 
-
 ### Added
+
 - A changelog - [#211](https://github.com/rails/webpacker/issues/211)
 - Minimize CSS assets - [#218](https://github.com/rails/webpacker/issues/218)
 - Pack namespacing support - [#201](https://github.com/rails/webpacker/pull/201)
 
   For example:
+
   ```
   app/javascript/packs/admin/hello_vue.js
   app/javascript/packs/admin/hello.vue
   app/javascript/packs/hello_vue.js
   app/javascript/packs/hello.vue
   ```
+
 - Add tree-shaking support - [#250](https://github.com/rails/webpacker/pull/250)
 - Add initial test case by @kimquy [#259](https://github.com/rails/webpacker/pull/259)
 - Compile assets before test:controllers and test:system
 
-
 ### Removed
-- Webpack watcher - [#295](https://github.com/rails/webpacker/pull/295)
 
+- Webpack watcher - [#295](https://github.com/rails/webpacker/pull/295)
 
 ## [1.1] - 2017-03-24
 
@@ -946,9 +975,9 @@ bundle exec rails webpacker:install:[react, angular, vue]
 ```
 
 ### Added (breaking changes)
+
 - Static assets support - [#153](https://github.com/rails/webpacker/pull/153)
 - Advanced webpack configuration - [#153](https://github.com/rails/webpacker/pull/153)
-
 
 ### Removed
 
