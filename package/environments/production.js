@@ -2,6 +2,7 @@ const TerserPlugin = require('terser-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const safePostCssParser = require('postcss-safe-parser')
+const zopfli = require('@gfx/zopfli')
 const Base = require('./base')
 
 module.exports = class extends Base {
@@ -12,8 +13,9 @@ module.exports = class extends Base {
       'Compression',
       new CompressionPlugin({
         filename: '[path].gz[query]',
-        algorithm: 'gzip',
+        algorithm: zopfli.gzip,
         cache: true,
+        compressionOptions: { numiterations: 15 },
         test: /\.(js|css|html|json|ico|svg|eot|otf|ttf|map)$/
       })
     )
