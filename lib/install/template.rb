@@ -36,7 +36,7 @@ end
 
 if Webpacker::VERSION =~ /^[0-9]+\.[0-9]+\.[0-9]+$/
   say "Installing all JavaScript dependencies [#{Webpacker::VERSION}]"
-  run "yarn add @rails/webpacker"
+  run "yarn add @rails/webpacker@#{Webpacker::VERSION}"
 else
   say "Installing all JavaScript dependencies [from prerelease rails/webpacker]"
   run "yarn add @rails/webpacker@next"
