@@ -13,11 +13,28 @@ First, you create a Rails engine (say, `MyEngine`). See the official [Rails guid
 
 ## Step 2: install Webpacker within the engine.
 
+Add webpacker as a dependency of your engine.
+
+- File `my_engine.gemspec`
+
+```ruby
+# ...
+spec.add_dependency 'webpacker'
+# ...
+```
+
 There is no built-in tasks to install Webpacker within the engine, thus you have to add all the require files manually (you can copy them from the main app):
 - Add `config/webpacker.yml` and `config/webpack/*.js` files
 - Add `bin/webpack` and `bin/webpack-dev-server` files
 - Add `package.json` with required deps.
 
+Run a `bundle install` and install webpacker inside the `test/dummy` application.
+
+```shell
+bundle install
+cd test/dummy
+rails webpacker:install
+```
 
 ## Step 3: configure Webpacker instance.
 
