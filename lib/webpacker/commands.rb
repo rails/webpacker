@@ -10,7 +10,7 @@ class Webpacker::Commands
       files_in_manifest = process_manifest_hash(manifest.refresh)
       files_to_be_removed = files_in_manifest.flat_map do |file_in_manifest|
         file_prefix, file_ext = file_in_manifest.scan(/(.*)[0-9a-f]{20}(.*)/).first
-        versions_of_file = Dir.glob("#{file_prefix}*#{file_ext}").grep(/#{file_prefix}[0-9a-f]{20}#{file_ext}/)
+        versions_of_file = Dir.glob("#{file_prefix}*#{file_ext}").grep(/#{file_prefix}[0-9a-f]{20}#{file_ext}$/)
         versions_of_file.map do |version_of_file|
           next if version_of_file == file_in_manifest
 
