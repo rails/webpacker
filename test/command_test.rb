@@ -30,4 +30,14 @@ class CommandTest < Minitest::Test
       assert Webpacker.commands.clean
     end
   end
+
+  def test_clean_command_does_not_fail_on_missing_files
+    Webpacker.commands.stub(:versions_of_file, %w[v1 v2 v3]) do
+      File.stub(:mtime, OpenStruct.new(utc: 0)) do
+        File.stub :delete, lambda { |n| raise Errno::ENOENT } do
+          Webpacker.clean
+        end
+      end
+    end
+  end
 end
