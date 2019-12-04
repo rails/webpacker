@@ -16,7 +16,7 @@ class Webpacker::Commands
 
           [version_of_file, File.mtime(version_of_file).utc.to_i]
         end.compact.sort_by(&:last).reverse.drop(count_to_keep).map(&:first)
-      end
+      end.uniq
 
       files_to_be_removed.each { |f| File.delete f }
     end
