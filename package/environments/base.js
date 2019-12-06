@@ -60,13 +60,20 @@ const getExtensionsGlob = () => {
 const getEntryObject = () => {
   const result = new ConfigObject()
   const glob = getExtensionsGlob()
-  const rootPath = join(config.source_path, config.source_entry_path)
-  const paths = sync(join(rootPath, glob))
-  paths.forEach((path) => {
-    const namespace = relative(join(rootPath), dirname(path))
-    const name = join(namespace, basename(path, extname(path)))
-    result.set(name, resolve(path))
+  // const rootPath = join(config.source_path, config.source_entry_path)
+
+  const rootPaths = config.source_paths.map((sp) => join(sp, config.source_entry_path))
+
+  rootPaths.forEach((rootPath) => {
+    const paths = sync(join(rootPath, glob))
+
+    paths.forEach((path) => {
+      const namespace = relative(join(rootPath), dirname(path))
+      const name = join(namespace, basename(path, extname(path)))
+      result.set(name, resolve(path))
+    })
   })
+
   return result
 }
 
