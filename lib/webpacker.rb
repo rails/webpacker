@@ -22,6 +22,14 @@ module Webpacker
     ENV["NODE_ENV"] = original
   end
 
+  def ensure_log_goes_to_stdout
+    old_logger = Webpacker.logger
+    Webpacker.logger = ActiveSupport::Logger.new(STDOUT)
+    yield
+  ensure
+    Webpacker.logger = old_logger
+  end
+
   delegate :logger, :logger=, :env, to: :instance
   delegate :config, :compiler, :manifest, :commands, :dev_server, to: :instance
   delegate :bootstrap, :clean, :clobber, :compile, to: :commands
