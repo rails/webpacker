@@ -2,6 +2,10 @@
 
 **Please note that Webpacker 4.1.0 has an installer bug. Please use 4.2.0 or above**
 
+## [[4.2.1]](https://github.com/rails/webpacker/compare/v4.1.0...v4.2.0) - 2019-12-09
+
+- Fixed issue with webpack clean task [#2389](https://github.com/rails/webpacker/pull/2389)
+
 ## [[4.2.0]](https://github.com/rails/webpacker/compare/v4.1.0...v4.2.0) - 2019-11-12
 
 - Fixed installer bug [#2366](https://github.com/rails/webpacker/pull/2366)
@@ -49,14 +53,14 @@ Please see the diff
 In each of your `/packs/*.js` files, change this:
 
 ```js
-import "@babel/polyfill";
+import '@babel/polyfill'
 ```
 
 to this:
 
 ```js
-import "core-js/stable";
-import "regenerator-runtime/runtime";
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
 ```
 
 Don't forget to install those dependencies directly!
@@ -93,10 +97,10 @@ Source maps can be disabled in any environment configuration, e.g:
 ```js
 // config/webpack/production.js
 
-const environment = require("./environment");
-environment.config.merge({ devtool: "none" });
+const environment = require('./environment')
+environment.config.merge({ devtool: 'none' })
 
-module.exports = environment.toWebpackConfig();
+module.exports = environment.toWebpackConfig()
 ```
 
 - Reintroduced `context` to the file loader. Reverting the simpler paths change
@@ -147,12 +151,12 @@ To get old behaviour:
 ```js
 // config/webpack/environment.js
 
-const { environment, config } = require("@rails/webpacker");
-const { join } = require("path");
+const { environment, config } = require('@rails/webpacker')
+const { join } = require('path')
 
-const fileLoader = environment.loaders.get("file");
-fileLoader.use[0].options.name = "[path][name]-[hash].[ext]";
-fileLoader.use[0].options.context = join(config.source_path); // optional if you don't want to expose full paths
+const fileLoader = environment.loaders.get('file')
+fileLoader.use[0].options.name = '[path][name]-[hash].[ext]'
+fileLoader.use[0].options.context = join(config.source_path) // optional if you don't want to expose full paths
 ```
 
 ### Added
@@ -246,7 +250,7 @@ helper otherwise you will get duplicated chunks on the page.
   depending on how you want to process packs [#1823](https://github.com/rails/webpacker/pull/1823)
 
 ```js
-environment.loaders.prepend();
+environment.loaders.prepend()
 ```
 
 - Separate CSS extraction from build environment [#1625](https://github.com/rails/webpacker/pull/1625)
@@ -281,13 +285,13 @@ static_assets_extensions:
 - Add split chunks api (undocumented)
 
 ```js
-const { environment } = require("@rails/webpacker");
+const { environment } = require('@rails/webpacker')
 // Enable with default config
-environment.splitChunks();
+environment.splitChunks()
 // Configure via a callback
 environment.splitChunks(config =>
   Object.assign({}, config, { optimization: { splitChunks: false } })
-);
+)
 ```
 
 - Allow changing static file extensions using webpacker.yml (undocumented)
@@ -418,12 +422,12 @@ bundle exec rails webpacker:binstubs
 
 ```js
 // config/webpack/environment.js
-const { environment } = require("@rails/webpacker");
+const { environment } = require('@rails/webpacker')
 
-environment.loaders.append("json", {
+environment.loaders.append('json', {
   test: /\.json$/,
-  use: "json-loader"
-});
+  use: 'json-loader'
+})
 ```
 
 ### Fixed
@@ -490,17 +494,17 @@ into your `config/webpack/loaders/`
 directory and add it to webpack build from `config/webpack/environment.js`
 
 ```js
-const erb = require("./loaders/erb");
-const elm = require("./loaders/elm");
-const typescript = require("./loaders/typescript");
-const vue = require("./loaders/vue");
-const coffee = require("./loaders/coffee");
+const erb = require('./loaders/erb')
+const elm = require('./loaders/elm')
+const typescript = require('./loaders/typescript')
+const vue = require('./loaders/vue')
+const coffee = require('./loaders/coffee')
 
-environment.loaders.append("coffee", coffee);
-environment.loaders.append("vue", vue);
-environment.loaders.append("typescript", typescript);
-environment.loaders.append("elm", elm);
-environment.loaders.append("erb", erb);
+environment.loaders.append('coffee', coffee)
+environment.loaders.append('vue', vue)
+environment.loaders.append('typescript', typescript)
+environment.loaders.append('elm', elm)
+environment.loaders.append('erb', erb)
 ```
 
 In `.postcssrc.yml` you need to change the plugin name from `postcss-smart-import` to `postcss-import`:
@@ -553,15 +557,15 @@ bundle exec rails webpacker:install:coffee
 - Expose base config from environment
 
 ```js
-environment.config.set("resolve.extensions", [".foo", ".bar"]);
-environment.config.set("output.filename", "[name].js");
-environment.config.delete("output.chunkFilename");
-environment.config.get("resolve");
+environment.config.set('resolve.extensions', ['.foo', '.bar'])
+environment.config.set('output.filename', '[name].js')
+environment.config.delete('output.chunkFilename')
+environment.config.get('resolve')
 environment.config.merge({
   output: {
-    filename: "[name].js"
+    filename: '[name].js'
   }
-});
+})
 ```
 
 - Expose new API's for loaders and plugins to insert at position
@@ -570,34 +574,34 @@ environment.config.merge({
 const jsonLoader = {
   test: /\.json$/,
   exclude: /node_modules/,
-  loader: "json-loader"
-};
+  loader: 'json-loader'
+}
 
-environment.loaders.append("json", jsonLoader);
-environment.loaders.prepend("json", jsonLoader);
-environment.loaders.insert("json", jsonLoader, { after: "style" });
-environment.loaders.insert("json", jsonLoader, { before: "babel" });
+environment.loaders.append('json', jsonLoader)
+environment.loaders.prepend('json', jsonLoader)
+environment.loaders.insert('json', jsonLoader, { after: 'style' })
+environment.loaders.insert('json', jsonLoader, { before: 'babel' })
 
 // Update a plugin
-const manifestPlugin = environment.plugins.get("Manifest");
-manifestPlugin.opts.writeToFileEmit = false;
+const manifestPlugin = environment.plugins.get('Manifest')
+manifestPlugin.opts.writeToFileEmit = false
 
 // Update coffee loader to use coffeescript 2
-const babelLoader = environment.loaders.get("babel");
+const babelLoader = environment.loaders.get('babel')
 environment.loaders.insert(
-  "coffee",
+  'coffee',
   {
     test: /\.coffee(\.erb)?$/,
-    use: babelLoader.use.concat(["coffee-loader"])
+    use: babelLoader.use.concat(['coffee-loader'])
   },
-  { before: "json" }
-);
+  { before: 'json' }
+)
 ```
 
 - Expose `resolve.modules` paths like loaders and plugins
 
 ```js
-environment.resolvedModules.append("vendor", "vendor");
+environment.resolvedModules.append('vendor', 'vendor')
 ```
 
 - Enable sourcemaps in `style` and `css` loader
@@ -608,13 +612,13 @@ environment.resolvedModules.append("vendor", "vendor");
 
 ```js
 // Enable css modules with sass loader
-const sassLoader = environment.loaders.get("sass");
-const cssLoader = sassLoader.use.find(loader => loader.loader === "css-loader");
+const sassLoader = environment.loaders.get('sass')
+const cssLoader = sassLoader.use.find(loader => loader.loader === 'css-loader')
 
 cssLoader.options = Object.assign({}, cssLoader.options, {
   modules: true,
-  localIdentName: "[path][name]__[local]--[hash:base64:5]"
-});
+  localIdentName: '[path][name]__[local]--[hash:base64:5]'
+})
 ```
 
 - Expose rest of configurable dev server options from webpacker.yml
@@ -622,7 +626,7 @@ cssLoader.options = Object.assign({}, cssLoader.options, {
 ```yml
 quiet: false
 headers:
-  "Access-Control-Allow-Origin": "*"
+  'Access-Control-Allow-Origin': '*'
 watch_options:
   ignored: /node_modules/
 ```
