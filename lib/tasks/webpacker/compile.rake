@@ -1,13 +1,5 @@
 $stdout.sync = true
 
-def ensure_log_goes_to_stdout
-  old_logger = Webpacker.logger
-  Webpacker.logger = ActiveSupport::Logger.new(STDOUT)
-  yield
-ensure
-  Webpacker.logger = old_logger
-end
-
 def yarn_install_available?
   rails_major = Rails::VERSION::MAJOR
   rails_minor = Rails::VERSION::MINOR
@@ -27,7 +19,7 @@ namespace :webpacker do
   desc "Compile JavaScript packs using webpack for production with digests"
   task compile: ["webpacker:verify_install", :environment] do
     Webpacker.with_node_env(ENV.fetch("NODE_ENV", "production")) do
-      ensure_log_goes_to_stdout do
+      Webpacker.ensure_log_goes_to_stdout do
         if Webpacker.compile
           # Successful compilation!
         else
