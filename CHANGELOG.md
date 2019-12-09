@@ -2,7 +2,7 @@
 
 **Please note that Webpacker 4.1.0 has an installer bug. Please use 4.2.0 or above**
 
-## [[4.2.1]](https://github.com/rails/webpacker/compare/v4.1.0...v4.2.0) - 2019-12-09
+## [[4.2.1]](https://github.com/rails/webpacker/compare/v4.2.0...v4.2.1) - 2019-12-09
 
 - Fixed issue with webpack clean task [#2389](https://github.com/rails/webpacker/pull/2389)
 
