@@ -8,7 +8,7 @@ class Webpacker::Commands
   def clean(count = 2)
     if config.public_output_path.exist? && config.public_manifest_path.exist? && versions.count > count
       versions.drop(count).flat_map(&:last).each do |file|
-        File.delete(file) if File.exist?(file)
+        File.delete(file) if File.file?(file)
         logger.info "Removed #{file}"
       end
     end
