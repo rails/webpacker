@@ -7,7 +7,6 @@
 
 ```bash
 bundle exec rails webpacker:install:typescript
-yarn add @types/react @types/react-dom
 ```
 
 2. Rename the generated `hello_react.js` to `hello_react.tsx`. Make the file valid typescript and
@@ -27,7 +26,7 @@ bundle exec rails webpacker:install:typescript
 
 ```js
 module.exports = {
-  test: /\.(ts|tsx)?(\.erb)?$/,
+  test: /\.tsx?(\.erb)?$/,
   use: [{
     loader: 'ts-loader'
   }]
@@ -40,7 +39,7 @@ to
 const PnpWebpackPlugin = require('pnp-webpack-plugin');
 
 module.exports = {
-  test: /\.(ts|tsx)?(\.erb)?$/,
+  test: /\.tsx?(\.erb)?$/,
   use: [{
     loader: 'ts-loader',
     options: PnpWebpackPlugin.tsLoaderOptions({
