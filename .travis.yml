@@ -1,7 +1,7 @@
 language: ruby
 dist: xenial
 before_install:
-  - gem install rubygems-update && update_rubygems
+  - gem install rubygems-update -v 3.0.6 && update_rubygems
   # Rails 4.2 doesn't support bundler 2.0, so we need to lock bundler to
   # v1.17.3. This is just for Ruby 2.5 which ships with bundler 2.x on Travis
   # CI while Ruby 2.6 does not.
