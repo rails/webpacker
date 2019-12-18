@@ -16,4 +16,6 @@ if Rake::Task.task_defined?("assets:clean")
   Rake::Task["assets:clean"].enhance do
     Rake::Task["webpacker:clean"].invoke
   end
+else
+  Rake::Task.define_task("assets:clean" => "webpacker:clean")
 end
