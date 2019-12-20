@@ -13,13 +13,27 @@ class WebpackRunnerTest < Webpacker::Test
   end
 
   def test_run_cmd_via_node_modules
-    cmd = ["#{test_app_path}/node_modules/.bin/webpack", "--config", "#{test_app_path}/config/webpack/development.js"]
+    cmd = ["node", "#{test_app_path}/node_modules/.bin/webpack", "--config", "#{test_app_path}/config/webpack/development.js"]
 
     verify_command(cmd, use_node_modules: true)
   end
 
   def test_run_cmd_via_yarn
-    cmd = ["yarn", "webpack", "--config", "#{test_app_path}/config/webpack/development.js"]
+    cmd = ["node", "yarn", "webpack", "--config", "#{test_app_path}/config/webpack/development.js"]
+
+    verify_command(cmd, use_node_modules: false)
+  end
+
+  def test_run_cmd_with_allowed_node_params
+    cmd = ["node", "--inspect-brk", "--stack-size=1000", "yarn", "webpack", "--config", "#{test_app_path}/config/webpack/development.js"]
+    ARGV.replace ["--debug", "--stack-size=1000"]
+
+    verify_command(cmd, use_node_modules: false)
+  end
+
+  def test_run_cmd_with_not_allowed_node_params
+    cmd = ["node", "yarn", "webpack", "--config", "#{test_app_path}/config/webpack/development.js"]
+    ARGV.replace ["--unknown-param=1000"]
 
     verify_command(cmd, use_node_modules: false)
   end

@@ -240,6 +240,14 @@ WEBPACKER_DEV_SERVER_HOST=0.0.0.0 ./bin/webpack-dev-server
 
 See [docs/webpack](docs/webpack.md) for modifying webpack configuration and loaders.
 
+### Node params
+
+You can also pass params to node.
+
+Allowed params:
+
+- ```--debug``` (will be replaced with ```--inspect-brk```)
+- ```--stack-size=1000```
 
 ### Custom Rails environments
 
