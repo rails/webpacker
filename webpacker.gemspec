@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
     "changelog_uri"   => "https://github.com/rails/webpacker/blob/v#{Webpacker::VERSION}/CHANGELOG.md"
   }
 
-  s.required_ruby_version = ">= 2.2.0"
+  s.required_ruby_version = ">= 2.3.0"
 
   s.add_dependency "activesupport", ">= 4.2"
   s.add_dependency "railties",      ">= 4.2"
