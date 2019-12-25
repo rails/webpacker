@@ -4,7 +4,6 @@ before_install:
   - gem install rubygems-update && update_rubygems
   - yes | rvm @global do gem install bundler -v 2.1.2 || true
 rvm:
-  - 2.3.8
   - 2.4.6
   - 2.5.5
   - 2.6.3
@@ -37,13 +36,9 @@ matrix:
     - gemfile: gemfiles/Gemfile-rails-edge
     - rvm: ruby-head
   exclude:
-    - rvm: 2.3.8
-      gemfile: gemfiles/Gemfile-rails-edge
     - rvm: 2.4.6
       gemfile: gemfiles/Gemfile-rails-edge
     - rvm: 2.5.5
       gemfile: gemfiles/Gemfile-rails-edge
-    - rvm: 2.3.8
-      gemfile: gemfiles/Gemfile-rails.6.0.x
     - rvm: 2.4.6
       gemfile: gemfiles/Gemfile-rails.6.0.x
