@@ -1,12 +1,8 @@
 language: ruby
 dist: xenial
 before_install:
-  - gem install rubygems-update -v 3.0.6 && update_rubygems
-  # Rails 4.2 doesn't support bundler 2.0, so we need to lock bundler to
-  # v1.17.3. This is just for Ruby 2.5 which ships with bundler 2.x on Travis
-  # CI while Ruby 2.6 does not.
-  # https://github.com/travis-ci/travis-rubies/issues/57#issuecomment-458981237
-  - yes | rvm @global do gem install bundler -v 1.17.3 || true
+  - gem install rubygems-update && update_rubygems
+  - yes | rvm @global do gem install bundler -v 2.1.2 || true
 rvm:
   - 2.3.8
   - 2.4.6
@@ -14,7 +10,6 @@ rvm:
   - 2.6.3
   - ruby-head
 gemfile:
-  - gemfiles/Gemfile-rails.4.2.x
   - gemfiles/Gemfile-rails.5.0.x
   - gemfiles/Gemfile-rails.5.1.x
   - gemfiles/Gemfile-rails.5.2.x
@@ -48,8 +43,6 @@ matrix:
       gemfile: gemfiles/Gemfile-rails-edge
     - rvm: 2.5.5
       gemfile: gemfiles/Gemfile-rails-edge
-    - rvm: ruby-head
-      gemfile: gemfiles/Gemfile-rails.4.2.x
     - rvm: 2.3.8
       gemfile: gemfiles/Gemfile-rails.6.0.x
     - rvm: 2.4.6
