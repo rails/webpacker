@@ -1,8 +1,8 @@
 # Webpacker
 
 [![Build Status](https://travis-ci.org/rails/webpacker.svg?branch=master)](https://travis-ci.org/rails/webpacker)
-[![node.js](https://img.shields.io/badge/node-%3E%3D%208.16.0-brightgreen.svg)](https://nodejs.org/en/)
-[![Gem](https://img.shields.io/gem/v/webpacker.svg)](https://github.com/rails/webpacker)
+[![node.js](https://img.shields.io/badge/node-%3E%3D%208.16.0-brightgreen.svg)](https://www.npmjs.com/package/@rails/webpacker)
+[![Gem](https://img.shields.io/gem/v/webpacker.svg)](https://rubygems.org/gems/webpacker)
 
 Webpacker makes it easy to use the JavaScript pre-processor and bundler
 [webpack 4.x.x+](https://webpack.js.org/)
