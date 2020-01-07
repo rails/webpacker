@@ -50,8 +50,8 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 
 ## Prerequisites
 
-* Ruby 2.2+
-* Rails 5.x+
+* Ruby 2.4+
+* Rails 5.2+
 * Node.js 8.16.0+
 * Yarn 1.x+
 
