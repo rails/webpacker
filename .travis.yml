@@ -21,7 +21,7 @@ cache:
 
 install:
   - bundle install --jobs 3 --retry 3
-  - nvm install 10
+  - nvm install 12
   - node -v
   - npm i -g yarn
   - yarn
