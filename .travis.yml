@@ -2,7 +2,7 @@ language: ruby
 dist: xenial
 before_install:
   - gem install rubygems-update && update_rubygems
-  - yes | rvm @global do gem install bundler -v 2.1.2 || true
+  - yes | rvm @global do gem install bundler -v 2.1.4 || true
 rvm:
   - 2.4.9
   - 2.5.5
