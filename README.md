@@ -307,23 +307,33 @@ yarn add @rails/webpacker@next
 
 ### Yarn Integrity
 
-By default, in development, webpacker runs a yarn integrity check to ensure that all local JavaScript packages are up-to-date. This is similar to what bundler does currently in Rails, but for JavaScript packages. If your system is out of date, then Rails will not initialize. You will be asked to upgrade your local JavaScript packages by running `yarn install`.
+By default, in development, webpacker runs a yarn integrity check to ensure that all local JavaScript packages are up-to-date. This is similar to what bundler does currently in Rails, but for JavaScript packages.
+There `check_yarn_integrity` configuration option has three possible settings - `none`, `check` and `update`
 
-To turn off this option, you will need to change the default setting in `config/webpacker.yml`:
+* The `none` setting will skip the integrity check and not perform any action. This is the default setting for all environments except `development`.
+* The `check` setting will perform the integrity check and Rails will not initialize if packages are missing or out of date. You will be asked to upgrade your local JavaScript packages by running `yarn install`. This is the default of the `development` environment.
+* The `update` setting will perform the integrity check and attempt to update the packages automatically. If the update fails, Rails will not initialize.
+
+**Note:** The valid values for this setting changed in version X, but the previous values are still supported and have the same behaviour as before.
+  * `false` is an alias for `none`
+  * `true` is an alias for `check`
+
+To configure this option you will need to edit the default setting in `config/webpacker.yml`:
 
 ```yaml
 # config/webpacker.yml
 development:
   ...
   # Verifies that correct packages and versions are installed by inspecting package.json, yarn.lock, and node_modules
-  check_yarn_integrity: false
+  check_yarn_integrity: none
 ```
 
 You may also turn on this feature by adding the config option for any Rails environment in `config/webpacker.yml`:
 
 ```yaml
-  check_yarn_integrity: true
+  check_yarn_integrity: check
 ```
+
 
 ## Integrations
 

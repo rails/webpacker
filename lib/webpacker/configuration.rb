@@ -68,7 +68,11 @@ class Webpacker::Configuration
   end
 
   def check_yarn_integrity?
-    fetch(:check_yarn_integrity)
+    ["true", "update", "check"].include?(fetch(:check_yarn_integrity).to_s)
+  end
+
+  def update_yarn_packages?
+    fetch(:check_yarn_integrity).to_s == "update"
   end
 
   def webpack_compile_output?

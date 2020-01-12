@@ -16,36 +16,66 @@ class Webpacker::Engine < ::Rails::Engine
   # ================================
   # Check Yarn Integrity Initializer
   # ================================
+  # Has three settings:
+  # * `check` will perform an integrity check and exit if yarn finds any issues
+  # * `update` will perform an integrity check and try to install/update
+  #    packages to resolve any issues
+  # * `none` - webpacker will perform no integrity related checking
+  #
+  # Note: still support the legacy values & behaviour:
+  #  * `true` alias for `check`
+  #  * `false` alias for `none`
   #
   # development (on by default):
   #
   #    to turn off:
   #     - edit config/environments/development.rb
-  #     - add `config.webpacker.check_yarn_integrity = false`
+  #     - add `config.webpacker.check_yarn_integrity = :none`
   #
   # production (off by default):
   #
   #    to turn on:
   #     - edit config/environments/production.rb
-  #     - add `config.webpacker.check_yarn_integrity = true`
+  #     - add `config.webpacker.check_yarn_integrity = :check`
   initializer "webpacker.yarn_check" do |app|
     if File.exist?("yarn.lock") && Webpacker.config.config_path.exist? && Webpacker.config.check_yarn_integrity?
-      output = `yarn check --integrity && yarn check --verify-tree 2>&1`
+      integrity_check_output = `yarn check --integrity && yarn check --verify-tree 2>&1`
 
       unless $?.success?
-        $stderr.puts "\n\n"
-        $stderr.puts "========================================"
-        $stderr.puts "  Your Yarn packages are out of date!"
-        $stderr.puts "  Please run `yarn install --check-files` to update."
-        $stderr.puts "========================================"
-        $stderr.puts "\n\n"
-        $stderr.puts "To disable this check, please change `check_yarn_integrity`"
-        $stderr.puts "to `false` in your webpacker config file (config/webpacker.yml)."
-        $stderr.puts "\n\n"
-        $stderr.puts output
-        $stderr.puts "\n\n"
-
-        exit(1)
+        if Webpacker.config.update_yarn_packages?
+          update_output = `yarn install --check-files 2>&1`
+          unless $?.success?
+            $stderr.puts "\n\n"
+            $stderr.puts "========================================"
+            $stderr.puts "  Your Yarn packages are out of date and could not be updated"
+            $stderr.puts "========================================"
+            $stderr.puts "\n\n"
+            $stderr.puts "To disable this check, please change `check_yarn_integrity``"
+            $stderr.puts "to `false` in your webpacker config file (config/webpacker.yml)."
+            $stderr.puts "\n\n"
+            $stderr.puts integrity_check_output
+            $stderr.puts "\n\n"
+            $stderr.puts update_output
+            $stderr.puts "\n\n"
+            exit(1)
+          end
+        else
+          $stderr.puts "\n\n"
+          $stderr.puts "========================================"
+          $stderr.puts "  Your Yarn packages are out of date!"
+          $stderr.puts "  Please run `yarn install --check-files` to update."
+          $stderr.puts "========================================"
+          $stderr.puts "\n\n"
+          $stderr.puts "To set webpacker to try to update when packages are out of date"
+          $stderr.puts "set `check_yarn_integrity` to `update`."
+          $stderr.puts "\n"
+          $stderr.puts "To disable this check, please change `check_yarn_integrity`"
+          $stderr.puts "to `false` in your webpacker config file (config/webpacker.yml)."
+          $stderr.puts "\n\n"
+          $stderr.puts integrity_check_output
+          $stderr.puts "\n\n"
+          exit(1)
+        end
       end
     end
   end
