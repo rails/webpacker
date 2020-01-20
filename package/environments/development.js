@@ -1,4 +1,3 @@
-const webpack = require('webpack')
 const Base = require('./base')
 const devServer = require('../dev_server')
 const { outputPath: contentBase, publicPath } = require('../config')
@@ -15,7 +14,6 @@ module.exports = class extends Base {
     if (process.env.WEBPACK_DEV_SERVER
         && process.env.WEBPACK_DEV_SERVER !== 'undefined') {
       if (devServer.hmr) {
-        this.plugins.append('HotModuleReplacement', new webpack.HotModuleReplacementPlugin())
         this.config.output.filename = '[name]-[hash].js'
       }
 

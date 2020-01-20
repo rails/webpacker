@@ -47,6 +47,10 @@ class Webpacker::DevServer
     "#{host}:#{port}"
   end
 
+  def hmr?
+    fetch(:hmr)
+  end
+
   def pretty?
     fetch(:pretty)
   end
