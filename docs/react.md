@@ -36,14 +36,9 @@ To do this next part, you have two options:
 
 ### React Hot Loader (Deprecated)
 
-1. Add the `react-hot-loader` npm package.
+1. Add the `react-hot-loader` and ` @hot-loader/react-dom` npm packages.
   ```sh
   yarn add --dev react-hot-loader @hot-loader/react-dom
-  ```
-
-  If you are using React hooks:
-  ```sh
-  yarn add --dev "@hot-loader/react-dom"
   ```
 
 2. Add changes like this to your entry points
