@@ -19,7 +19,7 @@ module Webpacker::Helper
   #   <%= asset_pack_path 'calendar.css' %> # => "/packs/calendar-1016838bab065ae1e122.css"
   def asset_pack_path(name, **options)
     if current_webpacker_instance.config.extract_css? || !stylesheet?(name)
-      asset_path(current_webpacker_instance.manifest.lookup!(name), **options)
+      asset_path(current_webpacker_instance.manifest.lookup!(name), options)
     end
   end
 
@@ -36,7 +36,7 @@ module Webpacker::Helper
   #   <%= asset_pack_url 'calendar.css' %> # => "http://example.com/packs/calendar-1016838bab065ae1e122.css"
   def asset_pack_url(name, **options)
     if current_webpacker_instance.config.extract_css? || !stylesheet?(name)
-      asset_url(current_webpacker_instance.manifest.lookup!(name), **options)
+      asset_url(current_webpacker_instance.manifest.lookup!(name), options)
     end
   end
 
@@ -47,7 +47,7 @@ module Webpacker::Helper
   #  <%= image_pack_tag 'application.png', size: '16x10', alt: 'Edit Entry' %>
   #  <img alt='Edit Entry' src='/packs/application-k344a6d59eef8632c9d1.png' width='16' height='10' />
   def image_pack_tag(name, **options)
-    image_tag(resolve_path_to_image(name), **options)
+    image_tag(resolve_path_to_image(name), options)
   end
 
   # Creates a link tag for a favicon that references the named pack file.
@@ -57,7 +57,7 @@ module Webpacker::Helper
   #  <%= favicon_pack_tag 'mb-icon.png', rel: 'apple-touch-icon', type: 'image/png' %>
   #  <link href="/packs/mb-icon-k344a6d59eef8632c9d1.png" rel="apple-touch-icon" type="image/png" />
   def favicon_pack_tag(name, **options)
-    favicon_link_tag(resolve_path_to_image(name), **options)
+    favicon_link_tag(resolve_path_to_image(name), options)
   end
 
   # Creates a script tag that references the named pack file, as compiled by webpack per the entries list

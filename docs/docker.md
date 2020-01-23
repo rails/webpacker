@@ -18,6 +18,15 @@ services:
       - '3035:3035'
 ```
 
+Second, change the webpack-dev-server host to the service name of the docker-compose in config/webpacker.yml:
+
+```yaml
+development:
+  <<: *default
+  dev_server:
+    host: webpacker
+```
+
 add nodejs and yarn as dependencies in Dockerfile,
 
 ```dockerfile

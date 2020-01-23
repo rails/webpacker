@@ -50,7 +50,7 @@ module.exports = {
 }
 ```
 
-and now you can use `<script lang="ts">` in your `.vue` component files. See [the php-webpack-plugin docs for the `ts-loader` integration](https://github.com/arcanis/pnp-webpack-plugin#ts-loader-integration) for more info.
+and now you can use `<script lang="ts">` in your `.vue` component files. See [the pnp-webpack-plugin docs for the `ts-loader` integration](https://github.com/arcanis/pnp-webpack-plugin#ts-loader-integration) for more info.
 
 ## HTML templates with Typescript and Angular
 

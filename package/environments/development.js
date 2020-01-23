@@ -40,7 +40,7 @@ module.exports = class extends Base {
         overlay: devServer.overlay,
         stats: {
           entrypoints: false,
-          errorDetails: false,
+          errorDetails: true,
           modules: false,
           moduleTrace: false
         },

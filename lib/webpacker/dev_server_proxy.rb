@@ -26,6 +26,6 @@ class Webpacker::DevServerProxy < Rack::Proxy
 
   private
     def public_output_uri_path
-      config.public_output_path.relative_path_from(config.public_path)
+      config.public_output_path.relative_path_from(config.public_path).to_s + "/"
     end
 end
