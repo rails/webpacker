@@ -4,9 +4,9 @@ require "webpacker/configuration"
 
 namespace :webpacker do
   desc "Remove old compiled webpacks"
-  task :clean, [:keep] => ["webpacker:verify_install", :environment] do |_, args|
+  task :clean, [:keep, :age] => ["webpacker:verify_install", :environment] do |_, args|
     Webpacker.ensure_log_goes_to_stdout do
-      Webpacker.clean(Integer(args.keep || 2))
+      Webpacker.clean(Integer(args.keep || 2), Integer(args.age || 3600))
     end
   end
 end
