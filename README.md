@@ -327,18 +327,18 @@ You may also turn on this feature by adding the config option for any Rails envi
 
 ## Integrations
 
-Webpacker ships with basic out-of-the-box integration for React, Angular, Vue and Elm.
-You can see a list of available commands/tasks by running `bundle exec rails webpacker`.
+Webpacker ships with basic out-of-the-box integration. You can see a list of available commands/tasks by running `bundle exec rails webpacker`.
 
-Included integrations:
+Included install integrations:
 
 * React
-* Angular with TypeScript](./docs/integrations.md#react)
+* Angular with TypeScript
 * Vue
 * Elm
 * Svelte
 * Stimulus
 * CoffeeScript
+* Typescript
 * Erb
 
 See [Integrations](./docs/integrations.md) for further details.
