@@ -1,4 +1,5 @@
 const babel = require('./babel')
+const typescript = require('./typescript')
 const file = require('./file')
 const css = require('./css')
 const sass = require('./sass')
@@ -16,5 +17,6 @@ module.exports = {
   moduleCss,
   moduleSass,
   nodeModules,
-  babel
+  babel,
+  typescript
 }
