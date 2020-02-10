@@ -9,7 +9,7 @@
   ],
   "engines": {
     "node": ">=8.9.0",
-    "yarn": ">=1.0.0"
+    "yarn": ">=1 <2"
   },
   "dependencies": {
     "@babel/core": "^7.7.2",
