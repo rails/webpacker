@@ -28,6 +28,17 @@ class RakeTasksTest < Minitest::Test
     refute_includes output, "webpack binstubs not found."
   end
 
+  def test_check_node_version
+    output = Dir.chdir(test_app_path) { `rake webpacker:check_node 2>&1` }
+    refute_includes output, "Webpacker requires Node.js"
+  end
+
+  def test_check_yarn_version
+    output = Dir.chdir(test_app_path) { `rake webpacker:check_yarn 2>&1` }
+    refute_includes output, "Yarn not installed"
+    refute_includes output, "Webpacker requires Yarn"
+  end
+
   def test_rake_webpacker_yarn_install_in_non_production_environments
     assert_includes test_app_dev_dependencies, "right-pad"
 
@@ -50,16 +61,6 @@ class RakeTasksTest < Minitest::Test
 
     refute_includes installed_node_module_names, "right-pad",
                     "Expected only production dependencies to be installed"
-  end
-
-  def test_check_node_version
-    output = Dir.chdir(test_app_path) { `rake webpacker:check_node 2>&1` }
-    assert_empty output
-  end
-
-  def test_check_yarn_version
-    output = Dir.chdir(test_app_path) { `rake webpacker:check_yarn 2>&1` }
-    assert_empty output
   end
 
   private
