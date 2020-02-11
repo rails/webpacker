@@ -52,6 +52,16 @@ class RakeTasksTest < Minitest::Test
                     "Expected only production dependencies to be installed"
   end
 
+  def test_check_node_version
+    output = Dir.chdir(test_app_path) { `rake webpacker:check_node 2>&1` }
+    assert_empty output
+  end
+
+  def test_check_yarn_version
+    output = Dir.chdir(test_app_path) { `rake webpacker:check_yarn 2>&1` }
+    assert_empty output
+  end
+
   private
     def test_app_path
       File.expand_path("test_app", __dir__)
