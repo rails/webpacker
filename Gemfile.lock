@@ -5,6 +5,7 @@ PATH
       activesupport (>= 4.2)
       rack-proxy (>= 0.6.1)
       railties (>= 4.2)
+      semantic_range (>= 2.3.0)
 
 GEM
   remote: https://rubygems.org/
@@ -136,6 +137,7 @@ GEM
     rubocop-performance (1.3.0)
       rubocop (>= 0.68.0)
     ruby-progressbar (1.10.1)
+    semantic_range (2.3.0)
     sprockets (4.0.0)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -165,6 +167,7 @@ DEPENDENCIES
   rake (>= 11.1)
   rubocop (< 0.69)
   rubocop-performance
+  semantic_range
   webpacker!
 
 BUNDLED WITH
