@@ -6,7 +6,9 @@
 Webpacker gives you a default set of configuration files for test, development and
 production environments in `config/webpack/*.js`. You can configure each individual
 environment in their respective files or configure them all in the base
-`config/webpack/environment.js` file.
+`config/webpack/environment.js` file. 
+
+The file used is by Webpacker is based on the NODE_ENV value, not the RAILS_ENV value.
 
 By default, you don't need to make any changes to `config/webpack/*.js`
 files since it's all standard production-ready configuration. However,
@@ -14,8 +16,8 @@ if you do need to customize or add a new loader, this is where you would go.
 
 Here is how you can modify webpack configuration:
 
+#### config/webpack/custom.js
 ```js
-// config/webpack/custom.js
 module.exports = {
   resolve: {
     alias: {
@@ -27,8 +29,10 @@ module.exports = {
     }
   }
 }
+```
 
-// config/webpack/environment.js
+#### config/webpack/environment.js
+```js
 const { environment } = require('@rails/webpacker')
 const customConfig = require('./custom')
 
@@ -65,8 +69,8 @@ adding it to your environment. We'll use `json-loader` as an example:
 yarn add json-loader
 ```
 
+#### config/webpack/environment.js
 ```js
-// config/webpack/environment.js
 const { environment } = require('@rails/webpacker')
 
 const jsonLoader = {
@@ -93,8 +97,8 @@ they will be processed using `json-loader`. Voila!
 You can also modify the loaders that Webpacker pre-configures for you. We'll update
 the `babel` loader as an example:
 
+#### config/webpack/environment.js
 ```js
-// config/webpack/environment.js
 const { environment } = require('@rails/webpacker')
 
 const babelLoader = environment.loaders.get('babel')
@@ -112,8 +116,8 @@ but here is how you can use Coffeescript 2:
 yarn add coffeescript@2.0.1
 ```
 
+#### config/webpack/environment.js
 ```js
-// config/webpack/environment.js
 const { environment } = require('@rails/webpacker')
 
 const babelLoader = environment.loaders.get('babel')
@@ -155,9 +159,8 @@ fileLoader.exclude = /\.(svg)$/i
 
 ### Url Loader
 
+#### config/webpack/loaders/url.js
 ```js
-// config/webpack/loaders/url.js
-
 module.exports = {
   test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
   use: [{
@@ -168,9 +171,10 @@ module.exports = {
     }
   }]
 }
+```
 
-// config/webpack/environment.js
-
+#### config/webpack/environment.js
+```js
 const { environment } = require('@rails/webpacker')
 const url = require('./loaders/url')
 
@@ -215,8 +219,8 @@ For this to work, don't forget to use the `stylesheet_pack_tag`, for example:
 The process for adding or modifying webpack plugins is the same as the process
 for loaders above:
 
+#### config/webpack/environment.js
 ```js
-// config/webpack/environment.js
 const { environment } = require('@rails/webpacker')
 const webpack = require('webpack')
 
@@ -268,9 +272,8 @@ Since webpack v4, the CommonsChunkPlugin was removed in favor of optimization.sp
 
 For the full configuration options of SplitChunks, see the [Webpack documentation](https://webpack.js.org/plugins/split-chunks-plugin/).
 
+#### config/webpack/environment.js
 ```js
-// config/webpack/environment.js
-
 // Enable the default config
 environment.splitChunks()
 
@@ -323,8 +326,9 @@ You can preload your assets with the `preload_pack_asset` helper if you have Rai
 
 The CommonsChunkPlugin is an opt-in feature that creates a separate file (known as a chunk), consisting of common modules shared between multiple entry points. By separating common modules from bundles, the resulting chunked file can be loaded once initially, and stored in the cache for later use. This results in page speed optimizations as the browser can quickly serve the shared code from the cache, rather than being forced to load a larger bundle whenever a new page is visited.
 
-Add the plugins in `config/webpack/environment.js`:
+Add the plugins:
 
+#### config/webpack/environment.js
 ```js
 const webpack = require('webpack')
 
