@@ -8,8 +8,8 @@
     "lib/install/config/webpacker.yml"
   ],
   "engines": {
-    "node": ">=8.16.0",
-    "yarn": ">=1.0.0"
+    "node": ">=8.9",
+    "yarn": ">=1 <2"
   },
   "dependencies": {
     "@babel/core": "^7.7.2",
@@ -33,7 +33,7 @@
     "glob": "^7.1.6",
     "js-yaml": "^3.13.1",
     "mini-css-extract-plugin": "^0.8.0",
-    "node-sass": "^4.13.0",
+    "node-sass": "^4.13.1",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "path-complete-extname": "^1.0.0",
     "pnp-webpack-plugin": "^1.5.0",
@@ -45,7 +45,7 @@
     "regenerator-runtime": "^0.13.3",
     "sass-loader": "7.3.1",
     "style-loader": "^1.0.0",
-    "terser-webpack-plugin": "^2.3.1",
+    "terser-webpack-plugin": "^2.3.4",
     "webpack": "^4.41.3",
     "webpack-assets-manifest": "^3.1.1",
     "webpack-cli": "^3.3.10",

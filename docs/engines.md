@@ -196,5 +196,18 @@ config.middleware.use(
   urls: ["/my-engine-packs"], root: "my_engine/public"
 )
 ```
+or if you prefer to keep your engine-related configuration within the engine itself
+
+```ruby
+# my-engine-root/lib/my-engine/engine.rb
+module MyEngine
+  class Engine < ::Rails:Engine
+    config.app_middleware.use(
+      "Rack::Static",
+      urls: ["/my-engine-packs"], root: "my_engine/public"
+    )
+  end
+end
+```
 
 **NOTE:** in the example above we assume that your `public_output_path` is set to `my-engine-packs` in your engine's `webpacker.yml`.

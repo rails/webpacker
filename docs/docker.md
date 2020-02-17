@@ -1,6 +1,6 @@
 # Docker
 
-To setup webpacker with a dockerized Rails application is trivial.
+To setup webpacker with a dockerized Rails application.
 
 First, add a new service for webpacker in docker-compose.yml:
 
@@ -59,6 +59,24 @@ and create an env file to load environment variables from:
 NODE_ENV=development
 RAILS_ENV=development
 WEBPACKER_DEV_SERVER_HOST=0.0.0.0
+```
+
+then add the webpacker host name environment variable to the web/app service:
+
+```Dockerfile
+  web:
+    build:
+      context: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgres://postgres@db
+      - WEBPACKER_DEV_SERVER_HOST=webpacker
+    depends_on:
+      - db
 ```
 
 Lastly, rebuild your container:
