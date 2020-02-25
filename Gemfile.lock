@@ -89,7 +89,7 @@ GEM
     mini_portile2 (2.4.0)
     minitest (5.13.0)
     nio4r (2.5.2)
-    nokogiri (1.10.5)
+    nokogiri (1.10.8)
       mini_portile2 (~> 2.4.0)
     parallel (1.18.0)
     parser (2.6.5.0)
