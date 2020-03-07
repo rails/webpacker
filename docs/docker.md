@@ -9,8 +9,10 @@ version: '3'
 services:
   webpacker:
     build: .
-    env_file:
-      - '.env.docker'
+    environment:
+      - NODE_ENV=development
+      - RAILS_ENV=development
+      - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
     command: ./bin/webpack-dev-server
     volumes:
       - .:/webpacker-example-app
@@ -51,14 +53,6 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash \
  && apt-get update && apt-get install -y yarn && rm -rf /var/lib/apt/lists/*
 
 # Rest of the commands....
-```
-
-and create an env file to load environment variables from:
-
-```env
-NODE_ENV=development
-RAILS_ENV=development
-WEBPACKER_DEV_SERVER_HOST=0.0.0.0
 ```
 
 then add the webpacker host name environment variable to the web/app service:
