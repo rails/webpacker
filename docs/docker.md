@@ -67,10 +67,7 @@ then add the webpacker host name environment variable to the web/app service:
     ports:
       - "3000:3000"
     environment:
-      - DATABASE_URL=postgres://postgres@db
       - WEBPACKER_DEV_SERVER_HOST=webpacker
-    depends_on:
-      - db
 ```
 
 Lastly, rebuild your container:
