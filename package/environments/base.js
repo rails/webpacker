@@ -36,8 +36,8 @@ const getPluginList = () => {
   result.append(
     'MiniCssExtract',
     new MiniCssExtractPlugin({
-      filename: 'css/[name]-[contenthash:8].css',
-      chunkFilename: 'css/[name]-[contenthash:8].chunk.css'
+      filename: `css/[name]-[contenthash:8]-${config.version}.css`,
+      chunkFilename: `css/[name]-[contenthash:8]-${config.version}.chunk.css`
     })
   )
   result.append(
@@ -83,8 +83,8 @@ const getModulePaths = () => {
 const getBaseConfig = () => new ConfigObject({
   mode: 'production',
   output: {
-    filename: 'js/[name]-[contenthash].js',
-    chunkFilename: 'js/[name]-[contenthash].chunk.js',
+    filename: `js/[name]-[contenthash]-${config.version}.js`,
+    chunkFilename: `js/[name]-[contenthash]-${config.version}.chunk.js`,
     hotUpdateChunkFilename: 'js/[id]-[hash].hot-update.js',
     path: config.outputPath,
     publicPath: config.publicPath
