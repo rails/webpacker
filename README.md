@@ -331,15 +331,15 @@ Webpacker ships with basic out-of-the-box integration. You can see a list of ava
 
 Included install integrations:
 
-* React
-* Angular with TypeScript
-* Vue
-* Elm
-* Svelte
-* Stimulus
-* CoffeeScript
-* Typescript
-* Erb
+* [React](./docs/integrations.md#React)
+* [Angular with TypeScript](./docs/integrations.md#Angular-with-TypeScript)
+* [Vue](./docs/integrations.md#Vue)
+* [Elm](./docs/integrations.md#Elm)
+* [Svelte](./docs/integrations.md#Svelte)
+* [Stimulus](./docs/integrations.md#Stimulus)
+* [CoffeeScript](./docs/integrations.md#CoffeeScript)
+* [Typescript](./docs/integrations.md)
+* [Erb](./docs/integrations.md#Erb)
 
 See [Integrations](./docs/integrations.md) for further details.
 
