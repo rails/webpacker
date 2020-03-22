@@ -13,10 +13,11 @@ even JavaScript Sprinkles (that all continues to live in app/assets).
 However, it is possible to use Webpacker for CSS, images and fonts assets as well,
 in which case you may not even need the asset pipeline. This is mostly relevant when exclusively using component-based JavaScript frameworks.
 
-**NOTE:** The master branch now hosts the code for v4.x.x. Please refer to [3-x-stable](https://github.com/rails/webpacker/tree/3-x-stable) branch for 3.x documentation. See the [v4-upgrade guide](docs/v4-upgrade.md) for an overview of the changes.
+**NOTE:** The master branch now hosts the code for v5.x.x. Please refer to [4-x-stable](https://github.com/rails/webpacker/tree/4-x-stable) branch for 4.x documentation.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 ## Table of Contents
 
 - [Prerequisites](#prerequisites)
@@ -47,29 +48,26 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-
 ## Prerequisites
 
-* Ruby 2.4+
-* Rails 5.2+
-* Node.js 10.13.0+
-* Yarn 1.x+
-
+- Ruby 2.4+
+- Rails 5.2+
+- Node.js 10.13.0+
+- Yarn 1.x+
 
 ## Features
 
-* [webpack 4.x.x](https://webpack.js.org/)
-* ES6 with [babel](https://babeljs.io/)
-* Automatic code splitting using multiple entry points
-* Stylesheets - Sass and CSS
-* Images and fonts
-* PostCSS - Auto-Prefixer
-* Asset compression, source-maps, and minification
-* CDN support
-* React, Angular, Elm and Vue support out-of-the-box
-* Rails view helpers
-* Extensible and configurable
-
+- [webpack 4.x.x](https://webpack.js.org/)
+- ES6 with [babel](https://babeljs.io/)
+- Automatic code splitting using multiple entry points
+- Stylesheets - Sass and CSS
+- Images and fonts
+- PostCSS - Auto-Prefixer
+- Asset compression, source-maps, and minification
+- CDN support
+- React, Angular, Elm and Vue support out-of-the-box
+- Rails view helpers
+- Extensible and configurable
 
 ## Installation
 
@@ -127,8 +125,8 @@ app/javascript:
 In `/packs/application.js`, include this at the top of the file:
 
 ```js
-import "core-js/stable";
-import "regenerator-runtime/runtime";
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
 ```
 
 You can then link the JavaScript pack in Rails views using the `javascript_pack_tag` helper.
@@ -174,7 +172,6 @@ helper otherwise you will get duplicated chunks on the page.
 
 **Note:** In order for your styles or static assets files to be available in your view,
 you would need to link them in your "pack" or entry file.
-
 
 ### Development
 
@@ -240,7 +237,6 @@ WEBPACKER_DEV_SERVER_HOST=0.0.0.0 ./bin/webpack-dev-server
 
 See [docs/webpack](docs/webpack.md) for modifying webpack configuration and loaders.
 
-
 ### Custom Rails environments
 
 Out of the box Webpacker ships with - development, test and production environments in `config/webpacker.yml` however, in most production apps extra environments are needed as part of deployment workflow. Webpacker supports this out of the box from version 3.4.0+ onwards.
@@ -290,7 +286,6 @@ bundle exec rails assets:precompile
 bundle exec rails webpacker:compile
 ```
 
-
 ### Upgrading
 
 You can run following commands to upgrade Webpacker to the latest stable version. This process involves upgrading the gem and related JavaScript packages:
@@ -322,7 +317,7 @@ development:
 You may also turn on this feature by adding the config option for any Rails environment in `config/webpacker.yml`:
 
 ```yaml
-  check_yarn_integrity: true
+check_yarn_integrity: true
 ```
 
 ## Integrations
@@ -331,15 +326,15 @@ Webpacker ships with basic out-of-the-box integration. You can see a list of ava
 
 Included install integrations:
 
-* [React](./docs/integrations.md#React)
-* [Angular with TypeScript](./docs/integrations.md#Angular-with-TypeScript)
-* [Vue](./docs/integrations.md#Vue)
-* [Elm](./docs/integrations.md#Elm)
-* [Svelte](./docs/integrations.md#Svelte)
-* [Stimulus](./docs/integrations.md#Stimulus)
-* [CoffeeScript](./docs/integrations.md#CoffeeScript)
-* [Typescript](./docs/integrations.md)
-* [Erb](./docs/integrations.md#Erb)
+- [React](./docs/integrations.md#React)
+- [Angular with TypeScript](./docs/integrations.md#Angular-with-TypeScript)
+- [Vue](./docs/integrations.md#Vue)
+- [Elm](./docs/integrations.md#Elm)
+- [Svelte](./docs/integrations.md#Svelte)
+- [Stimulus](./docs/integrations.md#Stimulus)
+- [CoffeeScript](./docs/integrations.md#CoffeeScript)
+- [Typescript](./docs/integrations.md)
+- [Erb](./docs/integrations.md#Erb)
 
 See [Integrations](./docs/integrations.md) for further details.
 
@@ -378,7 +373,6 @@ development:
 
 If you have `hmr` turned to true, then the `stylesheet_pack_tag` generates no output, as you will want to configure your styles to be inlined in your JavaScript for hot reloading. During production and testing, the `stylesheet_pack_tag` will create the appropriate HTML tags.
 
-
 ### Resolved
 
 If you are adding Webpacker to an existing app that has most of the assets inside
@@ -403,7 +397,6 @@ import 'images/rails.png'
 will make the compilation slow, consider adding specific paths instead of
 whole parent directory if you just need to reference one or two modules
 
-
 ### Watched
 
 By default, the lazy compilation is cached until a file is changed under your
@@ -416,11 +409,9 @@ by adding new paths to `watched_paths` array. This is much like Rails' `autoload
 Webpacker::Compiler.watched_paths << 'bower_components'
 ```
 
-
 ## Deployment
 
 Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which gets run whenever you run `assets:precompile`. If you are not using Sprockets, `webpacker:compile` is automatically aliased to `assets:precompile`. Similar to sprockets both rake tasks will compile packs in production mode but will use `RAILS_ENV` to load configuration from `config/webpacker.yml` (if available).
-
 
 ## Docs
 
@@ -429,9 +420,7 @@ Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which 
   - [Webpack-dev-server](./docs/webpack-dev-server.md)
   - [Environment Variables](./docs/env.md)
   - [Folder Structure](./docs/folder-structure.md)
-  - [Assets](./docs/assets.md)
-	  - [CSS, Sass and SCSS](./docs/css.md)
-	  - [ES6](./docs/es6.md)
+  - [Assets](./docs/assets.md) - [CSS, Sass and SCSS](./docs/css.md) - [ES6](./docs/es6.md)
     - [Props](./docs/props.md)
     - [Typescript](./docs/typescript.md)
   - [Yarn](./docs/yarn.md)
@@ -444,12 +433,12 @@ Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which 
 - [Troubleshooting](./docs/troubleshooting.md)
 - [v3 to v4 Upgrade Guide](./docs/v4-upgrade.md)
 
-
 ## Contributing
+
 [![Code Helpers](https://www.codetriage.com/rails/webpacker/badges/users.svg)](https://www.codetriage.com/rails/webpacker)
 
 We encourage you to contribute to Webpacker! See [CONTRIBUTING](CONTRIBUTING.md) for guidelines about how to proceed.
 
-
 ## License
+
 Webpacker is released under the [MIT License](https://opensource.org/licenses/MIT).
