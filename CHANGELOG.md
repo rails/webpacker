@@ -2,6 +2,23 @@
 
 **Please note that Webpacker 4.1.0 has an installer bug. Please use 4.2.0 or above**
 
+## [[5.0.0]](https://github.com/rails/webpacker/compare/v4.2.2...v5.0.0) - 2020-03-22
+
+- Bump minimum node version [#2428](https://github.com/rails/webpacker/pull/2428)
+- Bump minimum ruby/rails version [#2415](https://github.com/rails/webpacker/pull/2415)
+- Add support for multiple files per entry [#2476](https://github.com/rails/webpacker/pull/2476)
+
+```js
+  entry: {
+    home: ['./home.js', './home.scss'],
+    account: ['./account.js', './account.scss']
+  }
+```
+
+You can now have two entry files with same names inside packs folder, `home.scss` and `home.js`
+
+And, other minor fixes, please see a list of changes [here](https://github.com/rails/webpacker/compare/v4.2.2...v5.0.0)
+
 ## [[4.2.2]](https://github.com/rails/webpacker/compare/v4.2.1...v4.2.2) - 2019-12-09
 
 - Fixed issue with webpack clean task for nested assets [#2391](https://github.com/rails/webpacker/pull/2391)
