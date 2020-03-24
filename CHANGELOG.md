@@ -2,6 +2,10 @@
 
 **Please note that Webpacker 4.1.0 has an installer bug. Please use 4.2.0 or above**
 
+## [[5.0.1]](https://github.com/rails/webpacker/compare/v4.2.2...v5.0.0) - 2020-03-22
+
+- Upgrade deps and fix sass loader config options bug [#2508](https://github.com/rails/webpacker/pull/2508)
+
 ## [[5.0.0]](https://github.com/rails/webpacker/compare/v4.2.2...v5.0.0) - 2020-03-22
 
 - Bump minimum node version [#2428](https://github.com/rails/webpacker/pull/2428)
