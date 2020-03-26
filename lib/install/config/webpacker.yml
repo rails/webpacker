@@ -1,20 +1,34 @@
 # Note: You must restart bin/webpack-dev-server for changes to take effect
 
 default: &default
+  # Values used by Ruby part of rails/webpacker
   source_path: app/javascript
-  source_entry_path: packs
   public_root_path: public
   public_output_path: packs
   cache_path: tmp/cache/webpacker
   check_yarn_integrity: false
+
+  # Reload manifest.json on all requests so we reload latest compiled packs
+  # Only production like environments should use this as changes to your webpack bundles will not be
+  # detected during development if this is true.
+  cache_manifest: false
+
+  # Set webpack_compile_output to `false` if you have your own Webpack compilation setup, often
+  # done in development by using webpack --watch
   webpack_compile_output: true
+
+  # All values below apply to the rails/Webpacker wrapper around webpack. Note, it maybe convenient
+  # to use some of these values in a custom webpack configuration.
+  # If you search the rails/webpacker code, you'll find these values are used only in either:
+  # 1. JS files provided by the NPM package @rails/webpacker, used to build your webpack config
+  #    based on the defaults provided by @rails/webpacker
+  # 2. The rails/webpacker compiler
+  source_entry_path: packs
 
   # Additional paths webpack should lookup modules
   # ['app/assets', 'engine/foo/app/assets']
+  # resolved_paths is used to trigger the compiler when files changed.
   resolved_paths: []
-
-  # Reload manifest.json on all requests so we reload latest compiled packs
-  cache_manifest: false
 
   # Extract and emit a css file
   extract_css: false
