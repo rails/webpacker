@@ -29,7 +29,7 @@ class Webpacker::Manifest
   end
 
   def lookup_pack_with_chunks!(name, pack_type = {})
-    lookup_pack_with_chunks(name, pack_type) || handle_missing_entry(name)
+    lookup_pack_with_chunks(name, pack_type) || handle_missing_entry(name, pack_type)
   end
 
   # Computes the relative path for a given Webpacker asset using manifest.json.
@@ -46,7 +46,7 @@ class Webpacker::Manifest
 
   # Like lookup, except that if no asset is found, raises a Webpacker::Manifest::MissingEntryError.
   def lookup!(name, pack_type = {})
-    lookup(name, pack_type) || handle_missing_entry(name)
+    lookup(name, pack_type) || handle_missing_entry(name, pack_type)
   end
 
   private
@@ -75,8 +75,8 @@ class Webpacker::Manifest
       "#{name}.#{manifest_type(pack_type)}"
     end
 
-    def handle_missing_entry(name)
-      raise Webpacker::Manifest::MissingEntryError, missing_file_from_manifest_error(name)
+    def handle_missing_entry(name, pack_type)
+      raise Webpacker::Manifest::MissingEntryError, missing_file_from_manifest_error(full_pack_name(name, pack_type[:type]))
     end
 
     def load

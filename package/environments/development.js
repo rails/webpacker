@@ -14,11 +14,7 @@ module.exports = class extends Base {
 
     this.config.merge({
       mode: 'development',
-      cache: true,
       devtool: 'cheap-module-source-map',
-      output: {
-        pathinfo: true
-      },
       devServer: {
         clientLogLevel: 'none',
         compress: devServer.compress,
