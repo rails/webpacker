@@ -28,7 +28,6 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
   - [Webpack Configuration](#webpack-configuration)
   - [Custom Rails environments](#custom-rails-environments)
   - [Upgrading](#upgrading)
-  - [Yarn Integrity](#yarn-integrity)
 - [Integrations](#integrations)
   - [React](./docs/integrations.md#react)
   - [Angular with TypeScript](./docs/integrations.md#angular-with-typescript)
@@ -298,26 +297,6 @@ yarn upgrade webpack-dev-server --latest
 
 # Or to install the latest release (including pre-releases)
 yarn add @rails/webpacker@next
-```
-
-### Yarn Integrity
-
-By default, in development, webpacker runs a yarn integrity check to ensure that all local JavaScript packages are up-to-date. This is similar to what bundler does currently in Rails, but for JavaScript packages. If your system is out of date, then Rails will not initialize. You will be asked to upgrade your local JavaScript packages by running `yarn install`.
-
-To turn off this option, you will need to change the default setting in `config/webpacker.yml`:
-
-```yaml
-# config/webpacker.yml
-development:
-  ...
-  # Verifies that correct packages and versions are installed by inspecting package.json, yarn.lock, and node_modules
-  check_yarn_integrity: false
-```
-
-You may also turn on this feature by adding the config option for any Rails environment in `config/webpacker.yml`:
-
-```yaml
-check_yarn_integrity: true
 ```
 
 ## Integrations
