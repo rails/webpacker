@@ -25,7 +25,6 @@ In order for your Webpacker app to run on Heroku, you'll need to do a bit of con
 ```
 heroku create my-webpacker-heroku-app
 heroku addons:create heroku-postgresql:hobby-dev
-heroku buildpacks:add heroku/nodejs
 heroku buildpacks:add heroku/ruby
 git push heroku master
 ```
@@ -34,8 +33,10 @@ We're essentially doing the following here:
 
 * Creating an app on Heroku
 * Creating a Postgres database for the app (this is assuming that you're using Heroku Postgres for your app)
-* Adding the Heroku NodeJS and Ruby buildpacks for your app. This allows the `npm` or `yarn` executables to properly function when compiling your app - as well as Ruby.
+* Adding the Ruby buildpack to your app.
 * Pushing our code to Heroku and kicking off the deployment
+
+The `heroku/nodejs` buildpack is no longer required.
 
 
 ## Nginx
