@@ -5,7 +5,7 @@ const { nodeEnv } = require('../env')
 // Process application Javascript code with Babel.
 // Uses application .babelrc to apply any transformations
 module.exports = {
-  test: /\.(js|jsx|mjs)?(\.erb)?$/,
+  test: /\.(js|jsx|mjs|ts|tsx)?(\.erb)?$/,
   include: [sourcePath, ...resolvedPaths].map((p) => resolve(p)),
   exclude: /node_modules/,
   use: [

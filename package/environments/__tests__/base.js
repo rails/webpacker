@@ -40,8 +40,8 @@ describe('Environment', () => {
       const defaultRules = Object.keys(rules)
       const configRules = config.module.rules
 
-      expect(defaultRules.length).toEqual(8)
-      expect(configRules.length).toEqual(9)
+      expect(defaultRules.length).toEqual(7)
+      expect(configRules.length).toEqual(8)
     })
 
     test('should return default plugins', () => {

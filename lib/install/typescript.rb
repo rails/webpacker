@@ -15,10 +15,6 @@ if File.exist?(package_json)
   end
 end
 
-say "Don't remove TypeScript loader"
-gsub_file Rails.root.join("config/webpack/environment.js").to_s,
-  /environment\.loaders\.delete\('typescript'\)\n/, ""
-
 say "Adding TypeScript preset to babel.config.js"
 insert_into_file Rails.root.join("babel.config.js").to_s,
   ",\n      ['@babel/preset-typescript', { 'allExtensions': true, 'isTSX': true }]",
