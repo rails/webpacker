@@ -106,7 +106,7 @@ Optional: To fix ["unmet peer dependency" warnings](https://github.com/rails/web
 yarn upgrade
 ```
 
-When `package.json` and/or `yarn.lock` changes, such as when pulling down changes to your local environemnt in a team settings, be sure to keep your NPM packages up-to-date:
+When `package.json` and/or `yarn.lock` changes, such as when pulling down changes to your local environment in a team settings, be sure to keep your NPM packages up-to-date:
 
 ```bash
 yarn install
