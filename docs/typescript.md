@@ -21,35 +21,19 @@ bundle exec rails webpacker:install:typescript
 ```
 
 2. Rename generated `hello_vue.js` to `hello_vue.ts`.
-3. Add the webpack plug-n-play plugin to your yarn packages with `yarn add pnp-webpack-plugin`.
-4. Change the generated `config/webpack/loaders/typescript.js` from
+3. Change the generated `babel.config.js` from
 
 ```js
-module.exports = {
-  test: /\.tsx?(\.erb)?$/,
-  use: [{
-    loader: 'ts-loader'
-  }]
-}
+["@babel/preset-typescript", { "allExtensions": true, "isTSX": true }]
 ```
 
 to
 
 ```js
-const PnpWebpackPlugin = require('pnp-webpack-plugin');
-
-module.exports = {
-  test: /\.tsx?(\.erb)?$/,
-  use: [{
-    loader: 'ts-loader',
-    options: PnpWebpackPlugin.tsLoaderOptions({
-      appendTsSuffixTo: [/\.vue$/]
-    })
-  }]
-}
+["babel-preset-typescript-vue", { "allExtensions": true, "isTSX": true }]
 ```
 
-and now you can use `<script lang="ts">` in your `.vue` component files. See [the pnp-webpack-plugin docs for the `ts-loader` integration](https://github.com/arcanis/pnp-webpack-plugin#ts-loader-integration) for more info.
+and now you can use `<script lang="ts">` in your `.vue` component files. See [the babel-preset-typescript-vue docs](https://www.npmjs.com/package/babel-preset-typescript-vue) for more info.
 
 ## HTML templates with Typescript and Angular
 
