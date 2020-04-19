@@ -2,7 +2,13 @@
 
 **Please note that Webpacker 4.1.0 has an installer bug. Please use 4.2.0 or above**
 
-## [[5.0.1]](https://github.com/rails/webpacker/compare/v4.2.2...v5.0.0) - 2020-03-22
+## [[5.1.0]](https://github.com/rails/webpacker/compare/v5.0.1...v5.1.0) - 2020-04-19
+
+- Remove yarn integrity check [#2518](https://github.com/rails/webpacker/pull/2518)
+- Switch from ts-loader to babel-loader [#2449](https://github.com/rails/webpacker/pull/2449)
+- Resolve multi-word snakecase WEBPACKER_DEV_SERVER env values [#2528](https://github.com/rails/webpacker/pull/2528)
+
+## [[5.0.1]](https://github.com/rails/webpacker/compare/v5.0.0...v5.0.1) - 2020-03-22
 
 - Upgrade deps and fix sass loader config options bug [#2508](https://github.com/rails/webpacker/pull/2508)
 
