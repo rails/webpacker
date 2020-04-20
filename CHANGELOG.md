@@ -5,7 +5,8 @@
 ## [[5.1.0]](https://github.com/rails/webpacker/compare/v5.0.1...v5.1.0) - 2020-04-19
 
 - Remove yarn integrity check [#2518](https://github.com/rails/webpacker/pull/2518)
-- Switch from ts-loader to babel-loader [#2449](https://github.com/rails/webpacker/pull/2449)
+- Switch from ts-loader to babel-loader [#2449](https://github.com/rails/webpacker/pull/2449)  
+  Please see the [TypeScript documentation](https://github.com/rails/webpacker/blob/master/docs/typescript.md) to upgrade existing projects to use typescript with 5.1
 - Resolve multi-word snakecase WEBPACKER_DEV_SERVER env values [#2528](https://github.com/rails/webpacker/pull/2528)
 
 ## [[5.0.1]](https://github.com/rails/webpacker/compare/v5.0.0...v5.0.1) - 2020-03-22
