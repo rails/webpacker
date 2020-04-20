@@ -1,6 +1,6 @@
 require "webpacker/configuration"
 
-additional_packages = ""
+additional_packages = []
 example_source = "typescript"
 
 # Additional configuration is required for React projects
@@ -10,8 +10,12 @@ if File.exist?(package_json)
   package["dependencies"] ||= {}
 
   if package["dependencies"].keys.include?("react")
-    additional_packages = "@types/react @types/react-dom"
+    additional_packages << ["@types/react", "@types/react-dom"]
     example_source = "react"
+  end
+
+  if package["dependencies"].keys.include?("vue")
+    additional_packages << "babel-preset-typescript-vue"
   end
 end
 
@@ -34,6 +38,6 @@ copy_file "#{__dir__}/examples/typescript/hello_typescript.ts",
   "#{Webpacker.config.source_entry_path}/hello_typescript.ts"
 
 say "Installing all typescript dependencies"
-run "yarn add typescript @babel/preset-typescript #{additional_packages}"
+run "yarn add typescript @babel/preset-typescript #{additional_packages.join(" ")}"
 
 say "Webpacker now supports typescript 🎉", :green

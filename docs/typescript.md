@@ -35,7 +35,7 @@ If you update your App to `webpacker >= 5.1` and had TypeScript installed before
 1. Remove old packages:
     - `yarn remove ts-loader pnp-webpack-plugin`
 
-2. Follow point 3 and 4 from the `TypeScript with Vue components` section
+2. Follow point 3 from the `TypeScript with Vue components` section
 
 ## TypeScript with React
 
@@ -57,8 +57,7 @@ bundle exec rails webpacker:install:typescript
 ```
 
 2. Rename generated `hello_vue.js` to `hello_vue.ts`.
-3. Install the right Babel preset: `yarn add babel-preset-typescript-vue`
-4. Change the generated `babel.config.js` from
+3. Change the generated `babel.config.js` from
 
 ```js
 ["@babel/preset-typescript", { "allExtensions": true, "isTSX": true }]

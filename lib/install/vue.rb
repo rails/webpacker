@@ -1,5 +1,18 @@
 require "webpacker/configuration"
 
+additional_packages = ""
+
+# Additional configuration is required for Vue projects
+package_json = Rails.root.join("package.json")
+if File.exist?(package_json)
+  package = JSON.parse(File.read(package_json))
+  package["dependencies"] ||= {}
+
+  if package["dependencies"].keys.include?("typescript")
+    additional_packages = "babel-preset-typescript-vue"
+  end
+end
+
 say "Copying vue loader to config/webpack/loaders"
 copy_file "#{__dir__}/loaders/vue.js", Rails.root.join("config/webpack/loaders/vue.js").to_s
 
@@ -33,7 +46,7 @@ copy_file "#{__dir__}/examples/vue/app.vue",
   "#{Webpacker.config.source_path}/app.vue"
 
 say "Installing all Vue dependencies"
-run "yarn add vue vue-loader vue-template-compiler"
+run "yarn add vue vue-loader vue-template-compiler #{additional_packages}"
 
 if Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR > 1
   say "You need to enable unsafe-eval rule.", :yellow
