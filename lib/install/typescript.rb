@@ -34,6 +34,6 @@ copy_file "#{__dir__}/examples/typescript/hello_typescript.ts",
   "#{Webpacker.config.source_entry_path}/hello_typescript.ts"
 
 say "Installing all typescript dependencies"
-run "yarn add typescript @babel/preset-typescript babel-preset-typescript-vue #{additional_packages}"
+run "yarn add typescript @babel/preset-typescript #{additional_packages}"
 
 say "Webpacker now supports typescript 🎉", :green
