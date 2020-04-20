@@ -4,6 +4,11 @@ const { resolved_paths: includePaths } = require('../config')
 module.exports = getStyleRule(/\.(scss|sass)(\.erb)?$/i, false, [
   {
     loader: 'sass-loader',
-    options: { sourceMap: true, includePaths }
+    options: {
+      sourceMap: true,
+      sassOptions: {
+        includePaths
+      }
+    }
   }
 ])

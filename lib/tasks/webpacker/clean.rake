@@ -11,11 +11,15 @@ namespace :webpacker do
   end
 end
 
-# Run clean if the assets:clean is run
-if Rake::Task.task_defined?("assets:clean")
-  Rake::Task["assets:clean"].enhance do
-    Rake::Task["webpacker:clean"].invoke
+skip_webpacker_clean = %w(no false n f).include?(ENV["WEBPACKER_PRECOMPILE"])
+
+unless skip_webpacker_clean
+  # Run clean if the assets:clean is run
+  if Rake::Task.task_defined?("assets:clean")
+    Rake::Task["assets:clean"].enhance do
+      Rake::Task["webpacker:clean"].invoke
+    end
+  else
+    Rake::Task.define_task("assets:clean" => "webpacker:clean")
   end
-else
-  Rake::Task.define_task("assets:clean" => "webpacker:clean")
 end

@@ -7,49 +7,6 @@ class Webpacker::Engine < ::Rails::Engine
   # Allows Webpacker config values to be set via Rails env config files
   config.webpacker = ActiveSupport::OrderedOptions.new
 
-  initializer "webpacker.set_configs" do |app|
-    if app.config.webpacker.key?(:check_yarn_integrity)
-      Webpacker.config.check_yarn_integrity = app.config.webpacker.check_yarn_integrity
-    end
-  end
-
-  # ================================
-  # Check Yarn Integrity Initializer
-  # ================================
-  #
-  # development (on by default):
-  #
-  #    to turn off:
-  #     - edit config/environments/development.rb
-  #     - add `config.webpacker.check_yarn_integrity = false`
-  #
-  # production (off by default):
-  #
-  #    to turn on:
-  #     - edit config/environments/production.rb
-  #     - add `config.webpacker.check_yarn_integrity = true`
-  initializer "webpacker.yarn_check" do |app|
-    if File.exist?("yarn.lock") && Webpacker.config.config_path.exist? && Webpacker.config.check_yarn_integrity?
-      output = `yarn check --integrity && yarn check --verify-tree 2>&1`
-
-      unless $?.success?
-        $stderr.puts "\n\n"
-        $stderr.puts "========================================"
-        $stderr.puts "  Your Yarn packages are out of date!"
-        $stderr.puts "  Please run `yarn install --check-files` to update."
-        $stderr.puts "========================================"
-        $stderr.puts "\n\n"
-        $stderr.puts "To disable this check, please change `check_yarn_integrity`"
-        $stderr.puts "to `false` in your webpacker config file (config/webpacker.yml)."
-        $stderr.puts "\n\n"
-        $stderr.puts output
-        $stderr.puts "\n\n"
-
-        exit(1)
-      end
-    end
-  end
-
   initializer "webpacker.proxy" do |app|
     insert_middleware = Webpacker.config.dev_server.present? rescue nil
     if insert_middleware

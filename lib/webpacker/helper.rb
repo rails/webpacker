@@ -7,8 +7,8 @@ module Webpacker::Helper
   end
 
   # Computes the relative path for a given Webpacker asset.
-  # Returns the relative path using manifest.json and passes it to asset_path helper.
-  # This will use asset_path internally, so most of their behaviors will be the same.
+  # Returns the relative path using manifest.json and passes it to path_to_asset helper.
+  # This will use path_to_asset internally, so most of their behaviors will be the same.
   #
   # Example:
   #
@@ -19,13 +19,13 @@ module Webpacker::Helper
   #   <%= asset_pack_path 'calendar.css' %> # => "/packs/calendar-1016838bab065ae1e122.css"
   def asset_pack_path(name, **options)
     if current_webpacker_instance.config.extract_css? || !stylesheet?(name)
-      asset_path(current_webpacker_instance.manifest.lookup!(name), options)
+      path_to_asset(current_webpacker_instance.manifest.lookup!(name), options)
     end
   end
 
   # Computes the absolute path for a given Webpacker asset.
-  # Returns the absolute path using manifest.json and passes it to asset_url helper.
-  # This will use asset_url internally, so most of their behaviors will be the same.
+  # Returns the absolute path using manifest.json and passes it to url_to_asset helper.
+  # This will use url_to_asset internally, so most of their behaviors will be the same.
   #
   # Example:
   #
@@ -36,7 +36,7 @@ module Webpacker::Helper
   #   <%= asset_pack_url 'calendar.css' %> # => "http://example.com/packs/calendar-1016838bab065ae1e122.css"
   def asset_pack_url(name, **options)
     if current_webpacker_instance.config.extract_css? || !stylesheet?(name)
-      asset_url(current_webpacker_instance.manifest.lookup!(name), options)
+      url_to_asset(current_webpacker_instance.manifest.lookup!(name), options)
     end
   end
 
@@ -169,8 +169,8 @@ module Webpacker::Helper
 
     def resolve_path_to_image(name)
       path = name.starts_with?("media/images/") ? name : "media/images/#{name}"
-      asset_path(current_webpacker_instance.manifest.lookup!(path))
+      path_to_asset(current_webpacker_instance.manifest.lookup!(path))
     rescue
-      asset_path(current_webpacker_instance.manifest.lookup!(name))
+      path_to_asset(current_webpacker_instance.manifest.lookup!(name))
     end
 end
