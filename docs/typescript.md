@@ -10,6 +10,33 @@ bundle exec rails webpacker:install:typescript
 
 After that, a new file called `hello_typescript.ts` will be present in your `packs` directory (or rather the `source_entry_path` of your `webpacker.yml` configuration). You're now ready to write TypeScript. 
 
+## Upgrading to 5.1
+
+If you update your App to `webpacker >= 5.1` and had TypeScript installed before, you need to add some new/remove some old configurations:
+
+1. Remove old packages:
+    - `yarn remove ts-loader`
+
+2. Add new packages:
+    - `yarn add @babel/preset-typescript babel-preset-typescript-vue -D`
+
+3. Remove old configuration files: 
+    - Delete this file: `config/webpack/loaders/typescript.js`
+
+4. Remove the following lines from `config/webpack/environment.js`:
+    - `const typescript = require('./loaders/typescript')`
+    - `environment.loaders.prepend('typescript', typescript)`
+
+5. Add the TypeScript preset to your `babel.config.js`:
+    - This line `['@babel/preset-typescript', { 'allExtensions': true, 'isTSX': true }]` has to be added as the last item to the `presets` array in your `babel.config.js`
+
+### Upgrading to 5.1 for Vue users
+
+1. Remove old packages:
+    - `yarn remove ts-loader pnp-webpack-plugin`
+
+2. Follow point 3 from the `TypeScript with Vue components` section
+
 ## TypeScript with React
 
 1. Setup react using Webpacker [react installer](../README.md#react). Then run the TypeScript installer
