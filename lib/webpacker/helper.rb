@@ -61,7 +61,7 @@ module Webpacker::Helper
   end
 
   # Creates a script tag that references the named pack file, as compiled by webpack per the entries list
-  # in config/webpack/shared.js. By default, this list is auto-generated to match everything in
+  # in package/environments/base.js. By default, this list is auto-generated to match everything in
   # app/javascript/packs/*.js. In production mode, the digested reference is automatically looked up.
   #
   # Example:
@@ -73,7 +73,7 @@ module Webpacker::Helper
   end
 
   # Creates script tags that reference the js chunks from entrypoints when using split chunks API,
-  # as compiled by webpack per the entries list in config/webpack/shared.js.
+  # as compiled by webpack per the entries list in package/environments/base.js.
   # By default, this list is auto-generated to match everything in
   # app/javascript/packs/*.js and all the dependent chunks. In production mode, the digested reference is automatically looked up.
   # See: https://webpack.js.org/plugins/split-chunks-plugin/
@@ -110,7 +110,7 @@ module Webpacker::Helper
   end
 
   # Creates a link tag that references the named pack file, as compiled by webpack per the entries list
-  # in config/webpack/shared.js. By default, this list is auto-generated to match everything in
+  # in package/environments/base.js. By default, this list is auto-generated to match everything in
   # app/javascript/packs/*.js. In production mode, the digested reference is automatically looked up.
   #
   # Note: If the development server is running and hot module replacement is active, this will return nothing.
@@ -132,7 +132,7 @@ module Webpacker::Helper
   end
 
   # Creates link tags that reference the css chunks from entrypoints when using split chunks API,
-  # as compiled by webpack per the entries list in config/webpack/shared.js.
+  # as compiled by webpack per the entries list in package/environments/base.js.
   # By default, this list is auto-generated to match everything in
   # app/javascript/packs/*.js and all the dependent chunks. In production mode, the digested reference is automatically looked up.
   # See: https://webpack.js.org/plugins/split-chunks-plugin/
