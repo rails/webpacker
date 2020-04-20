@@ -1,18 +1,27 @@
-# Typescript
+# TypeScript
 
+## Installation
 
-## Typescript with React
-
-1. Setup react using Webpacker [react installer](../README.md#react). Then run the typescript installer
+1. Run the TypeScript installer
 
 ```bash
 bundle exec rails webpacker:install:typescript
 ```
 
-2. Rename the generated `hello_react.js` to `hello_react.tsx`. Make the file valid typescript and
-now you can use typescript, JSX with React.
+After that, a new file called `hello_typescript.ts` will be present in your `packs` directory (or rather the `source_entry_path` of your `webpacker.yml` configuration). You're now ready to write TypeScript. 
 
-## Typescript with Vue components
+## TypeScript with React
+
+1. Setup react using Webpacker [react installer](../README.md#react). Then run the TypeScript installer
+
+```bash
+bundle exec rails webpacker:install:typescript
+```
+
+2. Rename the generated `hello_react.js` to `hello_react.tsx`. Make the file valid TypeScript and
+now you can use TypeScript, JSX with React.
+
+## TypeScript with Vue components
 
 1. Setup Vue using the Webpacker [Vue installer](../README.md#vue). Then run the TypeScript installer
 
@@ -35,7 +44,7 @@ to
 
 and now you can use `<script lang="ts">` in your `.vue` component files. See [the babel-preset-typescript-vue docs](https://www.npmjs.com/package/babel-preset-typescript-vue) for more info.
 
-## HTML templates with Typescript and Angular
+## HTML templates with TypeScript and Angular
 
 After you have installed Angular using `bundle exec rails webpacker:install:angular`
 you would need to follow these steps to add HTML templates support:
