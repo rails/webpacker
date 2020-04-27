@@ -14,6 +14,10 @@ default: &default
     - app/assets
     - /etc/yarn
 
+  # Additional path webpacker should watch to trigger recompilation
+  watched_paths:
+    - bower_components
+
   # Reload manifest.json on all requests so we reload latest compiled packs
   cache_manifest: false
 
