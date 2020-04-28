@@ -5,7 +5,7 @@ module Webpacker
   class WebpackRunner < Webpacker::Runner
     def run
       env = Webpacker::Compiler.env
-
+      env.merge("WEBPACKER_CONFIG" => @webpacker_config)
       cmd = if node_modules_bin_exist?
         ["#{@node_modules_bin_path}/webpack"]
       else
