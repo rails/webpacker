@@ -46,7 +46,16 @@ module Webpacker::Helper
   #
   #  <%= image_pack_tag 'application.png', size: '16x10', alt: 'Edit Entry' %>
   #  <img alt='Edit Entry' src='/packs/application-k344a6d59eef8632c9d1.png' width='16' height='10' />
+  #
+  #  <%= image_pack_tag 'picture.png', srcset: { 'picture-2x.png' => '2x' } %>
+  #  <img srcset= "/packs/picture-2x-7cca48e6cae66ec07b8e.png 2x" src="/packs/picture-c38deda30895059837cf.png" >
   def image_pack_tag(name, **options)
+    if options[:srcset] && !options[:srcset].is_a?(String)
+      options[:srcset] = options[:srcset].map do |name, size|
+        "#{resolve_path_to_image(name)} #{size}"
+      end.join(", ")
+    end
+
     image_tag(resolve_path_to_image(name), options)
   end
 
