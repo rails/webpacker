@@ -23,6 +23,16 @@ describe('Config', () => {
     expect(config.publicPath).toEqual('http://foo.com/packs/')
   })
 
+  test('should return additional paths as listed in app config, with resolved paths', () => {
+    expect(config.additional_paths).toEqual(
+      [
+        'app/assets',
+        '/etc/yarn',
+        'app/elm'
+      ]
+    )
+  })
+
   test('should return extensions as listed in app config', () => {
     expect(config.extensions).toEqual([
       '.mjs',
@@ -37,7 +47,8 @@ describe('Config', () => {
       '.svg',
       '.gif',
       '.jpeg',
-      '.jpg'
+      '.jpg',
+      '.elm'
     ])
   })
 

@@ -1,5 +1,5 @@
 const { join, resolve } = require('path')
-const { cache_path: cachePath, source_path: sourcePath, resolved_paths: resolvedPaths } = require('../config')
+const { cache_path: cachePath, source_path: sourcePath, additional_paths: resolvedPaths } = require('../config')
 const { nodeEnv } = require('../env')
 
 // Process application Javascript code with Babel.
