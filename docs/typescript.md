@@ -10,6 +10,33 @@ bundle exec rails webpacker:install:typescript
 
 After that, a new file called `hello_typescript.ts` will be present in your `packs` directory (or rather the `source_entry_path` of your `webpacker.yml` configuration). You're now ready to write TypeScript. 
 
+## (Optional) Adding Compile-Time Type Checking
+
+The default installation only transpiles your TypeScript code using Babel. If you would like to enable type checking as part of the Webpack compilation process (i.e. fail the build if there are TS errors), you can do the following:
+
+1. Install the Fork TS Checker Webpack Plugin
+
+```sh
+yarn install -D fork-ts-checker-webpack-plugin
+```
+
+2. Then add it to your development environment config in `config/webpack/development.js`
+
+```js
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+const path = require("path");
+
+environment.plugins.append(
+  "ForkTsCheckerWebpackPlugin",
+  new ForkTsCheckerWebpackPlugin({
+    // this is a relative path to your project's TypeScript config
+    tsconfig: path.resolve(__dirname, "../../tsconfig.json"),
+    // non-async so type checking will block compilation
+    async: false,
+  })
+);
+```
+
 ## Upgrading to 5.1
 
 If you update your App to `webpacker >= 5.1` and had TypeScript installed before, you need to add some new/remove some old configurations:
