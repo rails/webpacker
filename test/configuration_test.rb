@@ -53,16 +53,6 @@ class ConfigurationTest < Webpacker::Test
     assert_equal @config.cache_path.to_s, cache_path
   end
 
-  def test_watched_paths
-    assert_equal @config.watched_paths, ["bower_components"]
-  end
-
-  def test_watched_paths_globbed
-    assert_equal @config.watched_paths_globbed, [
-      "bower_components/**/*{.mjs,.js,.sass,.scss,.css,.module.sass,.module.scss,.module.css,.png,.svg,.gif,.jpeg,.jpg}"
-    ]
-  end
-
   def test_resolved_paths
     assert_equal @config.resolved_paths, ["app/assets", "/etc/yarn"]
   end

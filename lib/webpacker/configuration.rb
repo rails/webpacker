@@ -27,14 +27,6 @@ class Webpacker::Configuration
     globbed_path_with_extensions(source_path.relative_path_from(root_path))
   end
 
-  def watched_paths
-    fetch(:watched_paths)
-  end
-
-  def watched_paths_globbed
-    watched_paths.map { |p| globbed_path_with_extensions(p) }
-  end
-
   def resolved_paths
     fetch(:resolved_paths)
   end
