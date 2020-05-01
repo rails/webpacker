@@ -52,7 +52,7 @@ class HelperTest < ActionView::TestCase
       image_pack_tag("media/images/nested/image.jpg", size: "16x10", alt: "Edit Entry")
     assert_equal \
       "<img srcset=\"/packs/media/images/image-2x-7cca48e6cae66ec07b8e.jpg 2x\" src=\"/packs/media/images/image-c38deda30895059837cf.jpg\" />",
-      image_pack_tag("media/images/image.jpg", srcset: { 'media/images/image-2x.jpg' => '2x' })
+      image_pack_tag("media/images/image.jpg", srcset: { "media/images/image-2x.jpg" => "2x" })
   end
 
   def test_favicon_pack_tag
