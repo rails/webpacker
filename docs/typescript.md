@@ -17,7 +17,7 @@ The default installation only transpiles your TypeScript code using Babel. If yo
 1. Install the Fork TS Checker Webpack Plugin
 
 ```sh
-yarn install -D fork-ts-checker-webpack-plugin
+yarn add --dev fork-ts-checker-webpack-plugin
 ```
 
 2. Then add it to your development environment config in `config/webpack/development.js`
