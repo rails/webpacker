@@ -52,7 +52,7 @@ class Webpacker::Compiler
     end
 
     def watched_files_digest
-      warn "Webpacker::Compiler.watched_paths has been deprecated. Set addtional_paths in webpacker.yml instead." unless watched_paths.empty?
+      warn "Webpacker::Compiler.watched_paths has been deprecated. Set additional_paths in webpacker.yml instead." unless watched_paths.empty?
 
       files = Dir[*default_watched_paths, *watched_paths].reject { |f| File.directory?(f) }
       file_ids = files.sort.map { |f| "#{File.basename(f)}/#{Digest::SHA1.file(f).hexdigest}" }
