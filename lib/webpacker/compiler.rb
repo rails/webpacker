@@ -4,6 +4,8 @@ require "digest/sha1"
 class Webpacker::Compiler
   # Additional paths that test compiler needs to watch
   # Webpacker::Compiler.watched_paths << 'bower_components'
+  #
+  # Deprecated. Use additional_paths in the YAML configuration instead.
   cattr_accessor(:watched_paths) { [] }
 
   # Additional environment variables that the compiler is being run with
@@ -50,6 +52,8 @@ class Webpacker::Compiler
     end
 
     def watched_files_digest
+      warn "Webpacker::Compiler.watched_paths has been deprecated. Set additional_paths in webpacker.yml instead." unless watched_paths.empty?
+
       files = Dir[*default_watched_paths, *watched_paths].reject { |f| File.directory?(f) }
       file_ids = files.sort.map { |f| "#{File.basename(f)}/#{Digest::SHA1.file(f).hexdigest}" }
       Digest::SHA1.hexdigest(file_ids.join("/"))
@@ -86,7 +90,7 @@ class Webpacker::Compiler
 
     def default_watched_paths
       [
-        *config.resolved_paths_globbed,
+        *config.additional_paths_globbed,
         config.source_path_globbed,
         "yarn.lock", "package.json",
         "config/webpack/**/*"

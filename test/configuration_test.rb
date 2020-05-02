@@ -16,7 +16,7 @@ class ConfigurationTest < Webpacker::Test
 
   def test_source_path_globbed
     assert_equal @config.source_path_globbed,
-                 "app/javascript/**/*{.mjs,.js,.sass,.scss,.css,.module.sass,.module.scss,.module.css,.png,.svg,.gif,.jpeg,.jpg}"
+                 "app/javascript/**/*{.mjs,.js,.sass,.scss,.css,.module.sass,.module.scss,.module.css,.png,.svg,.gif,.jpeg,.jpg,.elm}"
   end
 
   def test_source_entry_path
@@ -53,14 +53,15 @@ class ConfigurationTest < Webpacker::Test
     assert_equal @config.cache_path.to_s, cache_path
   end
 
-  def test_resolved_paths
-    assert_equal @config.resolved_paths, ["app/assets", "/etc/yarn"]
+  def test_additional_paths
+    assert_equal @config.additional_paths, ["app/assets", "/etc/yarn", "app/elm"]
   end
 
-  def test_resolved_paths_globbed
-    assert_equal @config.resolved_paths_globbed, [
-      "app/assets/**/*{.mjs,.js,.sass,.scss,.css,.module.sass,.module.scss,.module.css,.png,.svg,.gif,.jpeg,.jpg}",
-      "/etc/yarn/**/*{.mjs,.js,.sass,.scss,.css,.module.sass,.module.scss,.module.css,.png,.svg,.gif,.jpeg,.jpg}"
+  def test_additional_paths_globbed
+    assert_equal @config.additional_paths_globbed, [
+      "app/assets/**/*{.mjs,.js,.sass,.scss,.css,.module.sass,.module.scss,.module.css,.png,.svg,.gif,.jpeg,.jpg,.elm}",
+      "/etc/yarn/**/*{.mjs,.js,.sass,.scss,.css,.module.sass,.module.scss,.module.css,.png,.svg,.gif,.jpeg,.jpg,.elm}",
+      "app/elm/**/*{.mjs,.js,.sass,.scss,.css,.module.sass,.module.scss,.module.css,.png,.svg,.gif,.jpeg,.jpg,.elm}"
     ]
   end
 
