@@ -35,6 +35,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
   - [Elm](./docs/integrations.md#elm)
   - [Stimulus](./docs/integrations.md#stimulus)
   - [Svelte](./docs/integrations.md#svelte)
+  - [Typescript](./docs/typescript.md)
   - [CoffeeScript](./docs/integrations.md#coffeescript)
   - [Erb](./docs/integrations.md#erb)
 - [Paths](#paths)
@@ -318,7 +319,7 @@ Included install integrations:
 - [Svelte](./docs/integrations.md#Svelte)
 - [Stimulus](./docs/integrations.md#Stimulus)
 - [CoffeeScript](./docs/integrations.md#CoffeeScript)
-- [Typescript](./docs/integrations.md)
+- [Typescript](./docs/typescript.md)
 - [Erb](./docs/integrations.md#Erb)
 
 See [Integrations](./docs/integrations.md) for further details.
