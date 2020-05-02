@@ -7,8 +7,8 @@ module Webpacker::Helper
   end
 
   # Computes the relative path for a given Webpacker asset.
-  # Returns the relative path using manifest.json and passes it to asset_path helper.
-  # This will use asset_path internally, so most of their behaviors will be the same.
+  # Returns the relative path using manifest.json and passes it to path_to_asset helper.
+  # This will use path_to_asset internally, so most of their behaviors will be the same.
   #
   # Example:
   #
@@ -19,13 +19,13 @@ module Webpacker::Helper
   #   <%= asset_pack_path 'calendar.css' %> # => "/packs/calendar-1016838bab065ae1e122.css"
   def asset_pack_path(name, **options)
     if current_webpacker_instance.config.extract_css? || !stylesheet?(name)
-      asset_path(current_webpacker_instance.manifest.lookup!(name), options)
+      path_to_asset(current_webpacker_instance.manifest.lookup!(name), options)
     end
   end
 
   # Computes the absolute path for a given Webpacker asset.
-  # Returns the absolute path using manifest.json and passes it to asset_url helper.
-  # This will use asset_url internally, so most of their behaviors will be the same.
+  # Returns the absolute path using manifest.json and passes it to url_to_asset helper.
+  # This will use url_to_asset internally, so most of their behaviors will be the same.
   #
   # Example:
   #
@@ -36,7 +36,7 @@ module Webpacker::Helper
   #   <%= asset_pack_url 'calendar.css' %> # => "http://example.com/packs/calendar-1016838bab065ae1e122.css"
   def asset_pack_url(name, **options)
     if current_webpacker_instance.config.extract_css? || !stylesheet?(name)
-      asset_url(current_webpacker_instance.manifest.lookup!(name), options)
+      url_to_asset(current_webpacker_instance.manifest.lookup!(name), options)
     end
   end
 
@@ -46,7 +46,16 @@ module Webpacker::Helper
   #
   #  <%= image_pack_tag 'application.png', size: '16x10', alt: 'Edit Entry' %>
   #  <img alt='Edit Entry' src='/packs/application-k344a6d59eef8632c9d1.png' width='16' height='10' />
+  #
+  #  <%= image_pack_tag 'picture.png', srcset: { 'picture-2x.png' => '2x' } %>
+  #  <img srcset= "/packs/picture-2x-7cca48e6cae66ec07b8e.png 2x" src="/packs/picture-c38deda30895059837cf.png" >
   def image_pack_tag(name, **options)
+    if options[:srcset] && !options[:srcset].is_a?(String)
+      options[:srcset] = options[:srcset].map do |name, size|
+        "#{resolve_path_to_image(name)} #{size}"
+      end.join(", ")
+    end
+
     image_tag(resolve_path_to_image(name), options)
   end
 
@@ -61,7 +70,7 @@ module Webpacker::Helper
   end
 
   # Creates a script tag that references the named pack file, as compiled by webpack per the entries list
-  # in config/webpack/shared.js. By default, this list is auto-generated to match everything in
+  # in package/environments/base.js. By default, this list is auto-generated to match everything in
   # app/javascript/packs/*.js. In production mode, the digested reference is automatically looked up.
   #
   # Example:
@@ -73,7 +82,7 @@ module Webpacker::Helper
   end
 
   # Creates script tags that reference the js chunks from entrypoints when using split chunks API,
-  # as compiled by webpack per the entries list in config/webpack/shared.js.
+  # as compiled by webpack per the entries list in package/environments/base.js.
   # By default, this list is auto-generated to match everything in
   # app/javascript/packs/*.js and all the dependent chunks. In production mode, the digested reference is automatically looked up.
   # See: https://webpack.js.org/plugins/split-chunks-plugin/
@@ -110,7 +119,7 @@ module Webpacker::Helper
   end
 
   # Creates a link tag that references the named pack file, as compiled by webpack per the entries list
-  # in config/webpack/shared.js. By default, this list is auto-generated to match everything in
+  # in package/environments/base.js. By default, this list is auto-generated to match everything in
   # app/javascript/packs/*.js. In production mode, the digested reference is automatically looked up.
   #
   # Note: If the development server is running and hot module replacement is active, this will return nothing.
@@ -132,7 +141,7 @@ module Webpacker::Helper
   end
 
   # Creates link tags that reference the css chunks from entrypoints when using split chunks API,
-  # as compiled by webpack per the entries list in config/webpack/shared.js.
+  # as compiled by webpack per the entries list in package/environments/base.js.
   # By default, this list is auto-generated to match everything in
   # app/javascript/packs/*.js and all the dependent chunks. In production mode, the digested reference is automatically looked up.
   # See: https://webpack.js.org/plugins/split-chunks-plugin/
@@ -169,8 +178,8 @@ module Webpacker::Helper
 
     def resolve_path_to_image(name)
       path = name.starts_with?("media/images/") ? name : "media/images/#{name}"
-      asset_path(current_webpacker_instance.manifest.lookup!(path))
+      path_to_asset(current_webpacker_instance.manifest.lookup!(path))
     rescue
-      asset_path(current_webpacker_instance.manifest.lookup!(name))
+      path_to_asset(current_webpacker_instance.manifest.lookup!(name))
     end
 end

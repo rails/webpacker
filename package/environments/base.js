@@ -43,7 +43,6 @@ const getPluginList = () => {
   result.append(
     'Manifest',
     new WebpackAssetsManifest({
-      integrity: false,
       entrypoints: true,
       writeToDisk: true,
       publicPath: config.publicPathWithoutCDN
@@ -65,7 +64,18 @@ const getEntryObject = () => {
   paths.forEach((path) => {
     const namespace = relative(join(rootPath), dirname(path))
     const name = join(namespace, basename(path, extname(path)))
-    result.set(name, resolve(path))
+    let assetPaths = resolve(path)
+
+    // Allows for multiple filetypes per entry (https://webpack.js.org/guides/entry-advanced/)
+    // Transforms the config object value to an array with all values under the same name
+    let previousPaths = result.get(name)
+    if (previousPaths) {
+      previousPaths = Array.isArray(previousPaths) ? previousPaths : [previousPaths]
+      previousPaths.push(assetPaths)
+      assetPaths = previousPaths
+    }
+
+    result.set(name, assetPaths)
   })
   return result
 }
@@ -73,8 +83,8 @@ const getEntryObject = () => {
 const getModulePaths = () => {
   const result = new ConfigList()
   result.append('source', resolve(config.source_path))
-  if (config.resolved_paths) {
-    config.resolved_paths.forEach((path) => result.append(path, resolve(path)))
+  if (config.additional_paths) {
+    config.additional_paths.forEach((path) => result.append(path, resolve(path)))
   }
   result.append('node_modules', 'node_modules')
   return result

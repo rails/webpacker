@@ -1,7 +1,7 @@
 # Install Webpacker
 copy_file "#{__dir__}/config/webpacker.yml", "config/webpacker.yml"
 
-puts "Copying webpack core config"
+say "Copying webpack core config"
 directory "#{__dir__}/config/webpack", "config/webpack"
 
 say "Copying postcss.config.js to app root directory"

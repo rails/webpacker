@@ -2,6 +2,38 @@
 
 **Please note that Webpacker 4.1.0 has an installer bug. Please use 4.2.0 or above**
 
+## [[5.1.1]](https://github.com/rails/webpacker/compare/v5.1.0...v5.1.1) - 2020-04-20
+
+- Update [TypeScript documentation](https://github.com/rails/webpacker/blob/master/docs/typescript.md) and installer to use babel-loader for typescript.[(#2541](https://github.com/rails/webpacker/pull/2541)
+
+## [[5.1.0]](https://github.com/rails/webpacker/compare/v5.0.1...v5.1.0) - 2020-04-19
+
+- Remove yarn integrity check [#2518](https://github.com/rails/webpacker/pull/2518)
+- Switch from ts-loader to babel-loader [#2449](https://github.com/rails/webpacker/pull/2449)  
+  Please see the [TypeScript documentation](https://github.com/rails/webpacker/blob/master/docs/typescript.md) to upgrade existing projects to use typescript with 5.1
+- Resolve multi-word snakecase WEBPACKER_DEV_SERVER env values [#2528](https://github.com/rails/webpacker/pull/2528)
+
+## [[5.0.1]](https://github.com/rails/webpacker/compare/v5.0.0...v5.0.1) - 2020-03-22
+
+- Upgrade deps and fix sass loader config options bug [#2508](https://github.com/rails/webpacker/pull/2508)
+
+## [[5.0.0]](https://github.com/rails/webpacker/compare/v4.2.2...v5.0.0) - 2020-03-22
+
+- Bump minimum node version [#2428](https://github.com/rails/webpacker/pull/2428)
+- Bump minimum ruby/rails version [#2415](https://github.com/rails/webpacker/pull/2415)
+- Add support for multiple files per entry [#2476](https://github.com/rails/webpacker/pull/2476)
+
+```js
+  entry: {
+    home: ['./home.js', './home.scss'],
+    account: ['./account.js', './account.scss']
+  }
+```
+
+You can now have two entry files with same names inside packs folder, `home.scss` and `home.js`
+
+And, other minor fixes, please see a list of changes [here](https://github.com/rails/webpacker/compare/v4.2.2...v5.0.0)
+
 ## [[4.2.2]](https://github.com/rails/webpacker/compare/v4.2.1...v4.2.2) - 2019-12-09
 
 - Fixed issue with webpack clean task for nested assets [#2391](https://github.com/rails/webpacker/pull/2391)

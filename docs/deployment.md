@@ -13,8 +13,8 @@ By default the output will look like this in different environments:
   <script src="http://localhost:8080/calendar-0bd141f6d9360cf4a7f5.js"></script>
   <link rel="stylesheet" media="screen" href="http://localhost:8080/calendar-dc02976b5f94b507e3b6.css">
   <!-- In production or development mode -->
-  <script src="/packs/calendar-0bd141f6d9360cf4a7f5.js"></script>
-  <link rel="stylesheet" media="screen" href="/packs/calendar-dc02976b5f94b507e3b6.css">
+  <script src="/packs/js/calendar-0bd141f6d9360cf4a7f5.js"></script>
+  <link rel="stylesheet" media="screen" href="/packs/css/calendar-dc02976b5f94b507e3b6.css">
 ```
 
 
