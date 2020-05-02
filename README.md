@@ -362,12 +362,12 @@ If you have `hmr` turned to true, then the `stylesheet_pack_tag` generates no ou
 
 If you are adding Webpacker to an existing app that has most of the assets inside
 `app/assets` or inside an engine, and you want to share that
-with webpack modules, you can use the `resolved_paths`
+with webpack modules, you can use the `additional_paths`
 option available in `config/webpacker.yml`. This lets you
 add additional paths that webpack should lookup when resolving modules:
 
 ```yml
-resolved_paths: ['app/assets']
+additional_paths: ['app/assets']
 ```
 
 You can then import these items inside your modules like so:
@@ -381,18 +381,6 @@ import 'images/rails.png'
 **Note:** Please be careful when adding paths here otherwise it
 will make the compilation slow, consider adding specific paths instead of
 whole parent directory if you just need to reference one or two modules
-
-### Watched
-
-By default, the lazy compilation is cached until a file is changed under your
-tracked paths. You can configure which paths are tracked
-by adding new paths to `watched_paths` array. This is much like Rails' `autoload_paths`:
-
-```rb
-# config/initializers/webpacker.rb
-# or config/application.rb
-Webpacker::Compiler.watched_paths << 'bower_components'
-```
 
 ## Deployment
 

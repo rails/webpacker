@@ -27,12 +27,12 @@ class Webpacker::Configuration
     globbed_path_with_extensions(source_path.relative_path_from(root_path))
   end
 
-  def resolved_paths
-    fetch(:resolved_paths)
+  def additional_paths
+    fetch(:additional_paths) + resolved_paths
   end
 
-  def resolved_paths_globbed
-    resolved_paths.map { |p| globbed_path_with_extensions(p) }
+  def additional_paths_globbed
+    additional_paths.map { |p| globbed_path_with_extensions(p) }
   end
 
   def source_entry_path
@@ -76,6 +76,14 @@ class Webpacker::Configuration
   end
 
   private
+    def resolved_paths
+      paths = data.fetch(:resolved_paths, [])
+
+      warn "The resolved_paths option has been deprecated. Use additional_paths instead." unless paths.empty?
+
+      paths
+    end
+
     def fetch(key)
       data.fetch(key, defaults[key])
     end
