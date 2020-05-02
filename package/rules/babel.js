@@ -1,4 +1,5 @@
 const { join, resolve } = require('path')
+const { realpathSync } = require('fs')
 const { cache_path: cachePath, source_path: sourcePath, additional_paths: additionalPaths } = require('../config')
 const { nodeEnv } = require('../env')
 
@@ -6,7 +7,13 @@ const { nodeEnv } = require('../env')
 // Uses application .babelrc to apply any transformations
 module.exports = {
   test: /\.(js|jsx|mjs|ts|tsx)?(\.erb)?$/,
-  include: [sourcePath, ...additionalPaths].map((p) => resolve(p)),
+  include: [sourcePath, ...additionalPaths].map((p) => {
+    try {
+      return realpathSync(p)
+    } catch (e) {
+      return resolve(p)
+    }
+  }),
   exclude: /node_modules/,
   use: [
     {
