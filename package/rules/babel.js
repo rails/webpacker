@@ -1,6 +1,6 @@
 const { join, resolve } = require('path')
 const { realpathSync } = require('fs')
-const { cache_path: cachePath, source_path: sourcePath, additional_paths: additionalPaths } = require('../config')
+const { cachePath, source_path: sourcePath, additional_paths: additionalPaths } = require('../config')
 const { nodeEnv } = require('../env')
 
 // Process application Javascript code with Babel.

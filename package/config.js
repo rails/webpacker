@@ -36,5 +36,6 @@ const getPublicPath = () => {
 
 config.publicPath = getPublicPath()
 config.publicPathWithoutCDN = `/${config.public_output_path}/`
+config.cachePath = 'node_modules/.cache/webpacker'
 
 module.exports = config
