@@ -4,9 +4,9 @@ const { readFileSync } = require('fs')
 const deepMerge = require('./utils/deep_merge')
 const { isArray, ensureTrailingSlash } = require('./utils/helpers')
 const { railsEnv } = require('./env')
+const configPath = require('./configPath')
 
 const defaultConfigPath = require.resolve('../lib/install/config/webpacker.yml')
-const configPath = resolve('config', 'webpacker.yml')
 
 const getDefaultConfig = () => {
   const defaultConfig = safeLoad(readFileSync(defaultConfigPath), 'utf8')
