@@ -36,7 +36,7 @@ class DevServerRunnerTest < Webpacker::Test
       klass = Webpacker::DevServerRunner
       instance = klass.new([])
       mock = Minitest::Mock.new
-      mock.expect(:call, nil, [{}, *cmd])
+      mock.expect(:call, nil, [Webpacker::Compiler.env, *cmd])
 
       klass.stub(:new, instance) do
         instance.stub(:node_modules_bin_exist?, use_node_modules) do
