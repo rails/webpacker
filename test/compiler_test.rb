@@ -40,6 +40,10 @@ class CompilerTest < Minitest::Test
     assert !Webpacker.compiler.fresh?
   end
 
+  def test_compile
+    assert !Webpacker.compiler.compile
+  end
+
   def test_freshness_on_compile_success
     status = OpenStruct.new(success?: true)
 
