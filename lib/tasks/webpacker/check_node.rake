@@ -3,7 +3,7 @@ namespace :webpacker do
   desc "Verifies if Node.js is installed"
   task :check_node do
     begin
-      node_version = `node -v || nodejs -v`
+      node_version = `node -v || nodejs -v`.strip
       raise Errno::ENOENT if node_version.blank?
 
       pkg_path = Pathname.new("#{__dir__}/../../../package.json").realpath
