@@ -91,7 +91,7 @@ You can read more about this in the [Vue docs](https://vuejs.org/v2/guide/instal
 
 ### Lazy loading integration
 
-See [docs/es6](docs/es6.md) to know more about Webpack and Webpacker configuration.
+See [docs/es6](es6.md) to know more about Webpack and Webpacker configuration.
 
 For instance, you can lazy load Vue JS components:
 
