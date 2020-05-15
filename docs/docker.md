@@ -58,7 +58,7 @@ then add the webpacker host name environment variable to the web/app service:
     ports:
       - "3000:3000"
     environment:
-      - WEBPACKER_DEV_SERVER_HOST=webpacker
+      - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
 ```
 
 Lastly, rebuild your container:
