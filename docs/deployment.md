@@ -122,7 +122,7 @@ namespace :deploy do
   task :yarn_install do
     on roles(:web) do
       within release_path do
-        execute("cd #{release_path} && yarn install --silent --no-progress --no-audit --no-optional")
+        execute :yarn, *%w( install --silent --no-progress --no-audit --no-optional )
       end
     end
   end
