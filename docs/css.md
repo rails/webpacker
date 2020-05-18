@@ -6,7 +6,7 @@ Webpacker supports importing CSS, Sass and SCSS files directly into your JavaScr
 Importing and loading styles is a two step process:
 
 1. You need to tell webpack which file(s) it has to compile and know how to load
-  
+
    When you do `import '../scss/application.scss'`, you're telling webpack to include `application.scss` in the build. This does not mean it's going to be compiled into your javascript, only that webpack now compiles and knows how to load this file. (How that file compilation is handled is depending on how your loaders (`css-loader`, `sass-loader`, `file-loader`, etc.) are configured.)
 
 2. You need to load those files in your views
@@ -17,6 +17,40 @@ Importing and loading styles is a two step process:
 
 
 ## Import global styles into your JS app
+
+### Importing CSS as a multi-file pack (Webpacker v5)
+
+When you add a CSS/SCSS/SASS file to `app/javascript/packs/` directory, make sure to use the same pack name as its complementary JavaScript pack, e.g. `application.js` and `application.css`. By Webpacker convention (as of Webpacker v5), this will bundle `application.js` and `application.scss` as part of the same entry point (also described as [a multi-file entry point in the webpack docs](https://webpack.js.org/concepts/entry-points/#single-entry-shorthand-syntax)). With this approach, you can avoid importing CSS from JS, if desired.
+
+```
+app/
+  javascript/
+    packs/
+      application.js
+      application.scss
+```
+
+### Importing CSS from CSS
+
+You can import additional CSS/SCSS/SASS files from within a CSS file:
+
+```
+app/
+  javascript/
+    stylesheets/
+      application.scss
+      posts.scss
+      comments.scss
+```
+
+```css
+/* app/javascript/stylesheets/application.scss */
+
+@import './posts';
+@import './comments';
+```
+
+### Importing CSS from JS
 
 ```sass
 // app/javascript/hello_react/styles/hello-react.sass
