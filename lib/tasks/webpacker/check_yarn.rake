@@ -3,7 +3,7 @@ namespace :webpacker do
   desc "Verifies if Yarn is installed"
   task :check_yarn do
     begin
-      yarn_version = `yarn --version`
+      yarn_version = `yarn --version`.strip
       raise Errno::ENOENT if yarn_version.blank?
 
       pkg_path = Pathname.new("#{__dir__}/../../../package.json").realpath
