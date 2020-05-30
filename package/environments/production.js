@@ -13,7 +13,6 @@ module.exports = class extends Base {
       new CompressionPlugin({
         filename: '[path].gz[query]',
         algorithm: 'gzip',
-        cache: true,
         test: /\.(js|css|html|json|ico|svg|eot|otf|ttf|map)$/
       })
     )
@@ -24,7 +23,6 @@ module.exports = class extends Base {
         new CompressionPlugin({
           filename: '[path].br[query]',
           algorithm: 'brotliCompress',
-          cache: true,
           test: /\.(js|css|html|json|ico|svg|eot|otf|ttf|map)$/
         })
       )
