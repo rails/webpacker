@@ -51,8 +51,8 @@ module Webpacker::Helper
   #  <img srcset= "/packs/picture-2x-7cca48e6cae66ec07b8e.png 2x" src="/packs/picture-c38deda30895059837cf.png" >
   def image_pack_tag(name, **options)
     if options[:srcset] && !options[:srcset].is_a?(String)
-      options[:srcset] = options[:srcset].map do |name, size|
-        "#{resolve_path_to_image(name)} #{size}"
+      options[:srcset] = options[:srcset].map do |src_name, size|
+        "#{resolve_path_to_image(src_name)} #{size}"
       end.join(", ")
     end
 
