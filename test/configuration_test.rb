@@ -53,11 +53,6 @@ class ConfigurationTest < Webpacker::Test
     assert_equal @config.cache_path.to_s, cache_path
   end
 
-  def test_node_modules_cache_path
-    node_modules_cache_path = File.expand_path File.join(File.dirname(__FILE__), "test_app/node_modules/.cache/webpacker").to_s
-    assert_equal @config.node_modules_cache_path.to_s, node_modules_cache_path
-  end
-
   def test_additional_paths
     assert_equal @config.additional_paths, ["app/assets", "/etc/yarn", "app/elm"]
   end

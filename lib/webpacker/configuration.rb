@@ -59,10 +59,6 @@ class Webpacker::Configuration
     root_path.join(fetch(:cache_path))
   end
 
-  def node_modules_cache_path
-    root_path.join("node_modules/.cache/webpacker")
-  end
-
   def extensions
     fetch(:extensions)
   end
