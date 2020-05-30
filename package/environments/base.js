@@ -136,7 +136,7 @@ module.exports = class Base {
         // https://twitter.com/wSokra/status/969633336732905474
         splitChunks: {
           chunks: 'all',
-          name: false
+          name: true
         },
         // Separate runtime chunk to enable long term caching
         // https://twitter.com/wSokra/status/969679223278505985
