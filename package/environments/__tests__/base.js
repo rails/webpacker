@@ -54,6 +54,18 @@ describe('Environment', () => {
       expect(configRules.length).toEqual(8)
     })
 
+    test('should return cache path for nodeModules rule', () => {
+      const nodeModulesLoader = rules.nodeModules.use.find(rule => rule.loader === 'babel-loader')
+
+      expect(nodeModulesLoader.options.cacheDirectory).toBeTruthy()
+    })
+
+    test('should return cache path for babel-loader rule', () => {
+      const babelLoader = rules.babel.use.find(rule => rule.loader === 'babel-loader')
+
+      expect(babelLoader.options.cacheDirectory).toBeTruthy()
+    })
+
     test('should return default plugins', () => {
       const config = environment.toWebpackConfig()
       expect(config.plugins.length).toEqual(4)

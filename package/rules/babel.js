@@ -1,6 +1,6 @@
-const { join, resolve } = require('path')
+const { resolve } = require('path')
 const { realpathSync } = require('fs')
-const { cache_path: cachePath, source_path: sourcePath, additional_paths: additionalPaths } = require('../config')
+const { source_path: sourcePath, additional_paths: additionalPaths } = require('../config')
 const { nodeEnv } = require('../env')
 
 // Process application Javascript code with Babel.
@@ -19,7 +19,7 @@ module.exports = {
     {
       loader: 'babel-loader',
       options: {
-        cacheDirectory: join(cachePath, 'babel-loader-node-modules'),
+        cacheDirectory: true,
         cacheCompression: nodeEnv === 'production',
         compact: nodeEnv === 'production'
       }
