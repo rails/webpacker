@@ -30,7 +30,7 @@ const getPluginList = () => {
   const result = new ConfigList()
   result.append(
     'Environment',
-    new webpack.EnvironmentPlugin(JSON.parse(JSON.stringify(process.env)))
+    new webpack.EnvironmentPlugin(process.env)
   )
   result.append('CaseSensitivePaths', new CaseSensitivePathsPlugin())
   result.append(
