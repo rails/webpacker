@@ -57,7 +57,9 @@
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.20.0",
-    "jest": "^26.0.1"
+    "husky": "^4.2.5",
+    "jest": "^26.0.1",
+    "lint-staged": "^10.2.7"
   },
   "jest": {
     "testRegex": "(/__tests__/.*|(\\.|/))\\.jsx?$",
@@ -68,6 +70,11 @@
   "scripts": {
     "test": "jest",
     "lint": "eslint package/"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "repository": {
     "type": "git",
