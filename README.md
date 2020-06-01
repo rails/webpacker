@@ -122,8 +122,11 @@ app/javascript:
   ├── packs:
   │   # only webpack entry files here
   │   └── application.js
-  └── src:
   │   └── application.css
+  └── src:
+  │   └── my_component.js
+  └── stylesheets:
+  │   └── my_styles.css
   └── images:
       └── logo.svg
 ```
