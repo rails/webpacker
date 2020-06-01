@@ -1,6 +1,10 @@
 # Webpacker
 
-[![Build Status](https://travis-ci.org/rails/webpacker.svg?branch=master)](https://travis-ci.org/rails/webpacker)
+[![Ruby specs](https://github.com/rails/webpacker/workflows/Ruby%20specs/badge.svg)](https://github.com/rails/webpacker/actions)
+[![Jest specs](https://github.com/rails/webpacker/workflows/Jest%20specs/badge.svg)](https://github.com/rails/webpacker/actions)
+[![Rubocop](https://github.com/rails/webpacker/workflows/Rubocop/badge.svg)](https://github.com/rails/webpacker/actions)
+[![JS lint](https://github.com/rails/webpacker/workflows/JS%20lint/badge.svg)](https://github.com/rails/webpacker/actions)
+
 [![node.js](https://img.shields.io/badge/node-%3E%3D%2010.17.0-brightgreen.svg)](https://www.npmjs.com/package/@rails/webpacker)
 [![Gem](https://img.shields.io/gem/v/webpacker.svg)](https://rubygems.org/gems/webpacker)
 
