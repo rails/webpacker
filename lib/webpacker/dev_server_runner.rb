@@ -27,7 +27,7 @@ module Webpacker
         @hostname          = dev_server.host
         @port              = dev_server.port
         @pretty            = dev_server.pretty?
-        @hot               = dev_server.hmr?
+        @hmr               = dev_server.hmr?
 
       rescue Errno::ENOENT, NoMethodError
         $stdout.puts "webpack dev_server configuration not found in #{@config.config_path}[#{ENV["RAILS_ENV"]}]."
