@@ -1,7 +1,7 @@
 # Note: You must restart bin/webpack-dev-server for changes to take effect
 
 default: &default
-  # Values used by Ruby part of rails/webpacker
+  # Values used by Ruby part of rails/webpacker as well as the webpack configuration
   source_path: app/javascript
   public_root_path: public
   public_output_path: packs
@@ -13,7 +13,7 @@ default: &default
   # detected during development if this is true.
   cache_manifest: false
 
-  # Set webpack_compile_output to `false` if you have your own Webpack compilation setup, often
+  # Set webpack_compile_output to `false` if you have your own webpack compilation setup, often
   # done in development by using webpack --watch
   webpack_compile_output: true
 
