@@ -2,6 +2,7 @@
 
 ENV["RAILS_ENV"] ||= ENV["RACK_ENV"] || "development"
 ENV["NODE_ENV"]  ||= "development"
+ENV["WEBPACK_DEV_SERVER"] ||= "TRUE"
 
 require "pathname"
 ENV["BUNDLE_GEMFILE"] ||= File.expand_path("../../Gemfile",
