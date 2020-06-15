@@ -49,6 +49,11 @@ dotenvFiles.forEach((dotenvFile) => {
   dotenv.config({ path: dotenvFile, silent: true })
 })
 
+environment.plugins.insert(
+  "Environment",
+  new webpack.EnvironmentPlugin(process.env)
+)
+
 module.exports = environment
 ```
 
