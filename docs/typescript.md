@@ -24,6 +24,7 @@ The default installation only transpiles your TypeScript code using Babel. If yo
 
     ```js
     const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+    const path = require("path");
 
     environment.plugins.append(
       "ForkTsCheckerWebpackPlugin",
