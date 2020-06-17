@@ -16,26 +16,43 @@ The default installation only transpiles your TypeScript code using Babel. If yo
 
 1. Install the Fork TS Checker Webpack Plugin
 
-```sh
-yarn add --dev fork-ts-checker-webpack-plugin
-```
+    ```sh
+    yarn add --dev fork-ts-checker-webpack-plugin
+    ```
 
 2. Then add it to your development environment config in `config/webpack/development.js`
 
-```js
-const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
-const path = require("path");
+    ```js
+    const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+    const path = require("path");
 
-environment.plugins.append(
-  "ForkTsCheckerWebpackPlugin",
-  new ForkTsCheckerWebpackPlugin({
-    // this is a relative path to your project's TypeScript config
-    tsconfig: path.resolve(__dirname, "../../tsconfig.json"),
-    // non-async so type checking will block compilation
-    async: false,
-  })
-);
-```
+    environment.plugins.append(
+      "ForkTsCheckerWebpackPlugin",
+      new ForkTsCheckerWebpackPlugin({
+        typescript: {
+          tsconfig: path.resolve(__dirname, "../../tsconfig.json"),
+        },
+        async: false,
+      })
+    );
+    ```
+
+    If you are `fork-ts-checker-webpack-plugin` older than 5.0, the `tsconfig` option also needs to be specified:
+
+    ```js
+    const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+    const path = require("path");
+
+    environment.plugins.append(
+      "ForkTsCheckerWebpackPlugin",
+      new ForkTsCheckerWebpackPlugin({
+        // this is a relative path to your project's TypeScript config
+        tsconfig: path.resolve(__dirname, "../../tsconfig.json"),
+        // non-async so type checking will block compilation
+        async: false,
+      })
+    );
+    ```
 
 ## Upgrading to 5.1
 
