@@ -4,7 +4,6 @@ const css = require('./css')
 const sass = require('./sass')
 const moduleCss = require('./module.css')
 const moduleSass = require('./module.sass')
-const nodeModules = require('./node_modules')
 
 // Webpack loaders are processed in reverse order
 // https://webpack.js.org/concepts/loaders/#loader-features
@@ -15,6 +14,5 @@ module.exports = {
   sass,
   moduleCss,
   moduleSass,
-  nodeModules,
   babel
 }

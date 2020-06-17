@@ -50,12 +50,13 @@ describe('Environment', () => {
       const defaultRules = Object.keys(rules)
       const configRules = config.module.rules
 
-      expect(defaultRules.length).toEqual(7)
-      expect(configRules.length).toEqual(8)
+      expect(defaultRules.length).toEqual(6)
+      expect(configRules.length).toEqual(7)
     })
 
     test('should return cache path for nodeModules rule', () => {
-      const nodeModulesLoader = rules.nodeModules.use.find(rule => rule.loader === 'babel-loader')
+      const nodeModulesRule = require('../../rules/node_modules')
+      const nodeModulesLoader = nodeModulesRule.use.find(rule => rule.loader === 'babel-loader')
 
       expect(nodeModulesLoader.options.cacheDirectory).toBeTruthy()
     })
