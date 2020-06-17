@@ -27,7 +27,12 @@ The default installation only transpiles your TypeScript code using Babel. If yo
 
     environment.plugins.append(
       "ForkTsCheckerWebpackPlugin",
-      new ForkTsCheckerWebpackPlugin({ async: false }) // non-async so type checking will block compilation
+      new ForkTsCheckerWebpackPlugin({
+        typescript: {
+          tsconfig: path.resolve(__dirname, "../../tsconfig.json"),
+        },
+        async: false,
+      })
     );
     ```
 
