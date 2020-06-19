@@ -7,12 +7,6 @@ directory "#{__dir__}/config/webpack", "config/webpack"
 say "Copying postcss.config.js to app root directory"
 copy_file "#{__dir__}/config/postcss.config.js", "postcss.config.js"
 
-say "Copying babel.config.js to app root directory"
-copy_file "#{__dir__}/config/babel.config.js", "babel.config.js"
-
-say "Copying .browserslistrc to app root directory"
-copy_file "#{__dir__}/config/.browserslistrc", ".browserslistrc"
-
 if Dir.exists?(Webpacker.config.source_path)
   say "The JavaScript app source directory already exists"
 else
@@ -44,6 +38,18 @@ end
 
 say "Installing dev server for live reloading"
 run "yarn add --dev webpack-dev-server"
+
+insert_into_file Rails.root.join("package.json").to_s, before: /\n}\n*$/ do
+  <<~JSON.chomp
+  ,
+    "babel": {
+      "presets": ["./node_modules/@rails/webpacker/package/babel/preset.js"]
+    },
+    "browserslist": [
+      "defaults"
+    ]
+  JSON
+end
 
 if Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR > 1
   say "You need to allow webpack-dev-server host as allowed origin for connect-src.", :yellow
