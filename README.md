@@ -403,7 +403,7 @@ When compiling assets for production on a remote server, such as a continuous in
   - [Webpack-dev-server](./docs/webpack-dev-server.md)
   - [Environment Variables](./docs/env.md)
   - [Folder Structure](./docs/folder-structure.md)
-  - [Assets](./docs/assets.md) - [CSS, Sass and SCSS](./docs/css.md) - [ES6](./docs/es6.md)
+  - [Assets](./docs/assets.md) - [CSS, Sass and SCSS](./docs/css.md) - [ES6](./docs/es6.md), [Target browsers](./docs/target.md)
     - [Props](./docs/props.md)
     - [Typescript](./docs/typescript.md)
   - [Yarn](./docs/yarn.md)
