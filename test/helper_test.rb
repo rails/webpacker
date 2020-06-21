@@ -11,6 +11,9 @@ class HelperTest < ActionView::TestCase
       def base_url
         "https://example.com"
       end
+      def protocol
+        "https://"
+      end
     end.new
   end
 
@@ -141,5 +144,37 @@ class HelperTest < ActionView::TestCase
       %(<link rel="stylesheet" media="all" href="/packs/bootstrap-c38deda30895059837cf.css" />\n) +
         %(<link rel="stylesheet" media="all" href="/packs/application-dd6b1cd38bfa093df600.css" />),
       stylesheet_pack_tag("bootstrap.css", "application.css", media: "all")
+  end
+
+  def test_webpack_assets_path_tag
+    assert_equal \
+      %(<script>\n) +
+        %(//<![CDATA[\n) +
+        %(__webpack_public_path__ = '/packs/';\n) +
+        %(//]]>\n) +
+        %(</script>),
+      webpack_assets_path_tag
+  end
+
+  def test_webpack_assets_path_tag_with_asset_host
+    config.stub :asset_host, "cdn.example.com" do
+      assert_equal \
+        %(<script>\n) +
+          %(//<![CDATA[\n) +
+          %(__webpack_public_path__ = 'https://cdn.example.com/packs/';\n) +
+          %(//]]>\n) +
+          %(</script>),
+        webpack_assets_path_tag
+    end
+  end
+
+  def test_webpack_assets_path_tag_with_html_options
+    assert_equal \
+      %(<script defer="defer">\n) +
+        %(//<![CDATA[\n) +
+        %(__webpack_public_path__ = '/packs/';\n) +
+        %(//]]>\n) +
+        %(</script>),
+      webpack_assets_path_tag(defer: "defer")
   end
 end

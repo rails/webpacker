@@ -103,6 +103,8 @@ Now, you can set `brotli_static on;` in your nginx site config, as per the confi
 Webpacker out-of-the-box provides CDN support using your Rails app `config.action_controller.asset_host` setting. If you already have [CDN](http://guides.rubyonrails.org/asset_pipeline.html#cdns) added in your Rails app
 you don't need to do anything extra for Webpacker, it just works.
 
+Note: If you rely on dynamic/lazy chunk loading, you should either compile packs with static `WEBPACKER_ASSET_HOST` or use `webpack_assets_path_tag` to override chunk loading source in runtime.
+
 ## Capistrano
 
 ### Assets compiling on every deployment even if JavaScript and CSS files are not changed

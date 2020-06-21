@@ -163,6 +163,23 @@ module Webpacker::Helper
     end
   end
 
+  # Overrides Webpack public path in runtime to apply application asset host.
+  # That forces Webpack to take into account application asset host for dynamic/lazy chunk loading without a necessity
+  # to pre-build bundles with static `WEBPACKER_ASSET_HOST`.
+  #
+  # Examples:
+  #
+  #   # Should be used in `head` before any `*_pack*` helpers
+  #   <%= webpack_assets_path_tag %>
+  #
+  #   <%= javascript_pack_tag 'calendar', 'data-turbolinks-track': 'reload' %>
+  #   <%= stylesheet_pack_tag 'calendar', 'data-turbolinks-track': 'reload' %>
+  def webpack_assets_path_tag(html_options = {})
+    path = "#{compute_asset_host}/#{current_webpacker_instance.config.public_output_path.basename}/"
+
+    javascript_tag("__webpack_public_path__ = '#{path}';", html_options)
+  end
+
   private
     def stylesheet?(name)
       File.extname(name) == ".css"
