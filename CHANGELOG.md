@@ -10,6 +10,7 @@ const nodeModules = require('@rails/webpacker/rules/node_modules.js')
 environment.loaders.append('nodeModules', nodeModules)
 ```
 - If you have added `environment.loaders.delete('nodeModules')` to your `environment.js`, this must be removed or you will receive an error (`Item nodeModules not found`).
+- The install task will now set the `extract_css` default to `true` in all environments and generate a separate `application.css` file for the default `application` pack, as supported by multiple files per entry introduced in 5.0.0.  [#2608](https://github.com/rails/webpacker/pull/2608)
 
 ## [[5.1.1]](https://github.com/rails/webpacker/compare/v5.1.0...v5.1.1) - 2020-04-20
 
