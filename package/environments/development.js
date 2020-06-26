@@ -14,8 +14,8 @@ module.exports = class extends Base {
 
     if (process.env.WEBPACK_DEV_SERVER) {
       if (devServer.hmr) {
-          this.plugins.append('HotModuleReplacement', new webpack.HotModuleReplacementPlugin())
-          this.config.output.filename = '[name]-[hash].js'
+        this.plugins.append('HotModuleReplacement', new webpack.HotModuleReplacementPlugin())
+        this.config.output.filename = '[name]-[hash].js'
       }
 
       this.config.merge({
