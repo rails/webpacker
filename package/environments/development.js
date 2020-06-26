@@ -12,7 +12,8 @@ module.exports = class extends Base {
       devtool: 'cheap-module-source-map'
     })
 
-    if (process.env.WEBPACK_DEV_SERVER) {
+    if (process.env.WEBPACK_DEV_SERVER
+        && process.env.WEBPACK_DEV_SERVER !== 'undefined') {
       if (devServer.hmr) {
         this.plugins.append('HotModuleReplacement', new webpack.HotModuleReplacementPlugin())
         this.config.output.filename = '[name]-[hash].js'
