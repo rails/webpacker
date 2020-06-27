@@ -24,7 +24,7 @@ jobs:
             gemfile: gemfiles/Gemfile-rails.6.0.x
         experimental: [false]
         include:
-          - ruby: head
+          - ruby: 2.7
             os: ubuntu-latest
             gemfile: gemfiles/Gemfile-rails.6.0.x
             experimental: true
