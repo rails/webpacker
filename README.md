@@ -94,6 +94,7 @@ gem 'webpacker', git: 'https://github.com/rails/webpacker.git'
 yarn add https://github.com/rails/webpacker.git
 yarn add core-js regenerator-runtime
 ```
+※If you can't execute the command yarn add https://github.com/rails/webpacker.git , your node version is maybe out of date. Expected version "^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7".
 
 Finally, run the following to install Webpacker:
 
