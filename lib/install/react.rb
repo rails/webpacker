@@ -1,5 +1,6 @@
 require "webpacker/configuration"
 require "fileutils"
+require_relative "../extensions/string"
 
 replace_babel_config = FileUtils.compare_file(Rails.root.join("babel.config.js"), "#{__dir__}/config/babel.config.js")
 

@@ -11,3 +11,8 @@ group :test do
   gem "minitest", "~> 5.0"
   gem "byebug"
 end
+
+group :development, :test do
+  gem 'pry'
+  gem 'rb-readline'
+end

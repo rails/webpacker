@@ -1,6 +1,7 @@
 require "active_support/core_ext/module/attribute_accessors"
 require "active_support/core_ext/string/inquiry"
-require "active_support/logger"
+require "active_support/core_ext/logger"
+require "active_support/core_ext/module/delegation"
 require "active_support/tagged_logging"
 
 module Webpacker
@@ -24,7 +25,7 @@ module Webpacker
 
   def ensure_log_goes_to_stdout
     old_logger = Webpacker.logger
-    Webpacker.logger = ActiveSupport::Logger.new(STDOUT)
+    Webpacker.logger = Logger.new(STDOUT)
     yield
   ensure
     Webpacker.logger = old_logger
