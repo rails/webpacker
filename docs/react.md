@@ -1,15 +1,5 @@
 # React
 
-If you need more advanced React-integration, like server-side rendering, SSR with react-router, SSR with code splitting, then you should consider these gems:
-
-| Gem | Props Hydration | Server-Side-Rendering (SSR) | SSR with HMR | SSR with React-Router | SSR with Code Splitting | Node SSR |
-| --- | --------------- | --- | --------------------- | ----------------------| ------------------------|----|
-| [shakacode/react_on_rails](https://github.com/shakacode/react_on_rails) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| [react-rails](https://github.com/reactjs/react-rails)  | ✅ | ✅ |  | | | | |
-| [webpacker-react](https://github.com/renchap/webpacker-react) | ✅ | | | | | | |
-
-Note, Node SSR for React on Rails requires [React on Rails Pro](https://www.shakacode.com/react-on-rails-pro).
-
 ## HMR and React Hot Reloading
 
 Before turning HMR on, consider upgrading to latest stable gems and packages:
@@ -111,8 +101,27 @@ See [pmmmwh/react-refresh-webpack-plugin](https://github.com/pmmmwh/react-refres
 
 _More docs coming soon._ 
 
+----
 
-## Hydration of Props
+## Props Hydration and Server-Side Rendering (SSR)
+You only _need_ props hydration if need SSR. However, there's no good reason to
+have your app do a second round trip to the Rails server to get props. 
+
+Server-Side Rendering (SSR) results in Rails rendering HTML for your React components.
+The main reasons to use SSR are better SEO and pages display more quickly. 
+
+### Rails and React Integration Gems
+If you desire more advanced React-integration, like server-side rendering, SSR with react-router, SSR with code splitting, then you should consider these gems:
+
+| Gem | Props Hydration | Server-Side-Rendering (SSR) | SSR with HMR | SSR with React-Router | SSR with Code Splitting | Node SSR |
+| --- | --------------- | --- | --------------------- | ----------------------| ------------------------|----|
+| [shakacode/react_on_rails](https://github.com/shakacode/react_on_rails) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [react-rails](https://github.com/reactjs/react-rails)  | ✅ | ✅ |  | | | | |
+| [webpacker-react](https://github.com/renchap/webpacker-react) | ✅ | | | | | | |
+
+Note, Node SSR for React on Rails requires [React on Rails Pro](https://www.shakacode.com/react-on-rails-pro).
+
+### Hydration of Props the Manual Way
 
 If you're not concerned with view helpers to pass props or server-side rendering, you can do it like this:
 
