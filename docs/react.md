@@ -2,11 +2,13 @@
 
 If you need more advanced React-integration, like server-side rendering, SSR with react-router, SSR with code splitting, then you should consider these gems:
 
-| Gem | Props Hydration | Server-Side-Rendering (SSR) | SSR with HMR | SSR with React-Router | SSR with Code Splitting |
-| --- | --------------- | --- | --------------------- | ----------------------| ------------------------|
-| [shakacode/react_on_rails](https://github.com/shakacode/react_on_rails) | ✅ | ✅ | ✅ | ✅ | ✅ |
-| [react-rails](https://github.com/reactjs/react-rails)  | ✅ | ✅ |  | | | |
-| [webpacker-react](https://github.com/renchap/webpacker-react) | ✅ | | | | | |
+| Gem | Props Hydration | Server-Side-Rendering (SSR) | SSR with HMR | SSR with React-Router | SSR with Code Splitting | Node SSR |
+| --- | --------------- | --- | --------------------- | ----------------------| ------------------------|----|
+| [shakacode/react_on_rails](https://github.com/shakacode/react_on_rails) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [react-rails](https://github.com/reactjs/react-rails)  | ✅ | ✅ |  | | | | |
+| [webpacker-react](https://github.com/renchap/webpacker-react) | ✅ | | | | | | |
+
+Note, Node SSR for React on Rails requires [React on Rails Pro](https://www.shakacode.com/react-on-rails-pro).
 
 ## HMR and React Hot Reloading
 
@@ -41,7 +43,23 @@ To do this next part, you have two options:
   yarn add --dev react-hot-loader @hot-loader/react-dom
   ```
 
-2. Add changes like this to your entry points
+2. Update your babel config, `babel.config.js`. Add the plugin `react-hot-loader/babel`
+with option `"safetyNet": false`:
+
+```
+{
+    "plugins": [
+        [
+            "react-hot-loader/babel",
+            {
+            "safetyNet": false
+            }
+        ]
+    ]
+}
+```
+
+3. Add changes like this to your entry points:
 
 ```diff
 // app/javascript/app.jsx
@@ -55,8 +73,8 @@ const App = () => <SomeComponent(s) />
 + export default hot(App);
 ```
 
-3. Adjust your webpack configuration for development so that `sourceMapContents` option for the sass
-loader is `false`
+4. Adjust your webpack configuration for development so that `sourceMapContents` option for the sass
+loader is `false`:
 
 ```diff
 // config/webpack/development.js
@@ -73,7 +91,7 @@ const environment = require('./environment')
 module.exports = environment.toWebpackConfig()
 ```
 
-4. Adjust your `config/webpack/environment.js` for a 
+5. Adjust your `config/webpack/environment.js` for a 
 
 ```diff
 // config/webpack/environment.js
@@ -89,7 +107,10 @@ module.exports = environment;
 
 ### React Refresh Plugin
 
-_Docs coming soon._ 
+See [pmmmwh/react-refresh-webpack-plugin](https://github.com/pmmmwh/react-refresh-webpack-plugin).
+
+_More docs coming soon._ 
+
 
 ## Hydration of Props
 
