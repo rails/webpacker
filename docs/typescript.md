@@ -30,7 +30,7 @@ The default installation only transpiles your TypeScript code using Babel. If yo
       "ForkTsCheckerWebpackPlugin",
       new ForkTsCheckerWebpackPlugin({
         typescript: {
-          tsconfig: path.resolve(__dirname, "../../tsconfig.json"),
+          configFile: path.resolve(__dirname, "../../tsconfig.json"),
         },
         async: false,
       })
