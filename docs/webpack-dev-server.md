@@ -32,7 +32,7 @@ development:
 ```
 `dev_server/hmr` option inside `webpacker.yml`.
 
-Checkout this guide for more information:
+Check out this guide for more information:
 
 - https://webpack.js.org/configuration/dev-server/#devserver-hot
 
