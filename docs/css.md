@@ -50,6 +50,17 @@ app/
 @import './comments';
 ```
 
+### Importing CSS provided by an NPM package from SCSS/CSS
+
+Given your application installs an NPM package that provides CSS, such as `flatpickr`, you can import the CSS file(s) by path from the package directory within `node_modules/`:
+
+```js
+/* app/javascript/stylesheets/application.scss */
+
+@import "flatpickr/dist/flatpickr.css"
+```
+
+
 ### Importing CSS from JS
 
 ```sass
@@ -74,6 +85,16 @@ const Hello = props => (
     <p>Hello {props.name}!</p>
   </div>
 )
+```
+
+### Importing CSS provided by an NPM package from JS
+
+Given your application installs an NPM package that provides CSS, such as `flatpickr`, you can import the CSS file(s) by path from the package directory within `node_modules/`. This is an alternative to importing from within a CSS file, as above:
+
+```js
+// app/javascript/packs/application.js
+
+import "flatpickr/dist/flatpickr.css"
 ```
 
 ## Import scoped styles into your JS app
@@ -181,14 +202,14 @@ You can use Yarn to add bootstrap or any other modules available on npm:
 yarn add bootstrap
 ```
 
-Import Bootstrap and theme (optional) CSS in your app/javascript/packs/app.js file:
+Import Bootstrap and theme (optional) CSS in your app/javascript/packs/application.js file:
 
 ```js
 import 'bootstrap/dist/css/bootstrap'
 import 'bootstrap/dist/css/bootstrap-theme'
 ```
 
-Or in your app/javascript/app.sass file:
+Or in your app/javascript/packs/application.sass file:
 
 ```sass
 // ~ to tell that this is not a relative import
