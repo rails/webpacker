@@ -86,6 +86,7 @@ module Webpacker::Helper
   # By default, this list is auto-generated to match everything in
   # app/javascript/packs/*.js and all the dependent chunks. In production mode, the digested reference is automatically looked up.
   # See: https://webpack.js.org/plugins/split-chunks-plugin/
+  #
   # Example:
   #
   #   <%= javascript_packs_with_chunks_tag 'calendar', 'map', 'data-turbolinks-track': 'reload' %> # =>
@@ -94,11 +95,15 @@ module Webpacker::Helper
   #   <script src="/packs/calendar-1016838bab065ae1e314.chunk.js" data-turbolinks-track="reload"></script>
   #   <script src="/packs/map~runtime-16838bab065ae1e314.chunk.js" data-turbolinks-track="reload"></script>
   #   <script src="/packs/map-16838bab065ae1e314.chunk.js" data-turbolinks-track="reload"></script>
+  #
   # DO:
-  # <%= javascript_packs_with_chunks_tag 'calendar', 'map' %>
+  #
+  #   <%= javascript_packs_with_chunks_tag 'calendar', 'map' %>
+  #
   # DON'T:
-  # <%= javascript_packs_with_chunks_tag 'calendar' %>
-  # <%= javascript_packs_with_chunks_tag 'map' %>
+  #
+  #   <%= javascript_packs_with_chunks_tag 'calendar' %>
+  #   <%= javascript_packs_with_chunks_tag 'map' %>
   def javascript_packs_with_chunks_tag(*names, **options)
     javascript_include_tag(*sources_from_manifest_entrypoints(names, type: :javascript), **options)
   end
@@ -106,6 +111,7 @@ module Webpacker::Helper
   # Creates a link tag, for preloading, that references a given Webpacker asset.
   # In production mode, the digested reference is automatically looked up.
   # See: https://developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content
+  #
   # Example:
   #
   #   <%= preload_pack_asset 'fonts/fa-regular-400.woff2' %> # =>
@@ -152,11 +158,15 @@ module Webpacker::Helper
   #   <link rel="stylesheet" media="screen" href="/packs/3-8c7ce31a.chunk.css" />
   #   <link rel="stylesheet" media="screen" href="/packs/calendar-8c7ce31a.chunk.css" />
   #   <link rel="stylesheet" media="screen" href="/packs/map-8c7ce31a.chunk.css" />
+  #
   # DO:
-  # <%= stylesheet_packs_with_chunks_tag 'calendar', 'map' %>
+  #
+  #   <%= stylesheet_packs_with_chunks_tag 'calendar', 'map' %>
+  #
   # DON'T:
-  # <%= stylesheet_packs_with_chunks_tag 'calendar' %>
-  # <%= stylesheet_packs_with_chunks_tag 'map' %>
+  # 
+  #   <%= stylesheet_packs_with_chunks_tag 'calendar' %>
+  #   <%= stylesheet_packs_with_chunks_tag 'map' %>
   def stylesheet_packs_with_chunks_tag(*names, **options)
     if current_webpacker_instance.config.extract_css?
       stylesheet_link_tag(*sources_from_manifest_entrypoints(names, type: :stylesheet), **options)
