@@ -13,6 +13,7 @@ module.exports = {
           }
           return 'media/[folder]/[name]-[hash:8].[ext]'
         },
+        esModule: false,
         context: join(sourcePath)
       }
     }
