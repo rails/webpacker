@@ -10,3 +10,4 @@ yarn-error.log*
 .yarn-integrity
 /log
 gemfiles/*.lock
+.DS_Store

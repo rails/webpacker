@@ -1,9 +1,7 @@
 /* eslint global-require: 0 */
 /* eslint import/no-dynamic-require: 0 */
 
-const {
-  basename, dirname, join, relative, resolve
-} = require('path')
+const { basename, dirname, join, relative, resolve } = require('path')
 const { sync } = require('glob')
 const extname = require('path-complete-extname')
 
@@ -20,7 +18,7 @@ const { ConfigList, ConfigObject } = require('../config_types')
 const rules = require('../rules')
 const config = require('../config')
 
-const getLoaderList = () => {
+const getRulesList = () => {
   const result = new ConfigList()
   Object.keys(rules).forEach((key) => result.append(key, rules[key]))
   return result
@@ -28,10 +26,7 @@ const getLoaderList = () => {
 
 const getPluginList = () => {
   const result = new ConfigList()
-  result.append(
-    'Environment',
-    new webpack.EnvironmentPlugin(process.env)
-  )
+  result.append('Environment', new webpack.EnvironmentPlugin(process.env))
   result.append('CaseSensitivePaths', new CaseSensitivePathsPlugin())
   result.append(
     'MiniCssExtract',
@@ -53,7 +48,9 @@ const getPluginList = () => {
 
 const getExtensionsGlob = () => {
   const { extensions } = config
-  return extensions.length === 1 ? `**/*${extensions[0]}` : `**/*{${extensions.join(',')}}`
+  return extensions.length === 1
+    ? `**/*${extensions[0]}`
+    : `**/*{${extensions.join(',')}}`
 }
 
 const getEntryObject = () => {
@@ -70,7 +67,9 @@ const getEntryObject = () => {
     // Transforms the config object value to an array with all values under the same name
     let previousPaths = result.get(name)
     if (previousPaths) {
-      previousPaths = Array.isArray(previousPaths) ? previousPaths : [previousPaths]
+      previousPaths = Array.isArray(previousPaths)
+        ? previousPaths
+        : [previousPaths]
       previousPaths.push(assetPaths)
       assetPaths = previousPaths
     }
@@ -84,44 +83,47 @@ const getModulePaths = () => {
   const result = new ConfigList()
   result.append('source', resolve(config.source_path))
   if (config.additional_paths) {
-    config.additional_paths.forEach((path) => result.append(path, resolve(path)))
+    config.additional_paths.forEach((path) =>
+      result.append(path, resolve(path))
+    )
   }
   result.append('node_modules', 'node_modules')
   return result
 }
 
-const getBaseConfig = () => new ConfigObject({
-  mode: 'production',
-  output: {
-    filename: 'js/[name]-[contenthash].js',
-    chunkFilename: 'js/[name]-[contenthash].chunk.js',
-    hotUpdateChunkFilename: 'js/[id]-[hash].hot-update.js',
-    path: config.outputPath,
-    publicPath: config.publicPath
-  },
+const getBaseConfig = () =>
+  new ConfigObject({
+    mode: 'production',
+    output: {
+      filename: 'js/[name]-[contenthash].js',
+      chunkFilename: 'js/[name]-[contenthash].chunk.js',
+      hotUpdateChunkFilename: 'js/[id]-[hash].hot-update.js',
+      path: config.outputPath,
+      publicPath: config.publicPath
+    },
 
-  resolve: {
-    extensions: config.extensions,
-    plugins: [PnpWebpackPlugin]
-  },
+    resolve: {
+      extensions: config.extensions,
+      plugins: [PnpWebpackPlugin]
+    },
 
-  resolveLoader: {
-    modules: ['node_modules'],
-    plugins: [PnpWebpackPlugin.moduleLoader(module)]
-  },
+    resolveLoader: {
+      modules: ['node_modules'],
+      plugins: [PnpWebpackPlugin.moduleLoader(module)]
+    },
 
-  node: {
-    dgram: 'empty',
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty',
-    child_process: 'empty'
-  }
-})
+    node: {
+      dgram: 'empty',
+      fs: 'empty',
+      net: 'empty',
+      tls: 'empty',
+      child_process: 'empty'
+    }
+  })
 
 module.exports = class Base {
   constructor() {
-    this.loaders = getLoaderList()
+    this.rules = getRulesList()
     this.plugins = getPluginList()
     this.config = getBaseConfig()
     this.entry = getEntryObject()
@@ -167,7 +169,7 @@ module.exports = class Base {
 
       module: {
         strictExportPresence: true,
-        rules: this.loaders.values()
+        rules: this.rules.values()
       },
 
       plugins: this.plugins.values(),
