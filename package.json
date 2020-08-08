@@ -38,7 +38,7 @@
     "postcss-preset-env": "^6.7.0",
     "postcss-safe-parser": "^4.0.2",
     "regenerator-runtime": "^0.13.7",
-    "sass-loader": "^8.0.2",
+    "sass-loader": "^9.0.3",
     "style-loader": "^1.2.1",
     "terser-webpack-plugin": "^4.0.0",
     "webpack": "^4.44.1",
