@@ -2,11 +2,10 @@ const sass = require('sass')
 const getStyleRule = require('../utils/get_style_rule')
 const { additional_paths: includePaths } = require('../config')
 
-module.exports = getStyleRule(/\.(scss|sass)(\.erb)?$/i, false, [
+module.exports = getStyleRule(/\.(scss|sass)(\.erb)?$/i, [
   {
-    loader: 'sass-loader',
+    loader: require.resolve('sass-loader'),
     options: {
-      sourceMap: true,
       sassOptions: {
         includePaths
       },

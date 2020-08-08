@@ -1,11 +1,24 @@
 const { join, normalize } = require('path')
-const { source_path: sourcePath, static_assets_extensions: fileExtensions } = require('../config')
+const { source_path: sourcePath } = require('../config')
 
 module.exports = {
-  test: new RegExp(`(${fileExtensions.join('|')})$`, 'i'),
+  test: [
+    /\.bmp$/,
+    /\.gif$/,
+    /\.jpe?g$/,
+    /\.png$/,
+    /\.tiff$/,
+    /\.ico$/,
+    /\.eot$/,
+    /\.otf$/,
+    /\.ttf$/,
+    /\.woff$/,
+    /\.woff2$/
+  ],
   use: [
     {
-      loader: 'file-loader',
+      loader: require.resolve('file-loader'),
+      exclude: [/\.(js|mjs|jsx|ts|tsx)$/, /\.html$/, /\.json$/],
       options: {
         name(file) {
           if (file.includes(normalize(sourcePath))) {
