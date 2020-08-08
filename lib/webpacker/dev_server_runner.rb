@@ -52,7 +52,7 @@ module Webpacker
           ["yarn", "webpack-dev-server"]
         end
 
-        if ARGV.include?("--debug-webpacker")
+        if @argv.include?("--debug-webpacker")
           cmd = [ "node", "--inspect-brk"] + cmd
         end
 
