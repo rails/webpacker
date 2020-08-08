@@ -51,7 +51,7 @@ describe('Environment', () => {
       const configRules = config.module.rules
 
       expect(defaultRules.length).toEqual(6)
-      expect(configRules.length).toEqual(7)
+      expect(configRules.length).toEqual(6)
     })
 
     test('should return cache path for nodeModules rule', () => {
