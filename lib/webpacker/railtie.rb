@@ -29,9 +29,9 @@ class Webpacker::Engine < ::Rails::Engine
   initializer "webpacker.logger" do
     config.after_initialize do
       if ::Rails.logger.respond_to?(:tagged)
-        Webpacker.logger = ::Rails.logger
-      else
         Webpacker.logger = ActiveSupport::TaggedLogging.new(::Rails.logger)
+      else
+        Webpacker.logger = ::Rails.logger
       end
     end
   end
