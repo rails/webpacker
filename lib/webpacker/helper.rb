@@ -164,7 +164,7 @@ module Webpacker::Helper
   #   <%= stylesheet_packs_with_chunks_tag 'calendar', 'map' %>
   #
   # DON'T:
-  # 
+  #
   #   <%= stylesheet_packs_with_chunks_tag 'calendar' %>
   #   <%= stylesheet_packs_with_chunks_tag 'map' %>
   def stylesheet_packs_with_chunks_tag(*names, **options)
