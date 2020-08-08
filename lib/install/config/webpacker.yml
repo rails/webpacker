@@ -15,37 +15,24 @@ default: &default
   # Reload manifest.json on all requests so we reload latest compiled packs
   cache_manifest: false
 
-  # Extract and emit a css file
-  extract_css: true
+  # Manage stylesheets processing
+  stylesheets:
+    enabled: false
+    # ['sass', 'less']
+    preprocessors: []
+    extract: true
 
-  static_assets_extensions:
-    - .jpg
-    - .jpeg
-    - .png
-    - .gif
-    - .tiff
-    - .ico
-    - .svg
-    - .eot
-    - .otf
-    - .ttf
-    - .woff
-    - .woff2
+  # Manage static files processing
+  files:
+    enabled: false
+    svg: false
+    inline: true
 
-  extensions:
-    - .mjs
-    - .js
-    - .sass
-    - .scss
-    - .css
-    - .module.sass
-    - .module.scss
-    - .module.css
-    - .png
-    - .svg
-    - .gif
-    - .jpeg
-    - .jpg
+  # Manage javascript processing
+  javascripts:
+    enabled: true
+    # ['react', 'vue', 'elm']
+    preprocessors: []
 
 development:
   <<: *default
@@ -80,7 +67,6 @@ development:
       'Access-Control-Allow-Origin': '*'
     watch_options:
       ignored: '**/node_modules/**'
-
 
 test:
   <<: *default
