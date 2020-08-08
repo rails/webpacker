@@ -15,31 +15,9 @@ default: &default
   # Reload manifest.json on all requests so we reload latest compiled packs
   cache_manifest: false
 
-  # Manage stylesheets processing
-  stylesheets:
-    enabled: false
-    # ['sass', 'less']
-    preprocessors: []
-    extract: true
-
-  # Manage static files processing
-  files:
-    enabled: false
-    svg: false
-    inline: true
-
-  # Manage javascript processing
-  javascripts:
-    enabled: true
-    # ['react', 'vue', 'elm']
-    preprocessors: []
-
 development:
   <<: *default
   compile: true
-
-  # Set to false if using HMR for CSS
-  extract_css: true
 
   # Reference: https://webpack.js.org/configuration/dev-server/
   dev_server:
