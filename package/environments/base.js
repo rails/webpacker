@@ -157,6 +157,7 @@ module.exports = class Base {
     return this.config.merge(deepMerge(defaultConfig, appConfig))
   }
 
+  // This should be a NEW object and separate from multiple calls to this
   toWebpackConfig() {
     return this.config.merge({
       entry: this.entry.toObject(),

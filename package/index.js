@@ -8,6 +8,8 @@ const loaders = require('./rules')
 const config = require('./config')
 const devServer = require('./dev_server')
 const { nodeEnv } = require('./env')
+const configObject = require('./config_types/config_object')
+const configList = require('./config_types/config_list')
 
 const createEnvironment = () => {
   const path = resolve(__dirname, 'environments', `${nodeEnv}.js`)
@@ -20,5 +22,8 @@ module.exports = {
   devServer,
   environment: createEnvironment(),
   Environment,
-  loaders
+  createEnvironment,
+  loaders,
+  configObject,
+  configList
 }
