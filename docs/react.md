@@ -1,19 +1,74 @@
 # React
 
+## Props Hydration and Server-Side Rendering (SSR)
+You only _need_ props hydration if you need SSR. However, there's no good reason to
+have your app do a second round trip to the Rails server to get props. 
+
+Server-Side Rendering (SSR) results in Rails rendering HTML for your React components.
+The main reasons to use SSR are better SEO and pages display more quickly. 
+
+### Rails and React Integration Gems
+If you desire more advanced React-integration, like server-side rendering, SSR with react-router, SSR with code splitting, then you should consider these gems:
+
+| Gem | Props Hydration | Server-Side-Rendering (SSR) | SSR with HMR | SSR with React-Router | SSR with Code Splitting | Node SSR |
+| --- | --------------- | --- | --------------------- | ----------------------| ------------------------|----|
+| [shakacode/react_on_rails](https://github.com/shakacode/react_on_rails) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [react-rails](https://github.com/reactjs/react-rails)  | ✅ | ✅ |  | | | | |
+| [webpacker-react](https://github.com/renchap/webpacker-react) | ✅ | | | | | | |
+
+Note, Node SSR for React on Rails requires [React on Rails Pro](https://www.shakacode.com/react-on-rails-pro).
+
+### Hydration of Props the Manual Way
+
+If you're not concerned with view helpers to pass props or server-side rendering, you can do it like this:
+
+```erb
+<%# views/layouts/application.html.erb %>
+
+<%= content_tag :div,
+  id: "hello-react",
+  data: {
+    message: 'Hello!',
+    name: 'David'
+}.to_json do %>
+<% end %>
+```
+
+```js
+// app/javascript/packs/hello_react.js
+
+const Hello = props => (
+  <div className='react-app-wrapper'>
+    <img src={clockIcon} alt="clock" />
+    <h5 className='hello-react'>
+      {props.message} {props.name}!
+    </h5>
+  </div>
+)
+
+// Render component with data
+document.addEventListener('DOMContentLoaded', () => {
+  const node = document.getElementById('hello-react')
+  const data = JSON.parse(node.getAttribute('data'))
+
+  ReactDOM.render(<Hello {...data} />, node)
+})
+```
+
+----
+
 ## HMR and React Hot Reloading
 
 Before turning HMR on, consider upgrading to latest stable gems and packages:
 https://github.com/rails/webpacker#upgrading
 
-First, check that the `hmr` option is `true` in your `config/webpacker.yml` file.
+First, check that the `hmr` and `inline` options are `true` in your `config/webpacker.yml` file.
 
-```diff
+```yaml
 development:
-  # ...
   dev_server:
--    hmr: false
-+    hmr: true
-# ...
+    hmr: true
+    inline: true
 ```
 
 The basic setup will have HMR working with the default webpacker setup. However, the basic will cause a full page refresh each time you save a file.
@@ -22,9 +77,41 @@ Webpack's HMR allows replacement of modules in-place without reloading the brows
 
 To do this next part, you have two options:
 
+1. Use the 
 1. Follow the deprecated steps at [github.com/gaearon/react-hot-loader](https://github.com/gaearon/react-hot-loader).
-2. Follow the steps at [github.com/pmmmwh/react-refresh-webpack-plugin](https://github.com/pmmmwh/react-refresh-webpack-plugin).
 
+### React Refresh Webpack Plugin
+[github.com/pmmmwh/react-refresh-webpack-plugin](https://github.com/pmmmwh/react-refresh-webpack-plugin)
+
+You can see an example commit of adding this [here](https://github.com/shakacode/react_on_rails_tutorial_with_ssr_and_hmr_fast_refresh/commit/7e53803fce7034f5ecff335db1f400a5743a87e7).
+
+1. Add react refresh packages:
+   `yarn add @pmmmwh/react-refresh-webpack-plugin react-refresh -D`
+2. Update `babel.config.js` adding
+   ```js
+   plugins: [
+     process.env.WEBPACK_DEV_SERVER && 'react-refresh/babel',
+     // other plugins
+   ```
+3. Update `config/webpack/development.js`, only including the plugin if running the WEBPACK_DEV_SERVER
+   ```js
+   const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+   const environment = require('./environment')
+   
+   const isWebpackDevServer = process.env.WEBPACK_DEV_SERVER;
+   
+   //plugins
+   if (isWebpackDevServer) {
+       environment.plugins.append(
+           'ReactRefreshWebpackPlugin',
+           new ReactRefreshWebpackPlugin({
+               overlay: {
+                   sockPort: 3035
+               }
+           })
+       );
+   }
+   ```
 
 ### React Hot Loader (Deprecated)
 
@@ -95,65 +182,3 @@ module.exports = environment.toWebpackConfig()
 module.exports = environment;
 ```
 
-### React Refresh Plugin
-
-See [pmmmwh/react-refresh-webpack-plugin](https://github.com/pmmmwh/react-refresh-webpack-plugin).
-
-_More docs coming soon._ 
-
-----
-
-## Props Hydration and Server-Side Rendering (SSR)
-You only _need_ props hydration if need SSR. However, there's no good reason to
-have your app do a second round trip to the Rails server to get props. 
-
-Server-Side Rendering (SSR) results in Rails rendering HTML for your React components.
-The main reasons to use SSR are better SEO and pages display more quickly. 
-
-### Rails and React Integration Gems
-If you desire more advanced React-integration, like server-side rendering, SSR with react-router, SSR with code splitting, then you should consider these gems:
-
-| Gem | Props Hydration | Server-Side-Rendering (SSR) | SSR with HMR | SSR with React-Router | SSR with Code Splitting | Node SSR |
-| --- | --------------- | --- | --------------------- | ----------------------| ------------------------|----|
-| [shakacode/react_on_rails](https://github.com/shakacode/react_on_rails) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| [react-rails](https://github.com/reactjs/react-rails)  | ✅ | ✅ |  | | | | |
-| [webpacker-react](https://github.com/renchap/webpacker-react) | ✅ | | | | | | |
-
-Note, Node SSR for React on Rails requires [React on Rails Pro](https://www.shakacode.com/react-on-rails-pro).
-
-### Hydration of Props the Manual Way
-
-If you're not concerned with view helpers to pass props or server-side rendering, you can do it like this:
-
-```erb
-<%# views/layouts/application.html.erb %>
-
-<%= content_tag :div,
-  id: "hello-react",
-  data: {
-    message: 'Hello!',
-    name: 'David'
-}.to_json do %>
-<% end %>
-```
-
-```js
-// app/javascript/packs/hello_react.js
-
-const Hello = props => (
-  <div className='react-app-wrapper'>
-    <img src={clockIcon} alt="clock" />
-    <h5 className='hello-react'>
-      {props.message} {props.name}!
-    </h5>
-  </div>
-)
-
-// Render component with data
-document.addEventListener('DOMContentLoaded', () => {
-  const node = document.getElementById('hello-react')
-  const data = JSON.parse(node.getAttribute('data'))
-
-  ReactDOM.render(<Hello {...data} />, node)
-})
-```

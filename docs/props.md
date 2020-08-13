@@ -3,7 +3,7 @@
 How do you pass props from your view to your JavaScript component? Here you go.
 
 ## React
-See [docs/react.md](./react.md#hydration-of-props).
+See [docs/react.md](./react.md#props-hydration-and-server-side-rendering-ssr).
 
 ## Vue
 
