@@ -2,6 +2,10 @@
 
 **Please note that Webpacker 4.1.0 has an installer bug. Please use 4.2.0 or above**
 
+## [[5.2.0]](https://github.com/rails/webpacker/compare/v5.1.1...5.2.0) - 2020-08-16
+
+- Bump dependencies and fixes. See [diff](https://github.com/rails/webpacker/compare/v5.1.1...5-x-stable) for changes.
+
 ## [[5.1.1]](https://github.com/rails/webpacker/compare/v5.1.0...v5.1.1) - 2020-04-20
 
 - Update [TypeScript documentation](https://github.com/rails/webpacker/blob/master/docs/typescript.md) and installer to use babel-loader for typescript.[(#2541](https://github.com/rails/webpacker/pull/2541)
@@ -9,7 +13,7 @@
 ## [[5.1.0]](https://github.com/rails/webpacker/compare/v5.0.1...v5.1.0) - 2020-04-19
 
 - Remove yarn integrity check [#2518](https://github.com/rails/webpacker/pull/2518)
-- Switch from ts-loader to babel-loader [#2449](https://github.com/rails/webpacker/pull/2449)  
+- Switch from ts-loader to babel-loader [#2449](https://github.com/rails/webpacker/pull/2449)
   Please see the [TypeScript documentation](https://github.com/rails/webpacker/blob/master/docs/typescript.md) to upgrade existing projects to use typescript with 5.1
 - Resolve multi-word snakecase WEBPACKER_DEV_SERVER env values [#2528](https://github.com/rails/webpacker/pull/2528)
 
@@ -325,7 +329,7 @@ const { environment } = require('@rails/webpacker')
 // Enable with default config
 environment.splitChunks()
 // Configure via a callback
-environment.splitChunks(config =>
+environment.splitChunks((config) =>
   Object.assign({}, config, { optimization: { splitChunks: false } })
 )
 ```
@@ -649,7 +653,9 @@ environment.resolvedModules.append('vendor', 'vendor')
 ```js
 // Enable css modules with sass loader
 const sassLoader = environment.loaders.get('sass')
-const cssLoader = sassLoader.use.find(loader => loader.loader === 'css-loader')
+const cssLoader = sassLoader.use.find(
+  (loader) => loader.loader === 'css-loader'
+)
 
 cssLoader.options = Object.assign({}, cssLoader.options, {
   modules: true,
