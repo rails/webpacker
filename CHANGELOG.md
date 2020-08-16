@@ -2,6 +2,10 @@
 
 **Please note that Webpacker 4.1.0 has an installer bug. Please use 4.2.0 or above**
 
+## [[4.3.0]](https://github.com/rails/webpacker/compare/v4.2.2...v4.3.0) - 2019-08-16
+
+- Bump dependencies
+
 ## [[4.2.2]](https://github.com/rails/webpacker/compare/v4.2.1...v4.2.2) - 2019-12-09
 
 - Fixed issue with webpack clean task for nested assets [#2391](https://github.com/rails/webpacker/pull/2391)
@@ -293,7 +297,7 @@ const { environment } = require('@rails/webpacker')
 // Enable with default config
 environment.splitChunks()
 // Configure via a callback
-environment.splitChunks(config =>
+environment.splitChunks((config) =>
   Object.assign({}, config, { optimization: { splitChunks: false } })
 )
 ```
@@ -617,7 +621,9 @@ environment.resolvedModules.append('vendor', 'vendor')
 ```js
 // Enable css modules with sass loader
 const sassLoader = environment.loaders.get('sass')
-const cssLoader = sassLoader.use.find(loader => loader.loader === 'css-loader')
+const cssLoader = sassLoader.use.find(
+  (loader) => loader.loader === 'css-loader'
+)
 
 cssLoader.options = Object.assign({}, cssLoader.options, {
   modules: true,
