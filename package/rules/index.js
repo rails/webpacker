@@ -11,17 +11,25 @@ const html = require('./html')
 const eslint = require('./eslint')
 const url = require('./url')
 
-module.exports = {
-  file,
-  url,
-  css,
-  sass,
-  babel,
-  erb,
-  coffee,
-  elm,
-  svelte,
-  vue,
-  html,
-  eslint
+const prepare = (name) => {
+  try {
+    require.resolve(name)
+  } catch (e) {}
 }
+
+const availableRules = {
+  file: file,
+  url: url,
+  css: css,
+  sass: sass,
+  babel: babel,
+  erb: erb,
+  coffee: coffee,
+  elm: elm,
+  svelte: svelte,
+  vue: vue,
+  html: html,
+  eslint: eslint
+}
+
+Object.keys(availableRules)
