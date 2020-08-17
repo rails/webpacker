@@ -7,12 +7,24 @@ require "webpacker/runner"
 module Webpacker
   class DevServerRunner < Webpacker::Runner
     def run
+      detect_unsupported_switches!
       load_config
       detect_port!
       execute_cmd
     end
 
     private
+
+      UNSUPPORTED_SWITCHES = %w[--host --port --https]
+      private_constant :UNSUPPORTED_SWITCHES
+      def detect_unsupported_switches!
+        unsupported_switches = UNSUPPORTED_SWITCHES & @argv
+        if unsupported_switches.any?
+          $stdout.puts "The following CLI switches are not supported by Webpacker: #{unsupported_switches.join(' ')}. Please edit your command and try again."
+          exit!
+        end
+      end
+
       def load_config
         app_root = Pathname.new(@app_path)
 
@@ -59,6 +71,7 @@ module Webpacker
 
         cmd += ["--config", @webpack_config]
         cmd += ["--progress", "--color"] if @pretty
+        cmd += @argv
 
         Dir.chdir(@app_path) do
           Kernel.exec env, *cmd

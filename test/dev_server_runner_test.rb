@@ -24,23 +24,29 @@ class DevServerRunnerTest < Webpacker::Test
     verify_command(cmd, use_node_modules: false)
   end
 
+  def test_run_cmd_argv
+    cmd = ["#{test_app_path}/node_modules/.bin/webpack-dev-server", "--config", "#{test_app_path}/config/webpack/development.js", "--quiet"]
+
+    verify_command(cmd, argv: ["--quiet"])
+  end
+
   private
     def test_app_path
       File.expand_path("test_app", __dir__)
     end
 
-    def verify_command(cmd, use_node_modules: true)
+    def verify_command(cmd, use_node_modules: true, argv: [])
       cwd = Dir.pwd
       Dir.chdir(test_app_path)
 
       klass = Webpacker::DevServerRunner
-      instance = klass.new([])
+      instance = klass.new(argv)
       mock = Minitest::Mock.new
       mock.expect(:call, nil, [Webpacker::Compiler.env, *cmd])
 
       klass.stub(:new, instance) do
         instance.stub(:node_modules_bin_exist?, use_node_modules) do
-          Kernel.stub(:exec, mock) { klass.run([]) }
+          Kernel.stub(:exec, mock) { klass.run(argv) }
         end
       end
 
