@@ -1,10 +1,12 @@
 require "webpacker/configuration"
-require "fileutils"
+require "json"
 
-replace_babel_config = FileUtils.compare_file(Rails.root.join("babel.config.js"), "#{__dir__}/config/babel.config.js")
-
-say "Copying babel.config.js to app root directory"
-copy_file "#{__dir__}/examples/react/babel.config.js", "babel.config.js", force: replace_babel_config
+say "Adding react-preset to babel configuration in package.json"
+old_package = JSON.parse(File.read("package.json"))
+old_package["babel"] = {
+  "presets": ["./node_modules/@rails/webpacker/package/babel/preset-react.js"]
+}
+File.write("package.json", JSON.dump(old_package))
 
 say "Copying react example entry file to #{Webpacker.config.source_entry_path}"
 copy_file "#{__dir__}/examples/react/hello_react.jsx", "#{Webpacker.config.source_entry_path}/hello_react.jsx"
