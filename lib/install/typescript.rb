@@ -17,7 +17,7 @@ end
 
 say "Adding TypeScript preset to babel.config.js"
 insert_into_file Rails.root.join("babel.config.js").to_s,
-  ",\n      ['@babel/preset-typescript', { 'allExtensions': true, 'isTSX': true }]",
+  ",\n      ['@babel/preset-typescript', { allExtensions: true, isTSX: true }]",
   before: /\s*\].filter\(Boolean\),\n\s*plugins: \[/
 
 say "Copying tsconfig.json to the Rails root directory for typescript"
