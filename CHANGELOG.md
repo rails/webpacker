@@ -2,6 +2,10 @@
 
 **Please note that Webpacker 4.1.0 has an installer bug. Please use 4.2.0 or above**
 
+## [[5.2.1]](https://github.com/rails/webpacker/compare/v5.2.0...5.2.1) - 2020-08-17
+
+- Revert [#1311](https://github.com/rails/webpacker/pull/1311).
+
 ## [[5.2.0]](https://github.com/rails/webpacker/compare/v5.1.1...5.2.0) - 2020-08-16
 
 - Bump dependencies and fixes. See [diff](https://github.com/rails/webpacker/compare/v5.1.1...5-x-stable) for changes.
