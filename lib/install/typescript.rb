@@ -16,9 +16,15 @@ if File.exist?(package_json)
 end
 
 say "Adding TypeScript preset to babel.config.js"
-insert_into_file Rails.root.join("babel.config.js").to_s,
-  ",\n      ['@babel/preset-typescript', { allExtensions: true, isTSX: true }]",
-  before: /\s*\].filter\(Boolean\),\n\s*plugins: \[/
+preset_options = { typescript: true }
+preset_options["react"] = true if example_source == "react"
+old_package = JSON.parse(File.read("package.json"))
+old_package["babel"] = {
+  "presets": [
+    ["./node_modules/@rails/webpacker/package/babel/preset.js", preset_options]
+  ]
+}
+File.write("package.json", JSON.dump(old_package))
 
 say "Copying tsconfig.json to the Rails root directory for typescript"
 copy_file "#{__dir__}/examples/#{example_source}/tsconfig.json", "tsconfig.json"
@@ -34,6 +40,6 @@ copy_file "#{__dir__}/examples/typescript/hello_typescript.ts",
   "#{Webpacker.config.source_entry_path}/hello_typescript.ts"
 
 say "Installing all typescript dependencies"
-run "yarn add typescript @babel/preset-typescript #{additional_packages}"
+run "yarn add typescript #{additional_packages}"
 
 say "Webpacker now supports typescript 🎉", :green
