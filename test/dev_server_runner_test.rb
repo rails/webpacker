@@ -30,6 +30,19 @@ class DevServerRunnerTest < Webpacker::Test
     verify_command(cmd, argv: ["--quiet"])
   end
 
+  def test_run_cmd_argv_with_https
+    cmd = ["#{test_app_path}/node_modules/.bin/webpack-dev-server", "--config", "#{test_app_path}/config/webpack/development.js", "--https"]
+
+    dev_server = Webpacker::DevServer.new({})
+    def dev_server.host; "localhost"; end
+    def dev_server.port; "3035"; end
+    def dev_server.pretty?; false; end
+    def dev_server.https?; true; end
+    Webpacker::DevServer.stub(:new, dev_server) do
+      verify_command(cmd, argv: ["--https"])
+    end
+  end
+
   private
     def test_app_path
       File.expand_path("test_app", __dir__)

@@ -7,23 +7,13 @@ require "webpacker/runner"
 module Webpacker
   class DevServerRunner < Webpacker::Runner
     def run
-      detect_unsupported_switches!
       load_config
+      detect_unsupported_switches!
       detect_port!
       execute_cmd
     end
 
     private
-
-      UNSUPPORTED_SWITCHES = %w[--host --port --https]
-      private_constant :UNSUPPORTED_SWITCHES
-      def detect_unsupported_switches!
-        unsupported_switches = UNSUPPORTED_SWITCHES & @argv
-        if unsupported_switches.any?
-          $stdout.puts "The following CLI switches are not supported by Webpacker: #{unsupported_switches.join(' ')}. Please edit your command and try again."
-          exit!
-        end
-      end
 
       def load_config
         app_root = Pathname.new(@app_path)
@@ -39,11 +29,27 @@ module Webpacker
         @hostname          = dev_server.host
         @port              = dev_server.port
         @pretty            = dev_server.pretty?
+        @https             = dev_server.https?
 
       rescue Errno::ENOENT, NoMethodError
         $stdout.puts "webpack dev_server configuration not found in #{@config.config_path}[#{ENV["RAILS_ENV"]}]."
         $stdout.puts "Please run bundle exec rails webpacker:install to install Webpacker"
         exit!
+      end
+
+      UNSUPPORTED_SWITCHES = %w[--host --port]
+      private_constant :UNSUPPORTED_SWITCHES
+      def detect_unsupported_switches!
+        unsupported_switches = UNSUPPORTED_SWITCHES & @argv
+        if unsupported_switches.any?
+          $stdout.puts "The following CLI switches are not supported by Webpacker: #{unsupported_switches.join(' ')}. Please edit your command and try again."
+          exit!
+        end
+
+        if @argv.include?("--https") && !@https
+          $stdout.puts "Please set https: true in webpacker.yml to use the --https command line flag."
+          exit!
+        end
       end
 
       def detect_port!
