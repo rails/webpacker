@@ -57,6 +57,25 @@ class ConfigurationTest < Webpacker::Test
     assert_equal @config.additional_paths, ["app/assets", "/etc/yarn", "app/elm"]
   end
 
+  def test_additional_paths_with_nil_additional_paths
+    @config = Webpacker::Configuration.new(
+      root_path: Pathname.new(File.expand_path("test_app", __dir__)),
+      config_path: Pathname.new(File.expand_path("./test_app/config/webpacker_with_nil_additional_paths.yml", __dir__)),
+      env: "production"
+    )
+    assert_equal @config.additional_paths, ["app/elm"]
+  end
+
+  def test_additional_paths_with_nil_resolved_paths
+    @config = Webpacker::Configuration.new(
+      root_path: Pathname.new(File.expand_path("test_app", __dir__)),
+      config_path: Pathname.new(File.expand_path("./test_app/config/webpacker_with_nil_resolved_paths.yml", __dir__)),
+      env: "production"
+    )
+
+    assert_equal @config.additional_paths, ["app/assets", "/etc/yarn"]
+  end
+
   def test_additional_paths_globbed
     assert_equal @config.additional_paths_globbed, [
       "app/assets/**/*{.mjs,.js,.sass,.scss,.css,.module.sass,.module.scss,.module.css,.png,.svg,.gif,.jpeg,.jpg,.elm}",

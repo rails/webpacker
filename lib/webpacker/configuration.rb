@@ -28,7 +28,7 @@ class Webpacker::Configuration
   end
 
   def additional_paths
-    fetch(:additional_paths) + resolved_paths
+    (fetch(:additional_paths) || []) + (resolved_paths || [])
   end
 
   def additional_paths_globbed
