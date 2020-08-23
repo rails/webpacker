@@ -73,12 +73,10 @@ development:
 
 The basic setup will have HMR working with the default webpacker setup. However, the basic will cause a full page refresh each time you save a file.
 
-Webpack's HMR allows replacement of modules in-place without reloading the browser.
+Webpack's HMR allows replacement of modules for React in-place without reloading the browser. To do this, you have two options:
 
-To do this next part, you have two options:
-
-1. Use the 
-1. Follow the deprecated steps at [github.com/gaearon/react-hot-loader](https://github.com/gaearon/react-hot-loader).
+1. Steps below for the [github.com/pmmmwh/react-refresh-webpack-plugin](https://github.com/pmmmwh/react-refresh-webpack-plugin).
+1. Deprecated steps below for using the [github.com/gaearon/react-hot-loader](https://github.com/gaearon/react-hot-loader).
 
 ### React Refresh Webpack Plugin
 [github.com/pmmmwh/react-refresh-webpack-plugin](https://github.com/pmmmwh/react-refresh-webpack-plugin)
