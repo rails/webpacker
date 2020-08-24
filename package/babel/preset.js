@@ -26,7 +26,7 @@ module.exports = function config(api) {
         {
           useBuiltIns: 'entry',
           corejs: 3,
-          modules: false,
+          modules: 'auto',
           bugfixes: true,
           loose: true,
           exclude: ['transform-typeof-symbol']
