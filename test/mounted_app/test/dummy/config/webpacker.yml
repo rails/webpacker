@@ -8,7 +8,7 @@ default: &default
 
   # Additional paths webpack should lookup modules
   # ['app/assets', 'engine/foo/app/assets']
-  resolved_paths:
+  additional_paths:
     - app/assets
     - /etc/yarn
 
