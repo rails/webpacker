@@ -1,5 +1,4 @@
 require "rails/railtie"
-require "rails/engine"
 
 require "webpacker/helper"
 require "webpacker/dev_server_proxy"
@@ -7,7 +6,6 @@ require "webpacker/dev_server_proxy"
 class Webpacker::Engine < ::Rails::Engine
   # Allows Webpacker config values to be set via Rails env config files
   config.webpacker = ActiveSupport::OrderedOptions.new
-  
   initializer "webpacker.proxy" do |app|
     insert_middleware = Webpacker.config.dev_server.present? rescue nil
     if insert_middleware
