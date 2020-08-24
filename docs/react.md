@@ -62,10 +62,11 @@ document.addEventListener('DOMContentLoaded', () => {
 Before turning HMR on, consider upgrading to latest stable gems and packages:
 https://github.com/rails/webpacker#upgrading
 
-First, check that the `hmr` and `inline` options are `true` in your `config/webpacker.yml` file.
+Configure `config/webpacker.yml` file:
 
 ```yaml
 development:
+  extract_css: false
   dev_server:
     hmr: true
     inline: true
