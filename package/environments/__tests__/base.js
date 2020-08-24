@@ -29,6 +29,16 @@ describe('Environment', () => {
       )
     })
 
+    test('should return multi file entry points', () => {
+      const config = environment.toWebpackConfig()
+      expect(config.entry.multi_entry.sort()).toEqual(
+          [
+            resolve('app', 'javascript', 'packs', 'multi_entry.css'),
+            resolve('app', 'javascript', 'packs', 'multi_entry.js')
+          ]
+      )
+    })
+
     test('should return output', () => {
       const config = environment.toWebpackConfig()
       expect(config.output.filename).toEqual('js/[name]-[contenthash].js')
@@ -40,8 +50,21 @@ describe('Environment', () => {
       const defaultRules = Object.keys(rules)
       const configRules = config.module.rules
 
-      expect(defaultRules.length).toEqual(7)
-      expect(configRules.length).toEqual(8)
+      expect(defaultRules.length).toEqual(6)
+      expect(configRules.length).toEqual(6)
+    })
+
+    test('should return cache path for nodeModules rule', () => {
+      const nodeModulesRule = require('../../rules/node_modules')
+      const nodeModulesLoader = nodeModulesRule.use.find(rule => rule.loader === 'babel-loader')
+
+      expect(nodeModulesLoader.options.cacheDirectory).toBeTruthy()
+    })
+
+    test('should return cache path for babel-loader rule', () => {
+      const babelLoader = rules.babel.use.find(rule => rule.loader === 'babel-loader')
+
+      expect(babelLoader.options.cacheDirectory).toBeTruthy()
     })
 
     test('should return default plugins', () => {
@@ -60,6 +83,7 @@ describe('Environment', () => {
         resolve('app', 'javascript'),
         resolve('app/assets'),
         resolve('/etc/yarn'),
+        resolve('app/elm'),
         'node_modules'
       ])
     })

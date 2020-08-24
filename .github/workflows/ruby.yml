@@ -1,0 +1,70 @@
+name: Ruby specs
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Ruby specs
+    runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ endsWith(matrix.ruby, 'head') || matrix.ruby == 'debug' || matrix.experimental }}
+    env:
+      BUNDLE_JOBS: 4
+      BUNDLE_RETRY: 3
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        ruby: [
+          2.4,
+          2.5,
+          2.6,
+          2.7
+        ]
+        gemfile: [
+          "gemfiles/Gemfile-rails.5.2.x",
+          "gemfiles/Gemfile-rails.6.0.x"
+        ]
+        exclude:
+          - ruby: "2.4"
+            gemfile: gemfiles/Gemfile-rails.6.0.x
+        experimental: [false]
+        include:
+          - ruby: head
+            os: ubuntu-latest
+            gemfile: gemfiles/Gemfile-rails.6.0.x
+            experimental: true
+          - ruby: head
+            os: ubuntu-latest
+            gemfile: gemfiles/Gemfile-rails-edge
+            experimental: true
+          - ruby: 2.6
+            os: ubuntu-latest
+            gemfile: gemfiles/Gemfile-rails-edge
+            experimental: true
+          - ruby: 2.7
+            os: ubuntu-latest
+            gemfile: gemfiles/Gemfile-rails-edge
+            experimental: true
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: /home/runner/bundle
+          key: bundle-use-ruby-${{ matrix.ruby }}-${{ matrix.gemfile }}-gems-${{ hashFiles(matrix.gemfile) }}-${{ hashFiles('**/*.gemspec') }}
+          restore-keys: |
+            bundle-use-ruby-${{ matrix.ruby }}-${{ matrix.gemfile }}-gems-
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+
+      - name: Bundle install
+        run: |
+          gem install bundler -v 2.1.4
+          bundle config path /home/runner/bundle
+          bundle config --global gemfile ${{ matrix.gemfile }}
+          bundle install --jobs 4 --retry 3
+
+      - name: Ruby specs
+        run: bundle exec rake test

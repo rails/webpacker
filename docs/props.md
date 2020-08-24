@@ -1,45 +1,9 @@
 # Props
 
+How do you pass props from your view to your JavaScript component? Here you go.
 
 ## React
-
-If you need more advanced React-integration, like server rendering, redux, or react-router, see [shakacode/react_on_rails](https://github.com/shakacode/react_on_rails), [react-rails](https://github.com/reactjs/react-rails), and [webpacker-react](https://github.com/renchap/webpacker-react).
-
-If you're not concerned with view helpers to pass props or server rendering, can do it yourself:
-
-```erb
-<%# views/layouts/application.html.erb %>
-
-<%= content_tag :div,
-  id: "hello-react",
-  data: {
-    message: 'Hello!',
-    name: 'David'
-}.to_json do %>
-<% end %>
-```
-
-```js
-// app/javascript/packs/hello_react.js
-
-const Hello = props => (
-  <div className='react-app-wrapper'>
-    <img src={clockIcon} alt="clock" />
-    <h5 className='hello-react'>
-      {props.message} {props.name}!
-    </h5>
-  </div>
-)
-
-// Render component with data
-document.addEventListener('DOMContentLoaded', () => {
-  const node = document.getElementById('hello-react')
-  const data = JSON.parse(node.getAttribute('data'))
-
-  ReactDOM.render(<Hello {...data} />, node)
-})
-```
-
+See [docs/react.md](./react.md#props-hydration-and-server-side-rendering-ssr).
 
 ## Vue
 

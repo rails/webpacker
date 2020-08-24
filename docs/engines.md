@@ -203,7 +203,7 @@ or if you prefer to keep your engine-related configuration within the engine its
 module MyEngine
   class Engine < ::Rails:Engine
     config.app_middleware.use(
-      "Rack::Static",
+      Rack::Static,
       urls: ["/my-engine-packs"], root: "my_engine/public"
     )
   end

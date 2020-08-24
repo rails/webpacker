@@ -1,0 +1,9 @@
+/* 
+Any CSS added to this file or imported from this file, e.g. `@import '../stylesheets/my-css.css'`,
+will be included in the "application" pack. Any CSS imported from application.js or as part of the 
+application.js dependency graph, e.g. `import '../stylesheets/my-css.css'` will also be included 
+in the "application" pack. 
+
+To reference this file, add <%= stylesheet_pack_tag 'application' %> to the appropriate
+layout file, like app/views/layouts/application.html.erb
+*/

@@ -6,18 +6,17 @@ default: &default
   public_root_path: public
   public_output_path: packs
   cache_path: tmp/cache/webpacker
-  check_yarn_integrity: false
   webpack_compile_output: true
 
   # Additional paths webpack should lookup modules
   # ['app/assets', 'engine/foo/app/assets']
-  resolved_paths: []
+  additional_paths: []
 
   # Reload manifest.json on all requests so we reload latest compiled packs
   cache_manifest: false
 
   # Extract and emit a css file
-  extract_css: false
+  extract_css: true
 
   static_assets_extensions:
     - .jpg
@@ -52,8 +51,8 @@ development:
   <<: *default
   compile: true
 
-  # Verifies that correct packages and versions are installed by inspecting package.json, yarn.lock, and node_modules
-  check_yarn_integrity: true
+  # Set to false if using HMR for CSS
+  extract_css: true
 
   # Reference: https://webpack.js.org/configuration/dev-server/
   dev_server:
@@ -88,9 +87,6 @@ production:
 
   # Production depends on precompilation of packs prior to booting for performance.
   compile: false
-
-  # Extract and emit a css file
-  extract_css: true
 
   # Cache manifest.json for performance
   cache_manifest: true

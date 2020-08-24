@@ -25,9 +25,10 @@ class CompilerTest < Minitest::Test
 
   def test_default_watched_paths
     assert_equal Webpacker.compiler.send(:default_watched_paths), [
-      "app/assets/**/*{.mjs,.js,.sass,.scss,.css,.module.sass,.module.scss,.module.css,.png,.svg,.gif,.jpeg,.jpg}",
-      "/etc/yarn/**/*{.mjs,.js,.sass,.scss,.css,.module.sass,.module.scss,.module.css,.png,.svg,.gif,.jpeg,.jpg}",
-      "app/javascript/**/*{.mjs,.js,.sass,.scss,.css,.module.sass,.module.scss,.module.css,.png,.svg,.gif,.jpeg,.jpg}",
+      "app/assets/**/*{.mjs,.js,.sass,.scss,.css,.module.sass,.module.scss,.module.css,.png,.svg,.gif,.jpeg,.jpg,.elm}",
+      "/etc/yarn/**/*{.mjs,.js,.sass,.scss,.css,.module.sass,.module.scss,.module.css,.png,.svg,.gif,.jpeg,.jpg,.elm}",
+      "app/elm/**/*{.mjs,.js,.sass,.scss,.css,.module.sass,.module.scss,.module.css,.png,.svg,.gif,.jpeg,.jpg,.elm}",
+      "app/javascript/**/*{.mjs,.js,.sass,.scss,.css,.module.sass,.module.scss,.module.css,.png,.svg,.gif,.jpeg,.jpg,.elm}",
       "yarn.lock",
       "package.json",
       "config/webpack/**/*"
@@ -37,6 +38,10 @@ class CompilerTest < Minitest::Test
   def test_freshness
     assert Webpacker.compiler.stale?
     assert !Webpacker.compiler.fresh?
+  end
+
+  def test_compile
+    assert !Webpacker.compiler.compile
   end
 
   def test_freshness_on_compile_success

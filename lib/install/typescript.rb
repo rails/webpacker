@@ -15,17 +15,10 @@ if File.exist?(package_json)
   end
 end
 
-say "Copying typescript loader to config/webpack/loaders"
-copy_file "#{__dir__}/loaders/typescript.js", Rails.root.join("config/webpack/loaders/typescript.js").to_s
-
-say "Adding typescript loader to config/webpack/environment.js"
-insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
-  "const typescript =  require('./loaders/typescript')\n",
-  after: /require\(('|")@rails\/webpacker\1\);?\n/
-
-insert_into_file Rails.root.join("config/webpack/environment.js").to_s,
-  "environment.loaders.prepend('typescript', typescript)\n",
-  before: "module.exports"
+say "Adding TypeScript preset to babel.config.js"
+insert_into_file Rails.root.join("babel.config.js").to_s,
+  ",\n      ['@babel/preset-typescript', { allExtensions: true, isTSX: true }]",
+  before: /\s*\].filter\(Boolean\),\n\s*plugins: \[/
 
 say "Copying tsconfig.json to the Rails root directory for typescript"
 copy_file "#{__dir__}/examples/#{example_source}/tsconfig.json", "tsconfig.json"
@@ -42,7 +35,7 @@ copy_file "#{__dir__}/examples/typescript/hello_typescript.ts",
 
 Dir.chdir(Rails.root) do
   say "Installing all typescript dependencies"
-  run "yarn add typescript ts-loader #{additional_packages}"
+  run "yarn add typescript @babel/preset-typescript #{additional_packages}"
 end
 
 say "Webpacker now supports typescript 🎉", :green

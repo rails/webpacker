@@ -5,6 +5,7 @@ module Webpacker
   class WebpackRunner < Webpacker::Runner
     def run
       env = Webpacker::Compiler.env
+      env["WEBPACKER_CONFIG"] = @webpacker_config
 
       cmd = if node_modules_bin_exist?
         ["#{@node_modules_bin_path}/webpack"]
@@ -12,9 +13,8 @@ module Webpacker
         ["yarn", "webpack"]
       end
 
-      if ARGV.include?("--debug")
+      if @argv.include?("--debug-webpacker")
         cmd = [ "node", "--inspect-brk"] + cmd
-        ARGV.delete("--debug")
       end
 
       cmd += ["--config", @webpack_config] + @argv

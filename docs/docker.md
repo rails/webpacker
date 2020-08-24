@@ -9,22 +9,15 @@ version: '3'
 services:
   webpacker:
     build: .
-    env_file:
-      - '.env.docker'
+    environment:
+      - NODE_ENV=development
+      - RAILS_ENV=development
+      - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
     command: ./bin/webpack-dev-server
     volumes:
       - .:/webpacker-example-app
     ports:
       - '3035:3035'
-```
-
-Second, change the webpack-dev-server host to the service name of the docker-compose in config/webpacker.yml:
-
-```yaml
-development:
-  <<: *default
-  dev_server:
-    host: webpacker
 ```
 
 add nodejs and yarn as dependencies in Dockerfile,
@@ -53,14 +46,6 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash \
 # Rest of the commands....
 ```
 
-and create an env file to load environment variables from:
-
-```env
-NODE_ENV=development
-RAILS_ENV=development
-WEBPACKER_DEV_SERVER_HOST=0.0.0.0
-```
-
 then add the webpacker host name environment variable to the web/app service:
 
 ```Dockerfile
@@ -73,10 +58,7 @@ then add the webpacker host name environment variable to the web/app service:
     ports:
       - "3000:3000"
     environment:
-      - DATABASE_URL=postgres://postgres@db
       - WEBPACKER_DEV_SERVER_HOST=webpacker
-    depends_on:
-      - db
 ```
 
 Lastly, rebuild your container:

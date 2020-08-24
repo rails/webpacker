@@ -1,4 +1,4 @@
-const { stringify } = require('flatted/cjs')
+const { stringify } = require('flatted')
 
 const isObject = (value) => typeof value === 'object'
   && value !== null

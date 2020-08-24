@@ -4,9 +4,9 @@ const { readFileSync } = require('fs')
 const deepMerge = require('./utils/deep_merge')
 const { isArray, ensureTrailingSlash } = require('./utils/helpers')
 const { railsEnv } = require('./env')
+const configPath = require('./configPath')
 
 const defaultConfigPath = require.resolve('../lib/install/config/webpacker.yml')
-const configPath = resolve('config', 'webpacker.yml')
 
 const getDefaultConfig = () => {
   const defaultConfig = safeLoad(readFileSync(defaultConfigPath), 'utf8')
@@ -23,6 +23,9 @@ if (isArray(app.static_assets_extensions) && app.static_assets_extensions.length
 
 const config = deepMerge(defaults, app)
 config.outputPath = resolve(config.public_root_path, config.public_output_path)
+
+// Merge resolved_paths into additional_paths for backwards-compat
+config.additional_paths = config.additional_paths.concat(config.resolved_paths || [])
 
 // Ensure that the publicPath includes our asset host so dynamic imports
 // (code-splitting chunks and static assets) load from the CDN instead of a relative path.

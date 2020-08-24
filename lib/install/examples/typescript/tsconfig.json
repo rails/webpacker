@@ -11,7 +11,8 @@
         "*": ["node_modules/*", "app/javascript/*"]
     },
     "sourceMap": true,
-    "target": "es5"
+    "target": "es5",
+    "noEmit": true
   },
   "exclude": [
     "**/*.spec.ts",
