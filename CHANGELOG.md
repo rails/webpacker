@@ -12,6 +12,8 @@ environment.loaders.append('nodeModules', nodeModules)
 - If you have added `environment.loaders.delete('nodeModules')` to your `environment.js`, this must be removed or you will receive an error (`Item nodeModules not found`).
 - The install task will now set the `extract_css` default to `true` in all environments and generate a separate `application.css` file for the default `application` pack, as supported by multiple files per entry introduced in 5.0.0.  [#2608](https://github.com/rails/webpacker/pull/2608)
 
+- Changes `@babel/preset-env` modules option to `'auto'` per recommendation in the Babel docs [#2709](https://github.com/rails/webpacker/pull/2709)
+
 ## [[5.1.1]](https://github.com/rails/webpacker/compare/v5.1.0...v5.1.1) - 2020-04-20
 
 - Update [TypeScript documentation](https://github.com/rails/webpacker/blob/master/docs/typescript.md) and installer to use babel-loader for typescript.[(#2541](https://github.com/rails/webpacker/pull/2541)
@@ -19,7 +21,7 @@ environment.loaders.append('nodeModules', nodeModules)
 ## [[5.1.0]](https://github.com/rails/webpacker/compare/v5.0.1...v5.1.0) - 2020-04-19
 
 - Remove yarn integrity check [#2518](https://github.com/rails/webpacker/pull/2518)
-- Switch from ts-loader to babel-loader [#2449](https://github.com/rails/webpacker/pull/2449)  
+- Switch from ts-loader to babel-loader [#2449](https://github.com/rails/webpacker/pull/2449)
   Please see the [TypeScript documentation](https://github.com/rails/webpacker/blob/master/docs/typescript.md) to upgrade existing projects to use typescript with 5.1
 - Resolve multi-word snakecase WEBPACKER_DEV_SERVER env values [#2528](https://github.com/rails/webpacker/pull/2528)
 
