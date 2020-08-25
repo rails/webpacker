@@ -2,7 +2,7 @@
 
 ## Props Hydration and Server-Side Rendering (SSR)
 You only _need_ props hydration if you need SSR. However, there's no good reason to
-have your app do a second round trip to the Rails server to get props. 
+have your app make a second round trip to the Rails server to get initialization props.
 
 Server-Side Rendering (SSR) results in Rails rendering HTML for your React components.
 The main reasons to use SSR are better SEO and pages display more quickly. 
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 ## HMR and React Hot Reloading
 
-Before turning HMR on, consider upgrading to latest stable gems and packages:
+Before turning HMR on, consider upgrading to the latest stable gems and packages:
 https://github.com/rails/webpacker#upgrading
 
 Configure `config/webpacker.yml` file:
@@ -72,9 +72,9 @@ development:
     inline: true
 ```
 
-The basic setup will have HMR working with the default webpacker setup. However, the basic will cause a full page refresh each time you save a file.
+This basic configuration alone will have HMR working with the default webpacker setup. However, an code saves will trigger a full page refresh each time you save a file.
 
-Webpack's HMR allows replacement of modules for React in-place without reloading the browser. To do this, you have two options:
+Webpack's HMR allows the replacement of modules for React in-place without reloading the browser. To do this, you have two options:
 
 1. Steps below for the [github.com/pmmmwh/react-refresh-webpack-plugin](https://github.com/pmmmwh/react-refresh-webpack-plugin).
 1. Deprecated steps below for using the [github.com/gaearon/react-hot-loader](https://github.com/gaearon/react-hot-loader).
