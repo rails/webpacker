@@ -81,6 +81,7 @@ class Webpacker::Compiler
           logger.info stdout
         end
       else
+        logger.error "Compilation process status: #{status}"
         non_empty_streams = [stdout, stderr].delete_if(&:empty?)
         logger.error "Compilation failed:\n#{non_empty_streams.join("\n\n")}"
       end
