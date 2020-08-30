@@ -1,38 +1,50 @@
+/* eslint global-require: 0 */
+/* eslint import/no-dynamic-require: 0 */
+
 const { merge } = require('webpack-merge')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const safePostCssParser = require('postcss-safe-parser')
 const CompressionPlugin = require('compression-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const baseConfig = require('./base')
 
-let compressionPlugin = new CompressionPlugin({
-  filename: '[path].gz[query]',
-  algorithm: 'gzip',
-  test: /\.(js|css|html|json|ico|svg|eot|otf|ttf|map)$/
-})
-
-if ('brotli' in process.versions) {
-  compressionPlugin = new CompressionPlugin({
-    filename: '[path].br[query]',
-    algorithm: 'brotliCompress',
+const getPlugins = () => {
+  let compressionPlugin = new CompressionPlugin({
+    filename: '[path].gz[query]',
+    algorithm: 'gzip',
     test: /\.(js|css|html|json|ico|svg|eot|otf|ttf|map)$/
   })
+
+  if ('brotli' in process.versions) {
+    compressionPlugin = new CompressionPlugin({
+      filename: '[path].br[query]',
+      algorithm: 'brotliCompress',
+      test: /\.(js|css|html|json|ico|svg|eot|otf|ttf|map)$/
+    })
+  }
+
+  const plugins = [compressionPlugin]
+
+  try {
+    if (require.resolve('css-loader')) {
+      const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+      const safePostCssParser = require('postcss-safe-parser')
+      plugins.push(
+        new OptimizeCSSAssetsPlugin({
+          parser: safePostCssParser,
+          map: {
+            inline: false,
+            annotation: true
+          }
+        })
+      )
+    }
+  } catch (e) {}
 }
 
 const productionConfig = {
   devtool: 'source-map',
   stats: 'normal',
   bail: true,
-  plugins: [
-    compressionPlugin,
-    new OptimizeCSSAssetsPlugin({
-      parser: safePostCssParser,
-      map: {
-        inline: false,
-        annotation: true
-      }
-    })
-  ],
+  plugins: getPlugins(),
   optimization: {
     minimizer: [
       new TerserPlugin({

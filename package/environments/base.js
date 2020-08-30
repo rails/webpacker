@@ -6,9 +6,7 @@ const extname = require('path-complete-extname')
 const PnpWebpackPlugin = require('pnp-webpack-plugin')
 const { sync } = require('glob')
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const WebpackAssetsManifest = require('webpack-assets-manifest')
-const PnpWebpackPlugin = require('pnp-webpack-plugin')
 const webpack = require('webpack')
 const rules = require('../rules')
 const config = require('../config')
@@ -50,6 +48,33 @@ const getModulePaths = () => {
   return result
 }
 
+const getPlugins = () => {
+  const plugins = [
+    new webpack.EnvironmentPlugin(process.env),
+    PnpWebpackPlugin,
+    new CaseSensitivePathsPlugin(),
+    new WebpackAssetsManifest({
+      entrypoints: true,
+      writeToDisk: true,
+      publicPath: config.publicPathWithoutCDN
+    })
+  ]
+
+  try {
+    if (require.resolve('css-loader')) {
+      const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+      plugins.push(
+        new MiniCssExtractPlugin({
+          filename: 'css/[name]-[contenthash:8].css',
+          chunkFilename: 'css/[name]-[contenthash:8].chunk.css'
+        })
+      )
+    }
+  } catch (e) {}
+
+  return plugins
+}
+
 module.exports = {
   mode: 'production',
   output: {
@@ -65,20 +90,7 @@ module.exports = {
     modules: getModulePaths()
   },
 
-  plugins: [
-    new webpack.EnvironmentPlugin(process.env),
-    PnpWebpackPlugin,
-    new CaseSensitivePathsPlugin(),
-    new MiniCssExtractPlugin({
-      filename: 'css/[name]-[contenthash:8].css',
-      chunkFilename: 'css/[name]-[contenthash:8].chunk.css'
-    }),
-    new WebpackAssetsManifest({
-      entrypoints: true,
-      writeToDisk: true,
-      publicPath: config.publicPathWithoutCDN
-    })
-  ],
+  plugins: getPlugins(),
 
   optimization: {
     splitChunks: {
