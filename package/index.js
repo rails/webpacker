@@ -3,22 +3,22 @@
 
 const { resolve } = require('path')
 const { existsSync } = require('fs')
-const Environment = require('./environments/base')
+const baseConfig = require('./environments/base')
 const loaders = require('./rules')
 const config = require('./config')
 const devServer = require('./dev_server')
 const { nodeEnv } = require('./env')
 
-const createEnvironment = () => {
+const webpackConfig = () => {
   const path = resolve(__dirname, 'environments', `${nodeEnv}.js`)
-  const constructor = existsSync(path) ? require(path) : Environment
-  return new constructor()
+  const environmentConfig = existsSync(path) ? require(path) : baseConfig
+  return environmentConfig
 }
 
 module.exports = {
   config,
   devServer,
-  environment: createEnvironment(),
-  Environment,
+  webpackConfig: webpackConfig(),
+  baseConfig,
   loaders
 }

@@ -15,10 +15,10 @@ module.exports = {
     /\.woff$/,
     /\.woff2$/
   ],
+  exclude: [/\.(js|mjs|jsx|ts|tsx)$/, /\.html$/, /\.json$/],
   use: [
     {
       loader: require.resolve('file-loader'),
-      exclude: [/\.(js|mjs|jsx|ts|tsx)$/, /\.html$/, /\.json$/],
       options: {
         name(file) {
           if (file.includes(normalize(sourcePath))) {

@@ -7,8 +7,6 @@ const {
 } = require('../config')
 const { isProduction } = require('../env')
 
-// Process application Javascript code with Babel.
-// Uses application .babelrc to apply any transformations
 module.exports = {
   test: /\.(js|jsx|mjs|ts|tsx)?(\.erb)?$/,
   include: [sourcePath, ...additionalPaths].map((p) => {

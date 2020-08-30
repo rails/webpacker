@@ -4,24 +4,20 @@
 const { basename, dirname, join, relative, resolve } = require('path')
 const extname = require('path-complete-extname')
 const PnpWebpackPlugin = require('pnp-webpack-plugin')
-const { readdirSync } = require('fs')
+const { sync } = require('glob')
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const WebpackAssetsManifest = require('webpack-assets-manifest')
+const PnpWebpackPlugin = require('pnp-webpack-plugin')
+const webpack = require('webpack')
 const rules = require('../rules')
-const plugins = require('../plugins')
 const config = require('../config')
-
-const getRulesList = () => {
-  const list = []
-  Object.keys(rules).forEach((key) => list.push(rules[key]))
-  return list
-}
 
 const getEntryObject = () => {
   const entries = {}
-
   const rootPath = join(config.source_path, config.source_entry_path)
-  const paths = readdirSync(rootPath)
 
-  paths.forEach((path) => {
+  sync(`${rootPath}/**/*.*`).forEach((path) => {
     const namespace = relative(join(rootPath), dirname(path))
     const name = join(namespace, basename(path, extname(path)))
     let assetPaths = resolve(path)
@@ -69,7 +65,20 @@ module.exports = {
     modules: getModulePaths()
   },
 
-  plugins: plugins.shared,
+  plugins: [
+    new webpack.EnvironmentPlugin(process.env),
+    PnpWebpackPlugin,
+    new CaseSensitivePathsPlugin(),
+    new MiniCssExtractPlugin({
+      filename: 'css/[name]-[contenthash:8].css',
+      chunkFilename: 'css/[name]-[contenthash:8].chunk.css'
+    }),
+    new WebpackAssetsManifest({
+      entrypoints: true,
+      writeToDisk: true,
+      publicPath: config.publicPathWithoutCDN
+    })
+  ],
 
   optimization: {
     splitChunks: {
@@ -85,7 +94,7 @@ module.exports = {
 
   module: {
     strictExportPresence: true,
-    rules: getRulesList()
+    rules
   },
 
   node: {

@@ -1,35 +1,31 @@
-const babel = require('./babel')
-const file = require('./file')
-const css = require('./css')
-const sass = require('./sass')
-const erb = require('./erb')
-const coffee = require('./coffee')
-const elm = require('./elm')
-const svelte = require('./svelte')
-const vue = require('./vue')
-const html = require('./html')
-const eslint = require('./eslint')
-const url = require('./url')
+/* eslint global-require: 0 */
+/* eslint import/no-dynamic-require: 0 */
 
-const prepare = (name) => {
+const load = (name) => {
   try {
-    require.resolve(name)
-  } catch (e) {}
+    return require(`./${name}`)
+  } catch (e) {
+    return null
+  }
 }
 
-const availableRules = {
-  file: file,
-  url: url,
-  css: css,
-  sass: sass,
-  babel: babel,
-  erb: erb,
-  coffee: coffee,
-  elm: elm,
-  svelte: svelte,
-  vue: vue,
-  html: html,
-  eslint: eslint
+const rules = {
+  file: load('file'),
+  url: load('url'),
+  css: load('css'),
+  sass: load('sass'),
+  babel: load('babel'),
+  erb: load('erb'),
+  coffee: load('coffee'),
+  elm: load('elm'),
+  svelte: load('svelte'),
+  vue: load('vue'),
+  html: load('html'),
+  eslint: load('eslint'),
+  svg: load('svg'),
+  less: load('less')
 }
 
-Object.keys(availableRules)
+module.exports = Object.keys(rules)
+  .filter((key) => !!rules[key])
+  .map((key) => rules[key])

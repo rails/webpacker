@@ -1,8 +1,9 @@
+const { merge } = require('webpack-merge')
 const webpack = require('webpack')
-const merge = require('webpack-merge')
 
 const baseConfig = require('./base')
 const devServer = require('../dev_server')
+
 const { outputPath: contentBase, publicPath } = require('../config')
 
 const devConfig = {
