@@ -65,8 +65,8 @@ class Webpacker::Configuration
 
   def check_yarn_integrity=(value)
     warn <<~EOS
-      Webpacker::Configuration#check_yarn_integrity=(value) is obsolete. The integrity 
-      check has been removed from Webpacker (https://github.com/rails/webpacker/pull/2518) 
+      Webpacker::Configuration#check_yarn_integrity=(value) is obsolete. The integrity
+      check has been removed from Webpacker (https://github.com/rails/webpacker/pull/2518)
       so changing this setting will have no effect.
     EOS
   end
