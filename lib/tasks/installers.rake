@@ -14,19 +14,21 @@ dependencies = {
   "Angular": [:typescript]
 }
 
-bin_path = ENV["BUNDLE_BIN"] || "./bin"
+bin_path = ENV["BUNDLE_BIN"] || Rails.root.join("bin")
 
 namespace :webpacker do
   namespace :install do
     installers.each do |name, task_name|
       desc "Install everything needed for #{name}"
-      task task_name => ["webpacker:verify_install"] do
+      task task_name => ["webpacker:verify_install"] do |task|
+        prefix = task.name.split(/#|webpacker:install/).first
+
         template = File.expand_path("../install/#{task_name}.rb", __dir__)
         base_path =
           if Rails::VERSION::MAJOR >= 5
-            "#{RbConfig.ruby} #{bin_path}/rails app:template"
+            "#{RbConfig.ruby} #{bin_path}/rails #{prefix}app:template"
           else
-            "#{RbConfig.ruby} #{bin_path}/rake rails:template"
+            "#{RbConfig.ruby} #{bin_path}/rake #{prefix}rails:template"
           end
 
         dependencies[name] ||= []

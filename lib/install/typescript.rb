@@ -33,7 +33,9 @@ say "Copying the example entry file to #{Webpacker.config.source_entry_path}"
 copy_file "#{__dir__}/examples/typescript/hello_typescript.ts",
   "#{Webpacker.config.source_entry_path}/hello_typescript.ts"
 
-say "Installing all typescript dependencies"
-run "yarn add typescript @babel/preset-typescript #{additional_packages}"
+Dir.chdir(Rails.root) do
+  say "Installing all typescript dependencies"
+  run "yarn add typescript @babel/preset-typescript #{additional_packages}"
+end
 
 say "Webpacker now supports typescript 🎉", :green

@@ -16,8 +16,9 @@ end
 
 apply "#{__dir__}/binstubs.rb"
 
-if File.exists?(".gitignore")
-  append_to_file ".gitignore" do
+git_ignore_path = Rails.root.join(".gitignore")
+if File.exists?(git_ignore_path)
+  append_to_file git_ignore_path do
     "\n"                   +
     "/public/packs\n"      +
     "/public/packs-test\n" +
@@ -28,16 +29,18 @@ if File.exists?(".gitignore")
   end
 end
 
-if Webpacker::VERSION =~ /^[0-9]+\.[0-9]+\.[0-9]+$/
-  say "Installing all JavaScript dependencies [#{Webpacker::VERSION}]"
-  run "yarn add @rails/webpacker@#{Webpacker::VERSION}"
-else
-  say "Installing all JavaScript dependencies [from prerelease rails/webpacker]"
-  run "yarn add @rails/webpacker@next"
-end
+Dir.chdir(Rails.root) do
+  if Webpacker::VERSION =~ /^[0-9]+\.[0-9]+\.[0-9]+$/
+    say "Installing all JavaScript dependencies [#{Webpacker::VERSION}]"
+    run "yarn add @rails/webpacker@#{Webpacker::VERSION}"
+  else
+    say "Installing all JavaScript dependencies [from prerelease rails/webpacker]"
+    run "yarn add @rails/webpacker@next"
+  end
 
-say "Installing dev server for live reloading"
-run "yarn add --dev webpack-dev-server"
+  say "Installing dev server for live reloading"
+  run "yarn add --dev webpack-dev-server"
+end
 
 insert_into_file Rails.root.join("package.json").to_s, before: /\n}\n*$/ do
   <<~JSON.chomp

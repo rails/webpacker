@@ -32,8 +32,10 @@ say "Copying Vue app file to #{Webpacker.config.source_entry_path}"
 copy_file "#{__dir__}/examples/vue/app.vue",
   "#{Webpacker.config.source_path}/app.vue"
 
-say "Installing all Vue dependencies"
-run "yarn add vue vue-loader vue-template-compiler"
+Dir.chdir(Rails.root) do
+  say "Installing all Vue dependencies"
+  run "yarn add vue vue-loader vue-template-compiler"
+end
 
 if Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR > 1
   say "You need to enable unsafe-eval rule.", :yellow
