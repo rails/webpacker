@@ -18,6 +18,9 @@ default: &default
   # Extract and emit a css file
   extract_css: true
 
+  # Raise error on missing module. Optionally it can be set to 'log' or 'silence'
+  missing_entry_behavior: raise
+
   static_assets_extensions:
     - .jpg
     - .jpeg

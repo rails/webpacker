@@ -45,6 +45,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 - [Paths](#paths)
   - [Resolved](#resolved)
   - [Watched](#watched)
+- [Missing entry behavior](#missing-entry-behavior)
 - [Deployment](#deployment)
 - [Docs](#docs)
 - [Contributing](#contributing)
@@ -389,6 +390,17 @@ import 'images/rails.png'
 **Note:** Please be careful when adding paths here otherwise it
 will make the compilation slow, consider adding specific paths instead of
 whole parent directory if you just need to reference one or two modules
+
+## Missing entry behavior
+
+By default, Webpacker will raise `Webpacker::Manifest::MissingEntryError` on a try to render the missing module.
+You can change this if you like:
+
+```yml
+# config/webpacker.yml
+production:
+  missing_entry_behavior: log # Can be set to 'raise' (default), 'log' or 'silence'
+```
 
 ## Deployment
 

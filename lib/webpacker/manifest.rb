@@ -55,7 +55,7 @@ class Webpacker::Manifest
     end
 
     def compile
-      Webpacker.logger.tagged("Webpacker") { compiler.compile }
+      tagged_logger { compiler.compile }
     end
 
     def data
@@ -76,7 +76,20 @@ class Webpacker::Manifest
     end
 
     def handle_missing_entry(name, pack_type)
-      raise Webpacker::Manifest::MissingEntryError, missing_file_from_manifest_error(full_pack_name(name, pack_type[:type]))
+      bundle_name = full_pack_name(name, pack_type[:type])
+
+      case config.missing_entry_behavior
+      when "raise"
+        raise Webpacker::Manifest::MissingEntryError, missing_file_from_manifest_error(bundle_name)
+      when "log"
+        tagged_logger { Webpacker.logger.warn(missing_file_from_manifest_error(bundle_name)) }
+      when "silence"
+      else
+        raise ArgumentError,
+              "[Webpacker] Unexpected value for 'missing_entry_behavior' configuration option: #{config.missing_entry_behavior}"
+      end
+
+      bundle_name
     end
 
     def load
@@ -114,5 +127,9 @@ Webpacker can't find #{bundle_name} in #{config.public_manifest_path}. Possible 
 Your manifest contains:
 #{JSON.pretty_generate(@data)}
       MSG
+    end
+
+    def tagged_logger
+      Webpacker.logger.tagged("Webpacker") { yield }
     end
 end

@@ -75,6 +75,10 @@ class Webpacker::Configuration
     fetch(:extract_css)
   end
 
+  def missing_entry_behavior
+    fetch(:missing_entry_behavior)
+  end
+
   private
     def resolved_paths
       paths = data.fetch(:resolved_paths, [])

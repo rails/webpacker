@@ -1,7 +1,7 @@
 require "test_helper"
 
 class ManifestTest < Minitest::Test
-  def test_lookup_exception!
+  def test_lookup_raised_error!
     asset_file = "calendar.js"
 
     error = assert_raises_manifest_missing_entry_error do
@@ -11,7 +11,7 @@ class ManifestTest < Minitest::Test
     assert_match "Webpacker can't find #{asset_file} in #{manifest_path}", error.message
   end
 
-  def test_lookup_with_type_exception!
+  def test_lookup_with_type_raised_error!
     asset_file = "calendar"
 
     error = assert_raises_manifest_missing_entry_error do
@@ -19,6 +19,26 @@ class ManifestTest < Minitest::Test
     end
 
     assert_match "Webpacker can't find #{asset_file}.js in #{manifest_path}", error.message
+  end
+
+  def test_lookup_logged_error!
+    asset_file = "calendar.js"
+
+    Webpacker.config.stub :compile?, false do
+      Webpacker.config.stub :missing_entry_behavior, "silence" do
+        assert_equal Webpacker.manifest.lookup!(asset_file), asset_file
+      end
+    end
+  end
+
+  def test_lookup_with_type_logged_error!
+    asset_file = "calendar"
+
+    Webpacker.config.stub :compile?, false do
+      Webpacker.config.stub :missing_entry_behavior, "silence" do
+        assert_equal Webpacker.manifest.lookup!(asset_file, type: :javascript), "#{asset_file}.js"
+      end
+    end
   end
 
   def test_lookup_success!
