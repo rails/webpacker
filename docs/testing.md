@@ -134,3 +134,14 @@ Make sure you configure Rails to serve static files from the public directory in
 # Configure public file server for tests with Cache-Control for performance.
 config.public_file_server.enabled = true
 ```
+
+## Webpacker Configuration and Rails Tests
+
+Webpacker ships with three javascript configuration files: `test.js`,
+`development.js`, and `production.js`. The `NODE_ENV` environment
+variable determines which config will be used. `NODE_ENV` is
+independent of `RAILS_ENV` and is set to `development` by [default](https://github.com/rails/webpacker/blob/bf278f9787704ed0f78038ad7d36c008abc2edfd/lib/install/bin/webpack#L4).
+This means that `rails test` or `rspec` will use `development.js`
+by default, _not_ `test.js`.
+
+For more information see [Why doesn't Webpacker use my test config when I run Rails tests?](https://rossta.net/blog/why-doesnt-webpacker-use-my-test-config-when-i-run-rails-tests.html)
