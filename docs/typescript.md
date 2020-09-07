@@ -83,7 +83,7 @@ If you update your App to `webpacker >= 5.1` and had TypeScript installed before
 
 ## TypeScript with React
 
-1. Setup react using Webpacker [react installer](../README.md#react). Then run the TypeScript installer
+1. Setup react using Webpacker [react installer](integrations.md#react). Then run the TypeScript installer
 
 ```bash
 bundle exec rails webpacker:install:typescript
