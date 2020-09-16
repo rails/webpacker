@@ -370,12 +370,12 @@ If you have `hmr` turned to true, then the `stylesheet_pack_tag` generates no ou
 
 If you are adding Webpacker to an existing app that has most of the assets inside
 `app/assets` or inside an engine, and you want to share that
-with webpack modules, you can use the `additional_paths`
+with webpack modules, you can use the `resolved_paths`
 option available in `config/webpacker.yml`. This lets you
 add additional paths that webpack should lookup when resolving modules:
 
 ```yml
-additional_paths: ['app/assets']
+resolved_paths: ['app/assets']
 ```
 
 You can then import these items inside your modules like so:
