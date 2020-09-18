@@ -40,6 +40,21 @@ module Webpacker::Helper
     end
   end
 
+  # Computes the relative path for a given Webpacker image with the same automated processing as image_pack_tag.
+  # Returns the relative path using manifest.json and passes it to path_to_asset helper.
+  # This will use path_to_asset internally, so most of their behaviors will be the same.
+  def image_pack_path(name, **options)
+    resolve_path_to_image(name, **options)
+  end
+
+  # Computes the absolute path for a given Webpacker image with the same automated
+  # processing as image_pack_tag. Returns the relative path using manifest.json
+  # and passes it to path_to_asset helper. This will use path_to_asset internally,
+  # so most of their behaviors will be the same.
+  def image_pack_url(name, **options)
+    resolve_path_to_image(name, **options.merge(protocol: :request))
+  end
+
   # Creates an image tag that references the named pack file.
   #
   # Example:
@@ -186,10 +201,10 @@ module Webpacker::Helper
       names.map { |name| current_webpacker_instance.manifest.lookup_pack_with_chunks!(name, type: type) }.flatten.uniq
     end
 
-    def resolve_path_to_image(name)
+    def resolve_path_to_image(name, **options)
       path = name.starts_with?("media/images/") ? name : "media/images/#{name}"
-      path_to_asset(current_webpacker_instance.manifest.lookup!(path))
+      path_to_asset(current_webpacker_instance.manifest.lookup!(path), **options)
     rescue
-      path_to_asset(current_webpacker_instance.manifest.lookup!(name))
+      path_to_asset(current_webpacker_instance.manifest.lookup!(name), **options)
     end
 end

@@ -83,9 +83,10 @@ import 'assets/stylesheets/bar'
 
 ## Link in your Rails views
 
-You can also link `js/images/styles/fonts` used within your js app in views using
-`asset_pack_path` and `image_pack_tag` helpers. These helpers are useful in cases where you just want to
-create a `<link rel="prefetch">` or `<img />` for an asset.
+You can also link `js|images|styles|fonts` used within your js app in rails views
+using `asset_pack_path`, `asset_pack_url`, `image_pack_path`, `image_pack_url` and
+`image_pack_tag` helpers. These helpers are especially useful in cases where you
+want to create a `<link rel="prefetch">` or `<img />` for an asset.
 
 ```yml
 app/javascript:
@@ -108,10 +109,25 @@ require.context('../images', true)
 <img src="<%= asset_pack_path 'media/images/calendar.png' %>" />
 <% # => <img src="/packs/media/images/calendar-k344a6d59eef8632c9d1.png" /> %>
 
+<img src="<%= asset_pack_url 'media/images/calendar.png' %>" />
+<% # => <img src="https://example.com/packs/media/images/calendar-k344a6d59eef8632c9d1.png" /> %>
+
+<img src="<%= image_pack_path 'media/images/calendar.png' %>" />
+<% # => <img src="/packs/media/images/calendar-k344a6d59eef8632c9d1.png" /> %>
+
+<img src="<%= image_pack_url 'media/images/calendar.png' %>" />
+<% # => <img src="https://example.com/packs/media/images/calendar-k344a6d59eef8632c9d1.png" /> %>
+
 <%= image_pack_tag 'media/images/calendar.png' %>
 <% # => <img src="/packs/media/images/calendar-k344a6d59eef8632c9d1.png" /> %>
 
-<%# no path resolves to default 'images' folder: %>
+<%# no path used in image helpers resolves to default 'images' folder: %>
+<img src="<%= image_pack_path 'calendar.png' %>" />
+<% # => <img src="/packs/media/images/calendar-k344a6d59eef8632c9d1.png" /> %>
+
+<img src="<%= image_pack_url 'calendar.png' %>" />
+<% # => <img src="https://example.com/packs/media/images/calendar-k344a6d59eef8632c9d1.png" /> %>
+
 <%= image_pack_tag 'calendar.png' %>
 <% # => <img src="/packs/media/images/calendar-k344a6d59eef8632c9d1.png" /> %>
 ```
