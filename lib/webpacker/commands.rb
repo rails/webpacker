@@ -23,7 +23,7 @@ class Webpacker::Commands
         .each_with_index
         .drop_while do |(mtime, _), index|
           max_age = [0, Time.now - Time.at(mtime)].max
-          max_age < age && index < count
+          max_age < age || index < count
         end
         .each do |(_, files), index|
           files.each do |file|
