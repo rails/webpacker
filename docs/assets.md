@@ -132,4 +132,4 @@ require.context('../images', true)
 <% # => <img src="/packs/media/images/calendar-k344a6d59eef8632c9d1.png" /> %>
 ```
 
-Note you need to add a `media/` prefix (not `/media/`) to any subfolder structure you might have in `app/javascript`. See more examples in the [tests](https://github.com/rails/webpacker/blob/0b86cadb5ed921e2c1538382e72a236ec30a5d97/test/helper_test.rb#L37).
+Note you need to add a `media/` prefix (not `/media/`) to any subfolder structure you might have in `app/javascript`. See more examples in the [tests](/test/helper_test.rb#L37).

@@ -42,7 +42,7 @@ The comment you see above (`/* webpackChunkName */`) is not arbitrary, it is one
 **Warning**: You should not attempt to dynamically load anything from your `packs/` folder. Instead, try to make your `pack` scripts a hub from which you dynamically load `non-pack` scripts.
 
 - [Docs for using magic comments](https://webpack.js.org/api/module-methods/#magic-comments)
-- [Docs for configuring `splitChunks` in webpacker](https://github.com/rails/webpacker/blob/master/docs/webpack.md#add-splitchunks-webpack-v4).
+- [Docs for configuring `splitChunks` in webpacker](/docs/webpack.md#add-splitchunks-webpack-v4).
 - [Docs for using dynamic `import()`](https://webpack.js.org/guides/code-splitting#dynamic-imports).
 
 ## Module import vs require()

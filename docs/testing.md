@@ -140,7 +140,7 @@ config.public_file_server.enabled = true
 Webpacker ships with three javascript configuration files: `test.js`,
 `development.js`, and `production.js`. The `NODE_ENV` environment
 variable determines which config will be used. `NODE_ENV` is
-independent of `RAILS_ENV` and is set to `development` by [default](https://github.com/rails/webpacker/blob/bf278f9787704ed0f78038ad7d36c008abc2edfd/lib/install/bin/webpack#L4).
+independent of `RAILS_ENV` and is set to `development` by [default](/lib/install/bin/webpack#L4).
 This means that `rails test` or `rspec` will use `development.js`
 by default, _not_ `test.js`.
 
