@@ -34,6 +34,22 @@ class HelperTest < ActionView::TestCase
     end
   end
 
+  def test_asset_pack_path
+    assert_equal "/packs/application-k344a6d59eef8632c9d1.png", image_pack_path("application.png")
+    assert_equal "/packs/media/images/image-c38deda30895059837cf.jpg", image_pack_path("image.jpg")
+    assert_equal "/packs/media/images/image-c38deda30895059837cf.jpg", image_pack_path("media/images/image.jpg")
+    assert_equal "/packs/media/images/nested/image-c38deda30895059837cf.jpg", image_pack_path("nested/image.jpg")
+    assert_equal "/packs/media/images/nested/image-c38deda30895059837cf.jpg", image_pack_path("media/images/nested/image.jpg")
+  end
+
+  def test_asset_pack_url
+    assert_equal "https://example.com/packs/application-k344a6d59eef8632c9d1.png", image_pack_url("application.png")
+    assert_equal "https://example.com/packs/media/images/image-c38deda30895059837cf.jpg", image_pack_url("image.jpg")
+    assert_equal "https://example.com/packs/media/images/image-c38deda30895059837cf.jpg", image_pack_url("media/images/image.jpg")
+    assert_equal "https://example.com/packs/media/images/nested/image-c38deda30895059837cf.jpg", image_pack_url("nested/image.jpg")
+    assert_equal "https://example.com/packs/media/images/nested/image-c38deda30895059837cf.jpg", image_pack_url("media/images/nested/image.jpg")
+  end
+
   def test_image_pack_tag
     assert_equal \
       "<img alt=\"Edit Entry\" src=\"/packs/application-k344a6d59eef8632c9d1.png\" width=\"16\" height=\"10\" />",
