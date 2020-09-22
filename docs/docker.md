@@ -17,7 +17,7 @@ services:
     volumes:
       - .:/webpacker-example-app
     ports:
-      - '3035:3035'
+      - '127.0.0.1:3035:3035'
 ```
 
 add nodejs and yarn as dependencies in Dockerfile,
@@ -56,7 +56,7 @@ then add the webpacker host name environment variable to the web/app service:
     volumes:
       - .:/usr/src/app
     ports:
-      - "3000:3000"
+      - "127.0.0.1:3000:3000"
     environment:
       - WEBPACKER_DEV_SERVER_HOST=webpacker
 ```
