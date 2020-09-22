@@ -14,6 +14,14 @@ environment.loaders.append('nodeModules', nodeModules)
 - Webpacker's wrapper to the `splitChunks()` API will now default `runtimeChunk: 'single'` which will help prevent potential issues when using multiple entry points per page [#2708](https://github.com/rails/webpacker/pull/2708).
 - Changes `@babel/preset-env` modules option to `'auto'` per recommendation in the Babel docs [#2709](https://github.com/rails/webpacker/pull/2709)
 
+## [[5.2.1]](https://github.com/rails/webpacker/compare/v5.2.0...5.2.1) - 2020-08-17
+
+- Revert [#1311](https://github.com/rails/webpacker/pull/1311).
+
+## [[5.2.0]](https://github.com/rails/webpacker/compare/v5.1.1...5.2.0) - 2020-08-16
+
+- Bump dependencies and fixes. See [diff](https://github.com/rails/webpacker/compare/v5.1.1...5-x-stable) for changes.
+
 ## [[5.1.1]](https://github.com/rails/webpacker/compare/v5.1.0...v5.1.1) - 2020-04-20
 
 - Update [TypeScript documentation](https://github.com/rails/webpacker/blob/master/docs/typescript.md) and installer to use babel-loader for typescript.[(#2541](https://github.com/rails/webpacker/pull/2541)
