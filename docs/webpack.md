@@ -239,14 +239,6 @@ environment.plugins.prepend(
   })
 )
 
-// Insert before a given plugin
-environment.plugins.insert('CommonChunkVendor',
-  new webpack.optimize.CommonsChunkPlugin({
-    name: 'vendor', // Vendor code
-    minChunks: (module) => module.context && module.context.indexOf('node_modules') !== -1
-  })
-, { before: 'manifest' })
-
 module.exports = environment
 ```
 
@@ -303,8 +295,6 @@ get duplicated chunks on the page.
 <%= javascript_packs_with_chunks_tag 'map' %>
 ```
 
-For the old configuration with the CommonsChunkPlugin see below. **Note** that this functionality is deprecated in Webpack V4.
-
 #### Preloading
 
 Before preload or prefetch your assets, please read [https://developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content](https://developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content).
@@ -318,47 +308,5 @@ You can preload your assets with the `preload_pack_asset` helper if you have Rai
 ```
 
 **Warning:** You don't want to preload the css, you want to preload the fonts and images inside the css so that fonts, css, and images can all be downloaded in parallel instead of waiting for the browser to parse the css.
-
-### Add common chunks (deprecated in Webpack V4)
-
-The CommonsChunkPlugin is an opt-in feature that creates a separate file (known as a chunk), consisting of common modules shared between multiple entry points. By separating common modules from bundles, the resulting chunked file can be loaded once initially, and stored in the cache for later use. This results in page speed optimizations as the browser can quickly serve the shared code from the cache, rather than being forced to load a larger bundle whenever a new page is visited.
-
-Add the plugins in `config/webpack/environment.js`:
-
-```js
-const webpack = require('webpack')
-
-environment.plugins.append(
-  'CommonsChunkVendor',
-  new webpack.optimize.CommonsChunkPlugin({
-    name: 'vendor',
-    minChunks: (module) => {
-      // this assumes your vendor imports exist in the node_modules directory
-      return module.context && module.context.indexOf('node_modules') !== -1
-    }
-  })
-)
-
-environment.plugins.append(
-  'CommonsChunkManifest',
-  new webpack.optimize.CommonsChunkPlugin({
-    name: 'manifest',
-    minChunks: Infinity
-  })
-)
-```
-
-Now, add these files to your `layouts/application.html.erb`:
-
-```erb
-<%# Head %>
-
-<%= javascript_pack_tag "manifest" %>
-<%= javascript_pack_tag "vendor" %>
-
-<%# If importing any styles from node_modules in your JS app %>
-
-<%= stylesheet_pack_tag "vendor" %>
-```
 
 More detailed guides available here: [webpack guides](https://webpack.js.org/guides/)
