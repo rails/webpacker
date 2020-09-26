@@ -20,7 +20,7 @@
     "babel-loader": "^8.1.0",
     "babel-plugin-macros": "^2.8.0",
     "case-sensitive-paths-webpack-plugin": "^2.3.0",
-    "compression-webpack-plugin": "^4.0.0",
+    "compression-webpack-plugin": "^6.0.2",
     "core-js": "^3.6.5",
     "css-loader": "^3.5.3",
     "file-loader": "^6.0.0",

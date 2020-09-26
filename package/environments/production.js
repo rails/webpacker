@@ -11,7 +11,7 @@ module.exports = class extends Base {
     this.plugins.append(
       'Compression',
       new CompressionPlugin({
-        filename: '[path].gz[query]',
+        filename: '[path][base].gz',
         algorithm: 'gzip',
         test: /\.(js|css|html|json|ico|svg|eot|otf|ttf|map)$/
       })
@@ -21,7 +21,7 @@ module.exports = class extends Base {
       this.plugins.append(
         'Compression Brotli',
         new CompressionPlugin({
-          filename: '[path].br[query]',
+          filename: '[path][base].br',
           algorithm: 'brotliCompress',
           test: /\.(js|css|html|json|ico|svg|eot|otf|ttf|map)$/
         })
