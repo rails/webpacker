@@ -6,7 +6,7 @@ const devServer = require('../dev_server')
 
 const { outputPath: contentBase, publicPath } = require('../config')
 
-const devConfig = {
+let devConfig = {
   mode: 'development',
   devtool: 'cheap-module-source-map'
 }
@@ -16,7 +16,7 @@ if (
   process.env.WEBPACK_DEV_SERVER !== 'undefined'
 ) {
   if (devServer.hmr) {
-    merge(devConfig, {
+    devConfig = merge(devConfig, {
       output: {
         filename: '[name]-[hash].js'
       },
@@ -24,7 +24,7 @@ if (
     })
   }
 
-  merge(devConfig, {
+  devConfig = merge(devConfig, {
     devServer: {
       clientLogLevel: 'none',
       compress: devServer.compress,

@@ -1,6 +1,5 @@
 # webpack-dev-server
 
-
 ## HTTPS
 
 If you're using the `webpack-dev-server` in development, you can serve your packs over HTTPS
@@ -13,7 +12,6 @@ so your web browser will display a warning/exception upon accessing the page. If
 in your console, simply open the link in your browser and accept the SSL exception.
 Now if you refresh your Rails view everything should work as expected.
 
-
 ## Hot Module Replacement
 
 Webpacker out-of-the-box supports HMR with `webpack-dev-server` and
@@ -22,14 +20,13 @@ you can toggle it by setting options in `config/webpacker.yml`:
 ```yaml
 development:
   # ...
-  extract_css: false
-  # ...
   dev_server:
     # ...
     hmr: true
     inline: true
     # ...
 ```
+
 `dev_server/hmr` option inside `webpacker.yml`.
 
 Check out this guide for more information:
@@ -83,9 +80,8 @@ server {
 ## Customizing Logging
 
 By default, the dev server will display a colored progress notification while
-your code is being compiled.  (Under the hood, we are using `webpack-dev-server
---progress --color`).  However, this might cause issues if you don't use
-`foreman` and/or try to log webpack-dev-server's output to a file.  You can
+your code is being compiled. (Under the hood, we are using `webpack-dev-server --progress --color`). However, this might cause issues if you don't use
+`foreman` and/or try to log webpack-dev-server's output to a file. You can
 disable this stylized output by adding `pretty: false` to your `dev_server`
 config:
 

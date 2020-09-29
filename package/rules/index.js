@@ -5,6 +5,7 @@ const load = (name) => {
   try {
     return require(`./${name}`)
   } catch (e) {
+    console.error(e)
     return null
   }
 }

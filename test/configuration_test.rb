@@ -95,16 +95,4 @@ class ConfigurationTest < Webpacker::Test
       assert Webpacker.config.compile?
     end
   end
-
-  def test_extract_css?
-    assert @config.extract_css?
-
-    with_rails_env("development") do
-      refute Webpacker.config.extract_css?
-    end
-
-    with_rails_env("test") do
-      refute Webpacker.config.extract_css?
-    end
-  end
 end
