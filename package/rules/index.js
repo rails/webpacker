@@ -5,25 +5,19 @@ const load = (name) => {
   try {
     return require(`./${name}`)
   } catch (e) {
-    console.error(e)
     return null
   }
 }
 
 const rules = {
   file: load('file'),
-  url: load('url'),
+  svg: load('svg'),
   css: load('css'),
   sass: load('sass'),
   babel: load('babel'),
   erb: load('erb'),
   coffee: load('coffee'),
-  elm: load('elm'),
-  svelte: load('svelte'),
-  vue: load('vue'),
   html: load('html'),
-  eslint: load('eslint'),
-  svg: load('svg'),
   less: load('less')
 }
 
