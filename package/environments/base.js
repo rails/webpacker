@@ -140,7 +140,11 @@ module.exports = class Base {
         },
         // Separate runtime chunk to enable long term caching
         // https://twitter.com/wSokra/status/969679223278505985
-        runtimeChunk: true
+        //
+        // optimization.runtimeChunk: 'single' is needed when
+        // multiple entry points are being used on a single HTML page.
+        // https://webpack.js.org/guides/code-splitting/#optimizationruntimechunk
+        runtimeChunk: 'single'
       }
     }
 

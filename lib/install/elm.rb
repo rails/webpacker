@@ -20,11 +20,13 @@ say "Copying Elm app file to #{Webpacker.config.source_path}"
 copy_file "#{__dir__}/examples/elm/Main.elm",
   "#{Webpacker.config.source_path}/Main.elm"
 
-say "Installing all Elm dependencies"
-run "yarn add elm elm-webpack-loader"
-run "yarn add --dev elm-hot-webpack-loader"
-run "yarn run elm init"
-run "yarn run elm make #{Webpacker.config.source_path}/Main.elm"
+Dir.chdir(Rails.root) do
+  say "Installing all Elm dependencies"
+  run "yarn add elm elm-webpack-loader"
+  run "yarn add --dev elm-hot-webpack-loader"
+  run "yarn run elm init"
+  run "yarn run elm make #{Webpacker.config.source_path}/Main.elm"
+end
 
 say "Updating webpack paths to include .elm file extension"
 insert_into_file Webpacker.config.config_path, "- .elm\n".indent(4), after: /\s+extensions:\n/

@@ -6,7 +6,9 @@ end
 say "Creating controllers directory"
 directory "#{__dir__}/examples/stimulus/controllers", "#{Webpacker.config.source_path}/controllers"
 
-say "Installing all Stimulus dependencies"
-run "yarn add stimulus"
+Dir.chdir(Rails.root) do
+  say "Installing all Stimulus dependencies"
+  run "yarn add stimulus"
+end
 
 say "Webpacker now supports Stimulus.js 🎉", :green

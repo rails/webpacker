@@ -213,7 +213,7 @@ in `app/javascript/packs` so that you can experiment with CoffeeScript right awa
 
 To add [Erb](https://apidock.com/ruby/ERB) support in your JS templates,
 run `bundle exec rails webpacker:install:erb` on a Rails app already
-setup with Webpacker.
+setup with Webpacker and add extension 'erb' on file `config/webpacker.yml`.
 
 An example `hello_erb.js.erb` file will also be added to your project
 in `app/javascript/packs` so that you can experiment with Erb-flavoured

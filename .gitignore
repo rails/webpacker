@@ -1,5 +1,6 @@
 /.bundle
 /pkg
+/test/mounted_app/test/dummy/log
 /test/test_app/log
 node_modules
 .byebug_history
