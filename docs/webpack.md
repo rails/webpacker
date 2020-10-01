@@ -184,6 +184,7 @@ const urlLoader = {
 environment.loaders.prepend('url', urlLoader)
 
 // avoid using both file and url loaders
+// Note, this list should take into account the config value for static_assets_extensions
 environment.loaders.get('file').test = /\.(tiff|ico|svg|eot|otf|ttf|woff|woff2)$/i
 ```
 
@@ -287,3 +288,28 @@ You can preload your assets with the `preload_pack_asset` helper if you have Rai
 **Warning:** You don't want to preload the css, you want to preload the fonts and images inside the css so that fonts, css, and images can all be downloaded in parallel instead of waiting for the browser to parse the css.
 
 More detailed guides available here: [webpack guides](https://webpack.js.org/guides/)
+
+## Webpack Multi-Compiler and Server-Side Rendering
+You can export an Array of Object to have both `bin/webpack` and `bin/webpack-dev-server`
+use multiple configurations. This is commonly done for React server-side rendering (SSR).
+
+For an example of this, see the configuration within the [`/config/webpack` dir of the React on Rails Example](https://github.com/shakacode/react_on_rails/tree/master/spec/dummy/config/webpack).
+
+Take special care in that you need to make a deep copy of the output from the the basic "client" configuration.
+
+In the example below, you _cannot_ modify the clientConfigObject as that would mutate the "environment" that is global.
+
+```js
+  const environment = require('./environment');
+  
+  // make a deep copy
+  const clientConfigObject = environment.toWebpackConfig();
+  const serverWebpackConfig = merge({}, clientConfigObject);
+  
+  // make whatever changes you want for the serverWebpackConfig
+  
+  // No splitting of chunks for a server bundle
+  serverWebpackConfig.optimization = {
+    minimize: false,
+  };
+```
