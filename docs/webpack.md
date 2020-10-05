@@ -59,36 +59,36 @@ console.log(config.source_path)
 ## Loaders
 
 You can add additional loaders beyond the base set that Webpacker provides by
-adding it to your environment. We'll use `json-loader` as an example:
+adding it to your environment. We'll use `url-loader` as an example:
 
 ```
-yarn add json-loader
+yarn add url-loader
 ```
 
 ```js
 // config/webpack/environment.js
 const { environment } = require('@rails/webpacker')
 
-const jsonLoader = {
-  test: /\.json$/,
-  use: 'json-loader'
+const urlLoader = {
+  test: /\.png$/,
+  use: 'url-loader'
 }
 
-// Insert json loader at the end of list
-environment.loaders.append('json', jsonLoader)
+// Insert url loader at the end of list
+environment.loaders.append('url', urlLoader)
 
-// Insert json loader at the top of list
-environment.loaders.prepend('json', jsonLoader)
+// Insert url loader at the top of list
+environment.loaders.prepend('url', urlLoader)
 
-// Insert json loader after/before a given loader
-environment.loaders.insert('json', jsonLoader, { after: 'style'} )
-environment.loaders.insert('json', jsonLoader, { before: 'babel'} )
+// Insert url loader after/before a given loader
+environment.loaders.insert('url', urlLoader, { after: 'style'} )
+environment.loaders.insert('url', urlLoader, { before: 'babel'} )
 
 module.exports = environment
 ```
 
-Finally add `.json` to the list of extensions in `config/webpacker.yml`. Now if you `import()` any `.json` files inside your JavaScript
-they will be processed using `json-loader`. Voila!
+Finally, add `.png` to the list of extensions in `config/webpacker.yml`. Now if you `import()` any `.png` files inside your JavaScript
+they will be processed using `url-loader`. Voila!
 
 You can also modify the loaders that Webpacker pre-configures for you. We'll update
 the `babel` loader as an example:
