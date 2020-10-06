@@ -5,17 +5,12 @@ AllCops:
   # to ignore them, so only the ones explicitly set in this file are enabled.
   DisabledByDefault: true
   Exclude:
-    - 'lib/install/templates/**'
-    - 'vendor/**/*'
-    - 'node_modules/**/*'
+    - "lib/install/templates/**"
+    - "vendor/**/*"
+    - "node_modules/**/*"
 
 # Prefer &&/|| over and/or.
 Style/AndOr:
-  Enabled: true
-
-# Do not use braces for hash literals when they are the last argument of a
-# method call.
-Style/BracesAroundHashParameters:
   Enabled: true
 
 # Align `when` with `case`.
@@ -50,7 +45,11 @@ Style/HashSyntax:
 # extra level of indentation.
 Layout/IndentationConsistency:
   Enabled: true
-  EnforcedStyle: rails
+  EnforcedStyle: indented_internal_methods
+
+# Detect hard tabs, no hard tabs.
+Layout/IndentationStyle:
+  Enabled: true
 
 # Two spaces, no tabs (for indentation).
 Layout/IndentationWidth:
@@ -98,12 +97,8 @@ Style/StringLiterals:
   Enabled: true
   EnforcedStyle: double_quotes
 
-# Detect hard tabs, no hard tabs.
-Layout/Tab:
-  Enabled: true
-
 # Blank lines should not have any spaces.
-Layout/TrailingBlankLines:
+Layout/TrailingEmptyLines:
   Enabled: true
 
 # No trailing whitespace.
@@ -111,7 +106,7 @@ Layout/TrailingWhitespace:
   Enabled: true
 
 # Use quotes for string literals when they are enough.
-Style/UnneededPercentQ:
+Style/RedundantPercentQ:
   Enabled: true
 
 # Align `end` with the matching keyword or starting expression except for
