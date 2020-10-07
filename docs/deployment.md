@@ -128,3 +128,21 @@ namespace :deploy do
   end
 end
 ```
+
+If you use [nvm](https://github.com/nvm-sh/nvm) to manage node versions for your deployment user, use the below snippet instead:
+
+```ruby
+before "deploy:assets:precompile", "deploy:yarn_install"
+namespace :deploy do
+  desc "Run rake yarn install"
+  task :yarn_install do
+    on roles(:web) do
+      within release_path do
+        execute("source ~/.nvm/nvm.sh && cd #{release_path} && yarn install --silent --no-progress --no-audit --no-optional")
+      end
+    end
+  end
+end
+```
+The `source ~/.nvm/nvm.sh` is required because [nvm is not automatically loaded in non-interactive shells](https://github.com/nvm-sh/nvm/issues/1718).
+
