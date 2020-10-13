@@ -14,7 +14,7 @@ in your console, simply open the link in your browser and accept the SSL excepti
 Now if you refresh your Rails view everything should work as expected.
 
 
-## HOT module replacement
+## Hot Module Replacement
 
 Webpacker out-of-the-box supports HMR with `webpack-dev-server` and
 you can toggle it by setting options in `config/webpacker.yml`:
@@ -37,10 +37,6 @@ Check out this guide for more information:
 - https://webpack.js.org/configuration/dev-server/#devserver-hot
 
 To support HMR with React, see [docs/react.md](./react.md#hmr-and-react-hot-reloading).
-
-**Note:** Don't forget to disable `HMR` if you are not running `webpack-dev-server`
-otherwise you will get not found error for stylesheets.
-
 
 ## Nginx
 
