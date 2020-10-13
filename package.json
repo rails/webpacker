@@ -22,7 +22,7 @@
     "case-sensitive-paths-webpack-plugin": "^2.3.0",
     "compression-webpack-plugin": "^6.0.2",
     "core-js": "^3.6.5",
-    "css-loader": "^3.5.3",
+    "css-loader": "^4.3.0",
     "file-loader": "^6.0.0",
     "flatted": "^3.0.4",
     "glob": "^7.1.6",
