@@ -44,7 +44,7 @@ const getPluginList = () => {
     'Manifest',
     new WebpackAssetsManifest({
       entrypoints: true,
-      writeToDisk: true,
+      writeToDisk: !!process.env.WEBPACK_DEV_SERVER,
       publicPath: config.publicPathWithoutCDN
     })
   )
