@@ -14,6 +14,7 @@ if you do need to customize or add a new loader, this is where you would go.
 
 Here is how you can modify webpack configuration:
 
+You might add separate files to keep your code more organized.
 ```js
 // config/webpack/custom.js
 module.exports = {
@@ -27,7 +28,11 @@ module.exports = {
     }
   }
 }
+```
 
+Then `require` this file in your `config/webpack/environment.js`:
+
+```js
 // config/webpack/environment.js
 const { environment } = require('@rails/webpacker')
 const customConfig = require('./custom')
@@ -38,6 +43,8 @@ environment.config.set('output.filename', '[name].js')
 
 // Merge custom config
 environment.config.merge(customConfig)
+
+// Merge other options
 environment.config.merge({ devtool: 'none' })
 
 // Delete a property
@@ -132,6 +139,7 @@ module.exports = environment
 To use react svg loader, you should append svg loader before file loader:
 
 ```js
+// config/webpack/environment.js
 const { environment } = require('@rails/webpacker')
 
 const babelLoader = environment.loaders.get('babel')
@@ -155,59 +163,29 @@ fileLoader.exclude = /\.(svg)$/i
 
 ### Url Loader
 
+Be sure to add the default options from the file loader, as those are applied with the file loader if the size is greater than the `limit`.
+
 ```js
-// config/webpack/loaders/url.js
-
-module.exports = {
-  test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-  use: [{
-    loader: 'url-loader',
-    options: {
-      limit: 10000,
-      name: '[name]-[hash].[ext]'
-    }
-  }]
-}
-
 // config/webpack/environment.js
 
-const { environment } = require('@rails/webpacker')
-const url = require('./loaders/url')
+const { environment } = require('@rails/webpacker');
+const rules = environment.loaders;
 
-environment.loaders.prepend('url', url)
+const urlFileSizeCutover = 10000;
+const urlLoaderOptions = Object.assign({ limit: urlFileSizeCutover }, fileLoader.use[0].options);
+const urlLoader = {
+  test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+  use: {
+    loader: 'url-loader',
+    options: urlLoaderOptions,
+  },
+};
+
+environment.loaders.prepend('url', urlLoader)
 
 // avoid using both file and url loaders
+// Note, this list should take into account the config value for static_assets_extensions
 environment.loaders.get('file').test = /\.(tiff|ico|svg|eot|otf|ttf|woff|woff2)$/i
-```
-
-### Overriding Loader Options in webpack 3+ (for CSS Modules etc.)
-
-In webpack 3+, if you'd like to specify additional or different options for a loader, edit `config/webpack/environment.js` and provide an options object to override. This is similar to the technique shown above, but the following example shows specifically how to apply CSS Modules, which is what you may be looking for:
-
-```javascript
-const { environment } = require('@rails/webpacker')
-const merge = require('webpack-merge')
-
-const myCssLoaderOptions = {
-  modules: {
-    localIdentName: '[name]__[local]___[hash:base64:5]'
-  },
-  sourceMap: true,
-}
-
-const CSSLoader = environment.loaders.get('sass').use.find(el => el.loader === 'css-loader')
-
-CSSLoader.options = merge(CSSLoader.options, myCssLoaderOptions)
-
-module.exports = environment
-```
-
-See [issue #756](https://github.com/rails/webpacker/issues/756#issuecomment-327148547) for additional discussion of this.
-
-For this to work, don't forget to use the `stylesheet_pack_tag`, for example:
-
-```
-<%= stylesheet_pack_tag 'YOUR_PACK_NAME_HERE' %>
 ```
 
 ## Plugins
@@ -253,7 +231,7 @@ const { environment } = require('@rails/webpacker')
 environment.resolvedModules.append('vendor', 'vendor')
 ```
 
-### Add SplitChunks (Webpack V4)
+### Add SplitChunks (Webpack V4+)
 Originally, chunks (and modules imported inside them) were connected by a parent-child relationship in the internal webpack graph. The CommonsChunkPlugin was used to avoid duplicated dependencies across them, but further optimizations were not possible.
 
 Since webpack v4, the CommonsChunkPlugin was removed in favor of optimization.splitChunks.
@@ -310,3 +288,28 @@ You can preload your assets with the `preload_pack_asset` helper if you have Rai
 **Warning:** You don't want to preload the css, you want to preload the fonts and images inside the css so that fonts, css, and images can all be downloaded in parallel instead of waiting for the browser to parse the css.
 
 More detailed guides available here: [webpack guides](https://webpack.js.org/guides/)
+
+## Webpack Multi-Compiler and Server-Side Rendering
+You can export an Array of Object to have both `bin/webpack` and `bin/webpack-dev-server`
+use multiple configurations. This is commonly done for React server-side rendering (SSR).
+
+For an example of this, see the configuration within the [`/config/webpack` dir of the React on Rails Example](https://github.com/shakacode/react_on_rails/tree/master/spec/dummy/config/webpack).
+
+Take special care in that you need to make a deep copy of the output from the the basic "client" configuration.
+
+In the example below, you _cannot_ modify the clientConfigObject as that would mutate the "environment" that is global.
+
+```js
+  const environment = require('./environment');
+  
+  // make a deep copy
+  const clientConfigObject = environment.toWebpackConfig();
+  const serverWebpackConfig = merge({}, clientConfigObject);
+  
+  // make whatever changes you want for the serverWebpackConfig
+  
+  // No splitting of chunks for a server bundle
+  serverWebpackConfig.optimization = {
+    minimize: false,
+  };
+```
