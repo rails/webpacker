@@ -1,5 +1,4 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const { resolve } = require('path')
 const config = require('../config')
 
 const styleLoader = {
@@ -21,7 +20,6 @@ const getStyleRule = (test, modules = false, preprocessors = []) => {
     {
       loader: 'postcss-loader',
       options: {
-        config: { path: resolve() },
         sourceMap: true
       }
     },
