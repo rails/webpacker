@@ -25,7 +25,7 @@ class RakeTasksTest < Minitest::Test
 
   def test_rake_task_webpacker_check_binstubs
     output = Dir.chdir(test_app_path) { `rake webpacker:check_binstubs 2>&1` }
-    refute_includes output, "webpack binstubs not found."
+    refute_includes output, "webpack binstub not found."
   end
 
   def test_check_node_version
