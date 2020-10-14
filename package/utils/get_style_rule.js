@@ -1,6 +1,7 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { resolve } = require('path')
 const config = require('../config')
+const { isProduction } = require('../env')
 
 const styleLoader = {
   loader: 'style-loader'
@@ -14,7 +15,7 @@ const getStyleRule = (test, modules = false, preprocessors = []) => {
         sourceMap: true,
         importLoaders: 2,
         modules: modules ? {
-          localIdentName: '[name]__[local]___[hash:base64:5]'
+          localIdentName: isProduction ? '[hash:base64]' : '[path][name]__[local]'
         } : false
       }
     },
@@ -28,7 +29,7 @@ const getStyleRule = (test, modules = false, preprocessors = []) => {
     ...preprocessors
   ]
 
-  const options = modules ? { include: /\.module\.[a-z]+$/ } : { exclude: /\.module\.[a-z]+$/ }
+  const options = modules ? { include: /\.module\.[a-z]+$/i } : { exclude: /\.module\.[a-z]+$/i }
 
   if (config.extract_css) {
     use.unshift(MiniCssExtractPlugin.loader)
