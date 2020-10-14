@@ -10,7 +10,6 @@ const getStyleRule = (test, modules = false, preprocessors = []) => {
     {
       loader: 'css-loader',
       options: {
-        esModule: false,
         sourceMap: true,
         importLoaders: 2,
         modules: modules ? {
