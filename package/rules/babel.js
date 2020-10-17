@@ -1,7 +1,7 @@
 const { resolve } = require('path')
 const { realpathSync } = require('fs')
 const { source_path: sourcePath, additional_paths: additionalPaths } = require('../config')
-const { nodeEnv } = require('../env')
+const { isProduction } = require('../env')
 
 // Process application Javascript code with Babel.
 // Uses application .babelrc to apply any transformations
@@ -20,8 +20,8 @@ module.exports = {
       loader: 'babel-loader',
       options: {
         cacheDirectory: true,
-        cacheCompression: nodeEnv === 'production',
-        compact: nodeEnv === 'production'
+        cacheCompression: isProduction,
+        compact: isProduction
       }
     }
   ]
