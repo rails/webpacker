@@ -11,7 +11,7 @@ To update a Webpacker v3.5 app to v4, follow these steps:
 
 4. Webpacker v4 upgrades Babel to [v7](https://babeljs.io/docs/en/v7-migration), see also [the release blog post](https://babeljs.io/blog/2018/08/27/7.0.0). Many packages were moved to the `@babel/` namespace, any babel plugins you have will need to be updated. It may be worth checking out [babel-upgrade](https://github.com/babel/babel-upgrade) if you have problems. ([#1564](https://github.com/rails/webpacker/pull/1564))
 
-5. `.babelrc` should be replaced with `babel.config.js` and `.postcssrc.yml` should be replaced with `postcss.config.js` ([#1822](https://github.com/rails/webpacker/pull/1822)). If you never changed these files from their defaults, the versions of [babel.config.js](../lib/install/config/babel.config.js) and [postcss.config.js](../lib/install/config/postcss.config.js) in the webpacker repository should be usable.
+5. `.babelrc` should be replaced with `babel.config.js` and `.postcssrc.yml` should be replaced with `postcss.config.js` ([#1822](https://github.com/rails/webpacker/pull/1822)). If you never changed these files from their defaults, the versions of [babel.config.js](https://github.com/rails/webpacker/blob/4-x-stable/lib/install/config/babel.config.js) and [postcss.config.js](../lib/install/config/postcss.config.js) in the webpacker repository should be usable.
 
 6. Due to the change in [#1625](https://github.com/rails/webpacker/pull/1625), you'll want to make sure that `extract_css` is set to true for the `default` environment in `webpacker.yml` if you want to have Webpacker supply your CSS.
 
