@@ -28,6 +28,7 @@ describe('Config', () => {
       [
         'app/assets',
         '/etc/yarn',
+        'some.config.js',
         'app/elm'
       ]
     )

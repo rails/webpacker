@@ -116,6 +116,8 @@ class Webpacker::Configuration
     end
 
     def globbed_path_with_extensions(path)
+      return path if root_path.join(path).file?
+
       "#{path}/**/*{#{extensions.join(',')}}"
     end
 end

@@ -83,6 +83,7 @@ describe('Environment', () => {
         resolve('app', 'javascript'),
         resolve('app/assets'),
         resolve('/etc/yarn'),
+        resolve('some.config.js'),
         resolve('app/elm'),
         'node_modules'
       ])
