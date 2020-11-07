@@ -1,3 +1,4 @@
+const sass = require('sass')
 const getStyleRule = require('../utils/get_style_rule')
 const { additional_paths: includePaths } = require('../config')
 
@@ -8,7 +9,8 @@ module.exports = getStyleRule(/\.(scss|sass)(\.erb)?$/i, false, [
       sourceMap: true,
       sassOptions: {
         includePaths
-      }
+      },
+      implementation: sass
     }
   }
 ])
