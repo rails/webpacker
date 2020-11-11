@@ -54,14 +54,15 @@ class ConfigurationTest < Webpacker::Test
   end
 
   def test_additional_paths
-    assert_equal @config.additional_paths, ["app/assets", "/etc/yarn", "app/elm"]
+    assert_equal @config.additional_paths, ["app/assets", "/etc/yarn", "some.config.js", "app/elm"]
   end
 
   def test_additional_paths_globbed
     assert_equal @config.additional_paths_globbed, [
       "app/assets/**/*{.mjs,.js,.sass,.scss,.css,.module.sass,.module.scss,.module.css,.png,.svg,.gif,.jpeg,.jpg,.elm}",
       "/etc/yarn/**/*{.mjs,.js,.sass,.scss,.css,.module.sass,.module.scss,.module.css,.png,.svg,.gif,.jpeg,.jpg,.elm}",
-      "app/elm/**/*{.mjs,.js,.sass,.scss,.css,.module.sass,.module.scss,.module.css,.png,.svg,.gif,.jpeg,.jpg,.elm}"
+      "some.config.js",
+      "app/elm/**/*{.mjs,.js,.sass,.scss,.css,.module.sass,.module.scss,.module.css,.png,.svg,.gif,.jpeg,.jpg,.elm}",
     ]
   end
 

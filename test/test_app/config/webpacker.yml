@@ -13,6 +13,7 @@ default: &default
   additional_paths:
     - app/assets
     - /etc/yarn
+    - some.config.js
 
   # This configuration option is deprecated and is only here for testing, to
   # ensure backwards-compatibility. Please use `additional_paths`.
