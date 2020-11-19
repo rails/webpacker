@@ -66,9 +66,9 @@ module Webpacker
         env["WEBPACKER_CONFIG"] = @webpacker_config
 
         cmd = if node_modules_bin_exist?
-          ["#{@node_modules_bin_path}/webpack-dev-server"]
+          ["#{@node_modules_bin_path}/webpack", "serve"]
         else
-          ["yarn", "webpack-dev-server"]
+          ["yarn", "webpack", "serve"]
         end
 
         if @argv.include?("--debug-webpacker")
