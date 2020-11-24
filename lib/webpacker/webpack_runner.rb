@@ -17,6 +17,11 @@ module Webpacker
         cmd = [ "node", "--inspect-brk"] + cmd
       end
 
+      if @argv.include?("--trace-deprecation")
+        cmd = [ "node", "--trace-deprecation"] + cmd
+        @argv.delete "--trace-deprecation"
+      end
+
       cmd += ["--config", @webpack_config] + @argv
 
       Dir.chdir(@app_path) do
