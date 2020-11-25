@@ -20,6 +20,7 @@ class RakeTasksTest < Minitest::Test
     assert_includes output, "webpacker:install:stimulus"
     assert_includes output, "webpacker:install:typescript"
     assert_includes output, "webpacker:install:vue"
+    assert_includes output, "webpacker:install:vue3"
     assert_includes output, "webpacker:verify_install"
   end
 

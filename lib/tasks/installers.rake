@@ -3,6 +3,7 @@ installers = {
   "Elm": :elm,
   "React": :react,
   "Vue": :vue,
+  "Vue3": :vue3,
   "Erb": :erb,
   "Coffee": :coffee,
   "Typescript": :typescript,

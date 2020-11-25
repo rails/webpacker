@@ -12,6 +12,7 @@ tasks = {
   "webpacker:yarn_install"            => "Support for older Rails versions. Install all JavaScript dependencies as specified via Yarn",
   "webpacker:install:react"           => "Installs and setup example React component",
   "webpacker:install:vue"             => "Installs and setup example Vue component",
+  "webpacker:install:vue3"            => "Installs and setup example Vue3 component",
   "webpacker:install:angular"         => "Installs and setup example Angular component",
   "webpacker:install:elm"             => "Installs and setup example Elm component",
   "webpacker:install:svelte"          => "Installs and setup example Svelte component",
