@@ -241,18 +241,6 @@ module.exports = {
 }
 ```
 
-## Using CSS with [vue-loader](https://github.com/vuejs/vue-loader)
-
-Vue templates require loading the stylesheet in your application in
-order for CSS to work.  This is in addition to loading the JavaScript
-file for the entry point.  Loading the stylesheet will also load the
-CSS for any nested components.
-
-```erb
-<%= stylesheet_pack_tag 'hello_vue' %>
-<%= javascript_pack_tag 'hello_vue' %>
-```
-
 ## Resolve url loader
 
 Since `Sass/libsass` does not provide url rewriting, all linked assets must be relative to the output. Add the missing url rewriting using the resolve-url-loader. Place it directly after the sass-loader in the loader chain.

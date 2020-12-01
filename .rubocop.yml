@@ -5,7 +5,6 @@ AllCops:
   # to ignore them, so only the ones explicitly set in this file are enabled.
   DisabledByDefault: true
   Exclude:
-    - "lib/install/templates/**"
     - "vendor/**/*"
     - "node_modules/**/*"
 

@@ -1,6 +1,5 @@
 # webpack
 
-
 ## Configuration
 
 Webpacker gives you a default set of configuration files for test, development and
@@ -301,13 +300,13 @@ In the example below, you _cannot_ modify the clientConfigObject as that would m
 
 ```js
   const environment = require('./environment');
-  
+
   // make a deep copy
   const clientConfigObject = environment.toWebpackConfig();
   const serverWebpackConfig = merge({}, clientConfigObject);
-  
+
   // make whatever changes you want for the serverWebpackConfig
-  
+
   // No splitting of chunks for a server bundle
   serverWebpackConfig.optimization = {
     minimize: false,

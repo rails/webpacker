@@ -32,16 +32,6 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
   - [Webpack Configuration](#webpack-configuration)
   - [Custom Rails environments](#custom-rails-environments)
   - [Upgrading](#upgrading)
-- [Integrations](#integrations)
-  - [React](./docs/integrations.md#react)
-  - [Angular with TypeScript](./docs/integrations.md#angular-with-typescript)
-  - [Vue](./docs/integrations.md#vue)
-  - [Elm](./docs/integrations.md#elm)
-  - [Stimulus](./docs/integrations.md#stimulus)
-  - [Svelte](./docs/integrations.md#svelte)
-  - [Typescript](./docs/typescript.md)
-  - [CoffeeScript](./docs/integrations.md#coffeescript)
-  - [Erb](./docs/integrations.md#erb)
 - [Paths](#paths)
   - [Resolved](#resolved)
   - [Watched](#watched)
@@ -69,7 +59,6 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 - PostCSS - Auto-Prefixer
 - Asset compression, source-maps, and minification
 - CDN support
-- React, Angular, Elm and Vue support out-of-the-box
 - Rails view helpers
 - Extensible and configurable
 
@@ -312,24 +301,6 @@ yarn upgrade webpack-dev-server --latest
 # Or to install the latest release (including pre-releases)
 yarn add @rails/webpacker@next
 ```
-
-## Integrations
-
-Webpacker ships with basic out-of-the-box integration. You can see a list of available commands/tasks by running `bundle exec rails webpacker`.
-
-Included install integrations:
-
-- [React](./docs/integrations.md#React)
-- [Angular with TypeScript](./docs/integrations.md#Angular-with-TypeScript)
-- [Vue](./docs/integrations.md#Vue)
-- [Elm](./docs/integrations.md#Elm)
-- [Svelte](./docs/integrations.md#Svelte)
-- [Stimulus](./docs/integrations.md#Stimulus)
-- [CoffeeScript](./docs/integrations.md#CoffeeScript)
-- [Typescript](./docs/typescript.md)
-- [Erb](./docs/integrations.md#Erb)
-
-See [Integrations](./docs/integrations.md) for further details.
 
 ## Paths
 
