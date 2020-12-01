@@ -62,6 +62,8 @@ describe('Config', () => {
       '.tiff',
       '.ico',
       '.svg',
+      '.webp',
+      '.avif',
     ])
   })
 })

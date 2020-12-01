@@ -26,6 +26,8 @@ default: &default
     - .tiff
     - .ico
     - .svg
+    - .webp
+    - .avif
     - .eot
     - .otf
     - .ttf

@@ -40,6 +40,7 @@ class HelperTest < ActionView::TestCase
     assert_equal "/packs/media/images/image-c38deda30895059837cf.jpg", image_pack_path("media/images/image.jpg")
     assert_equal "/packs/media/images/nested/image-c38deda30895059837cf.jpg", image_pack_path("nested/image.jpg")
     assert_equal "/packs/media/images/nested/image-c38deda30895059837cf.jpg", image_pack_path("media/images/nested/image.jpg")
+    assert_equal "/packs/media/images/nested/image-c38deda30895059837cf.webp", image_pack_path("media/images/nested/image.webp")
   end
 
   def test_image_pack_url
@@ -48,6 +49,7 @@ class HelperTest < ActionView::TestCase
     assert_equal "https://example.com/packs/media/images/image-c38deda30895059837cf.jpg", image_pack_url("media/images/image.jpg")
     assert_equal "https://example.com/packs/media/images/nested/image-c38deda30895059837cf.jpg", image_pack_url("nested/image.jpg")
     assert_equal "https://example.com/packs/media/images/nested/image-c38deda30895059837cf.jpg", image_pack_url("media/images/nested/image.jpg")
+    assert_equal "https://example.com/packs/media/images/nested/image-c38deda30895059837cf.webp", image_pack_url("media/images/nested/image.webp")
   end
 
   def test_image_pack_tag

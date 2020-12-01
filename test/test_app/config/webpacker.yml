@@ -34,6 +34,8 @@ default: &default
     - .tiff
     - .ico
     - .svg
+    - .webp
+    - .avif
 
   extensions:
     - .mjs
