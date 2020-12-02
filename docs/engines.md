@@ -99,7 +99,7 @@ Now you can use `stylesheet_pack_tag` and `javascript_pack_tag` from within your
 
 Add Rake task to compile assets in production (`rake my_engine:webpacker:compile`)
 
-- File `my_engine_rootlib/tasks/my_engine_tasks.rake`
+- File `lib/tasks/my_engine_tasks.rake`
 
 ```ruby
 def ensure_log_goes_to_stdout
