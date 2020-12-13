@@ -39,7 +39,7 @@ Dir.chdir(Rails.root) do
   end
 
   say "Installing dev server for live reloading"
-  run "yarn add --dev webpack-dev-server"
+  run "yarn add --dev webpack-dev-server @webpack-cli/serve"
 end
 
 insert_into_file Rails.root.join("package.json").to_s, before: /\n}\n*$/ do

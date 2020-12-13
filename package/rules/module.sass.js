@@ -1,4 +1,3 @@
-const sass = require('sass')
 const getStyleRule = require('../utils/get_style_rule')
 
 module.exports = getStyleRule(/\.(scss|sass)$/i, true, [
@@ -6,7 +5,7 @@ module.exports = getStyleRule(/\.(scss|sass)$/i, true, [
     loader: 'sass-loader',
     options: {
       sourceMap: true,
-      implementation: sass
+      implementation: require.resolve('sass')
     }
   }
 ])

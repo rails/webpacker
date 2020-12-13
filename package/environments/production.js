@@ -38,6 +38,8 @@ const getPlugins = () => {
       )
     }
   } catch (e) {}
+
+  return plugins
 }
 
 const productionConfig = {
@@ -49,8 +51,6 @@ const productionConfig = {
     minimizer: [
       new TerserPlugin({
         parallel: Number.parseInt(process.env.WEBPACKER_PARALLEL, 10) || true,
-        cache: true,
-        sourceMap: true,
         terserOptions: {
           parse: {
             // Let terser parse ecma 8 code but always output

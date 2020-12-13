@@ -56,13 +56,14 @@ const getPlugins = () => {
     new WebpackAssetsManifest({
       entrypoints: true,
       writeToDisk: true,
+      output: 'manifest.json',
       publicPath: config.publicPathWithoutCDN
     })
   ]
 
   try {
     if (require.resolve('css-loader')) {
-      const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+      const MiniCssExtractPlugin = require.resolve('mini-css-extract-plugin')
       plugins.push(
         new MiniCssExtractPlugin({
           filename: 'css/[name]-[contenthash:8].css',
@@ -86,34 +87,29 @@ module.exports = {
   },
   entry: getEntryObject(),
   resolve: {
-    extensions: config.extensions,
+    extensions: ['.js', '.mjs', '.ts'],
     modules: getModulePaths()
   },
 
   plugins: getPlugins(),
 
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-      name: true
-    },
-    runtimeChunk: 'single'
-  },
   resolveLoader: {
     modules: ['node_modules'],
     plugins: [PnpWebpackPlugin.moduleLoader(module)]
   },
 
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    },
+
+    runtimeChunk: {
+      name: (entrypoint) => `runtime-${entrypoint.name}`
+    }
+  },
+
   module: {
     strictExportPresence: true,
     rules
-  },
-
-  node: {
-    dgram: 'empty',
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty',
-    child_process: 'empty'
   }
 }

@@ -2,7 +2,7 @@ const { resolve } = require('path')
 const { safeLoad } = require('js-yaml')
 const { readFileSync } = require('fs')
 const { merge } = require('webpack-merge')
-const { isArray, ensureTrailingSlash } = require('./utils/helpers')
+const { ensureTrailingSlash } = require('./utils/helpers')
 const { railsEnv } = require('./env')
 const configPath = require('./configPath')
 
@@ -15,14 +15,6 @@ const getDefaultConfig = () => {
 
 const defaults = getDefaultConfig()
 const app = safeLoad(readFileSync(configPath), 'utf8')[railsEnv]
-
-if (isArray(app.extensions) && app.extensions.length) delete defaults.extensions
-if (
-  isArray(app.static_assets_extensions) &&
-  app.static_assets_extensions.length
-) {
-  delete defaults.static_assets_extensions
-}
 
 const config = merge(defaults, app)
 config.outputPath = resolve(config.public_root_path, config.public_output_path)
