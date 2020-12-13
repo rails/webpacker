@@ -37,7 +37,7 @@ The default installation only transpiles your TypeScript code using Babel. If yo
     );
     ```
 
-    If you are `fork-ts-checker-webpack-plugin` older than 5.0, the `tsconfig` option also needs to be specified:
+    If you are using `fork-ts-checker-webpack-plugin` older than 5.0, the `tsconfig` option also needs to be specified:
 
     ```js
     const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
