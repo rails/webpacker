@@ -25,8 +25,10 @@ const getPlugins = () => {
 
   try {
     if (require.resolve('css-loader')) {
-      const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-      const safePostCssParser = require('postcss-safe-parser')
+      const OptimizeCSSAssetsPlugin = require.resolve(
+        'optimize-css-assets-webpack-plugin'
+      )
+      const safePostCssParser = require.resolve('postcss-safe-parser')
       plugins.push(
         new OptimizeCSSAssetsPlugin({
           parser: safePostCssParser,
@@ -37,7 +39,9 @@ const getPlugins = () => {
         })
       )
     }
-  } catch (e) {}
+  } catch (e) {
+    /* Work out what to output without clutter */
+  }
 
   return plugins
 }
@@ -62,9 +66,7 @@ const productionConfig = {
             warnings: false,
             comparisons: false
           },
-          mangle: {
-            safari10: true
-          },
+          mangle: { safari10: true },
           output: {
             ecma: 5,
             comments: false,

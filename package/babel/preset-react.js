@@ -16,9 +16,7 @@ module.exports = function config(api) {
       isTestEnv && [
         '@babel/preset-env',
         {
-          targets: {
-            node: 'current'
-          },
+          targets: { node: 'current' },
           modules: 'commonjs'
         }
       ],
@@ -45,9 +43,7 @@ module.exports = function config(api) {
       'babel-plugin-macros',
       [
         '@babel/plugin-proposal-class-properties',
-        {
-          loose: true
-        }
+        { loose: true }
       ],
       [
         '@babel/plugin-transform-runtime',
@@ -59,9 +55,7 @@ module.exports = function config(api) {
       ],
       isProductionEnv && [
         'babel-plugin-transform-react-remove-prop-types',
-        {
-          removeImport: true
-        }
+        { removeImport: true }
       ]
     ].filter(Boolean)
   }

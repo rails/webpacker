@@ -7,9 +7,9 @@ const getStyleRule = (test, preprocessors = []) => {
       options: {
         // only enable hot in development
         hmr:
-          process.env.WEBPACK_DEV_SERVER &&
-          process.env.WEBPACK_DEV_SERVER !== 'undefined' &&
-          devServer.hmr,
+          process.env.WEBPACK_DEV_SERVER
+          && process.env.WEBPACK_DEV_SERVER !== 'undefined'
+          && devServer.hmr,
         // if hmr does not work, this is a forceful method.
         reloadAll: true
       }
@@ -23,9 +23,7 @@ const getStyleRule = (test, preprocessors = []) => {
     },
     {
       loader: require.resolve('postcss-loader'),
-      options: {
-        sourceMap: true
-      }
+      options: { sourceMap: true }
     },
     ...preprocessors
   ]

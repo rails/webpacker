@@ -71,7 +71,9 @@ const getPlugins = () => {
         })
       )
     }
-  } catch (e) {}
+  } catch (e) {
+    /* Work out what to print here */
+  }
 
   return plugins
 }
@@ -99,13 +101,9 @@ module.exports = {
   },
 
   optimization: {
-    splitChunks: {
-      chunks: 'all'
-    },
+    splitChunks: { chunks: 'all' },
 
-    runtimeChunk: {
-      name: (entrypoint) => `runtime-${entrypoint.name}`
-    }
+    runtimeChunk: { name: (entrypoint) => `runtime-${entrypoint.name}` }
   },
 
   module: {

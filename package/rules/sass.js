@@ -5,9 +5,7 @@ module.exports = getStyleRule(/\.(scss|sass)(\.erb)?$/i, [
   {
     loader: require.resolve('sass-loader'),
     options: {
-      sassOptions: {
-        includePaths
-      },
+      sassOptions: { includePaths },
       implementation: require.resolve('sass')
     }
   }

@@ -12,14 +12,12 @@ let devConfig = {
 }
 
 if (
-  process.env.WEBPACK_DEV_SERVER &&
-  process.env.WEBPACK_DEV_SERVER !== 'undefined'
+  process.env.WEBPACK_DEV_SERVER
+  && process.env.WEBPACK_DEV_SERVER !== 'undefined'
 ) {
   if (devServer.hmr) {
     devConfig = merge(devConfig, {
-      output: {
-        filename: '[name]-[hash].js'
-      },
+      output: { filename: '[name]-[hash].js' },
       plugins: [new webpack.HotModuleReplacementPlugin()]
     })
   }
@@ -39,9 +37,7 @@ if (
       useLocalIp: devServer.use_local_ip,
       public: devServer.public,
       publicPath,
-      historyApiFallback: {
-        disableDotRule: true
-      },
+      historyApiFallback: { disableDotRule: true },
       headers: devServer.headers,
       overlay: devServer.overlay,
       stats: {

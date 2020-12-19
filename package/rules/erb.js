@@ -7,9 +7,7 @@ module.exports = {
   use: [
     {
       loader: require.resolve('rails-erb-loader'),
-      options: {
-        runner: `${runner}bin/rails runner`
-      }
+      options: { runner: `${runner}bin/rails runner` }
     }
   ]
 }
