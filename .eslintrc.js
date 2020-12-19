@@ -6,7 +6,8 @@ module.exports = {
     'import/no-extraneous-dependencies': 'off',
     'import/extensions': 'off',
     semi: ['error', 'never'],
-    'object-curly-newline': ['error', { multiline: true }]
+    'object-curly-newline': ['error', { multiline: true }],
+    'operator-linebreak': ['error', 'after']
   },
   env: {
     browser: true,

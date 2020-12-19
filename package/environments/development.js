@@ -12,8 +12,8 @@ let devConfig = {
 }
 
 if (
-  process.env.WEBPACK_DEV_SERVER
-  && process.env.WEBPACK_DEV_SERVER !== 'undefined'
+  process.env.WEBPACK_DEV_SERVER &&
+  process.env.WEBPACK_DEV_SERVER !== 'undefined'
 ) {
   if (devServer.hmr) {
     devConfig = merge(devConfig, {

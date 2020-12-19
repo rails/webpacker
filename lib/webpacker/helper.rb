@@ -14,9 +14,7 @@ module Webpacker::Helper
   #
   #   <%= asset_pack_path 'calendar.css' %> # => "/packs/calendar-1016838bab065ae1e122.css"
   def asset_pack_path(name, **options)
-    if !stylesheet?(name)
-      path_to_asset(current_webpacker_instance.manifest.lookup!(name), options)
-    end
+    path_to_asset(current_webpacker_instance.manifest.lookup!(name), options)
   end
 
   # Computes the absolute path for a given Webpacker asset.
@@ -27,9 +25,7 @@ module Webpacker::Helper
   #
   #   <%= asset_pack_url 'calendar.css' %> # => "http://example.com/packs/calendar-1016838bab065ae1e122.css"
   def asset_pack_url(name, **options)
-    if !stylesheet?(name)
-      url_to_asset(current_webpacker_instance.manifest.lookup!(name), options)
-    end
+    url_to_asset(current_webpacker_instance.manifest.lookup!(name), options)
   end
 
   # Computes the relative path for a given Webpacker image with the same automated processing as image_pack_tag.
@@ -172,10 +168,6 @@ module Webpacker::Helper
   end
 
   private
-    def stylesheet?(name)
-      File.extname(name) == ".css"
-    end
-
     def sources_from_manifest_entries(names, type:)
       names.map { |name| current_webpacker_instance.manifest.lookup!(name, type: type) }.flatten
     end
@@ -186,8 +178,8 @@ module Webpacker::Helper
 
     def resolve_path_to_image(name, **options)
       path = name.starts_with?("media/images/") ? name : "media/images/#{name}"
-      path_to_asset(current_webpacker_instance.manifest.lookup!(path), **options)
+      path_to_asset(current_webpacker_instance.manifest.lookup!(path), options)
     rescue
-      path_to_asset(current_webpacker_instance.manifest.lookup!(name), **options)
+      path_to_asset(current_webpacker_instance.manifest.lookup!(name), options)
     end
 end

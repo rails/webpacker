@@ -14,7 +14,7 @@ const baseConfig = require('../base')
 describe('Base config', () => {
   afterAll(chdirCwd)
 
-  describe('toWebpackConfig', () => {
+  describe('config', () => {
     test('should return entry', () => {
       expect(baseConfig.entry.application).toEqual(
         resolve('app', 'javascript', 'packs', 'application.js')
@@ -41,23 +41,6 @@ describe('Base config', () => {
 
       expect(defaultRules.length).toEqual(1)
       expect(configRules.length).toEqual(1)
-    })
-
-    test('should return cache path for nodeModules rule', () => {
-      const nodeModulesRule = require('../../rules/node_modules')
-      const nodeModulesLoader = nodeModulesRule.use.find(
-        (rule) => rule.loader === 'babel-loader'
-      )
-
-      expect(nodeModulesLoader.options.cacheDirectory).toBeTruthy()
-    })
-
-    test('should return cache path for babel-loader rule', () => {
-      const babelLoader = rules.babel.use.find(
-        (rule) => rule.loader === 'babel-loader'
-      )
-
-      expect(babelLoader.options.cacheDirectory).toBeTruthy()
     })
 
     test('should return default plugins', () => {

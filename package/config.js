@@ -19,11 +19,6 @@ const app = safeLoad(readFileSync(configPath), 'utf8')[railsEnv]
 const config = merge(defaults, app)
 config.outputPath = resolve(config.public_root_path, config.public_output_path)
 
-// Merge resolved_paths into additional_paths for backwards-compat
-config.additional_paths = config.additional_paths.concat(
-  config.resolved_paths || []
-)
-
 // Ensure that the publicPath includes our asset host so dynamic imports
 // (code-splitting chunks and static assets) load from the CDN instead of a relative path.
 const getPublicPath = () => {

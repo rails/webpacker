@@ -23,19 +23,6 @@ class CompilerTest < Minitest::Test
     Webpacker.compiler.env = {}
   end
 
-  def test_default_watched_paths
-    assert_equal Webpacker.compiler.send(:default_watched_paths), [
-      "app/assets/**/*{.mjs,.js,.sass,.scss,.css,.module.sass,.module.scss,.module.css,.png,.svg,.gif,.jpeg,.jpg,.elm}",
-      "/etc/yarn/**/*{.mjs,.js,.sass,.scss,.css,.module.sass,.module.scss,.module.css,.png,.svg,.gif,.jpeg,.jpg,.elm}",
-      "some.config.js",
-      "app/elm/**/*{.mjs,.js,.sass,.scss,.css,.module.sass,.module.scss,.module.css,.png,.svg,.gif,.jpeg,.jpg,.elm}",
-      "app/javascript/**/*{.mjs,.js,.sass,.scss,.css,.module.sass,.module.scss,.module.css,.png,.svg,.gif,.jpeg,.jpg,.elm}",
-      "yarn.lock",
-      "package.json",
-      "config/webpack/**/*"
-    ]
-  end
-
   def test_freshness
     assert Webpacker.compiler.stale?
     assert !Webpacker.compiler.fresh?
