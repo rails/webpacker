@@ -92,7 +92,7 @@ class Webpacker::Compiler
     def default_watched_paths
       [
         *config.additional_paths,
-        config.source_path,
+        "#{config.source_path}/**/*",
         "yarn.lock", "package.json",
         "config/webpack/**/*"
       ].freeze

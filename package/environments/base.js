@@ -24,9 +24,9 @@ const getEntryObject = () => {
     // Transforms the config object value to an array with all values under the same name
     let previousPaths = entries[name]
     if (previousPaths) {
-      previousPaths = Array.isArray(previousPaths) ?
-        previousPaths :
-        [previousPaths]
+      previousPaths = Array.isArray(previousPaths)
+        ? previousPaths
+        : [previousPaths]
       previousPaths.push(assetPaths)
       assetPaths = previousPaths
     }
@@ -57,7 +57,8 @@ const getPlugins = () => {
       entrypoints: true,
       writeToDisk: true,
       output: 'manifest.json',
-      publicPath: config.publicPathWithoutCDN
+      entrypointsUseAssets: true,
+      publicPath: true
     })
   ]
 
