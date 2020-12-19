@@ -23,8 +23,7 @@ class Webpacker::Manifest
 
     manifest_pack_type = manifest_type(pack_type[:type])
     manifest_pack_name = manifest_name(name, manifest_pack_type)
-    puts manifest_pack_name.inspect
-    find("entrypoints")[manifest_pack_name]['assets'][manifest_pack_type]
+    find("entrypoints")[manifest_pack_name]["assets"][manifest_pack_type]
   rescue NoMethodError
     nil
   end
