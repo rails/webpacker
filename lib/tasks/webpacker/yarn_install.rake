@@ -6,7 +6,13 @@ namespace :webpacker do
       valid_node_envs.include?(Rails.env) ? Rails.env : "production"
     end
     Dir.chdir(Rails.root) do
-      system({ "NODE_ENV" => node_env }, "yarn install --no-progress --frozen-lockfile")
+      yarn_flags =
+        if `yarn --version`.start_with?("1")
+          "--no-progress --frozen-lockfile"
+        else
+          "--immutable"
+        end
+      system({ "NODE_ENV" => node_env }, "yarn install #{yarn_flags}")
     end
   end
 end
