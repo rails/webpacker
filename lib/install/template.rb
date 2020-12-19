@@ -38,6 +38,14 @@ Dir.chdir(Rails.root) do
     run "yarn add @rails/webpacker@next"
   end
 
+  package_json = File.read("#{__dir__}/../../package.json")
+  webpack_version = package_json.match(/"webpack": "(.*)"/)[1]
+  webpack_cli_version = package_json.match(/"webpack-cli": "(.*)"/)[1]
+
+  # needed for experimental Yarn 2 support and should not harm Yarn 1
+  say "Installing webpack and webpack-cli as direct dependencies"
+  run "yarn add webpack@#{webpack_version} webpack-cli@#{webpack_cli_version}"
+
   say "Installing dev server for live reloading"
   run "yarn add --dev webpack-dev-server"
 end

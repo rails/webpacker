@@ -9,13 +9,12 @@ namespace :webpacker do
       pkg_path = Pathname.new("#{__dir__}/../../../package.json").realpath
       yarn_range = JSON.parse(pkg_path.read)["engines"]["yarn"]
       is_valid = SemanticRange.satisfies?(yarn_version, yarn_range) rescue false
-      is_unsupported = SemanticRange.satisfies?(yarn_version, ">=2.0.0") rescue false
+      is_unsupported = SemanticRange.satisfies?(yarn_version, ">=3.0.0") rescue false
 
       unless is_valid
         $stderr.puts "Webpacker requires Yarn \"#{yarn_range}\" and you are using #{yarn_version}"
         if is_unsupported
           $stderr.puts "This version of Webpacker does not support Yarn #{yarn_version}. Please downgrade to a supported version of Yarn https://yarnpkg.com/lang/en/docs/install/"
-          $stderr.puts "For information on using Webpacker with Yarn 2.0, see https://github.com/rails/webpacker/issues/2112"
         else
           $stderr.puts "Please upgrade Yarn https://yarnpkg.com/lang/en/docs/install/"
         end

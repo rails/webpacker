@@ -13,6 +13,7 @@ environment.loaders.append('nodeModules', nodeModules)
 - The install task will now set the `extract_css` default to `true` in all environments and generate a separate `application.css` file for the default `application` pack, as supported by multiple files per entry introduced in 5.0.0.  [#2608](https://github.com/rails/webpacker/pull/2608)
 - Webpacker's wrapper to the `splitChunks()` API will now default `runtimeChunk: 'single'` which will help prevent potential issues when using multiple entry points per page [#2708](https://github.com/rails/webpacker/pull/2708).
 - Changes `@babel/preset-env` modules option to `'auto'` per recommendation in the Babel docs [#2709](https://github.com/rails/webpacker/pull/2709)
+- Adds experimental Yarn 2 support. Note you must manually set `nodeLinker: node-modules` in your `.yarnrc.yml`.
 
 ## [[5.2.1]](https://github.com/rails/webpacker/compare/v5.2.0...5.2.1) - 2020-08-17
 
