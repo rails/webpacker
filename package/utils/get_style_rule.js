@@ -1,9 +1,10 @@
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const devServer = require('../dev_server')
 
 const getStyleRule = (test, preprocessors = []) => {
   const use = [
     {
-      loader: require.resolve('mini-css-extract-plugin').loader,
+      loader: MiniCssExtractPlugin.loader,
       options: {
         // only enable hot in development
         hmr:
