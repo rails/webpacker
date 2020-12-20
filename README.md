@@ -9,7 +9,7 @@
 [![Gem](https://img.shields.io/gem/v/webpacker.svg)](https://rubygems.org/gems/webpacker)
 
 Webpacker makes it easy to use the JavaScript pre-processor and bundler
-[webpack 4.x.x+](https://webpack.js.org/)
+[webpack 5.x.x+](https://webpack.js.org/)
 to manage application-like JavaScript in Rails. It coexists with the asset pipeline,
 as the primary purpose for webpack is app-like JavaScript, not images, CSS, or
 even JavaScript Sprinkles (that all continues to live in app/assets).
@@ -61,7 +61,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 
 ## Features
 
-- [webpack 4.x.x](https://webpack.js.org/)
+- [webpack 5.x.x](https://webpack.js.org/)
 - ES6 with [babel](https://babeljs.io/)
 - Automatic code splitting using multiple entry points
 - Stylesheets - Sass and CSS
@@ -87,7 +87,7 @@ Or add it to your `Gemfile`:
 
 ```ruby
 # Gemfile
-gem 'webpacker', '~> 5.x'
+gem 'webpacker', '~> 6.x'
 
 # OR if you prefer to use master
 gem 'webpacker', git: 'https://github.com/rails/webpacker.git'
