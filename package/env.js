@@ -7,8 +7,8 @@ const configPath = require('./configPath')
 
 const railsEnv = process.env.RAILS_ENV
 const rawNodeEnv = process.env.NODE_ENV
-const nodeEnv =
-  rawNodeEnv && NODE_ENVIRONMENTS.includes(rawNodeEnv) ? rawNodeEnv : DEFAULT
+const nodeEnv
+  = rawNodeEnv && NODE_ENVIRONMENTS.includes(rawNodeEnv) ? rawNodeEnv : DEFAULT
 const isProduction = nodeEnv === 'production'
 const isDevelopment = nodeEnv === 'development'
 
