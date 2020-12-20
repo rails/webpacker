@@ -12,21 +12,25 @@
   "media/images/nested/mb-icon.png": "/packs/media/images/nested/mb-icon-c38deda30895059837cf.png",
   "entrypoints": {
     "application": {
-      "js": [
-        "/packs/vendors~application~bootstrap-c20632e7baf2c81200d3.chunk.js",
-        "/packs/vendors~application-e55f2aae30c07fb6d82a.chunk.js",
-        "/packs/application-k344a6d59eef8632c9d1.js"
-      ],
-      "css": [
-        "/packs/1-c20632e7baf2c81200d3.chunk.css",
-        "/packs/application-k344a6d59eef8632c9d1.chunk.css"
-      ]
+      "assets": {
+        "js": [
+          "/packs/vendors~application~bootstrap-c20632e7baf2c81200d3.chunk.js",
+          "/packs/vendors~application-e55f2aae30c07fb6d82a.chunk.js",
+          "/packs/application-k344a6d59eef8632c9d1.js"
+        ],
+        "css": [
+          "/packs/1-c20632e7baf2c81200d3.chunk.css",
+          "/packs/application-k344a6d59eef8632c9d1.chunk.css"
+        ]
+      }
     },
     "hello_stimulus": {
-      "css": [
-        "/packs/1-c20632e7baf2c81200d3.chunk.css",
-        "/packs/hello_stimulus-k344a6d59eef8632c9d1.chunk.css"
-      ]
+      "assets": {
+        "css": [
+          "/packs/1-c20632e7baf2c81200d3.chunk.css",
+          "/packs/hello_stimulus-k344a6d59eef8632c9d1.chunk.css"
+        ]
+      }
     }
   }
 }
