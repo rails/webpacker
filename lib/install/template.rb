@@ -4,9 +4,6 @@ copy_file "#{__dir__}/config/webpacker.yml", "config/webpacker.yml"
 say "Copying webpack core config"
 directory "#{__dir__}/config/webpack", "config/webpack"
 
-say "Copying postcss.config.js to app root directory"
-copy_file "#{__dir__}/config/postcss.config.js", "postcss.config.js"
-
 if Dir.exists?(Webpacker.config.source_path)
   say "The JavaScript app source directory already exists"
 else
