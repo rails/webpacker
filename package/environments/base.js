@@ -65,7 +65,7 @@ const getPlugins = () => {
 
   try {
     if (require.resolve('css-loader')) {
-      const MiniCssExtractPlugin = require.resolve('mini-css-extract-plugin')
+      const MiniCssExtractPlugin = require('mini-css-extract-plugin')
       plugins.push(
         new MiniCssExtractPlugin({
           filename: isDevelopment ? '[name].css' : '[name].[contenthash:8].css',
