@@ -15,44 +15,9 @@ default: &default
   # Reload manifest.json on all requests so we reload latest compiled packs
   cache_manifest: false
 
-  # Extract and emit a css file
-  extract_css: true
-
-  static_assets_extensions:
-    - .jpg
-    - .jpeg
-    - .png
-    - .gif
-    - .tiff
-    - .ico
-    - .svg
-    - .eot
-    - .otf
-    - .ttf
-    - .woff
-    - .woff2
-
-  extensions:
-    - .mjs
-    - .js
-    - .sass
-    - .scss
-    - .css
-    - .module.sass
-    - .module.scss
-    - .module.css
-    - .png
-    - .svg
-    - .gif
-    - .jpeg
-    - .jpg
-
 development:
   <<: *default
   compile: true
-
-  # Set to false if using HMR for CSS
-  extract_css: true
 
   # Reference: https://webpack.js.org/configuration/dev-server/
   dev_server:
@@ -80,7 +45,6 @@ development:
       'Access-Control-Allow-Origin': '*'
     watch_options:
       ignored: '**/node_modules/**'
-
 
 test:
   <<: *default

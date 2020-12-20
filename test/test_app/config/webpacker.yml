@@ -14,17 +14,10 @@ default: &default
     - app/assets
     - /etc/yarn
     - some.config.js
-
-  # This configuration option is deprecated and is only here for testing, to
-  # ensure backwards-compatibility. Please use `additional_paths`.
-  resolved_paths:
     - app/elm
 
   # Reload manifest.json on all requests so we reload latest compiled packs
   cache_manifest: false
-
-  # Extract and emit a css file
-  extract_css: false
 
   static_assets_extensions:
     - .jpg
@@ -38,18 +31,6 @@ default: &default
   extensions:
     - .mjs
     - .js
-    - .sass
-    - .scss
-    - .css
-    - .module.sass
-    - .module.scss
-    - .module.css
-    - .png
-    - .svg
-    - .gif
-    - .jpeg
-    - .jpg
-    - .elm
 
 development:
   <<: *default
@@ -82,9 +63,6 @@ production:
   # Production depends on precompilation of packs prior to booting for performance.
   compile: false
 
-  # Extract and emit a css file
-  extract_css: true
-
   # Cache manifest.json for performance
   cache_manifest: true
 
@@ -93,9 +71,6 @@ staging:
 
   # Production depends on precompilation of packs prior to booting for performance.
   compile: false
-
-  # Extract and emit a css file
-  extract_css: true
 
   # Cache manifest.json for performance
   cache_manifest: true

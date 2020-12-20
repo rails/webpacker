@@ -1,43 +1,38 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const config = require('../config')
-const { isProduction } = require('../env')
 
-const styleLoader = {
-  loader: 'style-loader'
-}
-
-const getStyleRule = (test, modules = false, preprocessors = []) => {
-  const use = [
-    {
-      loader: 'css-loader',
-      options: {
-        sourceMap: true,
-        importLoaders: 2,
-        modules: modules ? {
-          localIdentName: isProduction ? '[hash:base64]' : '[path][name]__[local]'
-        } : false
+const tryPostcss = () => {
+  let postcssLoader = false
+  try {
+    if (require.resolve('postcss-loader')) {
+      postcssLoader = {
+        loader: require.resolve('postcss-loader'),
+        options: { sourceMap: true }
       }
-    },
-    {
-      loader: 'postcss-loader',
-      options: {
-        sourceMap: true
-      }
-    },
-    ...preprocessors
-  ]
-
-  const options = modules ? { include: /\.module\.[a-z]+$/i } : { exclude: /\.module\.[a-z]+$/i }
-
-  if (config.extract_css) {
-    use.unshift(MiniCssExtractPlugin.loader)
-  } else {
-    use.unshift(styleLoader)
+    }
+  } catch (e) {
+    /* Work out what to print here */
   }
 
-  // sideEffects - See https://github.com/webpack/webpack/issues/6571
+  return postcssLoader
+}
+
+const getStyleRule = (test, preprocessors = []) => {
+  const use = [
+    { loader: MiniCssExtractPlugin.loader },
+    {
+      loader: require.resolve('css-loader'),
+      options: {
+        sourceMap: true,
+        importLoaders: 2
+      }
+    },
+    tryPostcss(),
+    ...preprocessors
+  ].filter(Boolean)
+
   return {
-    test, use, sideEffects: !modules, ...options
+    test,
+    use
   }
 }
 

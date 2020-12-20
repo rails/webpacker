@@ -4,9 +4,6 @@ copy_file "#{__dir__}/config/webpacker.yml", "config/webpacker.yml"
 say "Copying webpack core config"
 directory "#{__dir__}/config/webpack", "config/webpack"
 
-say "Copying postcss.config.js to app root directory"
-copy_file "#{__dir__}/config/postcss.config.js", "postcss.config.js"
-
 if Dir.exists?(Webpacker.config.source_path)
   say "The JavaScript app source directory already exists"
 else
@@ -47,7 +44,7 @@ Dir.chdir(Rails.root) do
   run "yarn add webpack@#{webpack_version} webpack-cli@#{webpack_cli_version}"
 
   say "Installing dev server for live reloading"
-  run "yarn add --dev webpack-dev-server"
+  run "yarn add --dev webpack-dev-server @webpack-cli/serve"
 end
 
 insert_into_file Rails.root.join("package.json").to_s, before: /\n}\n*$/ do

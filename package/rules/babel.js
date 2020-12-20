@@ -1,10 +1,12 @@
 const { resolve } = require('path')
 const { realpathSync } = require('fs')
-const { source_path: sourcePath, additional_paths: additionalPaths } = require('../config')
+
+const {
+  source_path: sourcePath,
+  additional_paths: additionalPaths
+} = require('../config')
 const { isProduction } = require('../env')
 
-// Process application Javascript code with Babel.
-// Uses application .babelrc to apply any transformations
 module.exports = {
   test: /\.(js|jsx|mjs|ts|tsx)?(\.erb)?$/,
   include: [sourcePath, ...additionalPaths].map((p) => {
@@ -17,7 +19,7 @@ module.exports = {
   exclude: /node_modules/,
   use: [
     {
-      loader: 'babel-loader',
+      loader: require.resolve('babel-loader'),
       options: {
         cacheDirectory: true,
         cacheCompression: isProduction,

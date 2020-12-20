@@ -9,77 +9,50 @@ chdirTestApp()
 
 const { resolve } = require('path')
 const rules = require('../../rules')
-const { ConfigList } = require('../../config_types')
-const Environment = require('../base')
+const baseConfig = require('../base')
 
-describe('Environment', () => {
+describe('Base config', () => {
   afterAll(chdirCwd)
 
-  let environment
-
-  describe('toWebpackConfig', () => {
-    beforeEach(() => {
-      environment = new Environment()
-    })
-
+  describe('config', () => {
     test('should return entry', () => {
-      const config = environment.toWebpackConfig()
-      expect(config.entry.application).toEqual(
+      expect(baseConfig.entry.application).toEqual(
         resolve('app', 'javascript', 'packs', 'application.js')
       )
     })
 
     test('should return multi file entry points', () => {
-      const config = environment.toWebpackConfig()
-      expect(config.entry.multi_entry.sort()).toEqual(
-          [
-            resolve('app', 'javascript', 'packs', 'multi_entry.css'),
-            resolve('app', 'javascript', 'packs', 'multi_entry.js')
-          ]
-      )
+      expect(baseConfig.entry.multi_entry.sort()).toEqual([
+        resolve('app', 'javascript', 'packs', 'multi_entry.css'),
+        resolve('app', 'javascript', 'packs', 'multi_entry.js')
+      ])
     })
 
     test('should return output', () => {
-      const config = environment.toWebpackConfig()
-      expect(config.output.filename).toEqual('js/[name]-[contenthash].js')
-      expect(config.output.chunkFilename).toEqual('js/[name]-[contenthash].chunk.js')
+      expect(baseConfig.output.filename).toEqual('js/[name]-[contenthash].js')
+      expect(baseConfig.output.chunkFilename).toEqual(
+        'js/[name]-[contenthash].chunk.js'
+      )
     })
 
     test('should return default loader rules for each file in config/loaders', () => {
-      const config = environment.toWebpackConfig()
       const defaultRules = Object.keys(rules)
-      const configRules = config.module.rules
+      const configRules = baseConfig.module.rules
 
-      expect(defaultRules.length).toEqual(6)
-      expect(configRules.length).toEqual(6)
-    })
-
-    test('should return cache path for nodeModules rule', () => {
-      const nodeModulesRule = require('../../rules/node_modules')
-      const nodeModulesLoader = nodeModulesRule.use.find(rule => rule.loader === 'babel-loader')
-
-      expect(nodeModulesLoader.options.cacheDirectory).toBeTruthy()
-    })
-
-    test('should return cache path for babel-loader rule', () => {
-      const babelLoader = rules.babel.use.find(rule => rule.loader === 'babel-loader')
-
-      expect(babelLoader.options.cacheDirectory).toBeTruthy()
+      expect(defaultRules.length).toEqual(3)
+      expect(configRules.length).toEqual(3)
     })
 
     test('should return default plugins', () => {
-      const config = environment.toWebpackConfig()
-      expect(config.plugins.length).toEqual(4)
+      expect(baseConfig.plugins.length).toEqual(4)
     })
 
     test('should return default resolveLoader', () => {
-      const config = environment.toWebpackConfig()
-      expect(config.resolveLoader.modules).toEqual(['node_modules'])
+      expect(baseConfig.resolveLoader.modules).toEqual(['node_modules'])
     })
 
     test('should return default resolve.modules with additions', () => {
-      const config = environment.toWebpackConfig()
-      expect(config.resolve.modules).toEqual([
+      expect(baseConfig.resolve.modules).toEqual([
         resolve('app', 'javascript'),
         resolve('app/assets'),
         resolve('/etc/yarn'),
@@ -90,10 +63,7 @@ describe('Environment', () => {
     })
 
     test('returns plugins property as Array', () => {
-      const config = environment.toWebpackConfig()
-
-      expect(config.plugins).toBeInstanceOf(Array)
-      expect(config.plugins).not.toBeInstanceOf(ConfigList)
+      expect(baseConfig.plugins).toBeInstanceOf(Array)
     })
   })
 })

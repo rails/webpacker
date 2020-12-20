@@ -12,15 +12,9 @@ module Webpacker::Helper
   #
   # Example:
   #
-  #   # When extract_css is false in webpacker.yml and the file is a css:
-  #   <%= asset_pack_path 'calendar.css' %>  # => nil
-  #
-  #   # When extract_css is true in webpacker.yml or the file is not a css:
   #   <%= asset_pack_path 'calendar.css' %> # => "/packs/calendar-1016838bab065ae1e122.css"
   def asset_pack_path(name, **options)
-    if current_webpacker_instance.config.extract_css? || !stylesheet?(name)
-      path_to_asset(current_webpacker_instance.manifest.lookup!(name), options)
-    end
+    path_to_asset(current_webpacker_instance.manifest.lookup!(name), options)
   end
 
   # Computes the absolute path for a given Webpacker asset.
@@ -29,15 +23,9 @@ module Webpacker::Helper
   #
   # Example:
   #
-  #   # When extract_css is false in webpacker.yml and the file is a css:
-  #   <%= asset_pack_url 'calendar.css' %> # => nil
-  #
-  #   # When extract_css is true in webpacker.yml or the file is not a css:
   #   <%= asset_pack_url 'calendar.css' %> # => "http://example.com/packs/calendar-1016838bab065ae1e122.css"
   def asset_pack_url(name, **options)
-    if current_webpacker_instance.config.extract_css? || !stylesheet?(name)
-      url_to_asset(current_webpacker_instance.manifest.lookup!(name), options)
-    end
+    url_to_asset(current_webpacker_instance.manifest.lookup!(name), options)
   end
 
   # Computes the relative path for a given Webpacker image with the same automated processing as image_pack_tag.
@@ -148,17 +136,10 @@ module Webpacker::Helper
   #
   # Examples:
   #
-  #   # When extract_css is false in webpacker.yml:
-  #   <%= stylesheet_pack_tag 'calendar', 'data-turbolinks-track': 'reload' %> # =>
-  #   nil
-  #
-  #   # When extract_css is true in webpacker.yml:
   #   <%= stylesheet_pack_tag 'calendar', 'data-turbolinks-track': 'reload' %> # =>
   #   <link rel="stylesheet" media="screen" href="/packs/calendar-1016838bab065ae1e122.css" data-turbolinks-track="reload" />
   def stylesheet_pack_tag(*names, **options)
-    if current_webpacker_instance.config.extract_css?
-      stylesheet_link_tag(*sources_from_manifest_entries(names, type: :stylesheet), **options)
-    end
+    stylesheet_link_tag(*sources_from_manifest_entries(names, type: :stylesheet), **options)
   end
 
   # Creates link tags that reference the css chunks from entrypoints when using split chunks API,
@@ -183,16 +164,10 @@ module Webpacker::Helper
   #   <%= stylesheet_packs_with_chunks_tag 'calendar' %>
   #   <%= stylesheet_packs_with_chunks_tag 'map' %>
   def stylesheet_packs_with_chunks_tag(*names, **options)
-    if current_webpacker_instance.config.extract_css?
-      stylesheet_link_tag(*sources_from_manifest_entrypoints(names, type: :stylesheet), **options)
-    end
+    stylesheet_link_tag(*sources_from_manifest_entrypoints(names, type: :stylesheet), **options)
   end
 
   private
-    def stylesheet?(name)
-      File.extname(name) == ".css"
-    end
-
     def sources_from_manifest_entries(names, type:)
       names.map { |name| current_webpacker_instance.manifest.lookup!(name, type: type) }.flatten
     end
@@ -203,8 +178,8 @@ module Webpacker::Helper
 
     def resolve_path_to_image(name, **options)
       path = name.starts_with?("media/images/") ? name : "media/images/#{name}"
-      path_to_asset(current_webpacker_instance.manifest.lookup!(path), **options)
+      path_to_asset(current_webpacker_instance.manifest.lookup!(path), options)
     rescue
-      path_to_asset(current_webpacker_instance.manifest.lookup!(name), **options)
+      path_to_asset(current_webpacker_instance.manifest.lookup!(name), options)
     end
 end

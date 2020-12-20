@@ -15,11 +15,7 @@ module.exports = function config(api) {
     presets: [
       isTestEnv && [
         '@babel/preset-env',
-        {
-          targets: {
-            node: 'current'
-          }
-        }
+        { targets: { node: 'current' } }
       ],
       (isProductionEnv || isDevelopmentEnv) && [
         '@babel/preset-env',
@@ -37,15 +33,11 @@ module.exports = function config(api) {
       'babel-plugin-macros',
       [
         '@babel/plugin-proposal-class-properties',
-        {
-          loose: true
-        }
+        { loose: true }
       ],
       [
         '@babel/plugin-transform-runtime',
-        {
-          helpers: false
-        }
+        { helpers: false }
       ]
     ].filter(Boolean)
   }

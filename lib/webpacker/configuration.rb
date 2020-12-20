@@ -23,16 +23,8 @@ class Webpacker::Configuration
     root_path.join(fetch(:source_path))
   end
 
-  def source_path_globbed
-    globbed_path_with_extensions(source_path.relative_path_from(root_path))
-  end
-
   def additional_paths
-    fetch(:additional_paths) + resolved_paths
-  end
-
-  def additional_paths_globbed
-    additional_paths.map { |p| globbed_path_with_extensions(p) }
+    fetch(:additional_paths)
   end
 
   def source_entry_path
@@ -59,10 +51,6 @@ class Webpacker::Configuration
     root_path.join(fetch(:cache_path))
   end
 
-  def extensions
-    fetch(:extensions)
-  end
-
   def check_yarn_integrity=(value)
     warn <<~EOS
       Webpacker::Configuration#check_yarn_integrity=(value) is obsolete. The integrity
@@ -75,19 +63,7 @@ class Webpacker::Configuration
     fetch(:webpack_compile_output)
   end
 
-  def extract_css?
-    fetch(:extract_css)
-  end
-
   private
-    def resolved_paths
-      paths = data.fetch(:resolved_paths, [])
-
-      warn "The resolved_paths option has been deprecated. Use additional_paths instead." unless paths.empty?
-
-      paths
-    end
-
     def fetch(key)
       data.fetch(key, defaults[key])
     end
@@ -113,11 +89,5 @@ class Webpacker::Configuration
     def defaults
       @defaults ||= \
         HashWithIndifferentAccess.new(YAML.load_file(File.expand_path("../../install/config/webpacker.yml", __FILE__))[env])
-    end
-
-    def globbed_path_with_extensions(path)
-      return path if root_path.join(path).file?
-
-      "#{path}/**/*{#{extensions.join(',')}}"
     end
 end

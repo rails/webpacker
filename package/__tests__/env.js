@@ -14,7 +14,8 @@ describe('Env', () => {
     expect(require('../env')).toEqual({
       railsEnv: 'development',
       nodeEnv: 'development',
-      isProduction: false
+      isProduction: false,
+      isDevelopment: true
     })
   })
 
@@ -24,7 +25,8 @@ describe('Env', () => {
     expect(require('../env')).toEqual({
       railsEnv: 'development',
       nodeEnv: 'production',
-      isProduction: true
+      isProduction: true,
+      isDevelopment: false
     })
   })
 
@@ -34,7 +36,8 @@ describe('Env', () => {
     expect(require('../env')).toEqual({
       railsEnv: 'production',
       nodeEnv: 'production',
-      isProduction: true
+      isProduction: true,
+      isDevelopment: false
     })
   })
 
@@ -44,7 +47,8 @@ describe('Env', () => {
     expect(require('../env')).toEqual({
       railsEnv: 'staging',
       nodeEnv: 'production',
-      isProduction: true
+      isProduction: true,
+      isDevelopment: false
     })
   })
 })

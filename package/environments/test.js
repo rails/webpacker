@@ -1,3 +1,3 @@
-const Base = require('./base')
+const baseConfig = require('./base')
 
-module.exports = class extends Base {}
+module.exports = baseConfig
