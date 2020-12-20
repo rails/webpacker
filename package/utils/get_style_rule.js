@@ -1,20 +1,8 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const devServer = require('../dev_server')
 
 const getStyleRule = (test, preprocessors = []) => {
   const use = [
-    {
-      loader: MiniCssExtractPlugin.loader,
-      options: {
-        // only enable hot in development
-        hmr:
-          process.env.WEBPACK_DEV_SERVER &&
-          process.env.WEBPACK_DEV_SERVER !== 'undefined' &&
-          devServer.hmr,
-        // if hmr does not work, this is a forceful method.
-        reloadAll: true
-      }
-    },
+    { loader: MiniCssExtractPlugin.loader },
     {
       loader: require.resolve('css-loader'),
       options: {

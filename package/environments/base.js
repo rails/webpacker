@@ -10,6 +10,7 @@ const WebpackAssetsManifest = require('webpack-assets-manifest')
 const webpack = require('webpack')
 const rules = require('../rules')
 const config = require('../config')
+const { isDevelopment } = require('../env')
 
 const getEntryObject = () => {
   const entries = {}
@@ -67,8 +68,8 @@ const getPlugins = () => {
       const MiniCssExtractPlugin = require.resolve('mini-css-extract-plugin')
       plugins.push(
         new MiniCssExtractPlugin({
-          filename: 'css/[name]-[contenthash:8].css',
-          chunkFilename: 'css/[name]-[contenthash:8].chunk.css'
+          filename: isDevelopment ? '[name].css' : '[name].[contenthash:8].css',
+          chunkFilename: isDevelopment ? '[id].css' : '[id].[contenthash:8].css'
         })
       )
     }
