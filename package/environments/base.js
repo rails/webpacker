@@ -86,6 +86,7 @@ module.exports = {
     filename: 'js/[name]-[contenthash].js',
     chunkFilename: 'js/[name]-[contenthash].chunk.js',
     hotUpdateChunkFilename: 'js/[id]-[hash].hot-update.js',
+    assetModuleFilename: 'static/[hash][ext][query]',
     path: config.outputPath,
     publicPath: config.publicPath
   },
