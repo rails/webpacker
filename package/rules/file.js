@@ -10,8 +10,10 @@ module.exports = {
     /\.otf$/,
     /\.ttf$/,
     /\.woff$/,
-    /\.woff2$/
+    /\.woff2$/,
+    /\.html$/,
+    /\.json$/
   ],
-  exclude: [/\.(js|mjs|jsx|ts|tsx)$/, /\.html$/, /\.json$/],
+  exclude: [/\.(js|mjs|jsx|ts|tsx)$/],
   type: 'asset/resource'
 }
