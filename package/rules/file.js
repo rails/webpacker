@@ -6,6 +6,8 @@ module.exports = {
     /\.png$/,
     /\.tiff$/,
     /\.ico$/,
+    /\.avif$/,
+    /\.webp$/,
     /\.eot$/,
     /\.otf$/,
     /\.ttf$/,
