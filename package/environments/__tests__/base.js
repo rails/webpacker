@@ -44,7 +44,7 @@ describe('Base config', () => {
     })
 
     test('should return default plugins', () => {
-      expect(baseConfig.plugins.length).toEqual(4)
+      expect(baseConfig.plugins.length).toEqual(3)
     })
 
     test('should return default resolveLoader', () => {
