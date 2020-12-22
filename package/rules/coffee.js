@@ -1,6 +1,11 @@
-module.exports = {
-  test: /\.coffee(\.erb)?$/,
-  use: [
-    { loader: require.resolve('coffee-loader') }
-  ]
-}
+const { loaderCheckingExists } = require('../utils/helpers')
+
+module.exports = loaderCheckingExists('coffee-loader',
+    (loaderPath) => (
+        {
+            test: /\.coffee(\.erb)?$/,
+            use: [
+                { loader: loaderPath }
+            ]
+        }
+    ))

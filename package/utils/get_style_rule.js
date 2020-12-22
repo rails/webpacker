@@ -1,22 +1,20 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const { loaderCheckingExists, packagePath } = require('./helpers')
 
-const tryPostcss = () => {
-  let postcssLoader = false
-  try {
-    if (require.resolve('postcss-loader')) {
-      postcssLoader = {
-        loader: require.resolve('postcss-loader'),
-        options: { sourceMap: true }
-      }
-    }
-  } catch (e) {
-    /* Work out what to print here */
-  }
 
-  return postcssLoader
-}
+const tryPostcss = () => loaderCheckingExists('postcss-loader',
+    (loaderPath) => ({
+          loader: loaderPath,
+          options: { sourceMap: true }
+        }
+    ))
 
 const getStyleRule = (test, preprocessors = []) => {
+  if (!packagePath('mini-css-extract-plugin')) {
+    return null
+  }
+
+  /* eslint global-require: 0 */
+  const MiniCssExtractPlugin= require('mini-css-extract-plugin')
   const use = [
     { loader: MiniCssExtractPlugin.loader },
     {

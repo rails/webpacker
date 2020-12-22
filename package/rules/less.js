@@ -1,5 +1,7 @@
 const path = require('path')
+
 const getStyleRule = require('../utils/get_style_rule')
+const { packagePath } = require('../utils/helpers')
 const {
   additional_paths: paths,
   source_path: sourcePath
@@ -7,7 +9,7 @@ const {
 
 module.exports = getStyleRule(/\.(less)(\.erb)?$/i, [
   {
-    loader: require.resolve('less-loader'),
+    loader: packagePath('less-loader'),
     options: {
       lessOptions: {
         paths: [path.resolve(__dirname, 'node_modules'), sourcePath, ...paths]

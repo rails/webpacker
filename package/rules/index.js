@@ -1,13 +1,7 @@
 /* eslint global-require: 0 */
 /* eslint import/no-dynamic-require: 0 */
 
-const load = (name) => {
-  try {
-    return require(`./${name}`)
-  } catch (e) {
-    return null
-  }
-}
+const load = (name) => require(`./${name}`)
 
 const rules = {
   file: load('file'),
@@ -17,7 +11,6 @@ const rules = {
   babel: load('babel'),
   erb: load('erb'),
   coffee: load('coffee'),
-  html: load('html'),
   less: load('less')
 }
 
