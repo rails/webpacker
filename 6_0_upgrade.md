@@ -1,6 +1,8 @@
 # To webpacker v6 from v5
 
-This guide aims to help you migrating to webpacker 6.
+This guide aims to help you migrating to webpacker 6. If you are using
+vanilla webpacker install then hopefully, the upgrade should be really
+straightforward.
 
 ## Preparation
 
@@ -29,3 +31,13 @@ This guide aims to help you migrating to webpacker 6.
   `stylesheet_packs_with_chunks_tag`
 
 - If you are using any integrations like css, react or typescript. Please see https://github.com/rails/webpacker#integrations section on how they work in v6.0
+
+- Copy over any custom webpack config from `config/webpack_old`
+
+  ```js
+  // config/webpack/base.js
+  const { webpackConfig, merge } = require('@rails/webpacker')
+  const customConfig = require('./custom')
+
+  module.exports = merge(webpackConfig, customConfig)
+  ```
