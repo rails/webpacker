@@ -4,19 +4,20 @@
 const { basename, dirname, join, relative, resolve } = require('path')
 const extname = require('path-complete-extname')
 const PnpWebpackPlugin = require('pnp-webpack-plugin')
-const { sync } = require('glob')
+const { sync: globSync } = require('glob')
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 const WebpackAssetsManifest = require('webpack-assets-manifest')
 const webpack = require('webpack')
 const rules = require('../rules')
 const config = require('../config')
 const { isDevelopment } = require('../env')
+const { packagePath } = require('../utils/helpers')
 
 const getEntryObject = () => {
   const entries = {}
   const rootPath = join(config.source_path, config.source_entry_path)
 
-  sync(`${rootPath}/**/*.*`).forEach((path) => {
+  globSync(`${rootPath}/**/*.*`).forEach((path) => {
     const namespace = relative(join(rootPath), dirname(path))
     const name = join(namespace, basename(path, extname(path)))
     let assetPaths = resolve(path)
@@ -62,18 +63,14 @@ const getPlugins = () => {
     })
   ]
 
-  try {
-    if (require.resolve('css-loader')) {
-      const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-      plugins.push(
+  if (packagePath('css-loader')) {
+    const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+    plugins.push(
         new MiniCssExtractPlugin({
           filename: isDevelopment ? '[name].css' : '[name].[contenthash:8].css',
           chunkFilename: isDevelopment ? '[id].css' : '[id].[contenthash:8].css'
         })
-      )
-    }
-  } catch (e) {
-    /* Work out what to print here */
+    )
   }
 
   return plugins

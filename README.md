@@ -158,7 +158,7 @@ can use the `asset_pack_path` helper:
 <img src="<%= asset_pack_path 'images/logo.svg' %>" />
 ```
 
-If you are using new webpack 4 split chunks API, then consider using `javascript_packs_with_chunks_tag` helper, which creates html
+If you are using new webpack split chunks API, then consider using `javascript_packs_with_chunks_tag` helper, which creates html
 tags for a pack and all the dependent chunks.
 
 ```erb

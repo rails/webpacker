@@ -5,6 +5,7 @@ const { merge } = require('webpack-merge')
 const CompressionPlugin = require('compression-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const baseConfig = require('./base')
+const { packagePath } = require('../utils/helpers')
 
 const getPlugins = () => {
   let compressionPlugin = new CompressionPlugin({
@@ -23,13 +24,12 @@ const getPlugins = () => {
 
   const plugins = [compressionPlugin]
 
-  try {
-    if (require.resolve('css-loader')) {
-      const OptimizeCSSAssetsPlugin = require.resolve(
+  if (packagePath('css-loader')) {
+    const OptimizeCSSAssetsPlugin = require.resolve(
         'optimize-css-assets-webpack-plugin'
-      )
-      const safePostCssParser = require.resolve('postcss-safe-parser')
-      plugins.push(
+    )
+    const safePostCssParser = require.resolve('postcss-safe-parser')
+    plugins.push(
         new OptimizeCSSAssetsPlugin({
           parser: safePostCssParser,
           map: {
@@ -37,10 +37,7 @@ const getPlugins = () => {
             annotation: true
           }
         })
-      )
-    }
-  } catch (e) {
-    /* Work out what to output without clutter */
+    )
   }
 
   return plugins
