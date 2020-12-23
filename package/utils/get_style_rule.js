@@ -3,7 +3,7 @@
 const { canProcess, moduleExists } = require('./helpers')
 
 const getStyleRule = (test, preprocessors = []) => {
-  if (moduleExists('mini-css-extract-plugin') && moduleExists('css-loader')) {
+  if (moduleExists('css-loader')) {
     const tryPostcss = () =>
       canProcess('postcss-loader', (loaderPath) => ({
         loader: loaderPath,
