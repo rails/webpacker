@@ -259,9 +259,9 @@ console.log(webpackConfig.source_path)
 
 ### Integrations
 
-Webpacker out of the box supports JS and static asset (fonts, images etc.)
+Webpacker out of the box supports JS and static assets (fonts, images etc.)
 compilation. To enable support for Coffeescript or Typescript install
-relevant package,
+relevant packages and you are good to go,
 
 **Coffeescript**
 
@@ -303,13 +303,13 @@ Add tsconfig.json
 
 #### CSS
 
-To enable CSS support in your application, install the following packages:
+To enable CSS support in your application, install following packages:
 
 ```
 yarn add css-loader mini-css-extract-plugin css-minimizer-webpack-plugin
 ```
 
-optionally, add css extension to webpack config
+optionally, add css extension to webpack config for easy resolution
 
 ```js
 // config/webpack/base.js
@@ -322,8 +322,6 @@ const customConfig = {
 
 module.exports = merge(webpackConfig, customConfig)
 ```
-
-``
 
 To enable postcss, sass or less support, add css support first and
 then add the relevant pre-processors:
@@ -383,6 +381,31 @@ Please follow webpack integration guide for relevant package,
 1. Svelte - https://github.com/sveltejs/svelte-loader#install
 2. Angular - https://v2.angular.io/docs/ts/latest/guide/webpack.html#!#configure-webpack
 3. Vue - https://vue-loader.vuejs.org/guide/
+
+For example to add Vue support,
+
+```js
+// config/webpack/rules/vue.js
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      }
+    ]
+  },
+  plugins: [new VueLoaderPlugin()]
+}
+
+// config/webpack/base.js
+const { webpackConfig, merge } = require('@rails/webpacker')
+const vueConfig = require('./rules/vue')
+
+module.exports = merge(webpackConfig, vueConfig)
+```
 
 ### Custom Rails environments
 
