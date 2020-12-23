@@ -9,7 +9,8 @@ const rules = {
   babel: require('./babel'),
   erb: require('./erb'),
   coffee: require('./coffee'),
-  less: require('./less')
+  less: require('./less'),
+  raw: require('./raw')
 }
 
 module.exports = Object.keys(rules)

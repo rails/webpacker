@@ -39,8 +39,8 @@ describe('Base config', () => {
       const defaultRules = Object.keys(rules)
       const configRules = baseConfig.module.rules
 
-      expect(defaultRules.length).toEqual(3)
-      expect(configRules.length).toEqual(3)
+      expect(defaultRules.length).toEqual(4)
+      expect(configRules.length).toEqual(4)
     })
 
     test('should return default plugins', () => {
