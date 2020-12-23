@@ -2,18 +2,30 @@
 
 **Please note that Webpacker 4.1.0 has an installer bug. Please use 4.2.0 or above**
 
-## [[6.0.0]](https://github.com/rails/webpacker/compare/v5.1.1...v6.0.0) - 2020-TBD
+## [[6.0.0]](https://github.com/rails/webpacker/compare/v5.1.1...master) - 2021-TBD
 
 - `node_modules` will no longer be compiled by default. This primarily fixes [rails issue #35501](https://github.com/rails/rails/issues/35501) as well as [numerous other webpacker issues](https://github.com/rails/webpacker/issues/2131#issuecomment-581618497). The disabled loader can still be required explicitly via:
+
 ```js
 const nodeModules = require('@rails/webpacker/rules/node_modules.js')
 environment.loaders.append('nodeModules', nodeModules)
 ```
+
 - If you have added `environment.loaders.delete('nodeModules')` to your `environment.js`, this must be removed or you will receive an error (`Item nodeModules not found`).
-- The install task will now set the `extract_css` default to `true` in all environments and generate a separate `application.css` file for the default `application` pack, as supported by multiple files per entry introduced in 5.0.0.  [#2608](https://github.com/rails/webpacker/pull/2608)
+- The install task will now set the `extract_css` default to `true` in all environments and generate a separate `application.css` file for the default `application` pack, as supported by multiple files per entry introduced in 5.0.0. [#2608](https://github.com/rails/webpacker/pull/2608)
 - Webpacker's wrapper to the `splitChunks()` API will now default `runtimeChunk: 'single'` which will help prevent potential issues when using multiple entry points per page [#2708](https://github.com/rails/webpacker/pull/2708).
 - Changes `@babel/preset-env` modules option to `'auto'` per recommendation in the Babel docs [#2709](https://github.com/rails/webpacker/pull/2709)
 - Adds experimental Yarn 2 support. Note you must manually set `nodeLinker: node-modules` in your `.yarnrc.yml`.
+
+### Breaking changes
+
+- Simple webpack config
+- Removed integration installers
+- Splitchunks enabled by default
+- CSS extraction enabled by default
+- Optional CSS support
+
+Please see upgrade [guide](./6_0_upgrade.md)
 
 ## [[5.2.1]](https://github.com/rails/webpacker/compare/v5.2.0...5.2.1) - 2020-08-17
 
@@ -346,7 +358,7 @@ const { environment } = require('@rails/webpacker')
 // Enable with default config
 environment.splitChunks()
 // Configure via a callback
-environment.splitChunks(config =>
+environment.splitChunks((config) =>
   Object.assign({}, config, { optimization: { splitChunks: false } })
 )
 ```
@@ -670,7 +682,9 @@ environment.resolvedModules.append('vendor', 'vendor')
 ```js
 // Enable css modules with sass loader
 const sassLoader = environment.loaders.get('sass')
-const cssLoader = sassLoader.use.find(loader => loader.loader === 'css-loader')
+const cssLoader = sassLoader.use.find(
+  (loader) => loader.loader === 'css-loader'
+)
 
 cssLoader.options = Object.assign({}, cssLoader.options, {
   modules: true,
