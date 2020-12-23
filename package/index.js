@@ -9,6 +9,7 @@ const rules = require('./rules')
 const config = require('./config')
 const devServer = require('./dev_server')
 const { nodeEnv } = require('./env')
+const { moduleExists, canProcess } = require('./utils/helpers')
 
 const webpackConfig = () => {
   const path = resolve(__dirname, 'environments', `${nodeEnv}.js`)
@@ -22,5 +23,7 @@ module.exports = {
   webpackConfig: webpackConfig(),
   baseConfig,
   rules,
-  merge
+  merge,
+  moduleExists,
+  canProcess
 }

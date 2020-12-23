@@ -88,7 +88,7 @@ module.exports = {
   },
   entry: getEntryObject(),
   resolve: {
-    extensions: ['.js', '.mjs', '.ts'],
+    extensions: ['.js', '.mjs', '.ts', '.coffee'],
     modules: getModulePaths(),
     plugins: [PnpWebpackPlugin]
   },

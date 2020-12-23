@@ -61,6 +61,8 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 
   ### Optional
 
+  This requires extra packages to be installed:
+
   - Stylesheets - SASS, LESS and CSS
   - Images and fonts
   - PostCSS
@@ -248,11 +250,139 @@ If you need access to configs within Webpacker's configuration,
 you can import them like so:
 
 ```js
+// config/webpack/base.js
 const { webpackConfig } = require('@rails/webpacker')
 
 console.log(webpackConfig.output_path)
 console.log(webpackConfig.source_path)
 ```
+
+### Integrations
+
+Webpacker out of the box supports JS and static asset (fonts, images etc.)
+compilation. To enable support for Coffeescript or Typescript install
+relevant package,
+
+**Coffeescript**
+
+```
+yarn add coffeescript coffee-loader
+```
+
+**Typescript**
+
+```
+yarn add typescript @babel/preset-typescript
+```
+
+Add tsconfig.json
+
+```json
+// tsconfig.json
+
+{
+  "compilerOptions": {
+    "declaration": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": ["es6", "dom"],
+    "module": "es6",
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "*": ["node_modules/*", "app/javascript/*"]
+    },
+    "sourceMap": true,
+    "target": "es5",
+    "noEmit": true
+  },
+  "exclude": ["**/*.spec.ts", "node_modules", "vendor", "public"],
+  "compileOnSave": false
+}
+```
+
+#### CSS
+
+To enable CSS support in your application, install the following packages:
+
+```
+yarn add css-loader mini-css-extract-plugin css-minimizer-webpack-plugin
+```
+
+optionally, add css extension to webpack config
+
+```js
+// config/webpack/base.js
+const { webpackConfig, merge } = require('@rails/webpacker')
+const customConfig = {
+  resolve: {
+    extensions: ['.css']
+  }
+}
+
+module.exports = merge(webpackConfig, customConfig)
+```
+
+``
+
+To enable postcss, sass or less support, add css support first and
+then add the relevant pre-processors:
+
+#### Postcss
+
+```
+yarn add postcss-loader
+```
+
+#### Sass
+
+```
+yarn add sass-loader
+```
+
+#### Less
+
+```
+yarn add less-loader
+```
+
+#### React
+
+React is supported out the box
+
+```
+yarn add react react-dom @babel/preset-react
+```
+
+if you are using typescript, update your `tsconfig.json`
+
+```json
+// tsconfig.json
+{
+  "compilerOptions": {
+    "declaration": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": ["es6", "dom"],
+    "module": "es6",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "target": "es5",
+    "jsx": "react",
+    "noEmit": true
+  },
+  "exclude": ["**/*.spec.ts", "node_modules", "vendor", "public"],
+  "compileOnSave": false
+}
+```
+
+#### Other frameworks
+
+Please follow webpack integration guide for relevant package,
+
+1. Svelte - https://github.com/sveltejs/svelte-loader#install
+2. Angular - https://v2.angular.io/docs/ts/latest/guide/webpack.html#!#configure-webpack
+3. Vue - https://vue-loader.vuejs.org/guide/
 
 ### Custom Rails environments
 
