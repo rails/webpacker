@@ -59,13 +59,14 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 - Rails view helpers
 - Extensible and configurable
 
-  ### Optional
+  ### Optional support\*
 
-  This requires extra packages to be installed:
+  _requires extra packages to be installed_
 
-  - Stylesheets - SASS, LESS and CSS
-  - Images and fonts
-  - PostCSS
+  - Stylesheets - SASS, LESS and CSS, PostCSS
+  - Coffeescript
+  - Typescript
+  - React
 
 ## Installation
 
