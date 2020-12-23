@@ -11,7 +11,7 @@ const webpack = require('webpack')
 const rules = require('../rules')
 const config = require('../config')
 const { isDevelopment } = require('../env')
-const { packagePath } = require('../utils/helpers')
+const { moduleExists } = require('../utils/helpers')
 
 const getEntryObject = () => {
   const entries = {}
@@ -63,7 +63,7 @@ const getPlugins = () => {
     })
   ]
 
-  if (packagePath('css-loader') && packagePath('mini-css-extract-plugin')) {
+  if (moduleExists('css-loader') && moduleExists('mini-css-extract-plugin')) {
     const MiniCssExtractPlugin = require('mini-css-extract-plugin')
     plugins.push(
       new MiniCssExtractPlugin({

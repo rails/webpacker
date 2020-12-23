@@ -16,22 +16,24 @@ const resetEnv = () => {
 
 const ensureTrailingSlash = (path) => (path.endsWith('/') ? path : `${path}/`)
 
-const packagePath = (packageName) => {
+const moduleExists = (packageName) => {
   try {
     return require.resolve(packageName)
   } catch (e) {
-    if (e.code !== 'MODULE_NOT_FOUND' || e.moduleName !== packageName) {
+    if (e.code !== 'MODULE_NOT_FOUND') {
       throw e
     }
     return null
   }
 }
 
-const loaderCheckingExists = (loader, fn) => {
-  const loaderPath = packagePath(loader)
-  if (loaderPath) {
-    return fn(loaderPath)
+const canProcess = (rule, fn) => {
+  const modulePath = moduleExists(rule)
+
+  if (modulePath) {
+    return fn(modulePath)
   }
+
   return null
 }
 
@@ -41,7 +43,7 @@ module.exports = {
   isArray,
   isBoolean,
   ensureTrailingSlash,
-  loaderCheckingExists,
-  packagePath,
+  canProcess,
+  moduleExists,
   resetEnv
 }

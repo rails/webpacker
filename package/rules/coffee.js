@@ -1,11 +1,6 @@
-const { loaderCheckingExists } = require('../utils/helpers')
+const { canProcess } = require('../utils/helpers')
 
-module.exports = loaderCheckingExists('coffee-loader',
-    (loaderPath) => (
-        {
-            test: /\.coffee(\.erb)?$/,
-            use: [
-                { loader: loaderPath }
-            ]
-        }
-    ))
+module.exports = canProcess('coffee-loader', (resolvedPath) => ({
+  test: /\.coffee(\.erb)?$/,
+  use: [{ loader: resolvedPath }]
+}))
