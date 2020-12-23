@@ -52,7 +52,6 @@ const getModulePaths = () => {
 const getPlugins = () => {
   const plugins = [
     new webpack.EnvironmentPlugin(process.env),
-    PnpWebpackPlugin,
     new CaseSensitivePathsPlugin(),
     new WebpackAssetsManifest({
       entrypoints: true,
@@ -93,7 +92,10 @@ module.exports = {
   entry: getEntryObject(),
   resolve: {
     extensions: ['.js', '.mjs', '.ts'],
-    modules: getModulePaths()
+    modules: getModulePaths(),
+    plugins: [
+      PnpWebpackPlugin
+    ]
   },
 
   plugins: getPlugins(),
