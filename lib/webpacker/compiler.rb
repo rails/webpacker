@@ -65,12 +65,18 @@ class Webpacker::Compiler
       compilation_digest_path.write(watched_files_digest)
     end
 
+    def optionalRubyRunner
+      bin_webpack_path = config.root_path.join("bin/webpack")
+      first_line = File.readlines(bin_webpack_path).first.chomp
+      /ruby/.match?(first_line) ? RbConfig.ruby : ""
+     end
+
     def run_webpack
       logger.info "Compiling..."
 
       stdout, stderr, status = Open3.capture3(
         webpack_env,
-        "#{RbConfig.ruby} ./bin/webpack",
+        "#{optionalRubyRunner} ./bin/webpack",
         chdir: File.expand_path(config.root_path)
       )
 
