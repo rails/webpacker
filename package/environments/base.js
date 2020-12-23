@@ -63,13 +63,13 @@ const getPlugins = () => {
     })
   ]
 
-  if (packagePath('css-loader')) {
+  if (packagePath('css-loader') && packagePath('mini-css-extract-plugin')) {
     const MiniCssExtractPlugin = require('mini-css-extract-plugin')
     plugins.push(
-        new MiniCssExtractPlugin({
-          filename: isDevelopment ? '[name].css' : '[name].[contenthash:8].css',
-          chunkFilename: isDevelopment ? '[id].css' : '[id].[contenthash:8].css'
-        })
+      new MiniCssExtractPlugin({
+        filename: isDevelopment ? '[name].css' : '[name].[contenthash:8].css',
+        chunkFilename: isDevelopment ? '[id].css' : '[id].[contenthash:8].css'
+      })
     )
   }
 
@@ -90,9 +90,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.mjs', '.ts'],
     modules: getModulePaths(),
-    plugins: [
-      PnpWebpackPlugin
-    ]
+    plugins: [PnpWebpackPlugin]
   },
 
   plugins: getPlugins(),
