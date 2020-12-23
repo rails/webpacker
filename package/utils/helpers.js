@@ -16,26 +16,24 @@ const resetEnv = () => {
 
 const ensureTrailingSlash = (path) => (path.endsWith('/') ? path : `${path}/`)
 
-/**
- * returns the value of require.resolve(packageName) if existing or null if not existing
- */
-const packagePath = (packageName) => {
+const moduleExists = (packageName) => {
   try {
-    // Next line throws a Node error of code MODULE_NOT_FOUND if the css-loader is not available
     return require.resolve(packageName)
   } catch (e) {
-    if (e.code !== 'MODULE_NOT_FOUND' || e.moduleName !== packageName) {
+    if (e.code !== 'MODULE_NOT_FOUND') {
       throw e
     }
     return null
   }
 }
 
-const loaderCheckingExists = (loader, fn) => {
-  const loaderPath = packagePath(loader)
-  if (loaderPath) {
-    return fn(loaderPath)
+const canProcess = (rule, fn) => {
+  const modulePath = moduleExists(rule)
+
+  if (modulePath) {
+    return fn(modulePath)
   }
+
   return null
 }
 
@@ -45,7 +43,7 @@ module.exports = {
   isArray,
   isBoolean,
   ensureTrailingSlash,
-  loaderCheckingExists,
-  packagePath,
+  canProcess,
+  moduleExists,
   resetEnv
 }

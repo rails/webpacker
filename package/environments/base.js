@@ -11,7 +11,7 @@ const webpack = require('webpack')
 const rules = require('../rules')
 const config = require('../config')
 const { isDevelopment } = require('../env')
-const { packagePath } = require('../utils/helpers')
+const { moduleExists } = require('../utils/helpers')
 
 const getEntryObject = () => {
   const entries = {}
@@ -63,13 +63,13 @@ const getPlugins = () => {
     })
   ]
 
-  if (packagePath('css-loader')) {
+  if (moduleExists('css-loader') && moduleExists('mini-css-extract-plugin')) {
     const MiniCssExtractPlugin = require('mini-css-extract-plugin')
     plugins.push(
-        new MiniCssExtractPlugin({
-          filename: isDevelopment ? '[name].css' : '[name].[contenthash:8].css',
-          chunkFilename: isDevelopment ? '[id].css' : '[id].[contenthash:8].css'
-        })
+      new MiniCssExtractPlugin({
+        filename: isDevelopment ? '[name].css' : '[name].[contenthash:8].css',
+        chunkFilename: isDevelopment ? '[id].css' : '[id].[contenthash:8].css'
+      })
     )
   }
 
@@ -88,11 +88,9 @@ module.exports = {
   },
   entry: getEntryObject(),
   resolve: {
-    extensions: ['.js', '.mjs', '.ts'],
+    extensions: ['.js', '.mjs', '.ts', '.coffee'],
     modules: getModulePaths(),
-    plugins: [
-      PnpWebpackPlugin
-    ]
+    plugins: [PnpWebpackPlugin]
   },
 
   plugins: getPlugins(),

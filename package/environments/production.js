@@ -5,7 +5,7 @@ const { merge } = require('webpack-merge')
 const CompressionPlugin = require('compression-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const baseConfig = require('./base')
-const { packagePath } = require('../utils/helpers')
+const { moduleExists } = require('../utils/helpers')
 
 const getPlugins = () => {
   let compressionPlugin = new CompressionPlugin({
@@ -22,25 +22,7 @@ const getPlugins = () => {
     })
   }
 
-  const plugins = [compressionPlugin]
-
-  if (packagePath('css-loader')) {
-    const OptimizeCSSAssetsPlugin = require.resolve(
-        'optimize-css-assets-webpack-plugin'
-    )
-    const safePostCssParser = require.resolve('postcss-safe-parser')
-    plugins.push(
-        new OptimizeCSSAssetsPlugin({
-          parser: safePostCssParser,
-          map: {
-            inline: false,
-            annotation: true
-          }
-        })
-    )
-  }
-
-  return plugins
+  return [compressionPlugin]
 }
 
 const productionConfig = {
@@ -50,6 +32,18 @@ const productionConfig = {
   plugins: getPlugins(),
   optimization: {
     minimizer: [
+      () => {
+        if (
+          moduleExists('css-loader') &&
+          moduleExists('css-minimizer-webpack-plugin')
+        ) {
+          const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+          return new CssMinimizerPlugin({ sourceMap: true })
+        }
+
+        return false
+      },
+
       new TerserPlugin({
         parallel: Number.parseInt(process.env.WEBPACKER_PARALLEL, 10) || true,
         terserOptions: {
@@ -71,7 +65,7 @@ const productionConfig = {
           }
         }
       })
-    ]
+    ].filter(Boolean)
   }
 }
 
