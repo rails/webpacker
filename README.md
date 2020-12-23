@@ -261,7 +261,7 @@ console.log(webpackConfig.source_path)
 
 Webpacker out of the box supports JS and static assets (fonts, images etc.)
 compilation. To enable support for Coffeescript or Typescript install
-relevant packages and you are good to go,
+relevant packages,
 
 **Coffeescript**
 
@@ -278,8 +278,6 @@ yarn add typescript @babel/preset-typescript
 Add tsconfig.json
 
 ```json
-// tsconfig.json
-
 {
   "compilerOptions": {
     "declaration": false,
@@ -303,7 +301,7 @@ Add tsconfig.json
 
 #### CSS
 
-To enable CSS support in your application, install following packages:
+To enable CSS support in your application, add following packages,
 
 ```
 yarn add css-loader mini-css-extract-plugin css-minimizer-webpack-plugin
@@ -346,7 +344,7 @@ yarn add less-loader
 
 #### React
 
-React is supported out the box
+React is supported and you just need to add relevant packages,
 
 ```
 yarn add react react-dom @babel/preset-react
@@ -355,7 +353,6 @@ yarn add react react-dom @babel/preset-react
 if you are using typescript, update your `tsconfig.json`
 
 ```json
-// tsconfig.json
 {
   "compilerOptions": {
     "declaration": false,
@@ -376,7 +373,7 @@ if you are using typescript, update your `tsconfig.json`
 
 #### Other frameworks
 
-Please follow webpack integration guide for relevant package,
+Please follow webpack integration guide for relevant framework or library,
 
 1. Svelte - https://github.com/sveltejs/svelte-loader#install
 2. Angular - https://v2.angular.io/docs/ts/latest/guide/webpack.html#!#configure-webpack
