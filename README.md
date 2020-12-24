@@ -63,7 +63,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 
   _requires extra packages to be installed_
 
-  - Stylesheets - SASS, LESS and CSS, PostCSS
+  - Stylesheets - Sass, Less, Stylus and Css, PostCSS
   - Coffeescript
   - Typescript
   - React
@@ -343,7 +343,7 @@ yarn add sass sass-loader
 yarn add less less-loader
 ```
 
-#### Less
+#### Stylus
 
 ```
 yarn add stylus stylus-loader
