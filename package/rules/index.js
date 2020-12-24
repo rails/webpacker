@@ -4,7 +4,6 @@
 const rules = {
   raw: require('./raw'),
   file: require('./file'),
-  svg: require('./svg'),
   css: require('./css'),
   sass: require('./sass'),
   babel: require('./babel'),
