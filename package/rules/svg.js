@@ -4,16 +4,5 @@ const { moduleExists } = require('../utils/helpers')
 
 module.exports = {
   test: [/\.svg$/],
-  type: 'asset/inline',
-  exclude: [/\.(js|mjs|jsx|ts|tsx)$/],
-  generator: {
-    dataUrl: (content) => {
-      if (moduleExists('mini-svg-data-uri')) {
-        const svgToMiniDataURI = require('mini-svg-data-uri')
-        return svgToMiniDataURI(content.toString())
-      }
-
-      return content.toString()
-    }
-  }
+  type: 'asset/inline'
 }
