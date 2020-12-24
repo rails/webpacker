@@ -8,21 +8,27 @@ const baseConfig = require('./base')
 const { moduleExists } = require('../utils/helpers')
 
 const getPlugins = () => {
-  let compressionPlugin = new CompressionPlugin({
-    filename: '[path][base].gz[query]',
-    algorithm: 'gzip',
-    test: /\.(js|css|html|json|ico|svg|eot|otf|ttf|map)$/
-  })
+  const plugins = []
 
-  if ('brotli' in process.versions) {
-    compressionPlugin = new CompressionPlugin({
-      filename: '[path][base].br[query]',
-      algorithm: 'brotliCompress',
+  plugins.push(
+    new CompressionPlugin({
+      filename: '[path][base].gz[query]',
+      algorithm: 'gzip',
       test: /\.(js|css|html|json|ico|svg|eot|otf|ttf|map)$/
     })
+  )
+
+  if ('brotli' in process.versions) {
+    plugins.push(
+      new CompressionPlugin({
+        filename: '[path][base].br[query]',
+        algorithm: 'brotliCompress',
+        test: /\.(js|css|html|json|ico|svg|eot|otf|ttf|map)$/
+      })
+    )
   }
 
-  return [compressionPlugin]
+  return plugins
 }
 
 const tryCssMinimizer = () => {
