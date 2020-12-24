@@ -334,13 +334,19 @@ yarn add postcss-loader
 #### Sass
 
 ```
-yarn add sass-loader
+yarn add sass sass-loader
 ```
 
 #### Less
 
 ```
-yarn add less-loader
+yarn add less less-loader
+```
+
+#### Less
+
+```
+yarn add stylus stylus-loader
 ```
 
 #### React
