@@ -5,6 +5,7 @@ const { moduleExists } = require('../utils/helpers')
 module.exports = {
   test: /\.svg$/i,
   type: 'asset/inline',
+  exclude: [/\.(js|mjs|jsx|ts|tsx)$/],
   generator: {
     dataUrl: (content) => {
       let optimisedContent = content

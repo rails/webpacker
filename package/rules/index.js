@@ -2,6 +2,7 @@
 /* eslint import/no-dynamic-require: 0 */
 
 const rules = {
+  raw: require('./raw'),
   file: require('./file'),
   svg: require('./svg'),
   css: require('./css'),
@@ -10,8 +11,7 @@ const rules = {
   erb: require('./erb'),
   coffee: require('./coffee'),
   less: require('./less'),
-  stylus: require('./stylus'),
-  raw: require('./raw')
+  stylus: require('./stylus')
 }
 
 module.exports = Object.keys(rules)
