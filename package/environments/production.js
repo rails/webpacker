@@ -9,14 +9,14 @@ const { moduleExists } = require('../utils/helpers')
 
 const getPlugins = () => {
   let compressionPlugin = new CompressionPlugin({
-    filename: '[path].gz[query]',
+    filename: '[path][base].gz[query]',
     algorithm: 'gzip',
     test: /\.(js|css|html|json|ico|svg|eot|otf|ttf|map)$/
   })
 
   if ('brotli' in process.versions) {
     compressionPlugin = new CompressionPlugin({
-      filename: '[path].br[query]',
+      filename: '[path][base].br[query]',
       algorithm: 'brotliCompress',
       test: /\.(js|css|html|json|ico|svg|eot|otf|ttf|map)$/
     })
