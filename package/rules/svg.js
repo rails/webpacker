@@ -8,14 +8,12 @@ module.exports = {
   exclude: [/\.(js|mjs|jsx|ts|tsx)$/],
   generator: {
     dataUrl: (content) => {
-      let optimisedContent = content
-
       if (moduleExists('mini-svg-data-uri')) {
         const svgToMiniDataURI = require('mini-svg-data-uri')
-        optimisedContent = svgToMiniDataURI(content.toString())
+        return svgToMiniDataURI(content.toString())
       }
 
-      return optimisedContent.toString()
+      return content.toString()
     }
   }
 }
