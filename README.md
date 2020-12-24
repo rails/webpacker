@@ -212,7 +212,7 @@ WEBPACKER_DEV_SERVER_HOST=0.0.0.0 ./bin/webpack-dev-server
 Webpacker gives you a default set of configuration files for test, development and
 production environments in `config/webpack/*.js`. You can configure each individual
 environment in their respective files or configure them all in the base
-`config/webpack/environment.js` file.
+`config/webpack/base.js` file.
 
 By default, you don't need to make any changes to `config/webpack/*.js`
 files since it's all standard production-ready configuration. However,
