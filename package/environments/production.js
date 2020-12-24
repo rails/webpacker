@@ -25,6 +25,18 @@ const getPlugins = () => {
   return [compressionPlugin]
 }
 
+const tryCssMinimizer = () => {
+  if (
+    moduleExists('css-loader') &&
+    moduleExists('css-minimizer-webpack-plugin')
+  ) {
+    const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+    return new CssMinimizerPlugin({ sourceMap: true })
+  }
+
+  return null
+}
+
 const productionConfig = {
   devtool: 'source-map',
   stats: 'normal',
@@ -32,18 +44,7 @@ const productionConfig = {
   plugins: getPlugins(),
   optimization: {
     minimizer: [
-      () => {
-        if (
-          moduleExists('css-loader') &&
-          moduleExists('css-minimizer-webpack-plugin')
-        ) {
-          const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
-          return new CssMinimizerPlugin({ sourceMap: true })
-        }
-
-        return false
-      },
-
+      tryCssMinimizer(),
       new TerserPlugin({
         parallel: Number.parseInt(process.env.WEBPACKER_PARALLEL, 10) || true,
         terserOptions: {
