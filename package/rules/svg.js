@@ -3,7 +3,7 @@
 const { moduleExists } = require('../utils/helpers')
 
 module.exports = {
-  test: /\.svg$/i,
+  test: [/\.svg$/],
   type: 'asset/inline',
   exclude: [/\.(js|mjs|jsx|ts|tsx)$/],
   generator: {
@@ -15,7 +15,7 @@ module.exports = {
         optimisedContent = svgToMiniDataURI(content.toString())
       }
 
-      return optimisedContent
+      return optimisedContent.toString()
     }
   }
 }
