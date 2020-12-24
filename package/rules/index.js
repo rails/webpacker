@@ -10,6 +10,7 @@ const rules = {
   erb: require('./erb'),
   coffee: require('./coffee'),
   less: require('./less'),
+  stylus: require('./stylus'),
   raw: require('./raw')
 }
 

@@ -15,5 +15,8 @@ module.exports = {
     /\.woff2$/
   ],
   exclude: [/\.(js|mjs|jsx|ts|tsx)$/],
-  type: 'asset/resource'
+  type: 'asset/resource',
+  generator: {
+    filename: 'static/[hash][ext][query]'
+  }
 }
