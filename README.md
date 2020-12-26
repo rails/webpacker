@@ -64,8 +64,8 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
   _requires extra packages to be installed_
 
   - Stylesheets - Sass, Less, Stylus and Css, PostCSS
-  - Coffeescript
-  - Typescript
+  - CoffeeScript
+  - TypeScript
   - React
 
 ## Installation
@@ -261,16 +261,16 @@ console.log(webpackConfig.source_path)
 ### Integrations
 
 Webpacker out of the box supports JS and static assets (fonts, images etc.)
-compilation. To enable support for Coffeescript or Typescript install
+compilation. To enable support for CoffeeScript or TypeScript install
 relevant packages,
 
-**Coffeescript**
+**CoffeeScript**
 
 ```
 yarn add coffeescript coffee-loader
 ```
 
-**Typescript**
+**TypeScript**
 
 ```
 yarn add typescript @babel/preset-typescript
