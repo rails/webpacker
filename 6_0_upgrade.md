@@ -37,6 +37,9 @@ straightforward.
 
 8. Copy over any custom webpack config from `config/webpack_old`
 
+- Common code previously called 'environment' changed to 'base' 
+- import `environment` changed name to `webpackConfig`.
+
   ```js
   // config/webpack/base.js
   const { webpackConfig, merge } = require('@rails/webpacker')
