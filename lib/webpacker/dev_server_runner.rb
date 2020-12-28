@@ -73,6 +73,7 @@ module Webpacker
 
         if @argv.include?("--debug-webpacker")
           cmd = [ "node", "--inspect-brk"] + cmd
+          @argv.delete "--debug-webpacker"
         end
 
         cmd += ["--config", @webpack_config]
