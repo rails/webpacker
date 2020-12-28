@@ -592,6 +592,10 @@ Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which 
 
 When compiling assets for production on a remote server, such as a continuous integration environment, it's recommended to use `yarn install --frozen-lockfile` to install NPM packages on the remote host to ensure that the installed packages match the `yarn.lock` file.
 
+## Troubleshooting
+
+See the doc page for [Troubleshooting](./docs/troubleshooting.md).
+
 ## Contributing
 
 [![Code Helpers](https://www.codetriage.com/rails/webpacker/badges/users.svg)](https://www.codetriage.com/rails/webpacker)
