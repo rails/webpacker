@@ -49,3 +49,14 @@ straightforward.
   ```
 
 9. Copy over custom browserlist config from `.browserlistrc` if it exists into the `"browserlist"` key in `package.json` and remove `.browserslistrc`.
+
+10. `extensions` was removed from the webpacker.yml file. Move custom extensions to
+  your configuration by by merging an object like this. For more details, see docs for 
+  [Webpack Configuration](https://github.com/rails/webpacker/blob/master/README.md#webpack-configuration)
+```js
+{
+  resolve: {
+      extensions: ['.ts', '.tsx']
+  }
+}
+```
