@@ -41,3 +41,4 @@ straightforward.
 
   module.exports = merge(webpackConfig, customConfig)
   ```
+- Copy over custom browserlist config from `.browserlistrc` if it exists into the `"browserlist"` key in `package.json` and remove `.browserslistrc`.
