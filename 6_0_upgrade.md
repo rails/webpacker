@@ -8,6 +8,7 @@ straightforward.
 
 - Rename `config/webpack` to `config/webpack_old`
 - Rename `config/webpacker.yml` to `config/webpacker_old.yml`
+- Uninstall the current version of `webpack-dev-server`: `yarn remove webpack-dev-server`
 - Upgrade webpacker
 
   ```ruby
