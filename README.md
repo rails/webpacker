@@ -300,6 +300,23 @@ Add tsconfig.json
 }
 ```
 
+Add `["@babel/preset-typescript"]` to the `presets` section of the `package.json` file. If you are just using TypeScript, you can use 
+
+```
+{
+  "presets": ["./myProject/myPreset"]
+}
+```
+
+If you are mixing TypeScript and JavaScript, you may need multiple presets:
+
+```
+"presets": [
+  ["./node_modules/@rails/webpacker/package/babel/preset.js"],
+  ["@babel/preset-typescript"]
+]
+```
+
 #### CSS
 
 To enable CSS support in your application, add following packages,
