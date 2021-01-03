@@ -17,20 +17,21 @@ class Webpacker::Commands
   #
   def clean(count = 2, age = 3600)
     if config.public_output_path.exist? && config.public_manifest_path.exist?
-      versions
-        .sort
-        .reverse
-        .each_with_index
-        .drop_while do |(mtime, _), index|
-          max_age = [0, Time.now - Time.at(mtime)].max
-          max_age < age || index < count
+      packs
+        .map do |paths|
+          paths.map { |path| [Time.now - File.mtime(path), path] }
+          .sort
+          .reject.with_index do |(file_age, _), index|
+            file_age < age || index < count
+          end
+          .map { |_, path| path }
         end
-        .each do |(_, files), index|
-          files.each do |file|
-            if File.file?(file)
-              File.delete(file)
-              logger.info "Removed #{file}"
-            end
+        .flatten
+        .compact
+        .each do |file|
+          if File.file?(file)
+            File.delete(file)
+            logger.info "Removed #{file}"
           end
         end
     end
@@ -54,12 +55,15 @@ class Webpacker::Commands
   end
 
   private
-    def versions
+    def packs
       all_files       = Dir.glob("#{config.public_output_path}/**/*")
       manifest_config = Dir.glob("#{config.public_manifest_path}*")
 
       packs = all_files - manifest_config - current_version
-      packs.reject { |file| File.directory?(file) }.group_by { |file| File.mtime(file).utc.to_i }
+      packs.reject { |file| File.directory?(file) }.group_by do |path|
+        base, _, ext = File.basename(path).scan(/(.*)(-[\da-f]+)(\.\w+)/).flatten
+        "#{File.dirname(path)}/#{base}#{ext}"
+      end.values
     end
 
     def current_version
