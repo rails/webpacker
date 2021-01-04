@@ -64,7 +64,8 @@ class Webpacker::Commands
 
     def current_version
       packs = manifest.refresh.values.map do |value|
-        next if value.is_a?(Hash)
+        value = value["src"] if value.is_a?(Hash)
+        next unless value.is_a?(String)
 
         File.join(config.root_path, "public", "#{value}*")
       end.compact
