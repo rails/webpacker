@@ -35,7 +35,7 @@ class Webpacker::Compiler
 
   # Returns true if all the compiled packs are up to date with the underlying asset files.
   def fresh?
-    watched_files_digest == last_compilation_digest
+    last_compilation_digest&.== watched_files_digest
   end
 
   # Returns true if the compiled packs are out of date with the underlying asset files.
