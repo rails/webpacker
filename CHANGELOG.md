@@ -37,7 +37,7 @@ Please see upgrade [guide](./6_0_upgrade.md)
 
 ## [[5.1.1]](https://github.com/rails/webpacker/compare/v5.1.0...v5.1.1) - 2020-04-20
 
-- Update [TypeScript documentation](https://github.com/rails/webpacker/blob/master/docs/typescript.md) and installer to use babel-loader for typescript.[(#2541](https://github.com/rails/webpacker/pull/2541)
+- Update [TypeScript documentation](https://github.com/rails/webpacker/blob/v5.1.1/docs/typescript.md) and installer to use babel-loader for typescript.[(#2541](https://github.com/rails/webpacker/pull/2541)
 
 ## [[5.1.0]](https://github.com/rails/webpacker/compare/v5.0.1...v5.1.0) - 2020-04-19
 
