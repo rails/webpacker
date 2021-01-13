@@ -8,7 +8,7 @@
     "lib/install/config/webpacker.yml"
   ],
   "engines": {
-    "node": ">=10.22.1 || ^12 || >=14",
+    "node": ">=10.22.1 || ^12 || >=14 || <15",
     "yarn": ">=1 <3"
   },
   "dependencies": {
