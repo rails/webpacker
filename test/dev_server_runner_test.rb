@@ -47,7 +47,7 @@ class DevServerRunnerTest < Webpacker::Test
     cmd = ["#{test_app_path}/node_modules/.bin/webpack", "serve", "--config", "#{test_app_path}/config/webpack/development.js"]
     env = Webpacker::Compiler.env.dup
     env["WEBPACKER_CONFIG"] = "#{test_app_path}/config/webpacker.yml"
-    env["WEBPACK_DEV_SERVER"] = 'true'
+    env["WEBPACK_DEV_SERVER"] = "true"
     verify_command(cmd, env: env)
   end
 
