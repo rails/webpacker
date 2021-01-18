@@ -22,7 +22,8 @@ describe('Development environment', () => {
       expect(webpackConfig).toMatchObject({
         devServer: {
           host: 'localhost',
-          port: 3035
+          port: 3035,
+          injectClient: true
         }
       })
     })
