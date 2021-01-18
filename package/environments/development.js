@@ -34,6 +34,7 @@ if (
       hot: devServer.hmr,
       contentBase,
       inline: devServer.inline,
+      injectClient: devServer.inject_client,
       useLocalIp: devServer.use_local_ip,
       public: devServer.public,
       publicPath,
