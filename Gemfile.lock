@@ -86,7 +86,7 @@ GEM
     mimemagic (0.3.5)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
-    minitest (5.14.1)
+    minitest (5.14.3)
     nio4r (2.5.2)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
