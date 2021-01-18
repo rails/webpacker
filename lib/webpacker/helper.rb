@@ -72,18 +72,6 @@ module Webpacker::Helper
     favicon_link_tag(resolve_path_to_image(name), options)
   end
 
-  # Creates a script tag that references the named pack file, as compiled by webpack per the entries list
-  # in package/environments/base.js. By default, this list is auto-generated to match everything in
-  # app/packs/entrypoints/*.js. In production mode, the digested reference is automatically looked up.
-  #
-  # Example:
-  #
-  #   <%= javascript_pack_tag 'calendar', 'data-turbolinks-track': 'reload' %> # =>
-  #   <script src="/packs/calendar-1016838bab065ae1e314.js" data-turbolinks-track="reload"></script>
-  def javascript_pack_tag(*names, **options)
-    javascript_include_tag(*sources_from_manifest_entries(names, type: :javascript), **options)
-  end
-
   # Creates script tags that reference the js chunks from entrypoints when using split chunks API,
   # as compiled by webpack per the entries list in package/environments/base.js.
   # By default, this list is auto-generated to match everything in
@@ -92,7 +80,7 @@ module Webpacker::Helper
   #
   # Example:
   #
-  #   <%= javascript_packs_with_chunks_tag 'calendar', 'map', 'data-turbolinks-track': 'reload' %> # =>
+  #   <%= javascript_pack_tag 'calendar', 'map', 'data-turbolinks-track': 'reload' %> # =>
   #   <script src="/packs/vendor-16838bab065ae1e314.chunk.js" data-turbolinks-track="reload"></script>
   #   <script src="/packs/calendar~runtime-16838bab065ae1e314.chunk.js" data-turbolinks-track="reload"></script>
   #   <script src="/packs/calendar-1016838bab065ae1e314.chunk.js" data-turbolinks-track="reload"></script>
@@ -101,13 +89,13 @@ module Webpacker::Helper
   #
   # DO:
   #
-  #   <%= javascript_packs_with_chunks_tag 'calendar', 'map' %>
+  #   <%= javascript_pack_tag 'calendar', 'map' %>
   #
   # DON'T:
   #
-  #   <%= javascript_packs_with_chunks_tag 'calendar' %>
-  #   <%= javascript_packs_with_chunks_tag 'map' %>
-  def javascript_packs_with_chunks_tag(*names, **options)
+  #   <%= javascript_pack_tag 'calendar' %>
+  #   <%= javascript_pack_tag 'map' %>
+  def javascript_pack_tag(*names, **options)
     javascript_include_tag(*sources_from_manifest_entrypoints(names, type: :javascript), **options)
   end
 
@@ -127,21 +115,6 @@ module Webpacker::Helper
     end
   end
 
-  # Creates a link tag that references the named pack file, as compiled by webpack per the entries list
-  # in package/environments/base.js. By default, this list is auto-generated to match everything in
-  # app/packs/entrypoints/*.js. In production mode, the digested reference is automatically looked up.
-  #
-  # Note: If the development server is running and hot module replacement is active, this will return nothing.
-  # In that setup you need to configure your styles to be inlined in your JavaScript for hot reloading.
-  #
-  # Examples:
-  #
-  #   <%= stylesheet_pack_tag 'calendar', 'data-turbolinks-track': 'reload' %> # =>
-  #   <link rel="stylesheet" media="screen" href="/packs/calendar-1016838bab065ae1e122.css" data-turbolinks-track="reload" />
-  def stylesheet_pack_tag(*names, **options)
-    stylesheet_link_tag(*sources_from_manifest_entries(names, type: :stylesheet), **options)
-  end
-
   # Creates link tags that reference the css chunks from entrypoints when using split chunks API,
   # as compiled by webpack per the entries list in package/environments/base.js.
   # By default, this list is auto-generated to match everything in
@@ -150,30 +123,27 @@ module Webpacker::Helper
   #
   # Examples:
   #
-  #   <%= stylesheet_packs_with_chunks_tag 'calendar', 'map' %> # =>
+  #   <%= stylesheet_pack_tag 'calendar', 'map' %> # =>
   #   <link rel="stylesheet" media="screen" href="/packs/3-8c7ce31a.chunk.css" />
   #   <link rel="stylesheet" media="screen" href="/packs/calendar-8c7ce31a.chunk.css" />
   #   <link rel="stylesheet" media="screen" href="/packs/map-8c7ce31a.chunk.css" />
   #
   # DO:
   #
-  #   <%= stylesheet_packs_with_chunks_tag 'calendar', 'map' %>
+  #   <%= stylesheet_pack_tag 'calendar', 'map' %>
   #
   # DON'T:
   #
-  #   <%= stylesheet_packs_with_chunks_tag 'calendar' %>
-  #   <%= stylesheet_packs_with_chunks_tag 'map' %>
-  def stylesheet_packs_with_chunks_tag(*names, **options)
+  #   <%= stylesheet_pack_tag 'calendar' %>
+  #   <%= stylesheet_pack_tag 'map' %>
+  def stylesheet_pack_tag(*names, **options)
     stylesheet_link_tag(*sources_from_manifest_entrypoints(names, type: :stylesheet), **options)
   end
 
   private
-    def sources_from_manifest_entries(names, type:)
-      names.map { |name| current_webpacker_instance.manifest.lookup!(name, type: type) }.flatten
-    end
 
     def sources_from_manifest_entrypoints(names, type:)
-      names.map { |name| current_webpacker_instance.manifest.lookup_pack_with_chunks!(name, type: type) }.flatten.uniq
+      names.map { |name| current_webpacker_instance.manifest.lookup_pack_with_chunks!(name.to_s, type: type) }.flatten.uniq
     end
 
     def resolve_path_to_image(name, **options)

@@ -129,10 +129,10 @@ app/packs:
       └── logo.svg
 ```
 
-You can then link the JavaScript pack in Rails views using the `javascript_packs_with_chunks_tag` helper. If you have styles imported in your pack file, you can link them by using `stylesheet_packs_with_chunks_tag`:
+You can then link the JavaScript pack in Rails views using the `javascript_pack_tag` helper. If you have styles imported in your pack file, you can link them by using `stylesheet_packs_with_chunks_tag`:
 
 ```erb
-<%= javascript_packs_with_chunks_tag 'application' %>
+<%= javascript_pack_tag 'application' %>
 <%= stylesheet_packs_with_chunks_tag 'application' %>
 ```
 
