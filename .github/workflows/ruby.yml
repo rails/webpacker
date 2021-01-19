@@ -28,6 +28,8 @@ jobs:
         exclude:
           - ruby: "2.4"
             gemfile: gemfiles/Gemfile-rails.6.0.x
+          - ruby: "3.0"
+            gemfile: gemfiles/Gemfile-rails.5.2.x
         experimental: [false]
         include:
           - ruby: 2.5
