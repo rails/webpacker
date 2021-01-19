@@ -74,7 +74,7 @@ module Webpacker::Helper
 
   # Creates a script tag that references the named pack file, as compiled by webpack per the entries list
   # in package/environments/base.js. By default, this list is auto-generated to match everything in
-  # app/javascript/packs/*.js. In production mode, the digested reference is automatically looked up.
+  # app/packs/entrypoints/*.js. In production mode, the digested reference is automatically looked up.
   #
   # Example:
   #
@@ -87,7 +87,7 @@ module Webpacker::Helper
   # Creates script tags that reference the js chunks from entrypoints when using split chunks API,
   # as compiled by webpack per the entries list in package/environments/base.js.
   # By default, this list is auto-generated to match everything in
-  # app/javascript/packs/*.js and all the dependent chunks. In production mode, the digested reference is automatically looked up.
+  # app/packs/entrypoints/*.js and all the dependent chunks. In production mode, the digested reference is automatically looked up.
   # See: https://webpack.js.org/plugins/split-chunks-plugin/
   #
   # Example:
@@ -129,7 +129,7 @@ module Webpacker::Helper
 
   # Creates a link tag that references the named pack file, as compiled by webpack per the entries list
   # in package/environments/base.js. By default, this list is auto-generated to match everything in
-  # app/javascript/packs/*.js. In production mode, the digested reference is automatically looked up.
+  # app/packs/entrypoints/*.js. In production mode, the digested reference is automatically looked up.
   #
   # Note: If the development server is running and hot module replacement is active, this will return nothing.
   # In that setup you need to configure your styles to be inlined in your JavaScript for hot reloading.
@@ -145,7 +145,7 @@ module Webpacker::Helper
   # Creates link tags that reference the css chunks from entrypoints when using split chunks API,
   # as compiled by webpack per the entries list in package/environments/base.js.
   # By default, this list is auto-generated to match everything in
-  # app/javascript/packs/*.js and all the dependent chunks. In production mode, the digested reference is automatically looked up.
+  # app/packs/entrypoints/*.js and all the dependent chunks. In production mode, the digested reference is automatically looked up.
   # See: https://webpack.js.org/plugins/split-chunks-plugin/
   #
   # Examples:

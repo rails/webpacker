@@ -17,14 +17,14 @@ describe('Base config', () => {
   describe('config', () => {
     test('should return entry', () => {
       expect(baseConfig.entry.application).toEqual(
-        resolve('app', 'javascript', 'packs', 'application.js')
+        resolve('app', 'packs', 'entrypoints', 'application.js')
       )
     })
 
     test('should return multi file entry points', () => {
       expect(baseConfig.entry.multi_entry.sort()).toEqual([
-        resolve('app', 'javascript', 'packs', 'multi_entry.css'),
-        resolve('app', 'javascript', 'packs', 'multi_entry.js')
+        resolve('app', 'packs', 'entrypoints', 'multi_entry.css'),
+        resolve('app', 'packs', 'entrypoints', 'multi_entry.js')
       ])
     })
 
@@ -53,7 +53,7 @@ describe('Base config', () => {
 
     test('should return default resolve.modules with additions', () => {
       expect(baseConfig.resolve.modules).toEqual([
-        resolve('app', 'javascript'),
+        resolve('app', 'packs'),
         resolve('app/assets'),
         resolve('/etc/yarn'),
         resolve('some.config.js'),
