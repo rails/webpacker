@@ -69,7 +69,7 @@ class Webpacker::Compiler
       bin_webpack_path = config.root_path.join("bin/webpack")
       first_line = File.readlines(bin_webpack_path).first.chomp
       /ruby/.match?(first_line) ? RbConfig.ruby : ""
-     end
+    end
 
     def run_webpack
       logger.info "Compiling..."

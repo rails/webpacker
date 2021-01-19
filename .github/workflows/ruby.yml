@@ -18,7 +18,8 @@ jobs:
           2.4,
           2.5,
           2.6,
-          2.7
+          2.7,
+          3.0
         ]
         gemfile: [
           "gemfiles/Gemfile-rails.5.2.x",
@@ -27,13 +28,11 @@ jobs:
         exclude:
           - ruby: "2.4"
             gemfile: gemfiles/Gemfile-rails.6.0.x
+          - ruby: "3.0"
+            gemfile: gemfiles/Gemfile-rails.5.2.x
         experimental: [false]
         include:
-          - ruby: head
-            os: ubuntu-latest
-            gemfile: gemfiles/Gemfile-rails.6.0.x
-            experimental: true
-          - ruby: head
+          - ruby: 2.5
             os: ubuntu-latest
             gemfile: gemfiles/Gemfile-rails-edge
             experimental: true
@@ -42,6 +41,10 @@ jobs:
             gemfile: gemfiles/Gemfile-rails-edge
             experimental: true
           - ruby: 2.7
+            os: ubuntu-latest
+            gemfile: gemfiles/Gemfile-rails-edge
+            experimental: true
+          - ruby: 3.0
             os: ubuntu-latest
             gemfile: gemfiles/Gemfile-rails-edge
             experimental: true
