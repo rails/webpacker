@@ -10,12 +10,12 @@ class ConfigurationTest < Webpacker::Test
   end
 
   def test_source_path
-    source_path = File.expand_path File.join(File.dirname(__FILE__), "test_app/app/javascript").to_s
+    source_path = File.expand_path File.join(File.dirname(__FILE__), "test_app/app/packs").to_s
     assert_equal source_path, @config.source_path.to_s
   end
 
   def test_source_entry_path
-    source_entry_path = File.expand_path File.join(File.dirname(__FILE__), "test_app/app/javascript", "packs").to_s
+    source_entry_path = File.expand_path File.join(File.dirname(__FILE__), "test_app/app/packs", "entrypoints").to_s
     assert_equal @config.source_entry_path.to_s, source_entry_path
   end
 

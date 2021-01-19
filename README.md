@@ -116,9 +116,9 @@ yarn install
 Once installed, you can start writing modern ES6-flavored JavaScript apps right away:
 
 ```yml
-app/javascript:
-  ├── packs:
-  │   # only webpack entry files here
+app/packs:
+  ├── entrypoints:
+  │   # only webpack entry files here
   │   └── application.js
   │   └── application.css
   └── src:
@@ -161,7 +161,7 @@ to the standard Rails log.
 
 If you want to use live code reloading, or you have enough JavaScript that on-demand compilation is too slow, you'll need to run `./bin/webpack-dev-server` or `ruby ./bin/webpack-dev-server`. Windows users will need to run these commands
 in a terminal separate from `bundle exec rails s`. This process will watch for changes
-in the `app/javascript/packs/*.js` files and automatically reload the browser to match.
+in the `app/packs/entrypoints/*.js` files and automatically reload the browser to match.
 
 ```bash
 # webpack dev server
@@ -289,7 +289,7 @@ Add tsconfig.json
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "*": ["node_modules/*", "app/javascript/*"]
+      "*": ["node_modules/*", "app/packs/*"]
     },
     "sourceMap": true,
     "target": "es5",
@@ -481,13 +481,13 @@ app files and compiled webpack bundles will go in your Rails app.
 All these options are configurable from `config/webpacker.yml` file.
 
 The configuration for what webpack is supposed to compile by default rests
-on the convention that every file in `app/javascript/packs/*`**(default)**
+on the convention that every file in `app/packs/entrypoints/*`**(default)**
 or whatever path you set for `source_entry_path` in the `webpacker.yml` configuration
 is turned into their own output files (or entry points, as webpack calls it). Therefore you don't want to put anything inside `packs` directory that you do not want to be
 an entry file. As a rule of thumb, put all files you want to link in your views inside
-"packs" directory and keep everything else under `app/javascript`.
+"packs" directory and keep everything else under `app/packs`.
 
-Suppose you want to change the source directory from `app/javascript`
+Suppose you want to change the source directory from `app/packs`
 to `frontend` and output to `assets/packs`. This is how you would do it:
 
 ```yml
