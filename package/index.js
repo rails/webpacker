@@ -1,7 +1,7 @@
 /* eslint global-require: 0 */
 /* eslint import/no-dynamic-require: 0 */
 
-const { merge } = require('webpack-merge')
+const webpackMerge = require('webpack-merge')
 const { resolve } = require('path')
 const { existsSync } = require('fs')
 const baseConfig = require('./environments/base')
@@ -23,7 +23,7 @@ module.exports = {
   webpackConfig: webpackConfig(),
   baseConfig,
   rules,
-  merge,
   moduleExists,
-  canProcess
+  canProcess,
+  ...webpackMerge
 }
