@@ -43,19 +43,27 @@ class DevServerRunnerTest < Webpacker::Test
     end
   end
 
+  def test_environment_variables
+    cmd = ["#{test_app_path}/node_modules/.bin/webpack", "serve", "--config", "#{test_app_path}/config/webpack/development.js"]
+    env = Webpacker::Compiler.env.dup
+    env["WEBPACKER_CONFIG"] = "#{test_app_path}/config/webpacker.yml"
+    env["WEBPACK_DEV_SERVER"] = "true"
+    verify_command(cmd, env: env)
+  end
+
   private
     def test_app_path
       File.expand_path("test_app", __dir__)
     end
 
-    def verify_command(cmd, use_node_modules: true, argv: [])
+    def verify_command(cmd, use_node_modules: true, argv: [], env: Webpacker::Compiler.env)
       cwd = Dir.pwd
       Dir.chdir(test_app_path)
 
       klass = Webpacker::DevServerRunner
       instance = klass.new(argv)
       mock = Minitest::Mock.new
-      mock.expect(:call, nil, [Webpacker::Compiler.env, *cmd])
+      mock.expect(:call, nil, [env, *cmd])
 
       klass.stub(:new, instance) do
         instance.stub(:node_modules_bin_exist?, use_node_modules) do
