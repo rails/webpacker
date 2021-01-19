@@ -6,6 +6,8 @@ straightforward.
 
 ## Preparation
 
+- If your `source_path` is `app/javascript`, rename it to `app/packs`
+- If your `source_entry_path` is `app/javascript/packs`, rename it to `app/packs/entrypoints`
 - Rename `config/webpack` to `config/webpack_old`
 - Rename `config/webpacker.yml` to `config/webpacker_old.yml`
 - Uninstall the current version of `webpack-dev-server`: `yarn remove webpack-dev-server`
