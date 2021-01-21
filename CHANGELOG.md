@@ -17,6 +17,8 @@ environment.loaders.append('nodeModules', nodeModules)
 - Changes `@babel/preset-env` modules option to `'auto'` per recommendation in the Babel docs [#2709](https://github.com/rails/webpacker/pull/2709)
 - Adds experimental Yarn 2 support. Note you must manually set `nodeLinker: node-modules` in your `.yarnrc.yml`.
 
+- Fixes dev server issues [#2898](https://github.com/rails/webpacker/pull/2898)
+
 ### Breaking changes
 
 - Simple webpack config
