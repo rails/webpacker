@@ -118,7 +118,7 @@ Once installed, you can start writing modern ES6-flavored JavaScript apps right 
 ```yml
 app/packs:
   ├── entrypoints:
-  │   # only webpack entry files here
+  │   # Only webpack entry files here
   │   └── application.js
   │   └── application.css
   └── src:
@@ -136,16 +136,37 @@ You can then link the JavaScript pack in Rails views using the `javascript_packs
 <%= stylesheet_packs_with_chunks_tag 'application' %>
 ```
 
-If you want to link a static asset for `<link rel="prefetch">` or `<img />` tag, you
-can use the `asset_pack_path` helper:
-
+If you want to link a static asset for `<img />` tag, you can use the `asset_pack_path` helper:
 ```erb
-<link rel="prefetch" href="<%= asset_pack_path 'application.css' %>" />
 <img src="<%= asset_pack_path 'images/logo.svg' %>" />
 ```
 
+Or use the dedicated helper:
+```erb
+<%= image_pack_tag 'application.png', size: '16x10', alt: 'Edit Entry' %>
+<%= image_pack_tag 'picture.png', srcset: { 'picture-2x.png' => '2x' } %>
+```
+
+If you want to create a favicon:
+```erb
+<%= favicon_pack_tag 'mb-icon.png', rel: 'apple-touch-icon', type: 'image/png' %>
+```
+
+If you want to preload a static asset in your `<head>`, you can use the `preload_pack_asset` helper:
+```erb
+<%= preload_pack_asset 'fonts/fa-regular-400.woff2' %>
+```
+
+If you want to use images in your stylesheets:
+
+```css
+.foo {
+  background-image: url('../images/logo.svg')
+}
+```
+
 **Note:** In order for your styles or static assets files to be available in your view,
-you would need to link them in your "pack" or entry file.
+you would need to link them in your `pack` or entry file.
 
 ### Development
 
@@ -264,15 +285,15 @@ Webpacker out of the box supports JS and static assets (fonts, images etc.)
 compilation. To enable support for CoffeeScript or TypeScript install
 relevant packages,
 
-**CoffeeScript**
+#### CoffeeScript
 
-```
+```bash
 yarn add coffeescript coffee-loader
 ```
 
-**TypeScript**
+#### TypeScript
 
-```
+```bash
 yarn add typescript @babel/preset-typescript
 ```
 
@@ -304,7 +325,7 @@ Add tsconfig.json
 
 To enable CSS support in your application, add following packages,
 
-```
+```bash
 yarn add css-loader mini-css-extract-plugin css-minimizer-webpack-plugin
 ```
 
@@ -327,25 +348,25 @@ then add the relevant pre-processors:
 
 #### Postcss
 
-```
+```bash
 yarn add postcss-loader
 ```
 
 #### Sass
 
-```
+```bash
 yarn add sass sass-loader
 ```
 
 #### Less
 
-```
+```bash
 yarn add less less-loader
 ```
 
 #### Stylus
 
-```
+```bash
 yarn add stylus stylus-loader
 ```
 
@@ -353,7 +374,7 @@ yarn add stylus stylus-loader
 
 React is supported and you just need to add relevant packages,
 
-```
+```bash
 yarn add react react-dom @babel/preset-react
 ```
 
@@ -382,12 +403,11 @@ if you are using typescript, update your `tsconfig.json`
 
 Please follow webpack integration guide for relevant framework or library,
 
-1. Svelte - https://github.com/sveltejs/svelte-loader#install
-2. Angular - https://v2.angular.io/docs/ts/latest/guide/webpack.html#!#configure-webpack
-3. Vue - https://vue-loader.vuejs.org/guide/
+1. [Svelte](https://github.com/sveltejs/svelte-loader#install)
+2. [Angular](https://v2.angular.io/docs/ts/latest/guide/webpack.html#!#configure-webpack)
+3. [Vue](https://vue-loader.vuejs.org/guide/)
 
-For example to add Vue support,
-
+For example to add Vue support:
 ```js
 // config/webpack/rules/vue.js
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
@@ -403,7 +423,9 @@ module.exports = {
   },
   plugins: [new VueLoaderPlugin()]
 }
+```
 
+```js
 // config/webpack/base.js
 const { webpackConfig, merge } = require('@rails/webpacker')
 const vueConfig = require('./rules/vue')

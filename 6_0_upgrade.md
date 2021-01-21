@@ -6,20 +6,20 @@ straightforward.
 
 ## Preparation
 
-- If your `source_path` is `app/javascript`, rename it to `app/packs`
-- If your `source_entry_path` is `app/javascript/packs`, rename it to `app/packs/entrypoints`
-- Rename `config/webpack` to `config/webpack_old`
-- Rename `config/webpacker.yml` to `config/webpacker_old.yml`
-- Uninstall the current version of `webpack-dev-server`: `yarn remove webpack-dev-server`
-- Upgrade webpacker
+1. If your `source_path` is `app/javascript`, rename it to `app/packs`
+2. If your `source_entry_path` is `app/javascript/packs`, rename it to `app/packs/entrypoints`
+3. Rename `config/webpack` to `config/webpack_old`
+4. Rename `config/webpacker.yml` to `config/webpacker_old.yml`
+5. Uninstall the current version of `webpack-dev-server`: `yarn remove webpack-dev-server`
+6. Upgrade webpacker
 
   ```ruby
   # Gemfile
-  gem 'webpacker', '~> 6.x'
+  gem 'webpacker', '~> 6.0.0.pre.2'
   ```
 
-  ```
-  bundle
+  ```bash
+  bundle install
   ```
 
   ```bash
@@ -33,9 +33,9 @@ straightforward.
 - Change `javascript_pack_tag` and `stylesheet_pack_tag` to `javascript_packs_with_chunks_tag` and
   `stylesheet_packs_with_chunks_tag`
 
-- If you are using any integrations like css, react or typescript. Please see https://github.com/rails/webpacker#integrations section on how they work in v6.0
+7. If you are using any integrations like `css`, `React` or `TypeScript`. Please see https://github.com/rails/webpacker#integrations section on how they work in v6.0.
 
-- Copy over any custom webpack config from `config/webpack_old`
+8. Copy over any custom webpack config from `config/webpack_old`
 
   ```js
   // config/webpack/base.js
@@ -44,4 +44,5 @@ straightforward.
 
   module.exports = merge(webpackConfig, customConfig)
   ```
-- Copy over custom browserlist config from `.browserlistrc` if it exists into the `"browserlist"` key in `package.json` and remove `.browserslistrc`.
+
+9. Copy over custom browserlist config from `.browserlistrc` if it exists into the `"browserlist"` key in `package.json` and remove `.browserslistrc`.
