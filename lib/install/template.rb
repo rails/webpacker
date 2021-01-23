@@ -5,10 +5,10 @@ say "Copying webpack core config"
 directory "#{__dir__}/config/webpack", "config/webpack"
 
 if Dir.exists?(Webpacker.config.source_path)
-  say "The JavaScript app source directory already exists"
+  say "The packs app source directory already exists"
 else
-  say "Creating JavaScript app source directory"
-  directory "#{__dir__}/javascript", Webpacker.config.source_path
+  say "Creating packs app source directory"
+  directory "#{__dir__}/packs", Webpacker.config.source_path
 end
 
 apply "#{__dir__}/binstubs.rb"
