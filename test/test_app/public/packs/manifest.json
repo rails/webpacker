@@ -24,6 +24,13 @@
         ]
       }
     },
+    "bootstrap": {
+      "assets": {
+        "js": [
+          "/packs/bootstrap-300631c4f0e0f9c865bc.js"
+        ]
+      }
+    },
     "hello_stimulus": {
       "assets": {
         "css": [

@@ -30,8 +30,8 @@ straightforward.
   bundle exec rails webpacker:install
   ```
 
-- Change `javascript_pack_tag` and `stylesheet_pack_tag` to `javascript_packs_with_chunks_tag` and
-  `stylesheet_packs_with_chunks_tag`
+- Change `javascript_packs_with_chunks_tag` and `stylesheet_packs_with_chunks_tag` to `javascript_pack_tag` and
+  `stylesheet_pack_tag`.
 
 7. If you are using any integrations like `css`, `React` or `TypeScript`. Please see https://github.com/rails/webpacker#integrations section on how they work in v6.0.
 

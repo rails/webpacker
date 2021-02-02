@@ -79,33 +79,6 @@ class HelperTest < ActionView::TestCase
       favicon_pack_tag("media/images/nested/mb-icon.png", rel: "apple-touch-icon", type: "image/png")
   end
 
-  def test_javascript_pack_tag
-    assert_equal \
-      %(<script src="/packs/bootstrap-300631c4f0e0f9c865bc.js"></script>),
-      javascript_pack_tag("bootstrap.js")
-  end
-
-  def test_javascript_pack_tag_symbol
-    assert_equal \
-      %(<script src="/packs/bootstrap-300631c4f0e0f9c865bc.js"></script>),
-      javascript_pack_tag(:bootstrap)
-  end
-
-  def test_javascript_pack_tag_splat
-    assert_equal \
-      %(<script src="/packs/bootstrap-300631c4f0e0f9c865bc.js" defer="defer"></script>\n) +
-        %(<script src="/packs/application-k344a6d59eef8632c9d1.js" defer="defer"></script>),
-      javascript_pack_tag("bootstrap.js", "application.js", defer: true)
-  end
-
-  def test_javascript_pack_tag_split_chunks
-    assert_equal \
-      %(<script src="/packs/vendors~application~bootstrap-c20632e7baf2c81200d3.chunk.js"></script>\n) +
-        %(<script src="/packs/vendors~application-e55f2aae30c07fb6d82a.chunk.js"></script>\n) +
-        %(<script src="/packs/application-k344a6d59eef8632c9d1.js"></script>),
-      javascript_packs_with_chunks_tag("application")
-  end
-
   def test_preload_pack_asset
     if self.class.method_defined?(:preload_link_tag)
       assert_equal \
@@ -122,30 +95,51 @@ class HelperTest < ActionView::TestCase
     end
   end
 
-  def test_stylesheet_pack_tag_split_chunks
+  def test_javascript_pack_tag
     assert_equal \
-      %(<link rel="stylesheet" media="screen" href="/packs/1-c20632e7baf2c81200d3.chunk.css" />\n) +
-        %(<link rel="stylesheet" media="screen" href="/packs/application-k344a6d59eef8632c9d1.chunk.css" />\n) +
-        %(<link rel="stylesheet" media="screen" href="/packs/hello_stimulus-k344a6d59eef8632c9d1.chunk.css" />),
-      stylesheet_packs_with_chunks_tag("application", "hello_stimulus")
+      %(<script src="/packs/vendors~application~bootstrap-c20632e7baf2c81200d3.chunk.js"></script>\n) +
+        %(<script src="/packs/vendors~application-e55f2aae30c07fb6d82a.chunk.js"></script>\n) +
+        %(<script src="/packs/application-k344a6d59eef8632c9d1.js"></script>\n) +
+        %(<script src="/packs/bootstrap-300631c4f0e0f9c865bc.js"></script>),
+      javascript_pack_tag("application", "bootstrap")
+  end
+
+  def test_javascript_pack_tag_splat
+    assert_equal \
+      %(<script src="/packs/vendors~application~bootstrap-c20632e7baf2c81200d3.chunk.js" defer="defer"></script>\n) +
+        %(<script src="/packs/vendors~application-e55f2aae30c07fb6d82a.chunk.js" defer="defer"></script>\n) +
+        %(<script src="/packs/application-k344a6d59eef8632c9d1.js" defer="defer"></script>),
+      javascript_pack_tag("application", defer: true)
+  end
+
+  def test_javascript_pack_tag_symbol
+    assert_equal \
+      %(<script src="/packs/vendors~application~bootstrap-c20632e7baf2c81200d3.chunk.js"></script>\n) +
+        %(<script src="/packs/vendors~application-e55f2aae30c07fb6d82a.chunk.js"></script>\n) +
+        %(<script src="/packs/application-k344a6d59eef8632c9d1.js"></script>),
+      javascript_pack_tag(:application)
   end
 
   def test_stylesheet_pack_tag
     assert_equal \
-      %(<link rel="stylesheet" media="screen" href="/packs/bootstrap-c38deda30895059837cf.css" />),
-      stylesheet_pack_tag("bootstrap.css")
+      %(<link rel="stylesheet" media="screen" href="/packs/1-c20632e7baf2c81200d3.chunk.css" />\n) +
+        %(<link rel="stylesheet" media="screen" href="/packs/application-k344a6d59eef8632c9d1.chunk.css" />\n) +
+        %(<link rel="stylesheet" media="screen" href="/packs/hello_stimulus-k344a6d59eef8632c9d1.chunk.css" />),
+      stylesheet_pack_tag("application", "hello_stimulus")
   end
 
   def test_stylesheet_pack_tag_symbol
     assert_equal \
-      %(<link rel="stylesheet" media="screen" href="/packs/bootstrap-c38deda30895059837cf.css" />),
-      stylesheet_pack_tag(:bootstrap)
+      %(<link rel="stylesheet" media="screen" href="/packs/1-c20632e7baf2c81200d3.chunk.css" />\n) +
+        %(<link rel="stylesheet" media="screen" href="/packs/application-k344a6d59eef8632c9d1.chunk.css" />\n) +
+        %(<link rel="stylesheet" media="screen" href="/packs/hello_stimulus-k344a6d59eef8632c9d1.chunk.css" />),
+      stylesheet_pack_tag(:application, :hello_stimulus)
   end
 
   def test_stylesheet_pack_tag_splat
     assert_equal \
-      %(<link rel="stylesheet" media="all" href="/packs/bootstrap-c38deda30895059837cf.css" />\n) +
-        %(<link rel="stylesheet" media="all" href="/packs/application-dd6b1cd38bfa093df600.css" />),
-      stylesheet_pack_tag("bootstrap.css", "application.css", media: "all")
+      %(<link rel="stylesheet" media="all" href="/packs/1-c20632e7baf2c81200d3.chunk.css" />\n) +
+        %(<link rel="stylesheet" media="all" href="/packs/application-k344a6d59eef8632c9d1.chunk.css" />),
+      stylesheet_pack_tag("application", media: "all")
   end
 end
