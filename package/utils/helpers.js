@@ -16,7 +16,7 @@ const resetEnv = () => {
 
 const ensureTrailingSlash = (path) => (path.endsWith('/') ? path : `${path}/`)
 
-const moduleExists = (packageName) => {
+const resolvedPath = (packageName) => {
   try {
     return require.resolve(packageName)
   } catch (e) {
@@ -27,8 +27,10 @@ const moduleExists = (packageName) => {
   }
 }
 
+const moduleExists = (packageName) => (!!resolvedPath(packageName))
+
 const canProcess = (rule, fn) => {
-  const modulePath = moduleExists(rule)
+  const modulePath = resolvedPath(rule)
 
   if (modulePath) {
     return fn(modulePath)

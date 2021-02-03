@@ -59,7 +59,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 - Rails view helpers
 - Extensible and configurable
 
-  ### Optional support\*
+### Optional support
 
   _requires extra packages to be installed_
 
@@ -108,7 +108,8 @@ yarn upgrade
 When `package.json` and/or `yarn.lock` changes, such as when pulling down changes to your local environment in a team settings, be sure to keep your NPM packages up-to-date:
 
 ```bash
-yarn install
+# default for `yarn` is to install
+yarn
 ```
 
 ### Usage
@@ -165,8 +166,14 @@ If you want to use images in your stylesheets:
 }
 ```
 
+Note, if you are using server-side rendering of JavaScript with dynamic code-spliting, 
+as is often done with extensions to Webpacker, like [React on Rails](https://github.com/shakacode/react_on_rails)
+your JavaScript should create the link prefetch HTML tags that you will use, so you won't
+need to use to `asset_pack_path` in those circumstances.
+
 **Note:** In order for your styles or static assets files to be available in your view,
-you would need to link them in your `pack` or entry file.
+you would need to link them in your "pack" or entry file. Otherwise, Webpack won't know
+to package up those files.
 
 ### Development
 
@@ -178,11 +185,20 @@ are loaded based on your environment.
 In development, Webpacker compiles on demand rather than upfront by default. This
 happens when you refer to any of the pack assets using the Webpacker helper methods.
 This means that you don't have to run any separate processes. Compilation errors are logged
-to the standard Rails log.
+to the standard Rails log. However, this auto-compilation happens when a web request
+is made that requires an updated webpack build, not when files change. Thus, that can
+be painfully slow for front-end development in this default way. Instead, you should either
+run the `bin/webpack --watch` or run `./bin/webpack-dev-server`
 
-If you want to use live code reloading, or you have enough JavaScript that on-demand compilation is too slow, you'll need to run `./bin/webpack-dev-server` or `ruby ./bin/webpack-dev-server`. Windows users will need to run these commands
-in a terminal separate from `bundle exec rails s`. This process will watch for changes
-in the `app/packs/entrypoints/*.js` files and automatically reload the browser to match.
+If you want to use live code reloading, or you have enough JavaScript that on-demand compilation is too slow, you'll need to run `./bin/webpack-dev-server` or `ruby ./bin/webpack-dev-server`.
+Windows users will need to run these commands in a terminal separate from `bundle exec rails s`. 
+This process will watch for changes in the `app/packs/entrypoints/*.js` files and automatically
+reload the browser to match. This feature is also known as
+[Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/).
+
+HMR is only the first step to running "Fast Refresh" with React. For more information
+on how to configure rails/webpacker for Fast Refresh with React, see article
+[HMR and React Hot Reloading](https://github.com/shakacode/react_on_rails/blob/master/docs/rails-webpacker-react-integration-options.md#hmr-and-react-hot-reloading).
 
 ```bash
 # webpack dev server
@@ -195,9 +211,10 @@ in the `app/packs/entrypoints/*.js` files and automatically reload the browser t
 ./bin/webpack
 ```
 
-Once you start this development server, Webpacker will automatically start proxying all
-webpack asset requests to this server. When you stop the server, it'll revert back to
-on-demand compilation.
+Once you start this webpack development server, Webpacker will automatically start proxying all
+webpack asset requests to this server. When you stop this server, Rails will detect
+that it's not running and Rails will revert back to on-demand compilation _if_ you have
+the `compile` option set to true in your `config/webpacker.yml`
 
 You can use environment variables as options supported by
 [webpack-dev-server](https://webpack.js.org/configuration/dev-server/) in the
@@ -277,13 +294,16 @@ const { webpackConfig } = require('@rails/webpacker')
 
 console.log(webpackConfig.output_path)
 console.log(webpackConfig.source_path)
+
+// Or to print out your whole webpack configuration
+console.log(JSON.stringify(webpackConfig, undefined, 2))
 ```
 
 ### Integrations
 
 Webpacker out of the box supports JS and static assets (fonts, images etc.)
 compilation. To enable support for CoffeeScript or TypeScript install
-relevant packages,
+relevant packages:
 
 #### CoffeeScript
 
@@ -323,13 +343,13 @@ Add tsconfig.json
 
 #### CSS
 
-To enable CSS support in your application, add following packages,
+To enable CSS support in your application, add following packages:
 
 ```bash
 yarn add css-loader mini-css-extract-plugin css-minimizer-webpack-plugin
 ```
 
-optionally, add css extension to webpack config for easy resolution
+optionally, add the css extension to webpack config for easy resolution.
 
 ```js
 // config/webpack/base.js
@@ -398,6 +418,10 @@ if you are using typescript, update your `tsconfig.json`
   "compileOnSave": false
 }
 ```
+
+For more information on React props hydration and Server-Side Rendering (SSR), see the article
+[Rails/Webpacker React Integration Options](https://github.com/shakacode/react_on_rails/blob/master/docs/rails-webpacker-react-integration-options.md) 
+in the [ShakaCode/react_on_rails](https://github.com/shakacode/react_on_rails) repo.
 
 #### Other frameworks
 
@@ -473,11 +497,11 @@ Please note, binstubs compiles in development mode however rake tasks
 compiles in production mode.
 
 ```bash
-# Compiles in development mode unless NODE_ENV is specified
+# Compiles in development mode unless NODE_ENV is specified, per the binstub source
 ./bin/webpack
 ./bin/webpack-dev-server
 
-# compiles in production mode by default unless NODE_ENV is specified
+# Compiles in production mode by default unless NODE_ENV is specified, per `lib/tasks/webpacker/compile.rake`
 bundle exec rails assets:precompile
 bundle exec rails webpacker:compile
 ```
@@ -487,14 +511,20 @@ bundle exec rails webpacker:compile
 You can run following commands to upgrade Webpacker to the latest stable version. This process involves upgrading the gem and related JavaScript packages:
 
 ```bash
+# check your Gemfile for version restrictions
 bundle update webpacker
+
+# overwrite your changes to the default install files and revert any unwanted changes from the install
 rails webpacker:install
+
 yarn upgrade @rails/webpacker --latest
 yarn upgrade webpack-dev-server --latest
 
 # Or to install the latest release (including pre-releases)
 yarn add @rails/webpacker@next
 ```
+
+Also, consult the [CHANGELOG](./CHANGELOG.md) for additional upgrade links.
 
 ## Paths
 
@@ -514,8 +544,7 @@ to `frontend` and output to `assets/packs`. This is how you would do it:
 
 ```yml
 # config/webpacker.yml
-source_path: frontend
-source_entry_path: packs
+source_path: frontend # packs are in frontend/packs
 public_output_path: assets/packs # outputs to => public/assets/packs
 ```
 
@@ -529,7 +558,9 @@ development:
     port: 3035
 ```
 
-If you have `hmr` turned to true, then the `stylesheet_pack_tag` generates no output, as you will want to configure your styles to be inlined in your JavaScript for hot reloading. During production and testing, the `stylesheet_pack_tag` will create the appropriate HTML tags.
+If you have `hmr` turned to true, then the `stylesheet_pack_tag` generates no output,
+as you will want to configure your styles to be inlined in your JavaScript for hot reloading. 
+During production and testing, the `stylesheet_pack_tag` will create the appropriate HTML tags.
 
 ### Additional paths
 
@@ -540,7 +571,7 @@ option available in `config/webpacker.yml`. This lets you
 add additional paths that webpack should lookup when resolving modules:
 
 ```yml
-additional_paths: ['app/assets/**/*', 'vendor/assets/**/*.css', 'Gemfile']
+additional_paths: ['app/assets', 'vendor/assets']
 ```
 
 You can then import these items inside your modules like so:
@@ -560,6 +591,10 @@ whole parent directory if you just need to reference one or two modules
 Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which gets run whenever you run `assets:precompile`. If you are not using Sprockets, `webpacker:compile` is automatically aliased to `assets:precompile`. Similar to sprockets both rake tasks will compile packs in production mode but will use `RAILS_ENV` to load configuration from `config/webpacker.yml` (if available).
 
 When compiling assets for production on a remote server, such as a continuous integration environment, it's recommended to use `yarn install --frozen-lockfile` to install NPM packages on the remote host to ensure that the installed packages match the `yarn.lock` file.
+
+## Troubleshooting
+
+See the doc page for [Troubleshooting](./docs/troubleshooting.md).
 
 ## Contributing
 
