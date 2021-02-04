@@ -341,6 +341,24 @@ Add tsconfig.json
 }
 ```
 
+Babel won’t perform any type-checking on TypeScript code. To optionally use type-checking run:
+
+```bash
+yarn add fork-ts-checker-webpack-plugin
+```
+
+Then modify the webpack config to use it as a plugin:
+
+```js
+// config/webpack/base.js
+const { webpackConfig, merge } = require("@rails/webpacker");
+const ForkTSCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+
+module.exports = merge(webpackConfig, {
+  plugins: [new ForkTSCheckerWebpackPlugin()],
+});
+```
+
 #### CSS
 
 To enable CSS support in your application, add following packages:
