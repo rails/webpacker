@@ -36,7 +36,6 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
   - [Resolved](#resolved)
   - [Watched](#watched)
 - [Deployment](#deployment)
-- [Docs](#docs)
 - [Contributing](#contributing)
 - [License](#license)
 
