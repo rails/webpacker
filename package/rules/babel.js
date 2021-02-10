@@ -8,7 +8,7 @@ const {
 const { isProduction } = require('../env')
 
 module.exports = {
-  test: /\.(js|jsx|mjs|ts|tsx)?(\.erb)?$/,
+  test: /\.(js|jsx|mjs|ts|tsx|coffee)?(\.erb)?$/,
   include: [sourcePath, ...additionalPaths].map((p) => {
     try {
       return realpathSync(p)
