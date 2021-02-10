@@ -92,7 +92,7 @@ class Webpacker::Manifest
     # When the user provides a name with a file extension, we want to try to strip it off.
     def manifest_name(name, pack_type)
       return name if File.extname(name.to_s).empty?
-      File.basename(name, pack_type)
+      File.basename(name, ".#{pack_type}")
     end
 
     def manifest_type(pack_type)
