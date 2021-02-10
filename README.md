@@ -134,7 +134,7 @@ You can then link the JavaScript pack in Rails views using the `javascript_pack_
 
 ```erb
 <%= javascript_pack_tag 'application' %>
-<%= stylesheet_packs_with_chunks_tag 'application' %>
+<%= stylesheet_pack_tag 'application' %>
 ```
 
 If you want to link a static asset for `<img />` tag, you can use the `asset_pack_path` helper:
