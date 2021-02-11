@@ -8,7 +8,7 @@ const {
 } = require('../config')
 
 module.exports = canProcess('stylus-loader', (resolvedPath) =>
-  getStyleRule(/\.(styl)(\.erb)?$/i, [
+  getStyleRule(/\.(styl(us)?)(\.erb)?$/i, [
     {
       loader: resolvedPath,
       options: {
