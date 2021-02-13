@@ -111,6 +111,19 @@ mv $HOME/your_rails_app/node_modules/.bin/elm-make $HOME/your_rails_app/node_mod
 printf "#\041/bin/bash\n\necho \"Running elm-make with sysconfcpus -n 2\"\n\n$HOME/dependencies/sysconfcpus/bin/sysconfcpus -n 2 $HOME/your_rails_app/node_modules/.bin/elm-make-old \"\$@\"" > $HOME/your_rails_app/node_modules/.bin/elm-make
 chmod +x $HOME/your_rails_app/node_modules/.bin/elm-make
 ```
+## If an error occurs or times out during a production build on Continuous Integration (CI) services such as CircleCI, CodeShip, Travis CI
+
+The parallel option of Tersor-Plugin is enabled in the production build, which may cause memory shortage.
+To solve this problem, you can specify the WEBPACKER_PARALLEL environment variable.
+Possible values ​​are true, false, or a number.
+
+```
+RAILS_ENV=production WEBPACKER_PARALLEL=false bundle exec rake webpacker:compile
+```
+
+Check the link for details.
+
+https://webpack.js.org/plugins/terser-webpack-plugin/#parallel
 
 ## Rake assets:precompile fails. ExecJS::RuntimeError
 This error occurs because you are trying to minify by terser a pack that's already been minified by Webpacker. To avoid this conflict and prevent appearing of ExecJS::RuntimeError error, you will need to disable uglifier from Rails config:

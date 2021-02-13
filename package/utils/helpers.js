@@ -1,5 +1,6 @@
 const isArray = (value) => Array.isArray(value)
 const isBoolean = (str) => /^true/.test(str) || /^false/.test(str)
+const isNumber = (str) => /^-?\d+(\.\d+)?$/.test(str)
 const chdirTestApp = () => {
   try {
     return process.chdir('test/test_app')
@@ -39,11 +40,24 @@ const canProcess = (rule, fn) => {
   return null
 }
 
+const asBoolean = (str) => {
+  if (/^true/.test(str)) return true
+  return false
+}
+
+const asBooleanOrNumber = (value) => {
+  if (isBoolean(value)) return asBoolean(value)
+  if (isNumber(value)) return Number(value)
+  throw new Error(`${value} is not boolean or numeric strings`)
+}
+
 module.exports = {
+  asBooleanOrNumber,
   chdirTestApp,
   chdirCwd,
   isArray,
   isBoolean,
+  isNumber,
   ensureTrailingSlash,
   canProcess,
   moduleExists,

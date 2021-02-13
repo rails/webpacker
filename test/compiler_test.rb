@@ -59,10 +59,13 @@ class CompilerTest < Minitest::Test
   def test_external_env_variables
     assert_nil Webpacker.compiler.send(:webpack_env)["WEBPACKER_ASSET_HOST"]
     assert_nil Webpacker.compiler.send(:webpack_env)["WEBPACKER_RELATIVE_URL_ROOT"]
+    assert_nil Webpacker.compiler.send(:webpack_env)["WEBPACKER_PARALLEL"]
 
     ENV["WEBPACKER_ASSET_HOST"] = "foo.bar"
     ENV["WEBPACKER_RELATIVE_URL_ROOT"] = "/baz"
+    ENV["WEBPACKER_PARALLEL"] = "2"
     assert_equal Webpacker.compiler.send(:webpack_env)["WEBPACKER_ASSET_HOST"], "foo.bar"
     assert_equal Webpacker.compiler.send(:webpack_env)["WEBPACKER_RELATIVE_URL_ROOT"], "/baz"
+    assert_equal Webpacker.compiler.send(:webpack_env)["WEBPACKER_PARALLEL"], "2"
   end
 end

@@ -5,7 +5,7 @@ const { merge } = require('webpack-merge')
 const CompressionPlugin = require('compression-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const baseConfig = require('./base')
-const { moduleExists } = require('../utils/helpers')
+const { moduleExists, asBooleanOrNumber } = require('../utils/helpers')
 
 const getPlugins = () => {
   const plugins = []
@@ -52,7 +52,13 @@ const productionConfig = {
     minimizer: [
       tryCssMinimizer(),
       new TerserPlugin({
-        parallel: Number.parseInt(process.env.WEBPACKER_PARALLEL, 10) || true,
+        parallel: (() => {
+          try {
+            return asBooleanOrNumber(process.env.WEBPACKER_PARALLEL)
+          } catch (_) {
+            return true // The default value for production builds is true
+          }
+        })(),
         terserOptions: {
           parse: {
             // Let terser parse ecma 8 code but always output
