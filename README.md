@@ -116,7 +116,7 @@ yarn
 Once installed, you can start writing modern ES6-flavored JavaScript apps right away:
 
 ```yml
-app/packs:
+app/javascript/packs:
   ├── entrypoints:
   │   # Only webpack entry files here
   │   └── application.js
@@ -132,8 +132,8 @@ app/packs:
 You can then link the JavaScript pack in Rails views using the `javascript_pack_tag` helper. If you have styles imported in your pack file, you can link them by using `stylesheet_pack_tag`:
 
 ```erb
-<%= javascript_pack_tag 'application' %>
-<%= stylesheet_pack_tag 'application' %>
+<%= javascript_pack_tag 'entrypoints/application' %>
+<%= stylesheet_pack_tag 'entrypoints/application' %>
 ```
 
 If you want to link a static asset for `<img />` tag, you can use the `asset_pack_path` helper:
@@ -191,7 +191,7 @@ run the `bin/webpack --watch` or run `./bin/webpack-dev-server`
 
 If you want to use live code reloading, or you have enough JavaScript that on-demand compilation is too slow, you'll need to run `./bin/webpack-dev-server` or `ruby ./bin/webpack-dev-server`.
 Windows users will need to run these commands in a terminal separate from `bundle exec rails s`. 
-This process will watch for changes in the `app/packs/entrypoints/*.js` files and automatically
+This process will watch for changes in the `app/javascript/packs/entrypoints/*.js` files and automatically
 reload the browser to match. This feature is also known as
 [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/).
 
@@ -550,7 +550,7 @@ app files and compiled webpack bundles will go in your Rails app.
 All these options are configurable from `config/webpacker.yml` file.
 
 The configuration for what webpack is supposed to compile by default rests
-on the convention that every file in `app/packs/entrypoints/*`**(default)**
+on the convention that every file in `app/javascript/packs/entrypoints/*`**(default)**
 or whatever path you set for `source_entry_path` in the `webpacker.yml` configuration
 is turned into their own output files (or entry points, as webpack calls it). Therefore you don't want to put anything inside `packs` directory that you do not want to be
 an entry file. As a rule of thumb, put all files you want to link in your views inside
