@@ -72,4 +72,5 @@ if results.all?
   say "Webpacker successfully installed 🎉 🍰", :green
 else
   say "Webpacker installation failed 😭 See above for details.", :red
+  exit 1
 end
