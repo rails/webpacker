@@ -26,11 +26,11 @@ class ManifestTest < Minitest::Test
   end
 
   def test_lookup_with_chunks_without_extension_success!
-    assert_equal Webpacker.manifest.lookup_pack_with_chunks!("bootstrap", type: :javascript), ["/packs/bootstrap-300631c4f0e0f9c865bc.js"]
+    assert_equal ["/packs/bootstrap-300631c4f0e0f9c865bc.js"], Webpacker.manifest.lookup_pack_with_chunks!("bootstrap", type: :javascript)
   end
 
   def test_lookup_with_chunks_with_extension_success!
-    assert_equal Webpacker.manifest.lookup_pack_with_chunks!("bootstrap.js", type: :javascript), ["/packs/bootstrap-300631c4f0e0f9c865bc.js"]
+    assert_equal ["/packs/bootstrap-300631c4f0e0f9c865bc.js"], Webpacker.manifest.lookup_pack_with_chunks!("bootstrap.js", type: :javascript)
   end
 
   def test_lookup_nil
