@@ -91,8 +91,7 @@ class Webpacker::Manifest
     # manifest hash the entrypoints are defined by their pack name without the extension.
     # When the user provides a name with a file extension, we want to try to strip it off.
     def manifest_name(name, pack_type)
-      return name if File.extname(name.to_s).empty?
-      File.basename(name, ".#{pack_type}")
+      name.chomp(".#{pack_type}")
     end
 
     def manifest_type(pack_type)

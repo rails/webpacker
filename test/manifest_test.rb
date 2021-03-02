@@ -33,6 +33,14 @@ class ManifestTest < Minitest::Test
     assert_equal ["/packs/bootstrap-300631c4f0e0f9c865bc.js"], Webpacker.manifest.lookup_pack_with_chunks!("bootstrap.js", type: :javascript)
   end
 
+  def test_lookup_with_chunks_without_extension_subdir_success!
+    assert_equal ["/packs/print/application-983b6c164a47f7ed49cd.css"], Webpacker.manifest.lookup_pack_with_chunks!("print/application", type: :css)
+  end
+
+  def test_lookup_with_chunks_with_extension_subdir_success!
+    assert_equal ["/packs/print/application-983b6c164a47f7ed49cd.css"], Webpacker.manifest.lookup_pack_with_chunks!("print/application.css", type: :css)
+  end
+
   def test_lookup_nil
     assert_nil Webpacker.manifest.lookup("foo.js")
   end
