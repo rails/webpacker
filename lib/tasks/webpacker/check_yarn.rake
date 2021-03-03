@@ -3,6 +3,7 @@ namespace :webpacker do
   desc "Verifies if Yarn is installed"
   task :check_yarn do
     begin
+      raise Errno::ENOENT if `which yarn`.strip.empty?
       yarn_version = `yarn --version`.strip
       raise Errno::ENOENT if yarn_version.blank?
 

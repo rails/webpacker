@@ -3,6 +3,7 @@ namespace :webpacker do
   desc "Verifies if Node.js is installed"
   task :check_node do
     begin
+      raise Errno::ENOENT if `which node || which nodejs`.strip.empty?
       node_version = `node -v || nodejs -v`.strip
       raise Errno::ENOENT if node_version.blank?
 
