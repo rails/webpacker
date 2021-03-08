@@ -18,10 +18,22 @@ class DevServerRunnerTest < Webpacker::Test
     verify_command(cmd, use_node_modules: true)
   end
 
+  def test_run_via_dashboard_via_node_modules
+    cmd = %W[#{test_app_path}/node_modules/.bin/webpack-dashboard -- #{test_app_path}/node_modules/.bin/webpack serve --config #{test_app_path}/config/webpack/development.js]
+
+    verify_command(cmd, use_node_modules: true, argv: ["--webpack-dashboard"])
+  end
+
   def test_run_cmd_via_yarn
     cmd = ["yarn", "webpack", "serve", "--config", "#{test_app_path}/config/webpack/development.js"]
 
     verify_command(cmd, use_node_modules: false)
+  end
+
+  def test_run_via_dashboard_via_yarn
+    cmd = %W[yarn webpack-dashboard -- webpack serve --config #{test_app_path}/config/webpack/development.js]
+
+    verify_command(cmd, use_node_modules: false, argv: ["--webpack-dashboard"])
   end
 
   def test_run_cmd_argv

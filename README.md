@@ -474,6 +474,35 @@ const vueConfig = require('./rules/vue')
 module.exports = merge(webpackConfig, vueConfig)
 ```
 
+#### Webpack-Dashboard
+
+When running webpack-dev-server in a separate process, a CLI dashboard could be used - [Webpack-Dashboard](https://github.com/FormidableLabs/webpack-dashboard)
+
+Add it to the gem's package.json:
+
+```bash
+yarn add --dev webpack-dashboard
+```
+
+Configure it as a webpack plugin:
+
+```js
+// config/webpack/development.js
+const webpackConfig = require('./base')
+const { merge } = require('webpack-merge')
+const DashboardPlugin = require("webpack-dashboard/plugin")
+
+module.exports = merge(webpackConfig, {
+  plugins: [new DashboardPlugin()],
+})
+```
+
+Add it as an option when starting the dev server:
+
+```bash
+bin/webpack-dev-server --webpack-dashboard
+```
+
 ### Custom Rails environments
 
 Out of the box Webpacker ships with - development, test and production environments in `config/webpacker.yml` however, in most production apps extra environments are needed as part of deployment workflow. Webpacker supports this out of the box from version 3.4.0+ onwards.

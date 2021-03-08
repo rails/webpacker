@@ -77,6 +77,17 @@ module Webpacker
           @argv.delete "--debug-webpacker"
         end
 
+        if @argv.include?("--webpack-dashboard")
+          cmd = if node_modules_bin_exist?
+            %W[#{@node_modules_bin_path}/webpack-dashboard --] + cmd
+          else
+            idx_after_yarn = cmd.index("yarn") + 1
+            cmd.insert(idx_after_yarn, "webpack-dashboard", "--")
+          end
+
+          @argv.delete "--webpack-dashboard"
+        end
+
         cmd += ["--config", @webpack_config]
         cmd += ["--progress", "--color"] if @pretty
         cmd += @argv
