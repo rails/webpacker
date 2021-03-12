@@ -10,7 +10,6 @@ const WebpackAssetsManifest = require('webpack-assets-manifest')
 const webpack = require('webpack')
 const rules = require('../rules')
 const config = require('../config')
-const { isDevelopment } = require('../env')
 const { moduleExists } = require('../utils/helpers')
 
 const getEntryObject = () => {
