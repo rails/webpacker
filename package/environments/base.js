@@ -67,12 +67,8 @@ const getPlugins = () => {
     const MiniCssExtractPlugin = require('mini-css-extract-plugin')
     plugins.push(
       new MiniCssExtractPlugin({
-        filename: isDevelopment
-          ? 'css/[name].css'
-          : 'css/[name]-[contenthash:8].css',
-        chunkFilename: isDevelopment
-          ? 'css/[id].css'
-          : 'css/[id]-[contenthash:8].css'
+        filename: 'css/[name]-[contenthash:8].css',
+        chunkFilename: 'css/[id]-[contenthash:8].css'
       })
     )
   }
