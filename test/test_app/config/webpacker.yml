@@ -8,7 +8,7 @@ default: &default
   cache_path: tmp/cache/webpacker
   webpack_compile_output: false
 
-  # Additional paths webpack should lookup modules
+  # Additional paths webpack should look up modules
   # ['app/assets', 'engine/foo/app/assets']
   additional_paths:
     - app/assets

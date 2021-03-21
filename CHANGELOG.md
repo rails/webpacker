@@ -806,11 +806,11 @@ yarn add coffeescript
 
 ### Added
 
-- `resolved_paths` option to allow adding additional paths webpack should lookup when resolving modules
+- `resolved_paths` option to allow adding additional paths webpack should look up when resolving modules
 
 ```yml
 # config/webpacker.yml
-# Additional paths webpack should lookup modules
+# Additional paths webpack should look up modules
 resolved_paths: [] # empty by default
 ```
 

@@ -585,7 +585,7 @@ If you are adding Webpacker to an existing app that has most of the assets insid
 `app/assets` or inside an engine, and you want to share that
 with webpack modules, you can use the `additional_paths`
 option available in `config/webpacker.yml`. This lets you
-add additional paths that webpack should lookup when resolving modules:
+add additional paths that webpack should look up when resolving modules:
 
 ```yml
 additional_paths: ['app/assets', 'vendor/assets']
