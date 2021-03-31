@@ -2,7 +2,17 @@
 
 
 Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which gets run whenever you run `assets:precompile`.
-If you are not using Sprockets `webpacker:compile` is automatically aliased to `assets:precompile`. Remember to set NODE_ENV environment variable to production during deployment or when running the rake task.
+If you are not using Sprockets you must define `assets:precompile` yourself. 
+
+```ruby
+# When not using Sprockets, must define assets:precompile manually
+# https://github.com/heroku/heroku-buildpack-ruby/issues/576#issuecomment-305847577
+task "assets:precompile" do
+  Rake::Task["webpacker:compile"].invoke
+end
+```
+
+Remember to set NODE_ENV environment variable to production during deployment or when running the rake task.
 
 The `javascript_pack_tag` and `stylesheet_pack_tag` helper method will automatically insert the correct HTML tag for compiled pack. Just like the asset pipeline does it.
 
