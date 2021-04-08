@@ -63,11 +63,11 @@ class Webpacker::Configuration
     fetch(:webpack_compile_output)
   end
 
-  private
-    def fetch(key)
-      data.fetch(key, defaults[key])
-    end
+  def fetch(key)
+    data.fetch(key, defaults[key])
+  end
 
+  private
     def data
       @data ||= load
     end
