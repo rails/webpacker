@@ -29,11 +29,7 @@ jobs:
             gemfile: gemfiles/Gemfile-rails.6.0.x
         experimental: [false]
         include:
-          - ruby: head
-            os: ubuntu-latest
-            gemfile: gemfiles/Gemfile-rails.6.0.x
-            experimental: true
-          - ruby: head
+          - ruby: 2.5
             os: ubuntu-latest
             gemfile: gemfiles/Gemfile-rails-edge
             experimental: true
