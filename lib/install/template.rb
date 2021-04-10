@@ -26,13 +26,15 @@ if File.exists?(git_ignore_path)
   end
 end
 
+results = []
+
 Dir.chdir(Rails.root) do
   if Webpacker::VERSION =~ /^[0-9]+\.[0-9]+\.[0-9]+$/
     say "Installing all JavaScript dependencies [#{Webpacker::VERSION}]"
-    run "yarn add @rails/webpacker@#{Webpacker::VERSION}"
+    results << run("yarn add @rails/webpacker@#{Webpacker::VERSION}")
   else
     say "Installing all JavaScript dependencies [from prerelease rails/webpacker]"
-    run "yarn add @rails/webpacker@next"
+    results << run("yarn add @rails/webpacker@next")
   end
 
   package_json = File.read("#{__dir__}/../../package.json")
@@ -41,10 +43,10 @@ Dir.chdir(Rails.root) do
 
   # needed for experimental Yarn 2 support and should not harm Yarn 1
   say "Installing webpack and webpack-cli as direct dependencies"
-  run "yarn add webpack@#{webpack_version} webpack-cli@#{webpack_cli_version}"
+  results << run("yarn add webpack@#{webpack_version} webpack-cli@#{webpack_cli_version}")
 
   say "Installing dev server for live reloading"
-  run "yarn add --dev webpack-dev-server @webpack-cli/serve"
+  results << run("yarn add --dev webpack-dev-server @webpack-cli/serve")
 end
 
 insert_into_file Rails.root.join("package.json").to_s, before: /\n}\n*$/ do
@@ -66,4 +68,9 @@ if Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR > 1
   say "policy.connect_src :self, :https, \"http://localhost:3035\", \"ws://localhost:3035\" if Rails.env.development?", :yellow
 end
 
-say "Webpacker successfully installed 🎉 🍰", :green
+if results.all?
+  say "Webpacker successfully installed 🎉 🍰", :green
+else
+  say "Webpacker installation failed 😭 See above for details.", :red
+  exit 1
+end
