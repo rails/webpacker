@@ -7,9 +7,9 @@ namespace :webpacker do
     prefix = task.name.split(/#|webpacker:install/).first
 
     if Rails::VERSION::MAJOR >= 5
-      exec "#{RbConfig.ruby} #{bin_path}/rails #{prefix}app:template LOCATION=#{install_template_path}"
+      exec "#{RbConfig.ruby} #{bin_path}/rails #{prefix}app:template LOCATION='#{install_template_path}'"
     else
-      exec "#{RbConfig.ruby} #{bin_path}/rake #{prefix}rails:template LOCATION=#{install_template_path}"
+      exec "#{RbConfig.ruby} #{bin_path}/rake #{prefix}rails:template LOCATION='#{install_template_path}'"
     end
   end
 end
