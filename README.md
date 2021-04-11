@@ -9,7 +9,7 @@
 [![Gem](https://img.shields.io/gem/v/webpacker.svg)](https://rubygems.org/gems/webpacker)
 
 Webpacker makes it easy to use the JavaScript pre-processor and bundler
-[webpack 5.x.x+](https://webpack.js.org/)
+[Webpack v5](https://webpack.js.org/)
 to manage application-like JavaScript in Rails. It coexists with the asset pipeline,
 as the primary purpose for webpack is app-like JavaScript, not images, CSS, or
 even JavaScript Sprinkles (that all continues to live in app/assets).
@@ -46,11 +46,11 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 - Ruby 2.4+
 - Rails 5.2+
 - Node.js 10.22.1+ || 12+ || 14+
-- Yarn 1.x+
+- Yarn 1.x+ || 2.x+
 
 ## Features
 
-- [webpack 5.x.x](https://webpack.js.org/)
+- [Webpack v5](https://webpack.js.org/)
 - ES6 with [babel](https://babeljs.io/)
 - Automatic code splitting using multiple entry points
 - Asset compression, source-maps, and minification
@@ -107,8 +107,7 @@ yarn upgrade
 When `package.json` and/or `yarn.lock` changes, such as when pulling down changes to your local environment in a team settings, be sure to keep your NPM packages up-to-date:
 
 ```bash
-# default for `yarn` is to install
-yarn
+yarn install
 ```
 
 ### Usage
@@ -118,7 +117,7 @@ Once installed, you can start writing modern ES6-flavored JavaScript apps right 
 ```yml
 app/packs:
   ├── entrypoints:
-  │   # Only webpack entry files here
+  │   # Only Webpack entry files here
   │   └── application.js
   │   └── application.css
   └── src:
@@ -165,7 +164,7 @@ If you want to use images in your stylesheets:
 }
 ```
 
-Note, if you are using server-side rendering of JavaScript with dynamic code-spliting, 
+Note, if you are using server-side rendering of JavaScript with dynamic code-spliting,
 as is often done with extensions to Webpacker, like [React on Rails](https://github.com/shakacode/react_on_rails)
 your JavaScript should create the link prefetch HTML tags that you will use, so you won't
 need to use to `asset_pack_path` in those circumstances.
@@ -190,7 +189,7 @@ be painfully slow for front-end development in this default way. Instead, you sh
 run the `bin/webpack --watch` or run `./bin/webpack-dev-server`
 
 If you want to use live code reloading, or you have enough JavaScript that on-demand compilation is too slow, you'll need to run `./bin/webpack-dev-server` or `ruby ./bin/webpack-dev-server`.
-Windows users will need to run these commands in a terminal separate from `bundle exec rails s`. 
+Windows users will need to run these commands in a terminal separate from `bundle exec rails s`.
 This process will watch for changes in the `app/packs/entrypoints/*.js` files and automatically
 reload the browser to match. This feature is also known as
 [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/).
@@ -437,7 +436,7 @@ if you are using typescript, update your `tsconfig.json`
 ```
 
 For more information on React props hydration and Server-Side Rendering (SSR), see the article
-[Rails/Webpacker React Integration Options](https://github.com/shakacode/react_on_rails/blob/master/docs/rails-webpacker-react-integration-options.md) 
+[Rails/Webpacker React Integration Options](https://github.com/shakacode/react_on_rails/blob/master/docs/rails-webpacker-react-integration-options.md)
 in the [ShakaCode/react_on_rails](https://github.com/shakacode/react_on_rails) repo.
 
 #### Other frameworks
@@ -576,7 +575,7 @@ development:
 ```
 
 If you have `hmr` turned to true, then the `stylesheet_pack_tag` generates no output,
-as you will want to configure your styles to be inlined in your JavaScript for hot reloading. 
+as you will want to configure your styles to be inlined in your JavaScript for hot reloading.
 During production and testing, the `stylesheet_pack_tag` will create the appropriate HTML tags.
 
 ### Additional paths
