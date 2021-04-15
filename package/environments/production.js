@@ -37,7 +37,7 @@ const tryCssMinimizer = () => {
     moduleExists('css-minimizer-webpack-plugin')
   ) {
     const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
-    return new CssMinimizerPlugin({ sourceMap: true })
+    return new CssMinimizerPlugin()
   }
 
   return null
