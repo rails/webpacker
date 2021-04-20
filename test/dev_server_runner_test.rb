@@ -5,11 +5,13 @@ class DevServerRunnerTest < Webpacker::Test
   def setup
     @original_node_env, ENV["NODE_ENV"] = ENV["NODE_ENV"], "development"
     @original_rails_env, ENV["RAILS_ENV"] = ENV["RAILS_ENV"], "development"
+    @original_webpacker_config = ENV["WEBPACKER_CONFIG"]
   end
 
   def teardown
     ENV["NODE_ENV"] = @original_node_env
     ENV["RAILS_ENV"] = @original_rails_env
+    ENV["WEBPACKER_CONFIG"] = @original_webpacker_config
   end
 
   def test_run_cmd_via_node_modules
@@ -46,7 +48,7 @@ class DevServerRunnerTest < Webpacker::Test
   def test_environment_variables
     cmd = ["#{test_app_path}/node_modules/.bin/webpack", "serve", "--config", "#{test_app_path}/config/webpack/development.js"]
     env = Webpacker::Compiler.env.dup
-    env["WEBPACKER_CONFIG"] = "#{test_app_path}/config/webpacker.yml"
+    ENV["WEBPACKER_CONFIG"] = env["WEBPACKER_CONFIG"] = "#{test_app_path}/config/webpacker_other_location.yml"
     env["WEBPACK_DEV_SERVER"] = "true"
     verify_command(cmd, env: env)
   end

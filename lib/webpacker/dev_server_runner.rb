@@ -20,7 +20,7 @@ module Webpacker
 
         @config = Configuration.new(
           root_path: app_root,
-          config_path: app_root.join("config/webpacker.yml"),
+          config_path: Pathname.new(@webpacker_config),
           env: ENV["RAILS_ENV"]
         )
 
