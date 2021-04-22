@@ -29,7 +29,7 @@ end
 results = []
 
 Dir.chdir(Rails.root) do
-  if Webpacker::VERSION =~ /^[0-9]+\.[0-9]+\.[0-9]+$/
+  if Webpacker::VERSION.match?(/^[0-9]+\.[0-9]+\.[0-9]+$/)
     say "Installing all JavaScript dependencies [#{Webpacker::VERSION}]"
     results << run("yarn add @rails/webpacker@#{Webpacker::VERSION}")
   else

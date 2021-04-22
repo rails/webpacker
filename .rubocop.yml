@@ -118,3 +118,108 @@ Layout/EndAlignment:
 # Use my_method(my_arg) not my_method( my_arg ) or my_method my_arg.
 Lint/RequireParentheses:
   Enabled: true
+
+# Use `bind_call(obj, args, ...)` instead of `bind(obj).call(args, ...)`.
+Performance/BindCall:
+  Enabled: true
+
+# Use `caller(n..n)` instead of `caller`.
+Performance/Caller:
+  Enabled: true
+
+# Use `casecmp` for case comparison.
+Performance/Casecmp:
+  Enabled: true
+
+# Extract Array and Hash literals outside of loops into local variables or constants.
+Performance/CollectionLiteralInLoop:
+  Enabled: true
+
+# Prefer `sort_by(&:foo)` instead of `sort { |a, b| a.foo <=> b.foo }`.
+Performance/CompareWithBlock:
+  Enabled: true
+
+# Use `count` instead of `{select,find_all,filter,reject}...{size,count,length}`.
+Performance/Count:
+  Enabled: true
+
+# Use `delete_prefix` instead of `gsub`.
+Performance/DeletePrefix:
+  Enabled: true
+
+# Use `delete_suffix` instead of `gsub`.
+Performance/DeleteSuffix:
+  Enabled: true
+
+# Use `detect` instead of `select.first`, `find_all.first`, `filter.first`, `select.last`, `find_all.last`, and `filter.last`.
+Performance/Detect:
+  Enabled: true
+
+# Use `str.{start,end}_with?(x, ..., y, ...)` instead of `str.{start,end}_with?(x, ...) || str.{start,end}_with?(y, ...)`.
+Performance/DoubleStartEndWith:
+  Enabled: true
+
+# Use `end_with?` instead of a regex match anchored to the end of a string.
+Performance/EndWith:
+  Enabled: true
+
+# Do not compute the size of statically sized objects except in constants.
+Performance/FixedSize:
+  Enabled: true
+
+# Use `Enumerable#flat_map` instead of `Enumerable#map...Array#flatten(1).
+Performance/FlatMap:
+  Enabled: true
+
+# Use `key?` or `value?` instead of `keys.include?` or `values.include?`.
+Performance/InefficientHashSearch:
+  Enabled: true
+
+# Use `Range#cover?` instead of `Range#include?` (or `Range#member?`).
+Performance/RangeInclude:
+  Enabled: true
+
+# Use `yield` instead of `block.call`.
+Performance/RedundantBlockCall:
+  Enabled: true
+
+# Use `=~` instead of `String#match` or `Regexp#match` in a context where the returned `MatchData` is not needed.
+Performance/RedundantMatch:
+  Enabled: true
+
+# Use Hash#[]=, rather than Hash#merge! with a single key-value pair.
+Performance/RedundantMerge:
+  Enabled: true
+
+# Use `match?` instead of `Regexp#match`, `String#match`, `Symbol#match`, `Regexp#===`, or `=~` when `MatchData` is not used.
+Performance/RegexpMatch:
+  Enabled: true
+
+# Use `reverse_each` instead of `reverse.each`.
+Performance/ReverseEach:
+  Enabled: true
+
+# Use `size` instead of `count` for counting the number of elements in `Array` and `Hash`.
+Performance/Size:
+  Enabled: true
+
+# Use `start_with?` instead of a regex match anchored to the beginning of a string.
+Performance/StartWith:
+  Enabled: true
+
+# Use `tr` instead of `gsub` when you are replacing the same number of characters.
+# Use `delete` instead of `gsub` when you are deleting characters.
+Performance/StringReplacement:
+  Enabled: true
+
+# Checks for .times.map calls.
+Performance/TimesMap:
+  Enabled: true
+
+# Use unary plus to get an unfrozen string literal.
+Performance/UnfreezeString:
+  Enabled: true
+
+# Use `URI::DEFAULT_PARSER` instead of `URI::Parser.new`.
+Performance/UriDefaultParser:
+  Enabled: true
