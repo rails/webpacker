@@ -5,7 +5,7 @@
 [![Rubocop](https://github.com/rails/webpacker/workflows/Rubocop/badge.svg)](https://github.com/rails/webpacker/actions)
 [![JS lint](https://github.com/rails/webpacker/workflows/JS%20lint/badge.svg)](https://github.com/rails/webpacker/actions)
 
-[![node.js](https://img.shields.io/badge/node-%3E%3D%2010.17.0-brightgreen.svg)](https://www.npmjs.com/package/@rails/webpacker)
+[![node.js](https://img.shields.io/badge/node-%3E%3D%2012.0.0-brightgreen.svg)](https://www.npmjs.com/package/@rails/webpacker)
 [![Gem](https://img.shields.io/gem/v/webpacker.svg)](https://rubygems.org/gems/webpacker)
 
 Webpacker makes it easy to use the JavaScript pre-processor and bundler
@@ -45,7 +45,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 
 - Ruby 2.4+
 - Rails 5.2+
-- Node.js 10.22.1+ || 12+ || 14+
+- Node.js 12+ || 14+
 - Yarn 1.x+ || 2.x+
 
 ## Features
