@@ -9,7 +9,7 @@ if File.exist?(package_json)
   package = JSON.parse(File.read(package_json))
   package["dependencies"] ||= {}
 
-  if package["dependencies"].keys.include?("react")
+  if package["dependencies"].key?("react")
     additional_packages = "@types/react @types/react-dom"
     example_source = "react"
   end
