@@ -6,6 +6,10 @@
 
 - Adds experimental Yarn 2 support. Note you must manually set `nodeLinker: node-modules` in your `.yarnrc.yml`.
 
+## [[5.2.2]](https://github.com/rails/webpacker/compare/v5.2.1...5.2.2) - 2021-04-27
+
+- Bump deps and remove node-sass [#2997](https://github.com/rails/webpacker/pull/2997).
+
 ## [[5.2.1]](https://github.com/rails/webpacker/compare/v5.2.0...5.2.1) - 2020-08-17
 
 - Revert [#1311](https://github.com/rails/webpacker/pull/1311).
