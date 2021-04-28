@@ -35,24 +35,27 @@ Now you have a straight access to the Webpack configuration and you can change i
 3. Rename `config/webpack` to `config/webpack_old`
 4. Rename `config/webpacker.yml` to `config/webpacker_old.yml`
 5. Uninstall the current version of `webpack-dev-server`: `yarn remove webpack-dev-server`
-6. Upgrade Webpacker
+6. Upgrade webpacker to the latest beta
 
-  ```ruby
-  # Gemfile
-  gem 'webpacker', '~> 6.0.0.pre.2'
-  ```
+- [Check the releases page to verify the latest version](https://github.com/rails/webpacker/releases)
+- Make sure to install identical version numbers of webpacker gem and `@rails/webpacker` npm package
 
-  ```bash
-  bundle install
-  ```
+```ruby
+# Gemfile
+gem 'webpacker', '6.0.0.beta.7'
+```
 
-  ```bash
-  yarn add @rails/webpacker@next
-  ```
+```bash
+bundle install
+```
 
-  ```bash
-  bundle exec rails webpacker:install
-  ```
+```bash
+yarn add @rails/webpacker@6.0.0-beta.7
+```
+
+```bash
+bundle exec rails webpacker:install
+```
 
 - Change `javascript_packs_with_chunks_tag` and `stylesheet_packs_with_chunks_tag` to `javascript_pack_tag` and
   `stylesheet_pack_tag`.
@@ -75,12 +78,13 @@ Now you have a straight access to the Webpack configuration and you can change i
 9. Copy over custom browserlist config from `.browserslistrc` if it exists into the `"browserslist"` key in `package.json` and remove `.browserslistrc`.
 
 10. `extensions` was removed from the webpacker.yml file. Move custom extensions to
-  your configuration by merging an object like this. For more details, see docs for
-  [Webpack Configuration](https://github.com/rails/webpacker/blob/master/README.md#webpack-configuration)
+    your configuration by merging an object like this. For more details, see docs for
+    [Webpack Configuration](https://github.com/rails/webpacker/blob/master/README.md#webpack-configuration)
+
 ```js
 {
   resolve: {
-      extensions: ['.ts', '.tsx']
+    extensions: ['.ts', '.tsx']
   }
 }
 ```
