@@ -9,7 +9,7 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         ruby: [
-          2.7
+          2.3
         ]
 
     runs-on: ${{ matrix.os }}
@@ -32,7 +32,7 @@ jobs:
 
       - name: Bundle install
         run: |
-          gem install bundler -v 2.1.4
+          gem install bundler -v 1.17.3
           bundle config path /home/runner/bundle
           bundle install --jobs 4 --retry 3
 
