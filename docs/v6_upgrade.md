@@ -4,7 +4,7 @@ This guide aims to help you migrating to Webpacker 6. If you are using vanilla W
 
 ## Main differences with v5
 
-The main goal for Webpacker v6 is to manage the JavaScript in your Rails application with Webpack. This will allows you, for example, to use JavaScript modules, automatic code splitting using multiple entry points, use PostCSS or use [Vue](https://vuejs.org/) or [React](https://reactjs.org/).
+The main goal for Webpacker v6 is to manage the JavaScript in your Rails application with Webpack. This will allow you, for example, to use JavaScript modules, automatic code splitting using multiple entry points, use PostCSS or use [Vue](https://vuejs.org/) or [React](https://reactjs.org/).
 
 You probably don't want to install Webpacker and Webpack if you only need some JavaScript Sprinkles, Sass integration, images and fonts support.
 
