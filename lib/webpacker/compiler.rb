@@ -104,7 +104,7 @@ class Webpacker::Compiler
     def webpack_env
       return env unless defined?(ActionController::Base)
 
-      env.merge("WEBPACKER_ASSET_HOST"        => ENV.fetch("WEBPACKER_ASSET_HOST", nil),
+      env.merge("WEBPACKER_ASSET_HOST"        => ENV.fetch("WEBPACKER_ASSET_HOST", ActionController::Base.asset_host),
                 "WEBPACKER_RELATIVE_URL_ROOT" => ENV.fetch("WEBPACKER_RELATIVE_URL_ROOT", ActionController::Base.relative_url_root),
                 "WEBPACKER_CONFIG" => webpacker.config_path.to_s)
     end

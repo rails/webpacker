@@ -19,19 +19,6 @@ Now if you refresh your Rails view everything should work as expected.
 Webpacker out-of-the-box supports HMR with `webpack-dev-server` and
 you can toggle it by setting options in `config/webpacker.yml`:
 
-```yaml
-development:
-  # ...
-  extract_css: false
-  # ...
-  dev_server:
-    # ...
-    hmr: true
-    inline: true
-    # ...
-```
-`dev_server/hmr` option inside `webpacker.yml`.
-
 Check out this guide for more information:
 
 - https://webpack.js.org/configuration/dev-server/#devserver-hot
