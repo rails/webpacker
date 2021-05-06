@@ -72,7 +72,7 @@ Now you have a straight access to the Webpack configuration and you can change i
   module.exports = merge(webpackConfig, customConfig)
   ```
 
-9. Copy over custom browserlist config from `.browserlistrc` if it exists into the `"browserlist"` key in `package.json` and remove `.browserslistrc`.
+9. Copy over custom browserlist config from `.browserslistrc` if it exists into the `"browserslist"` key in `package.json` and remove `.browserslistrc`.
 
 10. `extensions` was removed from the webpacker.yml file. Move custom extensions to
   your configuration by merging an object like this. For more details, see docs for
