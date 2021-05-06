@@ -5,7 +5,7 @@ default: &default
   source_entry_path: entrypoints
   public_root_path: public
   public_output_path: packs
-  cache_path: tmp/cache/webpacker
+  cache_path: tmp/webpacker
   webpack_compile_output: true
 
   # Additional paths webpack should look up modules

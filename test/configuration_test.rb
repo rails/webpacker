@@ -44,7 +44,7 @@ class ConfigurationTest < Webpacker::Test
   end
 
   def test_cache_path
-    cache_path = File.expand_path File.join(File.dirname(__FILE__), "test_app/tmp/cache/webpacker").to_s
+    cache_path = File.expand_path File.join(File.dirname(__FILE__), "test_app/tmp/webpacker").to_s
     assert_equal @config.cache_path.to_s, cache_path
   end
 
