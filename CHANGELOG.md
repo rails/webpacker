@@ -4,7 +4,7 @@
 
 ## [[6.0.0]](https://github.com/rails/webpacker/compare/v5.1.1...master) - 2021-TBD
 
-Please see [UPGRADE GUIDE](./docs/v6_upgrade.md) for more informations.
+Please see [UPGRADE GUIDE](./docs/v6_upgrade.md) for more information.
 
 - `node_modules` will no longer be compiled by default. This primarily fixes [rails issue #35501](https://github.com/rails/rails/issues/35501) as well as [numerous other webpacker issues](https://github.com/rails/webpacker/issues/2131#issuecomment-581618497). The disabled loader can still be required explicitly via:
 
@@ -412,7 +412,7 @@ See changes: https://github.com/rails/webpacker/compare/e8b197e36c77181ca2e4765c
 
 ### Added
 
-- On CI, sort files & check modified w/ digest intead of mtime[#1522](https://github.com/rails/webpacker/pull/1522)
+- On CI, sort files & check modified w/ digest instead of mtime[#1522](https://github.com/rails/webpacker/pull/1522)
 
 ## [3.5.3] - 2018-05-03
 

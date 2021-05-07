@@ -22,7 +22,7 @@ Webpacker is still a wrapper around [Webpack](https://webpack.js.org/) to simpli
 
 But we noticed that the [Webpacker v5 configuration](https://github.com/rails/webpacker/blob/5-x-stable/docs/webpack.md) was a bit confusing mostly because Webpack is a complicated beast to manage.
 
-There are so many different toolchains in JavaScript these days, it would be impossible to create te perfect configuration for everybody. That is also why defaults installers have been removed.
+There are so many different toolchains in JavaScript these days, it would be impossible to create the perfect configuration for everybody. That is also why defaults installers have been removed.
 
 In order to simplify even more the configuration, the custom API to manage the Webpack configuration has been removed.
 
