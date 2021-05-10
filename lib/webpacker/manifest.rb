@@ -18,6 +18,10 @@ class Webpacker::Manifest
     @data = load
   end
 
+  def reset
+    @data = nil
+  end
+
   def lookup_pack_with_chunks(name, pack_type = {})
     compile if compiling?
 
@@ -59,7 +63,7 @@ class Webpacker::Manifest
     end
 
     def data
-      if config.cache_manifest?
+      if config.cache_manifest? || config.use_listen?
         @data ||= load
       else
         refresh

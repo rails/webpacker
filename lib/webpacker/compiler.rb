@@ -28,6 +28,7 @@ class Webpacker::Compiler
         record_compilation_digest
       end
     else
+      listen_to_changes if config.use_listen?
       logger.debug "Everything's up-to-date. Nothing to do"
       true
     end
@@ -35,12 +36,18 @@ class Webpacker::Compiler
 
   # Returns true if all the compiled packs are up to date with the underlying asset files.
   def fresh?
-    last_compilation_digest&.== watched_files_digest
+    return @fresh if @fresh && config.use_listen?
+
+    @fresh = last_compilation_digest&.== watched_files_digest
   end
 
   # Returns true if the compiled packs are out of date with the underlying asset files.
   def stale?
     !fresh?
+  end
+
+  def stale!
+    @fresh = false
   end
 
   private
@@ -58,6 +65,10 @@ class Webpacker::Compiler
         file_ids = files.sort.map { |f| "#{File.basename(f)}/#{Digest::SHA1.file(f).hexdigest}" }
         Digest::SHA1.hexdigest(file_ids.join("/"))
       end
+    end
+
+    def listen_to_changes
+      @listener ||= Webpacker::Listen.new(webpacker: webpacker, watched_paths: Dir[*default_watched_paths, *watched_paths])
     end
 
     def record_compilation_digest

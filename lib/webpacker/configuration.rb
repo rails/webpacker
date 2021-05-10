@@ -19,6 +19,10 @@ class Webpacker::Configuration
     fetch(:compile)
   end
 
+  def use_listen?
+    fetch(:use_listen)
+  end
+
   def source_path
     root_path.join(fetch(:source_path))
   end

@@ -9,15 +9,26 @@ default: &default
   webpack_compile_output: true
 
   # Additional paths webpack should look up modules
-  # ['app/assets', 'engine/foo/app/assets']
+  # ['app/assets', 'engine/foo/app/assets', 'node_modules/some-package/src/sass']
   additional_paths: []
 
   # Reload manifest.json on all requests so we reload latest compiled packs
   cache_manifest: false
 
+  # You can specify your list of the extensions that you want to be treated as static assets
+  # static_assets_extensions:
+  #   - .jpg
+  #   - .raw
+  # Path prefix for the static assets. Default: media/images
+  # static_assets_output_prefix: assets
+
 development:
   <<: *default
   compile: true
+  # This option enables a way to not recalculate the directory hash per each request to determine
+  # if sources were changed. The "listen" gem is used to monitor source changes, so the gem needs
+  # to be installed before enabling this option.
+  # use_listen: true
 
   # Reference: https://webpack.js.org/configuration/dev-server/
   dev_server:

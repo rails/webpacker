@@ -45,6 +45,10 @@ class Webpacker::Engine < ::Rails::Engine
         Spring.watch(Webpacker.config.config_path)
       end
     end
+
+    if Webpacker.config.use_listen?
+      require "webpacker/listen"
+    end
   end
 
   initializer "webpacker.set_source" do |app|
