@@ -29,6 +29,16 @@ environment.loaders.append('nodeModules', nodeModules)
 - CSS extraction enabled by default
 - Optional CSS support
 
+## [[5.3.0]](https://github.com/rails/webpacker/compare/v5.2.2...v5.3.0) - 2021-4-27
+
+- Keep backups, even when they're old. ([#2734](https://github.com/rails/webpacker/pull/2734)) ([#2912](https://github.com/rails/webpacker/pull/2912))
+
+## [[5.2.2]](https://github.com/rails/webpacker/compare/v5.2.1...v5.2.2) - 2021-4-27
+
+- Support to Yarn v2/berry for webpacker 5.x ([#2889](https://github.com/rails/webpacker/pull/2889))
+- Fix cross-platform issue when loading nested files ([#2902](https://github.com/rails/webpacker/pull/2902))
+- Bump deps and remove node-sass ([#2997](https://github.com/rails/webpacker/pull/2997))
+
 ## [[5.2.1]](https://github.com/rails/webpacker/compare/v5.2.0...5.2.1) - 2020-08-17
 
 - Revert [#1311](https://github.com/rails/webpacker/pull/1311).
