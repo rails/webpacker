@@ -12,7 +12,7 @@ class Webpacker::Compiler
   # Webpacker::Compiler.env['FRONTEND_API_KEY'] = 'your_secret_key'
   cattr_accessor(:env) { {} }
 
-  delegate :config, :logger, to: :webpacker
+  delegate :config, :logger, :manifest, to: :webpacker
 
   def initialize(webpacker)
     @webpacker = webpacker
@@ -28,7 +28,6 @@ class Webpacker::Compiler
         record_compilation_digest
       end
     else
-      listen_to_changes if config.use_listen?
       logger.debug "Everything's up-to-date. Nothing to do"
       true
     end
@@ -47,7 +46,21 @@ class Webpacker::Compiler
   end
 
   def stale!
+    logger.tagged("Webpacker") { logger.debug("compilation result marked as stale") }
     @fresh = false
+    compilation_digest_path.delete if compilation_digest_path.exist?
+  end
+
+  def listen_to_changes
+    @listener ||=
+      Webpacker::Listen.new(
+        webpacker: webpacker,
+        watched_paths: Dir[*default_watched_paths, *watched_paths],
+        on_change: -> do
+          manifest.reset!
+          stale!
+        end
+      )
   end
 
   private
@@ -65,10 +78,6 @@ class Webpacker::Compiler
         file_ids = files.sort.map { |f| "#{File.basename(f)}/#{Digest::SHA1.file(f).hexdigest}" }
         Digest::SHA1.hexdigest(file_ids.join("/"))
       end
-    end
-
-    def listen_to_changes
-      @listener ||= Webpacker::Listen.new(webpacker: webpacker, watched_paths: Dir[*default_watched_paths, *watched_paths])
     end
 
     def record_compilation_digest

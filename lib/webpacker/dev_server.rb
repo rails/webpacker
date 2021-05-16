@@ -4,22 +4,18 @@ class Webpacker::DevServer
   # Configure dev server connection timeout (in seconds), default: 0.01
   # Webpacker.dev_server.connect_timeout = 1
   cattr_accessor(:connect_timeout) { 0.01 }
-  # Dev server connection rechecking frequency, default: 10 seconds
-  # Webpacker.dev_server.retry_after = 60
-  cattr_accessor(:retry_after) { 10 }
+  # Dev server connection checking frequency, default: 1 second
+  # Webpacker.dev_server.connection_check_frequency = 1
+  cattr_accessor(:connection_check_frequency) { 1 }
 
-  attr_reader :config
+  attr_reader :config, :monitor
 
   def initialize(config)
     @config = config
   end
 
   def running?
-    if config.dev_server.present?
-      check_connection
-    else
-      false
-    end
+    monitor.running?
   end
 
   def host
@@ -56,16 +52,9 @@ class Webpacker::DevServer
   end
 
   private
-    def check_connection
-      now = Time.now
-      @last_connect_failure ||= now - retry_after
-      return false if @last_connect_failure + retry_after > now
 
-      Socket.tcp(host, port, connect_timeout: connect_timeout).close
-      true
-    rescue StandardError
-      @last_connect_failure = Time.now
-      false
+    def monitor
+      @monitor ||= Webpacker::DevServerMonitor.new
     end
 
     def fetch(key)

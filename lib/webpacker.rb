@@ -41,6 +41,7 @@ require "webpacker/configuration"
 require "webpacker/manifest"
 require "webpacker/compiler"
 require "webpacker/commands"
+require "webpacker/dev_server_monitor"
 require "webpacker/dev_server"
 
 require "webpacker/railtie" if defined?(Rails)

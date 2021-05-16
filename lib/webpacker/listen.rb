@@ -5,7 +5,7 @@ require "listen"
 class Webpacker::Listen
   include Mutex_m
 
-  def initialize(webpacker:, watched_paths:, latency: nil)
+  def initialize(webpacker:, watched_paths:, latency: nil, on_change: nil, &block)
     super()
     @webpacker   = webpacker
     @files       = Set.new
@@ -13,13 +13,14 @@ class Webpacker::Listen
     add(*watched_paths)
     @listener = ::Listen.to(*base_directories, latency: latency, &method(:changed))
     @listener.start
+    @on_change = on_change || block
   end
 
   private
 
-    attr_reader :webpacker, :files, :directories
+    attr_reader :webpacker, :files, :directories, :on_change
 
-    delegate :compiler, :manifest, :logger, to: :webpacker
+    delegate :logger, to: :webpacker
 
     def add(*items)
       items = items.flatten.map do |item|
@@ -62,8 +63,7 @@ class Webpacker::Listen
     def changed(modified, added, removed)
       synchronize do
         if (modified + added + removed).any? { |f| watching?(f) }
-          compiler.stale!
-          manifest.reset
+          @on_change.call
         end
       end
     end

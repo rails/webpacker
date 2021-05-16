@@ -44,6 +44,12 @@ class Webpacker::Commands
   end
 
   def bootstrap
+    if config.use_listen?
+      require "webpacker/listen"
+      compiler.listen_to_changes
+      manifest.listen_to_changes
+    end
+
     manifest.refresh
   end
 

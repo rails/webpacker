@@ -7,18 +7,20 @@
 # the webpacker.yml file, any lookups will be preceded by a compilation if one is needed.
 class Webpacker::Manifest
   class MissingEntryError < StandardError; end
+  attr_reader :webpacker
 
-  delegate :config, :compiler, :dev_server, to: :@webpacker
+  delegate :config, :compiler, :dev_server, :logger, to: :@webpacker
 
   def initialize(webpacker)
     @webpacker = webpacker
+    listen_to_changes if config.use_listen?
   end
 
   def refresh
     @data = load
   end
 
-  def reset
+  def reset!
     @data = nil
   end
 
@@ -53,13 +55,24 @@ class Webpacker::Manifest
     lookup(name, pack_type) || handle_missing_entry(name, pack_type)
   end
 
+  def listen_to_changes
+    @listener ||=
+      Webpacker::Listen.new(
+        webpacker: webpacker,
+        watched_paths: config.public_manifest_path,
+        on_change: -> { refresh }
+      )
+  end
+
   private
     def compiling?
       config.compile? && !dev_server.running?
     end
 
     def compile
-      Webpacker.logger.tagged("Webpacker") { compiler.compile }
+      logger.silence(Logger::INFO) do
+        logger.tagged("Webpacker") { compiler.compile }
+      end
     end
 
     def data
@@ -85,6 +98,7 @@ class Webpacker::Manifest
 
     def load
       if config.public_manifest_path.exist?
+        logger.tagged("Webpacker") { logger.debug("reading manifest file") }
         JSON.parse config.public_manifest_path.read
       else
         {}
