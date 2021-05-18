@@ -533,8 +533,13 @@ bundle update webpacker
 # overwrite your changes to the default install files and revert any unwanted changes from the install
 rails webpacker:install
 
+# yarn 1 instructions
 yarn upgrade @rails/webpacker --latest
 yarn upgrade webpack-dev-server --latest
+
+# yarn 2 instructions
+yarn up @rails/webpacker@latest
+yarn up webpack-dev-server@latest
 
 # Or to install the latest release (including pre-releases)
 yarn add @rails/webpacker@next
