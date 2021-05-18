@@ -25,7 +25,7 @@ development:
     host: localhost
     port: 3035
     public: localhost:3035
-    # Inject browserside javascript that required by both HMR and Live(full) reload
+    # Inject browserside javascript that is required by both HMR and Live (full) reload
     inject_client: true
     # Hot Module Replacement updates modules while the application is running without a full reload
     hmr: false
