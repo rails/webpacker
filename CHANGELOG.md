@@ -2,7 +2,11 @@
 
 **Please note that Webpacker 4.1.0 has an installer bug. Please use 4.2.0 or above**
 
-## [[5.3.0]](https://github.com/rails/webpacker/compare/v5.3.0...5.2.1) - 2021-TBD
+## [[5.4.0]](https://github.com/rails/webpacker/compare/v5.4.0...5.3.0) - 2021-05-18
+
+- Fix compatibility with Psych 4
+
+## [[5.3.0]](https://github.com/rails/webpacker/compare/v5.3.0...5.2.1) - 2021-04-27
 
 - Adds experimental Yarn 2 support. Note you must manually set `nodeLinker: node-modules` in your `.yarnrc.yml`.
 
