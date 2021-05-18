@@ -29,6 +29,20 @@ environment.loaders.append('nodeModules', nodeModules)
 - CSS extraction enabled by default
 - Optional CSS support
 
+## [[5.4.0]](https://github.com/rails/webpacker/compare/v5.3.0...v5.4.0) - 2021-05-18
+
+- Fix compatibility with Psych 4
+
+## [[5.3.0]](https://github.com/rails/webpacker/compare/v5.2.1...v5.3.0) - 2021-04-27
+
+- Adds experimental Yarn 2 support. Note you must manually set `nodeLinker: node-modules` in your `.yarnrc.yml`.
+
+- Keep backups, even when they're old [#2912](https://github.com/rails/webpacker/pull/2912)
+
+## [[5.2.2]](https://github.com/rails/webpacker/compare/v5.2.1...v5.2.2) - 2021-04-27
+
+- Bump deps and remove node-sass [#2997](https://github.com/rails/webpacker/pull/2997).
+
 ## [[5.2.1]](https://github.com/rails/webpacker/compare/v5.2.0...5.2.1) - 2020-08-17
 
 - Revert [#1311](https://github.com/rails/webpacker/pull/1311).
