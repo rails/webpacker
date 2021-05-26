@@ -3,6 +3,7 @@ const webpack = require('webpack')
 
 const baseConfig = require('./base')
 const devServer = require('../dev_server')
+const { runningWebpackDevServer } = require('../utils/helpers')
 
 const { outputPath: contentBase, publicPath } = require('../config')
 
@@ -11,10 +12,7 @@ let devConfig = {
   devtool: 'cheap-module-source-map'
 }
 
-if (
-  process.env.WEBPACK_DEV_SERVER &&
-  process.env.WEBPACK_DEV_SERVER !== 'undefined'
-) {
+if (runningWebpackDevServer) {
   if (devServer.hmr) {
     devConfig = merge(devConfig, {
       output: { filename: '[name]-[hash].js' },
@@ -34,7 +32,8 @@ if (
       hot: devServer.hmr,
       contentBase,
       inline: devServer.inline,
-      injectClient: devServer.inject_client,
+      injectClient: !devServer.hmr,
+      injectHot: devServer.hmr,
       useLocalIp: devServer.use_local_ip,
       public: devServer.public,
       publicPath,

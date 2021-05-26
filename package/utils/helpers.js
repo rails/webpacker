@@ -39,6 +39,9 @@ const canProcess = (rule, fn) => {
   return null
 }
 
+const runningWebpackDevServer = process.env.WEBPACK_DEV_SERVER &&
+  process.env.WEBPACK_DEV_SERVER !== 'undefined'
+
 module.exports = {
   chdirTestApp,
   chdirCwd,
@@ -47,5 +50,6 @@ module.exports = {
   ensureTrailingSlash,
   canProcess,
   moduleExists,
-  resetEnv
+  resetEnv,
+  runningWebpackDevServer
 }

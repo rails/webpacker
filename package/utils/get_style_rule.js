@@ -1,6 +1,6 @@
 /* eslint global-require: 0 */
 
-const { canProcess, moduleExists } = require('./helpers')
+const { canProcess, moduleExists, runningWebpackDevServer } = require('./helpers')
 
 const getStyleRule = (test, preprocessors = []) => {
   if (moduleExists('css-loader')) {
@@ -11,7 +11,8 @@ const getStyleRule = (test, preprocessors = []) => {
       }))
 
     const use = [
-      { loader: require('mini-css-extract-plugin').loader },
+      // style-loader is required when using css modules with HMR, so just always use for the dev-server
+      runningWebpackDevServer ? 'style-loader' : require('mini-css-extract-plugin').loader,
       {
         loader: require.resolve('css-loader'),
         options: {

@@ -137,7 +137,9 @@ module Webpacker::Helper
   #   <%= stylesheet_pack_tag 'calendar' %>
   #   <%= stylesheet_pack_tag 'map' %>
   def stylesheet_pack_tag(*names, **options)
-    stylesheet_link_tag(*sources_from_manifest_entrypoints(names, type: :stylesheet), **options)
+    unless current_webpacker_instance.dev_server.running?
+      stylesheet_link_tag(*sources_from_manifest_entrypoints(names, type: :stylesheet), **options)
+    end
   end
 
   private
