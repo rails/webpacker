@@ -55,8 +55,8 @@ jobs:
           restore-keys: |
             bundle-use-ruby-${{ matrix.ruby }}-${{ matrix.gemfile }}-gems-
 
-      - name: Install yarn
-        run: npm install -g yarn
+      - name: Install yarn maybe
+        run: which yarn || sudo npm install -g yarn
 
       - uses: ruby/setup-ruby@v1
         with:

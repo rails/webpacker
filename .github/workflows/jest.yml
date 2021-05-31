@@ -13,8 +13,8 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Install yarn
-        run: npm install -g yarn
+      - name: Install yarn maybe
+        run: which yarn || sudo npm install -g yarn
 
       - uses: actions/checkout@v2
       - name: Get yarn cache directory path
