@@ -8,7 +8,7 @@ class Webpacker::DevServer
   # Webpacker.dev_server.connection_check_frequency = 1
   cattr_accessor(:connection_check_frequency) { 1 }
 
-  attr_reader :config, :monitor
+  attr_reader :config
 
   def initialize(config)
     @config = config
