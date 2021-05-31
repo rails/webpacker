@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gemspec path: "../"
 
-gem "rails", github: "rails/rails", branch: "main"
+gem "rails", '~>6.1.0'
 gem "arel", github: "rails/arel"
 gem "rake", ">= 11.1"
 gem "rack-proxy", require: false
