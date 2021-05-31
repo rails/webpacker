@@ -3,7 +3,7 @@ name: Ruby specs
 on: [push, pull_request]
 
 jobs:
-  build:
+  test:
     name: Ruby specs
     runs-on: ${{ matrix.os }}
     continue-on-error: ${{ endsWith(matrix.ruby, 'head') || matrix.ruby == 'debug' || matrix.experimental }}
