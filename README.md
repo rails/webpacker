@@ -135,6 +135,33 @@ You can then link the JavaScript pack in Rails views using the `javascript_pack_
 <%= stylesheet_pack_tag 'application' %>
 ```
 
+The `javascript_pack_tag` and `stylesheet_pack_tag` helpers will include all the transpiled
+packs with the chunks in your view, which creates html tags for all the chunks.
+
+The result looks like this:
+
+```erb
+<%= javascript_pack_tag 'calendar', 'map' %>
+
+<script src="/packs/vendor-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+<script src="/packs/calendar~runtime-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+<script src="/packs/calendar-1016838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+<script src="/packs/map~runtime-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+<script src="/packs/map-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+```
+
+**Important:** Pass all your pack names when using this helper otherwise you will
+get duplicated chunks on the page.
+
+```erb
+<%# DO %>
+<%= javascript_packs_with_chunks_tag 'calendar', 'map' %>
+
+<%# DON'T %>
+<%= javascript_packs_with_chunks_tag 'calendar' %>
+<%= javascript_packs_with_chunks_tag 'map' %>
+```
+
 If you want to link a static asset for `<img />` tag, you can use the `asset_pack_path` helper:
 ```erb
 <img src="<%= asset_pack_path 'images/logo.svg' %>" />
@@ -164,6 +191,9 @@ If you want to use images in your stylesheets:
 }
 ```
 
+
+
+#### Server-Side Rendering (SSR)
 Note, if you are using server-side rendering of JavaScript with dynamic code-spliting,
 as is often done with extensions to Webpacker, like [React on Rails](https://github.com/shakacode/react_on_rails)
 your JavaScript should create the link prefetch HTML tags that you will use, so you won't
