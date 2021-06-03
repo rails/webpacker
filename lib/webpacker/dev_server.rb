@@ -11,7 +11,7 @@ class Webpacker::DevServer
     @config = config
   end
 
-  def running?
+  def configured_and_running?
     if config.dev_server.present?
       Socket.tcp(host, port, connect_timeout: connect_timeout).close
       true

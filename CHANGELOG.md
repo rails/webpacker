@@ -26,8 +26,9 @@ environment.loaders.append('nodeModules', nodeModules)
 - Simple webpack config
 - Removed integration installers
 - Splitchunks enabled by default
-- CSS extraction enabled by default
+- CSS extraction enabled by default, except when devServer is configured and running
 - Optional CSS support
+- Renamed DevServer.running? to DevServer.configured_and_running?
 
 ## [[5.4.0]](https://github.com/rails/webpacker/compare/v5.3.0...v5.4.0) - 2021-05-18
 

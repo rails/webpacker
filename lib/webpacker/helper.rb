@@ -128,6 +128,10 @@ module Webpacker::Helper
   #   <link rel="stylesheet" media="screen" href="/packs/calendar-8c7ce31a.chunk.css" />
   #   <link rel="stylesheet" media="screen" href="/packs/map-8c7ce31a.chunk.css" />
   #
+  #   When using the webpack-dev-server, CSS is inlined so HMR can be turned on for CSS,
+  #   including CSS modules
+  #   <%= stylesheet_pack_tag 'calendar', 'map' %> # => nil
+  #
   # DO:
   #
   #   <%= stylesheet_pack_tag 'calendar', 'map' %>
@@ -137,7 +141,8 @@ module Webpacker::Helper
   #   <%= stylesheet_pack_tag 'calendar' %>
   #   <%= stylesheet_pack_tag 'map' %>
   def stylesheet_pack_tag(*names, **options)
-    unless current_webpacker_instance.dev_server.running?
+    css_extracted = !Webpacker.dev_server.configured_and_running?
+    if css_extracted
       stylesheet_link_tag(*sources_from_manifest_entrypoints(names, type: :stylesheet), **options)
     end
   end
