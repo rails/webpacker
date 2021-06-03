@@ -23,7 +23,7 @@ describe('Development environment', () => {
         devServer: {
           host: 'localhost',
           port: 3035,
-          injectClient: true
+          injectClient: false
         }
       })
     })
