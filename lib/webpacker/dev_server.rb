@@ -51,6 +51,10 @@ class Webpacker::DevServer
     fetch(:pretty)
   end
 
+  def hmr?
+    fetch(:hmr)
+  end
+
   def env_prefix
     config.dev_server.fetch(:env_prefix, DEFAULT_ENV_PREFIX)
   end

@@ -15,8 +15,7 @@ let devConfig = {
 if (runningWebpackDevServer) {
   if (devServer.hmr) {
     devConfig = merge(devConfig, {
-      output: { filename: '[name]-[hash].js' },
-      plugins: [new webpack.HotModuleReplacementPlugin()]
+      output: { filename: '[name]-[hash].js' }
     })
   }
 
@@ -31,8 +30,8 @@ if (runningWebpackDevServer) {
       https: devServer.https,
       hot: devServer.hmr,
       contentBase,
-      inline: devServer.inline,
-      injectClient: !devServer.hmr,
+      inline: devServer.inline || devServer.hmr,
+      injectClient: devServer.hmr,
       injectHot: devServer.hmr,
       useLocalIp: devServer.use_local_ip,
       public: devServer.public,
