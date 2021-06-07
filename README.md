@@ -150,16 +150,19 @@ The result looks like this:
 <script src="/packs/map-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
 ```
 
-**Important:** Pass all your pack names when using this helper otherwise you will
-get duplicated chunks on the page.
+**Important:** Pass all your pack names as multiple arguments, not multiple calls, when using **`javascript_pack_tag`** and the **`stylesheet_pack_tag`**. Otherwise, you will
+get duplicated chunks on the page. Be especially careful if you might be calling these view helpers from your view, partials, and the layout for a page. You will need some logic to ensure you call the helpers only once with multiple arguments.
 
 ```erb
 <%# DO %>
-<%= javascript_packs_with_chunks_tag 'calendar', 'map' %>
+<%= javascript_packs_tag 'calendar', 'map' %>
+<%= stylesheet_pack_tag 'calendar', 'map' %>
 
 <%# DON'T %>
-<%= javascript_packs_with_chunks_tag 'calendar' %>
-<%= javascript_packs_with_chunks_tag 'map' %>
+<%= javascript_packs_tag 'calendar' %>
+<%= javascript_packs_tag 'map' %>
+<%= stylesheet_pack_tag 'calendar' %>
+<%= stylesheet_pack_tag 'map' %>
 ```
 
 If you want to link a static asset for `<img />` tag, you can use the `asset_pack_path` helper:
