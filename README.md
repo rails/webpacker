@@ -194,8 +194,6 @@ If you want to use images in your stylesheets:
 }
 ```
 
-
-
 #### Server-Side Rendering (SSR)
 Note, if you are using server-side rendering of JavaScript with dynamic code-spliting,
 as is often done with extensions to Webpacker, like [React on Rails](https://github.com/shakacode/react_on_rails)
