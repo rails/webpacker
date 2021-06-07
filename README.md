@@ -155,12 +155,12 @@ get duplicated chunks on the page. Be especially careful if you might be calling
 
 ```erb
 <%# DO %>
-<%= javascript_packs_tag 'calendar', 'map' %>
+<%= javascript_pack_tag 'calendar', 'map' %>
 <%= stylesheet_pack_tag 'calendar', 'map' %>
 
 <%# DON'T %>
-<%= javascript_packs_tag 'calendar' %>
-<%= javascript_packs_tag 'map' %>
+<%= javascript_pack_tag 'calendar' %>
+<%= javascript_pack_tag 'map' %>
 <%= stylesheet_pack_tag 'calendar' %>
 <%= stylesheet_pack_tag 'map' %>
 ```
