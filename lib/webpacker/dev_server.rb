@@ -61,6 +61,8 @@ class Webpacker::DevServer
 
   private
     def fetch(key)
+      return nil unless config.dev_server.present?
+
       ENV["#{env_prefix}_#{key.upcase}"] || config.dev_server.fetch(key, defaults[key])
     end
 
