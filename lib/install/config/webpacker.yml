@@ -37,6 +37,9 @@ development:
     compress: true
     # Note that apps that do not check the host are vulnerable to DNS rebinding attacks
     disable_host_check: true
+    # When this option is true, the rails proxy will assume that the dev server is always running.
+    # Otherwise, it will check connectivity by opening a test connection before every request.
+    disable_health_check: false
     # This option lets the browser open with your local IP
     use_local_ip: false
     # When enabled, nothing except the initial startup information will be written to the console.
@@ -44,9 +47,9 @@ development:
     quiet: false
     pretty: false
     headers:
-      'Access-Control-Allow-Origin': '*'
+      "Access-Control-Allow-Origin": "*"
     watch_options:
-      ignored: '**/node_modules/**'
+      ignored: "**/node_modules/**"
 
 test:
   <<: *default

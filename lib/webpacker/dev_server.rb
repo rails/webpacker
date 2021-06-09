@@ -1,5 +1,5 @@
 class Webpacker::DevServer
-  DEFAULT_ENV_PREFIX = "WEBPACKER_DEV_SERVER".freeze
+  DEFAULT_ENV_PREFIX = 'WEBPACKER_DEV_SERVER'.freeze
 
   # Configure dev server connection timeout (in seconds), default: 0.01
   # Webpacker.dev_server.connect_timeout = 1
@@ -13,12 +13,14 @@ class Webpacker::DevServer
 
   def running?
     if config.dev_server.present?
-      Socket.tcp(host, port, connect_timeout: connect_timeout).close
+      unless config.dev_server.disable_health_check
+        Socket.tcp(host, port, connect_timeout: connect_timeout).close
+      end
       true
     else
       false
     end
-  rescue
+  rescue StandardError
     false
   end
 
@@ -32,7 +34,7 @@ class Webpacker::DevServer
 
   def https?
     case fetch(:https)
-    when true, "true", Hash
+    when true, 'true', Hash
       true
     else
       false
@@ -40,7 +42,7 @@ class Webpacker::DevServer
   end
 
   def protocol
-    https? ? "https" : "http"
+    https? ? 'https' : 'http'
   end
 
   def host_with_port
@@ -56,11 +58,13 @@ class Webpacker::DevServer
   end
 
   private
-    def fetch(key)
-      ENV["#{env_prefix}_#{key.upcase}"] || config.dev_server.fetch(key, defaults[key])
-    end
 
-    def defaults
-      config.send(:defaults)[:dev_server] || {}
-    end
+  def fetch(key)
+    ENV["#{env_prefix}_#{key.upcase}"] ||
+      config.dev_server.fetch(key, defaults[key])
+  end
+
+  def defaults
+    config.send(:defaults)[:dev_server] || {}
+  end
 end
