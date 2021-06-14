@@ -29,40 +29,47 @@ In order to simplify even more the configuration, the custom API to manage the W
 Now you have a straight access to the Webpack configuration and you can change it very easily with webpack-merge. So now, you can refer to the documentation of the tools you want to install it with Webpack. Here is an example with [Vue](https://github.com/rails/webpacker#other-frameworks).
 
 ## How to upgrade to Webpacker v6
+_Or to the latest beta_
 
 1. If your `source_path` is `app/javascript`, rename it to `app/packs`
 2. If your `source_entry_path` is `packs`, rename it to `entrypoints`
 3. Rename `config/webpack` to `config/webpack_old`
 4. Rename `config/webpacker.yml` to `config/webpacker_old.yml`
 5. Uninstall the current version of `webpack-dev-server`: `yarn remove webpack-dev-server`
-6. Upgrade Webpacker
+6. Upgrade the Webpacker Ruby gem and NPM package
 
+- [Check the releases page to verify the latest version](https://github.com/rails/webpacker/releases)
+- Make sure to install identical version numbers of webpacker gem and `@rails/webpacker` npm package. Note, gems use a period and packages use a dot between the main version number and the beta version.
+
+_Use "exact" version_ 
   ```ruby
   # Gemfile
-  gem 'webpacker', '~> 6.0.0.pre.2'
+  gem 'webpacker', '6.0.0.beta.7'
   ```
 
   ```bash
   bundle install
   ```
 
+_Change the version to match and use "exact"_
   ```bash
-  yarn add @rails/webpacker@next
+  yarn add @rails/webpacker@6.0.0-beta.7 --exact
   ```
 
   ```bash
   bundle exec rails webpacker:install
   ```
+7. **IMPORTANT:** Update API usage of the view helpers.
+  * Change `javascript_packs_with_chunks_tag` and `stylesheet_packs_with_chunks_tag` to `javascript_pack_tag` and
+    `stylesheet_pack_tag`.
+  * **ENSURE** that your layouts and views will only have at most one call to `javascript_pack_tag` or `stylesheet_pack_tag`. You can now pass multiple bundles to these view helper methods. If you fail to changes this, you may experience **performance issues** and other bugs related to multiple copies of React, like [issue 2932](https://github.com/rails/webpacker/issues/2932).
 
-- Change `javascript_packs_with_chunks_tag` and `stylesheet_packs_with_chunks_tag` to `javascript_pack_tag` and
-  `stylesheet_pack_tag`.
+8. If you are using any integrations like `css`, `React` or `TypeScript`. Please see https://github.com/rails/webpacker#integrations section on how they work in v6.
 
-7. If you are using any integrations like `css`, `React` or `TypeScript`. Please see https://github.com/rails/webpacker#integrations section on how they work in v6.
+9. Copy over any custom webpack config from `config/webpack_old`
 
-8. Copy over any custom webpack config from `config/webpack_old`
-
-- Common code previously called 'environment' changed to 'base'
-- import `environment` changed name to `webpackConfig`.
+   - Common code previously called 'environment' changed to 'base'
+   - import `environment` changed name to `webpackConfig`.
 
   ```js
   // config/webpack/base.js
@@ -72,15 +79,15 @@ Now you have a straight access to the Webpack configuration and you can change i
   module.exports = merge(webpackConfig, customConfig)
   ```
 
-9. Copy over custom browserlist config from `.browserslistrc` if it exists into the `"browserslist"` key in `package.json` and remove `.browserslistrc`.
+10. Copy over custom browserlist config from `.browserslistrc` if it exists into the `"browserslist"` key in `package.json` and remove `.browserslistrc`.
 
-10. `extensions` was removed from the webpacker.yml file. Move custom extensions to
-  your configuration by merging an object like this. For more details, see docs for
-  [Webpack Configuration](https://github.com/rails/webpacker/blob/master/README.md#webpack-configuration)
+11. `extensions` was removed from the webpacker.yml file. Move custom extensions to
+     your configuration by merging an object like this. For more details, see docs for
+     [Webpack Configuration](https://github.com/rails/webpacker/blob/master/README.md#webpack-configuration)
 ```js
 {
   resolve: {
-      extensions: ['.ts', '.tsx']
+    extensions: ['.ts', '.tsx']
   }
 }
 ```
