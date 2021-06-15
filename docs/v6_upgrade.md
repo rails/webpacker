@@ -1,45 +1,31 @@
-# To Webpacker v6 from v5
+# Upgrading from Webpacker 5 to 6
 
-This guide aims to help you migrating to Webpacker 6. If you are using vanilla Webpacker install then hopefully, the upgrade should be really straightforward.
+There are several substantial changes in Webpacker 6 that you need to manually account for when coming from Webpacker 5. This guide will help you through it.
 
-## Main differences with v5
+## Webpacker has become a slimmer wrapper around Webpack
 
-The main goal for Webpacker v6 is to manage the JavaScript in your Rails application with Webpack. This will allow you, for example, to use JavaScript modules, automatic code splitting using multiple entry points, use PostCSS or use [Vue](https://vuejs.org/) or [React](https://reactjs.org/).
+By default, Webpacker 6 is focused on compiling and bundling JavaScript. This pairs with the existing asset pipeline in Rails that's setup to transpile CSS and static images using [Sprockets](https://github.com/rails/sprockets). For most developers, that's the recommended combination. But if you'd like to use Webpacker for CSS and static assets as well, please see [integrations](https://github.com/rails/webpacker#integrations) for more information.
 
-You probably don't want to install Webpacker and Webpack if you only need some JavaScript Sprinkles, Sass integration, images and fonts support.
+Webpacker used to configure Webpack indirectly, which lead to a [complicated secondary configuration process]https://github.com/rails/webpacker/blob/5-x-stable/docs/webpack.md. This was done in order to provide default configurations for the most popular frameworks, but ended up creating more complexity than it cured. So now Webpacker delegates all configuration directly to Webpack's default configuration setup.
 
-### Default integrations
+This means you have to configure integration with frameworks yourself, but webpack-merge helps with this. See this example for [Vue](https://github.com/rails/webpacker#other-frameworks).
 
-By default, Webpacker v6 out of the box supports JS and static assets (fonts, images etc.) compilation. Webpacker now detects automatically relevant packages to support more tools.
-
-See [Integrations](https://github.com/rails/webpacker#integrations) for more information.
-
-Why? Because most developers don't need to handle CSS, SASS or another tools with Webpack. [Sprockets](https://github.com/rails/sprockets) is probably enough and we don't want to make things harder.
-
-### Simpler API
-
-Webpacker is still a wrapper around [Webpack](https://webpack.js.org/) to simplify the integration in your Rails application.
-
-But we noticed that the [Webpacker v5 configuration](https://github.com/rails/webpacker/blob/5-x-stable/docs/webpack.md) was a bit confusing mostly because Webpack is a complicated beast to manage.
-
-There are so many different toolchains in JavaScript these days, it would be impossible to create the perfect configuration for everybody. That is also why defaults installers have been removed.
-
-In order to simplify even more the configuration, the custom API to manage the Webpack configuration has been removed.
-
-Now you have a straight access to the Webpack configuration and you can change it very easily with webpack-merge. So now, you can refer to the documentation of the tools you want to install it with Webpack. Here is an example with [Vue](https://github.com/rails/webpacker#other-frameworks).
-
-## How to upgrade to Webpacker v6
+## How to upgrade to Webpacker 6
 
 1. If your `source_path` is `app/javascript`, rename it to `app/packs`
 2. If your `source_entry_path` is `packs`, rename it to `entrypoints`
 3. Rename `config/webpack` to `config/webpack_old`
 4. Rename `config/webpacker.yml` to `config/webpacker_old.yml`
 5. Uninstall the current version of `webpack-dev-server`: `yarn remove webpack-dev-server`
-6. Upgrade Webpacker
+6. Upgrade the Webpacker Ruby gem and NPM package
+
+Note: [Check the releases page to verify the latest version](https://github.com/rails/webpacker/releases), and make sure to install identical version numbers of webpacker gem and `@rails/webpacker` npm package. (Gems use a period and packages use a dot between the main version number and the beta version.)
+
+Example going to a specific (beta) version:
 
   ```ruby
   # Gemfile
-  gem 'webpacker', '~> 6.0.0.pre.2'
+  gem 'webpacker', '6.0.0.beta.7'
   ```
 
   ```bash
@@ -47,22 +33,16 @@ Now you have a straight access to the Webpack configuration and you can change i
   ```
 
   ```bash
-  yarn add @rails/webpacker@next
+  yarn add @rails/webpacker@6.0.0-beta.7 --exact
   ```
 
   ```bash
   bundle exec rails webpacker:install
   ```
-
-- Change `javascript_packs_with_chunks_tag` and `stylesheet_packs_with_chunks_tag` to `javascript_pack_tag` and
-  `stylesheet_pack_tag`.
-
-7. If you are using any integrations like `css`, `React` or `TypeScript`. Please see https://github.com/rails/webpacker#integrations section on how they work in v6.
-
-8. Copy over any custom webpack config from `config/webpack_old`
-
-- Common code previously called 'environment' changed to 'base'
-- import `environment` changed name to `webpackConfig`.
+  
+7. Update API usage of the view helpers by changing `javascript_packs_with_chunks_tag` and `stylesheet_packs_with_chunks_tag` to `javascript_pack_tag` and `stylesheet_pack_tag`. Ensure that your layouts and views will only have **at most one call** to `javascript_pack_tag` or `stylesheet_pack_tag`. You can now pass multiple bundles to these view helper methods. If you fail to changes this, you may experience performance issues, and other bugs related to multiple copies of React, like [issue 2932](https://github.com/rails/webpacker/issues/2932).
+8. If you are using any integrations like `css`, `React` or `TypeScript`. Please see https://github.com/rails/webpacker#integrations section on how they work in v6.
+9. Copy over any custom webpack config from `config/webpack_old`. Common code previously called 'environment' should be changed to 'base', and import `environment` changed to `webpackConfig`.
 
   ```js
   // config/webpack/base.js
@@ -72,15 +52,13 @@ Now you have a straight access to the Webpack configuration and you can change i
   module.exports = merge(webpackConfig, customConfig)
   ```
 
-9. Copy over custom browserlist config from `.browserslistrc` if it exists into the `"browserslist"` key in `package.json` and remove `.browserslistrc`.
+10. Copy over custom browserlist config from `.browserslistrc` if it exists into the `"browserslist"` key in `package.json` and remove `.browserslistrc`.
+11. `extensions` was removed from the webpacker.yml file. Move custom extensions to your configuration by merging an object like this. For more details, see docs for [Webpack Configuration](https://github.com/rails/webpacker/blob/master/README.md#webpack-configuration)
 
-10. `extensions` was removed from the webpacker.yml file. Move custom extensions to
-  your configuration by merging an object like this. For more details, see docs for
-  [Webpack Configuration](https://github.com/rails/webpacker/blob/master/README.md#webpack-configuration)
 ```js
 {
   resolve: {
-      extensions: ['.ts', '.tsx']
+    extensions: ['.ts', '.tsx']
   }
 }
 ```
