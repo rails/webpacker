@@ -42,6 +42,7 @@ if (
       headers: devServer.headers,
       overlay: devServer.overlay,
       stats: {
+        colors: true,
         entrypoints: false,
         errorDetails: true,
         modules: false,
