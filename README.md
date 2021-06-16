@@ -135,6 +135,36 @@ You can then link the JavaScript pack in Rails views using the `javascript_pack_
 <%= stylesheet_pack_tag 'application' %>
 ```
 
+The `javascript_pack_tag` and `stylesheet_pack_tag` helpers will include all the transpiled
+packs with the chunks in your view, which creates html tags for all the chunks.
+
+The result looks like this:
+
+```erb
+<%= javascript_pack_tag 'calendar', 'map' %>
+
+<script src="/packs/vendor-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+<script src="/packs/calendar~runtime-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+<script src="/packs/calendar-1016838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+<script src="/packs/map~runtime-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+<script src="/packs/map-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+```
+
+**Important:** Pass all your pack names as multiple arguments, not multiple calls, when using **`javascript_pack_tag`** and the **`stylesheet_pack_tag`**. Otherwise, you will
+get duplicated chunks on the page. Be especially careful if you might be calling these view helpers from your view, partials, and the layout for a page. You will need some logic to ensure you call the helpers only once with multiple arguments.
+
+```erb
+<%# DO %>
+<%= javascript_pack_tag 'calendar', 'map' %>
+<%= stylesheet_pack_tag 'calendar', 'map' %>
+
+<%# DON'T %>
+<%= javascript_pack_tag 'calendar' %>
+<%= javascript_pack_tag 'map' %>
+<%= stylesheet_pack_tag 'calendar' %>
+<%= stylesheet_pack_tag 'map' %>
+```
+
 If you want to link a static asset for `<img />` tag, you can use the `asset_pack_path` helper:
 ```erb
 <img src="<%= asset_pack_path 'images/logo.svg' %>" />
@@ -164,6 +194,7 @@ If you want to use images in your stylesheets:
 }
 ```
 
+#### Server-Side Rendering (SSR)
 Note, if you are using server-side rendering of JavaScript with dynamic code-spliting,
 as is often done with extensions to Webpacker, like [React on Rails](https://github.com/shakacode/react_on_rails)
 your JavaScript should create the link prefetch HTML tags that you will use, so you won't
@@ -533,8 +564,13 @@ bundle update webpacker
 # overwrite your changes to the default install files and revert any unwanted changes from the install
 rails webpacker:install
 
+# yarn 1 instructions
 yarn upgrade @rails/webpacker --latest
 yarn upgrade webpack-dev-server --latest
+
+# yarn 2 instructions
+yarn up @rails/webpacker@latest
+yarn up webpack-dev-server@latest
 
 # Or to install the latest release (including pre-releases)
 yarn add @rails/webpacker@next
@@ -601,6 +637,8 @@ import 'images/rails.png'
 **Note:** Please be careful when adding paths here otherwise it
 will make the compilation slow, consider adding specific paths instead of
 whole parent directory if you just need to reference one or two modules
+
+**Also note:** While importing assets living outside your `source_path` defined in webpacker.yml (like, for instance, assets under `app/assets`) from within your packs using _relative_ paths like `import '../../assets/javascripts/file.js'` will work in development, Webpacker won't recompile the bundle in production unless a file that lives in one of it's watched paths has changed (check out `Webpacker::Compiler#watched_files_digest`). That's why you'd need to add `app/assets` to the additional_paths as stated above and use `import 'javascripts/file.js'` instead.
 
 ## Deployment
 

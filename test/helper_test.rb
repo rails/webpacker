@@ -120,26 +120,31 @@ class HelperTest < ActionView::TestCase
       javascript_pack_tag(:application)
   end
 
+  def application_stylesheet_chunks
+    %w[/packs/1-c20632e7baf2c81200d3.chunk.css /packs/application-k344a6d59eef8632c9d1.chunk.css]
+  end
+
+  def hello_stimulus_stylesheet_chunks
+    %w[/packs/hello_stimulus-k344a6d59eef8632c9d1.chunk.css]
+  end
+
   def test_stylesheet_pack_tag
     assert_equal \
-      %(<link rel="stylesheet" media="screen" href="/packs/1-c20632e7baf2c81200d3.chunk.css" />\n) +
-        %(<link rel="stylesheet" media="screen" href="/packs/application-k344a6d59eef8632c9d1.chunk.css" />\n) +
-        %(<link rel="stylesheet" media="screen" href="/packs/hello_stimulus-k344a6d59eef8632c9d1.chunk.css" />),
+      (application_stylesheet_chunks + hello_stimulus_stylesheet_chunks)
+        .map { |chunk| stylesheet_link_tag(chunk) }.join("\n"),
       stylesheet_pack_tag("application", "hello_stimulus")
   end
 
   def test_stylesheet_pack_tag_symbol
     assert_equal \
-      %(<link rel="stylesheet" media="screen" href="/packs/1-c20632e7baf2c81200d3.chunk.css" />\n) +
-        %(<link rel="stylesheet" media="screen" href="/packs/application-k344a6d59eef8632c9d1.chunk.css" />\n) +
-        %(<link rel="stylesheet" media="screen" href="/packs/hello_stimulus-k344a6d59eef8632c9d1.chunk.css" />),
+      (application_stylesheet_chunks + hello_stimulus_stylesheet_chunks)
+        .map { |chunk| stylesheet_link_tag(chunk) }.join("\n"),
       stylesheet_pack_tag(:application, :hello_stimulus)
   end
 
   def test_stylesheet_pack_tag_splat
     assert_equal \
-      %(<link rel="stylesheet" media="all" href="/packs/1-c20632e7baf2c81200d3.chunk.css" />\n) +
-        %(<link rel="stylesheet" media="all" href="/packs/application-k344a6d59eef8632c9d1.chunk.css" />),
+      (application_stylesheet_chunks).map { |chunk| stylesheet_link_tag(chunk, media: "all") }.join("\n"),
       stylesheet_pack_tag("application", media: "all")
   end
 end

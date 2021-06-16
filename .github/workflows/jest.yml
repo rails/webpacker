@@ -3,7 +3,7 @@ name: Jest specs
 on: [push, pull_request]
 
 jobs:
-  build:
+  jest:
     name: Jest specs
     strategy:
       matrix:
@@ -13,6 +13,9 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
+      - name: Install yarn maybe
+        run: which yarn || sudo npm install -g yarn
+
       - uses: actions/checkout@v2
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
