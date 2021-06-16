@@ -38,6 +38,13 @@
           "/packs/hello_stimulus-k344a6d59eef8632c9d1.chunk.css"
         ]
       }
+    },
+    "print/application": {
+      "assets": {
+        "css": [
+          "/packs/print/application-983b6c164a47f7ed49cd.css"
+        ]
+      }
     }
   }
 }
