@@ -3,7 +3,7 @@ name: Ruby specs
 on: [push, pull_request]
 
 jobs:
-  build:
+  test:
     name: Ruby specs
     runs-on: ${{ matrix.os }}
     continue-on-error: ${{ endsWith(matrix.ruby, 'head') || matrix.ruby == 'debug' || matrix.experimental }}
@@ -23,23 +23,20 @@ jobs:
         ]
         gemfile: [
           "gemfiles/Gemfile-rails.5.2.x",
-          "gemfiles/Gemfile-rails.6.0.x"
+          "gemfiles/Gemfile-rails.6.0.x",
+          "gemfiles/Gemfile-rails.6.1.x"
         ]
         exclude:
-          - ruby: "2.4"
+          - ruby: 2.4
             gemfile: gemfiles/Gemfile-rails.6.0.x
-          - ruby: "3.0"
+          - ruby: 2.4
+            gemfile: gemfiles/Gemfile-rails.6.1.x
+          - ruby: 2.5
+            gemfile: gemfiles/Gemfile-rails.6.1.x
+          - ruby: 3.0
             gemfile: gemfiles/Gemfile-rails.5.2.x
         experimental: [false]
         include:
-          - ruby: 2.5
-            os: ubuntu-latest
-            gemfile: gemfiles/Gemfile-rails-edge
-            experimental: true
-          - ruby: 2.6
-            os: ubuntu-latest
-            gemfile: gemfiles/Gemfile-rails-edge
-            experimental: true
           - ruby: 2.7
             os: ubuntu-latest
             gemfile: gemfiles/Gemfile-rails-edge
@@ -57,6 +54,9 @@ jobs:
           key: bundle-use-ruby-${{ matrix.ruby }}-${{ matrix.gemfile }}-gems-${{ hashFiles(matrix.gemfile) }}-${{ hashFiles('**/*.gemspec') }}
           restore-keys: |
             bundle-use-ruby-${{ matrix.ruby }}-${{ matrix.gemfile }}-gems-
+
+      - name: Install yarn maybe
+        run: which yarn || sudo npm install -g yarn
 
       - uses: ruby/setup-ruby@v1
         with:

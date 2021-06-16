@@ -8,6 +8,7 @@ AllCops:
     - "lib/install/templates/**"
     - "vendor/**/*"
     - "node_modules/**/*"
+    - "_actions/**/*"
 
 # Prefer &&/|| over and/or.
 Style/AndOr:

@@ -3,7 +3,7 @@ name: Rubocop
 on: [push, pull_request]
 
 jobs:
-  build:
+  rubocop:
     name: Rubocop
     runs-on: ${{ matrix.os }}
     env:
