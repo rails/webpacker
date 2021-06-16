@@ -3,7 +3,7 @@ namespace :webpacker do
   desc "Verifies if Yarn is installed"
   task :check_yarn do
     begin
-      which_command = Gem.win_platform? ? 'where' : 'which'
+      which_command = Gem.win_platform? ? "where" : "which"
       raise Errno::ENOENT if `#{which_command} yarn`.strip.empty?
 
       yarn_version = `yarn --version`.strip
