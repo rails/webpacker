@@ -3,7 +3,7 @@ namespace :webpacker do
   desc "Verifies if Node.js is installed"
   task :check_node do
     begin
-      which_command = Gem.win_platform? ? 'where' : 'which'
+      which_command = Gem.win_platform? ? "where" : "which"
       raise Errno::ENOENT if `#{which_command} node || #{which_command} nodejs`.strip.empty?
 
       node_version = `node -v || nodejs -v`.strip
