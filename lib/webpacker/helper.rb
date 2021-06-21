@@ -141,8 +141,7 @@ module Webpacker::Helper
   #   <%= stylesheet_pack_tag 'calendar' %>
   #   <%= stylesheet_pack_tag 'map' %>
   def stylesheet_pack_tag(*names, **options)
-    css_inline = Webpacker.dev_server.hmr? && Webpacker.dev_server.configured_and_running?
-    return "" if css_inline
+    return "" if Webpacker.inlining_css?
 
     stylesheet_link_tag(*sources_from_manifest_entrypoints(names, type: :stylesheet), **options)
   end

@@ -10,7 +10,7 @@ class Webpacker::DevServerProxy < Rack::Proxy
   end
 
   def perform_request(env)
-    if env["PATH_INFO"].start_with?("/#{public_output_uri_path}") && dev_server.configured_and_running?
+    if env["PATH_INFO"].start_with?("/#{public_output_uri_path}") && dev_server.running?
       env["HTTP_HOST"] = env["HTTP_X_FORWARDED_HOST"] = dev_server.host
       env["HTTP_X_FORWARDED_SERVER"] = dev_server.host_with_port
       env["HTTP_PORT"] = env["HTTP_X_FORWARDED_PORT"] = dev_server.port.to_s

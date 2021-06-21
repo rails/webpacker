@@ -2,7 +2,7 @@ require "test_helper"
 
 class DevServerTest < Webpacker::Test
   def test_running?
-    refute Webpacker.dev_server.configured_and_running?
+    refute Webpacker.dev_server.running?
   end
 
   def test_host

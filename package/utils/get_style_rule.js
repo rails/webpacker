@@ -12,10 +12,10 @@ const getStyleRule = (test, preprocessors = []) => {
       }))
 
     // style-loader is required when using css modules with HMR on the webpack-dev-server
-    const cssInline = runningWebpackDevServer && devServer.hmr
+    const inliningCss = runningWebpackDevServer && devServer.hmr
 
     const use = [
-      cssInline ? 'style-loader' : require('mini-css-extract-plugin').loader,
+      inliningCss ? 'style-loader' : require('mini-css-extract-plugin').loader,
       {
         loader: require.resolve('css-loader'),
         options: {

@@ -39,8 +39,10 @@ const canProcess = (rule, fn) => {
   return null
 }
 
-const runningWebpackDevServer = process.env.WEBPACK_DEV_SERVER &&
-  process.env.WEBPACK_DEV_SERVER !== 'undefined'
+// v4 of webpack-dev-server will switch to WEBPACK_DEV_SERVE
+// https://github.com/rails/webpacker/issues/3057
+const runningWebpackDevServer = process.env.WEBPACK_DEV_SERVER === 'true' ||
+  process.env.WEBPACK_DEV_SERVE === 'true'
 
 module.exports = {
   chdirTestApp,

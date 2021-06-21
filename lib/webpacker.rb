@@ -30,7 +30,7 @@ module Webpacker
     Webpacker.logger = old_logger
   end
 
-  delegate :logger, :logger=, :env, to: :instance
+  delegate :logger, :logger=, :env, :inlining_css?, to: :instance
   delegate :config, :compiler, :manifest, :commands, :dev_server, to: :instance
   delegate :bootstrap, :clean, :clobber, :compile, to: :commands
 end
