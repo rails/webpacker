@@ -15,7 +15,8 @@ describe('Env', () => {
       railsEnv: 'development',
       nodeEnv: 'development',
       isProduction: false,
-      isDevelopment: true
+      isDevelopment: true,
+      runningWebpackDevServer: false
     })
   })
 
@@ -26,7 +27,8 @@ describe('Env', () => {
       railsEnv: 'development',
       nodeEnv: 'production',
       isProduction: true,
-      isDevelopment: false
+      isDevelopment: false,
+      runningWebpackDevServer: false
     })
   })
 
@@ -37,7 +39,8 @@ describe('Env', () => {
       railsEnv: 'production',
       nodeEnv: 'production',
       isProduction: true,
-      isDevelopment: false
+      isDevelopment: false,
+      runningWebpackDevServer: false
     })
   })
 
@@ -48,7 +51,8 @@ describe('Env', () => {
       railsEnv: 'staging',
       nodeEnv: 'production',
       isProduction: true,
-      isDevelopment: false
+      isDevelopment: false,
+      runningWebpackDevServer: false
     })
   })
 })

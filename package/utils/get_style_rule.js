@@ -1,7 +1,6 @@
 /* eslint global-require: 0 */
-
-const devServer = require('../dev_server')
-const { canProcess, moduleExists, runningWebpackDevServer } = require('./helpers')
+const { canProcess, moduleExists } = require('./helpers')
+const inliningCss = require('../inliningCss')
 
 const getStyleRule = (test, preprocessors = []) => {
   if (moduleExists('css-loader')) {
@@ -12,7 +11,6 @@ const getStyleRule = (test, preprocessors = []) => {
       }))
 
     // style-loader is required when using css modules with HMR on the webpack-dev-server
-    const inliningCss = runningWebpackDevServer && devServer.hmr
 
     const use = [
       inliningCss ? 'style-loader' : require('mini-css-extract-plugin').loader,

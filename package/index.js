@@ -10,6 +10,7 @@ const config = require('./config')
 const devServer = require('./dev_server')
 const { nodeEnv } = require('./env')
 const { moduleExists, canProcess } = require('./utils/helpers')
+const inliningCss = require('./inliningCss')
 
 const webpackConfig = () => {
   const path = resolve(__dirname, 'environments', `${nodeEnv}.js`)
@@ -25,5 +26,6 @@ module.exports = {
   rules,
   moduleExists,
   canProcess,
+  inliningCss,
   ...webpackMerge
 }

@@ -2,7 +2,7 @@ const { merge } = require('webpack-merge')
 
 const baseConfig = require('./base')
 const devServer = require('../dev_server')
-const { runningWebpackDevServer } = require('../utils/helpers')
+const { runningWebpackDevServer } = require('../env')
 
 const { outputPath: contentBase, publicPath } = require('../config')
 
