@@ -23,8 +23,8 @@ class WebpackerTest < Webpacker::Test
     def dev_server.https?; true; end
     def dev_server.hmr?; true; end
     def dev_server.running?; true; end
-    Webpacker::DevServer.stub(:new, dev_server) do
-      assert !Webpacker.inlining_css?
+    Webpacker.instance.stub(:dev_server, dev_server) do
+      assert Webpacker.inlining_css?
     end
   end
 end
