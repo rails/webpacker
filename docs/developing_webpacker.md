@@ -17,7 +17,7 @@ Use [`yalc`](https://github.com/wclr/yalc) unless you like yak shaving weird err
    
 ## Update the Package Code
 1. Make some JS change in WEBPACKER_DIR
-2. Run `yalc push` and your changes will to your `TEST_APP_DIR`'s node_modules.
+2. Run `yalc push` and your changes will be pushed to your `TEST_APP_DIR`'s node_modules.
 3. You may need to run `yarn` in `TEST_APP_DIR` if you added or removed dependencies of rails/webpacker.
 
 ## Updating the Ruby Code
