@@ -5,7 +5,6 @@ const { basename, dirname, join, relative, resolve } = require('path')
 const extname = require('path-complete-extname')
 const PnpWebpackPlugin = require('pnp-webpack-plugin')
 const { sync: globSync } = require('glob')
-const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 const WebpackAssetsManifest = require('webpack-assets-manifest')
 const webpack = require('webpack')
 const rules = require('../rules')
@@ -52,7 +51,6 @@ const getModulePaths = () => {
 const getPlugins = () => {
   const plugins = [
     new webpack.EnvironmentPlugin(process.env),
-    new CaseSensitivePathsPlugin(),
     new WebpackAssetsManifest({
       entrypoints: true,
       writeToDisk: true,
