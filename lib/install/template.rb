@@ -68,9 +68,7 @@ if Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR > 1
   say "policy.connect_src :self, :https, \"http://localhost:3035\", \"ws://localhost:3035\" if Rails.env.development?", :yellow
 end
 
-if results.all?
-  say "Webpacker successfully installed 🎉 🍰", :green
-else
+unless results.all?
   say "Webpacker installation failed 😭 See above for details.", :red
   exit 1
 end
