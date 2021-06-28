@@ -14,7 +14,7 @@ describe('Development environment', () => {
     test('should use development config and environment including devServer if WEBPACK_DEV_SERVER', () => {
       process.env.RAILS_ENV = 'development'
       process.env.NODE_ENV = 'development'
-      process.env.WEBPACK_DEV_SERVER = 'YES'
+      process.env.WEBPACK_DEV_SERVER = 'true'
       const { webpackConfig } = require('../index')
 
       expect(webpackConfig.output.path).toEqual(resolve('public', 'packs'))
@@ -23,7 +23,7 @@ describe('Development environment', () => {
         devServer: {
           host: 'localhost',
           port: 3035,
-          injectClient: true
+          injectClient: false
         }
       })
     })

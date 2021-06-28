@@ -25,12 +25,8 @@ development:
     host: localhost
     port: 3035
     public: localhost:3035
-    # Inject browserside javascript that is required by both HMR and Live (full) reload
-    inject_client: true
     # Hot Module Replacement updates modules while the application is running without a full reload
     hmr: false
-    # Inline should be set to true if using HMR; it inserts a script to take care of live reloading
-    inline: true
     # Should we show a full-screen overlay in the browser when there are compiler errors or warnings?
     overlay: true
     # Should we use gzip compression?
@@ -42,7 +38,7 @@ development:
     # When enabled, nothing except the initial startup information will be written to the console.
     # This also means that errors or warnings from webpack are not visible.
     quiet: false
-    pretty: false
+    pretty: true
     headers:
       'Access-Control-Allow-Origin': '*'
     watch_options:

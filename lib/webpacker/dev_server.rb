@@ -51,12 +51,18 @@ class Webpacker::DevServer
     fetch(:pretty)
   end
 
+  def hmr?
+    fetch(:hmr)
+  end
+
   def env_prefix
     config.dev_server.fetch(:env_prefix, DEFAULT_ENV_PREFIX)
   end
 
   private
     def fetch(key)
+      return nil unless config.dev_server.present?
+
       ENV["#{env_prefix}_#{key.upcase}"] || config.dev_server.fetch(key, defaults[key])
     end
 

@@ -40,6 +40,7 @@ class DevServerRunnerTest < Webpacker::Test
     def dev_server.port; "3035"; end
     def dev_server.pretty?; false; end
     def dev_server.https?; true; end
+    def dev_server.hmr?; false; end
     Webpacker::DevServer.stub(:new, dev_server) do
       verify_command(cmd, argv: ["--https"])
     end
