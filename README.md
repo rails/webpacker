@@ -33,7 +33,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
   - [Custom Rails environments](#custom-rails-environments)
   - [Upgrading](#upgrading)
 - [Paths](#paths)
-  - [Additional Paths](#additional-paths)
+  - [Additional paths](#additional-paths)
 - [Deployment](#deployment)
 - [Contributing](#contributing)
 - [License](#license)
