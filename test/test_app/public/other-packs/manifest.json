@@ -1,0 +1,50 @@
+{
+  "bootstrap.css": "/other-packs/bootstrap-c38deda30895059837cf.css",
+  "application.css": "/other-packs/application-dd6b1cd38bfa093df600.css",
+  "bootstrap.js": "/other-packs/bootstrap-300631c4f0e0f9c865bc.js",
+  "application.js": "/other-packs/application-k344a6d59eef8632c9d1.js",
+  "application.png": "/other-packs/application-k344a6d59eef8632c9d1.png",
+  "fonts/fa-regular-400.woff2": "/other-packs/fonts/fa-regular-400-944fb546bd7018b07190a32244f67dc9.woff2",
+  "media/images/image.jpg": "/other-packs/media/images/image-c38deda30895059837cf.jpg",
+  "media/images/image-2x.jpg": "/other-packs/media/images/image-2x-7cca48e6cae66ec07b8e.jpg",
+  "media/images/nested/image.jpg": "/other-packs/media/images/nested/image-c38deda30895059837cf.jpg",
+  "media/images/mb-icon.png": "/other-packs/media/images/mb-icon-c38deda30895059837cf.png",
+  "media/images/nested/mb-icon.png": "/other-packs/media/images/nested/mb-icon-c38deda30895059837cf.png",
+  "entrypoints": {
+    "application": {
+      "assets": {
+        "js": [
+          "/other-packs/vendors~application~bootstrap-c20632e7baf2c81200d3.chunk.js",
+          "/other-packs/vendors~application-e55f2aae30c07fb6d82a.chunk.js",
+          "/other-packs/application-k344a6d59eef8632c9d1.js"
+        ],
+        "css": [
+          "/other-packs/1-c20632e7baf2c81200d3.chunk.css",
+          "/other-packs/application-k344a6d59eef8632c9d1.chunk.css"
+        ]
+      }
+    },
+    "bootstrap": {
+      "assets": {
+        "js": [
+          "/other-packs/bootstrap-300631c4f0e0f9c865bc.js"
+        ]
+      }
+    },
+    "hello_stimulus": {
+      "assets": {
+        "css": [
+          "/other-packs/1-c20632e7baf2c81200d3.chunk.css",
+          "/other-packs/hello_stimulus-k344a6d59eef8632c9d1.chunk.css"
+        ]
+      }
+    },
+    "print/application": {
+      "assets": {
+        "css": [
+          "/other-packs/print/application-983b6c164a47f7ed49cd.css"
+        ]
+      }
+    }
+  }
+}
