@@ -39,7 +39,6 @@ Example going to a specific (beta) version:
   ```bash
   bundle exec rails webpacker:install
   ```
-  
 7. Update API usage of the view helpers by changing `javascript_packs_with_chunks_tag` and `stylesheet_packs_with_chunks_tag` to `javascript_pack_tag` and `stylesheet_pack_tag`. Ensure that your layouts and views will only have **at most one call** to `javascript_pack_tag` or `stylesheet_pack_tag`. You can now pass multiple bundles to these view helper methods. If you fail to changes this, you may experience performance issues, and other bugs related to multiple copies of React, like [issue 2932](https://github.com/rails/webpacker/issues/2932).
 8. If you are using any integrations like `css`, `React` or `TypeScript`. Please see https://github.com/rails/webpacker#integrations section on how they work in v6.
 9. Copy over any custom webpack config from `config/webpack_old`. Common code previously called 'environment' should be changed to 'base', and import `environment` changed to `webpackConfig`.
@@ -53,12 +52,22 @@ Example going to a specific (beta) version:
   ```
 
 10. Copy over custom browserlist config from `.browserslistrc` if it exists into the `"browserslist"` key in `package.json` and remove `.browserslistrc`.
-11. `extensions` was removed from the webpacker.yml file. Move custom extensions to your configuration by merging an object like this. For more details, see docs for [Webpack Configuration](https://github.com/rails/webpacker/blob/master/README.md#webpack-configuration)
+
+11. Remove `babel.config.js` if you never changed it. Be sure to have this config in your `package.json`:
+```json
+"babel": {
+  "presets": [
+    "./node_modules/@rails/webpacker/package/babel/preset.js"
+  ]
+}
+```
+12. Remove `postcss.config.js` if you don't use `PostCSS`.
+13. `extensions` was removed from the `webpacker.yml` file. Move custom extensions to your configuration by merging an object like this. For more details, see docs for [Webpack Configuration](https://github.com/rails/webpacker/blob/master/README.md#webpack-configuration)
 
 ```js
 {
   resolve: {
-    extensions: ['.ts', '.tsx']
+    extensions: ['.ts', '.tsx', '.vue', '.css']
   }
 }
 ```
