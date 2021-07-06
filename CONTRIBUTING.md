@@ -44,3 +44,9 @@ bundle exec rake test
 ```
 bundle exec rake test TEST=test/rake_tasks_test.rb
 ```
+
+#### 4.2 Run a single ruby test
+
+```
+ruby -I test test/rake_tasks_test.rb -n test_rake_webpacker_install
+```
