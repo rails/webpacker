@@ -128,11 +128,11 @@ app/packs:
       └── logo.svg
 ```
 
-You can then link the JavaScript pack in Rails views using the `javascript_pack_tag` helper. If you have styles imported in your pack file, you can link them by using `stylesheet_pack_tag`:
+You can then link the JavaScript pack in Rails views using the `javascript_pack_tag` helper. If you have styles imported in your pack files, you can link them by using `stylesheet_pack_tag`:
 
 ```erb
-<%= javascript_pack_tag 'application' %>
-<%= stylesheet_pack_tag 'application' %>
+<%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: true %>
+<%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 ```
 
 The `javascript_pack_tag` and `stylesheet_pack_tag` helpers will include all the transpiled
@@ -141,13 +141,13 @@ packs with the chunks in your view, which creates html tags for all the chunks.
 The result looks like this:
 
 ```erb
-<%= javascript_pack_tag 'calendar', 'map' %>
+<%= javascript_pack_tag 'calendar', 'map', 'data-turbolinks-track': 'reload', defer: true %>
 
-<script src="/packs/vendor-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
-<script src="/packs/calendar~runtime-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
-<script src="/packs/calendar-1016838bab065ae1e314.js" data-turbolinks-track="reload"></script>
-<script src="/packs/map~runtime-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
-<script src="/packs/map-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+<script src="/packs/vendor-16838bab065ae1e314.js" data-turbolinks-track="reload" defer="defer"></script>
+<script src="/packs/calendar~runtime-16838bab065ae1e314.js" data-turbolinks-track="reload" defer="defer"></script>
+<script src="/packs/calendar-1016838bab065ae1e314.js" data-turbolinks-track="reload" defer="defer"></script>
+<script src="/packs/map~runtime-16838bab065ae1e314.js" data-turbolinks-track="reload" defer="defer"></script>
+<script src="/packs/map-16838bab065ae1e314.js" data-turbolinks-track="reload" defer="defer"></script>
 ```
 
 **Important:** Pass all your pack names as multiple arguments, not multiple calls, when using **`javascript_pack_tag`** and the **`stylesheet_pack_tag`**. Otherwise, you will
@@ -163,6 +163,14 @@ get duplicated chunks on the page. Be especially careful if you might be calling
 <%= javascript_pack_tag 'map' %>
 <%= stylesheet_pack_tag 'calendar' %>
 <%= stylesheet_pack_tag 'map' %>
+```
+
+For instance:
+```erb
+<% packs = %w[calendar] %>
+<% packs << 'map' if my_condition %>
+
+<%= javascript_pack_tag(*packs) %>
 ```
 
 If you want to link a static asset for `<img />` tag, you can use the `asset_pack_path` helper:
