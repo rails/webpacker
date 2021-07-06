@@ -396,7 +396,7 @@ To enable CSS support in your application, add following packages:
 yarn add css-loader mini-css-extract-plugin css-minimizer-webpack-plugin
 ```
 
-optionally, add the css extension to webpack config for easy resolution.
+Optionally, add the `CSS` extension to webpack config for easy resolution.
 
 ```js
 // config/webpack/base.js
@@ -410,13 +410,18 @@ const customConfig = {
 module.exports = merge(webpackConfig, customConfig)
 ```
 
-To enable postcss, sass or less support, add css support first and
+To enable `PostCSS`, `Sass` or `Less` support, add `CSS` support first and
 then add the relevant pre-processors:
 
 #### Postcss
 
 ```bash
 yarn add postcss-loader
+```
+
+Optionally add these two plugins if they are required in your `postcss.config.js`:
+```bash
+yarn add postcss-preset-env postcss-flexbugs-fixes
 ```
 
 #### Sass
@@ -481,7 +486,7 @@ Please follow webpack integration guide for relevant framework or library,
 For example to add Vue support:
 ```js
 // config/webpack/rules/vue.js
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const { VueLoaderPlugin } = require('vue-loader')
 
 module.exports = {
   module: {
@@ -492,7 +497,10 @@ module.exports = {
       }
     ]
   },
-  plugins: [new VueLoaderPlugin()]
+  plugins: [new VueLoaderPlugin()],
+  resolve: {
+    extensions: ['.vue']
+  }
 }
 ```
 
@@ -501,7 +509,7 @@ module.exports = {
 const { webpackConfig, merge } = require('@rails/webpacker')
 const vueConfig = require('./rules/vue')
 
-module.exports = merge(webpackConfig, vueConfig)
+module.exports = merge(vueConfig, webpackConfig)
 ```
 
 ### Custom Rails environments
