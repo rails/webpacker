@@ -77,12 +77,12 @@ const getPlugins = () => {
 
 // Don't use contentHash except for production for performance
 // https://webpack.js.org/guides/build-performance/#avoid-production-specific-tooling
-const filenameHash = isProduction ? '-[contenthash]' : '';
+const hash = isProduction ? '-[contenthash]' : ''
 module.exports = {
   mode: 'production',
   output: {
-    filename: `js/[name]${filenameHash}.js`,
-    chunkFilename: `js/[name]${filenameHash}.chunk.js`,
+    filename: `js/[name]${hash}.js`,
+    chunkFilename: `js/[name]${hash}.chunk.js`,
 
     // https://webpack.js.org/configuration/output/#outputhotupdatechunkfilename
     hotUpdateChunkFilename: 'js/[id].[fullhash].hot-update.js',
