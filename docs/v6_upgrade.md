@@ -12,6 +12,14 @@ This means you have to configure integration with frameworks yourself, but webpa
 
 ## How to upgrade to Webpacker 6
 
+0. Configure Zeitwerk to ignore `app/packs`. This step will [not be
+  necessary in Rails 7](https://github.com/rails/webpacker/pull/3090#issuecomment-930448348)
+
+    ```ruby
+    # config/application.rb
+    Rails.autoloaders.main.ignore(Rails.root.join('app/packs'))
+    ```
+
 1. Move your `app/javascript/packs/application.js` to `app/javascript/application.js`
 2. Rename `config/webpack` to `config/webpack_old`
 3. Rename `config/webpacker.yml` to `config/webpacker_old.yml`
@@ -73,4 +81,3 @@ Example going to a specific version:
 }
 ```
 14. Some dependencies were removed in [PR 3056](https://github.com/rails/webpacker/pull/3056). If you see the error: `Error: Cannot find module 'babel-plugin-macros'`, or similar, then you need to `yarn add <dependency>` where <dependency> might include: `babel-plugin-macros`, `case-sensitive-paths-webpack-plugin`, `core-js`, `regenerator-runtime`. Or you might want to remove your dependency on those.
-
