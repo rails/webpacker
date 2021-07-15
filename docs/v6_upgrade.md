@@ -61,6 +61,9 @@ Example going to a specific (beta) version:
   ]
 }
 ```
+
+React users should specify `webpacker/package/babel/preset-react.js` instead.
+
 12. Remove `postcss.config.js` if you don't use `PostCSS`.
 13. `extensions` was removed from the `webpacker.yml` file. Move custom extensions to your configuration by merging an object like this. For more details, see docs for [Webpack Configuration](https://github.com/rails/webpacker/blob/master/README.md#webpack-configuration)
 
