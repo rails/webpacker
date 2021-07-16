@@ -28,6 +28,8 @@ Example going to a specific (beta) version:
   gem 'webpacker', '6.0.0.beta.7'
   ```
 
+Do *not* specify `'^6.0.0.beta.7'` (with a caret) or you will accidentally install `6.0.0.pre.2` which is months older than `beta.7`.
+
   ```bash
   bundle install
   ```
