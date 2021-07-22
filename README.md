@@ -150,7 +150,9 @@ The result looks like this:
 <script src="/packs/map-16838bab065ae1e314.js" data-turbolinks-track="reload" defer="defer"></script>
 ```
 
-**Important:** Pass all your pack names as multiple arguments, not multiple calls, when using **`javascript_pack_tag`** and the **`stylesheet_pack_tag`**. Otherwise, you will
+**Important:** In order to avoid hard to debug rendering issues, 
+it's important that you pass all your pack names as multiple string **arguments**, not multiple calls, 
+when using **`javascript_pack_tag`** and the **`stylesheet_pack_tag`**. Otherwise, you will
 get duplicated chunks on the page. Be especially careful if you might be calling these view helpers from your view, partials, and the layout for a page. You will need some logic to ensure you call the helpers only once with multiple arguments.
 
 ```erb
@@ -165,7 +167,11 @@ get duplicated chunks on the page. Be especially careful if you might be calling
 <%= stylesheet_pack_tag 'map' %>
 ```
 
-For instance:
+For instance let's say you only want to include a `map` pack when a specific `my_condition` method is truthy, 
+you can define an array of default packs which includes you `calendar` pack. 
+
+Then you can call the `javascript_pack_tag` helper once with the Ruby array splat operator so that each string 
+in the `packs` array is sent as an individual argument:
 ```erb
 <% packs = %w[calendar] %>
 <% packs << 'map' if my_condition %>
