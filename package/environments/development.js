@@ -18,34 +18,35 @@ if (runningWebpackDevServer) {
     })
   }
 
+  let staticConfig = { publicPath: contentBase }
+  if (devServer.static) {
+    staticConfig = { ...staticConfig, ...devServer.static }
+  }
+
   devConfig = merge(devConfig, {
+    stats: {
+      colors: true,
+      entrypoints: false,
+      errorDetails: true,
+      modules: false,
+      moduleTrace: false
+    },
     devServer: {
-      clientLogLevel: 'none',
+      client: {
+        overlay: devServer.overlay
+      },
+      devMiddleware: {
+        publicPath
+      },
       compress: devServer.compress,
-      quiet: devServer.quiet,
-      disableHostCheck: devServer.disable_host_check,
+      allowedHosts: devServer.allowed_hosts,
       host: devServer.host,
       port: devServer.port,
       https: devServer.https,
       hot: devServer.hmr,
-      contentBase,
-      inline: devServer.inline || devServer.hmr,
-      injectClient: devServer.hmr,
-      injectHot: devServer.hmr,
-      useLocalIp: devServer.use_local_ip,
-      public: devServer.public,
-      publicPath,
       historyApiFallback: { disableDotRule: true },
       headers: devServer.headers,
-      overlay: devServer.overlay,
-      stats: {
-        colors: true,
-        entrypoints: false,
-        errorDetails: true,
-        modules: false,
-        moduleTrace: false
-      },
-      watchOptions: devServer.watch_options
+      static: staticConfig
     }
   })
 }
