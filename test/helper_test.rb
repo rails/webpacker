@@ -118,28 +118,28 @@ class HelperTest < ActionView::TestCase
 
   def test_stylesheet_pack_tag_split_chunks
     assert_equal \
-      %(<link rel="stylesheet" media="screen" href="/packs/1-c20632e7baf2c81200d3.chunk.css" />\n) +
-        %(<link rel="stylesheet" media="screen" href="/packs/application-k344a6d59eef8632c9d1.chunk.css" />\n) +
-        %(<link rel="stylesheet" media="screen" href="/packs/hello_stimulus-k344a6d59eef8632c9d1.chunk.css" />),
+      %(<link rel="stylesheet" href="/packs/1-c20632e7baf2c81200d3.chunk.css" media="screen" />\n) +
+        %(<link rel="stylesheet" href="/packs/application-k344a6d59eef8632c9d1.chunk.css" media="screen" />\n) +
+        %(<link rel="stylesheet" href="/packs/hello_stimulus-k344a6d59eef8632c9d1.chunk.css" media="screen" />),
       stylesheet_packs_with_chunks_tag("application", "hello_stimulus")
   end
 
   def test_stylesheet_pack_tag
     assert_equal \
-      %(<link rel="stylesheet" media="screen" href="/packs/bootstrap-c38deda30895059837cf.css" />),
+      %(<link rel="stylesheet" href="/packs/bootstrap-c38deda30895059837cf.css" media="screen" />),
       stylesheet_pack_tag("bootstrap.css")
   end
 
   def test_stylesheet_pack_tag_symbol
     assert_equal \
-      %(<link rel="stylesheet" media="screen" href="/packs/bootstrap-c38deda30895059837cf.css" />),
+      %(<link rel="stylesheet" href="/packs/bootstrap-c38deda30895059837cf.css" media="screen" />),
       stylesheet_pack_tag(:bootstrap)
   end
 
   def test_stylesheet_pack_tag_splat
     assert_equal \
-      %(<link rel="stylesheet" media="all" href="/packs/bootstrap-c38deda30895059837cf.css" />\n) +
-        %(<link rel="stylesheet" media="all" href="/packs/application-dd6b1cd38bfa093df600.css" />),
+      %(<link rel="stylesheet" href="/packs/bootstrap-c38deda30895059837cf.css" media="all" />\n) +
+        %(<link rel="stylesheet" href="/packs/application-dd6b1cd38bfa093df600.css" media="all" />),
       stylesheet_pack_tag("bootstrap.css", "application.css", media: "all")
   end
 end
