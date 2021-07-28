@@ -184,7 +184,10 @@ If you want to create a favicon:
 If you want to preload a static asset in your `<head>`, you can use the `preload_pack_asset` helper:
 ```erb
 <%= preload_pack_asset 'fonts/fa-regular-400.woff2' %>
+<%# FOR SVGS DO: %>
+<%= preload_pack_asset "media/images/bootstrap-icons.svg", as: "image" %>
 ```
+
 
 If you want to use images in your stylesheets:
 
