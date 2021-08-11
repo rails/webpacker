@@ -29,6 +29,14 @@ jobs:
             gemfile: gemfiles/Gemfile-rails.6.0.x
         experimental: [false]
         include:
+          - ruby: 2.5
+            os: ubuntu-latest
+            gemfile: gemfiles/Gemfile-rails-edge
+            experimental: true
+          - ruby: 2.6
+            os: ubuntu-latest
+            gemfile: gemfiles/Gemfile-rails-edge
+            experimental: true
           - ruby: 2.7
             os: ubuntu-latest
             gemfile: gemfiles/Gemfile-rails-edge
