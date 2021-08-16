@@ -416,7 +416,7 @@ then add the relevant pre-processors:
 #### Postcss
 
 ```bash
-yarn add postcss-loader
+yarn add postcss postcss-loader
 ```
 
 Optionally add these two plugins if they are required in your `postcss.config.js`:
