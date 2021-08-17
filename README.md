@@ -393,7 +393,7 @@ module.exports = merge(webpackConfig, {
 To enable CSS support in your application, add following packages:
 
 ```bash
-yarn add css-loader mini-css-extract-plugin css-minimizer-webpack-plugin
+yarn add css-loader style-loader mini-css-extract-plugin css-minimizer-webpack-plugin
 ```
 
 Optionally, add the `CSS` extension to webpack config for easy resolution.
