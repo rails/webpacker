@@ -153,7 +153,7 @@ module Webpacker::Helper
     end
 
     def resolve_path_to_image(name, **options)
-      path = name.starts_with?("media/images/") ? name : "media/images/#{name}"
+      path = name.starts_with?("static/") ? name : "static/#{name}"
       path_to_asset(current_webpacker_instance.manifest.lookup!(path), options)
     rescue
       path_to_asset(current_webpacker_instance.manifest.lookup!(name), options)
