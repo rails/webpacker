@@ -4,14 +4,17 @@
 
 1. Read the error message carefully. The error message will tell you the precise key value
    that is not matching what Webpack expects.
+
 2. Put a `debugger` statement in your Webpack configuration and run `bin/webpack --debug-webpacker`.
    If you have a node debugger installed, you'll see the Chrome debugger for your webpack
-   config. For example, install the Chrome extension 
+   config. For example, install the Chrome extension
    [NiM](https://chrome.google.com/webstore/detail/nodejs-v8-inspector-manag/gnhhdgbaldcilmgcpfddgdbkhjohddkj) and
    set the option for the dev tools to open automatically. Or put `chrome://inspect` in the URL bar.
    For more details on debugging, see the official
    [Webpack docs on debugging](https://webpack.js.org/contribute/debugging/#devtools)
+
 3. Any arguments that you add to bin/webpack get sent to webpack. For example, you can pass `--debug` to switch loaders to debug mode. See [webpack CLI debug options](https://webpack.js.org/api/cli/#debug-options) for more information on the available options.
+
 4. You can also pass additional options to the command to run the webpack-dev-server and start the webpack-dev-server with the option `--debug-webpacker`
 
 ## ENOENT: no such file or directory - node-sass
@@ -56,16 +59,15 @@ completed the compilation successfully before loading a view.
 * If you get this error while trying to use Elm, try rebuilding Elm. You can do
   so with a postinstall hook in your `package.json`:
 
-```
+```json
 "scripts": {
   "postinstall": "npm rebuild elm"
 }
 ```
 
-
 ## webpack or webpack-dev-server not found
 
-* This could happen if  `webpacker:install` step is skipped. Please run `bundle exec rails webpacker:install` to fix the issue.
+* This could happen if `webpacker:install` step is skipped. Please run `bundle exec rails webpacker:install` to fix the issue.
 
 * If you encounter the above error on heroku after upgrading from Rails 4.x to 5.1.x, then the problem might be related to missing `yarn` binstub. Please run following commands to update/add binstubs:
 
@@ -73,7 +75,6 @@ completed the compilation successfully before loading a view.
 bundle config --delete bin
 ./bin/rails app:update:bin # or rails app:update:bin
 ```
-
 
 ## Running webpack on Windows
 
@@ -85,7 +86,6 @@ manually with Ruby:
 C:\path>ruby bin\webpack
 C:\path>ruby bin\webpack-dev-server
 ```
-
 
 ## Invalid configuration object. webpack has been initialised using a configuration object that does not match the API schema.
 
@@ -101,6 +101,7 @@ Basic fix involves:
 
 ```bash
 # install sysconfcpus on CI
+
 git clone https://github.com/obmarg/libsysconfcpus.git $HOME/dependencies/libsysconfcpus
 cd libsysconfcpus
 .configure --prefix=$HOME/dependencies/sysconfcpus
@@ -113,41 +114,39 @@ chmod +x $HOME/your_rails_app/node_modules/.bin/elm-make
 ```
 
 ## Rake assets:precompile fails. ExecJS::RuntimeError
-This error occurs because you are trying to minify by terser a pack that's already been minified by Webpacker. To avoid this conflict and prevent appearing of ExecJS::RuntimeError error, you will need to disable uglifier from Rails config:
+This error occurs because you are trying to minify by `terser` a pack that's already been minified by Webpacker. To avoid this conflict and prevent appearing of `ExecJS::RuntimeError` error, you will need to disable uglifier from Rails config:
 
 ```ruby
-// production.rb
-# From
+# In production.rb
 
+# From
 Rails.application.config.assets.js_compressor = :uglifier
 
 # To
-
 Rails.application.config.assets.js_compressor = Uglifier.new(harmony: true)
-
 ```
 
 ### Angular: WARNING in ./node_modules/@angular/core/esm5/core.js, Critical dependency: the request of a dependency is an expression
 
-To silent these warnings, please update `config/webpack/environment.js`
-
+To silent these warnings, please update `config/webpack/base.js`:
 ```js
-// environment.js
 const webpack = require('webpack')
 const { resolve } = require('path')
-const { environment, config } = require('@rails/webpacker')
+const { webpackConfig, merge } = require('@rails/webpacker')
 
-environment.plugins.append('ContextReplacement',
-  new webpack.ContextReplacementPlugin(
-    /angular(\\|\/)core(\\|\/)(@angular|esm5)/,
-    resolve(config.source_path)
-  )
-)
+module.exports = merge(webpackConfig, {
+  plugins: [
+    new webpack.ContextReplacementPlugin(
+      /angular(\\|\/)core(\\|\/)(@angular|esm5)/,
+      resolve(config.source_path)
+    )
+  ]
+})
 ```
 
 ### Compilation Fails Silently
 
-If compiling is not producing output files and there are no error messages to help troubleshoot. Setting the webpack_compile_output configuration variable to 'true' in webpacker.yml may add some helpful error information to your log file (Rails log/development.log or log/production.log)
+If compiling is not producing output files and there are no error messages to help troubleshoot. Setting the `webpack_compile_output` configuration variable to `true` in webpacker.yml may add some helpful error information to your log file (Rails `log/development.log` or `log/production.log`)
 
 ```yml
 # webpacker.yml
@@ -157,4 +156,35 @@ default: &default
   public_root_path: public
   public_output_path: complaints_packs
   webpack_compile_output: true
+```
+
+### Using global variables for dependencies
+
+If you want to access any dependency without importing it everywhere or use it directly in your dev tools, please check: [https://webpack.js.org/plugins/provide-plugin/](https://webpack.js.org/plugins/provide-plugin/)
+
+**You don't need to assign dependencies on `window`.**
+
+For instance, with [jQuery](https://jquery.com/):
+```diff
+// app/packs/entrypoints/application.js
+
+- import jQuery from 'jquery'
+- window.jQuery = jQuery
+```
+
+Instead do:
+```js
+// config/webpack/base.js
+
+const webpack = require('webpack')
+const { webpackConfig, merge } = require('@rails/webpacker')
+
+module.exports = merge(webpackConfig, {
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+    })
+  ],
+})
 ```
