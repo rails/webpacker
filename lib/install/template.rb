@@ -53,7 +53,9 @@ insert_into_file Rails.root.join("package.json").to_s, before: /\n}\n*$/ do
   <<~JSON.chomp
   ,
     "babel": {
-      "presets": ["./node_modules/@rails/webpacker/package/babel/preset.js"]
+      "presets": [
+        "./node_modules/@rails/webpacker/package/babel/preset.js"
+      ]
     },
     "browserslist": [
       "defaults"
