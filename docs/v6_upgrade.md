@@ -17,7 +17,8 @@ This means you have to configure integration with frameworks yourself, but webpa
 3. Rename `config/webpack` to `config/webpack_old`
 4. Rename `config/webpacker.yml` to `config/webpacker_old.yml`
 5. Uninstall the current version of `webpack-dev-server`: `yarn remove webpack-dev-server`
-6. Upgrade the Webpacker Ruby gem and NPM package
+6. Remove .browserslistrc from the root of your Rails app
+7. Upgrade the Webpacker Ruby gem and NPM package
 
 Note: [Check the releases page to verify the latest version](https://github.com/rails/webpacker/releases), and make sure to install identical version numbers of webpacker gem and `@rails/webpacker` npm package. (Gems use a period and packages use a dot between the main version number and the beta version.)
 
