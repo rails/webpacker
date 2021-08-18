@@ -81,11 +81,11 @@ module Webpacker::Helper
   # Example:
   #
   #   <%= javascript_pack_tag 'calendar', 'map', 'data-turbolinks-track': 'reload' %> # =>
-  #   <script src="/packs/vendor-16838bab065ae1e314.chunk.js" data-turbolinks-track="reload"></script>
-  #   <script src="/packs/calendar~runtime-16838bab065ae1e314.chunk.js" data-turbolinks-track="reload"></script>
-  #   <script src="/packs/calendar-1016838bab065ae1e314.chunk.js" data-turbolinks-track="reload"></script>
-  #   <script src="/packs/map~runtime-16838bab065ae1e314.chunk.js" data-turbolinks-track="reload"></script>
-  #   <script src="/packs/map-16838bab065ae1e314.chunk.js" data-turbolinks-track="reload"></script>
+  #   <script src="/packs/vendor-16838bab065ae1e314.chunk.js" data-turbolinks-track="reload" defer="true"></script>
+  #   <script src="/packs/calendar~runtime-16838bab065ae1e314.chunk.js" data-turbolinks-track="reload" defer="true"></script>
+  #   <script src="/packs/calendar-1016838bab065ae1e314.chunk.js" data-turbolinks-track="reload" defer="true"></script>
+  #   <script src="/packs/map~runtime-16838bab065ae1e314.chunk.js" data-turbolinks-track="reload" defer="true"></script>
+  #   <script src="/packs/map-16838bab065ae1e314.chunk.js" data-turbolinks-track="reload" defer="true"></script>
   #
   # DO:
   #
@@ -96,7 +96,7 @@ module Webpacker::Helper
   #   <%= javascript_pack_tag 'calendar' %>
   #   <%= javascript_pack_tag 'map' %>
   def javascript_pack_tag(*names, **options)
-    javascript_include_tag(*sources_from_manifest_entrypoints(names, type: :javascript), **options)
+    javascript_include_tag(*sources_from_manifest_entrypoints(names, type: :javascript), defer: true, **options)
   end
 
   # Creates a link tag, for preloading, that references a given Webpacker asset.
