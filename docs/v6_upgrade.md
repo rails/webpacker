@@ -22,26 +22,25 @@ This means you have to configure integration with frameworks yourself, but webpa
 
 Note: [Check the releases page to verify the latest version](https://github.com/rails/webpacker/releases), and make sure to install identical version numbers of webpacker gem and `@rails/webpacker` npm package. (Gems use a period and packages use a dot between the main version number and the beta version.)
 
-Example going to a specific (beta) version:
+Example going to a specific version:
 
   ```ruby
   # Gemfile
-  gem 'webpacker', '6.0.0.beta.7'
+  gem 'webpacker', '6.0.0.rc.1'
   ```
-
-Do *not* specify `'^6.0.0.beta.7'` (with a caret) or you will accidentally install `6.0.0.pre.2` which is months older than `beta.7`.
 
   ```bash
   bundle install
   ```
 
   ```bash
-  yarn add @rails/webpacker@6.0.0-beta.7 --exact
+  yarn add @rails/webpacker@6.0.0-rc.1 --exact
   ```
 
   ```bash
   bundle exec rails webpacker:install
   ```
+
 7. Update API usage of the view helpers by changing `javascript_packs_with_chunks_tag` and `stylesheet_packs_with_chunks_tag` to `javascript_pack_tag` and `stylesheet_pack_tag`. Ensure that your layouts and views will only have **at most one call** to `javascript_pack_tag` or `stylesheet_pack_tag`. You can now pass multiple bundles to these view helper methods. If you fail to changes this, you may experience performance issues, and other bugs related to multiple copies of React, like [issue 2932](https://github.com/rails/webpacker/issues/2932).
 8. If you are using any integrations like `css`, `React` or `TypeScript`. Please see https://github.com/rails/webpacker#integrations section on how they work in v6.
 9. Copy over any custom webpack config from `config/webpack_old`. Common code previously called 'environment' should be changed to 'base', and import `environment` changed to `webpackConfig`.
