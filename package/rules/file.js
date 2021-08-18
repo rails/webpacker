@@ -12,8 +12,7 @@ module.exports = {
     /\.otf$/,
     /\.ttf$/,
     /\.woff$/,
-    /\.woff2$/,
-    /\.svg$/
+    /\.woff2$/
   ],
   exclude: [/\.(js|mjs|jsx|ts|tsx)$/],
   type: 'asset/resource',
