@@ -29,6 +29,11 @@ development:
     client:
       # Should we show a full-screen overlay in the browser when there are compiler errors or warnings?
       overlay: true
+      # May also be a string
+      # webSocketURL:
+      #  hostname: "0.0.0.0"
+      #  pathname: "/ws"
+      #  port: 8080
     # Should we use gzip compression?
     compress: true
     # Note that apps that do not check the host are vulnerable to DNS rebinding attacks

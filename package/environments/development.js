@@ -18,9 +18,29 @@ if (runningWebpackDevServer) {
     })
   }
 
-  let staticConfig = { publicPath: contentBase }
+  const devServerConfig = {
+    devMiddleware: {
+      publicPath
+    },
+    compress: devServer.compress,
+    allowedHosts: devServer.allowed_hosts,
+    host: devServer.host,
+    port: devServer.port,
+    https: devServer.https,
+    hot: devServer.hmr,
+    historyApiFallback: { disableDotRule: true },
+    headers: devServer.headers,
+    static: {
+      publicPath: contentBase
+    }
+  }
+
   if (devServer.static) {
-    staticConfig = { ...staticConfig, ...devServer.static }
+    devServerConfig.static = { ...devServerConfig.static, ...devServer.static }
+  }
+
+  if (devServer.client) {
+    devServerConfig.client = devServer.client
   }
 
   devConfig = merge(devConfig, {
@@ -31,23 +51,7 @@ if (runningWebpackDevServer) {
       modules: false,
       moduleTrace: false
     },
-    devServer: {
-      client: {
-        overlay: devServer.overlay
-      },
-      devMiddleware: {
-        publicPath
-      },
-      compress: devServer.compress,
-      allowedHosts: devServer.allowed_hosts,
-      host: devServer.host,
-      port: devServer.port,
-      https: devServer.https,
-      hot: devServer.hmr,
-      historyApiFallback: { disableDotRule: true },
-      headers: devServer.headers,
-      static: staticConfig
-    }
+    devServer: devServerConfig
   })
 }
 
