@@ -95,8 +95,8 @@ module Webpacker::Helper
   #
   #   <%= javascript_pack_tag 'calendar' %>
   #   <%= javascript_pack_tag 'map' %>
-  def javascript_pack_tag(*names, **options)
-    javascript_include_tag(*sources_from_manifest_entrypoints(names, type: :javascript), defer: true, **options)
+  def javascript_pack_tag(*names, defer: true, **options)
+    javascript_include_tag(*sources_from_manifest_entrypoints(names, type: :javascript), **options.tap { |o| o[:defer] = defer })
   end
 
   # Creates a link tag, for preloading, that references a given Webpacker asset.
