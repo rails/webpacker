@@ -2,6 +2,12 @@
 
 **Please note that Webpacker 4.1.0 has an installer bug. Please use 4.2.0 or above**
 
+## [[5.4.0]](https://github.com/rails/webpacker/compare/v5.4.0...v5.4.1) - 2021-08-20
+
+- Update all dependencies within the same major version (#3120)
+
+- Fix babel warning about private-methods (#3016)
+
 ## [[5.4.0]](https://github.com/rails/webpacker/compare/v5.3.0...v5.4.0) - 2021-05-18
 
 - Fix compatibility with Psych 4
