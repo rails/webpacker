@@ -11,10 +11,10 @@ Let's call the rails/webpacker directory `WEBPACKER_DIR` which has rails/webpack
 
 ## Changing the Package
 ### Setup with Yalc
-Use [`yalc`](https://github.com/wclr/yalc) unless you like yak shaving weird errors. 
-1. In `WEBPACKER_DIR`, run `yalc publish` 
-2. In `TEST_APP_DIR`, run `yarn link @rails/webpacker`
-   
+Use [`yalc`](https://github.com/wclr/yalc) unless you like yak shaving weird errors.
+1. In `WEBPACKER_DIR`, run `yalc publish`
+2. In `TEST_APP_DIR`, run `yalc link @rails/webpacker`
+
 ## Update the Package Code
 1. Make some JS change in WEBPACKER_DIR
 2. Run `yalc push` and your changes will be pushed to your `TEST_APP_DIR`'s node_modules.
