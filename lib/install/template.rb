@@ -51,7 +51,7 @@ say "Installing webpack and webpack-cli as direct dependencies"
 run "yarn add webpack@#{webpack_version} webpack-cli@#{webpack_cli_version}"
 
 say "Installing dev server for live reloading"
-run "yarn add --dev webpack-dev-server"
+run "yarn add --dev webpack-dev-server@^3"
 
 if Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR > 1
   say "You need to allow webpack-dev-server host as allowed origin for connect-src.", :yellow
