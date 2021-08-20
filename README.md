@@ -358,6 +358,12 @@ yarn add coffeescript coffee-loader
 yarn add typescript @babel/preset-typescript
 ```
 
+Babel won’t perform any type-checking on TypeScript code. To optionally use type-checking run:
+
+```bash
+yarn add fork-ts-checker-webpack-plugin
+```
+
 Add tsconfig.json
 
 ```json
@@ -380,12 +386,6 @@ Add tsconfig.json
   "exclude": ["**/*.spec.ts", "node_modules", "vendor", "public"],
   "compileOnSave": false
 }
-```
-
-Babel won’t perform any type-checking on TypeScript code. To optionally use type-checking run:
-
-```bash
-yarn add fork-ts-checker-webpack-plugin
 ```
 
 Then modify the webpack config to use it as a plugin:
