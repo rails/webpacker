@@ -2,7 +2,11 @@
 
 **Please note that Webpacker 4.1.0 has an installer bug. Please use 4.2.0 or above**
 
-## [[5.4.0]](https://github.com/rails/webpacker/compare/v5.4.0...v5.4.1) - 2021-08-20
+## [[5.4.2]](https://github.com/rails/webpacker/compare/v5.4.0...v5.4.1) - 2021-08-20
+
+- Fix babel warning about private-methods in @babel/plugin-proposal-private-property-in-object as well.
+
+## [[5.4.1]](https://github.com/rails/webpacker/compare/v5.4.0...v5.4.1) - 2021-08-20
 
 - Update all dependencies within the same major version (#3120)
 
