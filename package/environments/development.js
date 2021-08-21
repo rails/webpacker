@@ -28,6 +28,7 @@ if (runningWebpackDevServer) {
     port: devServer.port,
     https: devServer.https,
     hot: devServer.hmr,
+    liveReload: !devServer.hmr,
     historyApiFallback: { disableDotRule: true },
     headers: devServer.headers,
     static: {
