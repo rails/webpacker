@@ -35,6 +35,15 @@ else
   say %(        Add <%= javascript_pack_tag "application" %> within the <head> tag in your custom layout.)
 end
 
+if (setup_path = Rails.root.join("bin/setup")).exist?
+  say "Run bin/yarn during bin/setup"
+  insert_into_file setup_path.to_s, <<-RUBY, after: %(  system("bundle check") || system!("bundle install")\n)
+
+  # Install JavaScript dependencies
+  system! "bin/yarn"
+RUBY
+end
+
 if (asset_config_path = Rails.root.join("config/initializers/assets.rb")).exist?
   say "Add node_modules to the asset load path"
   append_to_file asset_config_path, <<-RUBY
