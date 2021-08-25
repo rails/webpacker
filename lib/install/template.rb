@@ -35,6 +35,15 @@ else
   say %(        Add <%= javascript_pack_tag "application" %> within the <head> tag in your custom layout.)
 end
 
+if (asset_config_path = Rails.root.join("config/initializers/assets.rb")).exist?
+  say "Add node_modules to the asset load path"
+  append_to_file asset_config_path, <<-RUBY
+
+# Add node_modules folder to the asset load path.
+Rails.application.config.assets.paths << Rails.root.join("node_modules")
+RUBY
+end
+
 results = []
 
 Dir.chdir(Rails.root) do
