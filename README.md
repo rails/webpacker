@@ -54,8 +54,8 @@ leaving Webpack responsible solely for app-like JavaScript, or it can be used ex
 
 - Ruby 2.4+
 - Rails 5.2+
-- Node.js 12+ || 14+
-- Yarn 1.x+ || 2.x+
+- Node.js 12.13.0+ || 14+
+- Yarn
 
 ## Features
 

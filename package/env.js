@@ -1,4 +1,4 @@
-const { safeLoad } = require('js-yaml')
+const { load } = require('js-yaml')
 const { readFileSync } = require('fs')
 
 const NODE_ENVIRONMENTS = ['development', 'production', 'test']
@@ -12,7 +12,7 @@ const nodeEnv
 const isProduction = nodeEnv === 'production'
 const isDevelopment = nodeEnv === 'development'
 
-const config = safeLoad(readFileSync(configPath), 'utf8')
+const config = load(readFileSync(configPath), 'utf8')
 const availableEnvironments = Object.keys(config).join('|')
 const regex = new RegExp(`^(${availableEnvironments})$`, 'g')
 
