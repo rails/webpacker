@@ -30,6 +30,7 @@ leaving Webpack responsible solely for app-like JavaScript, or it can be used ex
   - [Webpack Configuration](#webpack-configuration)
   - [Babel Configuration](#babel-configuration)
   - [Integrations](#integrations)
+    - [React](#react)
     - [CoffeeScript](#coffeescript)
     - [TypeScript](#typescript)
     - [CSS](#css)
@@ -37,7 +38,6 @@ leaving Webpack responsible solely for app-like JavaScript, or it can be used ex
     - [Sass](#sass)
     - [Less](#less)
     - [Stylus](#stylus)
-    - [React](#react)
     - [Other frameworks](#other-frameworks)
   - [Custom Rails environments](#custom-rails-environments)
   - [Upgrading](#upgrading)
@@ -310,6 +310,33 @@ Optionally, you can change your Babel configuration by removing these lines in y
 
 Webpacker out of the box supports JS and static assets (fonts, images etc.) compilation. To enable support for CoffeeScript or TypeScript install relevant packages:
 
+#### React
+
+```bash
+yarn add react react-dom @babel/preset-react
+```
+
+...if you are using typescript, update your `tsconfig.json`
+
+```json
+{
+  "compilerOptions": {
+    "declaration": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": ["es6", "dom"],
+    "module": "es6",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "target": "es5",
+    "jsx": "react",
+    "noEmit": true
+  },
+  "exclude": ["**/*.spec.ts", "node_modules", "vendor", "public"],
+  "compileOnSave": false
+}
+```
+
 #### CoffeeScript
 
 ```bash
@@ -416,33 +443,6 @@ yarn add less less-loader
 
 ```bash
 yarn add stylus stylus-loader
-```
-
-#### React
-
-```bash
-yarn add react react-dom @babel/preset-react
-```
-
-...if you are using typescript, update your `tsconfig.json`
-
-```json
-{
-  "compilerOptions": {
-    "declaration": false,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "lib": ["es6", "dom"],
-    "module": "es6",
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "target": "es5",
-    "jsx": "react",
-    "noEmit": true
-  },
-  "exclude": ["**/*.spec.ts", "node_modules", "vendor", "public"],
-  "compileOnSave": false
-}
 ```
 
 #### Other frameworks
