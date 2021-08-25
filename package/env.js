@@ -16,10 +16,7 @@ const config = load(readFileSync(configPath), 'utf8')
 const availableEnvironments = Object.keys(config).join('|')
 const regex = new RegExp(`^(${availableEnvironments})$`, 'g')
 
-// v4 of webpack-dev-server will switch to WEBPACK_DEV_SERVE
-// https://github.com/rails/webpacker/issues/3057
-const runningWebpackDevServer = process.env.WEBPACK_DEV_SERVER === 'true' ||
-  process.env.WEBPACK_DEV_SERVE === 'true'
+const runningWebpackDevServer = process.env.WEBPACK_SERVE === 'true'
 
 module.exports = {
   railsEnv: railsEnv && railsEnv.match(regex) ? railsEnv : DEFAULT,
