@@ -1,5 +1,6 @@
 # Install Webpacker
 copy_file "#{__dir__}/config/webpacker.yml", "config/webpacker.yml"
+copy_file "#{__dir__}/package.json", "package.json"
 
 say "Copying webpack core config"
 directory "#{__dir__}/config/webpack", "config/webpack"
@@ -26,6 +27,14 @@ if File.exists?(git_ignore_path)
   end
 end
 
+if (app_layout_path = Rails.root.join("app/views/layouts/application.html.erb")).exist?
+  say "Add JavaScript include tag in application layout"
+  insert_into_file app_layout_path.to_s, %(\n    <%= javascript_pack_tag "application" %>), before: /\s*<\/head>/
+else
+  say "Default application.html.erb is missing!", :red
+  say %(        Add <%= javascript_pack_tag "application" %> within the <head> tag in your custom layout.)
+end
+
 results = []
 
 Dir.chdir(Rails.root) do
@@ -47,20 +56,6 @@ Dir.chdir(Rails.root) do
 
   say "Installing dev server for live reloading"
   results << run("yarn add --dev webpack-dev-server @webpack-cli/serve")
-end
-
-insert_into_file Rails.root.join("package.json").to_s, before: /\n}\n*$/ do
-  <<~JSON.chomp
-  ,
-    "babel": {
-      "presets": [
-        "./node_modules/@rails/webpacker/package/babel/preset.js"
-      ]
-    },
-    "browserslist": [
-      "defaults"
-    ]
-  JSON
 end
 
 if Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR > 1
