@@ -32,6 +32,7 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
     - [Server-Side Rendering (SSR)](#server-side-rendering-ssr)
   - [Development](#development)
   - [Webpack Configuration](#webpack-configuration)
+  - [Babel Configuration](#babel-configuration)
   - [Integrations](#integrations)
     - [CoffeeScript](#coffeescript)
     - [TypeScript](#typescript)
@@ -85,7 +86,6 @@ You can either add Webpacker during setup of a new Rails 5.1+ application
 using new `--webpack` option:
 
 ```bash
-# Available Rails 5.1+
 rails new myapp --webpack
 ```
 
@@ -93,7 +93,7 @@ Or add it to your `Gemfile`:
 
 ```ruby
 # Gemfile
-gem 'webpacker', '~> 6.x'
+gem 'webpacker', '~> 6.0'
 
 # OR if you prefer to use master
 gem 'webpacker', git: 'https://github.com/rails/webpacker.git'
@@ -103,11 +103,8 @@ yarn add https://github.com/rails/webpacker.git
 Finally, run the following to install Webpacker:
 
 ```bash
-bundle
+bundle install
 bundle exec rails webpacker:install
-
-# OR (on rails version < 5.0)
-bundle exec rake webpacker:install
 ```
 
 Optional: To fix ["unmet peer dependency" warnings](https://github.com/rails/webpacker/issues/1078),
@@ -339,6 +336,20 @@ console.log(webpackConfig.source_path)
 // Or to print out your whole webpack configuration
 console.log(JSON.stringify(webpackConfig, undefined, 2))
 ```
+
+### Babel configuration
+
+By default, you will find the Webpacker preset in your `package.json`.
+
+```json
+"babel": {
+  "presets": [
+    "./node_modules/@rails/webpacker/package/babel/preset.js"
+  ]
+},
+```
+
+Optionally, you can change your Babel configuration by removing these lines in your `package.json` and add [a Babel configuration file](https://babeljs.io/docs/en/config-files) in your project.
 
 ### Integrations
 
