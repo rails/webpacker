@@ -9,8 +9,7 @@ module.exports = canProcess('sass-loader', (resolvedPath) =>
     {
       loader: resolvedPath,
       options: {
-        sassOptions: { includePaths },
-        implementation: require('sass')
+        sassOptions: { includePaths }
       }
     }
   ])

@@ -8,7 +8,7 @@ class Webpacker::Engine < ::Rails::Engine
   config.webpacker = ActiveSupport::OrderedOptions.new
 
   initializer "webpacker.proxy" do |app|
-    if Webpacker.config.dev_server.present?
+    if (Webpacker.config.dev_server.present? rescue nil)
       app.middleware.insert_before 0,
         Rails::VERSION::MAJOR >= 5 ?
           Webpacker::DevServerProxy : "Webpacker::DevServerProxy", ssl_verify_none: true

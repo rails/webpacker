@@ -18,35 +18,41 @@ if (runningWebpackDevServer) {
     })
   }
 
-  devConfig = merge(devConfig, {
-    devServer: {
-      clientLogLevel: 'none',
-      compress: devServer.compress,
-      quiet: devServer.quiet,
-      disableHostCheck: devServer.disable_host_check,
-      host: devServer.host,
-      port: devServer.port,
-      https: devServer.https,
-      hot: devServer.hmr,
-      contentBase,
-      inline: devServer.inline || devServer.hmr,
-      injectClient: devServer.hmr,
-      injectHot: devServer.hmr,
-      useLocalIp: devServer.use_local_ip,
-      public: devServer.public,
-      publicPath,
-      historyApiFallback: { disableDotRule: true },
-      headers: devServer.headers,
-      overlay: devServer.overlay,
-      stats: {
-        colors: true,
-        entrypoints: false,
-        errorDetails: true,
-        modules: false,
-        moduleTrace: false
-      },
-      watchOptions: devServer.watch_options
+  const devServerConfig = {
+    devMiddleware: {
+      publicPath
+    },
+    compress: devServer.compress,
+    allowedHosts: devServer.allowed_hosts,
+    host: devServer.host,
+    port: devServer.port,
+    https: devServer.https,
+    hot: devServer.hmr,
+    liveReload: !devServer.hmr,
+    historyApiFallback: { disableDotRule: true },
+    headers: devServer.headers,
+    static: {
+      publicPath: contentBase
     }
+  }
+
+  if (devServer.static) {
+    devServerConfig.static = { ...devServerConfig.static, ...devServer.static }
+  }
+
+  if (devServer.client) {
+    devServerConfig.client = devServer.client
+  }
+
+  devConfig = merge(devConfig, {
+    stats: {
+      colors: true,
+      entrypoints: false,
+      errorDetails: true,
+      modules: false,
+      moduleTrace: false
+    },
+    devServer: devServerConfig
   })
 }
 

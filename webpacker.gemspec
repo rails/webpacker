@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.add_dependency "semantic_range", ">= 2.3.0"
 
   s.add_development_dependency "bundler", ">= 1.3.0"
-  s.add_development_dependency "rubocop", "0.93.1"
+  s.add_development_dependency "rubocop"
   s.add_development_dependency "rubocop-performance"
 
   s.files         = `git ls-files`.split("\n")
