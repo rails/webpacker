@@ -24,25 +24,26 @@ development:
     https: false
     host: localhost
     port: 3035
-    public: localhost:3035
     # Hot Module Replacement updates modules while the application is running without a full reload
     hmr: false
-    # Should we show a full-screen overlay in the browser when there are compiler errors or warnings?
-    overlay: true
+    client:
+      # Should we show a full-screen overlay in the browser when there are compiler errors or warnings?
+      overlay: true
+      # May also be a string
+      # webSocketURL:
+      #  hostname: "0.0.0.0"
+      #  pathname: "/ws"
+      #  port: 8080
     # Should we use gzip compression?
     compress: true
     # Note that apps that do not check the host are vulnerable to DNS rebinding attacks
-    disable_host_check: true
-    # This option lets the browser open with your local IP
-    use_local_ip: false
-    # When enabled, nothing except the initial startup information will be written to the console.
-    # This also means that errors or warnings from webpack are not visible.
-    quiet: false
+    allowed_hosts: "all"
     pretty: true
     headers:
       'Access-Control-Allow-Origin': '*'
-    watch_options:
-      ignored: '**/node_modules/**'
+    static:
+      watch:
+        ignored: '**/node_modules/**'
 
 test:
   <<: *default
