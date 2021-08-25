@@ -236,7 +236,7 @@ reload the browser to match. This feature is also known as
 
 HMR is only the first step to running "Fast Refresh" with React. For more information
 on how to configure rails/webpacker for Fast Refresh with React, see article
-[HMR and React Hot Reloading](https://github.com/shakacode/react_on_rails/blob/master/docs/rails-webpacker-react-integration-options.md#hmr-and-react-hot-reloading).
+[HMR and React Hot Reloading](https://github.com/shakacode/react_on_rails/blob/27921ec2bbecdd56a61e3c39393191d9993d0214/docs/guides/rails-webpacker-react-integration-options.md#hmr-and-react-hot-reloading).
 
 ```bash
 # webpack dev server
