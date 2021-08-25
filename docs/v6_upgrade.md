@@ -26,7 +26,7 @@ Example going to a specific version:
 
   ```ruby
   # Gemfile
-  gem 'webpacker', '6.0.0.rc.4'
+  gem 'webpacker', '6.0.0.rc.5'
   ```
 
   ```bash
@@ -34,7 +34,7 @@ Example going to a specific version:
   ```
 
   ```bash
-  yarn add @rails/webpacker@6.0.0-rc.4 --exact
+  yarn add @rails/webpacker@6.0.0-rc.5 --exact
   ```
 
   ```bash
