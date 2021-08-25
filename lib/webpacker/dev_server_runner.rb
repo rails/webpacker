@@ -65,7 +65,7 @@ module Webpacker
       def execute_cmd
         env = Webpacker::Compiler.env
         env["WEBPACKER_CONFIG"] = @webpacker_config
-        env["WEBPACK_DEV_SERVER"] = "true"
+        env["WEBPACK_SERVE"] = "true"
 
         cmd = if node_modules_bin_exist?
           ["#{@node_modules_bin_path}/webpack", "serve"]
