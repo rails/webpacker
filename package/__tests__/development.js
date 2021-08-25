@@ -11,7 +11,7 @@ describe('Development environment', () => {
   describe('webpackConfig', () => {
     beforeEach(() => jest.resetModules())
 
-    test('should use development config and environment including devServer if WEBPACK_DEV_SERVER', () => {
+    test('should use development config and environment including devServer if WEBPACK_SERVE', () => {
       process.env.RAILS_ENV = 'development'
       process.env.NODE_ENV = 'development'
       process.env.WEBPACK_DEV_SERVER = 'true'
@@ -28,7 +28,7 @@ describe('Development environment', () => {
       })
     })
 
-    test('should use development config and environment if WEBPACK_DEV_SERVER', () => {
+    test('should use development config and environment if WEBPACK_SERVE', () => {
       process.env.RAILS_ENV = 'development'
       process.env.NODE_ENV = 'development'
       process.env.WEBPACK_DEV_SERVER = undefined
