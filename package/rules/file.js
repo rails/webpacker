@@ -18,6 +18,6 @@ module.exports = {
   exclude: [/\.(js|mjs|jsx|ts|tsx)$/],
   type: 'asset/resource',
   generator: {
-    filename: 'static/[hash][ext][query]'
+    filename: 'static/[name]-[hash][ext][query]'
   }
 }
