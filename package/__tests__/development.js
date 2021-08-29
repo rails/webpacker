@@ -14,7 +14,7 @@ describe('Development environment', () => {
     test('should use development config and environment including devServer if WEBPACK_SERVE', () => {
       process.env.RAILS_ENV = 'development'
       process.env.NODE_ENV = 'development'
-      process.env.WEBPACK_DEV_SERVER = 'true'
+      process.env.WEBPACK_SERVE = 'true'
       const { webpackConfig } = require('../index')
 
       expect(webpackConfig.output.path).toEqual(resolve('public', 'packs'))
@@ -31,7 +31,7 @@ describe('Development environment', () => {
     test('should use development config and environment if WEBPACK_SERVE', () => {
       process.env.RAILS_ENV = 'development'
       process.env.NODE_ENV = 'development'
-      process.env.WEBPACK_DEV_SERVER = undefined
+      process.env.WEBPACK_SERVE = undefined
       const { webpackConfig } = require('../index')
 
       expect(webpackConfig.output.path).toEqual(resolve('public', 'packs'))
