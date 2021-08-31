@@ -8,7 +8,7 @@ const { sync: globSync } = require('glob')
 const WebpackAssetsManifest = require('webpack-assets-manifest')
 const webpack = require('webpack')
 const rules = require('../rules')
-const { isProduction } = require('../env')
+const { isProduction, runningWebpackDevServer } = require('../env')
 const config = require('../config')
 const { moduleExists } = require('../utils/helpers')
 
@@ -62,7 +62,7 @@ const getPlugins = () => {
   ]
 
   if (moduleExists('css-loader') && moduleExists('mini-css-extract-plugin')) {
-    const hash = isProduction ? '-[contenthash:8]' : ''
+    const hash = runningWebpackDevServer ? '' : '-[contenthash:8]'
     const MiniCssExtractPlugin = require('mini-css-extract-plugin')
     plugins.push(
       new MiniCssExtractPlugin({
