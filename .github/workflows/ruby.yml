@@ -14,6 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
+        node: [14]
         ruby: [
           2.4,
           2.5,
@@ -55,8 +56,13 @@ jobs:
           restore-keys: |
             bundle-use-ruby-${{ matrix.ruby }}-${{ matrix.gemfile }}-gems-
 
+      - name: Use Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
       - name: Install yarn maybe
-        run: which yarn || sudo npm install -g yarn
+        run: which yarn || npm install -g yarn
 
       - uses: ruby/setup-ruby@v1
         with:
