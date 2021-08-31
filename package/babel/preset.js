@@ -42,7 +42,6 @@ module.exports = function config(api) {
       ]
     ].filter(Boolean),
     plugins: [
-      'babel-plugin-macros',
       ['@babel/plugin-proposal-class-properties', { loose: true }],
       ['@babel/plugin-transform-runtime', { helpers: false }],
       isProductionEnv &&

@@ -5,10 +5,10 @@ const { basename, dirname, join, relative, resolve } = require('path')
 const extname = require('path-complete-extname')
 const PnpWebpackPlugin = require('pnp-webpack-plugin')
 const { sync: globSync } = require('glob')
-const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 const WebpackAssetsManifest = require('webpack-assets-manifest')
 const webpack = require('webpack')
 const rules = require('../rules')
+const { isProduction } = require('../env')
 const config = require('../config')
 const { moduleExists } = require('../utils/helpers')
 
@@ -52,7 +52,6 @@ const getModulePaths = () => {
 const getPlugins = () => {
   const plugins = [
     new webpack.EnvironmentPlugin(process.env),
-    new CaseSensitivePathsPlugin(),
     new WebpackAssetsManifest({
       entrypoints: true,
       writeToDisk: true,
@@ -63,11 +62,12 @@ const getPlugins = () => {
   ]
 
   if (moduleExists('css-loader') && moduleExists('mini-css-extract-plugin')) {
+    const hash = isProduction ? '-[contenthash:8]' : ''
     const MiniCssExtractPlugin = require('mini-css-extract-plugin')
     plugins.push(
       new MiniCssExtractPlugin({
-        filename: 'css/[name]-[contenthash:8].css',
-        chunkFilename: 'css/[id]-[contenthash:8].css'
+        filename: `css/[name]${hash}.css`,
+        chunkFilename: `css/[id]${hash}.css`
       })
     )
   }
@@ -75,12 +75,17 @@ const getPlugins = () => {
   return plugins
 }
 
+// Don't use contentHash except for production for performance
+// https://webpack.js.org/guides/build-performance/#avoid-production-specific-tooling
+const hash = isProduction ? '-[contenthash]' : ''
 module.exports = {
   mode: 'production',
   output: {
-    filename: 'js/[name]-[contenthash].js',
-    chunkFilename: 'js/[name]-[contenthash].chunk.js',
-    hotUpdateChunkFilename: 'js/[id]-[hash].hot-update.js',
+    filename: `js/[name]${hash}.js`,
+    chunkFilename: `js/[name]${hash}.chunk.js`,
+
+    // https://webpack.js.org/configuration/output/#outputhotupdatechunkfilename
+    hotUpdateChunkFilename: 'js/[id].[fullhash].hot-update.js',
     path: config.outputPath,
     publicPath: config.publicPath
   },

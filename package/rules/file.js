@@ -17,11 +17,11 @@ function subDir (assetPath) {
   return localPath
 }
 
-const outputPathPrefix = path.normalize(config.static_assets_output_prefix || 'media/images/')
+const outputPathPrefix = path.normalize(config.static_assets_output_prefix || 'static/')
 
 function calculateFilename (pathData) {
   const dir = subDir(path.dirname(pathData.filename))
-  return `${path.join(outputPathPrefix, dir)}/[name]-[hash][ext][query]`
+  return `${path.join(outputPathPrefix, dir)}/[hash][ext][query]`
 }
 
 const staticExtensionsTest =

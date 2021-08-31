@@ -1,5 +1,6 @@
 # Install Webpacker
 copy_file "#{__dir__}/config/webpacker.yml", "config/webpacker.yml"
+copy_file "#{__dir__}/package.json", "package.json"
 
 say "Copying webpack core config"
 directory "#{__dir__}/config/webpack", "config/webpack"
@@ -26,6 +27,32 @@ if File.exists?(git_ignore_path)
   end
 end
 
+if (app_layout_path = Rails.root.join("app/views/layouts/application.html.erb")).exist?
+  say "Add JavaScript include tag in application layout"
+  insert_into_file app_layout_path.to_s, %(\n    <%= javascript_pack_tag "application" %>), before: /\s*<\/head>/
+else
+  say "Default application.html.erb is missing!", :red
+  say %(        Add <%= javascript_pack_tag "application" %> within the <head> tag in your custom layout.)
+end
+
+if (setup_path = Rails.root.join("bin/setup")).exist?
+  say "Run bin/yarn during bin/setup"
+  insert_into_file setup_path.to_s, <<-RUBY, after: %(  system("bundle check") || system!("bundle install")\n)
+
+  # Install JavaScript dependencies
+  system! "bin/yarn"
+RUBY
+end
+
+if (asset_config_path = Rails.root.join("config/initializers/assets.rb")).exist?
+  say "Add node_modules to the asset load path"
+  append_to_file asset_config_path, <<-RUBY
+
+# Add node_modules folder to the asset load path.
+Rails.application.config.assets.paths << Rails.root.join("node_modules")
+RUBY
+end
+
 results = []
 
 Dir.chdir(Rails.root) do
@@ -49,18 +76,6 @@ Dir.chdir(Rails.root) do
   results << run("yarn add --dev webpack-dev-server @webpack-cli/serve")
 end
 
-insert_into_file Rails.root.join("package.json").to_s, before: /\n}\n*$/ do
-  <<~JSON.chomp
-  ,
-    "babel": {
-      "presets": ["./node_modules/@rails/webpacker/package/babel/preset.js"]
-    },
-    "browserslist": [
-      "defaults"
-    ]
-  JSON
-end
-
 if Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR > 1
   say "You need to allow webpack-dev-server host as allowed origin for connect-src.", :yellow
   say "This can be done in Rails 5.2+ for development environment in the CSP initializer", :yellow
@@ -68,9 +83,7 @@ if Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR > 1
   say "policy.connect_src :self, :https, \"http://localhost:3035\", \"ws://localhost:3035\" if Rails.env.development?", :yellow
 end
 
-if results.all?
-  say "Webpacker successfully installed 🎉 🍰", :green
-else
+unless results.all?
   say "Webpacker installation failed 😭 See above for details.", :red
   exit 1
 end

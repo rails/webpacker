@@ -34,4 +34,8 @@ class Webpacker::Instance
   def commands
     @commands ||= Webpacker::Commands.new self
   end
+
+  def inlining_css?
+    dev_server.hmr? && dev_server.running?
+  end
 end

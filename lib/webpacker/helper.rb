@@ -81,11 +81,11 @@ module Webpacker::Helper
   # Example:
   #
   #   <%= javascript_pack_tag 'calendar', 'map', 'data-turbolinks-track': 'reload' %> # =>
-  #   <script src="/packs/vendor-16838bab065ae1e314.chunk.js" data-turbolinks-track="reload"></script>
-  #   <script src="/packs/calendar~runtime-16838bab065ae1e314.chunk.js" data-turbolinks-track="reload"></script>
-  #   <script src="/packs/calendar-1016838bab065ae1e314.chunk.js" data-turbolinks-track="reload"></script>
-  #   <script src="/packs/map~runtime-16838bab065ae1e314.chunk.js" data-turbolinks-track="reload"></script>
-  #   <script src="/packs/map-16838bab065ae1e314.chunk.js" data-turbolinks-track="reload"></script>
+  #   <script src="/packs/vendor-16838bab065ae1e314.chunk.js" data-turbolinks-track="reload" defer="true"></script>
+  #   <script src="/packs/calendar~runtime-16838bab065ae1e314.chunk.js" data-turbolinks-track="reload" defer="true"></script>
+  #   <script src="/packs/calendar-1016838bab065ae1e314.chunk.js" data-turbolinks-track="reload" defer="true"></script>
+  #   <script src="/packs/map~runtime-16838bab065ae1e314.chunk.js" data-turbolinks-track="reload" defer="true"></script>
+  #   <script src="/packs/map-16838bab065ae1e314.chunk.js" data-turbolinks-track="reload" defer="true"></script>
   #
   # DO:
   #
@@ -95,8 +95,8 @@ module Webpacker::Helper
   #
   #   <%= javascript_pack_tag 'calendar' %>
   #   <%= javascript_pack_tag 'map' %>
-  def javascript_pack_tag(*names, **options)
-    javascript_include_tag(*sources_from_manifest_entrypoints(names, type: :javascript), **options)
+  def javascript_pack_tag(*names, defer: true, **options)
+    javascript_include_tag(*sources_from_manifest_entrypoints(names, type: :javascript), **options.tap { |o| o[:defer] = defer })
   end
 
   # Creates a link tag, for preloading, that references a given Webpacker asset.
@@ -128,6 +128,10 @@ module Webpacker::Helper
   #   <link rel="stylesheet" media="screen" href="/packs/calendar-8c7ce31a.chunk.css" />
   #   <link rel="stylesheet" media="screen" href="/packs/map-8c7ce31a.chunk.css" />
   #
+  #   When using the webpack-dev-server, CSS is inlined so HMR can be turned on for CSS,
+  #   including CSS modules
+  #   <%= stylesheet_pack_tag 'calendar', 'map' %> # => nil
+  #
   # DO:
   #
   #   <%= stylesheet_pack_tag 'calendar', 'map' %>
@@ -137,6 +141,8 @@ module Webpacker::Helper
   #   <%= stylesheet_pack_tag 'calendar' %>
   #   <%= stylesheet_pack_tag 'map' %>
   def stylesheet_pack_tag(*names, **options)
+    return "" if Webpacker.inlining_css?
+
     stylesheet_link_tag(*sources_from_manifest_entrypoints(names, type: :stylesheet), **options)
   end
 
@@ -147,7 +153,7 @@ module Webpacker::Helper
     end
 
     def resolve_path_to_image(name, **options)
-      path = name.starts_with?("media/images/") ? name : "media/images/#{name}"
+      path = name.starts_with?("static/") ? name : "static/#{name}"
       path_to_asset(current_webpacker_instance.manifest.lookup!(path), options)
     rescue
       path_to_asset(current_webpacker_instance.manifest.lookup!(name), options)

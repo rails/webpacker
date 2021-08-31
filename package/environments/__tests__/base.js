@@ -29,9 +29,9 @@ describe('Base config', () => {
     })
 
     test('should return output', () => {
-      expect(baseConfig.output.filename).toEqual('js/[name]-[contenthash].js')
+      expect(baseConfig.output.filename).toEqual('js/[name].js')
       expect(baseConfig.output.chunkFilename).toEqual(
-        'js/[name]-[contenthash].chunk.js'
+        'js/[name].chunk.js'
       )
     })
 
@@ -44,7 +44,7 @@ describe('Base config', () => {
     })
 
     test('should return default plugins', () => {
-      expect(baseConfig.plugins.length).toEqual(3)
+      expect(baseConfig.plugins.length).toEqual(2)
     })
 
     test('should return default resolveLoader', () => {

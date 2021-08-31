@@ -1,0 +1,17 @@
+{
+  "name": "app",
+  "private": true,
+  "dependencies": {
+    "@rails/activestorage": "latest",
+    "@rails/actioncable": "latest"
+  },
+  "version": "0.1.0",
+  "babel": {
+    "presets": [
+      "./node_modules/@rails/webpacker/package/babel/preset.js"
+    ]
+  },
+  "browserslist": [
+    "defaults"
+  ]
+}

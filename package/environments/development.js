@@ -1,8 +1,8 @@
 const { merge } = require('webpack-merge')
-const webpack = require('webpack')
 
 const baseConfig = require('./base')
 const devServer = require('../dev_server')
+const { runningWebpackDevServer } = require('../env')
 
 const { outputPath: contentBase, publicPath } = require('../config')
 
@@ -11,45 +11,48 @@ let devConfig = {
   devtool: 'cheap-module-source-map'
 }
 
-if (
-  process.env.WEBPACK_DEV_SERVER &&
-  process.env.WEBPACK_DEV_SERVER !== 'undefined'
-) {
+if (runningWebpackDevServer) {
   if (devServer.hmr) {
     devConfig = merge(devConfig, {
-      output: { filename: '[name]-[hash].js' },
-      plugins: [new webpack.HotModuleReplacementPlugin()]
+      output: { filename: '[name]-[hash].js' }
     })
   }
 
-  devConfig = merge(devConfig, {
-    devServer: {
-      clientLogLevel: 'none',
-      compress: devServer.compress,
-      quiet: devServer.quiet,
-      disableHostCheck: devServer.disable_host_check,
-      host: devServer.host,
-      port: devServer.port,
-      https: devServer.https,
-      hot: devServer.hmr,
-      contentBase,
-      inline: devServer.inline,
-      injectClient: devServer.inject_client,
-      useLocalIp: devServer.use_local_ip,
-      public: devServer.public,
-      publicPath,
-      historyApiFallback: { disableDotRule: true },
-      headers: devServer.headers,
-      overlay: devServer.overlay,
-      stats: {
-        colors: true,
-        entrypoints: false,
-        errorDetails: true,
-        modules: false,
-        moduleTrace: false
-      },
-      watchOptions: devServer.watch_options
+  const devServerConfig = {
+    devMiddleware: {
+      publicPath
+    },
+    compress: devServer.compress,
+    allowedHosts: devServer.allowed_hosts,
+    host: devServer.host,
+    port: devServer.port,
+    https: devServer.https,
+    hot: devServer.hmr,
+    liveReload: !devServer.hmr,
+    historyApiFallback: { disableDotRule: true },
+    headers: devServer.headers,
+    static: {
+      publicPath: contentBase
     }
+  }
+
+  if (devServer.static) {
+    devServerConfig.static = { ...devServerConfig.static, ...devServer.static }
+  }
+
+  if (devServer.client) {
+    devServerConfig.client = devServer.client
+  }
+
+  devConfig = merge(devConfig, {
+    stats: {
+      colors: true,
+      entrypoints: false,
+      errorDetails: true,
+      modules: false,
+      moduleTrace: false
+    },
+    devServer: devServerConfig
   })
 }
 

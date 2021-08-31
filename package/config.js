@@ -1,5 +1,5 @@
 const { resolve } = require('path')
-const { safeLoad } = require('js-yaml')
+const { load } = require('js-yaml')
 const { readFileSync } = require('fs')
 const { merge } = require('webpack-merge')
 const { ensureTrailingSlash } = require('./utils/helpers')
@@ -9,12 +9,12 @@ const configPath = require('./configPath')
 const defaultConfigPath = require.resolve('../lib/install/config/webpacker.yml')
 
 const getDefaultConfig = () => {
-  const defaultConfig = safeLoad(readFileSync(defaultConfigPath), 'utf8')
+  const defaultConfig = load(readFileSync(defaultConfigPath), 'utf8')
   return defaultConfig[railsEnv] || defaultConfig.production
 }
 
 const defaults = getDefaultConfig()
-const app = safeLoad(readFileSync(configPath), 'utf8')[railsEnv]
+const app = load(readFileSync(configPath), 'utf8')[railsEnv]
 
 const config = merge(defaults, app)
 config.outputPath = resolve(config.public_root_path, config.public_output_path)

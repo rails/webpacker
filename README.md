@@ -10,12 +10,8 @@
 
 Webpacker makes it easy to use the JavaScript pre-processor and bundler
 [Webpack v5](https://webpack.js.org/)
-to manage application-like JavaScript in Rails. It coexists with the asset pipeline,
-as the primary purpose for webpack is app-like JavaScript, not images, CSS, or
-even JavaScript Sprinkles (that all continues to live in app/assets).
-
-However, it is possible to use Webpacker for CSS, images and fonts assets as well,
-in which case you may not even need the asset pipeline. This is mostly relevant when exclusively using component-based JavaScript frameworks.
+to manage application-like JavaScript in Rails. It can coexist with the asset pipeline,
+leaving Webpack responsible solely for app-like JavaScript, or it can be used exclusively, making it also responsible for images, fronts, and CSS as well.
 
 **NOTE:** The master branch now hosts the code for v6.x.x. Please refer to [5-x-stable](https://github.com/rails/webpacker/tree/5-x-stable) branch for 5.x documentation.
 
@@ -26,16 +22,29 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 
 - [Prerequisites](#prerequisites)
 - [Features](#features)
+  - [Optional support](#optional-support)
 - [Installation](#installation)
   - [Usage](#usage)
+    - [Server-Side Rendering (SSR)](#server-side-rendering-ssr)
   - [Development](#development)
   - [Webpack Configuration](#webpack-configuration)
+  - [Babel Configuration](#babel-configuration)
+  - [Integrations](#integrations)
+    - [React](#react)
+    - [CoffeeScript](#coffeescript)
+    - [TypeScript](#typescript)
+    - [CSS](#css)
+    - [Postcss](#postcss)
+    - [Sass](#sass)
+    - [Less](#less)
+    - [Stylus](#stylus)
+    - [Other frameworks](#other-frameworks)
   - [Custom Rails environments](#custom-rails-environments)
   - [Upgrading](#upgrading)
 - [Paths](#paths)
-  - [Resolved](#resolved)
-  - [Watched](#watched)
+  - [Additional paths](#additional-paths)
 - [Deployment](#deployment)
+- [Troubleshooting](#troubleshooting)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -45,8 +54,8 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 
 - Ruby 2.4+
 - Rails 5.2+
-- Node.js 12+ || 14+
-- Yarn 1.x+ || 2.x+
+- Node.js 12.13.0+ || 14+
+- Yarn
 
 ## Features
 
@@ -69,39 +78,28 @@ in which case you may not even need the asset pipeline. This is mostly relevant 
 
 ## Installation
 
-You can either add Webpacker during setup of a new Rails 5.1+ application
-using new `--webpack` option:
+You can configure a new Rails application with Webpacker right from the start using the `--webpack` option:
 
 ```bash
-# Available Rails 5.1+
 rails new myapp --webpack
 ```
 
-Or add it to your `Gemfile`:
+Or you can add it later by changing your `Gemfile`:
 
 ```ruby
 # Gemfile
-gem 'webpacker', '~> 6.x'
+gem 'webpacker', '~> 6.0'
 
 # OR if you prefer to use master
 gem 'webpacker', git: 'https://github.com/rails/webpacker.git'
 yarn add https://github.com/rails/webpacker.git
 ```
 
-Finally, run the following to install Webpacker:
+Then running the following to install Webpacker:
 
 ```bash
-bundle
-bundle exec rails webpacker:install
-
-# OR (on rails version < 5.0)
-bundle exec rake webpacker:install
-```
-
-Optional: To fix ["unmet peer dependency" warnings](https://github.com/rails/webpacker/issues/1078),
-
-```bash
-yarn upgrade
+./bin/bundle install
+./bin/rails webpacker:install
 ```
 
 When `package.json` and/or `yarn.lock` changes, such as when pulling down changes to your local environment in a team settings, be sure to keep your NPM packages up-to-date:
@@ -150,8 +148,7 @@ The result looks like this:
 <script src="/packs/map-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
 ```
 
-**Important:** Pass all your pack names as multiple arguments, not multiple calls, when using **`javascript_pack_tag`** and the **`stylesheet_pack_tag`**. Otherwise, you will
-get duplicated chunks on the page. Be especially careful if you might be calling these view helpers from your view, partials, and the layout for a page. You will need some logic to ensure you call the helpers only once with multiple arguments.
+**Important:** Pass all your pack names as multiple arguments, not multiple calls, when using `javascript_pack_tag` and the **`stylesheet_pack_tag`. Otherwise, you will get duplicated chunks on the page. Be especially careful if you might be calling these view helpers from your view, partials, and the layout for a page. You will need some logic to ensure you call the helpers only once with multiple arguments.
 
 ```erb
 <%# DO %>
@@ -195,39 +192,19 @@ If you want to use images in your stylesheets:
 ```
 
 #### Server-Side Rendering (SSR)
-Note, if you are using server-side rendering of JavaScript with dynamic code-spliting,
-as is often done with extensions to Webpacker, like [React on Rails](https://github.com/shakacode/react_on_rails)
-your JavaScript should create the link prefetch HTML tags that you will use, so you won't
-need to use to `asset_pack_path` in those circumstances.
 
-**Note:** In order for your styles or static assets files to be available in your view,
-you would need to link them in your "pack" or entry file. Otherwise, Webpack won't know
-to package up those files.
+Note, if you are using server-side rendering of JavaScript with dynamic code-spliting, as is often done with extensions to Webpacker, like [React on Rails](https://github.com/shakacode/react_on_rails), your JavaScript should create the link prefetch HTML tags that you will use, so you won't need to use to `asset_pack_path` in those circumstances.
+
+**Note:** In order for your styles or static assets files to be available in your view, you would need to link them in your "pack" or entry file. Otherwise, Webpack won't know to package up those files.
+
 
 ### Development
 
-Webpacker ships with two binstubs: `./bin/webpack` and `./bin/webpack-dev-server`.
-Both are thin wrappers around the standard `webpack.js` and `webpack-dev-server.js`
-executables to ensure that the right configuration files and environmental variables
-are loaded based on your environment.
+Webpacker ships with two binstubs: `./bin/webpack` and `./bin/webpack-dev-server`. Both are thin wrappers around the standard `webpack.js` and `webpack-dev-server.js` executables to ensure that the right configuration files and environmental variables are loaded based on your environment.
 
-In development, Webpacker compiles on demand rather than upfront by default. This
-happens when you refer to any of the pack assets using the Webpacker helper methods.
-This means that you don't have to run any separate processes. Compilation errors are logged
-to the standard Rails log. However, this auto-compilation happens when a web request
-is made that requires an updated webpack build, not when files change. Thus, that can
-be painfully slow for front-end development in this default way. Instead, you should either
-run the `bin/webpack --watch` or run `./bin/webpack-dev-server`
+In development, Webpacker compiles on demand rather than upfront by default. This happens when you refer to any of the pack assets using the Webpacker helper methods. This means that you don't have to run any separate processes. Compilation errors are logged to the standard Rails log. However, this auto-compilation happens when a web request is made that requires an updated webpack build, not when files change. Thus, that can be painfully slow for front-end development in this default way. Instead, you should either run the `bin/webpack --watch` or run `./bin/webpack-dev-server`
 
-If you want to use live code reloading, or you have enough JavaScript that on-demand compilation is too slow, you'll need to run `./bin/webpack-dev-server` or `ruby ./bin/webpack-dev-server`.
-Windows users will need to run these commands in a terminal separate from `bundle exec rails s`.
-This process will watch for changes in the `app/packs/entrypoints/*.js` files and automatically
-reload the browser to match. This feature is also known as
-[Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/).
-
-HMR is only the first step to running "Fast Refresh" with React. For more information
-on how to configure rails/webpacker for Fast Refresh with React, see article
-[HMR and React Hot Reloading](https://github.com/shakacode/react_on_rails/blob/master/docs/rails-webpacker-react-integration-options.md#hmr-and-react-hot-reloading).
+If you want to use live code reloading, or you have enough JavaScript that on-demand compilation is too slow, you'll need to run `./bin/webpack-dev-server` or `ruby ./bin/webpack-dev-server`. Windows users will need to run these commands in a terminal separate from `bundle exec rails s`. This process will watch for changes in the `app/packs/entrypoints/*.js` files and automatically reload the browser to match. This feature is also known as [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/).
 
 ```bash
 # webpack dev server
@@ -240,25 +217,15 @@ on how to configure rails/webpacker for Fast Refresh with React, see article
 ./bin/webpack
 ```
 
-Once you start this webpack development server, Webpacker will automatically start proxying all
-webpack asset requests to this server. When you stop this server, Rails will detect
-that it's not running and Rails will revert back to on-demand compilation _if_ you have
-the `compile` option set to true in your `config/webpacker.yml`
+Once you start this webpack development server, Webpacker will automatically start proxying all webpack asset requests to this server. When you stop this server, Rails will detect that it's not running and Rails will revert back to on-demand compilation _if_ you have the `compile` option set to true in your `config/webpacker.yml`
 
-You can use environment variables as options supported by
-[webpack-dev-server](https://webpack.js.org/configuration/dev-server/) in the
-form `WEBPACKER_DEV_SERVER_<OPTION>`. Please note that these environmental
-variables will always take precedence over the ones already set in the
-configuration file, and that the _same_ environmental variables must
-be available to the `rails server` process.
+You can use environment variables as options supported by [webpack-dev-server](https://webpack.js.org/configuration/dev-server/) in the form `WEBPACKER_DEV_SERVER_<OPTION>`. Please note that these environmental variables will always take precedence over the ones already set in the configuration file, and that the _same_ environmental variables must be available to the `rails server` process.
 
 ```bash
 WEBPACKER_DEV_SERVER_HOST=example.com WEBPACKER_DEV_SERVER_INLINE=true WEBPACKER_DEV_SERVER_HOT=false ./bin/webpack-dev-server
 ```
 
-By default, the webpack dev server listens on `localhost` in development for security purposes.
-However, if you want your app to be available over local LAN IP or a VM instance like vagrant,
-you can set the `host` when running `./bin/webpack-dev-server` binstub:
+By default, the webpack dev server listens on `localhost` in development for security purposes. However, if you want your app to be available over local LAN IP or a VM instance like vagrant, you can set the `host` when running `./bin/webpack-dev-server` binstub:
 
 ```bash
 WEBPACKER_DEV_SERVER_HOST=0.0.0.0 ./bin/webpack-dev-server
@@ -267,23 +234,20 @@ WEBPACKER_DEV_SERVER_HOST=0.0.0.0 ./bin/webpack-dev-server
 **Note:** You need to allow webpack-dev-server host as an allowed origin for `connect-src` if you are running your application in a restrict CSP environment (like Rails 5.2+). This can be done in Rails 5.2+ in the CSP initializer `config/initializers/content_security_policy.rb` with a snippet like this:
 
 ```ruby
-  Rails.application.config.content_security_policy do |policy|
-    policy.connect_src :self, :https, 'http://localhost:3035', 'ws://localhost:3035' if Rails.env.development?
-  end
+Rails.application.config.content_security_policy do |policy|
+  policy.connect_src :self, :https, 'http://localhost:3035', 'ws://localhost:3035' if Rails.env.development?
+end
 ```
 
 **Note:** Don't forget to prefix `ruby` when running these binstubs on Windows
 
+
 ### Webpack Configuration
 
-Webpacker gives you a default set of configuration files for test, development and
-production environments in `config/webpack/*.js`. You can configure each individual
-environment in their respective files or configure them all in the base
+Webpacker gives you a default set of configuration files for test, development and production environments in `config/webpack/*.js`. You can configure each individual environment in their respective files or configure them all in the base
 `config/webpack/base.js` file.
 
-By default, you don't need to make any changes to `config/webpack/*.js`
-files since it's all standard production-ready configuration. However,
-if you do need to customize or add a new loader, this is where you would go.
+By default, you don't need to make any changes to `config/webpack/*.js` files since it's all standard production-ready configuration. However, if you do need to customize or add a new loader, this is where you would go.
 
 Here is how you can modify webpack configuration:
 
@@ -314,8 +278,7 @@ const customConfig = require('./custom')
 module.exports = merge(webpackConfig, customConfig)
 ```
 
-If you need access to configs within Webpacker's configuration,
-you can import them like so:
+If you need access to configs within Webpacker's configuration, you can import them like so:
 
 ```js
 // config/webpack/base.js
@@ -328,11 +291,51 @@ console.log(webpackConfig.source_path)
 console.log(JSON.stringify(webpackConfig, undefined, 2))
 ```
 
+### Babel configuration
+
+By default, you will find the Webpacker preset in your `package.json`.
+
+```json
+"babel": {
+  "presets": [
+    "./node_modules/@rails/webpacker/package/babel/preset.js"
+  ]
+},
+```
+
+Optionally, you can change your Babel configuration by removing these lines in your `package.json` and add [a Babel configuration file](https://babeljs.io/docs/en/config-files) in your project.
+
+
 ### Integrations
 
-Webpacker out of the box supports JS and static assets (fonts, images etc.)
-compilation. To enable support for CoffeeScript or TypeScript install
-relevant packages:
+Webpacker out of the box supports JS and static assets (fonts, images etc.) compilation. To enable support for CoffeeScript or TypeScript install relevant packages:
+
+#### React
+
+```bash
+yarn add react react-dom @babel/preset-react
+```
+
+...if you are using typescript, update your `tsconfig.json`
+
+```json
+{
+  "compilerOptions": {
+    "declaration": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": ["es6", "dom"],
+    "module": "es6",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "target": "es5",
+    "jsx": "react",
+    "noEmit": true
+  },
+  "exclude": ["**/*.spec.ts", "node_modules", "vendor", "public"],
+  "compileOnSave": false
+}
+```
 
 #### CoffeeScript
 
@@ -344,6 +347,12 @@ yarn add coffeescript coffee-loader
 
 ```bash
 yarn add typescript @babel/preset-typescript
+```
+
+Babel won’t perform any type-checking on TypeScript code. To optionally use type-checking run:
+
+```bash
+yarn add fork-ts-checker-webpack-plugin
 ```
 
 Add tsconfig.json
@@ -370,12 +379,6 @@ Add tsconfig.json
 }
 ```
 
-Babel won’t perform any type-checking on TypeScript code. To optionally use type-checking run:
-
-```bash
-yarn add fork-ts-checker-webpack-plugin
-```
-
 Then modify the webpack config to use it as a plugin:
 
 ```js
@@ -393,10 +396,10 @@ module.exports = merge(webpackConfig, {
 To enable CSS support in your application, add following packages:
 
 ```bash
-yarn add css-loader mini-css-extract-plugin css-minimizer-webpack-plugin
+yarn add css-loader style-loader mini-css-extract-plugin css-minimizer-webpack-plugin
 ```
 
-optionally, add the css extension to webpack config for easy resolution.
+Optionally, add the `CSS` extension to webpack config for easy resolution.
 
 ```js
 // config/webpack/base.js
@@ -410,13 +413,18 @@ const customConfig = {
 module.exports = merge(webpackConfig, customConfig)
 ```
 
-To enable postcss, sass or less support, add css support first and
+To enable `PostCSS`, `Sass` or `Less` support, add `CSS` support first and
 then add the relevant pre-processors:
 
 #### Postcss
 
 ```bash
-yarn add postcss-loader
+yarn add postcss postcss-loader
+```
+
+Optionally add these two plugins if they are required in your `postcss.config.js`:
+```bash
+yarn add postcss-preset-env postcss-flexbugs-fixes
 ```
 
 #### Sass
@@ -437,39 +445,6 @@ yarn add less less-loader
 yarn add stylus stylus-loader
 ```
 
-#### React
-
-React is supported and you just need to add relevant packages,
-
-```bash
-yarn add react react-dom @babel/preset-react
-```
-
-if you are using typescript, update your `tsconfig.json`
-
-```json
-{
-  "compilerOptions": {
-    "declaration": false,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "lib": ["es6", "dom"],
-    "module": "es6",
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "target": "es5",
-    "jsx": "react",
-    "noEmit": true
-  },
-  "exclude": ["**/*.spec.ts", "node_modules", "vendor", "public"],
-  "compileOnSave": false
-}
-```
-
-For more information on React props hydration and Server-Side Rendering (SSR), see the article
-[Rails/Webpacker React Integration Options](https://github.com/shakacode/react_on_rails/blob/master/docs/rails-webpacker-react-integration-options.md)
-in the [ShakaCode/react_on_rails](https://github.com/shakacode/react_on_rails) repo.
-
 #### Other frameworks
 
 Please follow webpack integration guide for relevant framework or library,
@@ -481,7 +456,7 @@ Please follow webpack integration guide for relevant framework or library,
 For example to add Vue support:
 ```js
 // config/webpack/rules/vue.js
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const { VueLoaderPlugin } = require('vue-loader')
 
 module.exports = {
   module: {
@@ -492,7 +467,10 @@ module.exports = {
       }
     ]
   },
-  plugins: [new VueLoaderPlugin()]
+  plugins: [new VueLoaderPlugin()],
+  resolve: {
+    extensions: ['.vue']
+  }
 }
 ```
 
@@ -501,8 +479,9 @@ module.exports = {
 const { webpackConfig, merge } = require('@rails/webpacker')
 const vueConfig = require('./rules/vue')
 
-module.exports = merge(webpackConfig, vueConfig)
+module.exports = merge(vueConfig, webpackConfig)
 ```
+
 
 ### Custom Rails environments
 
@@ -524,8 +503,7 @@ staging:
   public_output_path: packs-staging
 ```
 
-or, Webpacker will use production environment as a fallback environment for loading configurations. Please note, `NODE_ENV` can either be set to `production`, `development` or `test`.
-This means you don't need to create additional environment files inside `config/webpacker/*` and instead use webpacker.yml to load different configurations using `RAILS_ENV`.
+Otherwise Webpacker will use production environment as a fallback environment for loading configurations. Please note, `NODE_ENV` can either be set to `production`, `development` or `test`. This means you don't need to create additional environment files inside `config/webpacker/*` and instead use webpacker.yml to load different configurations using `RAILS_ENV`.
 
 For example, the below command will compile assets in production mode but will use staging configurations from `config/webpacker.yml` if available or use fallback production environment configuration:
 
@@ -533,15 +511,13 @@ For example, the below command will compile assets in production mode but will u
 RAILS_ENV=staging bundle exec rails assets:precompile
 ```
 
-And, this will compile in development mode and load configuration for cucumber environment
-if defined in webpacker.yml or fallback to production configuration
+And, this will compile in development mode and load configuration for cucumber environment if defined in webpacker.yml or fallback to production configuration
 
 ```bash
 RAILS_ENV=cucumber NODE_ENV=development bundle exec rails assets:precompile
 ```
 
-Please note, binstubs compiles in development mode however rake tasks
-compiles in production mode.
+Please note, binstubs compiles in development mode however rake tasks compiles in production mode.
 
 ```bash
 # Compiles in development mode unless NODE_ENV is specified, per the binstub source
@@ -580,19 +556,11 @@ Also, consult the [CHANGELOG](./CHANGELOG.md) for additional upgrade links.
 
 ## Paths
 
-By default, Webpacker ships with simple conventions for where the JavaScript
-app files and compiled webpack bundles will go in your Rails app.
-All these options are configurable from `config/webpacker.yml` file.
+By default, Webpacker ships with simple conventions for where the JavaScript app files and compiled webpack bundles will go in your Rails app. All these options are configurable from `config/webpacker.yml` file.
 
-The configuration for what webpack is supposed to compile by default rests
-on the convention that every file in `app/packs/entrypoints/*`**(default)**
-or whatever path you set for `source_entry_path` in the `webpacker.yml` configuration
-is turned into their own output files (or entry points, as webpack calls it). Therefore you don't want to put anything inside `packs` directory that you do not want to be
-an entry file. As a rule of thumb, put all files you want to link in your views inside
-"packs" directory and keep everything else under `app/packs`.
+The configuration for what webpack is supposed to compile by default rests on the convention that every file in `app/packs/entrypoints/*`**(default)** or whatever path you set for `source_entry_path` in the `webpacker.yml` configuration is turned into their own output files (or entry points, as webpack calls it). Therefore you don't want to put anything inside `packs` directory that you do not want to be an entry file. As a rule of thumb, put all files you want to link in your views inside "packs" directory and keep everything else under `app/packs`.
 
-Suppose you want to change the source directory from `app/packs`
-to `frontend` and output to `assets/packs`. This is how you would do it:
+Suppose you want to change the source directory from `app/packs` to `frontend` and output to `assets/packs`. This is how you would do it:
 
 ```yml
 # config/webpacker.yml
@@ -610,16 +578,11 @@ development:
     port: 3035
 ```
 
-If you have `hmr` turned to true, then the `stylesheet_pack_tag` generates no output,
-as you will want to configure your styles to be inlined in your JavaScript for hot reloading.
-During production and testing, the `stylesheet_pack_tag` will create the appropriate HTML tags.
+If you have `hmr` turned to true, then the `stylesheet_pack_tag` generates no output, as you will want to configure your styles to be inlined in your JavaScript for hot reloading. During production and testing, the `stylesheet_pack_tag` will create the appropriate HTML tags.
 
 ### Additional paths
 
-If you are adding Webpacker to an existing app that has most of the assets inside
-`app/assets` or inside an engine, and you want to share that
-with webpack modules, you can use the `additional_paths`
-option available in `config/webpacker.yml`. This lets you
+If you are adding Webpacker to an existing app that has most of the assets inside `app/assets` or inside an engine, and you want to share that with webpack modules, you can use the `additional_paths` option available in `config/webpacker.yml`. This lets you
 add additional paths that webpack should look up when resolving modules:
 
 ```yml
@@ -634,11 +597,10 @@ import 'stylesheets/main'
 import 'images/rails.png'
 ```
 
-**Note:** Please be careful when adding paths here otherwise it
-will make the compilation slow, consider adding specific paths instead of
-whole parent directory if you just need to reference one or two modules
+**Note:** Please be careful when adding paths here otherwise it will make the compilation slow, consider adding specific paths instead of whole parent directory if you just need to reference one or two modules
 
 **Also note:** While importing assets living outside your `source_path` defined in webpacker.yml (like, for instance, assets under `app/assets`) from within your packs using _relative_ paths like `import '../../assets/javascripts/file.js'` will work in development, Webpacker won't recompile the bundle in production unless a file that lives in one of it's watched paths has changed (check out `Webpacker::Compiler#watched_files_digest`). That's why you'd need to add `app/assets` to the additional_paths as stated above and use `import 'javascripts/file.js'` instead.
+
 
 ## Deployment
 
@@ -648,15 +610,18 @@ When compiling assets for production on a remote server, such as a continuous in
 
 If you are using a CDN setup, webpacker will use the configured [asset host](https://guides.rubyonrails.org/configuring.html#rails-general-configuration) value to prefix URLs for images or font icons which are included inside JS code or CSS. It is possible to override this value during asset compilation by setting the `WEBPACKER_ASSET_HOST` environment variable.
 
+
 ## Troubleshooting
 
 See the doc page for [Troubleshooting](./docs/troubleshooting.md).
+
 
 ## Contributing
 
 [![Code Helpers](https://www.codetriage.com/rails/webpacker/badges/users.svg)](https://www.codetriage.com/rails/webpacker)
 
 We encourage you to contribute to Webpacker! See [CONTRIBUTING](CONTRIBUTING.md) for guidelines about how to proceed.
+
 
 ## License
 
