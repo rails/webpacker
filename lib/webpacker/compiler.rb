@@ -47,7 +47,7 @@ class Webpacker::Compiler
     attr_reader :webpacker
 
     def last_compilation_digest
-      compilation_digest_path.read if compilation_digest_path.exist? && config.public_manifest_path.exist?
+      compilation_digest_path.read if compilation_digest_path.exist? && config.manifest_path.exist?
     rescue Errno::ENOENT, Errno::ENOTDIR
     end
 

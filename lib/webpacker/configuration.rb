@@ -35,16 +35,16 @@ class Webpacker::Configuration
     source_path.join(fetch(:source_entry_path))
   end
 
+  def manifest_path
+    root_path.join(fetch(:manifest_path))
+  end
+
   def public_path
     root_path.join(fetch(:public_root_path))
   end
 
   def public_output_path
     public_path.join(fetch(:public_output_path))
-  end
-
-  def public_manifest_path
-    public_output_path.join("manifest.json")
   end
 
   def cache_manifest?

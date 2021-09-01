@@ -18,12 +18,13 @@ apply "#{__dir__}/binstubs.rb"
 git_ignore_path = Rails.root.join(".gitignore")
 if File.exists?(git_ignore_path)
   append_to_file git_ignore_path do
-    "\n"                   +
-    "/public/packs\n"      +
-    "/public/packs-test\n" +
-    "/node_modules\n"      +
-    "/yarn-error.log\n"    +
-    "yarn-debug.log*\n"    +
+    "\n"                              +
+    "/app/javascript/manifest.json\n" +
+    "/public/packs\n"                 +
+    "/public/packs-test\n"            +
+    "/node_modules\n"                 +
+    "/yarn-error.log\n"               +
+    "yarn-debug.log*\n"               +
     ".yarn-integrity\n"
   end
 end

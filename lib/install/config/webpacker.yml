@@ -3,6 +3,7 @@
 default: &default
   source_path: app/javascript
   source_entry_path: /
+  manifest_path: app/javascript/manifest.json
   public_root_path: public
   public_output_path: packs
   cache_path: tmp/webpacker

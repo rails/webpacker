@@ -38,9 +38,18 @@ class ConfigurationTest < Webpacker::Test
     assert_equal @config.public_output_path.to_s, public_output_path
   end
 
-  def test_public_manifest_path
-    public_manifest_path = File.expand_path File.join(File.dirname(__FILE__), "test_app/public/packs", "manifest.json").to_s
-    assert_equal @config.public_manifest_path.to_s, public_manifest_path
+  def test_manifest_path
+    manifest_path = File.expand_path File.join(File.dirname(__FILE__), "test_app/app/packs", "manifest.json").to_s
+    assert_equal @config.manifest_path.to_s, manifest_path
+
+    @config = Webpacker::Configuration.new(
+      root_path: @config.root_path,
+      config_path: Pathname.new(File.expand_path("./test_app/config/webpacker_manifest_path.yml", __dir__)),
+      env: "production"
+    )
+
+    manifest_path = File.expand_path File.join(File.dirname(__FILE__), "test_app/public/packs", "manifest.json").to_s
+    assert_equal @config.manifest_path.to_s, manifest_path
   end
 
   def test_cache_path

@@ -84,6 +84,6 @@ class ManifestTest < Minitest::Test
     end
 
     def manifest_path
-      File.expand_path File.join(File.dirname(__FILE__), "test_app/public/packs", "manifest.json").to_s
+      File.expand_path File.join(File.dirname(__FILE__), "test_app/app/packs", "manifest.json").to_s
     end
 end

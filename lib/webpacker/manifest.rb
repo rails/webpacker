@@ -80,8 +80,8 @@ class Webpacker::Manifest
     end
 
     def load
-      if config.public_manifest_path.exist?
-        JSON.parse config.public_manifest_path.read
+      if config.manifest_path.exist?
+        JSON.parse config.manifest_path.read
       else
         {}
       end
@@ -104,7 +104,7 @@ class Webpacker::Manifest
 
     def missing_file_from_manifest_error(bundle_name)
       <<-MSG
-Webpacker can't find #{bundle_name} in #{config.public_manifest_path}. Possible causes:
+Webpacker can't find #{bundle_name} in #{config.manifest_path}. Possible causes:
 1. You want to set webpacker.yml value of compile to true for your environment
    unless you are using the `webpack -w` or the webpack-dev-server.
 2. webpack has not yet re-run to reflect updates.

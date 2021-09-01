@@ -16,7 +16,7 @@ class Webpacker::Commands
   #   age=600.
   #
   def clean(count = 2, age = 3600)
-    if config.public_output_path.exist? && config.public_manifest_path.exist?
+    if config.public_output_path.exist? && config.manifest_path.exist?
       packs
         .map do |paths|
           paths.map { |path| [Time.now - File.mtime(path), path] }
@@ -57,7 +57,7 @@ class Webpacker::Commands
   private
     def packs
       all_files       = Dir.glob("#{config.public_output_path}/**/*")
-      manifest_config = Dir.glob("#{config.public_manifest_path}*")
+      manifest_config = Dir.glob("#{config.manifest_path}*")
 
       packs = all_files - manifest_config - current_version
       packs.reject { |file| File.directory?(file) }.group_by do |path|
