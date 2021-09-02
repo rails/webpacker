@@ -26,6 +26,8 @@ development:
     port: 3035
     # Hot Module Replacement updates modules while the application is running without a full reload
     hmr: false
+    # Defaults to the inverse of hmr. Uncomment to manually set this.
+    # live_reload: true
     client:
       # Should we show a full-screen overlay in the browser when there are compiler errors or warnings?
       overlay: true
