@@ -16,7 +16,7 @@ const getEntryObject = () => {
   const entries = {}
   const rootPath = join(config.source_path, config.source_entry_path)
 
-  globSync(`${rootPath}/**/*.*`).forEach((path) => {
+  globSync(`${rootPath}/*.*`).forEach((path) => {
     const namespace = relative(join(rootPath), dirname(path))
     const name = join(namespace, basename(path, extname(path)))
     let assetPaths = resolve(path)
