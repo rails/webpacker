@@ -53,6 +53,14 @@ Rails.application.config.assets.paths << Rails.root.join("node_modules")
 RUBY
 end
 
+if (csp_config_path = Rails.root.join("config/initializers/content_security_policy.rb")).exist?
+  say "Make note of webpack-dev-server exemption needed to csp"
+  insert_into_file csp_config_path, <<-RUBY, after: %(# Rails.application.config.content_security_policy do |policy|)
+  #   # If you are using webpack-dev-server then specify webpack-dev-server host
+  #   policy.connect_src :self, :https, "http://localhost:3035", "ws://localhost:3035" if Rails.env.development?
+RUBY
+end
+
 results = []
 
 Dir.chdir(Rails.root) do
