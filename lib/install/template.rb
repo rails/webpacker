@@ -9,7 +9,8 @@ if Dir.exists?(Webpacker.config.source_path)
   say "The packs app source directory already exists"
 else
   say "Creating packs app source directory"
-  directory "#{__dir__}/packs", Webpacker.config.source_path
+  empty_directory "app/javascript"
+  copy_file "#{__dir__}/application.js", "app/javascript/application.js"
 end
 
 apply "#{__dir__}/binstubs.rb"

@@ -78,10 +78,10 @@ leaving Webpack responsible solely for app-like JavaScript, or it can be used ex
 
 ## Installation
 
-You can configure a new Rails application with Webpacker right from the start using the `--webpack` option:
+You can configure a new Rails application with Webpacker right from the start using the `-j webpack` option:
 
 ```bash
-rails new myapp --webpack
+rails new myapp -j webpack
 ```
 
 Or you can add it later by changing your `Gemfile`:
@@ -113,11 +113,10 @@ yarn install
 Once installed, you can start writing modern ES6-flavored JavaScript apps right away:
 
 ```yml
-app/packs:
-  ├── entrypoints:
-  │   # Only Webpack entry files here
-  │   └── application.js
-  │   └── application.css
+app/javascript:
+  # Only Webpack entry files here
+  └── application.js
+  └── application.css
   └── src:
   │   └── my_component.js
   └── stylesheets:
