@@ -12,13 +12,12 @@ This means you have to configure integration with frameworks yourself, but webpa
 
 ## How to upgrade to Webpacker 6
 
-1. If your `source_path` is `app/javascript`, rename it to `app/packs`
-2. If your `source_entry_path` is `packs`, rename it to `entrypoints`
-3. Rename `config/webpack` to `config/webpack_old`
-4. Rename `config/webpacker.yml` to `config/webpacker_old.yml`
-5. Uninstall the current version of `webpack-dev-server`: `yarn remove webpack-dev-server`
-6. Remove .browserslistrc from the root of your Rails app
-7. Upgrade the Webpacker Ruby gem and NPM package
+1. Move your `app/javascript/packs/application.js` to `app/javascript/application.js`
+2. Rename `config/webpack` to `config/webpack_old`
+3. Rename `config/webpacker.yml` to `config/webpacker_old.yml`
+4. Uninstall the current version of `webpack-dev-server`: `yarn remove webpack-dev-server`
+5. Remove .browserslistrc from the root of your Rails app
+6. Upgrade the Webpacker Ruby gem and NPM package
 
 Note: [Check the releases page to verify the latest version](https://github.com/rails/webpacker/releases), and make sure to install identical version numbers of webpacker gem and `@rails/webpacker` npm package. (Gems use a period and packages use a dot between the main version number and the beta version.)
 
@@ -41,7 +40,7 @@ Example going to a specific version:
   bundle exec rails webpacker:install
   ```
 
-7. Update API usage of the view helpers by changing `javascript_packs_with_chunks_tag` and `stylesheet_packs_with_chunks_tag` to `javascript_pack_tag` and `stylesheet_pack_tag`. Ensure that your layouts and views will only have **at most one call** to `javascript_pack_tag` or `stylesheet_pack_tag`. You can now pass multiple bundles to these view helper methods. If you fail to changes this, you may experience performance issues, and other bugs related to multiple copies of React, like [issue 2932](https://github.com/rails/webpacker/issues/2932).  If you expose jquery globally with `expose-loader,` by using `import $ from "expose-loader?exposes=$,jQuery!jquery"` in your `app/packs/entrypoints/application.js`, pass the option `defer: false` to your `javascript_pack_tag`.
+7. Update API usage of the view helpers by changing `javascript_packs_with_chunks_tag` and `stylesheet_packs_with_chunks_tag` to `javascript_pack_tag` and `stylesheet_pack_tag`. Ensure that your layouts and views will only have **at most one call** to `javascript_pack_tag` or `stylesheet_pack_tag`. You can now pass multiple bundles to these view helper methods. If you fail to changes this, you may experience performance issues, and other bugs related to multiple copies of React, like [issue 2932](https://github.com/rails/webpacker/issues/2932).  If you expose jquery globally with `expose-loader,` by using `import $ from "expose-loader?exposes=$,jQuery!jquery"` in your `app/javascript/application.js`, pass the option `defer: false` to your `javascript_pack_tag`.
 8. If you are using any integrations like `css`, `React` or `TypeScript`. Please see https://github.com/rails/webpacker#integrations section on how they work in v6.
 9. Copy over any custom webpack config from `config/webpack_old`. Common code previously called 'environment' should be changed to 'base', and import `environment` changed to `webpackConfig`.
 

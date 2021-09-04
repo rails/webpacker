@@ -11,7 +11,7 @@
 Webpacker makes it easy to use the JavaScript pre-processor and bundler
 [Webpack v5](https://webpack.js.org/)
 to manage application-like JavaScript in Rails. It can coexist with the asset pipeline,
-leaving Webpack responsible solely for app-like JavaScript, or it can be used exclusively, making it also responsible for images, fronts, and CSS as well.
+leaving Webpack responsible solely for app-like JavaScript, or it can be used exclusively, making it also responsible for images, fronts, and CSS.
 
 **NOTE:** The master branch now hosts the code for v6.x.x. Please refer to [5-x-stable](https://github.com/rails/webpacker/tree/5-x-stable) branch for 5.x documentation.
 
@@ -78,10 +78,10 @@ leaving Webpack responsible solely for app-like JavaScript, or it can be used ex
 
 ## Installation
 
-You can configure a new Rails application with Webpacker right from the start using the `--webpack` option:
+You can configure a new Rails application with Webpacker right from the start using the `-j webpack` option:
 
 ```bash
-rails new myapp --webpack
+rails new myapp -j webpack
 ```
 
 Or you can add it later by changing your `Gemfile`:
@@ -113,11 +113,10 @@ yarn install
 Once installed, you can start writing modern ES6-flavored JavaScript apps right away:
 
 ```yml
-app/packs:
-  ├── entrypoints:
-  │   # Only Webpack entry files here
-  │   └── application.js
-  │   └── application.css
+app/javascript:
+  # Only Webpack entry files here
+  └── application.js
+  └── application.css
   └── src:
   │   └── my_component.js
   └── stylesheets:

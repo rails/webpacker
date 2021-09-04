@@ -19,13 +19,6 @@ describe('Development environment', () => {
 
       expect(webpackConfig.output.path).toEqual(resolve('public', 'packs'))
       expect(webpackConfig.output.publicPath).toEqual('/packs/')
-      expect(webpackConfig).toMatchObject({
-        devServer: {
-          host: 'localhost',
-          port: 3035,
-          hot: false
-        }
-      })
     })
 
     test('should use development config and environment if WEBPACK_SERVE', () => {
