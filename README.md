@@ -138,13 +138,13 @@ packs with the chunks in your view, which creates html tags for all the chunks.
 The result looks like this:
 
 ```erb
-<%= javascript_pack_tag 'calendar', 'map' %>
+<%= javascript_pack_tag 'calendar', 'map', 'data-turbolinks-track': 'reload' %>
 
-<script src="/packs/vendor-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
-<script src="/packs/calendar~runtime-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
-<script src="/packs/calendar-1016838bab065ae1e314.js" data-turbolinks-track="reload"></script>
-<script src="/packs/map~runtime-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
-<script src="/packs/map-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+<script src="/packs/vendor-16838bab065ae1e314.js" data-turbolinks-track="reload" defer></script>
+<script src="/packs/calendar~runtime-16838bab065ae1e314.js" data-turbolinks-track="reload" defer></script>
+<script src="/packs/calendar-1016838bab065ae1e314.js" data-turbolinks-track="reload" defer"></script>
+<script src="/packs/map~runtime-16838bab065ae1e314.js" data-turbolinks-track="reload" defer></script>
+<script src="/packs/map-16838bab065ae1e314.js" data-turbolinks-track="reload" defer></script>
 ```
 
 **Important:** Pass all your pack names as multiple arguments, not multiple calls, when using `javascript_pack_tag` and the **`stylesheet_pack_tag`. Otherwise, you will get duplicated chunks on the page. Be especially careful if you might be calling these view helpers from your view, partials, and the layout for a page. You will need some logic to ensure you call the helpers only once with multiple arguments.
@@ -189,13 +189,14 @@ If you want to use images in your stylesheets:
   background-image: url('../images/logo.svg')
 }
 ```
+##### Defer for `javascript_pack_tag`
+Note, the default of "defer" for the `javascript_pack_tag`. You can override that to `false`. If you expose jquery globally with `expose-loader,` by using `import $ from "expose-loader?exposes=$,jQuery!jquery"` in your `app/packs/entrypoints/application.js`, pass the option `defer: false` to your `javascript_pack_tag`.
 
 #### Server-Side Rendering (SSR)
 
 Note, if you are using server-side rendering of JavaScript with dynamic code-spliting, as is often done with extensions to Webpacker, like [React on Rails](https://github.com/shakacode/react_on_rails), your JavaScript should create the link prefetch HTML tags that you will use, so you won't need to use to `asset_pack_path` in those circumstances.
 
 **Note:** In order for your styles or static assets files to be available in your view, you would need to link them in your "pack" or entry file. Otherwise, Webpack won't know to package up those files.
-
 
 ### Development
 
