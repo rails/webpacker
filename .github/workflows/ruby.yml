@@ -15,23 +15,17 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         node: [14]
-        ruby: [
-          2.7,
-          3.0
-        ]
-        gemfile: [
-          "gemfiles/Gemfile-rails.5.2.x",
-          "gemfiles/Gemfile-rails.6.0.x",
-          "gemfiles/Gemfile-rails.6.1.x"
-        ]
+        ruby:
+          - 2.7
+          - "3.0"
+        gemfile:
+          - gemfiles/Gemfile-rails.5.2.x
+          - gemfiles/Gemfile-rails.6.0.x
+          - gemfiles/Gemfile-rails.6.1.x
         exclude:
-          - ruby: 2.4
-            gemfile: gemfiles/Gemfile-rails.6.0.x
-          - ruby: 2.4
-            gemfile: gemfiles/Gemfile-rails.6.1.x
           - ruby: 2.5
             gemfile: gemfiles/Gemfile-rails.6.1.x
-          - ruby: 3.0
+          - ruby: "3.0"
             gemfile: gemfiles/Gemfile-rails.5.2.x
         experimental: [false]
         include:
@@ -39,7 +33,7 @@ jobs:
             os: ubuntu-latest
             gemfile: gemfiles/Gemfile-rails-edge
             experimental: true
-          - ruby: 3.0
+          - ruby: "3.0"
             os: ubuntu-latest
             gemfile: gemfiles/Gemfile-rails-edge
             experimental: true
