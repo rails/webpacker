@@ -211,10 +211,19 @@ If you want to use live code reloading, or you have enough JavaScript that on-de
 ./bin/webpack-dev-server
 
 # watcher
-./bin/webpack --watch --colors --progress
+./bin/webpack --watch --progress
 
 # standalone build
-./bin/webpack
+./bin/webpack --progress
+
+# Help
+./bin/webpack help
+
+# Version
+./bin/webpack version
+
+# Info
+./bin/webpack info
 ```
 
 Once you start this webpack development server, Webpacker will automatically start proxying all webpack asset requests to this server. When you stop this server, Rails will detect that it's not running and Rails will revert back to on-demand compilation _if_ you have the `compile` option set to true in your `config/webpacker.yml`
