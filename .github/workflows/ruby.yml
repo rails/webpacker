@@ -11,7 +11,6 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        node: [14]
         ruby:
           - 2.7
           - "3.0"
@@ -39,14 +38,6 @@ jobs:
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
     steps:
       - uses: actions/checkout@v2
-
-      - name: Use Node.js ${{ matrix.node }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
-
-      - name: Install yarn maybe
-        run: which yarn || npm install -g yarn
 
       - uses: ruby/setup-ruby@v1
         with:
