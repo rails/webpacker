@@ -28,7 +28,6 @@ module Webpacker
 
       if @argv.delete "--debug-webpacker"
         cmd = ["node", "--inspect-brk"] + cmd
-        @argv.delete "--debug-webpacker"
       end
 
       if @argv.delete "--trace-deprecation"
