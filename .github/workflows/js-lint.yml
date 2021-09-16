@@ -9,13 +9,18 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: [14.x]
+        node: [14]
 
     runs-on: ${{ matrix.os }}
 
     steps:
+      - name: Use Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
       - name: Install yarn maybe
-        run: which yarn || sudo npm install -g yarn
+        run: which yarn || npm install -g yarn
 
       - uses: actions/checkout@v2
       - name: Get yarn cache directory path
@@ -29,11 +34,6 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
-
-      - name: Use Node.js ${{ matrix.node }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
 
       - name: Install dependencies
         run: yarn --frozen-lockfile
