@@ -160,7 +160,11 @@ default: &default
 
 ### Using global variables for dependencies
 
-If you want to access any dependency without importing it everywhere or use it directly in your dev tools, please check: [https://webpack.js.org/plugins/provide-plugin/](https://webpack.js.org/plugins/provide-plugin/)
+If you want to access any dependency without importing it everywhere or use it directly in your dev tools, please check: [https://webpack.js.org/plugins/provide-plugin/](https://webpack.js.org/plugins/provide-plugin/) and the [webpack docs on shimming globals](https://webpack.js.org/guides/shimming/#shimming-globals).
+
+Note, if you are exposing globals, like jQuery, to non-webpack dependencies (like an inline script) via the [expose-loader](https://webpack.js.org/loaders/expose-loader/), you will need to override the default of `defer: true` to be `defer:false` your call to the `javascript_pack_tag` so that the browser will load your bundle to setup the global variable before other code depends on it. However, you really should try to remove the dependendency on such globals.
+
+Thus ProvidePlugin manages build-time dependencies to global symbols whereas the expose-loader manages runtime dependencies to global symbols.
 
 **You don't need to assign dependencies on `window`.**
 
