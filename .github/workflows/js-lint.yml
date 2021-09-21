@@ -14,6 +14,7 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
+      - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v2
         with:
@@ -22,8 +23,6 @@ jobs:
 
       - name: Install yarn maybe
         run: which yarn || npm install -g yarn
-
-      - uses: actions/checkout@v2
 
       - name: Install dependencies
         run: yarn --frozen-lockfile
