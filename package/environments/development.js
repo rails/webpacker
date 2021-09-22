@@ -12,12 +12,6 @@ let devConfig = {
 }
 
 if (runningWebpackDevServer) {
-  if (devServer.hmr) {
-    devConfig = merge(devConfig, {
-      output: { filename: '[name]-[hash].js' }
-    })
-  }
-
   const devServerConfig = {
     devMiddleware: {
       publicPath
