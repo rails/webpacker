@@ -2,7 +2,7 @@
 
 **Please note that Webpacker 4.1.0 has an installer bug. Please use 4.2.0 or above**
 
-## [[6.0.0]](https://github.com/rails/webpacker/compare/v5.1.1...master) - 2021-TBD
+## [[6.0.0]](https://github.com/rails/webpacker/compare/v5.4.3...master) - 2021-TBD
 
 Please see [UPGRADE GUIDE](./docs/v6_upgrade.md) for more information.
 
@@ -25,6 +25,20 @@ environment.loaders.append('nodeModules', nodeModules)
 - Removed integration installers
 - Splitchunks enabled by default
 - CSS extraction enabled by default, except when devServer is configured and running
+
+## [[5.4.3]](https://github.com/rails/webpacker/compare/v5.4.2...v5.4.3) - 2021-09-14
+
+-  Specify webpack-dev-server to be v3, to avoid getting webpack-dev-server v4 (#3121)
+
+## [[5.4.2]](https://github.com/rails/webpacker/compare/v5.4.1...v5.4.2) - 2021-08-20
+
+- Fix babel warning about private-methods in @babel/plugin-proposal-private-property-in-object as well.
+
+## [[5.4.1]](https://github.com/rails/webpacker/compare/v5.4.0...v5.4.1) - 2021-08-20
+
+- Update all dependencies within the same major version (#3120)
+
+- Fix babel warning about private-methods (#3016)
 
 ## [[5.4.0]](https://github.com/rails/webpacker/compare/v5.3.0...v5.4.0) - 2021-05-18
 
