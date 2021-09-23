@@ -28,26 +28,24 @@ environment.loaders.append('nodeModules', nodeModules)
 
 ## [[5.4.3]](https://github.com/rails/webpacker/compare/v5.4.2...v5.4.3) - 2021-09-14
 
--  Specify webpack-dev-server to be v3, to avoid getting webpack-dev-server v4 (#3121)
+-  Specify webpack-dev-server to be v3, to avoid getting webpack-dev-server v4 ([#3121](https://github.com/rails/webpacker/pull/3121))
 
 ## [[5.4.2]](https://github.com/rails/webpacker/compare/v5.4.1...v5.4.2) - 2021-08-20
 
-- Fix babel warning about private-methods in @babel/plugin-proposal-private-property-in-object as well.
+- Fix babel warning about private-methods in `@babel/plugin-proposal-private-property-in-object` as well ([67fa6edf](https://github.com/rails/webpacker/commit/67fa6edf697340cbd5a5518afebac871ef74769b)).
 
 ## [[5.4.1]](https://github.com/rails/webpacker/compare/v5.4.0...v5.4.1) - 2021-08-20
 
-- Update all dependencies within the same major version (#3120)
-
-- Fix babel warning about private-methods (#3016)
+- Update all dependencies within the same major version ([#3120](https://github.com/rails/webpacker/pull/3120))
+- Fix babel warning about private-methods ([#3016](https://github.com/rails/webpacker/pull/3016))
 
 ## [[5.4.0]](https://github.com/rails/webpacker/compare/v5.3.0...v5.4.0) - 2021-05-18
 
-- Fix compatibility with Psych 4
+- Fix compatibility with Psych 4 ([ceaf826d](https://github.com/rails/webpacker/commit/ceaf826d84230aaadbefdbaaf560d474a96affcc))
 
 ## [[5.3.0]](https://github.com/rails/webpacker/compare/v5.2.1...v5.3.0) - 2021-04-27
 
 - Adds experimental Yarn 2 support. Note you must manually set `nodeLinker: node-modules` in your `.yarnrc.yml`.
-
 - Keep backups, even when they're old [#2912](https://github.com/rails/webpacker/pull/2912)
 
 ## [[5.2.2]](https://github.com/rails/webpacker/compare/v5.2.1...v5.2.2) - 2021-04-27
