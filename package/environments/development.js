@@ -12,6 +12,11 @@ let devConfig = {
 }
 
 if (runningWebpackDevServer) {
+  let liveReload = !devServer.hmr
+  if (devServer.live_reload !== undefined) {
+    liveReload = devServer.live_reload
+  }
+
   const devServerConfig = {
     devMiddleware: {
       publicPath
@@ -22,7 +27,7 @@ if (runningWebpackDevServer) {
     port: devServer.port,
     https: devServer.https,
     hot: devServer.hmr,
-    liveReload: !devServer.hmr,
+    liveReload,
     historyApiFallback: { disableDotRule: true },
     headers: devServer.headers,
     static: {
