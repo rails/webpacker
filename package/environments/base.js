@@ -104,6 +104,7 @@ module.exports = {
   },
 
   optimization: {
+    chunkIds: 'named',
     splitChunks: { chunks: 'all' },
 
     runtimeChunk: 'single'
