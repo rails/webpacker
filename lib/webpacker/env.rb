@@ -31,7 +31,7 @@ class Webpacker::Env
           YAML.load_file(config_path.to_s, aliases: true)
         rescue ArgumentError
           YAML.load_file(config_path.to_s)
-        end
+        end.keys
       else
         [].freeze
       end
