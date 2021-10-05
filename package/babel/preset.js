@@ -25,7 +25,6 @@ module.exports = function config(api) {
           corejs: '3.8',
           modules: 'auto',
           bugfixes: true,
-          loose: true,
           exclude: ['transform-typeof-symbol']
         }
       ],
