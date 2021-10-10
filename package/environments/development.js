@@ -12,10 +12,7 @@ let devConfig = {
 }
 
 if (runningWebpackDevServer) {
-  let liveReload = !devServer.hmr
-  if (devServer.live_reload !== undefined) {
-    liveReload = devServer.live_reload
-  }
+  const liveReload = devServer.live_reload !== undefined ? devServer.live_reload : !devServer.hmr
 
   const devServerConfig = {
     devMiddleware: {
