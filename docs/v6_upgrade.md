@@ -73,4 +73,4 @@ Example going to a specific version:
 }
 ```
 14. Some dependencies were removed in [PR 3056](https://github.com/rails/webpacker/pull/3056). If you see the error: `Error: Cannot find module 'babel-plugin-macros'`, or similar, then you need to `yarn add <dependency>` where <dependency> might include: `babel-plugin-macros`, `case-sensitive-paths-webpack-plugin`, `core-js`, `regenerator-runtime`. Or you might want to remove your dependency on those.
-
+15. If you run `RAILS_ENV=production rake assets:precompile`, you may get an error that `bin/yarn` does not exist. Copy the file [bin/yarn](https://github.com/rails/webpacker/blob/master/lib/install/bin/yarn) to your `/bin` directory.
