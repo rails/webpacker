@@ -19,12 +19,13 @@
     "@babel/runtime": "^7.15.4",
     "babel-loader": "^8.2.2",
     "compression-webpack-plugin": "^9.0.0",
+    "core-js": "^3.18.1",
     "glob": "^7.2.0",
     "js-yaml": "^4.1.0",
     "path-complete-extname": "^1.0.0",
     "pnp-webpack-plugin": "^1.7.0",
     "terser-webpack-plugin": "^5.2.4",
-    "webpack": "^5.53.0",
+    "webpack": "^5.56.0",
     "webpack-assets-manifest": "^5.0.6",
     "webpack-cli": "^4.8.0",
     "webpack-merge": "^5.8.0",
@@ -36,8 +37,8 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react": "^7.26.0",
-    "jest": "^27.2.1"
+    "eslint-plugin-react": "^7.26.1",
+    "jest": "^27.2.4"
   },
   "jest": {
     "testRegex": "(/__tests__/.*|(\\.|/))\\.jsx?$",
