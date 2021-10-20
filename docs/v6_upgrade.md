@@ -10,9 +10,21 @@ Webpacker used to configure Webpack indirectly, which lead to a [complicated sec
 
 This means you have to configure integration with frameworks yourself, but webpack-merge helps with this. See this example for [Vue](https://github.com/rails/webpacker#other-frameworks).
 
-## How to upgrade to Webpacker 6
+## How to upgrade to Webpacker v6 from v5
+1. If you are changing from the v5 default for `source_entry_path`:
+  ```yml
+    source_path: app/javascript
+    source_entry_path: packs
+  ```
+  to the v6 default:
+  ```yml
+    source_path: app/javascript
+    source_entry_path: /
+  ```
+  Then move your `app/javascript/packs/*` (including `application.js`) to `app/javascript/`. 
+  
+  Check if you had any entry point files in child directories of your `source_entry_path`. Files for entry points in child directories are not supported by rails/webpacker v6.
 
-1. Move your `app/javascript/packs/application.js` to `app/javascript/application.js`
 2. Rename `config/webpack` to `config/webpack_old`
 3. Rename `config/webpacker.yml` to `config/webpacker_old.yml`
 4. Uninstall the current version of `webpack-dev-server`: `yarn remove webpack-dev-server`
@@ -75,3 +87,9 @@ Example going to a specific version:
 14. Some dependencies were removed in [PR 3056](https://github.com/rails/webpacker/pull/3056). If you see the error: `Error: Cannot find module 'babel-plugin-macros'`, or similar, then you need to `yarn add <dependency>` where <dependency> might include: `babel-plugin-macros`, `case-sensitive-paths-webpack-plugin`, `core-js`, `regenerator-runtime`. Or you might want to remove your dependency on those.
 15. If you run `RAILS_ENV=production rake assets:precompile`, you may get an error that `bin/yarn` does not exist. Copy the file [bin/yarn](https://github.com/rails/webpacker/blob/master/lib/install/bin/yarn) to your `/bin` directory.
 16. Remove overlapping dependencies from your `package.json` and rails/webpacker's `package.json`. For example, don't include `webpack` directly as that's a dependency of rails/webpacker.
+17. Review the new default's changes to `webpacker.yml` and `config/webpack`. Consider each suggested change carefully, especially the change to have your `source_entry_path` be at the top level of your `source_path`.
+18. Make sure that you can run `bin/webpack` without errors before trying your app!
+
+## Examples of v5 to v6
+1. [React on Rails Project with HMR and SSR](https://github.com/shakacode/react_on_rails_tutorial_with_ssr_and_hmr_fast_refresh/compare/webpacker-5.x...master)
+2. [Vue and Sass Example](https://github.com/guillaumebriday/upgrade-webpacker-5-to-6)
