@@ -88,6 +88,8 @@ Example going to a specific version:
 15. If you run `RAILS_ENV=production rake assets:precompile`, you may get an error that `bin/yarn` does not exist. Copy the file [bin/yarn](https://github.com/rails/webpacker/blob/master/lib/install/bin/yarn) to your `/bin` directory.
 16. Remove overlapping dependencies from your `package.json` and rails/webpacker's `package.json`. For example, don't include `webpack` directly as that's a dependency of rails/webpacker.
 17. Review the new default's changes to `webpacker.yml` and `config/webpack`. Consider each suggested change carefully, especially the change to have your `source_entry_path` be at the top level of your `source_path`.
+18. Make sure that you can run `bin/webpack` without errors before trying your app!
 
-## Examples
-1. [React on Rails Project, v5 to v6](https://github.com/shakacode/react_on_rails_tutorial_with_ssr_and_hmr_fast_refresh/compare/webpacker-5.x...master)
+## Examples of v5 to v6
+1. [React on Rails Project with HMR and SSR](https://github.com/shakacode/react_on_rails_tutorial_with_ssr_and_hmr_fast_refresh/compare/webpacker-5.x...master)
+2. [Vue and Sass Example](https://github.com/guillaumebriday/upgrade-webpacker-5-to-6)
