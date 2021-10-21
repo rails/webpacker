@@ -11,7 +11,7 @@
 Webpacker makes it easy to use the JavaScript pre-processor and bundler
 [Webpack v5](https://webpack.js.org/)
 to manage application-like JavaScript in Rails. It can coexist with the asset pipeline,
-leaving Webpack responsible solely for app-like JavaScript, or it can be used exclusively, making it also responsible for images, fronts, and CSS.
+leaving Webpack responsible solely for app-like JavaScript, or it can be used exclusively, making it also responsible for images, fonts, and CSS.
 
 **NOTE:** The master branch now hosts the code for v6.x.x. Please refer to [5-x-stable](https://github.com/rails/webpacker/tree/5-x-stable) branch for 5.x documentation.
 
