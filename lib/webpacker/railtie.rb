@@ -51,4 +51,11 @@ class Webpacker::Engine < ::Rails::Engine
       app.config.javascript_path = Webpacker.config.source_path.relative_path_from(Rails.root.join("app")).to_s
     end
   end
+
+  initializer "webpacker.remove_app_packs_from_the_autoload_paths" do
+    Rails.application.config.before_initialize do
+      source_path = Webpacker.config.source_path.to_s
+      ActiveSupport::Dependencies.autoload_paths.delete(source_path)
+    end
+  end
 end
