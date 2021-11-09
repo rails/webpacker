@@ -48,7 +48,10 @@ module.exports = function config(api) {
         moduleExists('babel-plugin-transform-react-remove-prop-types') && [
           'babel-plugin-transform-react-remove-prop-types',
           { removeImport: true }
-        ]
+        ],
+      moduleExists('react-refresh') && [
+        process.env.WEBPACK_SERVE && 'react-refresh/babel'
+      ]
     ].filter(Boolean)
   }
 }
