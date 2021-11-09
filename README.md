@@ -323,6 +323,9 @@ Webpacker out of the box supports JS and static assets (fonts, images etc.) comp
 
 ```bash
 yarn add react react-dom @babel/preset-react
+
+## add hmr ones only for development
+yarn add --dev @pmmmwh/react-refresh-webpack-plugin react-refresh
 ```
 
 ...if you are using typescript, update your `tsconfig.json`
