@@ -3,6 +3,8 @@ const { merge } = require('webpack-merge')
 const baseConfig = require('./base')
 const devServer = require('../dev_server')
 const { runningWebpackDevServer } = require('../env')
+const inliningCss = require('../inliningCss')
+const { moduleExists } = require('../utils/helpers')
 
 const { outputPath: contentBase, publicPath } = require('../config')
 
@@ -40,6 +42,19 @@ if (runningWebpackDevServer) {
     devServerConfig.client = devServer.client
   }
 
+  let reactHmrPlugin = null
+  if (inliningCss && moduleExists('@pmmmwh/react-refresh-webpack-plugin')) {
+    // Note, never use this plugin for SSR
+
+    // eslint-disable-next-line global-require
+    const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
+    reactHmrPlugin = new ReactRefreshWebpackPlugin({
+        overlay:{
+          sockPort: devServer.port
+        }
+    })
+  }
+
   devConfig = merge(devConfig, {
     stats: {
       colors: true,
@@ -48,7 +63,8 @@ if (runningWebpackDevServer) {
       modules: false,
       moduleTrace: false
     },
-    devServer: devServerConfig
+    devServer: devServerConfig,
+    plugins: [ reactHmrPlugin ].filter(Boolean)
   })
 }
 
