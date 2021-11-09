@@ -54,8 +54,10 @@ class Webpacker::Engine < ::Rails::Engine
 
   initializer "webpacker.remove_app_packs_from_the_autoload_paths" do
     Rails.application.config.before_initialize do
-      source_path = Webpacker.config.source_path.to_s
-      ActiveSupport::Dependencies.autoload_paths.delete(source_path)
+      if Webpacker.config.config_path.exist?
+        source_path = Webpacker.config.source_path.to_s
+        ActiveSupport::Dependencies.autoload_paths.delete(source_path)
+      end
     end
   end
 end
