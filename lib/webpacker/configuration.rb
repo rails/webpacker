@@ -80,10 +80,13 @@ class Webpacker::Configuration
       end
       config[env].deep_symbolize_keys
     rescue Errno::ENOENT => e
-      raise "Webpacker configuration file not found #{config_path}. " \
-            "Please run rails webpacker:install " \
-            "Error: #{e.message}"
-
+      if @@webpacker_installing
+        {}
+      else
+        raise "Webpacker configuration file not found #{config_path}. " \
+              "Please run rails webpacker:install " \
+              "Error: #{e.message}"
+      end
     rescue Psych::SyntaxError => e
       raise "YAML syntax error occurred while parsing #{config_path}. " \
             "Please note that YAML must be consistently indented using spaces. Tabs are not allowed. " \
