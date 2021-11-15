@@ -32,22 +32,10 @@ module.exports = function config(api) {
       moduleExists('@babel/preset-typescript') && [
         '@babel/preset-typescript',
         { allExtensions: true, isTSX: true }
-      ],
-      moduleExists('@babel/preset-react') && [
-        '@babel/preset-react',
-        {
-          development: isDevelopmentEnv || isTestEnv,
-          useBuiltIns: true
-        }
       ]
     ].filter(Boolean),
     plugins: [
-      ['@babel/plugin-transform-runtime', { helpers: false }],
-      isProductionEnv &&
-        moduleExists('babel-plugin-transform-react-remove-prop-types') && [
-          'babel-plugin-transform-react-remove-prop-types',
-          { removeImport: true }
-        ]
+      ['@babel/plugin-transform-runtime', { helpers: false }]
     ].filter(Boolean)
   }
 }
