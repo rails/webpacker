@@ -4,6 +4,8 @@ bin_path = ENV["BUNDLE_BIN"] || Rails.root.join("bin")
 namespace :webpacker do
   desc "Install Webpacker in this application"
   task install: [:check_node, :check_yarn] do |task|
+    Webpacker::Configuration.installing = true
+
     prefix = task.name.split(/#|webpacker:install/).first
 
     if Rails::VERSION::MAJOR >= 5
