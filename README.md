@@ -80,8 +80,14 @@ leaving Webpack responsible solely for app-like JavaScript, or it can be used ex
 
 You can configure a new Rails application with Webpacker right from the start using the `-j webpack` option:
 
+With Rails v7:
 ```bash
 rails new myapp -j webpack
+```
+
+With Rails v6:
+```bash
+rails new myapp
 ```
 
 Or you can add it later by changing your `Gemfile`:
