@@ -107,7 +107,7 @@ Example going to a specific version:
 
 18. Try running `RAILS_ENV=production bin/rails assets:precompile`. If all goes well, don't forget to clean the generated assets with `bin/rails assets:clobber`.
 
-19. Run `yarn add webpack-dev-server @webpack-cli/serve` if those are not already in your dev dependencies.
+19. Run `yarn add webpack-dev-server` if those are not already in your dev dependencies. Make sure you're using v4+.
 
 20. Try your app!
 
