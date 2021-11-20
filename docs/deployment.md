@@ -1,20 +1,8 @@
 # Deployment
 
 Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which gets run whenever you run `assets:precompile`.
-If you are not using Sprockets `webpacker:compile` is automatically aliased to `assets:precompile`. Remember to set `NODE_ENV` environment variable to production during deployment or when running the rake task.
+If you are not using Sprockets `webpacker:compile` is automatically aliased to `assets:precompile`.
 
-The `javascript_pack_tag` and `stylesheet_pack_tag` helper method will automatically insert the correct HTML tag for compiled pack. Just like the asset pipeline does it.
-
-By default the output will look like this in different environments:
-
-```html
-<!-- In development mode with webpack-dev-server -->
-<script src="http://localhost:8080/calendar-0bd141f6d9360cf4a7f5.js"></script>
-<link rel="stylesheet" media="screen" href="http://localhost:8080/calendar-dc02976b5f94b507e3b6.css">
-
-<!-- In production or development mode -->
-<script src="/packs/js/calendar-0bd141f6d9360cf4a7f5.js"></script>
-<link rel="stylesheet" media="screen" href="/packs/css/calendar-dc02976b5f94b507e3b6.css">
 ```
 
 ## Heroku
@@ -34,7 +22,7 @@ We're essentially doing the following here:
 * Creating an app on Heroku
 * Creating a Postgres database for the app (this is assuming that you're using Heroku Postgres for your app)
 * Adding the Heroku NodeJS and Ruby buildpacks for your app. This allows the `npm` or `yarn` executables to properly function when compiling your app - as well as Ruby.
-* Pushing our code to Heroku and kicking off the deployment
+* Pushing your code to Heroku and kicking off the deployment
 
 ## Nginx
 
