@@ -52,12 +52,24 @@ class Webpacker::Compiler
     end
 
     def watched_files_digest
-      warn "Webpacker::Compiler.watched_paths has been deprecated. Set additional_paths in webpacker.yml instead." unless watched_paths.empty?
-      Dir.chdir File.expand_path(config.root_path) do
-        files = Dir[*default_watched_paths, *watched_paths].reject { |f| File.directory?(f) }
-        file_ids = files.sort.map { |f| "#{File.basename(f)}/#{Digest::SHA1.file(f).hexdigest}" }
-        Digest::SHA1.hexdigest(file_ids.join("/"))
+      if Rails.env.development?
+        warn <<~MSG.strip
+          Webpacker::Compiler - Slow setup for development
+
+          Prepare JS assets with either:
+          1. Running `bin/webpack-dev-server`
+          2. Set `compile` to false in webpacker.yml and run `bin/webpack -w`
+        MSG
       end
+
+      warn "Webpacker::Compiler.watched_paths has been deprecated. Set additional_paths in webpacker.yml instead." unless watched_paths.empty?
+      root_path = Pathname.new(File.expand_path(config.root_path))
+      expanded_paths = [*default_watched_paths, *watched_paths].map do |path|
+        root_path.join(path)
+      end
+      files = Dir[*expanded_paths].reject { |f| File.directory?(f) }
+      file_ids = files.sort.map { |f| "#{File.basename(f)}/#{Digest::SHA1.file(f).hexdigest}" }
+      Digest::SHA1.hexdigest(file_ids.join("/"))
     end
 
     def record_compilation_digest
