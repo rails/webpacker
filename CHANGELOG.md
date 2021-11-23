@@ -20,6 +20,7 @@ environment.loaders.append('nodeModules', nodeModules)
 - Adds experimental Yarn 2 support. Note you must manually set `nodeLinker: node-modules` in your `.yarnrc.yml`.
 - Fixes dev server issues [#2898](https://github.com/rails/webpacker/pull/2898)
 - Update static files path to from `media/` to `static/`.
+- Changed all package.json dependencies to peerDependencies, so upgrading requires adding the dependencies, per the [UPGRADE GUIDE](./docs/v6_upgrade.md).
 
 ### Breaking changes
 - Removed integration installers

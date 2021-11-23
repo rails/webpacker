@@ -44,7 +44,7 @@ Example going to a specific version:
 
   ```ruby
   # Gemfile
-  gem 'webpacker', '6.0.0.rc.5'
+  gem 'webpacker', '6.0.0.rc.6'
   ```
 
   ```bash
@@ -52,11 +52,19 @@ Example going to a specific version:
   ```
 
   ```bash
-  yarn add @rails/webpacker@6.0.0-rc.5 --exact
+  yarn add @rails/webpacker@6.0.0-rc.6 --exact
   ```
 
   ```bash
   bundle exec rails webpacker:install
+  ```
+  
+  Overwrite all files and check what changed.
+   
+  
+  Note, the webpacker:install will install the peer dependencies:
+  ```bash
+  yarn add @babel/core @babel/plugin-transform-runtime @babel/preset-env @babel/runtime babel-loader compression-webpack-plugin glob js-yaml path-complete-extname pnp-webpack-plugin terser-webpack-plugin webpack webpack-assets-manifest webpack-cli webpack-merge webpack-sources webpack-dev-server
   ```
 
 7. Update API usage of the view helpers by changing `javascript_packs_with_chunks_tag` and `stylesheet_packs_with_chunks_tag` to `javascript_pack_tag` and `stylesheet_pack_tag`. Ensure that your layouts and views will only have **at most one call** to `javascript_pack_tag` and **at most one call** to `stylesheet_pack_tag`. You can now pass multiple bundles to these view helper methods. If you fail to changes this, you may experience performance issues, and other bugs related to multiple copies of React, like [issue 2932](https://github.com/rails/webpacker/issues/2932).  If you expose jquery globally with `expose-loader,` by using `import $ from "expose-loader?exposes=$,jQuery!jquery"` in your `app/javascript/application.js`, pass the option `defer: false` to your `javascript_pack_tag`.

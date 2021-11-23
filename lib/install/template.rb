@@ -73,16 +73,22 @@ Dir.chdir(Rails.root) do
     results << run("yarn add @rails/webpacker@next")
   end
 
-  package_json = File.read("#{__dir__}/../../package.json")
-  webpack_version = package_json.match(/"webpack": "(.*)"/)[1]
-  webpack_cli_version = package_json.match(/"webpack-cli": "(.*)"/)[1]
+  # TODO -- pull major versions for all peers
+  # package_json = File.read("#{__dir__}/../../package.json")
+  # webpack_version = package_json.match(/"webpack": "(.*)"/)[1]
+  # webpack_cli_version = package_json.match(/"webpack-cli": "(.*)"/)[1]
+  #results << run("yarn add webpack@#{webpack_version} webpack-cli@#{webpack_cli_version}")
+  # say "Installing dev server for live reloading"
+  # results << run("yarn add --dev webpack-dev-server @webpack-cli/serve")
 
-  # needed for experimental Yarn 2 support and should not harm Yarn 1
-  say "Installing webpack and webpack-cli as direct dependencies"
-  results << run("yarn add webpack@#{webpack_version} webpack-cli@#{webpack_cli_version}")
+  say "Installing peer dependencies of @rails/webpacker"
+  peer_install = "yarn add @babel/core @babel/plugin-transform-runtime @babel/preset-env @babel/runtime babel-loader "\
+    "compression-webpack-plugin glob js-yaml path-complete-extname pnp-webpack-plugin terser-webpack-plugin "\
+    "webpack webpack-assets-manifest webpack-cli webpack-merge webpack-sources"
+  results << run(peer_install)
 
-  say "Installing dev server for live reloading"
-  results << run("yarn add --dev webpack-dev-server @webpack-cli/serve")
+  say "Installing webpack-dev-server for live reloading as a development dependency"
+  results << run("yarn add --dev webpack-dev-server")
 end
 
 if Rails::VERSION::MAJOR == 5 && Rails::VERSION::MINOR > 1

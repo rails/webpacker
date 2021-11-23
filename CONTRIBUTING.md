@@ -50,3 +50,13 @@ bundle exec rake test TEST=test/rake_tasks_test.rb
 ```
 ruby -I test test/rake_tasks_test.rb -n test_rake_webpacker_install
 ```
+
+# Testing the generator
+If you change the generator, check that install instructions work.
+
+1. Update the gemfile so that gem "webpacker" has a line like this, pointing to your install of webpacker
+   ```ruby
+   gem 'webpacker', path: "~/shakacode/forks/webpacker"
+   ```   
+2. `bundle`
+3. Run the generator confirm that you got the right changes. 
