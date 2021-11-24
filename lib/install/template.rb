@@ -66,26 +66,22 @@ results = []
 
 Dir.chdir(Rails.root) do
   if Webpacker::VERSION.match?(/^[0-9]+\.[0-9]+\.[0-9]+$/)
-    say "Installing all JavaScript dependencies [#{Webpacker::VERSION}]"
+    say "Installing @rails/webpacker@#{Webpacker::VERSION}"
     results << run("yarn add @rails/webpacker@#{Webpacker::VERSION}")
   else
-    say "Installing all JavaScript dependencies [from prerelease rails/webpacker]"
+    say "Installing @rails/webpacker@next"
     results << run("yarn add @rails/webpacker@next")
   end
 
-  # TODO -- pull major versions for all peers
-  # package_json = File.read("#{__dir__}/../../package.json")
-  # webpack_version = package_json.match(/"webpack": "(.*)"/)[1]
-  # webpack_cli_version = package_json.match(/"webpack-cli": "(.*)"/)[1]
-  #results << run("yarn add webpack@#{webpack_version} webpack-cli@#{webpack_cli_version}")
-  # say "Installing dev server for live reloading"
-  # results << run("yarn add --dev webpack-dev-server @webpack-cli/serve")
+  package_json = File.read("#{__dir__}/../../package.json")
+  peers = JSON.parse(package_json)["peerDependencies"]
+  peers_to_add = peers.reduce([]) do |result, (package, version)|
+    major_version = version.match(/(\d+)/)[1]
+    result << "#{package}@#{major_version}"
+  end.join(" ")
 
-  say "Installing peer dependencies of @rails/webpacker"
-  peer_install = "yarn add @babel/core @babel/plugin-transform-runtime @babel/preset-env @babel/runtime babel-loader "\
-    "compression-webpack-plugin glob js-yaml path-complete-extname pnp-webpack-plugin terser-webpack-plugin "\
-    "webpack webpack-assets-manifest webpack-cli webpack-merge webpack-sources"
-  results << run(peer_install)
+  say "Adding @rails/webpacker peerDependencies"
+  results << run("yarn add #{peers_to_add}")
 
   say "Installing webpack-dev-server for live reloading as a development dependency"
   results << run("yarn add --dev webpack-dev-server")

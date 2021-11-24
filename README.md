@@ -118,9 +118,12 @@ Note, in v6, all JS packages are peer dependencies. Thus, the installer will add
 
 ```bash
 yarn add @babel/core @babel/plugin-transform-runtime @babel/preset-env @babel/runtime babel-loader \
-  compression-webpack-plugin glob js-yaml path-complete-extname pnp-webpack-plugin terser-webpack-plugin \
+  compression-webpack-plugin pnp-webpack-plugin terser-webpack-plugin \
   webpack webpack-assets-manifest webpack-cli webpack-merge webpack-sources webpack-dev-server
 ```
+
+Previously, these "webpack" and "babel" packages were direct dependencies for `@rails/webpacker`. By
+making these peer dependenencies, you have control over the versions used in your webpack and babel configs.
 
 ### Usage
 
