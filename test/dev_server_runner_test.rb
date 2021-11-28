@@ -15,25 +15,25 @@ class DevServerRunnerTest < Webpacker::Test
   end
 
   def test_run_cmd_via_node_modules
-    cmd = ["#{test_app_path}/node_modules/.bin/webpack", "serve", "--config", "#{test_app_path}/config/webpack/development.js"]
+    cmd = ["#{test_app_path}/node_modules/.bin/webpack", "serve", "--config", "#{test_app_path}/config/webpack/webpack.config.js"]
 
     verify_command(cmd, use_node_modules: true)
   end
 
   def test_run_cmd_via_yarn
-    cmd = ["yarn", "webpack", "serve", "--config", "#{test_app_path}/config/webpack/development.js"]
+    cmd = ["yarn", "webpack", "serve", "--config", "#{test_app_path}/config/webpack/webpack.config.js"]
 
     verify_command(cmd, use_node_modules: false)
   end
 
   def test_run_cmd_argv
-    cmd = ["#{test_app_path}/node_modules/.bin/webpack", "serve", "--config", "#{test_app_path}/config/webpack/development.js", "--quiet"]
+    cmd = ["#{test_app_path}/node_modules/.bin/webpack", "serve", "--config", "#{test_app_path}/config/webpack/webpack.config.js", "--quiet"]
 
     verify_command(cmd, argv: ["--quiet"])
   end
 
   def test_run_cmd_argv_with_https
-    cmd = ["#{test_app_path}/node_modules/.bin/webpack", "serve", "--config", "#{test_app_path}/config/webpack/development.js", "--https"]
+    cmd = ["#{test_app_path}/node_modules/.bin/webpack", "serve", "--config", "#{test_app_path}/config/webpack/webpack.config.js", "--https"]
 
     dev_server = Webpacker::DevServer.new({})
     def dev_server.host; "localhost"; end
@@ -47,7 +47,7 @@ class DevServerRunnerTest < Webpacker::Test
   end
 
   def test_environment_variables
-    cmd = ["#{test_app_path}/node_modules/.bin/webpack", "serve", "--config", "#{test_app_path}/config/webpack/development.js"]
+    cmd = ["#{test_app_path}/node_modules/.bin/webpack", "serve", "--config", "#{test_app_path}/config/webpack/webpack.config.js"]
     env = Webpacker::Compiler.env.dup
     ENV["WEBPACKER_CONFIG"] = env["WEBPACKER_CONFIG"] = "#{test_app_path}/config/webpacker_other_location.yml"
     env["WEBPACK_SERVE"] = "true"

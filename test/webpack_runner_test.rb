@@ -13,19 +13,19 @@ class WebpackRunnerTest < Webpacker::Test
   end
 
   def test_run_cmd_via_node_modules
-    cmd = ["#{test_app_path}/node_modules/.bin/webpack", "--config", "#{test_app_path}/config/webpack/development.js"]
+    cmd = ["#{test_app_path}/node_modules/.bin/webpack", "--config", "#{test_app_path}/config/webpack/webpack.config.js"]
 
     verify_command(cmd, use_node_modules: true)
   end
 
   def test_run_cmd_via_yarn
-    cmd = ["yarn", "webpack", "--config", "#{test_app_path}/config/webpack/development.js"]
+    cmd = ["yarn", "webpack", "--config", "#{test_app_path}/config/webpack/webpack.config.js"]
 
     verify_command(cmd, use_node_modules: false)
   end
 
   def test_run_cmd_argv
-    cmd = ["#{test_app_path}/node_modules/.bin/webpack", "--config", "#{test_app_path}/config/webpack/development.js", "--watch"]
+    cmd = ["#{test_app_path}/node_modules/.bin/webpack", "--config", "#{test_app_path}/config/webpack/webpack.config.js", "--watch"]
 
     verify_command(cmd, argv: ["--watch"])
   end

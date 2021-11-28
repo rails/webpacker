@@ -272,10 +272,9 @@ end
 
 ### Webpack Configuration
 
-Webpacker gives you a default set of configuration files for test, development and production environments in `config/webpack/*.js`. You can configure each individual environment in their respective files or configure them all in the base
-`config/webpack/base.js` file.
+Webpacker gives you a default configuration file for your test, development, and production environments in `config/webpack/*.js`. 
 
-By default, you don't need to make any changes to `config/webpack/*.js` files since it's all standard production-ready configuration. However, if you do need to customize or add a new loader, this is where you would go.
+By default, you don't need to make any changes to `config/webpack/webpack.config.js` files since it's all standard production-ready configuration. However, if you do need to customize or add a new loader, this is where you would go.
 
 Here is how you can modify webpack configuration:
 
@@ -296,10 +295,10 @@ module.exports = {
 }
 ```
 
-Then `require` this file in your `config/webpack/base.js`:
+Then `require` this file in your `config/webpack/webpack.config.js`:
 
 ```js
-// config/webpack/base.js
+// config/webpack/webpack.config.js
 const { webpackConfig, merge } = require('@rails/webpacker')
 const customConfig = require('./custom')
 
@@ -309,7 +308,7 @@ module.exports = merge(webpackConfig, customConfig)
 If you need access to configs within Webpacker's configuration, you can import them like so:
 
 ```js
-// config/webpack/base.js
+// config/webpack/webpack.config.js
 const { webpackConfig } = require('@rails/webpacker')
 
 console.log(webpackConfig.output_path)
@@ -408,7 +407,7 @@ Add tsconfig.json
 Then modify the webpack config to use it as a plugin:
 
 ```js
-// config/webpack/base.js
+// config/webpack/webpack.config.js
 const { webpackConfig, merge } = require("@rails/webpacker");
 const ForkTSCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
@@ -428,7 +427,7 @@ yarn add css-loader style-loader mini-css-extract-plugin css-minimizer-webpack-p
 Optionally, add the `CSS` extension to webpack config for easy resolution.
 
 ```js
-// config/webpack/base.js
+// config/webpack/webpack.config.js
 const { webpackConfig, merge } = require('@rails/webpacker')
 const customConfig = {
   resolve: {
@@ -501,7 +500,7 @@ module.exports = {
 ```
 
 ```js
-// config/webpack/base.js
+// config/webpack/webpack.config.js
 const { webpackConfig, merge } = require('@rails/webpacker')
 const vueConfig = require('./rules/vue')
 
