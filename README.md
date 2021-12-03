@@ -52,7 +52,7 @@ leaving Webpack responsible solely for app-like JavaScript, or it can be used ex
 
 ## Prerequisites
 
-- Ruby 2.4+
+- Ruby 2.7+
 - Rails 5.2+
 - Node.js 12.13.0+ || 14+
 - Yarn
