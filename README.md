@@ -153,7 +153,7 @@ The result looks like this:
 <script src="/packs/map-16838bab065ae1e314.js" data-turbolinks-track="reload" defer></script>
 ```
 
-**Important:** Pass all your pack names as multiple arguments, not multiple calls, when using `javascript_pack_tag` and the **`stylesheet_pack_tag`. Otherwise, you will get duplicated chunks on the page. Be especially careful if you might be calling these view helpers from your view, partials, and the layout for a page. You will need some logic to ensure you call the helpers only once with multiple arguments.
+**Important:** Pass all your pack names as multiple arguments, not multiple calls, when using **`javascript_pack_tag`** and the **`stylesheet_pack_tag`**. Otherwise, you will get duplicated chunks on the page. Be especially careful if you might be calling these view helpers from your view, partials, and the layout for a page. You will need some logic to ensure you call the helpers only once with multiple arguments.
 
 ```erb
 <%# DO %>
@@ -320,6 +320,25 @@ By default, you will find the Webpacker preset in your `package.json`.
 
 Optionally, you can change your Babel configuration by removing these lines in your `package.json` and add [a Babel configuration file](https://babeljs.io/docs/en/config-files) in your project.
 
+Here is [an example babel.config.js](https://github.com/shakacode/react_on_rails_tutorial_with_ssr_and_hmr_fast_refresh/blob/master/babel.config.js) that builds on the default configuration:
+
+```js
+// babel.config.js
+module.exports = function (api) {
+  const defaultConfigFunc = require('@rails/webpacker/package/babel/preset.js')
+  const resultConfig = defaultConfigFunc(api);
+
+  const changesOnDefault = {
+    plugins: [
+      process.env.WEBPACK_SERVE && 'react-refresh/babel'
+    ].filter(Boolean),
+  }
+
+  resultConfig.plugins = [...resultConfig.plugins, ...changesOnDefault.plugins ];
+
+  return resultConfig;
+}
+```
 
 ### Integrations
 
