@@ -3,7 +3,13 @@ namespace :webpacker do
   desc "Verifies if Node.js is installed"
   task :check_node do
     begin
-      which_command = Gem.win_platform? ? "where" : "which"
+      if Gem.win_platform?
+        which_command = 'where'
+      else
+        which_command = 'which'
+        raise Errno::ENOSYS if `rpm -qa | grep #{which_command}`.strip.empty?
+      end
+
       raise Errno::ENOENT if `#{which_command} node || #{which_command} nodejs`.strip.empty?
 
       node_version = `node -v || nodejs -v`.strip
@@ -27,6 +33,10 @@ namespace :webpacker do
       end
     rescue Errno::ENOENT
       $stderr.puts "Node.js not installed. Please download and install Node.js https://nodejs.org/en/download/"
+      $stderr.puts "Exiting!"
+      exit!
+    rescue Errno::ENOSYS
+      $stderr.puts "'#{which_command}' is not installed. Please download and install '#{which_command}' by running the following command 'yum install #{which_command}'"
       $stderr.puts "Exiting!"
       exit!
     end
