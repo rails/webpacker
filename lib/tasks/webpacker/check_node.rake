@@ -7,7 +7,7 @@ namespace :webpacker do
         which_command = 'where'
       else
         which_command = 'which'
-        raise Errno::ENOSYS if `rpm -qa | grep #{which_command}`.strip.empty?
+        raise Errno::ENOSYS if system("type which").nil?
       end
 
       raise Errno::ENOENT if `#{which_command} node || #{which_command} nodejs`.strip.empty?
@@ -36,7 +36,7 @@ namespace :webpacker do
       $stderr.puts "Exiting!"
       exit!
     rescue Errno::ENOSYS
-      $stderr.puts "'#{which_command}' is not installed. Please download and install '#{which_command}' by running the following command 'yum install #{which_command}'"
+      $stderr.puts "'#{which_command}' is not installed. Please download and install '#{which_command}'"
       $stderr.puts "Exiting!"
       exit!
     end
