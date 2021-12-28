@@ -89,7 +89,7 @@ class Webpacker::Compiler
         end
       else
         non_empty_streams = [stdout, stderr].delete_if(&:empty?)
-        logger.error "Compilation failed:\n#{non_empty_streams.join("\n\n")}"
+        logger.error "\nCOMPILATION FAILED:\nEXIT STATUS: #{status}\nOUTPUTS:\n#{non_empty_streams.join("\n\n")}"
       end
 
       status.success?
