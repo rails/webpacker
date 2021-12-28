@@ -3,13 +3,12 @@ name: JS lint
 on: [push, pull_request]
 
 jobs:
-  js-lint:
+  lint:
     name: JS Lint
-
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: [14]
+        node: [12.x, 14.x, 16.x]
 
     runs-on: ${{ matrix.os }}
 
@@ -21,11 +20,8 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: yarn
 
-      - name: Install yarn maybe
-        run: which yarn || npm install -g yarn
-
       - name: Install dependencies
-        run: yarn --frozen-lockfile
+        run: yarn --frozen-lockfile --non-interactive --prefer-offline
 
       - name: Lint
         run: yarn lint
