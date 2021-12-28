@@ -6,43 +6,38 @@ jobs:
   test:
     name: Ruby specs
     runs-on: ${{ matrix.os }}
-    continue-on-error: ${{ endsWith(matrix.ruby, 'head') || matrix.ruby == 'debug' || matrix.experimental }}
     strategy:
-      fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        ruby:
-          - 2.7
-          - "3.0"
+        ruby: [2.7, 3.0, 3.1]
         gemfile:
           - gemfiles/Gemfile-rails.5.2.x
           - gemfiles/Gemfile-rails.6.0.x
           - gemfiles/Gemfile-rails.6.1.x
-        exclude:
-          - ruby: 2.5
-            gemfile: gemfiles/Gemfile-rails.6.1.x
-          - ruby: "3.0"
-            gemfile: gemfiles/Gemfile-rails.5.2.x
-        experimental: [false]
+          - gemfiles/Gemfile-rails.7.0.x
         include:
           - ruby: 2.7
             os: ubuntu-latest
             gemfile: gemfiles/Gemfile-rails-edge
             experimental: true
-          - ruby: "3.0"
+          - ruby: 3.0
+            os: ubuntu-latest
+            gemfile: gemfiles/Gemfile-rails-edge
+            experimental: true
+          - ruby: 3.1
             os: ubuntu-latest
             gemfile: gemfiles/Gemfile-rails-edge
             experimental: true
 
     env:
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+
     steps:
       - uses: actions/checkout@v2
-
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
-          bundler-cache: true # Run "bundle install", and cache the result automatically.
+          bundler-cache: true
 
       - name: Ruby specs
-        run: bundle exec rake
+        run: bundle exec rake test
