@@ -5,7 +5,7 @@ copy_file "#{__dir__}/package.json", "package.json"
 say "Copying webpack core config"
 directory "#{__dir__}/config/webpack", "config/webpack"
 
-if Dir.exists?(Webpacker.config.source_path)
+if Dir.exist?(Webpacker.config.source_path)
   say "The packs app source directory already exists"
 else
   say "Creating packs app source directory"
@@ -16,7 +16,7 @@ end
 apply "#{__dir__}/binstubs.rb"
 
 git_ignore_path = Rails.root.join(".gitignore")
-if File.exists?(git_ignore_path)
+if File.exist?(git_ignore_path)
   append_to_file git_ignore_path do
     "\n"                   +
     "/public/packs\n"      +
