@@ -318,8 +318,7 @@ By default, you will find the Webpacker preset in your `package.json`.
 },
 ```
 
-Optionally, you can change your Babel configuration by removing these lines in your `package.json` and add [a Babel configuration file](https://babeljs.io/docs/en/config-files) in your project.
-
+Optionally, you can change your Babel configuration by removing these lines in your `package.json` and add [a Babel configuration file](https://babeljs.io/docs/en/config-files) in your project. For an example customization based on the original, see [Customizing Babel Config](./docs/customizing_babel_config.md).
 
 ### Integrations
 
@@ -327,10 +326,9 @@ Webpacker out of the box supports JS and static assets (fonts, images etc.) comp
 
 #### React
 
-```bash
-yarn add react react-dom @babel/preset-react
-```
+See customization example the [Customizing Babel Config](./docs/customizing_babel_config.md) for React configuration.
 
+#### Typescript
 ...if you are using typescript, update your `tsconfig.json`
 
 ```json

@@ -84,6 +84,7 @@ Example going to a specific version:
     ]
   }
   ```
+See customization example the [Customizing Babel Config](./docs/customizing_babel_config.md) for React configuration.
 
 12. `extensions` was removed from the `webpacker.yml` file. Move custom extensions to your configuration by merging an object like this. For more details, see docs for [Webpack Configuration](https://github.com/rails/webpacker/blob/master/README.md#webpack-configuration)
 
