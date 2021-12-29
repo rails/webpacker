@@ -192,3 +192,21 @@ module.exports = merge(webpackConfig, {
   ],
 })
 ```
+
+## Wrong CDN src from javascript_pack_tag
+
+If your deployment doesn't rebuild assets between environments (such as when
+using Heroku's Pipeline promote feature). You might find that your production
+application is using your staging `config.asset_host` host when using
+`javascript_pack_tag`.
+
+This can be fixed by setting the environment variable `WEBPACKER_ASSET_HOST` to
+an empty string where your assets are compiled. On Heroku this is done under
+*Settings* -> *Config Vars*.
+
+This way webpacker won't hard-code the CDN host into the manifest file used by
+`javascript_pack_tag`, but instead fetch the CDN host at runtime, resolving the
+issue.
+
+See [this issue](https://github.com/rails/webpacker/issues/3005) for more
+details.
