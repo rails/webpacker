@@ -66,7 +66,7 @@ class Webpacker::Compiler
     end
 
     def optionalRubyRunner
-      bin_webpack_path = config.root_path.join("bin/webpack")
+      bin_webpack_path = config.root_path.join("bin/webpacker")
       first_line = File.readlines(bin_webpack_path).first.chomp
       /ruby/.match?(first_line) ? RbConfig.ruby : ""
     end
@@ -76,7 +76,7 @@ class Webpacker::Compiler
 
       stdout, stderr, status = Open3.capture3(
         webpack_env,
-        "#{optionalRubyRunner} ./bin/webpack",
+        "#{optionalRubyRunner} ./bin/webpacker",
         chdir: File.expand_path(config.root_path)
       )
 

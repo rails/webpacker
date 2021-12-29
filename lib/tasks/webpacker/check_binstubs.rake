@@ -1,10 +1,10 @@
 namespace :webpacker do
-  desc "Verifies that bin/webpack is present"
+  desc "Verifies that bin/webpacker is present"
   task :check_binstubs do
-    unless File.exist?(Rails.root.join("bin/webpack"))
+    unless File.exist?(Rails.root.join("bin/webpacker"))
       $stderr.puts "webpack binstub not found.\n"\
            "Have you run rails webpacker:install ?\n"\
-           "Make sure the bin directory and bin/webpack are not included in .gitignore\n"\
+           "Make sure the bin directory and bin/webpacker are not included in .gitignore\n"\
            "Exiting!"
       exit!
     end
