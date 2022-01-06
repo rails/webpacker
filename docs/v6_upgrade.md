@@ -104,13 +104,15 @@ See customization example the [Customizing Babel Config](./docs/customizing_babe
 
 16. Review the new default's changes to `webpacker.yml` and `config/webpack`. Consider each suggested change carefully, especially the change to have your `source_entry_path` be at the top level of your `source_path`.
 
-17. Make sure that you can run `bin/webpack` without errors.
+17. Make sure that you can run `bin/webpacker` without errors.
 
 18. Try running `RAILS_ENV=production bin/rails assets:precompile`. If all goes well, don't forget to clean the generated assets with `bin/rails assets:clobber`.
 
 19. Run `yarn add webpack-dev-server` if those are not already in your dev dependencies. Make sure you're using v4+.
 
 20. Try your app!
+
+21. Update any scripts that called `/bin/webpack` or `bin/webpack-dev-server` to `/bin/webpacker` or `bin/webpacker-dev-server`
 
 ## Examples of v5 to v6
 

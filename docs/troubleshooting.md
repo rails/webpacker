@@ -5,7 +5,7 @@
 1. Read the error message carefully. The error message will tell you the precise key value
    that is not matching what Webpack expects.
 
-2. Put a `debugger` statement in your Webpack configuration and run `bin/webpack --debug-webpacker`.
+2. Put a `debugger` statement in your Webpack configuration and run `bin/webpacker --debug-webpacker`.
    If you have a node debugger installed, you'll see the Chrome debugger for your webpack
    config. For example, install the Chrome extension
    [NiM](https://chrome.google.com/webstore/detail/nodejs-v8-inspector-manag/gnhhdgbaldcilmgcpfddgdbkhjohddkj) and
@@ -13,7 +13,7 @@
    For more details on debugging, see the official
    [Webpack docs on debugging](https://webpack.js.org/contribute/debugging/#devtools)
 
-3. Any arguments that you add to bin/webpack get sent to webpack. For example, you can pass `--debug` to switch loaders to debug mode. See [webpack CLI debug options](https://webpack.js.org/api/cli/#debug-options) for more information on the available options.
+3. Any arguments that you add to bin/webpacker get sent to webpack. For example, you can pass `--debug` to switch loaders to debug mode. See [webpack CLI debug options](https://webpack.js.org/api/cli/#debug-options) for more information on the available options.
 
 4. You can also pass additional options to the command to run the webpack-dev-server and start the webpack-dev-server with the option `--debug-webpacker`
 
@@ -50,7 +50,7 @@ Webpacker uses a `manifest.json` file to keep track of packs in all environments
 however since this file is generated after packs are compiled by webpack. So,
 if you load a view in browser whilst webpack is compiling you will get this error.
 Therefore, make sure webpack
-(i.e `./bin/webpack-dev-server`) is running and has
+(i.e `./bin/webpacker-dev-server`) is running and has
 completed the compilation successfully before loading a view.
 
 
@@ -79,7 +79,7 @@ bundle config --delete bin
 ## Running webpack on Windows
 
 If you are running webpack on Windows, your command shell may not be able to interpret the preferred interpreter
-for the scripts generated in `bin/webpack` and `bin/webpack-dev-server`. Instead you'll want to run the scripts
+for the scripts generated in `bin/webpacker` and `bin/webpacker-dev-server`. Instead you'll want to run the scripts
 manually with Ruby:
 
 ```
@@ -89,7 +89,7 @@ C:\path>ruby bin\webpack-dev-server
 
 ## Invalid configuration object. webpack has been initialised using a configuration object that does not match the API schema.
 
-If you receive this error when running `$ ./bin/webpack-dev-server` ensure your configuration is correct; most likely the path to your "packs" folder is incorrect if you modified from the original "source_path" defined in `config/webpacker.yml`.
+If you receive this error when running `$ ./bin/webpacker-dev-server` ensure your configuration is correct; most likely the path to your "packs" folder is incorrect if you modified from the original "source_path" defined in `config/webpacker.yml`.
 
 ## Running Elm on Continuous Integration (CI) services such as CircleCI, CodeShip, Travis CI
 

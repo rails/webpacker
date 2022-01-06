@@ -13,8 +13,8 @@ namespace :webpacker do
       $stdout.puts "\n"
       $stdout.puts "@rails/webpacker: \n#{`npm list @rails/webpacker version`}"
 
-      $stdout.puts "Is bin/webpack present?: #{File.exist? 'bin/webpack'}"
-      $stdout.puts "Is bin/webpack-dev-server present?: #{File.exist? 'bin/webpack-dev-server'}"
+      $stdout.puts "Is bin/webpacker present?: #{File.exist? 'bin/webpacker'}"
+      $stdout.puts "Is bin/webpacker-dev-server present?: #{File.exist? 'bin/webpacker-dev-server'}"
       $stdout.puts "Is bin/yarn present?: #{File.exist? 'bin/yarn'}"
     end
   end
