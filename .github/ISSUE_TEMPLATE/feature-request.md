@@ -1,5 +1,5 @@
 ---
-name: Bug report
+name: Feature request
 about: Create a request for new functionality
 title: ''
 labels: enhancement
