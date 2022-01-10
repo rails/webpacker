@@ -15,6 +15,8 @@ leaving Webpack responsible solely for app-like JavaScript, or it can be used ex
 
 **NOTE:** The master branch now hosts the code for v6.x.x. Please refer to [5-x-stable](https://github.com/rails/webpacker/tree/5-x-stable) branch for 5.x documentation.
 
+Pleaes see the [new rails/webpacker discussion forum](https://discuss.rubyonrails.org/c/webpacker/10) to discuss debugging and troubleshooting tips. Please open issues for bugs and feature requests.
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
