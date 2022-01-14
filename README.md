@@ -22,19 +22,22 @@ Pleaes see the [new rails/webpacker discussion forum](https://discuss.rubyonrail
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-## Table of Contents
-
 - [Prerequisites](#prerequisites)
 - [Features](#features)
   - [Optional support](#optional-support)
 - [Installation](#installation)
-  - [Usage](#usage)
+  - [Rails v6](#rails-v6)
+  - [Rails v7](#rails-v7)
+  - [Manual Installation Steps](#manual-installation-steps)
+- [Usage](#usage)
+      - [Defer for `javascript_pack_tag`](#defer-for-javascript_pack_tag)
     - [Server-Side Rendering (SSR)](#server-side-rendering-ssr)
   - [Development](#development)
   - [Webpack Configuration](#webpack-configuration)
-  - [Babel Configuration](#babel-configuration)
+  - [Babel configuration](#babel-configuration)
   - [Integrations](#integrations)
     - [React](#react)
+    - [Typescript](#typescript)
     - [CoffeeScript](#coffeescript)
     - [TypeScript](#typescript)
     - [CSS](#css)
