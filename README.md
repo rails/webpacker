@@ -15,24 +15,29 @@ leaving Webpack responsible solely for app-like JavaScript, or it can be used ex
 
 **NOTE:** The master branch now hosts the code for v6.x.x. Please refer to [5-x-stable](https://github.com/rails/webpacker/tree/5-x-stable) branch for 5.x documentation.
 
+Visit [Shipping Webpacker v6 – Status](https://discuss.rubyonrails.org/t/shipping-webpacker-v6-status/79683) for the latest news on a v6 release.
+
 Pleaes see the [new rails/webpacker discussion forum](https://discuss.rubyonrails.org/c/webpacker/10) to discuss debugging and troubleshooting tips. Please open issues for bugs and feature requests.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-## Table of Contents
-
 - [Prerequisites](#prerequisites)
 - [Features](#features)
   - [Optional support](#optional-support)
 - [Installation](#installation)
-  - [Usage](#usage)
+  - [Rails v6](#rails-v6)
+  - [Rails v7](#rails-v7)
+  - [Manual Installation Steps](#manual-installation-steps)
+- [Usage](#usage)
+      - [Defer for `javascript_pack_tag`](#defer-for-javascript_pack_tag)
     - [Server-Side Rendering (SSR)](#server-side-rendering-ssr)
   - [Development](#development)
   - [Webpack Configuration](#webpack-configuration)
-  - [Babel Configuration](#babel-configuration)
+  - [Babel configuration](#babel-configuration)
   - [Integrations](#integrations)
     - [React](#react)
+    - [Typescript](#typescript)
     - [CoffeeScript](#coffeescript)
     - [TypeScript](#typescript)
     - [CSS](#css)
@@ -80,19 +85,21 @@ Pleaes see the [new rails/webpacker discussion forum](https://discuss.rubyonrail
 
 ## Installation
 
-You can configure a new Rails application with Webpacker right from the start using the `-j webpack` option:
-
-With Rails v7:
-```bash
-rails new myapp -j webpack
-```
-
-With Rails v6:
+### Rails v6
+With Rails v6, webpacker is installed by default:
 ```bash
 rails new myapp
 ```
 
-Or you can add it later by changing your `Gemfile`:
+### Rails v7
+
+With Rails v7, skip JavaScript for a new app and follow below Manual Installation Steps to manually add the `webpacker` gem to your Gemfile. 
+```bash
+rails new myapp --skip-javascript
+```
+
+### Manual Installation Steps
+Update your `Gemfile`:
 
 ```ruby
 # Gemfile
@@ -113,10 +120,10 @@ Then running the following to install Webpacker:
 When `package.json` and/or `yarn.lock` changes, such as when pulling down changes to your local environment in a team settings, be sure to keep your NPM packages up-to-date:
 
 ```bash
-yarn install
+yarn
 ```
 
-### Usage
+## Usage
 
 Once installed, you can start writing modern ES6-flavored JavaScript apps right away:
 
