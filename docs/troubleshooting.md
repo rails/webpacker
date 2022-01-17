@@ -128,7 +128,7 @@ Rails.application.config.assets.js_compressor = Uglifier.new(harmony: true)
 
 ### Angular: WARNING in ./node_modules/@angular/core/esm5/core.js, Critical dependency: the request of a dependency is an expression
 
-To silent these warnings, please update `config/webpack/base.js`:
+To silent these warnings, please update `config/webpack/webpack.config.js`:
 ```js
 const webpack = require('webpack')
 const { resolve } = require('path')
@@ -178,7 +178,7 @@ For instance, with [jQuery](https://jquery.com/):
 
 Instead do:
 ```js
-// config/webpack/base.js
+// config/webpack/webpack.config.js
 
 const webpack = require('webpack')
 const { webpackConfig, merge } = require('@rails/webpacker')

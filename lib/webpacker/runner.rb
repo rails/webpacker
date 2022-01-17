@@ -11,7 +11,7 @@ module Webpacker
 
       @app_path              = File.expand_path(".", Dir.pwd)
       @node_modules_bin_path = ENV["WEBPACKER_NODE_MODULES_BIN_PATH"] || `yarn bin`.chomp
-      @webpack_config        = File.join(@app_path, "config/webpack/#{ENV["NODE_ENV"]}.js")
+      @webpack_config        = File.join(@app_path, "config/webpack/webpack.config.js")
       @webpacker_config      = ENV["WEBPACKER_CONFIG"] || File.join(@app_path, "config/webpacker.yml")
 
       unless File.exist?(@webpack_config)

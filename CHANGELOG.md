@@ -5,7 +5,8 @@
 ## [[6.0.0]](https://github.com/rails/webpacker/compare/v5.4.3...master) - 2021-TBD
 
 Please see [UPGRADE GUIDE](./docs/v6_upgrade.md) for more information.
-
+- Single default configuration file of `config/webpack/webpack.config.js`. Previously, the config file was set
+  to `config/webpack/#{NODE_ENV}.js`. 
 - `node_modules` will no longer be compiled by default. This primarily fixes [rails issue #35501](https://github.com/rails/rails/issues/35501) as well as [numerous other webpacker issues](https://github.com/rails/webpacker/issues/2131#issuecomment-581618497). The disabled loader can still be required explicitly via:
 
 ```js

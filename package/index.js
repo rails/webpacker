@@ -8,11 +8,12 @@ const baseConfig = require('./environments/base')
 const rules = require('./rules')
 const config = require('./config')
 const devServer = require('./dev_server')
-const { nodeEnv } = require('./env')
+const env = require('./env')
 const { moduleExists, canProcess } = require('./utils/helpers')
 const inliningCss = require('./inliningCss')
 
 const webpackConfig = () => {
+  const { nodeEnv } = env
   const path = resolve(__dirname, 'environments', `${nodeEnv}.js`)
   const environmentConfig = existsSync(path) ? require(path) : baseConfig
   return environmentConfig
@@ -23,6 +24,7 @@ module.exports = {
   devServer,
   webpackConfig: webpackConfig(),
   baseConfig,
+  env,
   rules,
   moduleExists,
   canProcess,
