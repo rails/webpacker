@@ -114,7 +114,7 @@ When `package.json` and/or `yarn.lock` changes, such as when pulling down change
 yarn install
 ```
 
-Note, in v6, all JS packages are peer dependencies. Thus, the installer will add the packages:
+Note, in v6, most JS packages are peer dependencies. Thus, the installer will add the packages:
 
 ```bash
 yarn add @babel/core @babel/plugin-transform-runtime @babel/preset-env @babel/runtime babel-loader \
@@ -123,7 +123,7 @@ yarn add @babel/core @babel/plugin-transform-runtime @babel/preset-env @babel/ru
 ```
 
 Previously, these "webpack" and "babel" packages were direct dependencies for `@rails/webpacker`. By
-making these peer dependenencies, you have control over the versions used in your webpack and babel configs.
+making these peer dependencies, you have control over the versions used in your webpack and babel configs.
 
 ### Usage
 
