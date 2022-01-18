@@ -17,7 +17,7 @@ leaving Webpack responsible solely for app-like JavaScript, or it can be used ex
 
 Visit [Shipping Webpacker v6 – Status](https://discuss.rubyonrails.org/t/shipping-webpacker-v6-status/79683) for the latest news on a v6 release.
 
-Pleaes see the [new rails/webpacker discussion forum](https://discuss.rubyonrails.org/c/webpacker/10) to discuss debugging and troubleshooting tips. Please open issues for bugs and feature requests.
+Please see the [new rails/webpacker discussion forum](https://discuss.rubyonrails.org/c/webpacker/10) to discuss debugging and troubleshooting tips. Please open issues for bugs and feature requests.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
