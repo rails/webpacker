@@ -110,6 +110,9 @@ Layout/TrailingWhitespace:
 Style/RedundantPercentQ:
   Enabled: true
 
+Lint/DeprecatedClassMethods:
+  Enabled: true
+
 # Align `end` with the matching keyword or starting expression except for
 # assignments, where it should be aligned with the LHS.
 Layout/EndAlignment:

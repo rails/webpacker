@@ -5,17 +5,18 @@ copy_file "#{__dir__}/package.json", "package.json"
 say "Copying webpack core config"
 directory "#{__dir__}/config/webpack", "config/webpack"
 
-if Dir.exists?(Webpacker.config.source_path)
+if Dir.exist?(Webpacker.config.source_path)
   say "The packs app source directory already exists"
 else
   say "Creating packs app source directory"
-  directory "#{__dir__}/packs", Webpacker.config.source_path
+  empty_directory "app/javascript"
+  copy_file "#{__dir__}/application.js", "app/javascript/application.js"
 end
 
 apply "#{__dir__}/binstubs.rb"
 
 git_ignore_path = Rails.root.join(".gitignore")
-if File.exists?(git_ignore_path)
+if File.exist?(git_ignore_path)
   append_to_file git_ignore_path do
     "\n"                   +
     "/public/packs\n"      +
@@ -50,6 +51,14 @@ if (asset_config_path = Rails.root.join("config/initializers/assets.rb")).exist?
 
 # Add node_modules folder to the asset load path.
 Rails.application.config.assets.paths << Rails.root.join("node_modules")
+RUBY
+end
+
+if (csp_config_path = Rails.root.join("config/initializers/content_security_policy.rb")).exist?
+  say "Make note of webpack-dev-server exemption needed to csp"
+  insert_into_file csp_config_path, <<-RUBY, after: %(# Rails.application.config.content_security_policy do |policy|)
+  #   # If you are using webpack-dev-server then specify webpack-dev-server host
+  #   policy.connect_src :self, :https, "http://localhost:3035", "ws://localhost:3035" if Rails.env.development?
 RUBY
 end
 

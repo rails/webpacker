@@ -27,4 +27,8 @@ class WebpackerTest < Webpacker::Test
       assert Webpacker.inlining_css?
     end
   end
+
+  def test_app_autoload_paths_cleanup
+    assert_empty $test_app_autoload_paths_in_initializer
+  end
 end

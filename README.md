@@ -11,26 +11,33 @@
 Webpacker makes it easy to use the JavaScript pre-processor and bundler
 [Webpack v5](https://webpack.js.org/)
 to manage application-like JavaScript in Rails. It can coexist with the asset pipeline,
-leaving Webpack responsible solely for app-like JavaScript, or it can be used exclusively, making it also responsible for images, fronts, and CSS as well.
+leaving Webpack responsible solely for app-like JavaScript, or it can be used exclusively, making it also responsible for images, fonts, and CSS.
 
 **NOTE:** The master branch now hosts the code for v6.x.x. Please refer to [5-x-stable](https://github.com/rails/webpacker/tree/5-x-stable) branch for 5.x documentation.
 
+Visit [Shipping Webpacker v6 – Status](https://discuss.rubyonrails.org/t/shipping-webpacker-v6-status/79683) for the latest news on a v6 release.
+
+Pleaes see the [new rails/webpacker discussion forum](https://discuss.rubyonrails.org/c/webpacker/10) to discuss debugging and troubleshooting tips. Please open issues for bugs and feature requests.
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-## Table of Contents
 
 - [Prerequisites](#prerequisites)
 - [Features](#features)
   - [Optional support](#optional-support)
 - [Installation](#installation)
-  - [Usage](#usage)
+  - [Rails v6](#rails-v6)
+  - [Rails v7](#rails-v7)
+  - [Manual Installation Steps](#manual-installation-steps)
+- [Usage](#usage)
+      - [Defer for `javascript_pack_tag`](#defer-for-javascript_pack_tag)
     - [Server-Side Rendering (SSR)](#server-side-rendering-ssr)
   - [Development](#development)
   - [Webpack Configuration](#webpack-configuration)
-  - [Babel Configuration](#babel-configuration)
+  - [Babel configuration](#babel-configuration)
   - [Integrations](#integrations)
     - [React](#react)
+    - [Typescript](#typescript)
     - [CoffeeScript](#coffeescript)
     - [TypeScript](#typescript)
     - [CSS](#css)
@@ -52,7 +59,7 @@ leaving Webpack responsible solely for app-like JavaScript, or it can be used ex
 
 ## Prerequisites
 
-- Ruby 2.4+
+- Ruby 2.7+
 - Rails 5.2+
 - Node.js 12.13.0+ || 14+
 - Yarn
@@ -78,13 +85,21 @@ leaving Webpack responsible solely for app-like JavaScript, or it can be used ex
 
 ## Installation
 
-You can configure a new Rails application with Webpacker right from the start using the `--webpack` option:
-
+### Rails v6
+With Rails v6, webpacker is installed by default:
 ```bash
-rails new myapp --webpack
+rails new myapp
 ```
 
-Or you can add it later by changing your `Gemfile`:
+### Rails v7
+
+With Rails v7, skip JavaScript for a new app and follow below Manual Installation Steps to manually add the `webpacker` gem to your Gemfile. 
+```bash
+rails new myapp --skip-javascript
+```
+
+### Manual Installation Steps
+Update your `Gemfile`:
 
 ```ruby
 # Gemfile
@@ -105,19 +120,18 @@ Then running the following to install Webpacker:
 When `package.json` and/or `yarn.lock` changes, such as when pulling down changes to your local environment in a team settings, be sure to keep your NPM packages up-to-date:
 
 ```bash
-yarn install
+yarn
 ```
 
-### Usage
+## Usage
 
 Once installed, you can start writing modern ES6-flavored JavaScript apps right away:
 
 ```yml
-app/packs:
-  ├── entrypoints:
-  │   # Only Webpack entry files here
-  │   └── application.js
-  │   └── application.css
+app/javascript:
+  # Only Webpack entry files here
+  └── application.js
+  └── application.css
   └── src:
   │   └── my_component.js
   └── stylesheets:
@@ -139,13 +153,13 @@ packs with the chunks in your view, which creates html tags for all the chunks.
 The result looks like this:
 
 ```erb
-<%= javascript_pack_tag 'calendar', 'map' %>
+<%= javascript_pack_tag 'calendar', 'map', 'data-turbolinks-track': 'reload' %>
 
-<script src="/packs/vendor-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
-<script src="/packs/calendar~runtime-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
-<script src="/packs/calendar-1016838bab065ae1e314.js" data-turbolinks-track="reload"></script>
-<script src="/packs/map~runtime-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
-<script src="/packs/map-16838bab065ae1e314.js" data-turbolinks-track="reload"></script>
+<script src="/packs/vendor-16838bab065ae1e314.js" data-turbolinks-track="reload" defer></script>
+<script src="/packs/calendar~runtime-16838bab065ae1e314.js" data-turbolinks-track="reload" defer></script>
+<script src="/packs/calendar-1016838bab065ae1e314.js" data-turbolinks-track="reload" defer"></script>
+<script src="/packs/map~runtime-16838bab065ae1e314.js" data-turbolinks-track="reload" defer></script>
+<script src="/packs/map-16838bab065ae1e314.js" data-turbolinks-track="reload" defer></script>
 ```
 
 **Important:** Pass all your pack names as multiple arguments, not multiple calls, when using `javascript_pack_tag` and the **`stylesheet_pack_tag`. Otherwise, you will get duplicated chunks on the page. Be especially careful if you might be calling these view helpers from your view, partials, and the layout for a page. You will need some logic to ensure you call the helpers only once with multiple arguments.
@@ -190,31 +204,41 @@ If you want to use images in your stylesheets:
   background-image: url('../images/logo.svg')
 }
 ```
+##### Defer for `javascript_pack_tag`
+Note, the default of "defer" for the `javascript_pack_tag`. You can override that to `false`. If you expose jquery globally with `expose-loader,` by using `import $ from "expose-loader?exposes=$,jQuery!jquery"` in your `app/packs/entrypoints/application.js`, pass the option `defer: false` to your `javascript_pack_tag`.
 
 #### Server-Side Rendering (SSR)
 
-Note, if you are using server-side rendering of JavaScript with dynamic code-spliting, as is often done with extensions to Webpacker, like [React on Rails](https://github.com/shakacode/react_on_rails), your JavaScript should create the link prefetch HTML tags that you will use, so you won't need to use to `asset_pack_path` in those circumstances.
+Note, if you are using server-side rendering of JavaScript with dynamic code-splitting, as is often done with extensions to Webpacker, like [React on Rails](https://github.com/shakacode/react_on_rails), your JavaScript should create the link prefetch HTML tags that you will use, so you won't need to use to `asset_pack_path` in those circumstances.
 
 **Note:** In order for your styles or static assets files to be available in your view, you would need to link them in your "pack" or entry file. Otherwise, Webpack won't know to package up those files.
 
-
 ### Development
 
-Webpacker ships with two binstubs: `./bin/webpack` and `./bin/webpack-dev-server`. Both are thin wrappers around the standard `webpack.js` and `webpack-dev-server.js` executables to ensure that the right configuration files and environmental variables are loaded based on your environment.
+Webpacker ships with two binstubs: `./bin/webpacker` and `./bin/webpacker-dev-server`. Both are thin wrappers around the standard `webpack.js` and `webpack-dev-server.js` executables to ensure that the right configuration files and environmental variables are loaded based on your environment.
 
-In development, Webpacker compiles on demand rather than upfront by default. This happens when you refer to any of the pack assets using the Webpacker helper methods. This means that you don't have to run any separate processes. Compilation errors are logged to the standard Rails log. However, this auto-compilation happens when a web request is made that requires an updated webpack build, not when files change. Thus, that can be painfully slow for front-end development in this default way. Instead, you should either run the `bin/webpack --watch` or run `./bin/webpack-dev-server`
+In development, Webpacker compiles on demand rather than upfront by default. This happens when you refer to any of the pack assets using the Webpacker helper methods. This means that you don't have to run any separate processes. Compilation errors are logged to the standard Rails log. However, this auto-compilation happens when a web request is made that requires an updated webpack build, not when files change. Thus, that can be painfully slow for front-end development in this default way. Instead, you should either run the `bin/webpacker --watch` or run `./bin/webpacker-dev-server`
 
-If you want to use live code reloading, or you have enough JavaScript that on-demand compilation is too slow, you'll need to run `./bin/webpack-dev-server` or `ruby ./bin/webpack-dev-server`. Windows users will need to run these commands in a terminal separate from `bundle exec rails s`. This process will watch for changes in the `app/packs/entrypoints/*.js` files and automatically reload the browser to match. This feature is also known as [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/).
+If you want to use live code reloading, or you have enough JavaScript that on-demand compilation is too slow, you'll need to run `./bin/webpacker-dev-server` or `ruby ./bin/webpacker-dev-server`. Windows users will need to run these commands in a terminal separate from `bundle exec rails s`. This process will watch for changes in the relevant files, defined by `webpacker.yml` configuration settings for `source_path`, `source_entry_path`, and `additional_paths`, and it will then automatically reload the browser to match. This feature is also known as [Hot Module Replacement](https://webpack.js.org/concepts/hot-module-replacement/).
 
 ```bash
 # webpack dev server
-./bin/webpack-dev-server
+./bin/webpacker-dev-server
 
 # watcher
-./bin/webpack --watch --colors --progress
+./bin/webpacker --watch --progress
 
 # standalone build
-./bin/webpack
+./bin/webpacker --progress
+
+# Help
+./bin/webpacker help
+
+# Version
+./bin/webpacker version
+
+# Info
+./bin/webpacker info
 ```
 
 Once you start this webpack development server, Webpacker will automatically start proxying all webpack asset requests to this server. When you stop this server, Rails will detect that it's not running and Rails will revert back to on-demand compilation _if_ you have the `compile` option set to true in your `config/webpacker.yml`
@@ -222,13 +246,13 @@ Once you start this webpack development server, Webpacker will automatically sta
 You can use environment variables as options supported by [webpack-dev-server](https://webpack.js.org/configuration/dev-server/) in the form `WEBPACKER_DEV_SERVER_<OPTION>`. Please note that these environmental variables will always take precedence over the ones already set in the configuration file, and that the _same_ environmental variables must be available to the `rails server` process.
 
 ```bash
-WEBPACKER_DEV_SERVER_HOST=example.com WEBPACKER_DEV_SERVER_INLINE=true WEBPACKER_DEV_SERVER_HOT=false ./bin/webpack-dev-server
+WEBPACKER_DEV_SERVER_HOST=example.com WEBPACKER_DEV_SERVER_INLINE=true WEBPACKER_DEV_SERVER_HOT=false ./bin/webpacker-dev-server
 ```
 
-By default, the webpack dev server listens on `localhost` in development for security purposes. However, if you want your app to be available over local LAN IP or a VM instance like vagrant, you can set the `host` when running `./bin/webpack-dev-server` binstub:
+By default, the webpack dev server listens on `localhost` in development for security purposes. However, if you want your app to be available over local LAN IP or a VM instance like vagrant, you can set the `host` when running `./bin/webpacker-dev-server` binstub:
 
 ```bash
-WEBPACKER_DEV_SERVER_HOST=0.0.0.0 ./bin/webpack-dev-server
+WEBPACKER_DEV_SERVER_HOST=0.0.0.0 ./bin/webpacker-dev-server
 ```
 
 **Note:** You need to allow webpack-dev-server host as an allowed origin for `connect-src` if you are running your application in a restrict CSP environment (like Rails 5.2+). This can be done in Rails 5.2+ in the CSP initializer `config/initializers/content_security_policy.rb` with a snippet like this:
@@ -303,8 +327,7 @@ By default, you will find the Webpacker preset in your `package.json`.
 },
 ```
 
-Optionally, you can change your Babel configuration by removing these lines in your `package.json` and add [a Babel configuration file](https://babeljs.io/docs/en/config-files) in your project.
-
+Optionally, you can change your Babel configuration by removing these lines in your `package.json` and add [a Babel configuration file](https://babeljs.io/docs/en/config-files) in your project. For an example customization based on the original, see [Customizing Babel Config](./docs/customizing_babel_config.md).
 
 ### Integrations
 
@@ -312,10 +335,9 @@ Webpacker out of the box supports JS and static assets (fonts, images etc.) comp
 
 #### React
 
-```bash
-yarn add react react-dom @babel/preset-react
-```
+See customization example the [Customizing Babel Config](./docs/customizing_babel_config.md) for React configuration.
 
+#### Typescript
 ...if you are using typescript, update your `tsconfig.json`
 
 ```json
@@ -521,8 +543,8 @@ Please note, binstubs compiles in development mode however rake tasks compiles i
 
 ```bash
 # Compiles in development mode unless NODE_ENV is specified, per the binstub source
-./bin/webpack
-./bin/webpack-dev-server
+./bin/webpacker
+./bin/webpacker-dev-server
 
 # Compiles in production mode by default unless NODE_ENV is specified, per `lib/tasks/webpacker/compile.rake`
 bundle exec rails assets:precompile

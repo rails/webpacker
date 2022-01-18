@@ -2,8 +2,6 @@
   "name": "app",
   "private": true,
   "dependencies": {
-    "@rails/activestorage": "latest",
-    "@rails/actioncable": "latest"
   },
   "version": "0.1.0",
   "babel": {

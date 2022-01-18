@@ -12,11 +12,7 @@ let devConfig = {
 }
 
 if (runningWebpackDevServer) {
-  if (devServer.hmr) {
-    devConfig = merge(devConfig, {
-      output: { filename: '[name]-[hash].js' }
-    })
-  }
+  const liveReload = devServer.live_reload !== undefined ? devServer.live_reload : !devServer.hmr
 
   const devServerConfig = {
     devMiddleware: {
@@ -28,7 +24,7 @@ if (runningWebpackDevServer) {
     port: devServer.port,
     https: devServer.https,
     hot: devServer.hmr,
-    liveReload: !devServer.hmr,
+    liveReload,
     historyApiFallback: { disableDotRule: true },
     headers: devServer.headers,
     static: {
