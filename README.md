@@ -1,4 +1,14 @@
-# Webpacker
+# Webpacker (Archived)
+
+The default mechanism for bundling in Rails v7+ is [jsbundling-rails](https://github.com/rails/jsbundling-rails).
+
+If your webpack configuration is simple, you might try these [migration steps to jsbundling-rails](https://github.com/rails/jsbundling-rails/blob/main/docs/switch_from_webpacker.md). Before you migrate, see [jsbundling-rails Comparison with Webpacker](https://github.com/rails/jsbundling-rails/blob/main/docs/comparison_with_webpacker.md). If you want features like code splitting and HMR, definitely stick with webpacker.
+
+### For v6+ see the recommended fork:
+
+* **[shakapacker](https://github.com/shakacode/shakapacker)**
+
+----
 
 [![Ruby specs](https://github.com/rails/webpacker/workflows/Ruby%20specs/badge.svg)](https://github.com/rails/webpacker/actions)
 [![Jest specs](https://github.com/rails/webpacker/workflows/Jest%20specs/badge.svg)](https://github.com/rails/webpacker/actions)
