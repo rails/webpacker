@@ -4,7 +4,7 @@ Webpacker has served the Rails community for over five years as a bridge to comp
 
 For applications currently using Webpacker, the first recommendation is to switch to [jsbundling-rails with Webpack](https://github.com/rails/jsbundling-rails/) (or another bundler). You can follow [the switching guide](https://github.com/rails/jsbundling-rails/blob/main/docs/switch_from_webpacker.md), if you choose this option.
 
-Secondly, you may want to try making the jump all the way to [import maps](https://github.com/rails/importmap-rails/). That's the default setup for new Rails 7 applications, but depending on your JavaScript use, it may be substantial jump.
+Secondly, you may want to try making the jump all the way to [import maps](https://github.com/rails/importmap-rails/). That's the default setup for new Rails 7 applications, but depending on your JavaScript use, it may be a substantial jump.
 
 Finally, you can continue to use Webpacker as-is. We will continue to address security issues on the Ruby side of the gem according to [the normal maintenance schedule of Rails](https://guides.rubyonrails.org/maintenance_policy.html#security-issues). This pertains to the v5 edition of this gem that was included by default with previous versions of Rails.
 
