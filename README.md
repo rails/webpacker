@@ -6,10 +6,10 @@ For applications currently using Webpacker, the first recommendation is to switc
 
 Secondly, you may want to try making the jump all the way to [import maps](https://github.com/rails/importmap-rails/). That's the default setup for new Rails 7 applications, but depending on your JavaScript use, it may be a substantial jump.
 
-Finally, you can continue to use Webpacker as-is. We will continue to address security issues on the Ruby side of the gem according to [the normal maintenance schedule of Rails](https://guides.rubyonrails.org/maintenance_policy.html#security-issues). This pertains to the v5 edition of this gem that was included by default with previous versions of Rails.
+Finally, you can continue to use Webpacker as-is. We will continue to address security issues on the Ruby side of the gem according to [the normal maintenance schedule of Rails](https://guides.rubyonrails.org/maintenance_policy.html#security-issues). But we will not be updating the gem to include newer versions of the JavaScript libraries. This pertains to the v5 edition of this gem that was included by default with previous versions of Rails.
 
-The development of v6 will not result in an official gem released by the Rails team nor see any future support. But Justin Gordon is continuing that line of development under a new gem called [Shakapacker](https://github.com/shakacode/shakapacker) that is based on the unreleased v6 work from this repository.
+The development of v6 will not result in an official gem released by the Rails team nor see any future support. But Justin Gordon is continuing that line of development – including a focus on hot-module reloading features etc – under a new gem called [Shakapacker](https://github.com/shakacode/shakapacker) that is based on the unreleased v6 work from this repository.
 
-Thank you to everyone who've contributed to Webpacker over the last five-plus years!
+Thank you to everyone who has contributed to Webpacker over the last five-plus years!
 
 _Please refer to the [5-x-stable](https://github.com/rails/webpacker/tree/5-x-stable) branch for 5.x documentation._
