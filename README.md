@@ -6,9 +6,9 @@ For applications currently using Webpacker, the first recommendation is to switc
 
 Secondly, you may want to try making the jump all the way to [import maps](https://github.com/rails/importmap-rails/). That's the default setup for new Rails 7 applications, but depending on your JavaScript use, it may be a substantial jump.
 
-Finally, you can continue to use Webpacker as-is. We will continue to address security issues on the Ruby side of the gem according to [the normal maintenance schedule of Rails](https://guides.rubyonrails.org/maintenance_policy.html#security-issues). But we will not be updating the gem to include newer versions of the JavaScript libraries. This pertains to the v5 edition of this gem that was included by default with previous versions of Rails.
+Finally, you can continue to stick with webpacker or its successor mentioned below. You can use v5 and prior versions Webpacker as-is. For these releases, we will continue to address security issues on the Ruby side of the gem according to [the normal maintenance schedule of Rails](https://guides.rubyonrails.org/maintenance_policy.html#security-issues). However, we will not be updating the gem to include newer versions of the JavaScript libraries.
 
-The development of v6 will not result in an official gem released by the Rails team nor see any future support. But Justin Gordon is continuing that line of development – including a focus on hot-module reloading features etc – under a new gem called [Shakapacker](https://github.com/shakacode/shakapacker) that is based on the unreleased v6 work from this repository.
+Although the development of v6 did not result in an official gem released by the Rails team, Justin Gordon and other contributors did release a v6 that addresses many of the complaints of prior versions, such as simpler, more direct webpack configuration. Not only does it include the unreleased v6 work from this repository, but it also includes many pending PRs that were closed when this gem was retired. If you want advanced webpack support, such as hot-module reloading and code splitting, consider the new successor gem called [Shakapacker](https://github.com/shakacode/shakapacker).
 
 Thank you to everyone who has contributed to Webpacker over the last five-plus years!
 
