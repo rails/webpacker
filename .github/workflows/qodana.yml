@@ -1,0 +1,25 @@
+name: Code Quality
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  qodana-js:
+    timeout-minutes: 120
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          cache: 'yarn'
+      - run: yarn
+
+      - name: 'Qodana JS Scan'
+        uses: JetBrains/qodana-action@v4.2.5
+        with:
+          linter: jetbrains/qodana-js
+          artifact-name: Qodana JS report
