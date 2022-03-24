@@ -1,6 +1,5 @@
 require "active_support/core_ext/module/attribute_accessors"
 require "active_support/core_ext/string/inquiry"
-require "active_support/core_ext/logger"
 require "active_support/core_ext/module/delegation"
 require "active_support/tagged_logging"
 
