@@ -2,6 +2,9 @@ name: JS lint
 
 on: [push, pull_request]
 
+permissions:
+  contents: read
+
 jobs:
   js-lint:
     name: JS Lint

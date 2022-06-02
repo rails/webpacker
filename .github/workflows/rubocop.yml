@@ -2,6 +2,9 @@ name: Rubocop
 
 on: [push, pull_request]
 
+permissions:
+  contents: read
+
 jobs:
   rubocop:
     name: Rubocop
