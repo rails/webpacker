@@ -1,4 +1,4 @@
-# Note: You must restart bin/webpack-dev-server for changes to take effect
+# Note: You must restart bin/webpacker-dev-server for changes to take effect
 
 default: &default
   source_path: app/packs

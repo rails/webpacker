@@ -26,8 +26,8 @@ class EngineRakeTasksTest < Minitest::Test
 
     def webpack_binstub_paths
       [
-        "#{mounted_app_path}/test/dummy/bin/webpack",
-        "#{mounted_app_path}/test/dummy/bin/webpack-dev-server",
+        "#{mounted_app_path}/test/dummy/bin/webpacker",
+        "#{mounted_app_path}/test/dummy/bin/webpacker-dev-server",
       ]
     end
 

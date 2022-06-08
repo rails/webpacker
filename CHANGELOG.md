@@ -22,6 +22,7 @@ environment.loaders.append('nodeModules', nodeModules)
 - Update static files path to from `media/` to `static/`.
 
 ### Breaking changes
+- Renamed `/bin/webpack` to `/bin/webpacker` and `/bin/webpack-dev-server` to `bin/webpacker-dev-server` to avoid confusion with underlying webpack executables.
 - Removed integration installers
 - Splitchunks enabled by default
 - CSS extraction enabled by default, except when devServer is configured and running

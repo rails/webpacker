@@ -3,6 +3,10 @@ require "active_support/core_ext/hash/keys"
 require "active_support/core_ext/hash/indifferent_access"
 
 class Webpacker::Configuration
+  class << self
+    attr_accessor :installing
+  end
+
   attr_reader :root_path, :config_path, :env
 
   def initialize(root_path:, config_path:, env:)
@@ -80,10 +84,13 @@ class Webpacker::Configuration
       end
       config[env].deep_symbolize_keys
     rescue Errno::ENOENT => e
-      raise "Webpacker configuration file not found #{config_path}. " \
-            "Please run rails webpacker:install " \
-            "Error: #{e.message}"
-
+      if self.class.installing
+        {}
+      else
+        raise "Webpacker configuration file not found #{config_path}. " \
+              "Please run rails webpacker:install " \
+              "Error: #{e.message}"
+      end
     rescue Psych::SyntaxError => e
       raise "YAML syntax error occurred while parsing #{config_path}. " \
             "Please note that YAML must be consistently indented using spaces. Tabs are not allowed. " \
