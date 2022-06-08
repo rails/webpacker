@@ -8,36 +8,28 @@ chdirTestApp()
 describe('Development environment', () => {
   afterAll(chdirCwd)
 
-  describe('toWebpackConfig', () => {
+  describe('webpackConfig', () => {
     beforeEach(() => jest.resetModules())
 
-    test('should use development config and environment including devServer if WEBPACK_DEV_SERVER', () => {
+    test('should use development config and environment including devServer if WEBPACK_SERVE', () => {
       process.env.RAILS_ENV = 'development'
       process.env.NODE_ENV = 'development'
-      process.env.WEBPACK_DEV_SERVER = 'YES'
-      const { environment } = require('../index')
+      process.env.WEBPACK_SERVE = 'true'
+      const { webpackConfig } = require('../index')
 
-      const config = environment.toWebpackConfig()
-      expect(config.output.path).toEqual(resolve('public', 'packs'))
-      expect(config.output.publicPath).toEqual('/packs/')
-      expect(config).toMatchObject({
-        devServer: {
-          host: 'localhost',
-          port: 3035
-        }
-      })
+      expect(webpackConfig.output.path).toEqual(resolve('public', 'packs'))
+      expect(webpackConfig.output.publicPath).toEqual('/packs/')
     })
 
-    test('should use development config and environment if WEBPACK_DEV_SERVER', () => {
+    test('should use development config and environment if WEBPACK_SERVE', () => {
       process.env.RAILS_ENV = 'development'
       process.env.NODE_ENV = 'development'
-      process.env.WEBPACK_DEV_SERVER = undefined
-      const { environment } = require('../index')
+      process.env.WEBPACK_SERVE = undefined
+      const { webpackConfig } = require('../index')
 
-      const config = environment.toWebpackConfig()
-      expect(config.output.path).toEqual(resolve('public', 'packs'))
-      expect(config.output.publicPath).toEqual('/packs/')
-      expect(config.devServer).toEqual(undefined)
+      expect(webpackConfig.output.path).toEqual(resolve('public', 'packs'))
+      expect(webpackConfig.output.publicPath).toEqual('/packs/')
+      expect(webpackConfig.devServer).toEqual(undefined)
     })
   })
 })

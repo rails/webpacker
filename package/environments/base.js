@@ -1,176 +1,116 @@
 /* eslint global-require: 0 */
 /* eslint import/no-dynamic-require: 0 */
 
-const {
-  basename, dirname, join, relative, resolve
-} = require('path')
-const { sync } = require('glob')
+const { basename, dirname, join, relative, resolve } = require('path')
 const extname = require('path-complete-extname')
-
-const webpack = require('webpack')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const WebpackAssetsManifest = require('webpack-assets-manifest')
-const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 const PnpWebpackPlugin = require('pnp-webpack-plugin')
-
-const { isNotObject, prettyPrint } = require('../utils/helpers')
-const deepMerge = require('../utils/deep_merge')
-
-const { ConfigList, ConfigObject } = require('../config_types')
+const { sync: globSync } = require('glob')
+const WebpackAssetsManifest = require('webpack-assets-manifest')
+const webpack = require('webpack')
 const rules = require('../rules')
+const { isProduction } = require('../env')
 const config = require('../config')
-
-const getLoaderList = () => {
-  const result = new ConfigList()
-  Object.keys(rules).forEach((key) => result.append(key, rules[key]))
-  return result
-}
-
-const getPluginList = () => {
-  const result = new ConfigList()
-  result.append(
-    'Environment',
-    new webpack.EnvironmentPlugin(process.env)
-  )
-  result.append('CaseSensitivePaths', new CaseSensitivePathsPlugin())
-  result.append(
-    'MiniCssExtract',
-    new MiniCssExtractPlugin({
-      filename: 'css/[name]-[contenthash:8].css',
-      chunkFilename: 'css/[name]-[contenthash:8].chunk.css'
-    })
-  )
-  result.append(
-    'Manifest',
-    new WebpackAssetsManifest({
-      entrypoints: true,
-      writeToDisk: true,
-      publicPath: config.publicPathWithoutCDN
-    })
-  )
-  return result
-}
-
-const getExtensionsGlob = () => {
-  const { extensions } = config
-  return extensions.length === 1 ? `**/*${extensions[0]}` : `**/*{${extensions.join(',')}}`
-}
+const { moduleExists } = require('../utils/helpers')
 
 const getEntryObject = () => {
-  const result = new ConfigObject()
-  const glob = getExtensionsGlob()
+  const entries = {}
   const rootPath = join(config.source_path, config.source_entry_path)
-  const paths = sync(join(rootPath, glob))
-  paths.forEach((path) => {
+
+  globSync(`${rootPath}/*.*`).forEach((path) => {
     const namespace = relative(join(rootPath), dirname(path))
     const name = join(namespace, basename(path, extname(path)))
     let assetPaths = resolve(path)
 
     // Allows for multiple filetypes per entry (https://webpack.js.org/guides/entry-advanced/)
     // Transforms the config object value to an array with all values under the same name
-    let previousPaths = result.get(name)
+    let previousPaths = entries[name]
     if (previousPaths) {
-      previousPaths = Array.isArray(previousPaths) ? previousPaths : [previousPaths]
+      previousPaths = Array.isArray(previousPaths)
+        ? previousPaths
+        : [previousPaths]
       previousPaths.push(assetPaths)
       assetPaths = previousPaths
     }
 
-    result.set(name, assetPaths)
+    entries[name] = assetPaths
   })
-  return result
+
+  return entries
 }
 
 const getModulePaths = () => {
-  const result = new ConfigList()
-  result.append('source', resolve(config.source_path))
+  const result = [resolve(config.source_path)]
+
   if (config.additional_paths) {
-    config.additional_paths.forEach((path) => result.append(path, resolve(path)))
+    config.additional_paths.forEach((path) => result.push(resolve(path)))
   }
-  result.append('node_modules', 'node_modules')
+  result.push('node_modules')
+
   return result
 }
 
-const getBaseConfig = () => new ConfigObject({
+const getPlugins = () => {
+  const plugins = [
+    new webpack.EnvironmentPlugin(process.env),
+    new WebpackAssetsManifest({
+      entrypoints: true,
+      writeToDisk: true,
+      output: 'manifest.json',
+      entrypointsUseAssets: true,
+      publicPath: true
+    })
+  ]
+
+  if (moduleExists('css-loader') && moduleExists('mini-css-extract-plugin')) {
+    const hash = isProduction ? '-[contenthash:8]' : ''
+    const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+    plugins.push(
+      new MiniCssExtractPlugin({
+        filename: `css/[name]${hash}.css`,
+        chunkFilename: `css/[id]${hash}.css`
+      })
+    )
+  }
+
+  return plugins
+}
+
+// Don't use contentHash except for production for performance
+// https://webpack.js.org/guides/build-performance/#avoid-production-specific-tooling
+const hash = isProduction ? '-[contenthash]' : ''
+module.exports = {
   mode: 'production',
   output: {
-    filename: 'js/[name]-[contenthash].js',
-    chunkFilename: 'js/[name]-[contenthash].chunk.js',
-    hotUpdateChunkFilename: 'js/[id]-[hash].hot-update.js',
+    filename: `js/[name]${hash}.js`,
+    chunkFilename: `js/[name]${hash}.chunk.js`,
+
+    // https://webpack.js.org/configuration/output/#outputhotupdatechunkfilename
+    hotUpdateChunkFilename: 'js/[id].[fullhash].hot-update.js',
     path: config.outputPath,
     publicPath: config.publicPath
   },
-
+  entry: getEntryObject(),
   resolve: {
-    extensions: config.extensions,
+    extensions: ['.js', '.jsx', '.mjs', '.ts', '.tsx', '.coffee'],
+    modules: getModulePaths(),
     plugins: [PnpWebpackPlugin]
   },
+
+  plugins: getPlugins(),
 
   resolveLoader: {
     modules: ['node_modules'],
     plugins: [PnpWebpackPlugin.moduleLoader(module)]
   },
 
-  node: {
-    dgram: 'empty',
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty',
-    child_process: 'empty'
-  }
-})
+  optimization: {
+    splitChunks: { chunks: 'all' },
 
-module.exports = class Base {
-  constructor() {
-    this.loaders = getLoaderList()
-    this.plugins = getPluginList()
-    this.config = getBaseConfig()
-    this.entry = getEntryObject()
-    this.resolvedModules = getModulePaths()
-  }
+    runtimeChunk: 'single'
+  },
 
-  splitChunks(callback = null) {
-    let appConfig = {}
-    const defaultConfig = {
-      optimization: {
-        // Split vendor and common chunks
-        // https://twitter.com/wSokra/status/969633336732905474
-        splitChunks: {
-          chunks: 'all',
-          name: true
-        },
-        // Separate runtime chunk to enable long term caching
-        // https://twitter.com/wSokra/status/969679223278505985
-        runtimeChunk: true
-      }
-    }
-
-    if (callback) {
-      appConfig = callback(defaultConfig)
-      if (isNotObject(appConfig)) {
-        throw new Error(`
-          ${prettyPrint(appConfig)} is not a valid splitChunks configuration.
-          See https://webpack.js.org/plugins/split-chunks-plugin/#configuration
-        `)
-      }
-    }
-
-    return this.config.merge(deepMerge(defaultConfig, appConfig))
-  }
-
-  toWebpackConfig() {
-    return this.config.merge({
-      entry: this.entry.toObject(),
-
-      module: {
-        strictExportPresence: true,
-        rules: this.loaders.values()
-      },
-
-      plugins: this.plugins.values(),
-
-      resolve: {
-        modules: this.resolvedModules.values()
-      }
-    })
+  module: {
+    strictExportPresence: true,
+    rules
   }
 }

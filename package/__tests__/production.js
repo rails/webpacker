@@ -8,19 +8,19 @@ chdirTestApp()
 describe('Production environment', () => {
   afterAll(chdirCwd)
 
-  describe('toWebpackConfig', () => {
+  describe('webpackConfig', () => {
     beforeEach(() => jest.resetModules())
 
     test('should use production config and environment', () => {
       process.env.RAILS_ENV = 'production'
       process.env.NODE_ENV = 'production'
 
-      const { environment } = require('../index')
-      const config = environment.toWebpackConfig()
+      const { webpackConfig } = require('../index')
 
-      expect(config.output.path).toEqual(resolve('public', 'packs'))
-      expect(config.output.publicPath).toEqual('/packs/')
-      expect(config).toMatchObject({
+      expect(webpackConfig.output.path).toEqual(resolve('public', 'packs'))
+      expect(webpackConfig.output.publicPath).toEqual('/packs/')
+
+      expect(webpackConfig).toMatchObject({
         devtool: 'source-map',
         stats: 'normal'
       })

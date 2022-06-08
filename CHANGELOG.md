@@ -2,21 +2,62 @@
 
 **Please note that Webpacker 4.1.0 has an installer bug. Please use 4.2.0 or above**
 
-## [[5.3.0]](https://github.com/rails/webpacker/compare/v5.3.0...5.2.1) - 2021-TBD
+## [[6.0.0]](https://github.com/rails/webpacker/compare/v5.4.3...master) - 2021-TBD
+
+Please see [UPGRADE GUIDE](./docs/v6_upgrade.md) for more information.
+
+- `node_modules` will no longer be compiled by default. This primarily fixes [rails issue #35501](https://github.com/rails/rails/issues/35501) as well as [numerous other webpacker issues](https://github.com/rails/webpacker/issues/2131#issuecomment-581618497). The disabled loader can still be required explicitly via:
+
+```js
+const nodeModules = require('@rails/webpacker/rules/node_modules.js')
+environment.loaders.append('nodeModules', nodeModules)
+```
+
+- If you have added `environment.loaders.delete('nodeModules')` to your `environment.js`, this must be removed or you will receive an error (`Item nodeModules not found`).
+- `extract_css` option was removed. Webpacker will generate a separate `application.css` file for the default `application` pack, as supported by multiple files per entry introduced in 5.0.0. [#2608](https://github.com/rails/webpacker/pull/2608). However, CSS will be inlined when the webpack-dev-server is used with `hmr: true`. JS package exports `inliningCss`. This is useful to enable HMR for React.
+- Webpacker's wrapper to the `splitChunks()` API will now default `runtimeChunk: 'single'` which will help prevent potential issues when using multiple entry points per page [#2708](https://github.com/rails/webpacker/pull/2708).
+- Changes `@babel/preset-env` modules option to `'auto'` per recommendation in the Babel docs [#2709](https://github.com/rails/webpacker/pull/2709)
+- Adds experimental Yarn 2 support. Note you must manually set `nodeLinker: node-modules` in your `.yarnrc.yml`.
+- Fixes dev server issues [#2898](https://github.com/rails/webpacker/pull/2898)
+- Update static files path to from `media/` to `static/`.
+
+### Breaking changes
+- Renamed `/bin/webpack` to `/bin/webpacker` and `/bin/webpack-dev-server` to `bin/webpacker-dev-server` to avoid confusion with underlying webpack executables.
+- Removed integration installers
+- Splitchunks enabled by default
+- CSS extraction enabled by default, except when devServer is configured and running
+
+## [[5.4.3]](https://github.com/rails/webpacker/compare/v5.4.2...v5.4.3) - 2021-09-14
+
+-  Specify webpack-dev-server to be v3, to avoid getting webpack-dev-server v4 ([#3121](https://github.com/rails/webpacker/pull/3121))
+
+## [[5.4.2]](https://github.com/rails/webpacker/compare/v5.4.1...v5.4.2) - 2021-08-20
+
+- Fix babel warning about private-methods in `@babel/plugin-proposal-private-property-in-object` as well ([67fa6edf](https://github.com/rails/webpacker/commit/67fa6edf697340cbd5a5518afebac871ef74769b)).
+
+## [[5.4.1]](https://github.com/rails/webpacker/compare/v5.4.0...v5.4.1) - 2021-08-20
+
+- Update all dependencies within the same major version ([#3120](https://github.com/rails/webpacker/pull/3120))
+- Fix babel warning about private-methods ([#3016](https://github.com/rails/webpacker/pull/3016))
+
+## [[5.4.0]](https://github.com/rails/webpacker/compare/v5.3.0...v5.4.0) - 2021-05-18
+
+- Fix compatibility with Psych 4 ([ceaf826d](https://github.com/rails/webpacker/commit/ceaf826d84230aaadbefdbaaf560d474a96affcc))
+
+## [[5.3.0]](https://github.com/rails/webpacker/compare/v5.2.1...v5.3.0) - 2021-04-27
 
 - Adds experimental Yarn 2 support. Note you must manually set `nodeLinker: node-modules` in your `.yarnrc.yml`.
-
 - Keep backups, even when they're old [#2912](https://github.com/rails/webpacker/pull/2912)
 
-## [[5.2.2]](https://github.com/rails/webpacker/compare/v5.2.1...5.2.2) - 2021-04-27
+## [[5.2.2]](https://github.com/rails/webpacker/compare/v5.2.1...v5.2.2) - 2021-04-27
 
 - Bump deps and remove node-sass [#2997](https://github.com/rails/webpacker/pull/2997).
 
-## [[5.2.1]](https://github.com/rails/webpacker/compare/v5.2.0...5.2.1) - 2020-08-17
+## [[5.2.1]](https://github.com/rails/webpacker/compare/v5.2.0...v5.2.1) - 2020-08-17
 
 - Revert [#1311](https://github.com/rails/webpacker/pull/1311).
 
-## [[5.2.0]](https://github.com/rails/webpacker/compare/v5.1.1...5.2.0) - 2020-08-16
+## [[5.2.0]](https://github.com/rails/webpacker/compare/v5.1.1...v5.2.0) - 2020-08-16
 
 - Bump dependencies and fixes. See [diff](https://github.com/rails/webpacker/compare/v5.1.1...5-x-stable) for changes.
 
@@ -395,7 +436,7 @@ See changes: https://github.com/rails/webpacker/compare/e8b197e36c77181ca2e4765c
 
 ### Added
 
-- On CI, sort files & check modified w/ digest intead of mtime[#1522](https://github.com/rails/webpacker/pull/1522)
+- On CI, sort files & check modified w/ digest instead of mtime[#1522](https://github.com/rails/webpacker/pull/1522)
 
 ## [3.5.3] - 2018-05-03
 
@@ -789,11 +830,11 @@ yarn add coffeescript
 
 ### Added
 
-- `resolved_paths` option to allow adding additional paths webpack should lookup when resolving modules
+- `resolved_paths` option to allow adding additional paths webpack should look up when resolving modules
 
 ```yml
 # config/webpacker.yml
-# Additional paths webpack should lookup modules
+# Additional paths webpack should look up modules
 resolved_paths: [] # empty by default
 ```
 

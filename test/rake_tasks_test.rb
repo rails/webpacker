@@ -11,21 +11,12 @@ class RakeTasksTest < Minitest::Test
     assert_includes output, "webpacker:clobber"
     assert_includes output, "webpacker:compile"
     assert_includes output, "webpacker:install"
-    assert_includes output, "webpacker:install:angular"
-    assert_includes output, "webpacker:install:coffee"
-    assert_includes output, "webpacker:install:elm"
-    assert_includes output, "webpacker:install:erb"
-    assert_includes output, "webpacker:install:react"
-    assert_includes output, "webpacker:install:svelte"
-    assert_includes output, "webpacker:install:stimulus"
-    assert_includes output, "webpacker:install:typescript"
-    assert_includes output, "webpacker:install:vue"
     assert_includes output, "webpacker:verify_install"
   end
 
   def test_rake_task_webpacker_check_binstubs
     output = Dir.chdir(test_app_path) { `rake webpacker:check_binstubs 2>&1` }
-    refute_includes output, "webpack binstubs not found."
+    refute_includes output, "webpack binstub not found."
   end
 
   def test_check_node_version

@@ -28,14 +28,14 @@ class Webpacker::Compiler
         record_compilation_digest
       end
     else
-      logger.info "Everything's up-to-date. Nothing to do"
+      logger.debug "Everything's up-to-date. Nothing to do"
       true
     end
   end
 
   # Returns true if all the compiled packs are up to date with the underlying asset files.
   def fresh?
-    watched_files_digest == last_compilation_digest
+    last_compilation_digest&.== watched_files_digest
   end
 
   # Returns true if the compiled packs are out of date with the underlying asset files.
@@ -53,10 +53,11 @@ class Webpacker::Compiler
 
     def watched_files_digest
       warn "Webpacker::Compiler.watched_paths has been deprecated. Set additional_paths in webpacker.yml instead." unless watched_paths.empty?
-
-      files = Dir[*default_watched_paths, *watched_paths].reject { |f| File.directory?(f) }
-      file_ids = files.sort.map { |f| "#{File.basename(f)}/#{Digest::SHA1.file(f).hexdigest}" }
-      Digest::SHA1.hexdigest(file_ids.join("/"))
+      Dir.chdir File.expand_path(config.root_path) do
+        files = Dir[*default_watched_paths, *watched_paths].reject { |f| File.directory?(f) }
+        file_ids = files.sort.map { |f| "#{File.basename(f)}/#{Digest::SHA1.file(f).hexdigest}" }
+        Digest::SHA1.hexdigest(file_ids.join("/"))
+      end
     end
 
     def record_compilation_digest
@@ -64,12 +65,18 @@ class Webpacker::Compiler
       compilation_digest_path.write(watched_files_digest)
     end
 
+    def optionalRubyRunner
+      bin_webpack_path = config.root_path.join("bin/webpacker")
+      first_line = File.readlines(bin_webpack_path).first.chomp
+      /ruby/.match?(first_line) ? RbConfig.ruby : ""
+    end
+
     def run_webpack
       logger.info "Compiling..."
 
       stdout, stderr, status = Open3.capture3(
         webpack_env,
-        "#{RbConfig.ruby} ./bin/webpack",
+        "#{optionalRubyRunner} ./bin/webpacker",
         chdir: File.expand_path(config.root_path)
       )
 
@@ -82,7 +89,7 @@ class Webpacker::Compiler
         end
       else
         non_empty_streams = [stdout, stderr].delete_if(&:empty?)
-        logger.error "Compilation failed:\n#{non_empty_streams.join("\n\n")}"
+        logger.error "\nCOMPILATION FAILED:\nEXIT STATUS: #{status}\nOUTPUTS:\n#{non_empty_streams.join("\n\n")}"
       end
 
       status.success?
@@ -90,8 +97,8 @@ class Webpacker::Compiler
 
     def default_watched_paths
       [
-        *config.additional_paths_globbed,
-        config.source_path_globbed,
+        *config.additional_paths,
+        "#{config.source_path}/**/*",
         "yarn.lock", "package.json",
         "config/webpack/**/*"
       ].freeze

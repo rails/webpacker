@@ -1,45 +1,37 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const { resolve } = require('path')
-const config = require('../config')
+/* eslint global-require: 0 */
+const { canProcess, moduleExists } = require('./helpers')
+const inliningCss = require('../inliningCss')
 
-const styleLoader = {
-  loader: 'style-loader'
-}
+const getStyleRule = (test, preprocessors = []) => {
+  if (moduleExists('css-loader')) {
+    const tryPostcss = () =>
+      canProcess('postcss-loader', (loaderPath) => ({
+        loader: loaderPath,
+        options: { sourceMap: true }
+      }))
 
-const getStyleRule = (test, modules = false, preprocessors = []) => {
-  const use = [
-    {
-      loader: 'css-loader',
-      options: {
-        sourceMap: true,
-        importLoaders: 2,
-        modules: modules ? {
-          localIdentName: '[name]__[local]___[hash:base64:5]'
-        } : false
-      }
-    },
-    {
-      loader: 'postcss-loader',
-      options: {
-        config: { path: resolve() },
-        sourceMap: true
-      }
-    },
-    ...preprocessors
-  ]
+    // style-loader is required when using css modules with HMR on the webpack-dev-server
 
-  const options = modules ? { include: /\.module\.[a-z]+$/ } : { exclude: /\.module\.[a-z]+$/ }
+    const use = [
+      inliningCss ? 'style-loader' : require('mini-css-extract-plugin').loader,
+      {
+        loader: require.resolve('css-loader'),
+        options: {
+          sourceMap: true,
+          importLoaders: 2
+        }
+      },
+      tryPostcss(),
+      ...preprocessors
+    ].filter(Boolean)
 
-  if (config.extract_css) {
-    use.unshift(MiniCssExtractPlugin.loader)
-  } else {
-    use.unshift(styleLoader)
+    return {
+      test,
+      use
+    }
   }
 
-  // sideEffects - See https://github.com/webpack/webpack/issues/6571
-  return {
-    test, use, sideEffects: !modules, ...options
-  }
+  return null
 }
 
 module.exports = getStyleRule

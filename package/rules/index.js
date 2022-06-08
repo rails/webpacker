@@ -1,20 +1,18 @@
-const babel = require('./babel')
-const file = require('./file')
-const css = require('./css')
-const sass = require('./sass')
-const moduleCss = require('./module.css')
-const moduleSass = require('./module.sass')
-const nodeModules = require('./node_modules')
+/* eslint global-require: 0 */
+/* eslint import/no-dynamic-require: 0 */
 
-// Webpack loaders are processed in reverse order
-// https://webpack.js.org/concepts/loaders/#loader-features
-// Lastly, process static files using file loader
-module.exports = {
-  file,
-  css,
-  sass,
-  moduleCss,
-  moduleSass,
-  nodeModules,
-  babel
+const rules = {
+  raw: require('./raw'),
+  file: require('./file'),
+  css: require('./css'),
+  sass: require('./sass'),
+  babel: require('./babel'),
+  erb: require('./erb'),
+  coffee: require('./coffee'),
+  less: require('./less'),
+  stylus: require('./stylus')
 }
+
+module.exports = Object.keys(rules)
+  .filter((key) => !!rules[key])
+  .map((key) => rules[key])

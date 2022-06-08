@@ -3,34 +3,26 @@ name: JS lint
 on: [push, pull_request]
 
 jobs:
-  build:
+  js-lint:
     name: JS Lint
 
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: [12.x]
+        node: [14]
 
     runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v2
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - uses: actions/cache@v2
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-
       - name: Use Node.js ${{ matrix.node }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
+          cache: yarn
+
+      - name: Install yarn maybe
+        run: which yarn || npm install -g yarn
 
       - name: Install dependencies
         run: yarn --frozen-lockfile

@@ -1,5 +1,5 @@
 module.exports = {
-  extends: 'airbnb',
+  extends: ['airbnb', 'prettier'],
   rules: {
     'comma-dangle': ['error', 'never'],
     'import/no-unresolved': 'off',

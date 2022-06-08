@@ -8,17 +8,19 @@ module Webpacker
   class DevServerRunner < Webpacker::Runner
     def run
       load_config
+      detect_unsupported_switches!
       detect_port!
       execute_cmd
     end
 
     private
+
       def load_config
         app_root = Pathname.new(@app_path)
 
         @config = Configuration.new(
           root_path: app_root,
-          config_path: app_root.join("config/webpacker.yml"),
+          config_path: Pathname.new(@webpacker_config),
           env: ENV["RAILS_ENV"]
         )
 
@@ -27,11 +29,28 @@ module Webpacker
         @hostname          = dev_server.host
         @port              = dev_server.port
         @pretty            = dev_server.pretty?
+        @https             = dev_server.https?
+        @hot               = dev_server.hmr?
 
       rescue Errno::ENOENT, NoMethodError
         $stdout.puts "webpack dev_server configuration not found in #{@config.config_path}[#{ENV["RAILS_ENV"]}]."
         $stdout.puts "Please run bundle exec rails webpacker:install to install Webpacker"
         exit!
+      end
+
+      UNSUPPORTED_SWITCHES = %w[--host --port]
+      private_constant :UNSUPPORTED_SWITCHES
+      def detect_unsupported_switches!
+        unsupported_switches = UNSUPPORTED_SWITCHES & @argv
+        if unsupported_switches.any?
+          $stdout.puts "The following CLI switches are not supported by Webpacker: #{unsupported_switches.join(' ')}. Please edit your command and try again."
+          exit!
+        end
+
+        if @argv.include?("--https") && !@https
+          $stdout.puts "Please set https: true in webpacker.yml to use the --https command line flag."
+          exit!
+        end
       end
 
       def detect_port!
@@ -46,19 +65,24 @@ module Webpacker
       def execute_cmd
         env = Webpacker::Compiler.env
         env["WEBPACKER_CONFIG"] = @webpacker_config
+        env["WEBPACK_SERVE"] = "true"
 
         cmd = if node_modules_bin_exist?
-          ["#{@node_modules_bin_path}/webpack-dev-server"]
+          ["#{@node_modules_bin_path}/webpack", "serve"]
         else
-          ["yarn", "webpack-dev-server"]
+          ["yarn", "webpack", "serve"]
         end
 
         if @argv.include?("--debug-webpacker")
-          cmd = [ "node", "--inspect-brk"] + cmd
+          cmd = [ "node", "--inspect-brk", "--trace-warnings" ] + cmd
+          @argv.delete "--debug-webpacker"
         end
 
         cmd += ["--config", @webpack_config]
         cmd += ["--progress", "--color"] if @pretty
+
+        cmd += ["--hot"] if @hot
+        cmd += @argv
 
         Dir.chdir(@app_path) do
           Kernel.exec env, *cmd

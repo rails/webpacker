@@ -3,13 +3,16 @@ namespace :webpacker do
   desc "Verifies if Yarn is installed"
   task :check_yarn do
     begin
+      which_command = Gem.win_platform? ? "where" : "which"
+      raise Errno::ENOENT if `#{which_command} yarn`.strip.empty?
+
       yarn_version = `yarn --version`.strip
       raise Errno::ENOENT if yarn_version.blank?
 
       pkg_path = Pathname.new("#{__dir__}/../../../package.json").realpath
       yarn_range = JSON.parse(pkg_path.read)["engines"]["yarn"]
       is_valid = SemanticRange.satisfies?(yarn_version, yarn_range) rescue false
-      is_unsupported = SemanticRange.satisfies?(yarn_version, ">=3.0.0") rescue false
+      is_unsupported = SemanticRange.satisfies?(yarn_version, ">=4.0.0") rescue false
 
       unless is_valid
         $stderr.puts "Webpacker requires Yarn \"#{yarn_range}\" and you are using #{yarn_version}"

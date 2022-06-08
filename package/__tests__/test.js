@@ -15,12 +15,11 @@ describe('Test environment', () => {
       process.env.RAILS_ENV = 'test'
       process.env.NODE_ENV = 'test'
 
-      const { environment } = require('../index')
-      const config = environment.toWebpackConfig()
+      const { webpackConfig } = require('../index')
 
-      expect(config.output.path).toEqual(resolve('public', 'packs-test'))
-      expect(config.output.publicPath).toEqual('/packs-test/')
-      expect(config.devServer).toEqual(undefined)
+      expect(webpackConfig.output.path).toEqual(resolve('public', 'packs-test'))
+      expect(webpackConfig.output.publicPath).toEqual('/packs-test/')
+      expect(webpackConfig.devServer).toEqual(undefined)
     })
   })
 })
