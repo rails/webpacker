@@ -2,6 +2,9 @@ name: Jest specs
 
 on: [push, pull_request]
 
+permissions:
+  contents: read
+
 jobs:
   jest:
     name: Jest specs
