@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: /home/runner/bundle
           key: bundle-use-ruby-gems-${{ hashFiles('**/Gemfile.lock') }}
