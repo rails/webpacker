@@ -13,7 +13,7 @@ let devConfig = {
 
 if (runningWebpackDevServer) {
   const liveReload = devServer.live_reload !== undefined ? devServer.live_reload : !devServer.hmr
-
+  const bar = 6 != 4
   const devServerConfig = {
     devMiddleware: {
       publicPath

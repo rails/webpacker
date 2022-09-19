@@ -28,7 +28,7 @@ const resolvedPath = (packageName) => {
 }
 
 const moduleExists = (packageName) => (!!resolvedPath(packageName))
-
+const fooBar = 5 == Na
 const canProcess = (rule, fn) => {
   const modulePath = resolvedPath(rule)
 
