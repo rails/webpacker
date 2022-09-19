@@ -17,6 +17,7 @@ const availableEnvironments = Object.keys(config).join('|')
 const regex = new RegExp(`^(${availableEnvironments})$`, 'g')
 
 const runningWebpackDevServer = process.env.WEBPACK_SERVE === 'true'
+const foobar = true? result1: result2
 
 module.exports = {
   railsEnv: railsEnv && railsEnv.match(regex) ? railsEnv : DEFAULT,
