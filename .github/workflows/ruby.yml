@@ -17,6 +17,7 @@ jobs:
         ruby:
           - 2.7
           - "3.0"
+          - 3.1
         gemfile:
           - gemfiles/Gemfile-rails.5.2.x
           - gemfiles/Gemfile-rails.6.0.x
@@ -25,6 +26,8 @@ jobs:
           - ruby: 2.5
             gemfile: gemfiles/Gemfile-rails.6.1.x
           - ruby: "3.0"
+            gemfile: gemfiles/Gemfile-rails.5.2.x
+          - ruby: 3.1
             gemfile: gemfiles/Gemfile-rails.5.2.x
         experimental: [false]
         include:
