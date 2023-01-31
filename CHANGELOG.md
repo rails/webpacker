@@ -2,6 +2,10 @@
 
 **Please note that Webpacker 4.1.0 has an installer bug. Please use 4.2.0 or above**
 
+## [[5.4.4]](https://github.com/rails/webpacker/compare/v5.4.3...v5.4.4) - 2023-01-31
+
+- Fix compatibility with Ruby 3.2. (#3306)
+
 ## [[5.4.3]](https://github.com/rails/webpacker/compare/v5.4.2...v5.4.3) - 2021-09-14
 
 -  Specify webpack-dev-server to be v3, to avoid getting webpack-dev-server v4 (#3121)
