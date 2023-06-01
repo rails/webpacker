@@ -1,6 +1,10 @@
 name: Rubocop
 
-on: [push, pull_request]
+on:
+  push:
+    branches-ignore:
+      - 'dependabot/**'
+  pull_request:
 
 permissions:
   contents: read
@@ -8,35 +12,18 @@ permissions:
 jobs:
   rubocop:
     name: Rubocop
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     env:
       BUNDLE_JOBS: 4
       BUNDLE_RETRY: 3
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        ruby: [
-          2.7
-        ]
-
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/cache@v3
-        with:
-          path: /home/runner/bundle
-          key: bundle-use-ruby-gems-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            bundle-use-ruby-gems-
 
-      - uses: ruby/setup-ruby@v1
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
         with:
-          ruby-version: ${{ matrix.ruby }}
-
-      - name: Bundle install
-        run: |
-          gem install bundler -v 2.1.4
-          bundle config path /home/runner/bundle
-          bundle install
+          ruby-version: 2.7
+          bundler-cache: true
 
       - name: Ruby linter
         run: bundle exec rubocop
