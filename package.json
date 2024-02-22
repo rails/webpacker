@@ -59,6 +59,9 @@
     "eslint-plugin-react": "^7.24.0",
     "jest": "^27.0.6"
   },
+  "resolutions": {
+    "@babel/traverse": "^7.23.2"
+  },
   "jest": {
     "testRegex": "(/__tests__/.*|(\\.|/))\\.jsx?$",
     "roots": [
