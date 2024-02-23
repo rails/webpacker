@@ -3,8 +3,6 @@
 Webpacker hooks up a new `webpacker:compile` task to `assets:precompile`, which gets run whenever you run `assets:precompile`.
 If you are not using Sprockets `webpacker:compile` is automatically aliased to `assets:precompile`.
 
-```
-
 ## Heroku
 
 In order for your Webpacker app to run on Heroku, you'll need to do a bit of configuration before hand.
@@ -19,10 +17,10 @@ git push heroku master
 
 We're essentially doing the following here:
 
-* Creating an app on Heroku
-* Creating a Postgres database for the app (this is assuming that you're using Heroku Postgres for your app)
+* Creating an app on Heroku.
+* Creating a Postgres database for the app (this is assuming that you're using Heroku Postgres for your app).
 * Adding the Heroku NodeJS and Ruby buildpacks for your app. This allows the `npm` or `yarn` executables to properly function when compiling your app - as well as Ruby.
-* Pushing your code to Heroku and kicking off the deployment
+* Pushing your code to Heroku and kicking off the deployment.
 
 ## Nginx
 
@@ -78,7 +76,7 @@ If you want to serve Brotli compressed files with nginx, you will need to instal
 
 Once installed, you need to load the module. As we want to serve the pre-compressed files, we only need the static module. Add the following line to your `nginx.conf` file and reload nginx:
 
-```
+```nginx
 load_module modules/ngx_http_brotli_static_module.so;
 ```
 
