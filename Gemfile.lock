@@ -80,7 +80,7 @@ GEM
       activesupport (>= 6.1)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
-    loofah (2.9.1)
+    loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.8.1)
@@ -91,7 +91,6 @@ GEM
     marcel (1.0.4)
     method_source (1.0.0)
     mini_mime (1.1.5)
-    mini_portile2 (2.5.1)
     minitest (5.14.4)
     net-imap (0.3.7)
       date
@@ -103,14 +102,13 @@ GEM
     net-smtp (0.4.0.1)
       net-protocol
     nio4r (2.7.0)
-    nokogiri (1.11.4)
-      mini_portile2 (~> 2.5.0)
+    nokogiri (1.16.3-x86_64-darwin)
       racc (~> 1.4)
     parallel (1.20.1)
     parser (3.0.1.1)
       ast (~> 2.4.1)
-    racc (1.5.2)
-    rack (2.2.3.1)
+    racc (1.7.3)
+    rack (2.2.8.1)
     rack-proxy (0.6.5)
       rack
     rack-test (1.1.0)
@@ -134,8 +132,8 @@ GEM
       activesupport (>= 5.0.0)
       minitest
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.3.0)
-      loofah (~> 2.3)
+    rails-html-sanitizer (1.4.4)
+      loofah (~> 2.19, >= 2.19.1)
     railties (6.1.7.7)
       actionpack (= 6.1.7.7)
       activesupport (= 6.1.7.7)
@@ -180,7 +178,8 @@ GEM
     zeitwerk (2.4.2)
 
 PLATFORMS
-  ruby
+  x86_64-darwin-21
+  x86_64-darwin-22
 
 DEPENDENCIES
   bundler (>= 1.3.0)
