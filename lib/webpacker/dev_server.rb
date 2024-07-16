@@ -13,7 +13,7 @@ class Webpacker::DevServer
 
   def running?
     if config.dev_server.present?
-      Socket.tcp(host, port, connect_timeout: connect_timeout).close
+      Timeout.timeout(connect_timeout) { Socket.tcp(host, port).close }
       true
     else
       false

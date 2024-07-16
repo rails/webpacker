@@ -1,5 +1,6 @@
 require "shellwords"
 require "socket"
+require "timeout"
 require "webpacker/configuration"
 require "webpacker/dev_server"
 require "webpacker/runner"
